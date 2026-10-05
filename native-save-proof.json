@@ -1,0 +1,24 @@
+{
+  "blankTemplateNoVisibleText": true,
+  "results": [
+    {
+      "format": "hwp",
+      "bytes": 13312,
+      "scalarCount": 60,
+      "pageCount": 1,
+      "paragraphCount": 3,
+      "renderTextExact": true,
+      "layoutExactAcrossFormats": true
+    },
+    {
+      "format": "hwpx",
+      "bytes": 7523,
+      "scalarCount": 60,
+      "pageCount": 1,
+      "paragraphCount": 3,
+      "renderTextExact": true,
+      "layoutExactAcrossFormats": true
+    }
+  ],
+  "textFileApiEncodesNonBMPAsNumericEntities": true
+}
