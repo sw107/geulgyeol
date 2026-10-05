@@ -4,5 +4,8 @@
   "excludedMatches": [],
   "secretOrUserPathMatches": [],
   "blankTemplateUpstreamGitBlob": "e8b886f370f6801188696aede9115fea31433774",
-  "unverifiedUngroupExperimentExcluded": true
+  "unverifiedUngroupExperimentExcluded": true,
+  "sourceNativeBuild": "passed",
+  "sourceWasmReleaseBuild": "passed",
+  "rebuiltEngineMatchesBetaSHA256": "f917821f49cf9866832c718ff46ac19cc0c054ebd6f480488713ec9eb798b1ca"
 }

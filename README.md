@@ -34,7 +34,7 @@ npm start --prefix desktop
 npm run package:mac --prefix desktop
 ```
 
-베타 ZIP은 검증된 통합 엔진을 사용하며 소스에서 새로 컴파일한 WASM과 비트 단위 동일성을 인증한 결과는 아닙니다. `VERIFICATION.md`에서 새 시험과 이전 검증을 구분합니다.
+베타 ZIP은 검증된 통합 엔진을 사용합니다. 공개할 소스에서 다시 빌드한 엔진 WASM의 SHA-256도 베타 엔진과 일치했습니다. 앱 전체의 재현 가능한 빌드 인증을 뜻하지는 않습니다. `VERIFICATION.md`에서 새 시험과 이전 검증을 구분합니다.
 
 ## 출처와 라이선스
 

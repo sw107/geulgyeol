@@ -7,7 +7,7 @@
 - 상단의 로컬 사본 저장 흐름으로 HWPX 7,523바이트 및 HWP 13,312바이트 저장 완료 표시. 두 파일 모두 실제 앱에서 다시 열어 1쪽과 본문을 확인.
 - 저장된 파일을 패키지와 같은 엔진으로 별도 읽어 60자·3문단·1쪽, 문자 및 두 형식의 text-layout 일치를 검증. 같은 엔진 대조이며 새 한컴 독립 인증은 아님.
 - 데스크톱 검사 15통과, 1skip(외부 fixture 미포함), 1기존TODO(createEmpty 기본 스타일 없음), 실제 fail 0. 앱은 createBlankDocument 경로를 사용함.
-- 공개할 소스 스냅샷의 Rust `cargo build --offline --locked --lib` 성공(31.37초), TypeScript 검사 성공, 독립 Vite 구성으로 Studio 빌드 성공. 전체 upstream Rust 회귀 fixture/Clippy 묶음을 새로 수행한 결과는 아님.
+- 공개할 소스 스냅샷의 Rust `cargo build --offline --locked --lib` 성공(31.37초), TypeScript 검사 성공, 독립 Vite 구성으로 Studio 빌드 성공. 추가로 Rust WASM release 빌드 성공(2분16초), wasm-bindgen 0.2.127 결과가 베타 엔진 SHA-256과 byte-exact 일치. 전체 upstream Rust 회귀 fixture/Clippy 묶음을 새로 수행한 결과는 아님.
 - 필수 upstream 빈 문서 템플릿 한 개만 소스에 포함. visible text가 비어 있음을 검증. 사용자 문서·연구 자료·개발 캐시·미검증 그룹 해제 후보는 제외.
 - 주요 비밀키 패턴, 사용자 Mac 경로 스캔에서 일치 없음. 이 검사는 모든 비밀정보의 부재를 수학적으로 보장하지 않음.
 
