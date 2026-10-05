@@ -24,7 +24,7 @@ app.whenReady().then(async()=>{
   };
   session.defaultSession.setPermissionRequestHandler((wc,permission,callback,details)=>callback(allowFonts(wc,permission,details.requestingUrl)));
   session.defaultSession.setPermissionCheckHandler((wc,permission,requestingOrigin)=>allowFonts(wc,permission,requestingOrigin));
-  win=new BrowserWindow({width:1280,height:860,minWidth:900,minHeight:620,title:'글결 베타 0.4.3-beta.1',show:false,
+  win=new BrowserWindow({width:1280,height:860,minWidth:900,minHeight:620,title:'글결 베타 0.4.3-beta.2',show:false,
     webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
   installDocumentShortcuts(win.webContents,action);
   win.webContents.setWindowOpenHandler(()=>({action:'deny'}));

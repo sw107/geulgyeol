@@ -1,6 +1,6 @@
 {
   "name": "geulgyeol-beta",
-  "version": "0.4.3-beta.1",
+  "version": "0.4.3-beta.2",
   "private": true,
   "type": "module",
   "description": "Local HWP/HWPX desktop editor powered by RHWP",
@@ -9,8 +9,8 @@
   "scripts": {
     "start": "electron .",
     "test": "node --test tests/*.test.cjs",
-    "package:mac": "electron-packager . GeulgyeolBeta --platform=darwin --arch=arm64 --electron-version=44.3.0 --out=../dist --app-bundle-id=org.geulgyeol.beta --asar --ignore=^/tests",
-    "package:linux": "electron-packager . Baram --platform=linux --arch=x64 --out=../BaramBuilds --overwrite --ignore=^/tests --ignore=^/scripts"
+    "package:mac": "electron-packager . GeulgyeolBeta --platform=darwin --arch=arm64 --electron-version=44.3.0 --out=../dist --app-bundle-id=org.geulgyeol.beta --asar --ignore=^/tests && ../scripts/sign-mac-bundle.sh ../dist/GeulgyeolBeta-darwin-arm64/GeulgyeolBeta.app",
+    "package:linux": "electron-packager . GeulgyeolBeta --platform=linux --arch=x64 --electron-version=44.3.0 --out=../dist --asar --ignore=^/tests"
   },
   "devDependencies": {
     "electron": "44.3.0",

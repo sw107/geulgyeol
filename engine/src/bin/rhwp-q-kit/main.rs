@@ -1,6 +1,6 @@
 //! rhwp-q-kit — 에이전트 조회 CLI 50개. 편집 로직은 없다.
 //!
-//! 도구 이름 선점: `C:/Users/swsz9/.rhwp-cli-registry.json` (`claimed_pack50`).
+//! 도구 이름 선점: 사용자 홈의 `.rhwp-cli-registry.json` (`claimed_pack50`).
 //! 이미 있는 rhwp-agent / rhwp-q-* / 진행 중 단건 PR 과 겹치지 않는다.
 
 mod envelope;
