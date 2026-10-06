@@ -2653,7 +2653,11 @@ fn parse_table_cell(
                                 b"borderFillIDRef" => cell.border_fill_id = parse_u16(&attr),
                                 b"textDirection" => {
                                     let val = attr_str(&attr);
-                                    cell.text_direction = if val == "VERTICAL" { 1 } else { 0 };
+                                    cell.text_direction = match val.as_str() {
+                                        "VERTICAL" => 1,
+                                        "VERTICALALL" => 2,
+                                        _ => 0,
+                                    };
                                 }
                                 b"vAlign" => {
                                     cell.vertical_align = match attr_str(&attr).as_str() {
@@ -2681,8 +2685,11 @@ fn parse_table_cell(
                                 // 에 방출하지만 종전엔 vertAlign 만 읽어 세로쓰기가 왕복 시
                                 // 유실됐다(cellPr 경로는 serializer 가 방출하지 않음).
                                 b"textDirection" => {
-                                    cell.text_direction =
-                                        if attr_str(&attr) == "VERTICAL" { 1 } else { 0 };
+                                    cell.text_direction = match attr_str(&attr).as_str() {
+                                        "VERTICAL" => 1,
+                                        "VERTICALALL" => 2,
+                                        _ => 0,
+                                    };
                                 }
                                 // [#4898] 줄바꿈 방식. 종전엔 읽지 않아 HWP5 저장에서 항상
                                 // BREAK(0)이 됐고, SQUEEZE 셀은 한글이 줄을 다시 나눠
@@ -2704,7 +2711,11 @@ fn parse_table_cell(
                                 b"borderFillIDRef" => cell.border_fill_id = parse_u16(&attr),
                                 b"textDirection" => {
                                     let val = attr_str(&attr);
-                                    cell.text_direction = if val == "VERTICAL" { 1 } else { 0 };
+                                    cell.text_direction = match val.as_str() {
+                                        "VERTICAL" => 1,
+                                        "VERTICALALL" => 2,
+                                        _ => 0,
+                                    };
                                 }
                                 b"vAlign" => {
                                     cell.vertical_align = match attr_str(&attr).as_str() {

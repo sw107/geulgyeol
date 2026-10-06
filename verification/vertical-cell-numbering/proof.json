@@ -1,0 +1,1307 @@
+{
+  "baseCommit": "1ce7d49c6a490a5ad4cba6de41ec827254797db5",
+  "baselineWasmCommit": "9b859745d68030c5a422d1b5cd105ad35a1d3030",
+  "baselineDirection": {
+    "observations": [
+      {
+        "depth": 1,
+        "merged": false,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "merged": false,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "merged": false,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": true
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "merged": true,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "merged": true,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "merged": true,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": true
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": false,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": false,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": false,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": true
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": true,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": true,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": true,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": true
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": false,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": false,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": false,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": true
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": true,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": true,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": true,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": true
+          }
+        ]
+      }
+    ],
+    "engineSHA256": "3efa6005031ca8606848c7b48e75894411afe7ecadf7a7b61ca521d0816ffed3",
+    "GUIVerified": false
+  },
+  "baselineVerticalAllImport": {
+    "cases": 6,
+    "observations": [
+      {
+        "depth": 1,
+        "input": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-numbering-qa/behavior/ui/d1-mfalse-v2-plain-ahead.hwpx",
+        "direction": 0
+      },
+      {
+        "depth": 1,
+        "input": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-numbering-qa/behavior/ui/d1-mtrue-v2-plain-ahead.hwpx",
+        "direction": 0
+      },
+      {
+        "depth": 2,
+        "input": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-numbering-qa/behavior/ui/d2-mfalse-v2-plain-ahead.hwpx",
+        "direction": 0
+      },
+      {
+        "depth": 2,
+        "input": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-numbering-qa/behavior/ui/d2-mtrue-v2-plain-ahead.hwpx",
+        "direction": 0
+      },
+      {
+        "depth": 3,
+        "input": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-numbering-qa/behavior/ui/d3-mfalse-v2-plain-ahead.hwpx",
+        "direction": 0
+      },
+      {
+        "depth": 3,
+        "input": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-numbering-qa/behavior/ui/d3-mtrue-v2-plain-ahead.hwpx",
+        "direction": 0
+      }
+    ],
+    "engineSHA256": "3efa6005031ca8606848c7b48e75894411afe7ecadf7a7b61ca521d0816ffed3",
+    "GUIVerified": false
+  },
+  "paginationBaselineComparison": {
+    "baselineCommit": "9b859745d68030c5a422d1b5cd105ad35a1d3030",
+    "direction1ComparedCases": 6,
+    "existingDefectsUnchanged": true,
+    "baselineWasm": "3efa6005031ca8606848c7b48e75894411afe7ecadf7a7b61ca521d0816ffed3",
+    "currentWasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "GUIVerified": false
+  },
+  "guiToolCheck": {
+    "actualMacGUIAvailable": false,
+    "checkedOnce": true,
+    "method": "Available tool metadata inspected; no desktop or browser GUI controller exposed",
+    "noGUIWorkaroundAttempted": true
+  },
+  "directionRoundtrip": {
+    "cases": 18,
+    "reopens": 36,
+    "observations": [
+      {
+        "depth": 1,
+        "merged": false,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "merged": false,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "merged": false,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 2,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "merged": true,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "merged": true,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 1,
+        "merged": true,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 2,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": false,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": false,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": false,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 2,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": true,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": true,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 2,
+        "merged": true,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 2,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": false,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": false,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": false,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 2,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": true,
+        "direction": 0,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 0,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 0,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": true,
+        "direction": 1,
+        "latinRotations": [
+          true
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 1,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 1,
+            "changed": false
+          }
+        ]
+      },
+      {
+        "depth": 3,
+        "merged": true,
+        "direction": 2,
+        "latinRotations": [
+          false
+        ],
+        "formats": [
+          {
+            "format": "Hwp",
+            "reopenedDirection": 2,
+            "changed": false
+          },
+          {
+            "format": "Hwpx",
+            "reopenedDirection": 2,
+            "changed": false
+          }
+        ]
+      }
+    ],
+    "engineSHA256": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "GUIVerified": false
+  },
+  "verticalUI": {
+    "cases": 156,
+    "reopens": 312,
+    "undos": 420,
+    "redos": 408,
+    "rejections": 516,
+    "noOps": 36,
+    "rollbacks": 12,
+    "engineSHA256": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "visibleVerticalNumberingSupported": false,
+    "actualDialogBodyAndListeners": true,
+    "actualInputHandlerAndHistory": true,
+    "GUIVerified": false
+  },
+  "verticalNative": {
+    "GUIVerified": false,
+    "allSavedParaPropertiesAndDefinitions": true,
+    "bodyAndCellContentStyleCharGeometryRefsPreserved": true,
+    "displayLabels": false,
+    "nativeAtomicBadPaths": 312,
+    "verifiedUIExports": 312,
+    "verticalBodyDisplayAndListCountersPreserved": true,
+    "verticalDirectionAndLatinRotationPreserved": true,
+    "verticalExports": 312,
+    "verticalListGlyphsMissing": true,
+    "visibleVerticalNumberingSupported": false
+  },
+  "longCellWasm": {
+    "cases": 12,
+    "reopens": 24,
+    "undos": 12,
+    "redos": 12,
+    "observations": [
+      {
+        "id": "v1-splitTablefalse-ahead",
+        "direction": 1,
+        "splitTable": false,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 872,
+        "pageCount": 1,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          1
+        ],
+        "duplicateParagraphs": 0,
+        "visibleVerticalNumberingSupported": false
+      },
+      {
+        "id": "v1-splitTablefalse-new",
+        "direction": 1,
+        "splitTable": false,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 872,
+        "pageCount": 1,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          1
+        ],
+        "duplicateParagraphs": 0,
+        "visibleVerticalNumberingSupported": false
+      },
+      {
+        "id": "v1-splitTablefalse-clear",
+        "direction": 1,
+        "splitTable": false,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 872,
+        "pageCount": 1,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          1
+        ],
+        "duplicateParagraphs": 0,
+        "visibleVerticalNumberingSupported": false
+      },
+      {
+        "id": "v1-splitTabletrue-ahead",
+        "direction": 1,
+        "splitTable": true,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 3146,
+        "pageCount": 4,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          3
+        ],
+        "duplicateParagraphs": 124,
+        "visibleVerticalNumberingSupported": false
+      },
+      {
+        "id": "v1-splitTabletrue-new",
+        "direction": 1,
+        "splitTable": true,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 3146,
+        "pageCount": 4,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          3
+        ],
+        "duplicateParagraphs": 124,
+        "visibleVerticalNumberingSupported": false
+      },
+      {
+        "id": "v1-splitTabletrue-clear",
+        "direction": 1,
+        "splitTable": true,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 3146,
+        "pageCount": 4,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          3
+        ],
+        "duplicateParagraphs": 124,
+        "visibleVerticalNumberingSupported": false
+      },
+      {
+        "id": "v2-splitTablefalse-ahead",
+        "direction": 2,
+        "splitTable": false,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 872,
+        "pageCount": 1,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          1
+        ],
+        "duplicateParagraphs": 0,
+        "visibleVerticalNumberingSupported": false
+      },
+      {
+        "id": "v2-splitTablefalse-new",
+        "direction": 2,
+        "splitTable": false,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 872,
+        "pageCount": 1,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          1
+        ],
+        "duplicateParagraphs": 0,
+        "visibleVerticalNumberingSupported": false
+      },
+      {
+        "id": "v2-splitTablefalse-clear",
+        "direction": 2,
+        "splitTable": false,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 872,
+        "pageCount": 1,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          1
+        ],
+        "duplicateParagraphs": 0,
+        "visibleVerticalNumberingSupported": false
+      },
+      {
+        "id": "v2-splitTabletrue-ahead",
+        "direction": 2,
+        "splitTable": true,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 3040,
+        "pageCount": 4,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          3
+        ],
+        "duplicateParagraphs": 124,
+        "visibleVerticalNumberingSupported": false
+      },
+      {
+        "id": "v2-splitTabletrue-new",
+        "direction": 2,
+        "splitTable": true,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 3040,
+        "pageCount": 4,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          3
+        ],
+        "duplicateParagraphs": 124,
+        "visibleVerticalNumberingSupported": false
+      },
+      {
+        "id": "v2-splitTabletrue-clear",
+        "direction": 2,
+        "splitTable": true,
+        "storedCellHeight": 282,
+        "outsidePageGlyphs": 3040,
+        "pageCount": 4,
+        "paragraphs": 124,
+        "uniqueTextOccurrences": [
+          3
+        ],
+        "duplicateParagraphs": 124,
+        "visibleVerticalNumberingSupported": false
+      }
+    ],
+    "engineSHA256": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "GUIVerified": false,
+    "verticalPaginationSupported": false
+  },
+  "longCellNative": {
+    "GUIVerified": false,
+    "allSavedParaPropertiesAndDefinitions": true,
+    "bodyAndCellContentStyleCharGeometryRefsPreserved": true,
+    "displayLabels": false,
+    "nativeAtomicBadPaths": 24,
+    "verifiedUIExports": 24,
+    "verticalBodyDisplayAndListCountersPreserved": true,
+    "verticalDirectionAndLatinRotationPreserved": true,
+    "verticalExports": 24,
+    "verticalListGlyphsMissing": true,
+    "visibleVerticalNumberingSupported": false
+  },
+  "horizontalCellRegression": {
+    "cases": 78,
+    "reopens": 156,
+    "undos": 210,
+    "redos": 204,
+    "rejections": 258,
+    "noOps": 18,
+    "rollbacks": 6,
+    "engineSHA256": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "actualDialogBodyAndListeners": true,
+    "actualInputHandlerAndHistory": true,
+    "GUIVerified": false
+  },
+  "bodyNumberingRegression": {
+    "cases": 20,
+    "reopens": 44,
+    "undos": 52,
+    "redos": 51,
+    "rejections": 85,
+    "noOps": 5,
+    "structural": 2,
+    "rollbacks": 1,
+    "engineSHA256": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "actualNumberingDialogBodyAndInputListeners": true,
+    "actualNumberingDialogConfirm": true,
+    "actualFormatCommand": true,
+    "actualInputHandlerExecuteOperation": true,
+    "realCommandHistory": true,
+    "GUIVerified": false
+  },
+  "uiRegressions": [
+    {
+      "label": "cell-numbering",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-cell-numbering.mjs",
+        "pkg",
+        "../vertical-cell-numbering-qa/regressions/cell-numbering"
+      ]
+    },
+    {
+      "label": "body-numbering",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-numbering-continuation.mjs",
+        "pkg",
+        "../vertical-cell-numbering-qa/regressions/body-numbering"
+      ]
+    },
+    {
+      "label": "footnote-char",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-footnote-char-wasm.mjs",
+        "pkg",
+        "../footnote-char-qa/behavior/native",
+        "../vertical-cell-numbering-qa/regressions/footnote-char"
+      ]
+    },
+    {
+      "label": "note-paragraph",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-note-paragraph-wasm.mjs",
+        "pkg",
+        "../note-paragraph-qa/behavior/native",
+        "../vertical-cell-numbering-qa/regressions/note-paragraph"
+      ]
+    },
+    {
+      "label": "note-pending",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-note-pending-format.mjs",
+        "pkg",
+        "../note-paragraph-qa/behavior/native",
+        "../vertical-cell-numbering-qa/regressions/note-pending"
+      ]
+    },
+    {
+      "label": "nested-paragraph",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-nested-paragraph-format.mjs",
+        "pkg",
+        "../nested-paragraph-qa/behavior/native",
+        "../vertical-cell-numbering-qa/regressions/nested-paragraph"
+      ]
+    },
+    {
+      "label": "nested-copy",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-nested-format-copy-wasm.mjs",
+        "pkg",
+        "../nested-format-copy-qa/behavior/native",
+        "../vertical-cell-numbering-qa/regressions/nested-copy"
+      ]
+    },
+    {
+      "label": "search",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-search-span-wasm.mjs",
+        "pkg",
+        "../search-span-qa/behavior/native",
+        "../vertical-cell-numbering-qa/regressions/search"
+      ]
+    },
+    {
+      "label": "cell-layout",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-cell-layout-history.mjs",
+        "pkg",
+        "../vertical-cell-numbering-qa/regressions/cell-layout"
+      ]
+    }
+  ],
+  "nativeRegressions": [
+    {
+      "example": "cell_numbering_check",
+      "label": "native",
+      "exitCode": 0
+    },
+    {
+      "example": "cell_numbering_check",
+      "label": "horizontal-native",
+      "exitCode": 0
+    },
+    {
+      "example": "numbering_continuation_check",
+      "label": "body-native",
+      "exitCode": 0
+    },
+    {
+      "example": "style_propagation_check",
+      "label": "propagation-regression",
+      "exitCode": 0
+    },
+    {
+      "example": "style_deletion_check",
+      "label": "deletion-regression",
+      "exitCode": 0
+    },
+    {
+      "example": "cell_equation_check",
+      "label": "equation-regression",
+      "exitCode": 0
+    },
+    {
+      "example": "stored_row_ungroup_check",
+      "label": "group-regression",
+      "exitCode": 0
+    },
+    {
+      "example": "next_style_enter_check",
+      "label": "next-style-regression",
+      "exitCode": 0
+    }
+  ],
+  "integrity": {
+    "sourceFilesMatched": 868,
+    "wasmSHA256": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "protectedApps": {
+      "dev6": {
+        "sha256": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+        "unchanged": true
+      },
+      "devEnter": {
+        "sha256": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+        "unchanged": true
+      },
+      "betaNext": {
+        "sha256": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+        "unchanged": true
+      },
+      "dev7": {
+        "sha256": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+        "unchanged": true
+      }
+    },
+    "webEngineWasm": {
+      "assets/rhwp_bg-CKv0hbhE.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7"
+    }
+  },
+  "build": {
+    "wasm-release": {
+      "exitCode": 0,
+      "targetLimitBytes": 3221225472,
+      "targetPeakBytes": 3091693568,
+      "targetFinalBytes": 3091693568,
+      "stoppedForBudget": false
+    },
+    "native": {
+      "exitCode": 0,
+      "targetLimitBytes": 3221225472,
+      "targetPeakBytes": 3091828736,
+      "targetFinalBytes": 3091828736,
+      "stoppedForBudget": false
+    },
+    "page-native": {
+      "exitCode": 0,
+      "targetLimitBytes": 3221225472,
+      "targetPeakBytes": 3091828736,
+      "targetFinalBytes": 3091828736,
+      "stoppedForBudget": false
+    },
+    "native-clippy": {
+      "exitCode": 0,
+      "targetLimitBytes": 3221225472,
+      "targetPeakBytes": 3091828736,
+      "targetFinalBytes": 3091828736,
+      "stoppedForBudget": false
+    },
+    "wasm-clippy": {
+      "exitCode": 0,
+      "targetLimitBytes": 3221225472,
+      "targetPeakBytes": 3091693568,
+      "targetFinalBytes": 3091693568,
+      "stoppedForBudget": false
+    },
+    "typeScriptExitCode": 0,
+    "viteExitCode": 0,
+    "maximumObservedTargetBytes": 3181977600,
+    "maximumObservedSource": "Initial Native compile tool result; later reuse runs overwrite per-label proof with smaller peaks"
+  },
+  "knownUnsupported": [
+    "Vertical list glyphs are not displayed",
+    "124 paragraph vertical cell overflows left viewport; four-page table emits every target paragraph three times",
+    "Actual Mac GUI, physical IME and Linux not tested",
+    "No new app packaging or release; full library suite blocked by three original fixtures"
+  ],
+  "relatedNative": {
+    "stylePropagation": {
+      "atomic_rejections": 17,
+      "cases": 48,
+      "large_document_paragraphs": 600,
+      "large_document_update_ms": 19,
+      "native_GUI_verified": false,
+      "other_styles_and_direct_format_preserved": true,
+      "snapshot_undo_redo_operations": 96,
+      "two_format_reopens": 96
+    },
+    "styleDeletion": {
+      "atomic_rejections": 11,
+      "cases": 16,
+      "native_GUI_verified": false,
+      "nested_style_references_preserved": true,
+      "physical_IME_verified": false,
+      "snapshot_undo_redo_cases": 16,
+      "two_format_reopens": 32
+    },
+    "cellEquation": {
+      "atomic_rejections": 10,
+      "body_and_neighbor_preserved": true,
+      "cases": 72,
+      "hwp_hwpx_reopens": 288,
+      "native_GUI_verified": false,
+      "physical_IME_verified": false,
+      "precise_cell_layout_targets": true,
+      "snapshot_undo_redo_operations": 504
+    },
+    "storedRowUngroup": {
+      "atomic_rejections": 14,
+      "cases": 108,
+      "maximum_corner_error_px": 0.013333685313568822,
+      "native_GUI_save_verified": false,
+      "physical_IME_verified": false,
+      "snapshot_undo_redo_cases": 108,
+      "two_format_reopens": 216
+    },
+    "nextStyleEnter": {
+      "GUI_verified": false,
+      "atomic_rejections": 126,
+      "baseline": false,
+      "cachedSnapshots": false,
+      "cases": 162,
+      "merge_inverse_cases": 36,
+      "physical_IME_verified": false,
+      "snapshot_undo_redo_operations": 288,
+      "two_format_reopens": 324
+    }
+  },
+  "sourceSHA256": {
+    "engine/examples/cell_numbering_check.rs": "c27eccdd52ce3f9c3f9bc437c3c19ad21facb67f3c6e168e031a189ebe12555b",
+    "scripts/check-vertical-cell-numbering.mjs": "16181789a859ed09789b4a0563ad7d79d49931b463bc3f21cffab9062d91ca9f",
+    "scripts/check-vertical-cell-numbering-pages.mjs": "6f4256c593d2a3fd8937c225c1ad4be584fa1b2282a805d0b1a2e0605718c400",
+    "scripts/check-cell-direction-roundtrip.mjs": "81e508461c52e26e014c6546b1bea8e9f77c3717b2541814f2350a8f43aa0a0e"
+  }
+}

@@ -5,6 +5,7 @@ use nested_cells::{path_json, table};
 use rhwp::{
     document_core::DocumentCore,
     model::{control::Control, paragraph::Paragraph},
+    renderer::render_tree::{RenderNode, RenderNodeType},
 };
 use serde_json::{json, Value};
 fn content(paras: &[Paragraph]) -> Value {
@@ -55,6 +56,60 @@ fn path(base: &[(usize, usize, usize)], cell: usize, p: usize) -> Vec<(usize, us
     last.2 = p;
     v
 }
+fn target_rotations(
+    node: &RenderNode,
+    parent: usize,
+    base: &[(usize, usize, usize)],
+    result: &mut Vec<f64>,
+) {
+    if let RenderNodeType::TextRun(run) = &node.node_type {
+        if run.text.contains('A')
+            && run.cell_context.as_ref().is_some_and(|ctx| {
+                ctx.parent_para_index == parent
+                    && ctx.path.len() == base.len()
+                    && ctx
+                        .path
+                        .iter()
+                        .zip(base)
+                        .enumerate()
+                        .all(|(i, (entry, expected))| {
+                            entry.control_index == expected.0
+                                && entry.cell_index == expected.1
+                                && (i + 1 == base.len() || entry.cell_para_index == expected.2)
+                        })
+            })
+        {
+            assert!(run.is_vertical);
+            result.push(run.rotation);
+        }
+    }
+    for child in &node.children {
+        target_rotations(child, parent, base, result);
+    }
+}
+fn body_labels(d: &DocumentCore, parent: usize) -> Vec<(usize, String)> {
+    fn collect(node: &RenderNode, parent: usize, result: &mut Vec<(usize, String)>) {
+        if let RenderNodeType::TextRun(run) = &node.node_type {
+            if run.cell_context.is_none()
+                && run.para_index.is_some_and(|p| p == 0 || p == parent + 1)
+            {
+                result.push((run.para_index.unwrap(), run.text.clone()));
+            }
+        }
+        for child in &node.children {
+            collect(child, parent, result);
+        }
+    }
+    let mut result = Vec::new();
+    for page in 0..d.page_count() {
+        collect(
+            &d.build_page_render_tree(page).unwrap().root,
+            parent,
+            &mut result,
+        );
+    }
+    result
+}
 fn main() {
     let args = std::env::args().collect::<Vec<_>>();
     let rows: Vec<Value> = serde_json::from_slice(&std::fs::read(&args[1]).unwrap()).unwrap();
@@ -91,7 +146,10 @@ fn main() {
                 .unwrap())
                 .collect::<Vec<_>>())
         };
-        eq(&props(&d, 0, 4), &row["expected"]);
+        eq(
+            &props(&d, 0, row["expected"].as_array().unwrap().len()),
+            &row["expected"],
+        );
         eq(&props(&d, 1, 2), &row["neighbor"]);
         let numbers=json!(d.document().doc_info.numberings.iter().enumerate().map(|(i,n)|json!({"id":i+1,"levelFormats":n.level_formats,"startNumber":n.start_number})).collect::<Vec<_>>());
         eq(&numbers, &row["numberings"]);
@@ -117,7 +175,57 @@ fn main() {
                     .unwrap(),
             );
         }
+        if let Some(own) = row["own"].as_array() {
+            for (cell, expected) in own.iter().enumerate() {
+                let actual: Value = serde_json::from_str(
+                    &d.get_cell_own_properties_by_path_native(
+                        0,
+                        parent,
+                        &path_json(&path(&base, cell, 0)),
+                    )
+                    .unwrap(),
+                )
+                .unwrap();
+                eq(&actual, expected);
+            }
+            // Number metadata is preserved even where vertical list labels
+            // are not rendered. Check the existing Latin rotation separately from list support.
+            let mut latin = Vec::new();
+            for page in 0..d.page_count() {
+                target_rotations(
+                    &d.build_page_render_tree(page).unwrap().root,
+                    parent,
+                    &base,
+                    &mut latin,
+                );
+            }
+            if row["verticalDirection"].is_number() {
+                assert!(!latin.is_empty(), "target cell Latin text must be emitted");
+                let rotation = if row["verticalDirection"] == 1 {
+                    90.0
+                } else {
+                    0.0
+                };
+                assert!(latin.iter().all(|r| *r == rotation));
+                assert_eq!(
+                    body_labels(&d, parent),
+                    body_labels(&old, parent),
+                    "body list counters must not advance from cell numbering"
+                );
+            }
+        }
         let text = compact(&d);
+        if let Some(texts) = row["texts"].as_array() {
+            for t in texts {
+                let t = t.as_str().unwrap();
+                assert!(text.contains(t), "saved text must be rendered");
+                if row["verticalDirection"].is_number() {
+                    // Existing vertical-number display is unsupported. Never call metadata
+                    // preservation proof a successful visible-number rendering check.
+                    assert!(!(1..=130).any(|n| text.contains(&format!("{n}.{t}"))));
+                }
+            }
+        }
         for (p, label) in row["labels"].as_array().unwrap().iter().enumerate() {
             if let Some(label) = label.as_str() {
                 assert!(
@@ -150,7 +258,11 @@ fn main() {
         rejects += 1;
     }
     std::fs::create_dir_all(&args[2]).unwrap();
-    let proof = json!({"verifiedUIExports":rows.len(),"nativeAtomicBadPaths":rejects,"allSavedParaPropertiesAndDefinitions":true,"bodyAndCellContentStyleCharGeometryRefsPreserved":true,"displayLabels":true,"GUIVerified":false});
+    let vertical = rows
+        .iter()
+        .filter(|r| r["verticalDirection"].is_number())
+        .count();
+    let proof = json!({"verifiedUIExports":rows.len(),"nativeAtomicBadPaths":rejects,"allSavedParaPropertiesAndDefinitions":true,"bodyAndCellContentStyleCharGeometryRefsPreserved":true,"displayLabels":vertical==0,"verticalBodyDisplayAndListCountersPreserved":vertical>0,"verticalListGlyphsMissing":vertical>0,"verticalExports":vertical,"verticalDirectionAndLatinRotationPreserved":vertical>0,"visibleVerticalNumberingSupported":false,"GUIVerified":false});
     std::fs::write(
         format!("{}/proof.json", args[2]),
         serde_json::to_vec_pretty(&proof).unwrap(),

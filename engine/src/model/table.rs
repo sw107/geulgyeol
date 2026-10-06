@@ -149,7 +149,7 @@ pub struct Cell {
     pub paragraphs: Vec<Paragraph>,
     /// LIST_HEADER의 텍스트 영역 폭 참조 (라운드트립 보존용)
     pub list_header_width_ref: u16,
-    /// 텍스트 방향 (0: 가로, 1: 세로)
+    /// 텍스트 방향 (0: 가로, 1: 세로 영문 눕힘, 2: 세로 영문 세움)
     pub text_direction: u8,
     /// [#4898] 줄바꿈 방식 — LIST_HEADER `list_attr` bit 19~20, OWPML `lineWrap`.
     ///
