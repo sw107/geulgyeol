@@ -1202,7 +1202,7 @@ export class ApplyCharFormatCommand implements EditCommand {
 
 export type ParaFormatTarget =
   | { kind: 'body'; sec: number; para: number }
-  | { kind: 'cell'; sec: number; parentPara: number; controlIdx: number; cellIdx: number; cellParaIdx: number };
+  | { kind: 'cell'; sec: number; parentPara: number; controlIdx: number; cellIdx: number; cellParaIdx: number; cellPath?: CellPathEntry[] };
 
 interface ParaShapeHistoryEntry {
   target: ParaFormatTarget;
@@ -1262,14 +1262,39 @@ export class ApplyParaFormatCommand implements EditCommand {
   readonly timestamp = Date.now();
 
   private entries: ParaShapeHistoryEntry[] = [];
+  private readonly snapshot: SnapshotCommand | null;
 
   constructor(
     private targets: ParaFormatTarget[],
     private props: Partial<ParaProperties>,
     private cursorBefore: DocumentPosition,
-  ) {}
+  ) {
+    this.snapshot = null;
+    if (targets.some(t => t.kind === 'cell' && (t.cellPath?.length ?? 0) > 1)) {
+      const first = targets[0];
+      if (first.kind !== 'cell' || !first.cellPath || targets.some(t => t.kind !== 'cell' || (t.cellPath?.length ?? 0) < 2 || t.sec !== first.sec || t.parentPara !== first.parentPara)) {
+        throw new Error('중첩 문단 모양 대상은 같은 본문 문단의 셀 경로여야 합니다');
+      }
+      const paths = targets.map(t => (t as Extract<ParaFormatTarget, { kind: 'cell' }>).cellPath!.map(p => ({ ...p })));
+      this.snapshot = new SnapshotCommand('applyNestedParaFormat', cursorBefore, cursorBefore, (wasm) => {
+        wasm.runInBatch(() => wasm.applyParaFormatInCellsByPaths(first.sec, first.parentPara, paths, props));
+        return { ...cursorBefore };
+      });
+    } else if (targets.length > 0 && targets.every(t => t.kind === 'cell')) {
+      // Preserve stored line segments as well as formats on flat-cell undo.
+      // Restoring only the format ID reflows imported lines and changes their SVG.
+      const cells = targets.map(t => ({ ...t } as Extract<ParaFormatTarget, { kind: 'cell' }>));
+      this.snapshot = new SnapshotCommand('applyCellParaFormat', cursorBefore, cursorBefore, (wasm) => {
+        wasm.runInBatch(() => {
+          for (const t of cells) wasm.applyParaFormatInCell(t.sec, t.parentPara, t.controlIdx, t.cellIdx, t.cellParaIdx, JSON.stringify(props));
+        });
+        return { ...cursorBefore };
+      });
+    }
+  }
 
   execute(wasm: WasmBridge): DocumentPosition {
+    if (this.snapshot) return this.snapshot.execute(wasm);
     if (this.entries.length > 0 && this.entries.every(entry => entry.afterParaShapeId !== undefined)) {
       for (const entry of this.entries) {
         restoreParaShapeId(wasm, entry.target, entry.afterParaShapeId!);
@@ -1298,11 +1323,18 @@ export class ApplyParaFormatCommand implements EditCommand {
   }
 
   undo(wasm: WasmBridge): DocumentPosition {
+    if (this.snapshot) return this.snapshot.undo(wasm);
     for (const entry of this.entries) {
       restoreParaShapeId(wasm, entry.target, entry.beforeParaShapeId);
     }
     return { ...this.cursorBefore };
   }
+
+  discard(wasm: WasmBridge): void { this.snapshot?.discard(wasm); }
+
+  snapshotResourceCount(): number { return this.snapshot?.snapshotResourceCount() ?? 0; }
+
+  isNoOp(): boolean { return this.snapshot?.isNoOp() ?? false; }
 
   mergeWith(): null { return null; }
 }

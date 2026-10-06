@@ -2392,7 +2392,7 @@ export class InputHandler {
    * 된다 — 여러 칸을 골라도 첫 칸만 바뀌는 증상.
    *
    * 셀 산출 축은 같은 블록을 대상으로 하는 applyCopiedCellPropsToSelection 과 같게 맞춘다
-   * (getCellTableContext + getSelectedCellRange + getExcludedCells, 중첩 표 제외).
+   * (getCellTableContext + getSelectedCellRange + getExcludedCells).
    */
   private getSelectedCellBlock(): SelectedCellBlock | null {
     if (!this.cursor.isInCellSelectionMode()) return null;
@@ -2434,8 +2434,19 @@ export class InputHandler {
 
   /** 셀 블록 안 모든 셀의 모든 문단을 문단 서식 대상으로 만든다 */
   private getParaFormatTargetsForCellBlock(block: SelectedCellBlock): ParaFormatTarget[] {
-    // 중첩 표 문단 서식은 목표 밖(getParaFormatTargetsForRange 도 동일 하계)이다.
-    if (block.cellPath) return [];
+    if (block.cellPath) {
+      const targets: ParaFormatTarget[] = [];
+      for (const cellIdx of block.cellIndices) {
+        const path = withCellPathTarget(block.cellPath, cellIdx, 0);
+        const count = this.wasm.getCellParagraphCountByPath(block.sec, block.ppi, JSON.stringify(path));
+        for (let p = 0; p < count; p++) {
+          targets.push({ kind: 'cell', sec: block.sec, parentPara: block.ppi,
+            controlIdx: block.ci, cellIdx, cellParaIdx: p,
+            cellPath: withCellPathTarget(path, cellIdx, p) });
+        }
+      }
+      return targets;
+    }
     return paraFormatTargetsForCellBlock(
       block,
       (cellIdx) => this.wasm.getCellParagraphCount(block.sec, block.ppi, block.ci, cellIdx),
@@ -2445,14 +2456,28 @@ export class InputHandler {
   private getParaFormatTargetsForRange(start: DocumentPosition, end: DocumentPosition): ParaFormatTarget[] {
     if (this.cursor.isInHeaderFooter() || this.cursor.isInFootnote()) return [];
     if (start.isTextBox || end.isTextBox) return [];
-    if ((start.cellPath?.length ?? 0) > 1 || (end.cellPath?.length ?? 0) > 1) return [];
-
     const startInCell = start.parentParaIndex !== undefined;
     const endInCell = end.parentParaIndex !== undefined;
     if (startInCell || endInCell) {
       if (!startInCell || !endInCell) return [];
       if (start.sectionIndex !== end.sectionIndex) return [];
       if (start.parentParaIndex !== end.parentParaIndex) return [];
+      if ((start.cellPath?.length ?? 0) > 1 || (end.cellPath?.length ?? 0) > 1) {
+        const a = start.cellPath, b = end.cellPath;
+        if (!a || !b || a.length !== b.length || a.length < 2 ||
+            JSON.stringify(a.slice(0, -1)) !== JSON.stringify(b.slice(0, -1)) ||
+            a[a.length - 1].controlIndex !== b[b.length - 1].controlIndex ||
+            a[a.length - 1].cellIndex !== b[b.length - 1].cellIndex) return [];
+        const last = a[a.length - 1];
+        const targets: ParaFormatTarget[] = [];
+        for (let p = Math.min(last.cellParaIndex, b[b.length - 1].cellParaIndex);
+             p <= Math.max(last.cellParaIndex, b[b.length - 1].cellParaIndex); p++) {
+          targets.push({ kind: 'cell', sec: start.sectionIndex, parentPara: start.parentParaIndex!,
+            controlIdx: a[0].controlIndex, cellIdx: last.cellIndex, cellParaIdx: p,
+            cellPath: withCellPathTarget(a, last.cellIndex, p) });
+        }
+        return targets;
+      }
       const startPath = start.cellPath?.[0];
       const endPath = end.cellPath?.[0];
       const startControl = startPath?.controlIndex ?? start.controlIndex;
@@ -2507,14 +2532,26 @@ export class InputHandler {
     }
 
     const pos = this.cursor.getPosition();
-    if (pos.isTextBox || (pos.cellPath?.length ?? 0) > 1) {
-      console.info('[InputHandler] Shift+Tab hanging indent: unsupported nested/textbox context');
+    if (pos.isTextBox) {
+      console.info('[InputHandler] Shift+Tab hanging indent: unsupported textbox context');
       return false;
     }
 
     try {
       let cursorRect: CursorRect | null = this.cursor.getRect();
       let firstLineStartRect: CursorRect;
+
+      if (pos.parentParaIndex !== undefined && (pos.cellPath?.length ?? 0) > 1) {
+        const pathJson = JSON.stringify(pos.cellPath);
+        firstLineStartRect = this.wasm.getCursorRectByPath(pos.sectionIndex, pos.parentParaIndex, pathJson, 0);
+        cursorRect ??= this.wasm.getCursorRectByPath(pos.sectionIndex, pos.parentParaIndex, pathJson, pos.charOffset);
+        const last = pos.cellPath!.at(-1)!;
+        return this.executeParaFormatCommand([{
+          kind: 'cell', sec: pos.sectionIndex, parentPara: pos.parentParaIndex,
+          controlIdx: last.controlIndex, cellIdx: last.cellIndex, cellParaIdx: last.cellParaIndex,
+          cellPath: pos.cellPath!.map(entry => ({ ...entry })),
+        }], { indent: -pxToRaw2x(computeHangingIndentPx(cursorRect.x, firstLineStartRect.x)) });
+      }
 
       if (pos.parentParaIndex !== undefined) {
         const pathEntry = pos.cellPath?.[0];
@@ -5562,7 +5599,8 @@ export class InputHandler {
   applyStyle(styleId: number): void {
     try {
       const targets = this.getParaFormatTargetsAtCursor();
-      if (targets.length === 0) return;
+      // Nested style assignment retains its existing unsupported boundary.
+      if (targets.length === 0 || targets.some(t => t.kind === 'cell' && (t.cellPath?.length ?? 0) > 1)) return;
       const cursorBefore = this.cursor.getPosition();
       const operation = (wasm: WasmBridge): DocumentPosition => {
         for (const target of targets) {
@@ -5718,6 +5756,9 @@ export class InputHandler {
     }
     const pos = this.cursor.getPosition();
     if (pos.parentParaIndex !== undefined) {
+      if ((pos.cellPath?.length ?? 0) > 1) {
+        return this.wasm.getCellParaPropertiesAtByPath(pos.sectionIndex, pos.parentParaIndex, JSON.stringify(pos.cellPath));
+      }
       return this.wasm.getCellParaPropertiesAt(
         pos.sectionIndex, pos.parentParaIndex, pos.controlIndex!,
         pos.cellIndex!, pos.cellParaIndex!,

@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import { stripTypeScriptTypes } from 'node:module';
-const [engineDir, fixtures, out] = process.argv.slice(2);
+const [engineDir, fixtures, out, inputHandlerSource] = process.argv.slice(2);
 assert(engineDir && fixtures && out, 'ENGINE_DIR FIXTURE_DIR OUTPUT_DIR');
 fs.mkdirSync(out, {
   recursive: true
@@ -39,7 +39,7 @@ const {
 } = await load(bridge);
 const commands = await load('const MAX_PAGE_LOCAL_TEXT_EDIT_CHARS=10000;\n' + fs.readFileSync(path.join(root, 'rhwp-studio/src/engine/command.ts'), 'utf8'));
 globalThis.__gapCommands = commands;
-const source = fs.readFileSync(path.join(root, 'rhwp-studio/src/engine/input-handler.ts'), 'utf8');
+const source = fs.readFileSync(inputHandlerSource ? path.resolve(inputHandlerSource) : path.join(root, 'rhwp-studio/src/engine/input-handler.ts'), 'utf8');
 let handler = 'const {ApplyParaFormatCommand}=globalThis.__gapCommands;\n' + fs.readFileSync(path.join(root, 'rhwp-studio/src/engine/cell-block-format.ts'), 'utf8') + 'class HandlerProbe {\n';
 for (const n of ['applyParaAlign', 'setLineSpacing', 'applyParaPropsAtCursor', 'applyParaPropsToRange', 'applyParaFormat', 'applyParaFormatInNoteOrHeader', 'getSelectedCellBlock', 'getParaFormatTargetsAtCursor', 'getParaFormatTargetsForCellBlock', 'getParaFormatTargetsForRange', 'executeParaFormatCommand', 'getParaProperties']) handler += method(source, n);
 handler += '}\nexport {HandlerProbe};';

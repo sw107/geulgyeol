@@ -3457,6 +3457,13 @@ impl HwpDocument {
         self.get_cell_para_properties_by_path_native(sec as usize, parent as usize, path_json)
             .map_err(Into::into)
     }
+    #[wasm_bindgen(js_name = applyParaFormatInCellsByPaths)]
+    pub fn apply_para_format_in_cells_by_paths(
+        &mut self, sec: u32, parent: u32, paths_json: &str, props_json: &str,
+    ) -> Result<String, JsValue> {
+        self.apply_para_format_in_cells_by_paths_native(sec as usize, parent as usize, paths_json, props_json)
+            .map_err(Into::into)
+    }
     #[wasm_bindgen(js_name = applyCellOwnPropertiesByPaths)]
     pub fn apply_cell_own_properties_by_paths(
         &mut self,

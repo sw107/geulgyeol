@@ -48,7 +48,7 @@ fn path(entries: Vec<PathEntry>) -> Result<CellPath, HwpError> {
         .map(|e| (e.control_index, e.cell_index, e.cell_para_index))
         .collect())
 }
-fn parse_path(json: &str) -> Result<CellPath, HwpError> {
+pub(super) fn parse_path(json: &str) -> Result<CellPath, HwpError> {
     path(serde_json::from_str(json).map_err(error)?)
 }
 fn cell_mut<'a>(paragraph: &'a mut Paragraph, path: &[(usize, usize, usize)]) -> &'a mut Cell {
@@ -64,7 +64,7 @@ fn cell_mut<'a>(paragraph: &'a mut Paragraph, path: &[(usize, usize, usize)]) ->
     }
 }
 impl DocumentCore {
-    fn validate_format_copy_path(
+    pub(crate) fn validate_cell_format_path(
         &self,
         sec: usize,
         parent: usize,
@@ -75,16 +75,16 @@ impl DocumentCore {
             .sections
             .get(sec)
             .and_then(|s| s.paragraphs.get(parent))
-            .ok_or_else(|| error("모양복사 본문 주소 범위 초과"))?;
+            .ok_or_else(|| error("셀 서식 본문 주소 범위 초과"))?;
         for &(control, cell, inner) in path {
             let Some(Control::Table(table)) = para.controls.get(control) else {
-                return Err(error("모양복사 경로는 표 셀만 지원합니다"));
+                return Err(error("셀 서식 경로는 표 셀만 지원합니다"));
             };
             para = table
                 .cells
                 .get(cell)
                 .and_then(|c| c.paragraphs.get(inner))
-                .ok_or_else(|| error("모양복사 셀/문단 주소 범위 초과"))?;
+                .ok_or_else(|| error("셀 서식 셀/문단 주소 범위 초과"))?;
         }
         Ok(())
     }
@@ -95,7 +95,7 @@ impl DocumentCore {
         json: &str,
     ) -> Result<String, HwpError> {
         let path = parse_path(json)?;
-        self.validate_format_copy_path(sec, parent, &path)?;
+        self.validate_cell_format_path(sec, parent, &path)?;
         let table = self.resolve_table_by_path(sec, parent, &path)?;
         self.build_cell_properties_json(table, path.last().unwrap().1, false)
     }
@@ -106,7 +106,7 @@ impl DocumentCore {
         json: &str,
     ) -> Result<String, HwpError> {
         let path = parse_path(json)?;
-        self.validate_format_copy_path(sec, parent, &path)?;
+        self.validate_cell_format_path(sec, parent, &path)?;
         let para = self.resolve_paragraph_by_path(sec, parent, &path)?;
         Ok(self.build_para_properties_json(para.para_shape_id, sec))
     }
@@ -124,7 +124,7 @@ impl DocumentCore {
         let mut paths = BTreeSet::new();
         for entries in entries {
             let mut p = path(entries)?;
-            self.validate_format_copy_path(sec, parent, &p)?;
+            self.validate_cell_format_path(sec, parent, &p)?;
             p.last_mut().unwrap().2 = 0;
             paths.insert(p);
         }
@@ -229,8 +229,8 @@ impl DocumentCore {
     ) -> Result<String, HwpError> {
         let a = parse_path(start_json)?;
         let b = parse_path(end_json)?;
-        self.validate_format_copy_path(sec, parent, &a)?;
-        self.validate_format_copy_path(sec, parent, &b)?;
+        self.validate_cell_format_path(sec, parent, &a)?;
+        self.validate_cell_format_path(sec, parent, &b)?;
         if a.len() != b.len()
             || a[..a.len() - 1] != b[..b.len() - 1]
             || (a.last().unwrap().0, a.last().unwrap().1)

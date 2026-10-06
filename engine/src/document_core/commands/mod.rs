@@ -24,3 +24,5 @@ mod style_metadata;
 
 mod next_style;
 mod format_copy;
+
+mod paragraph_paths;

@@ -1,0 +1,257 @@
+{
+  "baseCommit": "6e46c09934fdfdf990ce9323427b0f11c87e8b7e",
+  "localOnly": true,
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxVerified": false,
+  "newAppCreated": false,
+  "rawEvidenceDirectory": "/Users/sw107/Documents/Codex/2026-10-06/task/nested-paragraph-qa",
+  "checks": {
+    "native": {
+      "GUIVerified": false,
+      "cases": 48,
+      "historyRestores": 288,
+      "rejections": 720,
+      "reopens": 96
+    },
+    "ui": {
+      "historyBudgetCases": 3,
+      "historyBudgetCommands": 375,
+      "historyBudgetRestores": 129,
+      "cases": 108,
+      "regressionFixed": 8,
+      "restores": 648,
+      "reopens": 216,
+      "rejections": 80,
+      "savedSVGEqual": 216,
+      "representativeSavedGeometryTolerancePx": 0.013333333333333334,
+      "engineSHA256": "51986b31898b3854c84f297403cd0fdfb81a9a8cd3c8f12e99bdec480d118e14",
+      "inputHandlerSHA256": "7903acb7ec2a0cf461e8f7e673cac8b7b3c5aa7b0d52088a532ecb01d792a6c3",
+      "GUIVerified": false,
+      "DOMAndCursorMocked": true,
+      "operationDispatchAdapter": true
+    },
+    "uiSaved": {
+      "GUIVerified": false,
+      "verifiedUIExports": 216
+    },
+    "nativeCopy": {
+      "GUIVerified": false,
+      "historyRestores": 72,
+      "rejections": 78,
+      "reopens": 36,
+      "zoneOverlayCases": 6
+    },
+    "uiCopy": {
+      "cases": 30,
+      "restores": 180,
+      "reopens": 60,
+      "rejections": 44,
+      "repeated": 30,
+      "wasmSHA256": "51986b31898b3854c84f297403cd0fdfb81a9a8cd3c8f12e99bdec480d118e14",
+      "inputHandlerSHA256": "7903acb7ec2a0cf461e8f7e673cac8b7b3c5aa7b0d52088a532ecb01d792a6c3",
+      "bridgeSHA256": "b1366079d0cda9c18ce0e1dd559b6842e859f158655e03616d8836c31f4f8d3a",
+      "GUIVerified": false,
+      "DOMAndCursorMocked": true,
+      "operationDispatchAdapter": true,
+      "physicalIMEVerified": false
+    },
+    "search": {
+      "cases": 408,
+      "deferredCellCalls": 22,
+      "fullCellFallbackDeletes": 26,
+      "sourceSHA256": {
+        "rhwp-studio/src/core/wasm-bridge.ts": "b1366079d0cda9c18ce0e1dd559b6842e859f158655e03616d8836c31f4f8d3a",
+        "rhwp-studio/src/ui/find-dialog.ts": "fe95e003524f18893b07f83f142d0bc4c82e9e2a8f2efd7a94cad486cbe27ced",
+        "rhwp-studio/src/engine/command.ts": "24155cfecff0823701d17a5c1d5346cdd50319922748fa2b14fca92783490c6a"
+      },
+      "historySvgDifferences": [],
+      "actualUICases": 272,
+      "historyRestores": 640,
+      "noMatchUnchanged": 120,
+      "reopens": 2096,
+      "engineSHA256": "51986b31898b3854c84f297403cd0fdfb81a9a8cd3c8f12e99bdec480d118e14",
+      "node": "v24.20.0",
+      "GUIVerified": false,
+      "regexSupported": false
+    },
+    "cellHistory": {
+      "cases": 24,
+      "restores": 170,
+      "reopens": 82,
+      "rejections": 4,
+      "savedSVGEqualityRequired": true,
+      "issues": [],
+      "wasmSHA256": "51986b31898b3854c84f297403cd0fdfb81a9a8cd3c8f12e99bdec480d118e14",
+      "findDialogSHA256": "fe95e003524f18893b07f83f142d0bc4c82e9e2a8f2efd7a94cad486cbe27ced",
+      "GUIVerified": false
+    },
+    "nativeClippy": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib",
+        "--example",
+        "nested_paragraph_format_check",
+        "--example",
+        "nested_format_copy_check",
+        "--example",
+        "search_span_check",
+        "--example",
+        "search_span_boundaries_check",
+        "--example",
+        "cell_layout_commit_probe",
+        "--example",
+        "cell_layout_saved_check",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "rustToolchain": "1.93.1-aarch64-apple-darwin",
+      "debugInfo": 0,
+      "incremental": false,
+      "targetLimitBytes": 3221225472,
+      "targetPeakBytes": 2733654016,
+      "targetFinalBytes": 2733654016,
+      "stoppedForBudget": false,
+      "exitCode": 0,
+      "elapsedSeconds": 2.13,
+      "scope": "native-clippy",
+      "GUIVerified": false,
+      "physicalIMEVerified": false
+    },
+    "wasmClippy": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "rustToolchain": "1.93.1-aarch64-apple-darwin",
+      "debugInfo": 0,
+      "incremental": false,
+      "targetLimitBytes": 3221225472,
+      "targetPeakBytes": 2733604864,
+      "targetFinalBytes": 2733604864,
+      "stoppedForBudget": false,
+      "exitCode": 0,
+      "elapsedSeconds": 22.64,
+      "scope": "wasm-clippy",
+      "GUIVerified": false,
+      "physicalIMEVerified": false
+    },
+    "nativeBuild": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "nested_paragraph_format_check",
+        "--",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/nested-paragraph-qa/behavior/native"
+      ],
+      "rustToolchain": "1.93.1-aarch64-apple-darwin",
+      "debugInfo": 0,
+      "incremental": false,
+      "targetLimitBytes": 3221225472,
+      "targetPeakBytes": 2664513536,
+      "targetFinalBytes": 2664513536,
+      "stoppedForBudget": false,
+      "exitCode": 0,
+      "elapsedSeconds": 8.26,
+      "scope": "nested_paragraph_format_check",
+      "GUIVerified": false,
+      "physicalIMEVerified": false
+    },
+    "wasmBuild": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--lib",
+        "--manifest-path",
+        "engine/Cargo.toml"
+      ],
+      "profile": "release defaults including LTO and codegen-units=1",
+      "targetInitialBytes": 2760994816,
+      "targetLimitBytes": 3221225472,
+      "targetPeakBytes": 2760994816,
+      "targetFinalBytes": 2733584384,
+      "targetAddedBytes": -27410432,
+      "stoppedForBudget": false,
+      "exitCode": 0,
+      "elapsedSeconds": 136.04,
+      "sourceCommit": "6e46c09934fdfdf990ce9323427b0f11c87e8b7e"
+    },
+    "preservation": {
+      "protectedApps": [
+        {
+          "name": "dev6",
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar",
+          "SHA256": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+          "unchanged": true
+        },
+        {
+          "name": "dev5",
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar",
+          "SHA256": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+          "unchanged": true
+        },
+        {
+          "name": "betaNext",
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar",
+          "SHA256": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+          "unchanged": true
+        }
+      ],
+      "finalEngineSHA256": "51986b31898b3854c84f297403cd0fdfb81a9a8cd3c8f12e99bdec480d118e14",
+      "webEngineMatches": true,
+      "engineSourcesMatchBuild": true,
+      "newAppCreated": false,
+      "GUIVerified": false
+    }
+  },
+  "sourceSHA256": {
+    "engine/src/document_core/commands/paragraph_paths.rs": "07ce3d9dccc5b625dcd97e99742607a4dfce167128da7b4eb6a0473ebb41fa8d",
+    "engine/src/document_core/commands/format_copy.rs": "3a8d04329c8d719ee77894a76ff47c16f4839b6decf0fce3ee30795553a6853b",
+    "engine/src/wasm_api.rs": "3e2ac205f3a72de23976aa41ba3906c35e3ceb7fdc15706ede0767b7e6034b64",
+    "rhwp-studio/src/core/wasm-bridge.ts": "b1366079d0cda9c18ce0e1dd559b6842e859f158655e03616d8836c31f4f8d3a",
+    "rhwp-studio/src/engine/command.ts": "24155cfecff0823701d17a5c1d5346cdd50319922748fa2b14fca92783490c6a",
+    "rhwp-studio/src/engine/history.ts": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db",
+    "rhwp-studio/src/engine/input-handler.ts": "7903acb7ec2a0cf461e8f7e673cac8b7b3c5aa7b0d52088a532ecb01d792a6c3",
+    "scripts/check-nested-paragraph-format.mjs": "d7a73401f1658ad786007508a52bd2a8d23e69d9352763788049009fbe236237",
+    "engine/examples/nested_paragraph_format_check.rs": "e624a6e1d9d98e0639f5b43728358e3be1ce0d91189aa1a084ed3da356b015ab",
+    "engine/examples/common/nested_cells.rs": "40ea9de8e1ab0b1df1e5d40f4fac14e5271e3e5acd6799981beb58d20269ba07"
+  },
+  "blockedLibraryFixtures": [
+    "engine/samples/3-09월_교육_통합_2022.hwp",
+    "engine/samples/hwp3-sample16-hwp5.hwp",
+    "engine/samples/hwpx/aift.hwpx"
+  ],
+  "libraryTestsRunThisTask": false
+}

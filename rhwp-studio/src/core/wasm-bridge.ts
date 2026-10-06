@@ -1793,6 +1793,11 @@ export class WasmBridge {
     return JSON.parse(this.doc.getCellParaPropertiesAtByPath(sec, parent, pathJson));
   }
 
+  applyParaFormatInCellsByPaths(sec: number, parent: number, paths: CellPathEntry[][], props: Partial<ParaProperties>): { ok: boolean; paragraphs: number } {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse(this.doc.applyParaFormatInCellsByPaths(sec, parent, JSON.stringify(paths), JSON.stringify(props)));
+  }
+
   applyCellOwnPropertiesByPaths(sec: number, parent: number, paths: CellPathEntry[][], props: Partial<CellProperties>): { ok: boolean; cells: number } {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     return JSON.parse(this.doc.applyCellOwnPropertiesByPaths(sec, parent, JSON.stringify(paths), JSON.stringify(props)));
