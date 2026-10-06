@@ -5352,7 +5352,70 @@ impl HwpDocument {
             .map_err(|e| e.into())
     }
 
-    /// 현재 본문 위치에 ClickHere 누름틀 필드를 삽입한다.
+    /// Main-body hyperlink authoring. Reject lossy JavaScript coordinate coercions.
+    #[wasm_bindgen(js_name = insertBodyHyperlink)]
+    pub fn insert_body_hyperlink_api(
+        &mut self,
+        sec: f64,
+        p: f64,
+        start: f64,
+        end: f64,
+        url: &str,
+        display: &str,
+    ) -> Result<String, JsValue> {
+        self.insert_body_hyperlink(
+            hyperlink_index(sec)?,
+            hyperlink_index(p)?,
+            hyperlink_index(start)?,
+            hyperlink_index(end)?,
+            url,
+            display,
+        )
+        .map_err(Into::into)
+    }
+
+    #[wasm_bindgen(js_name = getBodyHyperlinkAt)]
+    pub fn get_body_hyperlink_at_api(&self, sec: f64, p: f64, at: f64) -> Result<String, JsValue> {
+        self.get_body_hyperlink_at(
+            hyperlink_index(sec)?,
+            hyperlink_index(p)?,
+            hyperlink_index(at)?,
+        )
+        .map_err(Into::into)
+    }
+
+    #[wasm_bindgen(js_name = updateBodyHyperlink)]
+    pub fn update_body_hyperlink_api(
+        &mut self,
+        sec: f64,
+        p: f64,
+        id: f64,
+        url: &str,
+    ) -> Result<String, JsValue> {
+        self.update_body_hyperlink(
+            hyperlink_index(sec)?,
+            hyperlink_index(p)?,
+            hyperlink_index(id)? as u32,
+            url,
+        )
+        .map_err(Into::into)
+    }
+
+    #[wasm_bindgen(js_name = removeBodyHyperlink)]
+    pub fn remove_body_hyperlink_api(
+        &mut self,
+        sec: f64,
+        p: f64,
+        id: f64,
+    ) -> Result<String, JsValue> {
+        self.remove_body_hyperlink(
+            hyperlink_index(sec)?,
+            hyperlink_index(p)?,
+            hyperlink_index(id)? as u32,
+        )
+        .map_err(Into::into)
+    }
+    /// 현재 본문 위치에 ClickHere 누름틀을 삽입한다.
     #[wasm_bindgen(js_name = insertClickHereField)]
     pub fn insert_click_here_field_api(
         &mut self,
@@ -8851,3 +8914,11 @@ fn base64_encode(data: &[u8]) -> String {
 
 #[cfg(test)]
 mod tests;
+
+/// wasm32 indices are unsigned 32-bit integers, never truncated JS numbers.
+fn hyperlink_index(value: f64) -> Result<usize, JsValue> {
+    if !value.is_finite() || value.fract() != 0.0 || value < 0.0 || value > u32::MAX as f64 {
+        return Err(JsValue::from_str("본문 하이퍼링크 좌표/ID는 유효한 정수여야 합니다"));
+    }
+    Ok(value as usize)
+}

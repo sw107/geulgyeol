@@ -1,4 +1,5 @@
 import { equationCellTarget, deleteEquationSelection, type EquationCellTarget } from '@/engine/equation-target';
+import { bodyHyperlinkCommand } from './hyperlink';
 import type { CommandDef } from '../types';
 import { PicturePropsDialog } from '@/ui/picture-props-dialog';
 import { ChartDataDialog } from '@/ui/chart-data-dialog';
@@ -325,7 +326,7 @@ export const insertCommands: CommandDef[] = [
       symbolsDialog.show();
     },
   },
-  stub('insert:hyperlink', '하이퍼링크', 'icon-hyperlink', 'Ctrl+K+H'),
+  bodyHyperlinkCommand,
   {
     id: 'insert:bookmark',
     opensDialog: true,

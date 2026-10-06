@@ -1,12 +1,13 @@
 # 현재 개발 checkout 기능 대조
 
-기준 소스 HEAD는 `815c5ff394794a2406920b538499f331dd0d8708`이다. 이번 후속 조사는 소스 읽기·기존 엔진의 제한된 명령 재현·문서 갱신만 수행했다. 새 엔진 빌드, 패키징, 공개, 삭제는 없다. 자동 검사와 실제 GUI 확인을 구분하며 한컴 한글 전체 대체 완료를 뜻하지 않는다.
+현재 후속 개발은 조사 기준 `da1e752`에 일반 본문 하이퍼링크 삽입·URL 편집·해제를 추가했다. 별도 후보의 자동 검증을 완료했으며 기본 앱·공개 beta.2·기존 dev8에는 연결하지 않았다. 자동 검사와 실제 GUI 확인을 구분하며 한컴 한글 전체 대체 완료를 뜻하지 않는다. [본문 링크 결과](body-hyperlink/RESULT_KO.md)와 [집계 proof](body-hyperlink/proof.json)를 참고한다.
 
 ## 소스·후보·앱 구분
 
 | 대상 | 포함 범위 |
 |---|---|
-| 현재 엔진 소스 / `named-cell-value-qa/pkg` | `815c5ff`까지. 이름 셀의 독립 내부 필드 보호 포함. WASM SHA256 `89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf` |
+| 현재 엔진/UI 소스 / `body-hyperlink-qa/pkg` | 이름 셀 보호와 본문 링크 저작 후속 포함. WASM SHA256 `47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4`. 메뉴/툴바/대화상자/이력 자동 검사 완료 |
+| 보존된 `named-cell-value-qa/pkg` | `815c5ff`까지. 이름 셀 보호 포함, 본문 링크 저작은 미포함. SHA256 `89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf` |
 | 별도 `GeulgyeolDev8.app`, `0.4.4-dev.8` | `6f576bd` 통합 기록. 엔진 소스는 `a59a13c`, WASM SHA256 `592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1`. 이름 셀 후속 보호는 **미포함** |
 | 기존 연결 `pkg` | 이전 `2d9599d` 기준, SHA256 `015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7`. 후속 필드 수정은 미연결 |
 | dev7 이하 / 공개 beta.2 / 기본 앱 | 기존 기록과 원본을 보존. 아래 새 개발 후보 결과를 이 앱들의 기능으로 주장하지 않음 |
@@ -29,9 +30,9 @@
 | 셀 방향1/2 저장·짧은 텍스트 회전 | `2d9599d`에서 HWPX VERTICALALL 보존 및 Native/WASM 대조 | 긴 세로 셀의 실제 페이지 분할·세로 번호 glyph 미지원 |
 | 세로 다문단/다열 metric·공유 adapter | 독립 계산 `695f01e` 테스트14/생성1,200 및 텍스트 투영8, `4c587f8` adapter 설계 | production 미연결·보류. supplied metric 계산/가상 조각을 실제 앱 페이지로 부르지 않음. 긴 세로 셀 반복 출력·clip 경계 미해결 |
 | 쪽/구역·머리말/꼬리말 | 기존 설정 대화상자·API와 지원 하위 문단 스타일 전파 | GUI 조작·복합 조판·바탕쪽 전체 호환 미완료 |
-| **하이퍼링크 새 삽입** | HWP5/HWPX hyperlink 모델/읽기·쓰기 기반은 존재 | 현재 `insert:hyperlink`는 disabled stub, 툴바 미연결. 다음 한 가지 편집 범위로 선정 |
+| **본문 하이퍼링크 저작** | 기존 Field/FieldRange로 선택 감싸기·캐럿 표시 문구 삽입·URL 편집·텍스트 보존 해제. 메뉴/툴바/Ctrl+K,H 연결. Native 재열기12, 실제 WASM 명령 재열기22·undo/redo 각6, 저장물22개 Native ID 참조 대조 | 본문 한 문단/http·https만. 셀·각주·머리말 및 겹친/복합 참조는 거절. 기존 표시 문구 변경·URL 열기·GUI/물리 IME 미검증. 기본 앱/dev8 미연결 |
 
-이름 셀 후속 검사: Native 정상36/원자 거절169회/재열기72, WASM 정상48/거절188/undo·redo각72/재열기96, WASM 저장물96개를 Native 재귀 문단·셀 각주·필드/서식 참조로 교차 확인했다. [이름 셀 결과](named-cell-value/RESULT_KO.md), [값 교체 결과](field-value-atomic/RESULT_KO.md), [누름틀 보존 결과](clickhere-engine-preservation/RESULT_KO.md), [dev8 통합](dev8-checkpoint/RESULT_KO.md)를 근거로 하며 이번 턴에 이 행렬을 다시 확장하거나 빌드하지 않았다.
+이름 셀 후속 검사: Native 정상36/원자 거절169회/재열기72, WASM 정상48/거절188/undo·redo각72/재열기96, WASM 저장물96개를 Native 재귀 문단·셀 각주·필드/서식 참조로 교차 확인했다. [이름 셀 결과](named-cell-value/RESULT_KO.md), [값 교체 결과](field-value-atomic/RESULT_KO.md), [누름틀 보존 결과](clickhere-engine-preservation/RESULT_KO.md), [dev8 통합](dev8-checkpoint/RESULT_KO.md)를 근거로 하며 이전 후속 검사의 기록이다. 이번 본문 링크 후보에서는 기존 이름 셀 WASM 회귀(정상48/거절188/재열기96)와 ClickHere·값 교체 회귀를 다시 통과했다.
 
 ## occurrence 조사와 우선순위
 
@@ -43,11 +44,11 @@
 
 WASM에 `setFieldValueByNameAt` export가 없고 기존 `setFieldValueByName`은 엔진 occurrence0으로 간다. 별도 legacy `src/hwpctl/index.ts`는 순번 토큰을 그대로 이름으로 전달하며 기본 main 진입점에서는 그 클래스 호출이 보이지 않는다. 후속 호환 작업 시 OCX 정렬과 Native 문서 순서가 다른 점도 고려해야 한다. 이번에 API 선택 계약/동작을 바꾸지 않았다.
 
-## 다음 범위 하나: 일반 본문의 외부 URL 하이퍼링크 삽입
+## 하이퍼링크 선정 당시의 조사 (구현 전 역사 기록)
 
 정상 문서 `보고서 참고 자료`에서 현재 실제 `insertCommands`, `CommandRegistry`, `CommandDispatcher`를 실행했다. `isEnabled`는 false, dispatch는 `{ok:false, reason:'disabled'}`, 문서 HWPX SHA256 전후 동일, 필드/command 이벤트 변화 없음. 삽입 메뉴 HTML은 disabled이고 툴바 하이퍼링크 버튼에는 data-cmd가 없다. 관련 UI 소스 해시는 dev8 빌드 provenance와 일치한다. 기존 `named-cell-value-qa/pkg` 엔진을 초기화했으며 새 엔진을 만들지 않았다. 실제 GUI 클릭 검사는 아니다.
 
-제안 범위는 지원 일반 본문 한 문단의 선택 텍스트에 외부 URL을 연결하거나, 캐럿에 표시 텍스트와 URL을 넣는 기능이다. 기존 HWP5/HWPX FieldType::Hyperlink 표현을 먼저 확인해 API·대화상자·삽입 메뉴/툴바를 연결하고, 취소/유효하지 않은 URL/비지원 대상 무변경, 텍스트·직접 서식·이웃 스타일/문서 참조, undo/redo와 두 형식 재열기를 검증한다. 링크를 생성하는 기능과 외부 브라우저를 실제 여는 권한/동작은 분리해 범위를 확정한다. 첫 구현에서는 중첩 셀·머리말/각주·필드 중첩/복합 선택을 섞지 않고 거절 경계를 명시한다. 기존 ClickHere/이름 셀 보존 검증을 계속 확대하는 작업으로 대체하지 않는다. **이번 턴에는 구현하지 않았다.**
+제안 범위는 지원 일반 본문 한 문단의 선택 텍스트에 외부 URL을 연결하거나, 캐럿에 표시 텍스트와 URL을 넣는 기능이다. 기존 HWP5/HWPX FieldType::Hyperlink 표현을 먼저 확인해 API·대화상자·삽입 메뉴/툴바를 연결하고, 취소/유효하지 않은 URL/비지원 대상 무변경, 텍스트·직접 서식·이웃 스타일/문서 참조, undo/redo와 두 형식 재열기를 검증한다. 링크를 생성하는 기능과 외부 브라우저를 실제 여는 권한/동작은 분리해 범위를 확정한다. 첫 구현에서는 중첩 셀·머리말/각주·필드 중첩/복합 선택을 섞지 않고 거절 경계를 명시한다. 기존 ClickHere/이름 셀 보존 검증을 계속 확대하는 작업으로 대체하지 않는다. **선정 당시에는 구현하지 않았고, 이번 후속에서 위의 제한된 본문 링크 저작을 구현·검증했다.**
 
 조사 원시 근거: `../editing-scope-research-qa/probe.mjs`, `probe.log`, [집계 proof](editing-scope-research/proof.json). 해당 스크립트는 repository production/test 코드로 추가하지 않았다.
 
@@ -55,4 +56,4 @@ WASM에 `setFieldValueByNameAt` export가 없고 기존 `setFieldValueByName`은
 
 Mac 실제 GUI/물리 IME·이번 Linux 검증 없음. dev8의 strict ad-hoc 서명·자산 서빙·정상 종료는 통과했던 패키징 기록이며 실제 편집 GUI 성공으로 확대하지 않는다. 전체 library unit test는 기존 누락 include_bytes fixture3개로 막혀 있으며 복구/대체/검사 제외로 우회하지 않았다.
 
-조사 시작 HEAD `815c5ff`, dirty 없음. target은 이전 최종3.170GiB 그대로, 실제 디스크 여유 약22.96GiB. 이번 엔진 빌드/패키징/공개/삭제/캐시 정리 없음. 후보 WASM, dev8 ASAR, 연결 pkg를 보존한다. 이 문서와 조사 증거만 로컬 커밋하며 과거 dev7/dev6 등의 기능 기록은 수정하지 않는다.
+선정 조사 당시 HEAD `815c5ff`와 dev8/root pkg를 보존한 상태에서 다음 구현을 정했다. 현재 본문 링크 후속은 별도 `body-hyperlink-qa/pkg`에 있고, target 최고3.358GiB/최종3.264GiB·최소 여유22.736GiB로 4GiB/10GiB 기준을 지켰다. 새 패키징/공개/캐시 삭제 없음. 검사 로그·보호 해시·소스 hash는 [본문 링크 proof](body-hyperlink/proof.json)에 있다. 다음은 별도 Mac 앱에서 실제 GUI·물리 IME를 확인하는 것이다.

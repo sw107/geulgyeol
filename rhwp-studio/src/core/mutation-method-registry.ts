@@ -71,6 +71,7 @@ export const MUTATING_METHODS: readonly string[] = [
   'applyCharFormatInHeaderFooter', 'applyParaFormatInHf', 'insertFieldInHf', 'applyHfTemplate',
   // 필드/양식/찾아바꾸기/책갈피
   'setFieldValue', 'setFieldValueByName', 'removeFieldAt', 'insertClickHereField',
+  'insertBodyHyperlink', 'updateBodyHyperlink', 'removeBodyHyperlink',
   'updateClickHereProps', 'setFormValue', 'setFormValueInCell',
   'replaceText', 'replaceOne', 'replaceAll',
   'addBookmark', 'deleteBookmark', 'renameBookmark',

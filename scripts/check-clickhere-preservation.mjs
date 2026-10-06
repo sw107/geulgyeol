@@ -41,7 +41,8 @@ const source = {
     insert: read('rhwp-studio/src/command/commands/insert.ts'),
     edit: read('rhwp-studio/src/command/commands/edit.ts'),
     insertDialog: read('rhwp-studio/src/ui/field-insert-dialog.ts'),
-    editDialog: read('rhwp-studio/src/ui/field-edit-dialog.ts')
+    editDialog: read('rhwp-studio/src/ui/field-edit-dialog.ts'),
+    hyperlink: read('rhwp-studio/src/command/commands/hyperlink.ts')
 };
 const commands = await load('const MAX_PAGE_LOCAL_TEXT_EDIT_CHARS=10000;\n' + source.command);
 globalThis.__clickCommands = commands;
@@ -115,7 +116,8 @@ globalThis.requestAnimationFrame = (fn)=>{
 const modal = 'class ModalDialog{constructor(){this.dialog={querySelector:()=>null};}show(){globalThis.__clickDialog=this;this.createBody();}hide(){}}\n';
 const dialogs = await load(modal + source.editDialog + '\n' + source.insertDialog);
 globalThis.__clickDialogs = dialogs;
-const { insertCommands } = await load('const {FieldInsertDialog}=globalThis.__clickDialogs;\n' + source.insert);
+globalThis.__clickHyperlinkCommand = (await load(source.hyperlink)).bodyHyperlinkCommand;
+const { insertCommands } = await load('const {FieldInsertDialog}=globalThis.__clickDialogs;const bodyHyperlinkCommand=globalThis.__clickHyperlinkCommand;\n' + source.insert);
 const { editCommands } = await load(read('rhwp-studio/src/command/format-paste-availability.ts') + '\nconst {FieldEditDialog}=globalThis.__clickDialogs;\n' + source.edit);
 let hs = 'const {SnapshotCommand,SubmodeSnapshotCommand,SubmodeSelectionSnapshotCommand,IMMEDIATE_TEXT_MUTATION_EFFECTS}=globalThis.__clickCommands;\nexport class HandlerProbe{\n';
 for (const n of [

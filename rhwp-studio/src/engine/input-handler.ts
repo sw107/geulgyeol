@@ -6161,6 +6161,19 @@ export class InputHandler {
     return this.cursor.getSelectionOrdered();
   }
 
+  /** Hyperlink authoring deliberately supports only the main body, one paragraph. */
+  getBodyHyperlinkTarget(): {position: DocumentPosition; selection: {start: DocumentPosition; end: DocumentPosition} | null} {
+    const position = this.getCursorPosition();
+    const selection = this.getSelection();
+    const inBody = (p: DocumentPosition) => p.parentParaIndex === undefined && !p.cellPath?.length && !p.isTextBox;
+    if (this.editMode === 'form' || this.cursor.isInFootnote() || this.cursor.isInHeaderFooter() || !inBody(position)
+      || (selection && (!inBody(selection.start) || !inBody(selection.end)
+        || selection.start.sectionIndex !== selection.end.sectionIndex || selection.start.paragraphIndex !== selection.end.paragraphIndex))) {
+      throw new Error('하이퍼링크는 일반 본문 한 문단에서만 지원합니다.');
+    }
+    return {position: {...position}, selection};
+  }
+
   /** 지정된 선택 범위에 글자 서식을 적용한다 (커맨드 시스템용) */
   applyCharPropsToRange(
     start: DocumentPosition,

@@ -3462,6 +3462,27 @@ export class WasmBridge {
     return JSON.parse((this.doc as any).setFieldValue(fieldId, value));
   }
 
+  /** 본문 하이퍼링크의 URL과 표시 범위를 조회한다. */
+  getBodyHyperlinkAt(sec: number, para: number, at: number): {ok: boolean; found: boolean; fieldId?: number; url?: string; text?: string; startCharIdx?: number; endCharIdx?: number} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).getBodyHyperlinkAt(sec, para, at));
+  }
+
+  insertBodyHyperlink(sec: number, para: number, start: number, end: number, url: string, display: string): {ok: boolean; fieldId: number; startCharIdx: number; endCharIdx: number} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).insertBodyHyperlink(sec, para, start, end, url, display));
+  }
+
+  updateBodyHyperlink(sec: number, para: number, id: number, url: string): {ok: boolean} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).updateBodyHyperlink(sec, para, id, url));
+  }
+
+  removeBodyHyperlink(sec: number, para: number, id: number): {ok: boolean} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).removeBodyHyperlink(sec, para, id));
+  }
+
   /** 필드 이름으로 값을 설정한다. */
   setFieldValueByName(name: string, value: string): { ok: boolean; fieldId: number; oldValue: string; newValue: string } {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
