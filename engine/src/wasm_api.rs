@@ -5165,6 +5165,15 @@ impl HwpDocument {
     }
 
     /// 각주/미주 내부 문단 속성 조회
+    #[wasm_bindgen(js_name = getCharPropertiesInFootnote)]
+    pub fn get_char_properties_in_footnote(&self, sec:u32,parent:u32,control:u32,para:u32,offset:u32)->Result<String,JsValue>{
+        self.get_char_properties_in_footnote_native(sec as usize,parent as usize,control as usize,para as usize,offset as usize).map_err(Into::into)
+    }
+    #[allow(clippy::too_many_arguments)]
+    #[wasm_bindgen(js_name = applyCharFormatInFootnote)]
+    pub fn apply_char_format_in_footnote(&mut self,sec:u32,parent:u32,control:u32,start_para:u32,start:u32,end_para:u32,end:u32,props:&str)->Result<String,JsValue>{
+        self.apply_char_format_in_footnote_native(sec as usize,parent as usize,control as usize,start_para as usize,start as usize,end_para as usize,end as usize,props).map_err(Into::into)
+    }
     #[wasm_bindgen(js_name = getParaPropertiesInFootnote)]
     pub fn get_para_properties_in_footnote(
         &self,

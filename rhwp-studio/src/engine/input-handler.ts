@@ -7,7 +7,7 @@ import { CaretRenderer } from './caret-renderer';
 import { FieldMarkerRenderer } from './field-marker-renderer';
 import { SelectionRenderer } from './selection-renderer';
 import { CommandHistory } from './history';
-import { DeleteSelectionCommand, ApplyCharFormatCommand, ApplyParaFormatCommand, SnapshotCommand, SubmodeSnapshotCommand, SubmodeSelectionSnapshotCommand, SetFormValueCommand, TextMutationEffectAccumulator, IMMEDIATE_TEXT_MUTATION_EFFECTS, applyCharShapeModsToRange, cellAxisPath, cellParaIndexOf } from './command';
+import { type FootnoteSelectionSnapshot, DeleteSelectionCommand, ApplyCharFormatCommand, ApplyParaFormatCommand, SnapshotCommand, SubmodeSnapshotCommand, SubmodeSelectionSnapshotCommand, SetFormValueCommand, TextMutationEffectAccumulator, IMMEDIATE_TEXT_MUTATION_EFFECTS, applyCharShapeModsToRange, cellAxisPath, cellParaIndexOf } from './command';
 import type { OperationDescriptor, ParaFormatTarget, RefreshPolicy, TextMutationEffects, EditCommand, EditContext, HeaderFooterSelectionSnapshot, FormValueTarget } from './command';
 import { selectCellIndicesInRange, paraFormatTargetsForCellBlock, withCellPathTarget } from './cell-block-format';
 import type { SelectedCellBlock } from './cell-block-format';
@@ -2000,8 +2000,11 @@ export class InputHandler {
       this.applyCharFormatInHeaderFooterSelection(props);
       return;
     }
-    // 각주는 아직 전용 범위 API가 없어 예약 자체를 차단한다.
-    if (this.cursor.isInFootnote()) return;
+    if (this.cursor.isInFootnote()) {
+      const selection = this.getFootnoteCharFormatSelection();
+      if (selection) this.applyCharPropsToFootnoteSelection(selection, props);
+      return;
+    }
     const block = this.getSelectedCellBlock();
     if (block) {
       // F5 블록에서 Ctrl+클릭으로 모든 셀을 제외한 경우다. 빈 블록을 일반 텍스트
@@ -2020,6 +2023,32 @@ export class InputHandler {
     }
     const cmd = new ApplyCharFormatCommand(sel.start, sel.end, props);
     this.executeOperation({ kind: 'command', command: cmd });
+  }
+
+  getFootnoteCharFormatSelection(): FootnoteSelectionSnapshot | null {
+    if (!this.cursor.isInFootnote()) return null;
+    const s = this.cursor.getFootnoteSelectionOrdered();
+    if (!s || (s.start.fnParaIdx === s.end.fnParaIdx && s.start.charOffset === s.end.charOffset)) return null;
+    return { mode: 'footnote', sectionIdx: this.cursor.fnSectionIdx, parentParaIdx: this.cursor.fnParaIdx,
+      controlIdx: this.cursor.fnControlIdx, start: { ...s.start }, end: { ...s.end },
+      pageNum: s.pageNum, footnoteIndex: s.footnoteIndex };
+  }
+
+  applyCharPropsToFootnoteSelection(selection: FootnoteSelectionSnapshot, props: Partial<CharProperties>): void {
+    const c = this.cursor;
+    if (!c.isInFootnote() || c.fnSectionIdx !== selection.sectionIdx || c.fnParaIdx !== selection.parentParaIdx || c.fnControlIdx !== selection.controlIdx) return;
+    const saved = { ...selection, start: { ...selection.start }, end: { ...selection.end } };
+    const context: EditContext = { mode: 'footnote', sectionIdx: saved.sectionIdx, paraIdx: saved.parentParaIdx,
+      controlIdx: saved.controlIdx, innerParaIdx: c.fnInnerParaIdx, charOffset: c.fnCharOffset,
+      pageNum: saved.pageNum, footnoteIndex: saved.footnoteIndex };
+    const before = c.getPosition();
+    this.executeOperation({ kind: 'snapshot', operationType: 'applyCharFormatInFootnote',
+      editContext: context, editContextAfter: context, selectionBefore: saved, selectionAfter: saved,
+      operation: wasm => {
+        const result = wasm.applyCharFormatInFootnote(saved.sectionIdx, saved.parentParaIdx, saved.controlIdx,
+          saved.start.fnParaIdx, saved.start.charOffset, saved.end.fnParaIdx, saved.end.charOffset, props);
+        return result.changed ? { ...before } : null;
+      } });
   }
 
   private applyCharFormatInHeaderFooterSelection(props: Partial<CharProperties>): boolean {
@@ -2260,6 +2289,12 @@ export class InputHandler {
         paraIdx,
         charOffset,
       );
+    }
+    if (this.cursor.isInFootnote()) {
+      const selected = this.getFootnoteCharFormatSelection();
+      const para = selected?.start.fnParaIdx ?? this.cursor.fnInnerParaIdx;
+      const offset = selected?.start.charOffset ?? Math.max(0, this.cursor.fnCharOffset - 1);
+      return this.wasm.getCharPropertiesInFootnote(this.cursor.fnSectionIdx, this.cursor.fnParaIdx, this.cursor.fnControlIdx, para, offset);
     }
     const sel = this.getNonEmptySelection();
     const pos = sel ? sel.start : this.cursor.getPosition();
@@ -3056,6 +3091,8 @@ export class InputHandler {
     if ('mode' in range) {
       if (range.mode === 'headerFooter') {
         this.cursor.selectHeaderFooterRange(range.start, range.end, range.previewPage);
+      } else if (range.mode === 'footnote' && this.sameFootnoteSelectionTarget(range)) {
+        this.cursor.selectFootnoteRange(range.start, range.end);
       }
       return;
     }
@@ -3075,7 +3112,14 @@ export class InputHandler {
     if (!range) return;
     if ('mode' in range && range.mode === 'headerFooter') {
       this.cursor.selectHeaderFooterRange(range.start, range.end, range.previewPage);
+    } else if (range && 'mode' in range && range.mode === 'footnote' && this.sameFootnoteSelectionTarget(range)) {
+      this.cursor.selectFootnoteRange(range.start, range.end);
     }
+  }
+
+  private sameFootnoteSelectionTarget(range: FootnoteSelectionSnapshot): boolean {
+    return this.cursor.isInFootnote() && this.cursor.fnSectionIdx === range.sectionIdx &&
+      this.cursor.fnParaIdx === range.parentParaIdx && this.cursor.fnControlIdx === range.controlIdx;
   }
 
   /**
@@ -5794,6 +5838,7 @@ export class InputHandler {
     end: DocumentPosition,
     props: Partial<CharProperties>,
   ): void {
+    if (this.cursor.isInFootnote()) return;
     const cmd = new ApplyCharFormatCommand(start, end, props);
     this.executeOperation({ kind: 'command', command: cmd });
   }

@@ -103,7 +103,18 @@ export type HeaderFooterSelectionSnapshot = {
   readonly previewPage: number;
 };
 
-export type EditSelectionSnapshot = BodySelectionSnapshot | HeaderFooterSelectionSnapshot;
+export type FootnoteSelectionSnapshot = {
+  readonly mode: 'footnote';
+  readonly sectionIdx: number;
+  readonly parentParaIdx: number;
+  readonly controlIdx: number;
+  readonly start: { fnParaIdx: number; charOffset: number };
+  readonly end: { fnParaIdx: number; charOffset: number };
+  readonly pageNum: number;
+  readonly footnoteIndex: number;
+};
+
+export type EditSelectionSnapshot = BodySelectionSnapshot | HeaderFooterSelectionSnapshot | FootnoteSelectionSnapshot;
 
 /** text mutation의 document pagination/flow 경계와 immediate 완료를 함께 전달한다. */
 export interface FocusedCellCursorGeometry {

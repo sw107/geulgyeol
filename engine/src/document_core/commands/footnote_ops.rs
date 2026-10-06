@@ -236,7 +236,7 @@ impl DocumentCore {
     }
 
     /// 각주 컨트롤 내부 문단의 가변 참조를 얻는다.
-    fn get_footnote_paragraph_mut(
+    pub(super) fn get_footnote_paragraph_mut(
         &mut self,
         section_idx: usize,
         para_idx: usize,
@@ -282,7 +282,7 @@ impl DocumentCore {
     }
 
     /// 각주 컨트롤 내부 문단의 불변 참조를 얻는다.
-    fn get_footnote_paragraph_ref(
+    pub(super) fn get_footnote_paragraph_ref(
         &self,
         section_idx: usize,
         para_idx: usize,

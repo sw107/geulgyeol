@@ -2547,6 +2547,16 @@ export class WasmBridge {
     } catch { return null; }
   }
 
+  getCharPropertiesInFootnote(sec: number, parent: number, control: number, para: number, offset: number): CharProperties {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse(this.doc.getCharPropertiesInFootnote(sec, parent, control, para, offset));
+  }
+
+  applyCharFormatInFootnote(sec: number, parent: number, control: number, startPara: number, start: number, endPara: number, end: number, props: Partial<CharProperties>): { ok: boolean; changed: boolean } {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse(this.doc.applyCharFormatInFootnote(sec, parent, control, startPara, start, endPara, end, JSON.stringify(props)));
+  }
+
   getParaPropertiesInFootnote(sec: number, para: number, controlIdx: number, fnParaIdx: number): ParaProperties {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     return JSON.parse((this.doc as any).getParaPropertiesInFootnote(sec, para, controlIdx, fnParaIdx));

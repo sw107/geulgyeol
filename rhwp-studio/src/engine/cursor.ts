@@ -237,6 +237,24 @@ export class CursorState {
    * target과 양 끝의 문단/오프셋을 모두 확인한 뒤에만 상태를 바꾼다. 조회 실패나 stale
    * 범위는 false로 거절하며, 호출부가 history jump 직후 해제된 상태를 그대로 유지하게 한다.
    */
+  selectFootnoteRange(
+    start: { fnParaIdx: number; charOffset: number },
+    end: { fnParaIdx: number; charOffset: number },
+  ): boolean {
+    if (!this.isInFootnote()) return false;
+    try {
+      const info = this.wasm.getFootnoteInfo(this.fnSectionIdx, this.fnParaIdx, this.fnControlIdx);
+      const valid = (p: typeof start): boolean => Number.isInteger(p.fnParaIdx) && p.fnParaIdx >= 0 &&
+        p.fnParaIdx < info.texts.length && Number.isInteger(p.charOffset) && p.charOffset >= 0 &&
+        p.charOffset <= Array.from(info.texts[p.fnParaIdx]).length;
+      if (!valid(start) || !valid(end)) return false;
+    } catch { return false; }
+    this.fnAnchor = { ...start };
+    this._fnInnerParaIdx = end.fnParaIdx;
+    this._fnCharOffset = end.charOffset;
+    return true;
+  }
+
   selectHeaderFooterRange(
     start: HeaderFooterTextPosition,
     end: HeaderFooterTextPosition,

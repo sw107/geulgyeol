@@ -26,3 +26,5 @@ mod next_style;
 mod format_copy;
 
 mod paragraph_paths;
+
+mod note_char_format;
