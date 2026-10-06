@@ -1,0 +1,127 @@
+{
+  "baselineCommit": "fd99c3fc59b23dd0e6574602060e0cf1169c8812",
+  "restoredOriginalFixtureFiles": 7,
+  "restoredLicenseFiles": 4,
+  "upstreamCommit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+  "allRestoredBytesMatchPinnedBlobs": true,
+  "allRestoredSHA256": {
+    "engine/samples/hml/formatting_table.hml": "177b93de7c79462bef7850e15b018dbc8138fbe713b9c7e045b6125cc7527d35",
+    "engine/samples/hml/osk_filter-UNLICENSE.txt": "88d9b4eb60579c191ec391ca04c16130572d7eedc4a86daa58bf28c6e14c9bcd",
+    "engine/samples/hwpx/ref/ref_empty.hwpx": "c58144645069f7d1258e91404730618ad568bc4d47680ad5f891d3050aa308c7",
+    "engine/samples/render-p35-font-native-bitmap.hwpx": "1c902d41d47e532f42d2b24a44058efd370ee6496927c32e76e955029a0b9eec",
+    "engine/assets/logo/logo-32.png": "5b4c651a33a497996428de9180a906fbff36c95f9e9d01cca35ba620177ffbb7",
+    "engine/ttfs/opensource/NotoSansKR-Regular.ttf": "6e06a7fe5d696ca719894a23f36bb2b1be8c816a5937cd4ad0f23ca67780dd74",
+    "engine/ttfs/opensource/NotoSansKR-OFL.txt": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+    "engine/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf": "ba3121428c49e4ce8d2bf06e9977e126ee08e51dc6b4a840701a1945df3b2e84",
+    "engine/tests/fixtures/fonts/RHWPExactFaceSmoke.ttc": "f58698f3e60e0aa6e182ecadf4f8239f309a0bac7be252538611e6c5cad723b5",
+    "engine/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.LICENSE.md": "da249987e9dd4853af9b4a0dfd3c2394f30cdecb7c68f0d578bc61aa33965a81",
+    "engine/tests/fixtures/fonts/RHWPExactFaceSmoke.LICENSE.md": "c1c91537f947cc2ad5e361969842844794d5b22d8a3eb91dbf0f9c052cb42cd5"
+  },
+  "generatedReplacementFixtures": 0,
+  "blockedCorpusFiles": [
+    {
+      "path": "engine/samples/3-09월_교육_통합_2022.hwp",
+      "gitBlob": "9e83cccae3c7186c77aea448841c223922be639e",
+      "size": 5820416,
+      "reason": "Public tracked 2022 educational-exam corpus; original publisher/reuse grant and non-sensitive content not verified. The four p325 picture-band transaction tests depend on stored source geometry at paragraphs 325..332; a generic synthetic table/picture cannot establish that original-corpus regression."
+    },
+    {
+      "path": "engine/samples/hwp3-sample16-hwp5.hwp",
+      "gitBlob": "f952b7633732d6e510b49f8805116d0a65b93bb0",
+      "size": 3043328,
+      "reason": "Public tracked Hancom-2022 conversion of a 64-page HWP3 water-agency planning corpus; conversion provenance is documented, but original creator/reuse grant and non-sensitive content not verified. Replacing it with a native HWP5 blank would remove the HWP3-derived layout-profile assertion."
+    },
+    {
+      "path": "engine/samples/hwpx/aift.hwpx",
+      "gitBlob": "83eaf1947b35a004f80deb86e02b1d007aba3b80",
+      "size": 5056727,
+      "reason": "Public tracked 74-page real business-plan corpus, provided by upstream task requester; no file-specific author/reuse permission or non-sensitive classification found. The memo-header test expects preservation of that corpus header, including SOLID and #CBFF99. No invented aift stand-in restored."
+    }
+  ],
+  "previousIncludeErrors": 28,
+  "currentIncludeErrors": 3,
+  "wholeLibraryInvocation": {
+    "command": [
+      "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "test",
+      "--offline",
+      "--locked",
+      "--manifest-path",
+      "engine/Cargo.toml",
+      "-p",
+      "rhwp",
+      "--lib",
+      "--",
+      "--test-threads=2"
+    ],
+    "rustToolchain": "1.93.1-aarch64-apple-darwin",
+    "debugInfo": 0,
+    "incremental": false,
+    "targetLimitBytes": 3221225472,
+    "targetPeakBytes": 2581155840,
+    "targetFinalBytes": 2581106688,
+    "stoppedForBudget": false,
+    "exitCode": 101,
+    "elapsedSeconds": 20.59,
+    "scope": "unit",
+    "GUIVerified": false,
+    "physicalIMEVerified": false
+  },
+  "testFilters": [],
+  "addedSkips": 0,
+  "runtimeTestsExecuted": false,
+  "runtimeRegressionClassification": "not available; compilation blocked by three pre-existing source fixtures",
+  "productSourceChanged": false,
+  "wasmSHA256": "2f63c208dca6ac986a75ceb351cbfc3fbe292311d7a8c2244f6b9506d94f1947",
+  "protectedAppsSHA256": {
+    "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+    "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b"
+  },
+  "newPackaging": false,
+  "publicPushOrRelease": false,
+  "userOriginalDocumentsUsed": false,
+  "uploadedDocuments": false,
+  "GUIVerified": false,
+  "LinuxExecuted": false,
+  "nextFeatureProof": {
+    "proposal": "Nested table cell property format copy/paste",
+    "actualCurrentMethodExecuted": true,
+    "sourceSHA256": "2eb37ad57da620d13126d1440292dd811ec74f7d19c98efc578b1d377828919c",
+    "nestedTargetRejected": true,
+    "mutations": 0,
+    "DOMMocked": true,
+    "GUIVerified": false,
+    "engineRuntimeVerified": false
+  },
+  "helperProof": {
+    "isolatedCacheRestoration": {
+      "verifiedFiles": 11,
+      "restoredFiles": 11,
+      "blockedOriginals": 3
+    },
+    "isolatedVerification": {
+      "verifiedFiles": 11,
+      "restoredFiles": 0,
+      "blockedOriginals": 3
+    },
+    "tamperedExistingFileRejected": true,
+    "tamperedExistingFilePreserved": true,
+    "negativeExit": 1,
+    "actualFixtureFilesUnmodifiedByNegativeTest": true
+  },
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/library-fixtures-qa",
+  "evidenceSHA256": {
+    "upstream-tree.json": "ac0d02ab3e76b189fab0f472c740a05904bda9a3765da08f7eef76211115f0e2",
+    "unit-run.log": "632b2986c2ecd4119dada1d3f70767b6c57e6fe0ebf7a8e4b5df0e8fc7f8dbea",
+    "unit-build-proof.json": "50c0532792cb0ed3d48a45907220e5cf14134753d582ce776dda550bb92de42a",
+    "restore-helper-proof.json": "fb0ed26e4d7478a90f94cefa75590bd24c5fa8383d159c34d37a876cc8521c23",
+    "next-feature-proof.json": "704b96fdce7ecd6835a718e8e6f36ce66ebc2728719679d41e337dbd87c28823",
+    "next-feature-probe.mjs": "8f5ceac1c62e30013aefec4078fc97ad154541b70e59f9a42abf2a07eac69308",
+    "audit-helper.log": "8d8e235002b417a2ddf520aec74aa8fa9cadc57513a19ebeefb522a1ed89e96f"
+  },
+  "knownWhitespaceWarning": {
+    "path": "engine/ttfs/opensource/NotoSansKR-OFL.txt",
+    "line": 21,
+    "reason": "Unmodified upstream license bytes; retained to preserve verified pinned hashes"
+  }
+}
