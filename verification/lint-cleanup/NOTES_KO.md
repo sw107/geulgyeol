@@ -27,3 +27,19 @@ CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 CARGO_BUILD_JOBS=2 \
 현재 실행 환경에는 실제 Mac 화면 제어 도구가 없다. 따라서 문서 사본 열기·표 수식·스타일 변경·GUI undo/redo·native 저장·닫기·재열기와 물리 한글 IME는 미검증 상태를 유지한다. 목적으로 사용할 수 없는 음성 전용 화면 도구나 자동 키 입력으로 이 공백을 성공 처리하지 않는다. 새 GUI 검증 창은 열지 않았다.
 
 공개 `v0.4.4-beta.1` 커밋과 첨부, 기존 beta.2, dev.4 앱/ZIP 및 원본 문서는 유지한다. 이 변경은 개발 브랜치의 후속 소스 커밋이며 원격 main은 변경/병합하지 않는다. 베타 릴리스 설명의 당시 Clippy 미통과 기록도 역사적 사실로 유지한다.
+
+
+## 후속 행동 회귀 검사
+
+같은 `c72af7b` 소스에서 실제 네이티브 API를 실행했다. 첫 Clippy target 202 MiB를 재사용하고 디버그 정보/증분 출력을 끈 상태로 전체 target 1.5 GiB 제한을 유지했다. 최종 약 1.16 GiB이며 제한 중단은 없었다.
+
+| 검사 | 결과 |
+| --- | --- |
+| staged 이벤트 전달 | 글자 서식·문단 서식·split·merge × batch 두 상태 = 8개. 선행 이벤트와 후속 이벤트의 순서/값, endBatch 전달·비움 보존. snapshot 16회, 두 형식 재열기 16회. |
+| HWPX 타원 파서 | interval/hasArc 및 NORMAL/PIE/CHORD 5개. 중심·축·시작/끝점·크기·설명과 플래그 보존. 파서 입력 이후 HWP/HWPX 재열기 10회. arcType은 8번 비트부터라는 실제 모델 계약을 사용한다. |
+| 스타일 모양 전파 | 본문/셀/중첩 셀/머리말/각주 등 48개, undo/redo 96회, 재열기 96회, 원자 거절 17개. 직접 서식·다른 스타일 보존. |
+| 스타일 삭제 | 16개, undo/redo 16쌍, 재열기 32회, 원자 거절 11개. |
+| 셀 수식 | 72개, undo/redo 504회, 재열기 288회, 원자 거절 10개. |
+| 저장 줄이 있는 그룹 해제 | 108개, undo/redo 108쌍, 재열기 216회, 원자 거절 14개. 최대 모서리 오차 0.013334 px. |
+
+`cargo clippy --offline --locked --manifest-path engine/Cargo.toml -p rhwp --lib --target wasm32-unknown-unknown -- -D warnings`도 성공했다. 이는 WASM 경로의 컴파일·정적 검사다. 새 WASM 바이너리 실행이나 Mac 앱 패키징/GUI/물리 IME 검사로 확대해서 해석하지 않는다. 원본 문서와 공개 앱/릴리스는 변경하지 않았다. 요약/명령/로그 해시는 `behavior-proof.json`, 상세 로그·생성 문서·캐시는 저장소 밖 `style-lint-qa/`에 보관한다. 추가 회귀 예제 `lint_behavior_check`는 OUTPUT_DIR 인자에만 합성 문서를 기록한다.
