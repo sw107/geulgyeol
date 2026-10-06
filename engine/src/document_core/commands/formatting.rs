@@ -1677,19 +1677,38 @@ impl DocumentCore {
         cell_para_idx: usize,
         props_json: &str,
     ) -> Result<String, HwpError> {
+        self.apply_para_format_in_cell_by_path_native(
+            sec_idx,
+            parent_para_idx,
+            &[(control_idx, cell_idx, cell_para_idx)],
+            props_json,
+        )
+    }
+
+    fn para_format_cell_ref(
+        &self, sec: usize, parent: usize, path: &[(usize, usize, usize)],
+    ) -> Result<&crate::model::paragraph::Paragraph, HwpError> {
+        if let [entry] = path {
+            self.get_cell_paragraph_ref(sec, parent, entry.0, entry.1, entry.2)
+                .ok_or_else(|| HwpError::RenderError("셀 문단을 찾을 수 없음".into()))
+        } else {
+            self.resolve_paragraph_by_path(sec, parent, path)
+        }
+    }
+
+    pub fn apply_para_format_in_cell_by_path_native(
+        &mut self,
+        sec_idx: usize,
+        parent_para_idx: usize,
+        path: &[(usize, usize, usize)],
+        props_json: &str,
+    ) -> Result<String, HwpError> {
+        self.para_format_cell_ref(sec_idx, parent_para_idx, path)?;
         let mut mods = parse_para_shape_mods(props_json);
 
         // 탭 설정 변경 처리: TabDef 생성 → tab_def_id 세팅
         if json_has_tab_keys(props_json) {
-            let para = self
-                .get_cell_paragraph_ref(
-                    sec_idx,
-                    parent_para_idx,
-                    control_idx,
-                    cell_idx,
-                    cell_para_idx,
-                )
-                .ok_or_else(|| HwpError::RenderError("셀 문단을 찾을 수 없음".to_string()))?;
+            let para = self.para_format_cell_ref(sec_idx, parent_para_idx, path)?;
             let base_tab_def_id = self
                 .document
                 .doc_info
@@ -1717,25 +1736,15 @@ impl DocumentCore {
 
         let new_id;
         {
-            let para = self
-                .get_cell_paragraph_ref(
-                    sec_idx,
-                    parent_para_idx,
-                    control_idx,
-                    cell_idx,
-                    cell_para_idx,
-                )
-                .ok_or_else(|| HwpError::RenderError("셀 문단을 찾을 수 없음".to_string()))?;
+            let para = self.para_format_cell_ref(sec_idx, parent_para_idx, path)?;
             let base_id = para.para_shape_id;
             new_id = self.document.find_or_create_para_shape(base_id, &mods);
 
-            let cell_para = self.get_cell_paragraph_mut(
-                sec_idx,
-                parent_para_idx,
-                control_idx,
-                cell_idx,
-                cell_para_idx,
-            )?;
+            let cell_para = if let [entry] = path {
+                self.get_cell_paragraph_mut(sec_idx, parent_para_idx, entry.0, entry.1, entry.2)?
+            } else {
+                self.get_cell_paragraph_mut_by_path(sec_idx, parent_para_idx, path)?
+            };
             cell_para.para_shape_id = new_id;
         }
 
@@ -1749,17 +1758,15 @@ impl DocumentCore {
         // reflow_cell_paragraph 가 계산하는 사용 가능 폭·토큰 경계에 실제로 쓰인다.
         // para_shape_mods_affect_text_flow(:16 부근)로 판정을 통일한다.
         if para_shape_mods_affect_text_flow(&mods) {
-            self.reflow_cell_paragraph(
-                sec_idx,
-                parent_para_idx,
-                control_idx,
-                cell_idx,
-                cell_para_idx,
-            );
+            if let [entry] = path {
+                self.reflow_cell_paragraph(sec_idx, parent_para_idx, entry.0, entry.1, entry.2);
+            } else {
+                self.reflow_cell_paragraph_by_path(sec_idx, parent_para_idx, path, path.last().unwrap().2);
+            }
         }
 
         // 표 dirty 마킹 — measure_section_incremental이 셀 높이를 재계산하도록
-        self.mark_cell_control_dirty(sec_idx, parent_para_idx, control_idx);
+        self.mark_cell_control_dirty(sec_idx, parent_para_idx, path[0].0);
 
         self.document.sections[sec_idx].raw_stream = None;
         self.rebuild_section_deferred_in_batch(sec_idx);

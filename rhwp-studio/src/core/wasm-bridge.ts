@@ -1783,6 +1783,31 @@ export class WasmBridge {
     return JSON.parse(doc.getCellOwnProperties(sec, parentPara, controlIdx, cellIdx));
   }
 
+  getCellOwnPropertiesByPath(sec: number, parent: number, pathJson: string): CellProperties {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse(this.doc.getCellOwnPropertiesByPath(sec, parent, pathJson));
+  }
+
+  getCellParaPropertiesAtByPath(sec: number, parent: number, pathJson: string): ParaProperties {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse(this.doc.getCellParaPropertiesAtByPath(sec, parent, pathJson));
+  }
+
+  applyCellOwnPropertiesByPaths(sec: number, parent: number, paths: CellPathEntry[][], props: Partial<CellProperties>): { ok: boolean; cells: number } {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse(this.doc.applyCellOwnPropertiesByPaths(sec, parent, JSON.stringify(paths), JSON.stringify(props)));
+  }
+
+  applyFormatCopyInCell(start: DocumentPosition, end: DocumentPosition, chars: Partial<CharProperties>, paras: Partial<ParaProperties>): { ok: boolean } {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    if (start.sectionIndex !== end.sectionIndex || start.parentParaIndex !== end.parentParaIndex || start.parentParaIndex === undefined) {
+      throw new Error('모양복사 텍스트 선택은 같은 셀 안이어야 합니다');
+    }
+    return JSON.parse(this.doc.applyFormatCopyInCell(start.sectionIndex, start.parentParaIndex,
+      JSON.stringify(start.cellPath), JSON.stringify(end.cellPath), start.charOffset, end.charOffset,
+      JSON.stringify(chars), JSON.stringify(paras)));
+  }
+
   setCellProperties(
     sec: number,
     parentPara: number,

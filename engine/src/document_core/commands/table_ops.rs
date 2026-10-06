@@ -1319,6 +1319,15 @@ impl DocumentCore {
             }
         };
 
+        self.build_cell_properties_json(table, cell_idx, use_effective_border_fill)
+    }
+
+    pub(crate) fn build_cell_properties_json(
+        &self,
+        table: &crate::model::table::Table,
+        cell_idx: usize,
+        use_effective_border_fill: bool,
+    ) -> Result<String, HwpError> {
         let cell = table
             .cells
             .get(cell_idx)
@@ -1761,7 +1770,7 @@ impl DocumentCore {
         serde_json::to_string(&value).unwrap_or_else(|_| json.to_string())
     }
 
-    fn cell_is_covered_by_zone_border_fill(
+    pub(crate) fn cell_is_covered_by_zone_border_fill(
         table: &crate::model::table::Table,
         cell: &crate::model::table::Cell,
         border_fill_id: u16,

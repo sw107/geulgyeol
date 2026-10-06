@@ -5413,6 +5413,21 @@ export class InputHandler {
     if (!sel) return false;
 
     const { charProps, paraProps } = this.formatCopyState;
+    if ((sel.start.cellPath?.length ?? 0) > 1 || (sel.end.cellPath?.length ?? 0) > 1) {
+      try {
+        this.executeOperation({ kind: 'snapshot', operationType: 'formatCopyNestedText', operation: (wasm) => {
+          wasm.runInBatch(() => wasm.applyFormatCopyInCell(sel.start, sel.end, charProps, paraProps));
+          return this.cursor.getPosition();
+        }});
+      } catch (error) {
+        console.info('[InputHandler] 모양복사 선택 거절:', error);
+        this.focusTextarea();
+        return false;
+      }
+      this.formatCopyState = null;
+      this.focusTextarea();
+      return true;
+    }
     if (Object.keys(charProps).length > 0) {
       this.applyCharPropsToRange(sel.start, sel.end, charProps);
     }
@@ -5426,6 +5441,12 @@ export class InputHandler {
   }
 
   private copyFormatAtCursor(): void {
+    const pos = this.cursor.getPosition();
+    const ownCellProps = pos.parentParaIndex !== undefined
+      ? (pos.cellPath?.length
+        ? this.wasm.getCellOwnPropertiesByPath(pos.sectionIndex, pos.parentParaIndex, JSON.stringify(pos.cellPath))
+        : this.wasm.getCellOwnProperties(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex!, pos.cellIndex!))
+      : undefined;
     const currentCharProps = this.getCharProperties();
     const charProps = pickDefined(currentCharProps, FORMAT_COPY_CHAR_KEYS) as Partial<CharProperties>;
     if (charProps.fontIds === undefined && charProps.fontId === undefined) {
@@ -5436,15 +5457,11 @@ export class InputHandler {
       }
     }
     const paraProps = normalizeFormatCopyParaProps(
-      pickDefined(this.getParaProperties(), FORMAT_COPY_PARA_KEYS) as Partial<ParaProperties>,
+      pickDefined(pos.parentParaIndex !== undefined && (pos.cellPath?.length ?? 0) > 1
+        ? this.wasm.getCellParaPropertiesAtByPath(pos.sectionIndex, pos.parentParaIndex, JSON.stringify(pos.cellPath))
+        : this.getParaProperties(), FORMAT_COPY_PARA_KEYS) as Partial<ParaProperties>,
     );
-    const pos = this.cursor.getPosition();
-    const cellProps = pos.parentParaIndex !== undefined
-      ? pickDefined(
-          this.wasm.getCellOwnProperties(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex!, pos.cellIndex!),
-          FORMAT_COPY_CELL_KEYS,
-        ) as Partial<CellProperties>
-      : undefined;
+    const cellProps = ownCellProps ? pickDefined(ownCellProps, FORMAT_COPY_CELL_KEYS) as Partial<CellProperties> : undefined;
     this.formatCopyState = {
       charProps: JSON.parse(JSON.stringify(charProps)),
       paraProps: JSON.parse(JSON.stringify(paraProps)),
@@ -5460,13 +5477,24 @@ export class InputHandler {
       this.focusTextarea();
       return false;
     }
-    if (ctx.cellPath && ctx.cellPath.length > 1) {
-      console.info('[InputHandler] 중첩 표 셀 모양복사는 아직 지원하지 않습니다');
-      this.focusTextarea();
-      return false;
-    }
-
     const props = JSON.parse(JSON.stringify(cellProps)) as Partial<CellProperties>;
+    if (ctx.cellPath && ctx.cellPath.length > 1) {
+      try {
+        const block = this.getSelectedCellBlock();
+        if (!block?.cellPath || block.cellIndices.length === 0) return false;
+        const paths = block.cellIndices.map((index) => withCellPathTarget(block.cellPath!, index, 0));
+        this.executeOperation({ kind: 'snapshot', operationType: 'formatCopyCellProps', operation: (wasm) => {
+          wasm.runInBatch(() => wasm.applyCellOwnPropertiesByPaths(block.sec, block.ppi, paths, props));
+          return this.cursor.getPosition();
+        }});
+      } catch (error) {
+        console.info('[InputHandler] 모양복사 셀 경로 거절:', error);
+        this.focusTextarea();
+        return false;
+      }
+      this.focusTextarea();
+      return true;
+    }
     this.executeOperation({
       kind: 'snapshot',
       operationType: 'formatCopyCellProps',

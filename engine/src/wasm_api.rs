@@ -3437,6 +3437,68 @@ impl HwpDocument {
         .map_err(|e| e.into())
     }
 
+    #[wasm_bindgen(js_name = getCellOwnPropertiesByPath)]
+    pub fn get_cell_own_properties_by_path(
+        &self,
+        sec: u32,
+        parent: u32,
+        path_json: &str,
+    ) -> Result<String, JsValue> {
+        self.get_cell_own_properties_by_path_native(sec as usize, parent as usize, path_json)
+            .map_err(Into::into)
+    }
+    #[wasm_bindgen(js_name = getCellParaPropertiesAtByPath)]
+    pub fn get_cell_para_properties_at_by_path(
+        &self,
+        sec: u32,
+        parent: u32,
+        path_json: &str,
+    ) -> Result<String, JsValue> {
+        self.get_cell_para_properties_by_path_native(sec as usize, parent as usize, path_json)
+            .map_err(Into::into)
+    }
+    #[wasm_bindgen(js_name = applyCellOwnPropertiesByPaths)]
+    pub fn apply_cell_own_properties_by_paths(
+        &mut self,
+        sec: u32,
+        parent: u32,
+        paths_json: &str,
+        props_json: &str,
+    ) -> Result<String, JsValue> {
+        self.apply_cell_own_properties_by_paths_native(
+            sec as usize,
+            parent as usize,
+            paths_json,
+            props_json,
+        )
+        .map_err(Into::into)
+    }
+    #[allow(clippy::too_many_arguments)]
+    #[wasm_bindgen(js_name = applyFormatCopyInCell)]
+    pub fn apply_format_copy_in_cell(
+        &mut self,
+        sec: u32,
+        parent: u32,
+        start_path: &str,
+        end_path: &str,
+        start: u32,
+        end: u32,
+        char_json: &str,
+        para_json: &str,
+    ) -> Result<String, JsValue> {
+        self.apply_format_copy_in_cell_native(
+            sec as usize,
+            parent as usize,
+            start_path,
+            end_path,
+            start as usize,
+            end as usize,
+            char_json,
+            para_json,
+        )
+        .map_err(Into::into)
+    }
+
     /// 셀 속성을 수정한다.
     ///
     /// 반환: JSON `{"ok":true,"changes":[{cellIdx,beforeId,afterId}...],

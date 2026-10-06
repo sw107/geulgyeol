@@ -23,3 +23,4 @@ mod style_shapes;
 mod style_metadata;
 
 mod next_style;
+mod format_copy;
