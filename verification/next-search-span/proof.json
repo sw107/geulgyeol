@@ -1,0 +1,408 @@
+{
+  "engineSHA256": "c258e8478d9bcd5e0165abb4622297da748e42a82a0275d282d96bfc0158c71e",
+  "node": "v24.20.0",
+  "cases": [
+    {
+      "id": "expanded-query-deletes-ascii-neighbor",
+      "text": "\u0130AB",
+      "query": "i\u0307a",
+      "expected": "QB",
+      "api": "replaceOne",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 3
+      },
+      "before": "\u0130AB",
+      "actual": "Q",
+      "contentPreservationDefect": true,
+      "exportedWrongTextPersists": true,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-ascii-neighbor-replaceOne.hwp",
+          "reopenedText": "Q",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-ascii-neighbor-replaceOne.hwpx",
+          "reopenedText": "Q",
+          "reportedContentLoss": 0
+        }
+      ]
+    },
+    {
+      "id": "expanded-query-deletes-ascii-neighbor",
+      "text": "\u0130AB",
+      "query": "i\u0307a",
+      "expected": "QB",
+      "api": "replaceAll",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 3
+      },
+      "before": "\u0130AB",
+      "actual": "Q",
+      "contentPreservationDefect": true,
+      "exportedWrongTextPersists": true,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-ascii-neighbor-replaceAll.hwp",
+          "reopenedText": "Q",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-ascii-neighbor-replaceAll.hwpx",
+          "reopenedText": "Q",
+          "reportedContentLoss": 0
+        }
+      ]
+    },
+    {
+      "id": "expanded-query-deletes-ascii-neighbor",
+      "text": "\u0130AB",
+      "query": "i\u0307a",
+      "expected": "QB",
+      "api": "replaceText",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 3
+      },
+      "before": "\u0130AB",
+      "actual": "Q",
+      "contentPreservationDefect": true,
+      "exportedWrongTextPersists": true,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-ascii-neighbor-replaceText.hwp",
+          "reopenedText": "Q",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-ascii-neighbor-replaceText.hwpx",
+          "reopenedText": "Q",
+          "reportedContentLoss": 0
+        }
+      ]
+    },
+    {
+      "id": "expanded-query-deletes-emoji-neighbor",
+      "text": "\u0130A\ud83d\ude00TAIL",
+      "query": "i\u0307a",
+      "expected": "Q\ud83d\ude00TAIL",
+      "api": "replaceOne",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 3
+      },
+      "before": "\u0130A\ud83d\ude00TAIL",
+      "actual": "QTAIL",
+      "contentPreservationDefect": true,
+      "exportedWrongTextPersists": true,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-emoji-neighbor-replaceOne.hwp",
+          "reopenedText": "QTAIL",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-emoji-neighbor-replaceOne.hwpx",
+          "reopenedText": "QTAIL",
+          "reportedContentLoss": 0
+        }
+      ]
+    },
+    {
+      "id": "expanded-query-deletes-emoji-neighbor",
+      "text": "\u0130A\ud83d\ude00TAIL",
+      "query": "i\u0307a",
+      "expected": "Q\ud83d\ude00TAIL",
+      "api": "replaceAll",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 3
+      },
+      "before": "\u0130A\ud83d\ude00TAIL",
+      "actual": "QTAIL",
+      "contentPreservationDefect": true,
+      "exportedWrongTextPersists": true,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-emoji-neighbor-replaceAll.hwp",
+          "reopenedText": "QTAIL",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-emoji-neighbor-replaceAll.hwpx",
+          "reopenedText": "QTAIL",
+          "reportedContentLoss": 0
+        }
+      ]
+    },
+    {
+      "id": "expanded-query-deletes-emoji-neighbor",
+      "text": "\u0130A\ud83d\ude00TAIL",
+      "query": "i\u0307a",
+      "expected": "Q\ud83d\ude00TAIL",
+      "api": "replaceText",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 3
+      },
+      "before": "\u0130A\ud83d\ude00TAIL",
+      "actual": "QTAIL",
+      "contentPreservationDefect": true,
+      "exportedWrongTextPersists": true,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-emoji-neighbor-replaceText.hwp",
+          "reopenedText": "QTAIL",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-query-deletes-emoji-neighbor-replaceText.hwpx",
+          "reopenedText": "QTAIL",
+          "reportedContentLoss": 0
+        }
+      ]
+    },
+    {
+      "id": "expanded-source-leaves-match-suffix",
+      "text": "i\u0307AB",
+      "query": "\u0130A",
+      "expected": "QB",
+      "api": "replaceOne",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 2
+      },
+      "before": "i\u0307AB",
+      "actual": "QAB",
+      "contentPreservationDefect": true,
+      "exportedWrongTextPersists": true,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-source-leaves-match-suffix-replaceOne.hwp",
+          "reopenedText": "QAB",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-source-leaves-match-suffix-replaceOne.hwpx",
+          "reopenedText": "QAB",
+          "reportedContentLoss": 0
+        }
+      ]
+    },
+    {
+      "id": "expanded-source-leaves-match-suffix",
+      "text": "i\u0307AB",
+      "query": "\u0130A",
+      "expected": "QB",
+      "api": "replaceAll",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 2
+      },
+      "before": "i\u0307AB",
+      "actual": "QAB",
+      "contentPreservationDefect": true,
+      "exportedWrongTextPersists": true,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-source-leaves-match-suffix-replaceAll.hwp",
+          "reopenedText": "QAB",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-source-leaves-match-suffix-replaceAll.hwpx",
+          "reopenedText": "QAB",
+          "reportedContentLoss": 0
+        }
+      ]
+    },
+    {
+      "id": "expanded-source-leaves-match-suffix",
+      "text": "i\u0307AB",
+      "query": "\u0130A",
+      "expected": "QB",
+      "api": "replaceText",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 2
+      },
+      "before": "i\u0307AB",
+      "actual": "QAB",
+      "contentPreservationDefect": true,
+      "exportedWrongTextPersists": true,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-source-leaves-match-suffix-replaceText.hwp",
+          "reopenedText": "QAB",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/expanded-source-leaves-match-suffix-replaceText.hwpx",
+          "reopenedText": "QAB",
+          "reportedContentLoss": 0
+        }
+      ]
+    },
+    {
+      "id": "ascii-control",
+      "text": "IAB",
+      "query": "ia",
+      "expected": "QB",
+      "api": "replaceOne",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 2
+      },
+      "before": "IAB",
+      "actual": "QB",
+      "contentPreservationDefect": false,
+      "exportedWrongTextPersists": false,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/ascii-control-replaceOne.hwp",
+          "reopenedText": "QB",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/ascii-control-replaceOne.hwpx",
+          "reopenedText": "QB",
+          "reportedContentLoss": 0
+        }
+      ]
+    },
+    {
+      "id": "ascii-control",
+      "text": "IAB",
+      "query": "ia",
+      "expected": "QB",
+      "api": "replaceAll",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 2
+      },
+      "before": "IAB",
+      "actual": "QB",
+      "contentPreservationDefect": false,
+      "exportedWrongTextPersists": false,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/ascii-control-replaceAll.hwp",
+          "reopenedText": "QB",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/ascii-control-replaceAll.hwpx",
+          "reopenedText": "QB",
+          "reportedContentLoss": 0
+        }
+      ]
+    },
+    {
+      "id": "ascii-control",
+      "text": "IAB",
+      "query": "ia",
+      "expected": "QB",
+      "api": "replaceText",
+      "hit": {
+        "sec": 0,
+        "para": 0,
+        "charOffset": 0,
+        "length": 2
+      },
+      "before": "IAB",
+      "actual": "QB",
+      "contentPreservationDefect": false,
+      "exportedWrongTextPersists": false,
+      "undoRestoresSource": true,
+      "files": [
+        {
+          "format": "Hwp",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/ascii-control-replaceText.hwp",
+          "reopenedText": "QB",
+          "reportedContentLoss": 0
+        },
+        {
+          "format": "Hwpx",
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/enter-pagination-profile-qa/next-search-span/ascii-control-replaceText.hwpx",
+          "reopenedText": "QB",
+          "reportedContentLoss": 0
+        }
+      ]
+    }
+  ],
+  "total": 12,
+  "observedDefects": 9,
+  "controlPasses": 3,
+  "allReopensPreserveObservedText": true,
+  "productionCodeChanged": false,
+  "GUIVerified": false,
+  "actualHancomUnicodeBehaviorVerified": false,
+  "sourceFileSHA256": {
+    "engine/src/document_core/queries/search_query.rs": "15ccfdc29f2d7ec17e42d15dcb1dd5875f8534c2771994f456c3ea5782afee8b",
+    "engine/src/document_core/queries/grep.rs": "9e27dc7145cb109eea1c9b9cbe1650d6efb38701171d29c2d61d20e1c5bf845f",
+    "rhwp-studio/src/ui/find-dialog.ts": "98a38fb526fd9c8bac620691a4912d2600ca3206463aa5a4f27bfc7b56ad7a1f",
+    "scripts/repro-search-casefold-span.mjs": "cf938bf1283de2bca2d5d3169edf1f36f446be0d69b9e95ea29f1cf2b2a0f831"
+  },
+  "productionSearchCodeChanged": false,
+  "sourceStateBase": "2bdf2e9 plus adopted exact validated font classifier candidate",
+  "reproductionInvocationExitCode": 0,
+  "initialHarnessCorrection": "removed an incorrect ok=true assumption from createBlankDocument/insertText cursor-result APIs; actual inserted text is asserted instead",
+  "sourceCommit": "0818c1ef9330035bf4c34a26f84615f160a3c473"
+}
