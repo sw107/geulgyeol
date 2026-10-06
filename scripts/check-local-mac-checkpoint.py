@@ -18,6 +18,8 @@ def main():
     parser.add_argument("--app", type=pathlib.Path, required=True)
     parser.add_argument("--studio-dir", type=pathlib.Path, required=True)
     parser.add_argument("--output-dir", type=pathlib.Path, required=True)
+    parser.add_argument("--required-ui-method", action="append", default=[])
+    parser.add_argument("--source-proof", type=pathlib.Path)
     args = parser.parse_args()
     root = pathlib.Path(__file__).resolve().parent.parent
     spec = importlib.util.spec_from_file_location("asar", root / "scripts/repackage-mac-candidate.py")
@@ -75,12 +77,21 @@ def main():
     assert len(hashed_engine) == 1 and assets[hashed_engine[0]] == engine_sha
     compiled_ui = b"\n".join(value for name, value in contents.items() if name.startswith("web/studio/") and name.endswith(".js"))
     new_methods = ["applyCellOwnPropertiesByPaths", "applyFormatCopyInCell", "getCellOwnPropertiesByPath", "getCellParaPropertiesAtByPath"]
+    new_methods = list(dict.fromkeys(new_methods + args.required_ui_method))
     assert all(n.encode() in compiled_ui for n in new_methods)
+    source_hashes = {}
+    if args.source_proof:
+        source_hashes = json.loads(args.source_proof.read_text())["sourceSHA256"]
+        for name, digest in source_hashes.items():
+            source = (root / name).resolve()
+            assert source.is_relative_to(root) and sha(source.read_bytes()) == digest, name
     proof = {"app": str(app), "version": version, "bundleId": bundle_id, "helpers": helpers,
              "asarSHA256": sha(data), "asarHeaderSHA256": header_sha, "allEntryAndBlockIntegrityVerified": True,
              "freshBindingsAndStudioAssetsMatch": True, "engineSHA256": engine_sha,
              "compiledUIMethods": new_methods, "assets": assets, "profileIsolated": True,
              "onlyBindingsExtracted": True, "allSymlinksStayInsideCandidate": True, "noTestsOrNodeModulesInApp": True, "GUIVerified": False}
+    if args.source_proof:
+        proof.update(productSourceSHA256=source_hashes, sourceFreezeProof=str(args.source_proof.resolve()))
     (output / "package-verification.json").write_text(json.dumps(proof, indent=2) + "\n")
     print(json.dumps({k: v for k, v in proof.items() if k != "assets"}, indent=2))
 

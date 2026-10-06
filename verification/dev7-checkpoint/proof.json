@@ -1,0 +1,6338 @@
+{
+  "productSourceCommit": "7a51cc2e28167b3f0711d9f3b570a5604bbf27b7",
+  "checkout": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation",
+  "package": {
+    "app": "/Users/sw107/Documents/Codex/2026-10-06/task/dev7-checkpoint-qa/GeulgyeolDev7.app",
+    "version": "0.4.4-dev.7",
+    "bundleId": "org.geulgyeol.dev.checkpoint7",
+    "helpers": [
+      {
+        "name": "GeulgyeolDev7 Helper (GPU)",
+        "bundleId": "org.geulgyeol.dev.checkpoint7.helper.GPU"
+      },
+      {
+        "name": "GeulgyeolDev7 Helper (Plugin)",
+        "bundleId": "org.geulgyeol.dev.checkpoint7.helper.Plugin"
+      },
+      {
+        "name": "GeulgyeolDev7 Helper (Renderer)",
+        "bundleId": "org.geulgyeol.dev.checkpoint7.helper.Renderer"
+      },
+      {
+        "name": "GeulgyeolDev7 Helper",
+        "bundleId": "org.geulgyeol.dev.checkpoint7.helper"
+      }
+    ],
+    "asarSHA256": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+    "asarHeaderSHA256": "041e52a8fbce9022d07dc58e0216b8eb55132c9da3eaea6fa21d9142980962d7",
+    "allEntryAndBlockIntegrityVerified": true,
+    "freshBindingsAndStudioAssetsMatch": true,
+    "engineSHA256": "657d4b4a3949813d6d3c366a2ca1245c7c5e9d93dba34423db738419013af1e9",
+    "compiledUIMethods": [
+      "applyCellOwnPropertiesByPaths",
+      "applyFormatCopyInCell",
+      "getCellOwnPropertiesByPath",
+      "getCellParaPropertiesAtByPath",
+      "applyCharFormatInFootnote",
+      "getCharPropertiesInFootnote",
+      "applyParaFormatInFootnoteRange",
+      "getParaPropertiesInFootnote",
+      "applyParaFormatInCellsByPaths",
+      "insertFormattedTextInFootnote",
+      "beginPendingFootnoteComposition",
+      "finishPendingFootnoteComposition"
+    ],
+    "assets": {
+      "favicon.ico": "136d51c3d0a12bc67352964998fa78a5dcf2702873f73eb261990f9e20eb0ade",
+      "index.html": "7d78a0c9db56f345849863061c3eb962fefe1715fd9062d28efb6f3ef60844c3",
+      "theme-init.js": "5a3afcc0139187bfe509414cd60fde2a0dfea72fd72751c4e6e696cdc0f6c587",
+      "print.html": "930907863afbafcc76099d386f6a995bc6c69387cb56838b18e4cdaf6eea6b79",
+      "images/icon_small_ko_dark.svg": "9d02ea0b8c1d399a89290d97613759826f19f3e3f392b6d79dcf6109e7e15fa6",
+      "images/icon_small_ko.svg": "a0ac1200a41b6a75e9afb30cda5bb850276087d45c2f25870605888238ba9b39",
+      "icons/icon-256.png": "b851d2271495a9858efd51def7615f68f2204417977672cde1da1ced53120ad0",
+      "icons/icon-192.png": "1180863b994272a7591043ecf0ae539de78c0f404eecad15b4e67b0315cbaf9c",
+      "icons/icon-128.png": "ce3047204dedd260b62b507ef1773ecfa1e68be1ddf08304a664fcb1341d502d",
+      "icons/icon-512.png": "25074cfb4bc9e9c543fd56504e4088741e4fe2b4927f36ab90741efa7947887a",
+      "assets/rhwp-hwpctrl-plugin.d-BvRk9kiK.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "assets/rhwp_bg-CwJs35fU.wasm": "657d4b4a3949813d6d3c366a2ca1245c7c5e9d93dba34423db738419013af1e9",
+      "assets/canvaskit-SCAxUyCS.wasm": "25ebed8e60158c5854f8dc807b936daca21354f8bfb6a2231266b0a93812f301",
+      "assets/index-DK2eeMG2.css": "f620e5b4e515c0f88c3dfc0c9602e18ef8fab39832d210c7f67fcaa6d77dc6ea",
+      "assets/index-DvW9WVHq.js": "525764056ce6fbd3279ed80c0308d530de6606c798b70bf95247b891dca208d1",
+      "assets/canvaskit-renderer-DU9L0428.js": "b4b15005e25736d0792973e7cc0a6747a519b808aedf5b2c8a66a245b089fcbe"
+    },
+    "profileIsolated": true,
+    "onlyBindingsExtracted": true,
+    "allSymlinksStayInsideCandidate": true,
+    "noTestsOrNodeModulesInApp": true,
+    "GUIVerified": false,
+    "productSourceSHA256": {
+      "rhwp-studio/src/engine/input-handler.ts": "3ea99502fef0bd3f95bbd182a4fd5880c0e56aab9a7ec97a47a09228272c25ec",
+      "rhwp-studio/src/engine/input-handler-text.ts": "4ed749aa36da7d4cbb898bbaa319790f5557a2bc9eff274cab9d03e872f1b79d",
+      "rhwp-studio/src/engine/input-handler-keyboard.ts": "c89e8365396236559413857bc002980997114cd2137e45a5b449cb739dbd6ff2",
+      "rhwp-studio/src/engine/cursor.ts": "db27bdf9d8b39f5ea542fb062937c0bf1433fbf7440c2958b3076532fd3346e6",
+      "rhwp-studio/src/engine/history.ts": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db",
+      "rhwp-studio/src/engine/command.ts": "2820fb79bfb93e611bbcf213599e22e6a59c0a87816a5bb3bbfd7dd7d7523eeb",
+      "rhwp-studio/src/command/commands/format.ts": "82da1568db2d55e6ccbbb5215bb4ec51728313436ccd1cbc3746edfd54975b0e",
+      "rhwp-studio/src/core/wasm-bridge.ts": "ca581c8273d6b898f1d1c1684f23b8b41e3230264c4dd54643d6d3d2d647562f"
+    },
+    "sourceFreezeProof": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/verification/note-pending-format/proof.json"
+  },
+  "checks": {
+    "note-char": {
+      "cases": 36,
+      "restores": 216,
+      "reopens": 72,
+      "rejections": 32,
+      "noOps": 40,
+      "selectionRestores": 216,
+      "savedSVGEqual": 72,
+      "engineSHA256": "657d4b4a3949813d6d3c366a2ca1245c7c5e9d93dba34423db738419013af1e9",
+      "sourceSHA256": {
+        "input": "3ea99502fef0bd3f95bbd182a4fd5880c0e56aab9a7ec97a47a09228272c25ec",
+        "bridge": "ca581c8273d6b898f1d1c1684f23b8b41e3230264c4dd54643d6d3d2d647562f",
+        "command": "2820fb79bfb93e611bbcf213599e22e6a59c0a87816a5bb3bbfd7dd7d7523eeb",
+        "cursor": "db27bdf9d8b39f5ea542fb062937c0bf1433fbf7440c2958b3076532fd3346e6"
+      },
+      "realCommandHistory": true,
+      "GUIVerified": false,
+      "DOMAndDispatchAdapter": true
+    },
+    "note-paragraph": {
+      "caretControls": 12,
+      "cases": 40,
+      "restores": 240,
+      "reopens": 80,
+      "rejections": 176,
+      "noOps": 48,
+      "selectionRestores": 240,
+      "savedSVGEqual": 80,
+      "realCommandHistory": true,
+      "actualExecuteOperation": true,
+      "engineSHA256": "657d4b4a3949813d6d3c366a2ca1245c7c5e9d93dba34423db738419013af1e9",
+      "sourceSHA256": {
+        "input": "3ea99502fef0bd3f95bbd182a4fd5880c0e56aab9a7ec97a47a09228272c25ec",
+        "bridge": "ca581c8273d6b898f1d1c1684f23b8b41e3230264c4dd54643d6d3d2d647562f",
+        "command": "2820fb79bfb93e611bbcf213599e22e6a59c0a87816a5bb3bbfd7dd7d7523eeb",
+        "cursor": "db27bdf9d8b39f5ea542fb062937c0bf1433fbf7440c2958b3076532fd3346e6"
+      },
+      "GUIVerified": false,
+      "DOMAndRenderAdapter": true
+    },
+    "note-pending": {
+      "cases": 24,
+      "restores": 352,
+      "reopens": 136,
+      "rejections": 20,
+      "lifetimeCases": 32,
+      "compositionCases": 28,
+      "structuralCases": 16,
+      "rollbackCases": 8,
+      "lifecycleCases": 16,
+      "continuedInputCases": 8,
+      "bodyCellPendingControls": 2,
+      "boundaryCases": 8,
+      "budgetCases": 1,
+      "snapshotPeak": 100,
+      "noOps": 12,
+      "savedSVGEqual": 136,
+      "engineSHA256": "657d4b4a3949813d6d3c366a2ca1245c7c5e9d93dba34423db738419013af1e9",
+      "actualCursorClass": true,
+      "actualExecuteOperation": true,
+      "actualTextInputFunctions": true,
+      "actualFootnoteKeyboardBranch": true,
+      "realCommandHistory": true,
+      "sourceSHA256": {
+        "rhwp-studio/src/engine/input-handler.ts": "3ea99502fef0bd3f95bbd182a4fd5880c0e56aab9a7ec97a47a09228272c25ec",
+        "rhwp-studio/src/engine/input-handler-text.ts": "4ed749aa36da7d4cbb898bbaa319790f5557a2bc9eff274cab9d03e872f1b79d",
+        "rhwp-studio/src/engine/input-handler-keyboard.ts": "c89e8365396236559413857bc002980997114cd2137e45a5b449cb739dbd6ff2",
+        "rhwp-studio/src/engine/cursor.ts": "db27bdf9d8b39f5ea542fb062937c0bf1433fbf7440c2958b3076532fd3346e6",
+        "rhwp-studio/src/engine/history.ts": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db",
+        "rhwp-studio/src/engine/command.ts": "2820fb79bfb93e611bbcf213599e22e6a59c0a87816a5bb3bbfd7dd7d7523eeb",
+        "rhwp-studio/src/command/commands/format.ts": "82da1568db2d55e6ccbbb5215bb4ec51728313436ccd1cbc3746edfd54975b0e",
+        "rhwp-studio/src/core/wasm-bridge.ts": "ca581c8273d6b898f1d1c1684f23b8b41e3230264c4dd54643d6d3d2d647562f"
+      },
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "DOMAndGeometryAdapter": true
+    },
+    "nested-paragraph": {
+      "historyBudgetCases": 3,
+      "historyBudgetCommands": 375,
+      "historyBudgetRestores": 129,
+      "cases": 108,
+      "regressionFixed": 8,
+      "restores": 648,
+      "reopens": 216,
+      "rejections": 80,
+      "savedSVGEqual": 216,
+      "representativeSavedGeometryTolerancePx": 0.013333333333333334,
+      "rows": [
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": false,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": false,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                68
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                68
+              ],
+              [
+                113.38666666666667,
+                221.60000000000002,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                221.60000000000002,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": false,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                58.400000000000006
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                58.400000000000006
+              ],
+              [
+                113.38666666666667,
+                212.00000000000003,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                212.00000000000003,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": false,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": false,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": false,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": false,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": false,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                194.93333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": false,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                58.400000000000006
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                58.400000000000006
+              ],
+              [
+                113.38666666666667,
+                212.00000000000003,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                212.00000000000003,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": true,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": true,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                68
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                68
+              ],
+              [
+                113.38666666666667,
+                221.60000000000002,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                221.60000000000002,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": true,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": true,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": true,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                62.42666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                62.42666666666668
+              ],
+              [
+                113.38666666666667,
+                216.0266666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                216.0266666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": true,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                62.42666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                62.42666666666668
+              ],
+              [
+                113.38666666666667,
+                216.0266666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                216.0266666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": true,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": true,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": false,
+          "equations": true,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                212.82666666666668,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": false,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": false,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                68
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                68
+              ],
+              [
+                113.38666666666667,
+                221.60000000000002,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": false,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                58.400000000000006
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                58.400000000000006
+              ],
+              [
+                113.38666666666667,
+                212.00000000000003,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": false,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": false,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": false,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": false,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": false,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                41.33333333333334
+              ],
+              [
+                113.38666666666667,
+                194.93333333333337,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": false,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                58.400000000000006
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                58.400000000000006
+              ],
+              [
+                113.38666666666667,
+                212.00000000000003,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": true,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": true,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                68
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                68
+              ],
+              [
+                113.38666666666667,
+                221.60000000000002,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": true,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": true,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": true,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                62.42666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                62.42666666666668
+              ],
+              [
+                113.38666666666667,
+                216.0266666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": true,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                62.42666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                62.42666666666668
+              ],
+              [
+                113.38666666666667,
+                216.0266666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": true,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": true,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 1,
+          "merged": true,
+          "equations": true,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                59.22666666666666
+              ],
+              [
+                113.38666666666667,
+                212.82666666666668,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": false,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                212.7066666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                212.7066666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                268.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                268.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": false,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                141.97333333333336
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                141.97333333333336
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                68
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                68
+              ],
+              [
+                403.6533333333333,
+                239.37333333333336,
+                131.15999999999997,
+                38.426666666666705
+              ],
+              [
+                534.8133333333333,
+                239.37333333333336,
+                131.15999999999997,
+                38.426666666666705
+              ],
+              [
+                113.38666666666667,
+                295.5733333333334,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                295.5733333333334,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": false,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                132.37333333333333
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                132.37333333333333
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                58.400000000000006
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                58.400000000000006
+              ],
+              [
+                403.6533333333333,
+                229.77333333333337,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                229.77333333333337,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                285.97333333333336,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                285.97333333333336,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": false,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                212.7066666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                212.7066666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                268.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                268.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": false,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                117.97333333333336
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                117.97333333333336
+              ],
+              [
+                403.6533333333333,
+                172.7066666666667,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                172.7066666666667,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                214.04000000000005,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                214.04000000000005,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                271.5733333333334,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                271.5733333333334,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": false,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                117.97333333333336
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                117.97333333333336
+              ],
+              [
+                403.6533333333333,
+                172.7066666666667,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                172.7066666666667,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                214.04000000000005,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                214.04000000000005,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                271.5733333333334,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                271.5733333333334,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": false,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                212.7066666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                212.7066666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                268.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                268.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": false,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                212.7066666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                212.7066666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                268.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                268.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": false,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                132.37333333333333
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                132.37333333333333
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                58.400000000000006
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                58.400000000000006
+              ],
+              [
+                403.6533333333333,
+                229.77333333333337,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                229.77333333333337,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                285.97333333333336,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                285.97333333333336,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": true,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": true,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                141.97333333333336
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                141.97333333333336
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                68
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                68
+              ],
+              [
+                403.6533333333333,
+                239.37333333333336,
+                131.15999999999997,
+                38.426666666666705
+              ],
+              [
+                534.8133333333333,
+                239.37333333333336,
+                131.15999999999997,
+                38.426666666666705
+              ],
+              [
+                113.38666666666667,
+                295.5733333333334,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                295.5733333333334,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": true,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": true,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": true,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                139.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                139.30666666666667
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                62.42666666666665
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                62.42666666666665
+              ],
+              [
+                403.6533333333333,
+                235.25333333333333,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                235.25333333333333,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                292.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                292.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": true,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                139.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                139.30666666666667
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                62.42666666666665
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                62.42666666666665
+              ],
+              [
+                403.6533333333333,
+                235.25333333333333,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                235.25333333333333,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                292.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                292.9066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": true,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": true,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": false,
+          "equations": true,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                232.05333333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                289.7066666666667,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": false,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                212.7066666666667,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                268.9066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": false,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                141.97333333333336
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                141.97333333333336
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                68
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                68
+              ],
+              [
+                403.6533333333333,
+                239.37333333333336,
+                262.32000000000005,
+                38.426666666666705
+              ],
+              [
+                113.38666666666667,
+                295.5733333333334,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": false,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                132.37333333333333
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                132.37333333333333
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                58.400000000000006
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                58.400000000000006
+              ],
+              [
+                403.6533333333333,
+                229.77333333333337,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                285.97333333333336,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": false,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                212.7066666666667,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                268.9066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": false,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                117.97333333333336
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                117.97333333333336
+              ],
+              [
+                403.6533333333333,
+                172.7066666666667,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                172.7066666666667,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                214.04000000000005,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                271.5733333333334,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": false,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                117.97333333333336
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                117.97333333333336
+              ],
+              [
+                403.6533333333333,
+                172.7066666666667,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                172.7066666666667,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                214.04000000000005,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                271.5733333333334,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": false,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                212.7066666666667,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                268.9066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": false,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                115.30666666666667
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                41.33333333333334
+              ],
+              [
+                403.6533333333333,
+                212.7066666666667,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                268.9066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": false,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                132.37333333333333
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                132.37333333333333
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                58.400000000000006
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                58.400000000000006
+              ],
+              [
+                403.6533333333333,
+                229.77333333333337,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                285.97333333333336,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": true,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": true,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                141.97333333333336
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                141.97333333333336
+              ],
+              [
+                403.6533333333333,
+                171.37333333333336,
+                131.15999999999997,
+                68
+              ],
+              [
+                534.8133333333333,
+                171.37333333333336,
+                131.15999999999997,
+                68
+              ],
+              [
+                403.6533333333333,
+                239.37333333333336,
+                262.32000000000005,
+                38.426666666666705
+              ],
+              [
+                113.38666666666667,
+                295.5733333333334,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": true,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": true,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": true,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                139.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                139.30666666666667
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                62.42666666666665
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                62.42666666666665
+              ],
+              [
+                403.6533333333333,
+                235.25333333333333,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                292.9066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": true,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                139.30666666666667
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                139.30666666666667
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                62.42666666666665
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                62.42666666666665
+              ],
+              [
+                403.6533333333333,
+                235.25333333333333,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                292.9066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": true,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": true,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 2,
+          "merged": true,
+          "equations": true,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                136.10666666666668
+              ],
+              [
+                403.6533333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                534.8133333333333,
+                172.82666666666668,
+                131.15999999999997,
+                59.22666666666666
+              ],
+              [
+                403.6533333333333,
+                232.05333333333334,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                289.7066666666667,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": false,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                233.8133333333334,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                233.8133333333334,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                276.9533333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                276.9533333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                349.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                349.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": false,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                222.61333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                222.61333333333334
+              ],
+              [
+                403.6533333333333,
+                187.76666666666668,
+                131.15999999999997,
+                115.85333333333332
+              ],
+              [
+                534.8133333333333,
+                187.76666666666668,
+                131.15999999999997,
+                115.85333333333332
+              ],
+              [
+                545.3866666666665,
+                192.48000000000002,
+                56.89333333333332,
+                68
+              ],
+              [
+                602.2799999999999,
+                192.48000000000002,
+                56.89333333333332,
+                68
+              ],
+              [
+                545.3866666666665,
+                260.48,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                260.48,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                303.62,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                303.62,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                376.21333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                376.21333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": false,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                213.01333333333338
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                213.01333333333338
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                106.25333333333333
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                106.25333333333333
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                58.400000000000006
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                58.400000000000006
+              ],
+              [
+                545.3866666666665,
+                250.88000000000005,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                250.88000000000005,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                294.02000000000004,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                294.02000000000004,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                366.6133333333334,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                366.6133333333334,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": false,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                233.8133333333334,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                233.8133333333334,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                276.9533333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                276.9533333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                349.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                349.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": false,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                198.61333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                198.61333333333334
+              ],
+              [
+                403.6533333333333,
+                189.10000000000002,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                189.10000000000002,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                193.81333333333336,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                193.81333333333336,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                235.1466666666667,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                235.1466666666667,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                278.2866666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                278.2866666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                352.21333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                352.21333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": false,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                198.61333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                198.61333333333334
+              ],
+              [
+                403.6533333333333,
+                189.10000000000002,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                189.10000000000002,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                193.81333333333336,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                193.81333333333336,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                235.1466666666667,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                235.1466666666667,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                278.2866666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                278.2866666666667,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                352.21333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                352.21333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": false,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                233.8133333333334,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                233.8133333333334,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                276.9533333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                276.9533333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                349.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                349.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": false,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                233.8133333333334,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                233.8133333333334,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                276.9533333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                276.9533333333334,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                349.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                349.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": false,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                213.01333333333338
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                213.01333333333338
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                106.25333333333333
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                106.25333333333333
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                58.400000000000006
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                58.400000000000006
+              ],
+              [
+                545.3866666666665,
+                250.88000000000005,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                250.88000000000005,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                294.02000000000004,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                294.02000000000004,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                366.6133333333334,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                366.6133333333334,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": true,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                602.2799999999999,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": true,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                222.61333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                222.61333333333334
+              ],
+              [
+                403.6533333333333,
+                187.76666666666668,
+                131.15999999999997,
+                115.85333333333332
+              ],
+              [
+                534.8133333333333,
+                187.76666666666668,
+                131.15999999999997,
+                115.85333333333332
+              ],
+              [
+                545.3866666666665,
+                192.48000000000002,
+                56.89333333333332,
+                68
+              ],
+              [
+                602.2799999999999,
+                192.48000000000002,
+                56.89333333333332,
+                68
+              ],
+              [
+                545.3866666666665,
+                260.48,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                260.48,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                303.62,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                303.62,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                376.21333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                376.21333333333337,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": true,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                602.2799999999999,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": true,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                602.2799999999999,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": true,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                219.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                219.94666666666672
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                110.28
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                110.28
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                62.42666666666668
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                62.42666666666668
+              ],
+              [
+                545.3866666666665,
+                256.36000000000007,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                256.36000000000007,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                299.50000000000006,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                299.50000000000006,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                373.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                373.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": true,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                219.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                219.94666666666672
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                110.28
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                110.28
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                62.42666666666668
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                62.42666666666668
+              ],
+              [
+                545.3866666666665,
+                256.36000000000007,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                602.2799999999999,
+                256.36000000000007,
+                56.89333333333332,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                299.50000000000006,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                299.50000000000006,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                373.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                373.54666666666674,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": true,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                602.2799999999999,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": true,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                602.2799999999999,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": false,
+          "equations": true,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                602.2799999999999,
+                253.16000000000005,
+                56.89333333333332,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                534.8133333333333,
+                296.30000000000007,
+                131.15999999999997,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ],
+              [
+                393.08,
+                370.34666666666675,
+                279.6933333333333,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": false,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                233.8133333333334,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                276.9533333333334,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                349.54666666666674,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": false,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                222.61333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                222.61333333333334
+              ],
+              [
+                403.6533333333333,
+                187.76666666666668,
+                131.15999999999997,
+                115.85333333333332
+              ],
+              [
+                534.8133333333333,
+                187.76666666666668,
+                131.15999999999997,
+                115.85333333333332
+              ],
+              [
+                545.3866666666665,
+                192.48000000000002,
+                56.89333333333332,
+                68
+              ],
+              [
+                602.2799999999999,
+                192.48000000000002,
+                56.89333333333332,
+                68
+              ],
+              [
+                545.3866666666665,
+                260.48,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                303.62,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                376.21333333333337,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": false,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                213.01333333333338
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                213.01333333333338
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                106.25333333333333
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                106.25333333333333
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                58.400000000000006
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                58.400000000000006
+              ],
+              [
+                545.3866666666665,
+                250.88000000000005,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                294.02000000000004,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                366.6133333333334,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": false,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                233.8133333333334,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                276.9533333333334,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                349.54666666666674,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": false,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                198.61333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                198.61333333333334
+              ],
+              [
+                403.6533333333333,
+                189.10000000000002,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                189.10000000000002,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                193.81333333333336,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                193.81333333333336,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                235.1466666666667,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                278.2866666666667,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                352.21333333333337,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": false,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                198.61333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                198.61333333333334
+              ],
+              [
+                403.6533333333333,
+                189.10000000000002,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                189.10000000000002,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                193.81333333333336,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                193.81333333333336,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                235.1466666666667,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                278.2866666666667,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                352.21333333333337,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": false,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                233.8133333333334,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                276.9533333333334,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                349.54666666666674,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": false,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                195.94666666666672
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                89.18666666666667
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                41.33333333333334
+              ],
+              [
+                545.3866666666665,
+                233.8133333333334,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                276.9533333333334,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                349.54666666666674,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": false,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                213.01333333333338
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                213.01333333333338
+              ],
+              [
+                403.6533333333333,
+                187.7666666666667,
+                131.15999999999997,
+                106.25333333333333
+              ],
+              [
+                534.8133333333333,
+                187.7666666666667,
+                131.15999999999997,
+                106.25333333333333
+              ],
+              [
+                545.3866666666665,
+                192.48000000000005,
+                56.89333333333332,
+                58.400000000000006
+              ],
+              [
+                602.2799999999999,
+                192.48000000000005,
+                56.89333333333332,
+                58.400000000000006
+              ],
+              [
+                545.3866666666665,
+                250.88000000000005,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                294.02000000000004,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                366.6133333333334,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": true,
+          "action": "align-center",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                113.78666666666663,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": true,
+          "action": "line-spacing",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                222.61333333333334
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                222.61333333333334
+              ],
+              [
+                403.6533333333333,
+                187.76666666666668,
+                131.15999999999997,
+                115.85333333333332
+              ],
+              [
+                534.8133333333333,
+                187.76666666666668,
+                131.15999999999997,
+                115.85333333333332
+              ],
+              [
+                545.3866666666665,
+                192.48000000000002,
+                56.89333333333332,
+                68
+              ],
+              [
+                602.2799999999999,
+                192.48000000000002,
+                56.89333333333332,
+                68
+              ],
+              [
+                545.3866666666665,
+                260.48,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                303.62,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                376.21333333333337,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": true,
+          "action": "dialog-indent",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                113.78666666666663,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": true,
+          "action": "block-align",
+          "affected": [
+            "0:0",
+            "0:1",
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                113.78666666666663,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": true,
+          "action": "multi-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                219.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                219.94666666666672
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                110.28
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                110.28
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                62.42666666666668
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                62.42666666666668
+              ],
+              [
+                545.3866666666665,
+                256.36000000000007,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                299.50000000000006,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                373.54666666666674,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": true,
+          "action": "reverse-para",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                219.94666666666672
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                219.94666666666672
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                110.28
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                110.28
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                62.42666666666668
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                62.42666666666668
+              ],
+              [
+                545.3866666666665,
+                256.36000000000007,
+                113.78666666666663,
+                38.42666666666668
+              ],
+              [
+                403.6533333333333,
+                299.50000000000006,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                373.54666666666674,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": true,
+          "action": "excluded-block",
+          "affected": [
+            "1:0",
+            "1:1"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                113.78666666666663,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": true,
+          "action": "dialog-extras",
+          "affected": [
+            "1:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                113.78666666666663,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        },
+        {
+          "depth": 3,
+          "merged": true,
+          "equations": true,
+          "action": "shift-tab",
+          "affected": [
+            "0:0"
+          ],
+          "geometry": [
+            [
+              [
+                113.38666666666667,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                393.08,
+                153.60000000000002,
+                279.6933333333333,
+                216.74666666666673
+              ],
+              [
+                403.6533333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                534.8133333333333,
+                189.22000000000006,
+                131.15999999999997,
+                107.08000000000001
+              ],
+              [
+                545.3866666666665,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                602.2799999999999,
+                193.9333333333334,
+                56.89333333333332,
+                59.22666666666666
+              ],
+              [
+                545.3866666666665,
+                253.16000000000005,
+                113.78666666666663,
+                38.42666666666665
+              ],
+              [
+                403.6533333333333,
+                296.30000000000007,
+                262.32000000000005,
+                38.42666666666668
+              ],
+              [
+                113.38666666666667,
+                370.34666666666675,
+                559.3866666666667,
+                38.42666666666668
+              ]
+            ]
+          ]
+        }
+      ],
+      "engineSHA256": "657d4b4a3949813d6d3c366a2ca1245c7c5e9d93dba34423db738419013af1e9",
+      "inputHandlerSHA256": "3ea99502fef0bd3f95bbd182a4fd5880c0e56aab9a7ec97a47a09228272c25ec",
+      "GUIVerified": false,
+      "DOMAndCursorMocked": true,
+      "operationDispatchAdapter": true
+    },
+    "native-ui-saved": {
+      "GUIVerified": false,
+      "bodyAndNeighborAndStylesPreserved": true,
+      "noteNumbersAndAutoNumberRefsPreserved": true,
+      "verifiedUIExports": 136
+    },
+    "next-gap": {
+      "defects": 2,
+      "controls": 4,
+      "reopens": 8,
+      "rows": [
+        {
+          "id": "plain-ahead",
+          "requestedMode": 0,
+          "expectedNumberingId": 1,
+          "actualNumberingId": 2,
+          "expectedMarker": "3.",
+          "observedMarker": "1.",
+          "queriedRestartMode": 2,
+          "queriedStartNumber": 1,
+          "numberingDefinitionsBefore": 1,
+          "numberingDefinitionsAfter": 2,
+          "undoRetainsNewNumberingDefinition": true,
+          "undoRestoresHWPXBytes": false,
+          "existingNumberingAPIControlMarker": "3."
+        },
+        {
+          "id": "existing-previous",
+          "requestedMode": 1,
+          "expectedNumberingId": 1,
+          "actualNumberingId": 2,
+          "expectedMarker": "3.",
+          "observedMarker": "1.",
+          "queriedRestartMode": 2,
+          "queriedStartNumber": 1,
+          "numberingDefinitionsBefore": 1,
+          "numberingDefinitionsAfter": 2,
+          "undoRetainsNewNumberingDefinition": true,
+          "undoRestoresHWPXBytes": false,
+          "existingNumberingAPIControlMarker": "3."
+        },
+        {
+          "id": "existing-ahead-control",
+          "requestedMode": 0,
+          "expectedNumberingId": 1,
+          "actualNumberingId": 1,
+          "expectedMarker": "3.",
+          "observedMarker": "3.",
+          "queriedRestartMode": 0,
+          "queriedStartNumber": 1,
+          "numberingDefinitionsBefore": 1,
+          "numberingDefinitionsAfter": 2,
+          "undoRetainsNewNumberingDefinition": true,
+          "undoRestoresHWPXBytes": false
+        },
+        {
+          "id": "new-start-control",
+          "requestedMode": 2,
+          "expectedNumberingId": null,
+          "actualNumberingId": 2,
+          "expectedMarker": "5.",
+          "observedMarker": "5.",
+          "queriedRestartMode": 2,
+          "queriedStartNumber": 1,
+          "numberingDefinitionsBefore": 1,
+          "numberingDefinitionsAfter": 2,
+          "undoRetainsNewNumberingDefinition": true,
+          "undoRestoresHWPXBytes": false
+        }
+      ],
+      "engineSHA256": "657d4b4a3949813d6d3c366a2ca1245c7c5e9d93dba34423db738419013af1e9",
+      "sourceSHA256": {
+        "bridge": "ca581c8273d6b898f1d1c1684f23b8b41e3230264c4dd54643d6d3d2d647562f",
+        "input": "3ea99502fef0bd3f95bbd182a4fd5880c0e56aab9a7ec97a47a09228272c25ec",
+        "dialog": "fbe53c78c27464b78b03c75860b50ae9231261d7de43dfb0faa3e1df069e05b7",
+        "format": "82da1568db2d55e6ccbbb5215bb4ec51728313436ccd1cbc3746edfd54975b0e",
+        "command": "2820fb79bfb93e611bbcf213599e22e6a59c0a87816a5bb3bbfd7dd7d7523eeb",
+        "history": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db"
+      },
+      "actualNumberingDialogConfirm": true,
+      "actualFormatCommand": true,
+      "actualInputHandlerExecuteOperation": true,
+      "realCommandHistory": true,
+      "GUIVerified": false,
+      "scope": "Reproduce only; no feature implementation"
+    }
+  },
+  "strictAdHocVerified": true,
+  "signatureDetailsLog": "/Users/sw107/Documents/Codex/2026-10-06/task/dev7-checkpoint-qa/signature-details.log",
+  "basicLaunch": {
+    "version": "0.4.4-dev.7",
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false,
+    "profileBase": "/Users/sw107/Documents/Codex/2026-10-06/task/dev7-checkpoint-qa/profile",
+    "pid": 49199,
+    "basicProcessAndLocalServerPassed": true,
+    "htmlVersionMatched": true,
+    "servedEngineSHA256": "657d4b4a3949813d6d3c366a2ca1245c7c5e9d93dba34423db738419013af1e9",
+    "processAlive": true,
+    "quitRequestExit": 0,
+    "quitStderr": "",
+    "normalQuit": true,
+    "finalProcessExit": 0
+  },
+  "candidateCleanup": {
+    "candidateMainAndHelperProcesses": [],
+    "candidateProcessesRemain": 0,
+    "GUIVerified": false
+  },
+  "desktopTests": {
+    "tests": 33,
+    "pass": 31,
+    "fail": 0,
+    "skip": 1,
+    "TODO": 1,
+    "engine": "657d4b4a3949813d6d3c366a2ca1245c7c5e9d93dba34423db738419013af1e9"
+  },
+  "initialFreeDiskApproxGiB": 28,
+  "finalFreeDiskBytes": 29122560000,
+  "candidateAndQABytes": 387981312,
+  "qaBudgetBytes": 2147483648,
+  "targetInitialBytes": 2949492736,
+  "targetFinalBytes": 2948980736,
+  "cargoOrWasmBuildPerformed": false,
+  "depsInstalled": false,
+  "newZipCreated": false,
+  "protectedASAR": {
+    "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+    "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+    "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b"
+  },
+  "fixturePreservation": {
+    "verifiedFiles": 11,
+    "restoredFiles": 0,
+    "blockedOriginals": 3
+  },
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxExecuted": false,
+  "publicPushOrRelease": false,
+  "scope": "Integrate dev.7 and select a reproduced next gap; no next feature implementation",
+  "runtime": {
+    "electron": "44.3.0",
+    "node": "24.20.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "GUIVerified": false
+  },
+  "returnedVerificationSessionsExited": true
+}
