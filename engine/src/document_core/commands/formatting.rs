@@ -202,19 +202,10 @@ impl DocumentCore {
         // 번호 시작 방식 판별: numbering_id 패턴 기반
         let ps = self.styles.para_styles.get(para.para_shape_id as usize);
         let head_type = ps.map(|s| s.head_type).unwrap_or(HeadType::None);
-        if head_type != HeadType::None {
+        if matches!(head_type, HeadType::Number | HeadType::Outline) {
             let cur_nid = ps.map(|s| s.numbering_id).unwrap_or(0);
-            // NewNumber 컨트롤 체크
-            let new_number = para.controls.iter().find_map(|c| {
-                if let Control::NewNumber(nn) = c {
-                    Some(nn.number)
-                } else {
-                    None
-                }
-            });
-            let (mode, start_num) = if let Some(num) = new_number {
-                (2, num as u32) // 새 번호 목록 시작 (NewNumber 컨트롤)
-            } else {
+            // NewNumber 컨트롤은 쪽/주석/그림 등의 자동 번호이며 문단 목록 재시작이 아니다.
+            let (mode, start_num) = {
                 // 이전 번호 문단의 numbering_id를 역순 스캔
                 let mut prev_nid: Option<u16> = None;
                 let mut seen_before = false;
@@ -222,7 +213,7 @@ impl DocumentCore {
                     let pp = &section.paragraphs[pi];
                     let pps = self.styles.para_styles.get(pp.para_shape_id as usize);
                     let pht = pps.map(|s| s.head_type).unwrap_or(HeadType::None);
-                    if pht == HeadType::None {
+                    if !matches!(pht, HeadType::Number | HeadType::Outline) {
                         continue;
                     }
                     let pnid = pps.map(|s| s.numbering_id).unwrap_or(0);
@@ -237,7 +228,15 @@ impl DocumentCore {
                 match (prev_nid, seen_before) {
                     (Some(pid), _) if pid == cur_nid => (0, 1), // 앞 번호 이어
                     (_, true) => (1, 1),                        // 이전 번호 이어
-                    _ => (2, 1),                                // 새 번호 시작
+                    _ => {
+                        let level = ps.map(|s| s.para_level as usize).unwrap_or(0).min(6);
+                        let start = cur_nid
+                            .checked_sub(1)
+                            .and_then(|id| self.document.doc_info.numberings.get(id as usize))
+                            .map(|n| n.level_start_numbers[level])
+                            .unwrap_or(1);
+                        (2, start)
+                    } // 새 번호 시작
                 }
             };
             json.pop(); // 마지막 '}' 제거

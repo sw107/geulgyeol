@@ -347,6 +347,13 @@ export const formatCommands: CommandDef[] = [
       dialog.currentHeadType = props.headType ?? 'None';
       dialog.currentNumberingId = props.numberingId ?? 0;
       dialog.currentRestartMode = (props as any).numberingRestartMode ?? 0;
+      dialog.currentStartNumber = (props as any).numberingStartNum ?? 1;
+      const bodyNumbering = ih.captureBodyNumbering();
+      if (bodyNumbering) {
+        dialog.previousLists = bodyNumbering.lists;
+        dialog.previousNumberingId = bodyNumbering.preferredId;
+        dialog.onApplyDefinition = bodyNumbering.apply;
+      }
       // Bullet일 때 현재 bullet 문자 전달
       if (props.headType === 'Bullet' && props.numberingId && props.numberingId > 0) {
         try {

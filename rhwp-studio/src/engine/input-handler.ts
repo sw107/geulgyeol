@@ -5945,6 +5945,73 @@ export class InputHandler {
     }
   }
 
+  /** 본문 번호 대화상자의 대상을 고정하고, 앞선 목록을 명시적으로 선택한다. */
+  captureBodyNumbering(): {
+    lists: { id: number; label: string }[];
+    preferredId: number;
+    apply: (definition: string | null, mode: number, start: number, previousId: number) => boolean;
+  } | null {
+    const targets = this.getParaFormatTargetsAtCursor();
+    if (!targets.length || targets.some(t => t.kind !== 'body')) return null;
+    const bodies = targets as Extract<ParaFormatTarget, { kind: 'body' }>[];
+    const first = bodies[0];
+    if (bodies.some(t => t.sec !== first.sec)) return null;
+    const generation = this.wasm.documentGeneration;
+    const count = this.wasm.getParagraphCount(first.sec);
+    if (bodies.some(t => t.para < 0 || t.para >= count)) return null;
+    const before = bodies.map(t => this.wasm.getParaPropertiesAt(t.sec, t.para));
+    const textAt = (t: typeof first) => this.wasm.getTextRange(t.sec, t.para, 0, this.wasm.getParagraphLength(t.sec, t.para));
+    const targetTexts = bodies.map(textAt);
+    const priorProps = Array.from({ length: first.para }, (_, p) => this.wasm.getParaPropertiesAt(first.sec, p));
+    const definitions = this.wasm.getNumberingList();
+    const validIds = new Set(definitions.map(n => n.id));
+    const lists: { id: number; label: string }[] = [];
+    for (let p = first.para - 1; p >= 0; p--) {
+      const props = priorProps[p];
+      if ((props.headType === 'Number' || props.headType === 'Outline') &&
+          props.numberingId && validIds.has(props.numberingId) &&
+          !lists.some(n => n.id === props.numberingId)) {
+        const text = this.wasm.getTextRange(first.sec, p, 0, Math.min(32, this.wasm.getParagraphLength(first.sec, p)));
+        lists.push({ id: props.numberingId, label: `${p + 1}번째 문단 · ${text}` });
+      }
+    }
+    const currentId = before[0].numberingId;
+    const preferredId = lists.find(n => n.id === currentId)?.id ?? lists[0]?.id ?? 0;
+    const cursorBefore = { ...this.cursor.getPosition() };
+    return { lists, preferredId, apply: (definition, mode, start, previousId) => {
+      if (this.wasm.documentGeneration !== generation ||
+          this.wasm.getParagraphCount(first.sec) !== count ||
+          bodies.some((t, i) => textAt(t) !== targetTexts[i]) ||
+          priorProps.some((props, p) => JSON.stringify(this.wasm.getParaPropertiesAt(first.sec, p)) !== JSON.stringify(props)) ||
+          bodies.some((t, i) => JSON.stringify(this.wasm.getParaPropertiesAt(t.sec, t.para)) !== JSON.stringify(before[i])) ||
+          !Number.isInteger(mode) || mode < 0 || mode > 2 ||
+          !Number.isInteger(start) || start < 1 || start > 999 ||
+          (mode === 1 && previousId !== 0 && !lists.some(n => n.id === previousId))) return false;
+      const continuationId = mode === 0 ? lists[0]?.id ?? 0 : mode === 1 ? previousId || preferredId : 0;
+      // 대화상자를 연 뒤 목록 정의가 바뀌었으면 재조회가 필요하다.
+      if (JSON.stringify(this.wasm.getNumberingList()) !== JSON.stringify(definitions)) return false;
+      this.executeOperation({ kind: 'snapshot', operationType: 'bodyNumbering', operation: wasm => {
+        if (definition === null) {
+          if (before.every(p => p.headType === 'None' && p.numberingId === 0)) return null;
+          wasm.runInBatch(() => bodies.forEach(t => wasm.applyParaFormat(t.sec, t.para, JSON.stringify({ headType: 'None', numberingId: 0 }))));
+          return cursorBefore;
+        }
+        if (continuationId && bodies.every((_, i) => before[i].headType === 'Number' && before[i].numberingId === continuationId)) return null;
+        // 정의 생성도 명령 안에서 수행하여 undo/실패 rollback으로 회수한다.
+        const level = before[0].headType === 'Number' || before[0].headType === 'Outline' ? before[0].paraLevel ?? 0 : 0;
+        const nid = continuationId || wasm.createNumbering(JSON.stringify({ ...JSON.parse(definition), startNumber: start, startLevel: level }));
+        if (!nid) throw new Error('문단 번호 정의 생성 실패');
+        wasm.runInBatch(() => bodies.forEach((t, i) => {
+          const paraLevel = before[i].headType === 'Number' || before[i].headType === 'Outline' ? before[i].paraLevel ?? 0 : 0;
+          wasm.applyParaFormat(t.sec, t.para, JSON.stringify({ headType: 'Number', numberingId: nid, paraLevel }));
+        }));
+        return cursorBefore;
+      } });
+      this.focusTextarea();
+      return true;
+    } };
+  }
+
   /** 문단 번호 모양 적용 (대화상자에서 선택한 numberingId) */
   applyNumbering(numberingId: number): void {
     try {

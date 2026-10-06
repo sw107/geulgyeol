@@ -7618,7 +7618,8 @@ impl HwpDocument {
 
     /// JSON으로 지정된 번호 형식으로 Numbering 정의를 생성한다.
     ///
-    /// json: {"levelFormats":["^1.","^2)",...],"numberFormats":[0,8,...],"startNumber":1}
+    /// json: {"levelFormats":["^1.","^2)",...],"numberFormats":[0,8,...],"startNumber":1,"startLevel":0}
+    /// startLevel은 0-based이며 지정 수준만 startNumber에서 시작하고 나머지는 1이다.
     /// 반환값: Numbering ID (1-based)
     #[wasm_bindgen(js_name = createNumbering)]
     pub fn create_numbering(&mut self, json: &str) -> u16 {
@@ -7672,7 +7673,9 @@ impl HwpDocument {
         }
 
         n.start_number = json_i32(json, "startNumber").unwrap_or(1) as u16;
-        n.level_start_numbers = [n.start_number as u32; 7];
+        n.level_start_numbers = [1; 7];
+        let start_level = json_i32(json, "startLevel").unwrap_or(0).clamp(0, 6) as usize;
+        n.level_start_numbers[start_level] = n.start_number as u32;
         self.core.document.doc_info.numberings.push(n);
         self.core.document.doc_info.numberings.len() as u16
     }

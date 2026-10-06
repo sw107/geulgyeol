@@ -2029,10 +2029,8 @@ impl NumberingState {
                 // 이전에 사용한 id → 히스토리에서 복원
                 self.counters = saved;
             } else {
-                // 처음 등장하는 id → 상위 레벨 카운터 상속, 현재 레벨 이하 리셋
-                let prev = self.counters;
+                // 새 정의는 독립 목록이다. 다른 목록의 상위 수준을 상속하지 않는다.
                 self.counters = [0; 7];
-                self.counters[..level].copy_from_slice(&prev[..level]);
             }
             self.current_id = Some(numbering_id);
         }
