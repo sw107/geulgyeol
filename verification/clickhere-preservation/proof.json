@@ -1,0 +1,686 @@
+{
+  "baseCommit": "9a74bc27c565e2217be41f20384641c8a9aac17c",
+  "featureComplete": false,
+  "sourceOnlyScalarFix": true,
+  "engineFixImplemented": false,
+  "existingAppsContainNewFix": false,
+  "runtime": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "node": "v24.20.0",
+    "electron": "44.3.0"
+  },
+  "passingRestrictedCaseCounts": {
+    "reopens": 36,
+    "undos": 15,
+    "redos": 15,
+    "rejections": 14,
+    "cellRegressions": 6
+  },
+  "knownFailures": 2,
+  "knownFootnoteFailure": {
+    "beforeControlPositions": [
+      2
+    ],
+    "afterInsertionControlPositions": [
+      1,
+      1
+    ],
+    "reopenControlPositions": {
+      "Hwp": [
+        1,
+        1
+      ],
+      "Hwpx": [
+        5,
+        5
+      ]
+    },
+    "fieldScalarStartBeforeReopen": 1,
+    "fieldScalarStartAfterHwpxReopen": 5,
+    "reports": {
+      "Hwp": {
+        "schemaVersion": 1,
+        "outputFormat": "hwp",
+        "count": 0,
+        "losses": []
+      },
+      "Hwpx": {
+        "schemaVersion": 1,
+        "outputFormat": "hwpx",
+        "count": 0,
+        "losses": []
+      }
+    }
+  },
+  "knownFormatFailure": {
+    "before": [
+      {
+        "char": "앞",
+        "charShapeId": 7,
+        "bold": false,
+        "italic": true
+      },
+      {
+        "char": "뒤",
+        "charShapeId": 10,
+        "bold": false,
+        "italic": true
+      },
+      {
+        "char": "가",
+        "charShapeId": 9,
+        "bold": true,
+        "italic": false
+      },
+      {
+        "char": "나",
+        "charShapeId": 0,
+        "bold": false,
+        "italic": false
+      }
+    ],
+    "afterInsertion": [
+      {
+        "char": "앞",
+        "charShapeId": 7,
+        "bold": false,
+        "italic": true
+      },
+      {
+        "char": "뒤",
+        "charShapeId": 0,
+        "bold": false,
+        "italic": false
+      },
+      {
+        "char": "가",
+        "charShapeId": 0,
+        "bold": false,
+        "italic": false
+      },
+      {
+        "char": "나",
+        "charShapeId": 0,
+        "bold": false,
+        "italic": false
+      }
+    ],
+    "reopens": {
+      "Hwp": [
+        {
+          "char": "앞",
+          "charShapeId": 7,
+          "bold": false,
+          "italic": true
+        },
+        {
+          "char": "뒤",
+          "charShapeId": 0,
+          "bold": false,
+          "italic": false
+        },
+        {
+          "char": "가",
+          "charShapeId": 0,
+          "bold": false,
+          "italic": false
+        },
+        {
+          "char": "나",
+          "charShapeId": 0,
+          "bold": false,
+          "italic": false
+        }
+      ],
+      "Hwpx": [
+        {
+          "char": "앞",
+          "charShapeId": 7,
+          "bold": false,
+          "italic": true
+        },
+        {
+          "char": "뒤",
+          "charShapeId": 0,
+          "bold": false,
+          "italic": false
+        },
+        {
+          "char": "가",
+          "charShapeId": 0,
+          "bold": false,
+          "italic": false
+        },
+        {
+          "char": "나",
+          "charShapeId": 0,
+          "bold": false,
+          "italic": false
+        }
+      ]
+    },
+    "reports": {
+      "Hwp": {
+        "schemaVersion": 1,
+        "outputFormat": "hwp",
+        "count": 0,
+        "losses": []
+      },
+      "Hwpx": {
+        "schemaVersion": 1,
+        "outputFormat": "hwpx",
+        "count": 0,
+        "losses": []
+      }
+    },
+    "snapshotUndoRedoRestoresExactStates": true
+  },
+  "fixtureNormalization": {
+    "fieldCount": 0,
+    "differences": [
+      {
+        "key": "model.paragraphs.0.para.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.0.para.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.0.para.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.0.chars.0.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.0.chars.0.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.0.chars.0.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.0.chars.1.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.0.chars.1.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.0.chars.1.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.1.para.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.1.para.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.1.para.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.1.chars.0.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.1.chars.0.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.1.chars.0.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.1.chars.1.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.1.chars.1.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.1.chars.1.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.1.chars.2.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.1.chars.2.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.1.chars.2.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.1.chars.3.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.1.chars.3.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.1.chars.3.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.1.chars.4.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.1.chars.4.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.1.chars.4.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.2.para.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.2.para.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.2.para.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.2.chars.0.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.2.chars.0.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.2.chars.0.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.2.chars.1.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.2.chars.1.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.2.chars.1.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.2.chars.2.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.2.chars.2.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.2.chars.2.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.2.chars.3.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.2.chars.3.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.2.chars.3.patternType",
+        "before": -1,
+        "after": 0
+      },
+      {
+        "key": "model.paragraphs.2.chars.4.fillType",
+        "before": "solid",
+        "after": "none"
+      },
+      {
+        "key": "model.paragraphs.2.chars.4.patternColor",
+        "before": "#999999",
+        "after": "#000000"
+      },
+      {
+        "key": "model.paragraphs.2.chars.4.patternType",
+        "before": -1,
+        "after": 0
+      }
+    ],
+    "reason": "Field-free default blank BorderFill metadata differs on HWPX roundtrip; normalize once before field comparisons"
+  },
+  "sourceBeforeRegression": "Same existing WASM and old InsertTextCommand fails first emoji caret check 3 !== 2",
+  "typescriptNoEmitPassed": true,
+  "diffCheckPassed": true,
+  "script": {
+    "path": "scripts/check-clickhere-preservation.mjs",
+    "sha256": "97580b6eaca93324aa3437124038aab068ac0f723c68a3ab22be968fd79c73e5"
+  },
+  "preservation": {
+    "baselineSourceFiles": 1423,
+    "engineSourceFilesUnchanged": 1141,
+    "changedExistingSource": [
+      "rhwp-studio/src/engine/command.ts"
+    ],
+    "protectedApps": [
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar",
+        "sha256": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar",
+        "sha256": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar",
+        "sha256": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar",
+        "sha256": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129"
+      }
+    ],
+    "wasmSha256": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "targetAllocatedBytes": 3188535296,
+    "targetSelfBudgetBytes": 3221225472,
+    "remainingTargetBudgetBytes": 32690176,
+    "newCargoBuilds": 0,
+    "cacheFilesDeleted": 0,
+    "newPackaging": false,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "LinuxVerified": false,
+    "publicPushOrRelease": false
+  },
+  "artifactFiles": [
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/00-field-free-baseline.hwp",
+      "bytes": 6656,
+      "sha256": "cfd9752ae49f975225472bda3bf25ff361a9dab6de1767a536e3a53bafcaacb1"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/01-create-empty.hwp",
+      "bytes": 7168,
+      "sha256": "ba558bdfdf70ff23ef0c3d2557072b4bc0c0ac6501de313806efac2ed9cc6cae"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/02-edit-empty.hwp",
+      "bytes": 7168,
+      "sha256": "6a9d4cf1b6c5ef334428a8273a9a4a38d9637a3a9278ba8c859455ad6b99838c"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/03-unlock.hwp",
+      "bytes": 7168,
+      "sha256": "3e055276f343698a5443c3731e9e560a62ec6d3fe93eb37125917b0fa1314893"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/04-first-emoji.hwp",
+      "bytes": 7168,
+      "sha256": "7f6785987b67267c5d1c5c0df644e85e3acf34c55ada97d4c89a913b293b806f"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/05-continued-input.hwp",
+      "bytes": 7168,
+      "sha256": "a234809791b44996aa9a28eb6f89098c69b699b1a3b91b9ac95edef14812a56d"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/06-edit-filled.hwp",
+      "bytes": 7168,
+      "sha256": "8f5ce87747a125416f664cd5c2b590043c4a5a14cc70257bac989cf878e605f7"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/07-move-filled.hwp",
+      "bytes": 7168,
+      "sha256": "aae346120c2fbb59ebf354ee4b61e373450462d1fe12e1b6b79555b9485f4314"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/08-remove-filled.hwp",
+      "bytes": 6656,
+      "sha256": "d0952d476c7abd7def33241c45261afe32ea1fc6c97d4f2a2690affa2b3c68c4"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/09-form-navigation.hwp",
+      "bytes": 7168,
+      "sha256": "364e5ebdc28d141ef4aefffa071da9bcd64ecce5170b5d46f8474b9d9aab1b8b"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/10-form-input.hwp",
+      "bytes": 7168,
+      "sha256": "4192450307233d45a6cd48e95fe27f4dd09c17114e1cf613797cc15a4e386477"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/11-remove-empty.hwp",
+      "bytes": 7168,
+      "sha256": "85510f642d69636d4ff802197fb42ed419304478566f62c8708d4364fb50061f"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/api-clear-value.hwp",
+      "bytes": 6656,
+      "sha256": "3c8ade067a7aeac54f5459c44ec1c0c97735340d0a69d5ce5be4af79a3dd585a"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/api-set-value.hwp",
+      "bytes": 7168,
+      "sha256": "9c51dec77bede375f9c26fa5f2116519429552d966e081c2a7b05779f8045773"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/known-field-footnote.hwp",
+      "bytes": 7168,
+      "sha256": "c22cc47f3fd20392ddca41bf815e84888497c66d15419fb41516e672f36363a6"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/known-field-format.hwp",
+      "bytes": 7168,
+      "sha256": "1cd7be71b89c757d64ab4ebac254a29cae769eb259151d053b955b456c9d5b02"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/unicode-0.hwp",
+      "bytes": 7168,
+      "sha256": "941aecf2a47caabb8595cdbd0d1537e3d6e6e50d82fc1c2851d25559a1242c9f"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/unicode-1.hwp",
+      "bytes": 7168,
+      "sha256": "39017339fb36795618a07c554c18180c4996763096a12bd14ea16b495761a78d"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/unicode-2.hwp",
+      "bytes": 7168,
+      "sha256": "80fd5cf06b97e20ccccb7d55c235aff408d04dd7b73b76606dde4ecf6ffc565c"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/unicode-3.hwp",
+      "bytes": 7168,
+      "sha256": "99ed25a3a7563feeaceca5484d998a3f16502230ab37e84024bbc2109a379012"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/00-field-free-baseline.hwpx",
+      "bytes": 7698,
+      "sha256": "1073e4c628d6e84fc83b330b6a535c3a8166eccc2ae4b205285a5c7042b5b834"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/01-create-empty.hwpx",
+      "bytes": 7879,
+      "sha256": "e3e5d0b4c33d775ad06b6545e9b30dc1b13aec10ea6483bbda51382ed404da0c"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/02-edit-empty.hwpx",
+      "bytes": 7878,
+      "sha256": "b3caa940e495f9da5867e35ad9ea4e03c3ddd59146d93ba09de8b8e925da5711"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/03-unlock.hwpx",
+      "bytes": 7878,
+      "sha256": "5be94922a74d22e1bebb359e6d10b48b1435291def15178bd3e3d42137c79d83"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/04-first-emoji.hwpx",
+      "bytes": 7887,
+      "sha256": "120a57998ee029d487d49e1e418b97bc7b9d273070b861f9eb53ce42665dedbf"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/05-continued-input.hwpx",
+      "bytes": 7890,
+      "sha256": "12ffe0980324176ffc638ac556d1608bf2c0cbdce66fac3268e834bee80b2b26"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/06-edit-filled.hwpx",
+      "bytes": 7896,
+      "sha256": "739f98f3d514fb3ce3ff47e0cf8a4add8e3d17861a1dcc0ad19be616f55c7295"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/07-move-filled.hwpx",
+      "bytes": 7906,
+      "sha256": "82711d305c6f4caaa2b3008b0c9029d9a636ca94482f27e3c976fc1839b51ff9"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/08-remove-filled.hwpx",
+      "bytes": 7711,
+      "sha256": "98af272e71338612a4cf9cefc56b3ea29104783f8f3d724b1ee079492b438840"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/09-form-navigation.hwpx",
+      "bytes": 7921,
+      "sha256": "0c6bc19c1612c17bdfd67e73b888078814216bc8eb65808c2f79b18e179c8018"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/10-form-input.hwpx",
+      "bytes": 7946,
+      "sha256": "6ffde1feb28ddff8d50fa6e0393c5b0aee7d394577dc5890dbc0ab50a8d12ccb"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/11-remove-empty.hwpx",
+      "bytes": 7916,
+      "sha256": "0f53f4a212f0b9c1332a95eb2cce29a0a36961dfdfef1564dd244e0e999dd24f"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/api-clear-value.hwpx",
+      "bytes": 7837,
+      "sha256": "c8923b84166ee1835b4a20773542be1f164cea4fbf0c08684caff459361cbeff"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/api-set-value.hwpx",
+      "bytes": 7853,
+      "sha256": "0a3f0ca80a8d7bcbcbcdf2d3a6d9853794a27975d7f563a1d22a462a251e6dc7"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/known-field-footnote.hwpx",
+      "bytes": 7869,
+      "sha256": "065ebda28a9bafd18ecce3aadf2ff1c03ab61040a628999abbcebbc25c064a92"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/known-field-format.hwpx",
+      "bytes": 7879,
+      "sha256": "d8a1475d70cef93da3d0a0e73f5e60c5cdc2da8adf9bd534f1bf69bba1e73260"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/unicode-0.hwpx",
+      "bytes": 7858,
+      "sha256": "9b2f146f1e1d9f2f6ff27ffad350201fa6a9722568cd5ebfdfaa328b923fadd2"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/unicode-1.hwpx",
+      "bytes": 7858,
+      "sha256": "6dd7aa3f534f29142bf9d80e58e68e32b74b96a703e239972ce60674d94c156e"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/unicode-2.hwpx",
+      "bytes": 7867,
+      "sha256": "4bd6c7db8c32a51c16ce4991690eb0fdad55f2cb87106bc177f8c8efa73c60f2"
+    },
+    {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/unicode-3.hwpx",
+      "bytes": 7871,
+      "sha256": "08cc3891aeec0df426c3b6ef5aa7eb6289b7ee6ef8730d542e5411a94cd48b2b"
+    }
+  ],
+  "historicalOwnQaFilesPreserved": [
+    "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/05-merged-input.hwp",
+    "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/05-merged-input.hwpx"
+  ],
+  "fullProof": {
+    "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-preservation-qa/behavior/proof.json",
+    "sha256": "b7f7d6fd26fb355fed9ef8185176485da98221c42051fdf13ea6650cabe21274"
+  },
+  "logs": {
+    "before-behavior.log": "b4d0fcc10087867cbb78118714a925cec7a73dbb7caa93d580507d2e71111a38",
+    "behavior.log": "92d473b735279c515faf54ec74628d94b725d0a0ac889873768518b48c1a482c",
+    "tsc.log": "faa05f44deda5f88219297a2ace18b98228bdc97a3c1523a1289de23dfdf9a0b"
+  },
+  "limitations": [
+    "DOM/cursor geometry/render are adapters; real Mac GUI/physical IME not tested",
+    "Field insertion drops mixed existing char formatting and same-paragraph footnote position; HWPX adds anchor drift; unresolved",
+    "Body ClickHere only; nested fields/field merging not certified",
+    "Clipboard move uses supported API wrapped in actual snapshot/history, not platform clipboard GUI",
+    "Linux and packaging not run; existing apps/WASM preserved"
+  ],
+  "nextEngineBuildEstimatesMiB": {
+    "nativeTemporary": [
+      100,
+      300
+    ],
+    "wasmLtoTemporary": [
+      200,
+      500
+    ],
+    "measuredNewBuild": false
+  }
+}

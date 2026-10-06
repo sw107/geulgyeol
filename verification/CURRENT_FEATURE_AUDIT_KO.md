@@ -1,6 +1,6 @@
 # 현재 개발 checkout 기능 상태
 
-기준 production code는2d9599d, 독립 계산 모듈695f01e, adapter 설계4c587f8이다. 이 목록은 현재 checkout/pkg WASM과 자동 검증 기록의 상태이며, 기존 dev.7 앱이나 공개 beta.2가 아래 새 개발 변경을 포함한다는 뜻은 아니다. 과거 `dev7-checkpoint/FEATURE_AUDIT_KO.md`는 해당 패키지 시점 기록으로 그대로 보존했다.
+기준 엔진/pkg WASM은2d9599d, 독립 계산 모듈695f01e, adapter 설계4c587f8이다. 이 목록은 현재 checkout/pkg WASM과 자동 검증 기록의 상태이며, 기존 dev.7 앱이나 공개 beta.2가 아래 새 개발 변경을 포함한다는 뜻은 아니다. 과거 `dev7-checkpoint/FEATURE_AUDIT_KO.md`는 해당 패키지 시점 기록으로 그대로 보존했다.
 
 | 기능 | 현재 상태와 근거 | 미지원/미검증 경계 |
 |---|---|---|
@@ -13,14 +13,13 @@
 | 독립 세로 열·문자 소유권 계산 | 695f01e: 독립 테스트14·생성1,200회·HWP/HWPX 텍스트 투영8개 | 단순 supplied metric/frame 계산이며 실제 측정·pagination·renderer 미연결. 가상11조각을 앱 페이지로 주장하지 않음 |
 | 공유 adapter | 4c587f8 설계에서 **보류 유지** | typed page payload, certified 다문단 metric, 실제 dynamic frame budget이 먼저 필요. 공용 RowCut 수정 없음 |
 | 셀 다중 수식·회전 그룹 해제·중첩 서식 복사·각주 서식·검색 | 이전 지원 범위와 누적 자동 결과를 보존 | 비지원 개체/불명 슬롯 거절 경계, 실물 선택·물리IME·GUI 미검증 |
+| 일반 본문 누름틀(ClickHere) | 제한 합성 사례의 속성/앵커·저장/이력 자동검사 및 astral 캐럿/서식 범위 UI 수정 | **전체 보존 미완료**: 삽입 시 기존 혼합 글자 모양/각주 위치 손실, HWPX 추가 앵커 이동 재현. 엔진 수정은 빌드 예산 때문에 보류; 실제 GUI 미검증 |
 | 실제 Mac GUI·물리 IME·Linux | 이번에는 검증하지 않음 | Electron Node API 결과를 실제 GUI 성공으로 부르지 않음 |
 
-현재 새 코드/adapter/앱 빌드는 하지 않았다. source/WASM/앱4개/직전 합성 원본 보존 및 target 용량 불변만 이번에 재확인했다. 기존 library 전체 suite의 누락된3원본 fixture도 해결하지 않았다.
+현재 새 변경은 `InsertTextCommand`의 캐럿/서식 끝·명령 병합 위치 두 계산을 Unicode scalar로 맞춘 UI 소스 수정이다. 엔진·WASM·앱 새 빌드는 하지 않았고 기존 앱은 이 수정을 포함하지 않는다. 자세한 범위/실패 증거는 [누름틀 결과](clickhere-preservation/RESULT_KO.md)와 [proof](clickhere-preservation/proof.json)에 있다. 엔진1141파일·기존 WASM·앱4개를 보존했고 target 자체3GiB 예산의 잔여 약31MiB도 그대로다. 큰 library 전체 suite의 누락 원본3개는 해결하거나 우회하지 않았다.
 
-## 큰 빌드 없이 가능한 다음 독립 점검 한 가지
+## 다음 독립 작업
 
-**일반 본문 양식 누름틀(ClickHere)의 속성·앵커·원본 서식 왕복 보존 점검**을 제안한다. 이 기능의 현재 완전성은 아직 확인하지 않았으므로 완료 기능으로 표시하지 않는다.
+누름틀 삽입 때 **기존 비필드 인라인 컨트롤 위치와 char_shapes 경계**를 원본 의미대로 보존하는 엔진 위치 재구성을 수정해야 한다. 불명 위치는 변경 전 원자적 거절이 필요하다. 삽입 시 이미 잃는 각주/서식을 두 저장 형식이 복구하지 않으므로 HWPX fallback만 고치는 것으로 충분하지 않다. Native 임시100–300MiB, WASM LTO200–500MiB 추가량은 계획 추정이며, 기존 자체 target 상한을 넘기기 전에 예산을 정해야 한다. 임의 cache 삭제/새 clone은 진행하지 않았다.
 
-기존 WASM에 `insertClickHereField`, `getFieldList`, `getClickHereProps`, `updateClickHereProps`, snapshot/export API가 이미 있다. 새 작은 합성 문서 한 개에 누름틀을 만들고 guide/memo/name/editable을 변경한 뒤 다음을 대조할 수 있다: 필드 ID/시작·끝 앵커 관계와 본문 문자열, 원본 직접서식/스타일·문서 참조, snapshot 복원/재적용, HWP/HWPX export content-loss report와 재열기 속성. 지원 밖 field ID/종류는 무변경 거절 여부를 읽어 확인한다. 중첩 셀/메모 UI/필드 합치기는 초기 범위에서 제외한다. 기존 문서를 고치거나 새 Rust/앱 빌드를 할 필요가 없고, 한컴 양식 작성의 실용적인 데이터 보존 경계를 확인하는 독립 작업이다.
-
-이번에는 이 다음 점검을 실행하지 않았다. 조사/최소 계획은 `vertical-cell-resource-metric/METRIC_PLAN_KO.md`, 디스크/자체 예산 구분은 `vertical-cell-resource-metric/RESOURCES_KO.md`에 남겼다.
+이번 제한 자동 통과는 재열기36회·undo/redo 각15회·거절14회·공유 입력 명령의 셀 회귀6개다. 각주 위치/혼합 서식 두 실패도 별도로 재현했으며 기능 완료로 표시하지 않는다. 실제 Mac GUI·물리IME와 긴 세로 셀 pagination/metric adapter는 기존 미검증/미지원·보류 상태를 유지한다.

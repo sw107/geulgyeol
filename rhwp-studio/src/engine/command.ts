@@ -641,7 +641,8 @@ export class InsertTextCommand implements EditCommand {
   execute(wasm: WasmBridge): DocumentPosition {
     this.lastMutationEffects = NO_TEXT_MUTATION_EFFECTS;
     this.lastMutationEffects = insertTextWithMutationEffects(wasm, this.position, this.text);
-    const after = { ...this.position, charOffset: this.position.charOffset + this.text.length };
+    // Body/cell offsets and formatting ranges use Unicode scalar counts.
+    const after = { ...this.position, charOffset: this.position.charOffset + charCount(this.text) };
     if (this.charFormat) {
       applyCharShapeModsToRange(wasm, this.position, this.position.charOffset, after.charOffset, this.charFormat);
     }
@@ -679,7 +680,7 @@ export class InsertTextCommand implements EditCommand {
       if (other.position.cellParaIndex !== this.position.cellParaIndex) return null;
     }
     // 연속 위치 확인
-    const expectedOffset = this.position.charOffset + this.text.length;
+    const expectedOffset = this.position.charOffset + charCount(this.text);
     if (other.position.charOffset !== expectedOffset) return null;
     // 300ms 이내
     if (other.timestamp - this.timestamp > 300) return null;
