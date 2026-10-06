@@ -590,6 +590,20 @@ impl DocumentCore {
         char_offset: usize,
         restore_meta: Option<ParaMeta>,
     ) -> Result<String, HwpError> {
+        self.split_paragraph_in_footnote_native_with_next_style(section_idx, para_idx, control_idx, fn_para_idx, char_offset, restore_meta, false)
+    }
+
+    pub fn split_paragraph_in_footnote_native_with_next_style(
+        &mut self,
+        section_idx: usize,
+        para_idx: usize,
+        control_idx: usize,
+        fn_para_idx: usize,
+        char_offset: usize,
+        restore_meta: Option<ParaMeta>,
+        apply_next_style: bool,
+    ) -> Result<String, HwpError> {
+        let info = &self.document.doc_info;
         // 문단 분할
         let mut new_para = {
             let section = self.document.sections.get_mut(section_idx).ok_or_else(|| {
@@ -609,7 +623,13 @@ impl DocumentCore {
                             fn_para_idx
                         )));
                     }
-                    f.paragraphs[fn_para_idx].split_at(char_offset)
+                    {
+                        let plan = super::next_style::prepare(info, &f.paragraphs[fn_para_idx], char_offset,
+                            apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
+                        let mut successor = f.paragraphs[fn_para_idx].split_at(char_offset);
+                        if let Some(plan) = plan { plan.apply(&mut successor); }
+                        successor
+                    }
                 }
                 Control::Endnote(e) => {
                     if fn_para_idx >= e.paragraphs.len() {
@@ -618,7 +638,13 @@ impl DocumentCore {
                             fn_para_idx
                         )));
                     }
-                    e.paragraphs[fn_para_idx].split_at(char_offset)
+                    {
+                        let plan = super::next_style::prepare(info, &e.paragraphs[fn_para_idx], char_offset,
+                            apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
+                        let mut successor = e.paragraphs[fn_para_idx].split_at(char_offset);
+                        if let Some(plan) = plan { plan.apply(&mut successor); }
+                        successor
+                    }
                 }
                 _ => {
                     return Err(HwpError::RenderError(

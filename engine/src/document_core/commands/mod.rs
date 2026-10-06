@@ -21,3 +21,5 @@ mod style_ops;
 mod style_shapes;
 
 mod style_metadata;
+
+mod next_style;

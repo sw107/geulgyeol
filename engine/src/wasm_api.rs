@@ -1668,6 +1668,31 @@ impl HwpDocument {
         .map_err(|e| e.into())
     }
 
+    /// Explicit Enter API; legacy split/paste/merge undo remains structural.
+    #[wasm_bindgen(js_name = splitParagraphInCellWithNextStyle)]
+    pub fn split_paragraph_in_cell_with_next_style(
+        &mut self,
+        section_idx: u32,
+        parent_para_idx: u32,
+        control_idx: u32,
+        cell_idx: u32,
+        cell_para_idx: u32,
+        char_offset: u32,
+        removed_para_meta: Option<String>,
+    ) -> Result<String, JsValue> {
+        self.split_paragraph_in_cell_native_with_next_style(
+            section_idx as usize,
+            parent_para_idx as usize,
+            control_idx as usize,
+            cell_idx as usize,
+            cell_para_idx as usize,
+            char_offset as usize,
+            parse_removed_para_meta(removed_para_meta)?,
+            true,
+        )
+        .map_err(|e| e.into())
+    }
+
     /// 셀 내부 문단을 이전 문단에 병합한다 (셀 내 Backspace at start).
     ///
     /// 반환값: JSON `{"ok":true,"cellParaIndex":<prev_idx>,"charOffset":<merge_point>}`
@@ -1773,6 +1798,28 @@ impl HwpDocument {
             &path,
             char_offset as usize,
             parse_removed_para_meta(removed_para_meta)?,
+        )
+        .map_err(|e| e.into())
+    }
+
+    /// Explicit Enter API; legacy split/paste/merge undo remains structural.
+    #[wasm_bindgen(js_name = splitParagraphInCellByPathWithNextStyle)]
+    pub fn split_paragraph_in_cell_by_path_api_with_next_style(
+        &mut self,
+        section_idx: u32,
+        parent_para_idx: u32,
+        path_json: &str,
+        char_offset: u32,
+        removed_para_meta: Option<String>,
+    ) -> Result<String, JsValue> {
+        let path = DocumentCore::parse_cell_path(path_json)?;
+        self.split_paragraph_in_cell_by_path_with_next_style(
+            section_idx as usize,
+            parent_para_idx as usize,
+            &path,
+            char_offset as usize,
+            parse_removed_para_meta(removed_para_meta)?,
+            true,
         )
         .map_err(|e| e.into())
     }
@@ -1907,6 +1954,29 @@ impl HwpDocument {
             hf_para_idx as usize,
             char_offset as usize,
             parse_removed_para_meta(removed_para_meta)?,
+        )
+        .map_err(|e| e.into())
+    }
+
+    /// Explicit Enter API; legacy split/paste/merge undo remains structural.
+    #[wasm_bindgen(js_name = splitParagraphInHeaderFooterWithNextStyle)]
+    pub fn split_paragraph_in_header_footer_with_next_style(
+        &mut self,
+        section_idx: u32,
+        is_header: bool,
+        apply_to: u8,
+        hf_para_idx: u32,
+        char_offset: u32,
+        removed_para_meta: Option<String>,
+    ) -> Result<String, JsValue> {
+        self.split_paragraph_in_header_footer_native_with_next_style(
+            section_idx as usize,
+            is_header,
+            apply_to,
+            hf_para_idx as usize,
+            char_offset as usize,
+            parse_removed_para_meta(removed_para_meta)?,
+            true,
         )
         .map_err(|e| e.into())
     }
@@ -2452,6 +2522,25 @@ impl HwpDocument {
             para_idx as usize,
             char_offset as usize,
             parse_removed_para_meta(removed_para_meta)?,
+        )
+        .map_err(|e| e.into())
+    }
+
+    /// Explicit Enter API; legacy split/paste/merge undo remains structural.
+    #[wasm_bindgen(js_name = splitParagraphWithNextStyle)]
+    pub fn split_paragraph_with_next_style(
+        &mut self,
+        section_idx: u32,
+        para_idx: u32,
+        char_offset: u32,
+        removed_para_meta: Option<String>,
+    ) -> Result<String, JsValue> {
+        self.split_paragraph_native_with_next_style(
+            section_idx as usize,
+            para_idx as usize,
+            char_offset as usize,
+            parse_removed_para_meta(removed_para_meta)?,
+            true,
         )
         .map_err(|e| e.into())
     }
@@ -4875,6 +4964,29 @@ impl HwpDocument {
             fn_para_idx as usize,
             char_offset as usize,
             parse_removed_para_meta(removed_para_meta)?,
+        )
+        .map_err(|e| e.into())
+    }
+
+    /// Explicit Enter API; legacy split/paste/merge undo remains structural.
+    #[wasm_bindgen(js_name = splitParagraphInFootnoteWithNextStyle)]
+    pub fn split_paragraph_in_footnote_with_next_style(
+        &mut self,
+        section_idx: u32,
+        para_idx: u32,
+        control_idx: u32,
+        fn_para_idx: u32,
+        char_offset: u32,
+        removed_para_meta: Option<String>,
+    ) -> Result<String, JsValue> {
+        self.split_paragraph_in_footnote_native_with_next_style(
+            section_idx as usize,
+            para_idx as usize,
+            control_idx as usize,
+            fn_para_idx as usize,
+            char_offset as usize,
+            parse_removed_para_meta(removed_para_meta)?,
+            true,
         )
         .map_err(|e| e.into())
     }

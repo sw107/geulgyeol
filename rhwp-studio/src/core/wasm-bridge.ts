@@ -1283,8 +1283,11 @@ export class WasmBridge {
     return this.doc.deleteText(sec, para, charOffset, count);
   }
 
-  splitParagraph(sec: number, para: number, charOffset: number, removedParaMeta?: RemovedParaMeta): string {
+  splitParagraph(sec: number, para: number, charOffset: number, removedParaMeta?: RemovedParaMeta, applyNextStyle = false): string {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    if (applyNextStyle) {
+      return (this.doc as any).splitParagraphWithNextStyle(sec, para, charOffset, serializeParaMeta(removedParaMeta));
+    }
     return this.doc.splitParagraph(sec, para, charOffset, serializeParaMeta(removedParaMeta));
   }
 
@@ -1318,8 +1321,11 @@ export class WasmBridge {
     return this.doc.mergeParagraph(sec, para);
   }
 
-  splitParagraphInCell(sec: number, parentPara: number, controlIdx: number, cellIdx: number, cellParaIdx: number, charOffset: number, removedParaMeta?: RemovedParaMeta): string {
+  splitParagraphInCell(sec: number, parentPara: number, controlIdx: number, cellIdx: number, cellParaIdx: number, charOffset: number, removedParaMeta?: RemovedParaMeta, applyNextStyle = false): string {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    if (applyNextStyle) {
+      return (this.doc as any).splitParagraphInCellWithNextStyle(sec, parentPara, controlIdx, cellIdx, cellParaIdx, charOffset, serializeParaMeta(removedParaMeta));
+    }
     return this.doc.splitParagraphInCell(sec, parentPara, controlIdx, cellIdx, cellParaIdx, charOffset, serializeParaMeta(removedParaMeta));
   }
 
@@ -1641,8 +1647,11 @@ export class WasmBridge {
     return (this.doc as any).deleteRangeInCellByPath(sec, parentPara, pathJson, startPara, startOffset, endPara, endOffset);
   }
 
-  splitParagraphInCellByPath(sec: number, parentPara: number, pathJson: string, charOffset: number, removedParaMeta?: RemovedParaMeta): string {
+  splitParagraphInCellByPath(sec: number, parentPara: number, pathJson: string, charOffset: number, removedParaMeta?: RemovedParaMeta, applyNextStyle = false): string {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    if (applyNextStyle) {
+      return (this.doc as any).splitParagraphInCellByPathWithNextStyle(sec, parentPara, pathJson, charOffset, serializeParaMeta(removedParaMeta));
+    }
     return (this.doc as any).splitParagraphInCellByPath(sec, parentPara, pathJson, charOffset, serializeParaMeta(removedParaMeta));
   }
 
@@ -2445,8 +2454,11 @@ export class WasmBridge {
     return JSON.parse((this.doc as any).deleteTextInFootnote(sec, para, controlIdx, fnParaIdx, charOffset, count));
   }
 
-  splitParagraphInFootnote(sec: number, para: number, controlIdx: number, fnParaIdx: number, charOffset: number, removedParaMeta?: RemovedParaMeta): { ok: boolean; fnParaIndex: number; charOffset: number } {
+  splitParagraphInFootnote(sec: number, para: number, controlIdx: number, fnParaIdx: number, charOffset: number, removedParaMeta?: RemovedParaMeta, applyNextStyle = false): { ok: boolean; fnParaIndex: number; charOffset: number } {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    if (applyNextStyle) {
+      return JSON.parse((this.doc as any).splitParagraphInFootnoteWithNextStyle(sec, para, controlIdx, fnParaIdx, charOffset, serializeParaMeta(removedParaMeta)));
+    }
     return JSON.parse((this.doc as any).splitParagraphInFootnote(sec, para, controlIdx, fnParaIdx, charOffset, serializeParaMeta(removedParaMeta)));
   }
 
@@ -3100,8 +3112,11 @@ export class WasmBridge {
     return this.doc.deleteTextInHeaderFooter(sec, isHeader, applyTo, hfParaIdx, charOffset, count);
   }
 
-  splitParagraphInHeaderFooter(sec: number, isHeader: boolean, applyTo: number, hfParaIdx: number, charOffset: number, removedParaMeta?: RemovedParaMeta): string {
+  splitParagraphInHeaderFooter(sec: number, isHeader: boolean, applyTo: number, hfParaIdx: number, charOffset: number, removedParaMeta?: RemovedParaMeta, applyNextStyle = false): string {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    if (applyNextStyle) {
+      return (this.doc as any).splitParagraphInHeaderFooterWithNextStyle(sec, isHeader, applyTo, hfParaIdx, charOffset, serializeParaMeta(removedParaMeta));
+    }
     return this.doc.splitParagraphInHeaderFooter(sec, isHeader, applyTo, hfParaIdx, charOffset, serializeParaMeta(removedParaMeta));
   }
 

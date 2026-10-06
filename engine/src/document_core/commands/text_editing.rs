@@ -3503,12 +3503,19 @@ impl DocumentCore {
         char_offset: usize,
         restore_meta: Option<ParaMeta>,
     ) -> Result<String, HwpError> {
-        self.split_paragraph_body_impl(section_idx, para_idx, char_offset, restore_meta, true)
+        self.split_paragraph_body_impl(section_idx, para_idx, char_offset, restore_meta, true, false)
+    }
+
+    pub fn split_paragraph_native_with_next_style(
+        &mut self, section_idx: usize, para_idx: usize, char_offset: usize,
+        restore_meta: Option<ParaMeta>, apply_next_style: bool,
+    ) -> Result<String, HwpError> {
+        self.split_paragraph_body_impl(section_idx, para_idx, char_offset, restore_meta, true, apply_next_style)
     }
 
     fn split_paragraph_body_impl(
         &mut self, section_idx: usize, para_idx: usize, char_offset: usize,
-        restore_meta: Option<ParaMeta>, stage_picture_edit: bool,
+        restore_meta: Option<ParaMeta>, stage_picture_edit: bool, apply_next_style: bool,
     ) -> Result<String, HwpError> {
         if section_idx >= self.document.sections.len() {
             return Err(HwpError::RenderError(format!(
@@ -3526,6 +3533,9 @@ impl DocumentCore {
             )));
         }
 
+        let next_style = super::next_style::prepare(&self.document.doc_info,
+            &section.paragraphs[para_idx], char_offset, apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
+
         if stage_picture_edit && self.final_picture_host_matches_frame(section_idx, para_idx) {
             let mut staged = self.picture_band_edit_shadow();
             let leading_picture_slots = {
@@ -3535,7 +3545,7 @@ impl DocumentCore {
                         && (matches!(control, Control::Picture(_) | Control::Equation(_))
                             || matches!(control, Control::Shape(shape) if matches!(shape.as_ref(), crate::model::shape::ShapeObject::Group(g) if crate::renderer::float_placement::supports_picture_group_exclusion(g))))).count()
             };
-            let response = staged.split_paragraph_body_impl(section_idx, para_idx, char_offset, restore_meta, false)?;
+            let response = staged.split_paragraph_body_impl(section_idx, para_idx, char_offset, restore_meta, false, apply_next_style)?;
             // split_at removes the structural prefix from the successor axis.
             // Moved leading picture slots still precede its first glyph and
             // must survive insert/delete and a later merge back to the host.
@@ -3562,6 +3572,7 @@ impl DocumentCore {
             if let Some(meta) = restore_meta {
                 new_para.apply_meta(meta);
             }
+            if let Some(plan) = next_style { plan.apply(&mut new_para); }
             self.document.sections[section_idx]
                 .paragraphs
                 .insert(new_para_idx, new_para);
@@ -3643,7 +3654,11 @@ impl DocumentCore {
                     .styles
                     .para_styles
                     .get(anchor.para_shape_id as usize)
-                    .map(|style| (style.spacing_after, style.spacing_before))
+                    .map(|style| {
+                        let successor_id = next_style.map(|plan| plan.para_shape(anchor.para_shape_id)).unwrap_or(anchor.para_shape_id);
+                        let before = self.styles.para_styles.get(successor_id as usize).map(|s| s.spacing_before).unwrap_or(style.spacing_before);
+                        (style.spacing_after, before)
+                    })
                     .unwrap_or((0.0, 0.0));
                 let before = crate::renderer::hwp3_variant_flow_spacing_before(
                     before,
@@ -3668,6 +3683,7 @@ impl DocumentCore {
             if let Some(meta) = restore_meta {
                 new_para.apply_meta(meta);
             }
+            if let Some(plan) = next_style { plan.apply(&mut new_para); }
             self.document.sections[section_idx]
                 .paragraphs
                 .insert(new_para_idx, new_para);
@@ -3708,6 +3724,7 @@ impl DocumentCore {
         if let Some(meta) = restore_meta {
             new_para.apply_meta(meta);
         }
+        if let Some(plan) = next_style { plan.apply(&mut new_para); }
 
         // 새 문단을 현재 문단 뒤에 삽입
         let new_para_idx = para_idx + 1;
@@ -4416,6 +4433,24 @@ impl DocumentCore {
         char_offset: usize,
         restore_meta: Option<ParaMeta>,
     ) -> Result<String, HwpError> {
+        self.split_paragraph_in_cell_native_with_next_style(section_idx, parent_para_idx, control_idx, cell_idx, cell_para_idx, char_offset, restore_meta, false)
+    }
+
+    pub fn split_paragraph_in_cell_native_with_next_style(
+        &mut self,
+        section_idx: usize,
+        parent_para_idx: usize,
+        control_idx: usize,
+        cell_idx: usize,
+        cell_para_idx: usize,
+        char_offset: usize,
+        restore_meta: Option<ParaMeta>,
+        apply_next_style: bool,
+    ) -> Result<String, HwpError> {
+        let source = self.get_cell_paragraph_ref(section_idx, parent_para_idx, control_idx, cell_idx, cell_para_idx)
+            .ok_or_else(|| HwpError::RenderError("셀 문단 범위 초과".into()))?;
+        let next_style = super::next_style::prepare(&self.document.doc_info, source, char_offset,
+            apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
         // 셀 문단 검증 및 분할
         let cell_para = self.get_cell_paragraph_mut(
             section_idx,
@@ -4429,6 +4464,7 @@ impl DocumentCore {
         if let Some(meta) = restore_meta {
             new_para.apply_meta(meta);
         }
+        if let Some(plan) = next_style { plan.apply(&mut new_para); }
 
         // 새 문단을 셀/글상자에 삽입
         let new_cell_para_idx = cell_para_idx + 1;
@@ -5889,6 +5925,18 @@ impl DocumentCore {
         char_offset: usize,
         restore_meta: Option<ParaMeta>,
     ) -> Result<String, HwpError> {
+        self.split_paragraph_in_cell_by_path_with_next_style(section_idx, parent_para_idx, path, char_offset, restore_meta, false)
+    }
+
+    pub fn split_paragraph_in_cell_by_path_with_next_style(
+        &mut self,
+        section_idx: usize,
+        parent_para_idx: usize,
+        path: &[(usize, usize, usize)],
+        char_offset: usize,
+        restore_meta: Option<ParaMeta>,
+        apply_next_style: bool,
+    ) -> Result<String, HwpError> {
         // [#2755] 빈 경로는 패닉이 아니라 Err 로 거절한다. `parse_cell_path` 가 "[]" 에
         // Ok(Vec::new()) 를 반환하므로 빈 경로가 여기 도달할 수 있고, wasm 에서 Rust 패닉은
         // HwpDocument 인스턴스 전체를 무효화한다. get_cell_paragraph(s)_mut_by_path 형제와 동형.
@@ -5900,6 +5948,7 @@ impl DocumentCore {
         let mut split_origin_vpos: Option<i32> = None;
 
         // 셀에 접근하여 문단 분할
+        let info = &self.document.doc_info;
         let section = self
             .document
             .sections
@@ -5929,10 +5978,13 @@ impl DocumentCore {
                     .line_segs
                     .first()
                     .map(|seg| seg.vertical_pos);
+                let next_style = super::next_style::prepare(info, &cell.paragraphs[cell_para_idx], char_offset,
+                    apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
                 let mut new_para = cell.paragraphs[cell_para_idx].split_at(char_offset);
                 if let Some(meta) = restore_meta {
                     new_para.apply_meta(meta);
                 }
+                if let Some(plan) = next_style { plan.apply(&mut new_para); }
                 cell.paragraphs.insert(cell_para_idx + 1, new_para);
                 break;
             }

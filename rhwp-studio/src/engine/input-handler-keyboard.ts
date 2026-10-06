@@ -2,7 +2,7 @@ import { deleteEquationSelection } from './equation-target';
 /** input-handler keyboard methods — extracted from InputHandler class */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { InsertTextCommand, InsertLineBreakCommand, InsertTabCommand, SplitParagraphCommand, SplitParagraphInCellCommand, InsertTextInHeaderFooterCommand, SplitParagraphInHeaderFooterCommand, SplitParagraphInFootnoteCommand, DeleteTextInFootnoteCommand, MergeParagraphInFootnoteCommand, cellParaIndexOf } from './command';
+import { InsertTextCommand, InsertLineBreakCommand, InsertTabCommand, SplitParagraphCommand, SplitParagraphInCellCommand, InsertTextInHeaderFooterCommand, DeleteTextInFootnoteCommand, MergeParagraphInFootnoteCommand, cellParaIndexOf } from './command';
 import { matchShortcut, defaultShortcuts } from '@/command/shortcut-map';
 import {
   resolveCellBlockCtrlShiftS,
@@ -943,9 +943,20 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
         };
         const paraIdx = this.cursor.hfParaIdx;
         const charOffset = this.cursor.hfCharOffset;
-        const result = JSON.parse(this.wasm.splitParagraphInHeaderFooter(target.sectionIdx, isHeader, target.applyTo, paraIdx, charOffset));
-        this.executeOperation({ kind: 'record', command: new SplitParagraphInHeaderFooterCommand(target, paraIdx, charOffset, result.hfParaIndex) });
-        this.cursor.setHfCursorPosition(result.hfParaIndex, 0);
+        const applyNextStyle = !e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey;
+        let nextParaIdx = paraIdx + 1;
+        const position = this.cursor.getPosition();
+        this.executeOperation({ kind: 'snapshot', operationType: 'splitParagraphInHeaderFooter',
+          editContext: { mode: 'headerFooter', ...target, paraIdx, charOffset },
+          editContextAfter: () => ({ mode: 'headerFooter', ...target, paraIdx: nextParaIdx, charOffset: 0 }),
+          operation: (wasm: WasmBridge) => {
+            const result = JSON.parse(wasm.splitParagraphInHeaderFooter(target.sectionIdx, isHeader, target.applyTo, paraIdx, charOffset, undefined, applyNextStyle));
+            if (!result.ok) throw new Error('Header/footer Enter failed');
+            nextParaIdx = result.hfParaIndex;
+            return position;
+          },
+        });
+        this.cursor.setHfCursorPosition(nextParaIdx, 0);
         this.afterEdit();
       } catch { /* ignore */ }
       return;
@@ -1009,9 +1020,20 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
         const target = { sectionIdx: this.cursor.fnSectionIdx, paraIdx: this.cursor.fnParaIdx, controlIdx: this.cursor.fnControlIdx, footnoteIndex: this.cursor.fnFootnoteIndex, pageNum: this.cursor.fnPageNum };
         const innerParaIdx = this.cursor.fnInnerParaIdx;
         const charOffset = this.cursor.fnCharOffset;
-        const result = this.wasm.splitParagraphInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx, charOffset);
-        this.executeOperation({ kind: 'record', command: new SplitParagraphInFootnoteCommand(target, innerParaIdx, charOffset, result.fnParaIndex) });
-        this.cursor.setFnCursorPosition(result.fnParaIndex, 0);
+        const applyNextStyle = !e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey;
+        let nextInnerParaIdx = innerParaIdx + 1;
+        const position = this.cursor.getPosition();
+        this.executeOperation({ kind: 'snapshot', operationType: 'splitParagraphInFootnote',
+          editContext: { mode: 'footnote', ...target, innerParaIdx, charOffset },
+          editContextAfter: () => ({ mode: 'footnote', ...target, innerParaIdx: nextInnerParaIdx, charOffset: 0 }),
+          operation: (wasm: WasmBridge) => {
+            const result = wasm.splitParagraphInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx, charOffset, undefined, applyNextStyle);
+            if (!result.ok) throw new Error('Footnote Enter failed');
+            nextInnerParaIdx = result.fnParaIndex;
+            return position;
+          },
+        });
+        this.cursor.setFnCursorPosition(nextInnerParaIdx, 0);
         this.afterEdit();
       } catch { /* ignore */ }
       return;
@@ -1443,14 +1465,14 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
           // [#4031] 성공한 split은 IMMEDIATE_TEXT_MUTATION_EFFECTS를 선언해
           // executeOperation의 effects 경로가 pending 해소·runner 취소·geometry
           // invalidation(완료 소유)을 수행한다.
-          this.executeOperation({ kind: 'command', command: new SplitParagraphInCellCommand(this.cursor.getPosition()) });
+          this.executeOperation({ kind: 'command', command: new SplitParagraphInCellCommand(this.cursor.getPosition(), !e.ctrlKey && !e.metaKey && !e.altKey) });
         } catch (err) {
           // [#4031] structural command 실패 — 기존 full-flush barrier로 fail-closed 복귀.
           if (committedCellEnterSplit) this.flushDeferredPaginationIfNeeded('cell-enter-split-fallback', false);
           throw err;
         }
       } else {
-        this.executeOperation({ kind: 'command', command: new SplitParagraphCommand(this.cursor.getPosition()) });
+        this.executeOperation({ kind: 'command', command: new SplitParagraphCommand(this.cursor.getPosition(), !e.ctrlKey && !e.metaKey && !e.altKey) });
       }
       break;
     }

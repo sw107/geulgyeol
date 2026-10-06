@@ -1,0 +1,65 @@
+{
+  "GUI_verified": false,
+  "atomic_rejections": 0,
+  "baseline": true,
+  "cases": 144,
+  "observations": [
+    {
+      "next": 23,
+      "observed": 22,
+      "scope": 0,
+      "source": 22
+    },
+    {
+      "next": 23,
+      "observed": 22,
+      "scope": 1,
+      "source": 22
+    },
+    {
+      "next": 23,
+      "observed": 22,
+      "scope": 2,
+      "source": 22
+    },
+    {
+      "next": 23,
+      "observed": 22,
+      "scope": 3,
+      "source": 22
+    },
+    {
+      "next": 23,
+      "observed": 22,
+      "scope": 4,
+      "source": 22
+    },
+    {
+      "next": 23,
+      "observed": 22,
+      "scope": 5,
+      "source": 22
+    },
+    {
+      "next": 23,
+      "observed": 22,
+      "scope": 6,
+      "source": 22
+    },
+    {
+      "next": 23,
+      "observed": 22,
+      "scope": 7,
+      "source": 22
+    },
+    {
+      "next": 23,
+      "observed": 22,
+      "scope": 8,
+      "source": 22
+    }
+  ],
+  "physical_IME_verified": false,
+  "snapshot_undo_redo_operations": 288,
+  "two_format_reopens": 288
+}

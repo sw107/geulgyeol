@@ -815,18 +815,38 @@ export class SplitParagraphCommand implements EditCommand {
   readonly type = 'splitParagraph';
   readonly timestamp = Date.now();
 
-  constructor(private position: DocumentPosition) {}
+  private enterSnapshot: SnapshotCommand | null = null;
+  constructor(private position: DocumentPosition, private applyNextStyle = false) {}
+
+  discard(wasm: WasmBridge): void { this.enterSnapshot?.discard(wasm); }
+  snapshotResourceCount(): number { return this.enterSnapshot?.snapshotResourceCount() ?? 0; }
+  isNoOp(): boolean { return this.enterSnapshot?.isNoOp() ?? false; }
 
   execute(wasm: WasmBridge): DocumentPosition {
+    if (this.applyNextStyle) {
+      this.enterSnapshot ??= new SnapshotCommand(this.type, this.position, this.position,
+        (bridge) => this.executeSplit(bridge));
+      const result = this.enterSnapshot.execute(wasm);
+      return result;
+    }
+    return this.executeSplit(wasm);
+  }
+
+  private executeSplit(wasm: WasmBridge): DocumentPosition {
     const { sectionIndex: sec, paragraphIndex: para, charOffset } = this.position;
-    const result = JSON.parse(wasm.splitParagraph(sec, para, charOffset));
+    const result = JSON.parse(wasm.splitParagraph(sec, para, charOffset, undefined, this.applyNextStyle));
     if (result.ok) {
       return { sectionIndex: sec, paragraphIndex: result.paraIdx, charOffset: 0 };
     }
+    if (this.applyNextStyle) throw new Error("Enter paragraph split failed");
     return this.position;
   }
 
   undo(wasm: WasmBridge): DocumentPosition {
+    if (this.enterSnapshot) {
+      const result = this.enterSnapshot.undo(wasm);
+      return result;
+    }
     const { sectionIndex: sec, paragraphIndex: para } = this.position;
     wasm.mergeParagraph(sec, para + 1);
     return { ...this.position };
@@ -1693,18 +1713,34 @@ export class SplitParagraphInCellCommand implements EditCommand {
   readonly timestamp = Date.now();
   private lastMutationEffects: TextMutationEffects = NO_TEXT_MUTATION_EFFECTS;
 
-  constructor(private position: DocumentPosition) {}
+  private enterSnapshot: SnapshotCommand | null = null;
+  constructor(private position: DocumentPosition, private applyNextStyle = false) {}
+
+  discard(wasm: WasmBridge): void { this.enterSnapshot?.discard(wasm); }
+  snapshotResourceCount(): number { return this.enterSnapshot?.snapshotResourceCount() ?? 0; }
+  isNoOp(): boolean { return this.enterSnapshot?.isNoOp() ?? false; }
 
   execute(wasm: WasmBridge): DocumentPosition {
+    if (this.applyNextStyle) {
+      this.enterSnapshot ??= new SnapshotCommand(this.type, this.position, this.position,
+        (bridge) => this.executeSplit(bridge));
+      const result = this.enterSnapshot.execute(wasm);
+      this.lastMutationEffects = IMMEDIATE_TEXT_MUTATION_EFFECTS;
+      return result;
+    }
+    return this.executeSplit(wasm);
+  }
+
+  private executeSplit(wasm: WasmBridge): DocumentPosition {
     this.lastMutationEffects = NO_TEXT_MUTATION_EFFECTS;
     const pos = this.position;
     const sec = pos.sectionIndex;
     const ppi = pos.parentParaIndex!;
     const cpi = cellParaIndexOf(pos);
     if (isNestedCell(pos)) {
-      wasm.splitParagraphInCellByPath(sec, ppi, cellPathJson(pos), pos.charOffset);
+      wasm.splitParagraphInCellByPath(sec, ppi, cellPathJson(pos), pos.charOffset, undefined, this.applyNextStyle);
     } else {
-      wasm.splitParagraphInCell(sec, ppi, pos.controlIndex!, pos.cellIndex!, cpi, pos.charOffset);
+      wasm.splitParagraphInCell(sec, ppi, pos.controlIndex!, pos.cellIndex!, cpi, pos.charOffset, undefined, this.applyNextStyle);
     }
     // [#4031] 네이티브 split은 paginate_if_needed()로 최신 revision을 동기 계산한다.
     // 이 선언이 pending deferred 상태를 해소해 직후 before-full-edit flush가 no-op이 된다.
@@ -1719,6 +1755,11 @@ export class SplitParagraphInCellCommand implements EditCommand {
   }
 
   undo(wasm: WasmBridge): DocumentPosition {
+    if (this.enterSnapshot) {
+      const result = this.enterSnapshot.undo(wasm);
+      this.lastMutationEffects = IMMEDIATE_TEXT_MUTATION_EFFECTS;
+      return result;
+    }
     const pos = this.position;
     const sec = pos.sectionIndex;
     const ppi = pos.parentParaIndex!;

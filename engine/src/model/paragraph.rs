@@ -238,6 +238,9 @@ pub struct ParaMeta {
     pub raw_header_extra: Vec<u8>,
     /// TAB 확장 데이터 — 문단 전체가 통째로 이동하므로 분할 없이 그대로 옮긴다.
     pub tab_extended: Vec<[u16; 7]>,
+    /// Explicit typing shape of a control-free empty paragraph, lost by merge.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub empty_char_shape_id: Option<u32>,
 }
 
 /// 문단 번호 시작 방식
@@ -1130,6 +1133,12 @@ impl Paragraph {
             numbering_restart: self.numbering_restart,
             raw_header_extra: self.raw_header_extra.clone(),
             tab_extended: self.tab_extended.clone(),
+            empty_char_shape_id: if self.text.is_empty()
+                && self.controls.is_empty()
+                && self.char_shapes.len() == 1
+                && self.char_shapes[0].start_pos == 0 {
+                Some(self.char_shapes[0].char_shape_id)
+            } else { None },
         }
     }
 
@@ -1142,6 +1151,12 @@ impl Paragraph {
         self.numbering_restart = meta.numbering_restart;
         self.raw_header_extra = meta.raw_header_extra;
         self.tab_extended = meta.tab_extended;
+        if self.text.is_empty() && self.controls.is_empty() {
+            if let Some(id) = meta.empty_char_shape_id {
+                self.char_shapes = vec![CharShapeRef { start_pos: 0, char_shape_id: id }];
+                self.invalidate_layout_inputs();
+            }
+        }
     }
 
     /// char_offset 위치에서 문단을 분할한다.
