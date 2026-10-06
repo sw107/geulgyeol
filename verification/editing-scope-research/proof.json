@@ -1,0 +1,65 @@
+{
+  "compatibility": {
+    "realOCXImplementation": true,
+    "documentWasReadOnlySpy": true,
+    "listed": "중복{{0}}\u0002중복{{1}}",
+    "getFieldTextOccurrence1": "첫째",
+    "putFieldTextForwarded": {
+      "method": "setFieldValueByName",
+      "args": [
+        "중복",
+        "셋째"
+      ]
+    },
+    "moveToOccurrence1": {
+      "list": 0,
+      "para": 1,
+      "pos": 1
+    },
+    "ordinaryMacShellLoadsPlugin": false,
+    "optionalMacSDKCanLoadPlugin": true
+  },
+  "selectedNextGap": "ordinary Mac body hyperlink insertion",
+  "existingEngineSHA256": "89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf",
+  "noBuildOrPackaging": true,
+  "command": {
+    "id": "insert:hyperlink",
+    "label": "하이퍼링크",
+    "shortcutLabel": "Ctrl+K+H",
+    "enabled": false,
+    "result": {
+      "ok": false,
+      "reason": "disabled"
+    },
+    "documentBytesUnchanged": true,
+    "beforeHwpxSHA256": "9f687a1f8d79d801d72f0f3a23ceb482ff5dfc74f9be301637a91981d5f2a618",
+    "afterHwpxSHA256": "9f687a1f8d79d801d72f0f3a23ceb482ff5dfc74f9be301637a91981d5f2a618",
+    "fieldsUnchanged": true,
+    "commandEvents": 0,
+    "menu": "          <div class=\"md-item disabled\" data-cmd=\"insert:hyperlink\"><span class=\"md-icon icon-hyperlink\"></span><span class=\"md-label\">하이퍼링크</span><span class=\"md-shortcut\">Ctrl+K+H</span></div>",
+    "toolbar": "        <button class=\"tb-btn\" title=\"하이퍼링크\"><span class=\"tb-sprite icon-hyperlink\"></span><span class=\"tb-label\">하이퍼<br/>링크</span></button>"
+  },
+  "actualRegistryAndDispatcher": true,
+  "actualInsertCommands": true,
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "sourceSHA256": {
+    "insert": "3a504b10dea7fbdcb89c1595c7c1d20ee2df69fbc2b8da60951551d9fdc09413",
+    "registry": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+    "dispatcher": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381",
+    "busy": "f67db2a8af8876b2b4d0367b56575b8c9dede8859d9238fcc4c08bbb41cb8493"
+  },
+  "dev8UIRelevantSourceHashesMatch": true,
+  "readSourceSHA256": {
+    "desktop/web/baram.js": "d86c38472cd5dbabc8042e1ab1d8fc66eae383f7069389f88bbb85c3b6c38df5",
+    "desktop/web/sdk/index.js": "c9fab3743e713c46fd72c20f798333a4e70021ed7fcc7bdc56f0e144dd7b9431",
+    "rhwp-studio/src/main.ts": "5e693db9535055348342f3853cb5b74ca00b4813119608d2c47901446973d7e8",
+    "rhwp-studio/src/hwpctl/index.ts": "5dfa094ac937c27bf930f52037fcabc2b8e83f0eb251528f5eff6271a3f1f611",
+    "rhwp-studio/src/core/wasm-bridge.ts": "ca581c8273d6b898f1d1c1684f23b8b41e3230264c4dd54643d6d3d2d647562f",
+    "rhwp-studio/index.html": "fe81ac432eeb94b66b080e1c10c336b5caa439cde755997e513c75809f672d9b",
+    "npm/hwpctrl-ocx/src/index.mjs": "5d67bfd70df65a21f43d91bee3290291abc82ea313655e7255775b59f703beed",
+    "npm/hwpctrl-ocx/src/studio-plugin.mjs": "494a7d1415c8f4ddaba691b174e7cfe8fbd3323e5295009d4fe6357e573abf33",
+    "engine/src/wasm_api.rs": "f19e6e8b8c8a98efff780def48628db5c77d08f21ed0f2df324ff5193d086f9f",
+    "engine/src/cli/commands/edit/fields.rs": "3444d1420c581ecd3c123a0f7fba56850fa8e1135a9d1669fc239124db5bc212"
+  }
+}
