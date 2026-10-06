@@ -398,12 +398,74 @@ fn semantic(d: &DocumentCore) -> Value {
     }
     json!(out)
 }
+fn styles_semantic(d: &DocumentCore) -> Value {
+    let mut styles = serde_json::to_value(&d.document().doc_info.styles).unwrap();
+    for style in styles.as_array_mut().unwrap() {
+        style.as_object_mut().unwrap().remove("raw_data");
+    }
+    styles
+}
+fn runtime_route(l: Location) -> Value {
+    match l {
+        Location::Body => json!({"kind":"body"}),
+        Location::Cell(pi, ci, true) => json!({"kind":"nested","parent":pi,"path":[{"controlIndex":ci,"cellIndex":0,"cellParaIndex":0},{"controlIndex":0,"cellIndex":0,"cellParaIndex":0}]}),
+        Location::Cell(pi, ci, false) => json!({"kind":"cell","parent":pi,"control":ci,"cell":0}),
+        Location::Caption(pi, ci) => json!({"kind":"cell","parent":pi,"control":ci,"cell":65534}),
+        Location::Text(pi, ci, caption) => json!({"kind":"cell","parent":pi,"control":ci,"cell":if caption {65534}else{0}}),
+        Location::Hf(_, _, header) => json!({"kind":"hf","header":header}),
+        Location::Note(pi, ci) => json!({"kind":"note","parent":pi,"control":ci}),
+    }
+}
+fn emit_runtime_fixtures(out: &str) {
+    let mut cases = vec![];
+    for kind in 0..9 {
+        for direct in 0..4 {
+            let (mut original, l, _, _, _, _, _, _) = fixture(kind, direct);
+            for format in ["hwp", "hwpx"] {
+                let bytes = if format == "hwp" {original.export_hwp_with_adapter_snapshot().unwrap()} else {original.export_hwpx_native().unwrap()};
+                let input = format!("{out}/scope{kind}-direct{direct}.{format}");
+                std::fs::write(&input, &bytes).unwrap();
+                for mode in 0..4 {
+                    let mut d = DocumentCore::from_bytes(&bytes).unwrap();
+                    let before = semantic(&d);
+                    let source = paragraphs(&d, l)[0].clone();
+                    let offset = if mode == 1 {2}else{source.text.chars().count()};
+                    let meta = if mode == 3 {Some(source.capture_meta())}else{None};
+                    let meta_json = serde_json::to_value(&meta).unwrap();
+                    split(&mut d, l, offset, meta, mode != 2).unwrap();
+                    cases.push(json!({"id":format!("s{kind}-d{direct}-{format}-m{mode}"),"scope":kind,"direct":direct,"mode":mode,"input":input,"route":runtime_route(l),"offset":offset,"restoreMeta":meta_json,"before":before,"after":semantic(&d),"styles":styles_semantic(&d)}));
+                }
+            }
+        }
+    }
+    std::fs::write(format!("{out}/manifest.json"), serde_json::to_vec_pretty(&cases).unwrap()).unwrap();
+    println!("{}", json!({"fixtures":72,"runtimeCases":cases.len(),"GUI_verified":false}));
+}
+fn verify_runtime_results(out: &str) {
+    let rows: Vec<Value> = serde_json::from_slice(&std::fs::read(format!("{out}/runtime-results.json")).unwrap()).unwrap();
+    for row in &rows {
+        let d = DocumentCore::from_bytes(&std::fs::read(row["file"].as_str().unwrap()).unwrap()).unwrap();
+        assert_eq!(semantic(&d), row["expected"], "runtime {}", row["file"]);
+        assert_eq!(styles_semantic(&d), row["styles"], "runtime style refs {}", row["file"]);
+    }
+    let proof = json!({"actualWasmOutputsReopened":rows.len(),"allParagraphTextStyleShapeRunsAndStyleReferencesMatchNative":true,"GUI_verified":false});
+    std::fs::write(format!("{out}/runtime-native-verification.json"),serde_json::to_vec_pretty(&proof).unwrap()).unwrap();
+    println!("{proof}");
+}
 fn main() {
     let out = std::env::args()
         .skip(1)
         .find(|a| !a.starts_with("--"))
         .expect("OUTPUT_DIR");
     std::fs::create_dir_all(&out).unwrap();
+    if std::env::args().any(|a| a == "--emit-runtime-fixtures") {
+        emit_runtime_fixtures(&out);
+        return;
+    }
+    if std::env::args().any(|a| a == "--verify-runtime") {
+        verify_runtime_results(&out);
+        return;
+    }
     let baseline = std::env::args().any(|a| a == "--baseline");
     let (mut cases, mut reopens, mut history, mut rejects) = (0, 0, 0, 0);
     let mut observations = vec![];

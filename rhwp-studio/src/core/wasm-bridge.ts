@@ -1286,7 +1286,7 @@ export class WasmBridge {
   splitParagraph(sec: number, para: number, charOffset: number, removedParaMeta?: RemovedParaMeta, applyNextStyle = false): string {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     if (applyNextStyle) {
-      return (this.doc as any).splitParagraphWithNextStyle(sec, para, charOffset, serializeParaMeta(removedParaMeta));
+      return this.doc.splitParagraphWithNextStyle(sec, para, charOffset, serializeParaMeta(removedParaMeta));
     }
     return this.doc.splitParagraph(sec, para, charOffset, serializeParaMeta(removedParaMeta));
   }
@@ -1324,7 +1324,7 @@ export class WasmBridge {
   splitParagraphInCell(sec: number, parentPara: number, controlIdx: number, cellIdx: number, cellParaIdx: number, charOffset: number, removedParaMeta?: RemovedParaMeta, applyNextStyle = false): string {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     if (applyNextStyle) {
-      return (this.doc as any).splitParagraphInCellWithNextStyle(sec, parentPara, controlIdx, cellIdx, cellParaIdx, charOffset, serializeParaMeta(removedParaMeta));
+      return this.doc.splitParagraphInCellWithNextStyle(sec, parentPara, controlIdx, cellIdx, cellParaIdx, charOffset, serializeParaMeta(removedParaMeta));
     }
     return this.doc.splitParagraphInCell(sec, parentPara, controlIdx, cellIdx, cellParaIdx, charOffset, serializeParaMeta(removedParaMeta));
   }
@@ -1650,7 +1650,7 @@ export class WasmBridge {
   splitParagraphInCellByPath(sec: number, parentPara: number, pathJson: string, charOffset: number, removedParaMeta?: RemovedParaMeta, applyNextStyle = false): string {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     if (applyNextStyle) {
-      return (this.doc as any).splitParagraphInCellByPathWithNextStyle(sec, parentPara, pathJson, charOffset, serializeParaMeta(removedParaMeta));
+      return this.doc.splitParagraphInCellByPathWithNextStyle(sec, parentPara, pathJson, charOffset, serializeParaMeta(removedParaMeta));
     }
     return (this.doc as any).splitParagraphInCellByPath(sec, parentPara, pathJson, charOffset, serializeParaMeta(removedParaMeta));
   }
@@ -2457,7 +2457,7 @@ export class WasmBridge {
   splitParagraphInFootnote(sec: number, para: number, controlIdx: number, fnParaIdx: number, charOffset: number, removedParaMeta?: RemovedParaMeta, applyNextStyle = false): { ok: boolean; fnParaIndex: number; charOffset: number } {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     if (applyNextStyle) {
-      return JSON.parse((this.doc as any).splitParagraphInFootnoteWithNextStyle(sec, para, controlIdx, fnParaIdx, charOffset, serializeParaMeta(removedParaMeta)));
+      return JSON.parse(this.doc.splitParagraphInFootnoteWithNextStyle(sec, para, controlIdx, fnParaIdx, charOffset, serializeParaMeta(removedParaMeta)));
     }
     return JSON.parse((this.doc as any).splitParagraphInFootnote(sec, para, controlIdx, fnParaIdx, charOffset, serializeParaMeta(removedParaMeta)));
   }
@@ -3115,7 +3115,7 @@ export class WasmBridge {
   splitParagraphInHeaderFooter(sec: number, isHeader: boolean, applyTo: number, hfParaIdx: number, charOffset: number, removedParaMeta?: RemovedParaMeta, applyNextStyle = false): string {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     if (applyNextStyle) {
-      return (this.doc as any).splitParagraphInHeaderFooterWithNextStyle(sec, isHeader, applyTo, hfParaIdx, charOffset, serializeParaMeta(removedParaMeta));
+      return this.doc.splitParagraphInHeaderFooterWithNextStyle(sec, isHeader, applyTo, hfParaIdx, charOffset, serializeParaMeta(removedParaMeta));
     }
     return this.doc.splitParagraphInHeaderFooter(sec, isHeader, applyTo, hfParaIdx, charOffset, serializeParaMeta(removedParaMeta));
   }

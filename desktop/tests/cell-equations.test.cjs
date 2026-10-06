@@ -4,7 +4,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const {pathToFileURL}=require('node:url');
 test('multiple cell equations preserve their neighbors and body across history and native format exports',async()=>{
-  const root=path.resolve(__dirname,'../web/studio');
+  const root=process.env.GEULGYEOL_QA_ENGINE_DIR || path.resolve(__dirname,'../web/studio');
   const {initSync,HwpDocument}=await import(pathToFileURL(path.join(root,'rhwp.js')));
   initSync({module:fs.readFileSync(path.join(root,'rhwp_bg.wasm'))});
   const d=HwpDocument.createEmpty();

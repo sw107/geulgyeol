@@ -1,0 +1,323 @@
+{
+  "engineSourceCommit": "8dc84eeb4249736db2da73bde042e346ba71a758",
+  "engineLibraryUnchangedSinceCommit": true,
+  "pendingCommitsIncluded": [
+    "2f27fce",
+    "08b30c1",
+    "8dc84ee"
+  ],
+  "sourceFileSHA256": {
+    "desktop/tests/cell-equations.test.cjs": "a9a71efb3673dfbee8dc333e3d8a0b1002dbf0067d36f0d645cc4b5cccc24d8c",
+    "desktop/tests/complex-layout.test.cjs": "9a84b3c9281446eea3d4b4af3d1d9f3ce402af2985b74e006ed3d45f5e6d4e0a",
+    "desktop/tests/engine.test.cjs": "bb27798114839c0e07ae75dec3e146ba88fd6219f7713bb4efeab9bf12ea0ec0",
+    "desktop/tests/inline-pictures.test.cjs": "a1d62ed9e7e75aff4bd2ce8b56ff48dbbdbf6ccad5831f0af30b598044c70c13",
+    "desktop/tests/table-roundtrip.test.cjs": "0fd33471f4e11f283568bf6b56b6e09351f1ede15be3bb60582ecced52654a8b",
+    "engine/examples/next_style_enter_check.rs": "d99e704e392b8b547dfc280ffffd1201569609a4b45c8cb73091759ac134a2c2",
+    "rhwp-studio/src/core/wasm-bridge.ts": "83a2dab1aaea97d3115d154c86d51bafe2a73ee1b7b3d73b8b57d89aaed904e0",
+    "scripts/check-current-wasm-integration.mjs": "bf2be80d74a266d6a517962040460f8cfe7b01806678089f9cec9f036f1bdf14",
+    "scripts/package-local-mac-integration.py": "d1bb246ddff8b020bb73d3e3eaa475b4948037214af8bd4e1c86445f7b58adec"
+  },
+  "releaseBuild": {
+    "command": [
+      "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "build",
+      "--offline",
+      "--locked",
+      "--release",
+      "--target",
+      "wasm32-unknown-unknown",
+      "--lib",
+      "--manifest-path",
+      "engine/Cargo.toml"
+    ],
+    "profile": "release defaults including LTO and codegen-units=1",
+    "targetInitialBytes": 1473687552,
+    "targetLimitBytes": 3221225472,
+    "targetPeakBytes": 2034855936,
+    "targetFinalBytes": 2034855936,
+    "targetAddedBytes": 561168384,
+    "stoppedForBudget": false,
+    "exitCode": 0,
+    "elapsedSeconds": 184.91,
+    "sourceCommit": "8dc84eeb4249736db2da73bde042e346ba71a758"
+  },
+  "generatedBindings": {
+    "command": [
+      "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/wasm-bindgen-0.2.127-aarch64-apple-darwin/wasm-bindgen",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/style-lint-qa/target/wasm32-unknown-unknown/release/rhwp.wasm",
+      "--target",
+      "web",
+      "--out-dir",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/pkg"
+    ],
+    "exitCode": 0,
+    "files": {
+      "rhwp.js": {
+        "bytes": 448757,
+        "SHA256": "23e52ca1904d36d6496b931e0ce3f518e6e6423a08af759213cf4b25ee13f659"
+      },
+      "rhwp_bg.wasm.d.ts": {
+        "bytes": 60749,
+        "SHA256": "c67a9ee7ba6faac4bc38e526ba6027f8c17274b3a84b20788afe2d3406a373ff"
+      },
+      "rhwp_bg.wasm": {
+        "bytes": 11764997,
+        "SHA256": "5964e2fe21c7dd3965a18601431a6a2314b1c8638aca9fcb41fe27a29f77e12d"
+      },
+      "package.json": {
+        "bytes": 18,
+        "SHA256": "1239d4d885dcad42201a27ed9324f8f0f760b78700d8db9ced39a511cffe7eae"
+      },
+      "rhwp.d.ts": {
+        "bytes": 180813,
+        "SHA256": "e9d209ef564d10191e85000f7b6dd225c72ee4c480e31f972d73fdac9ec54882"
+      }
+    }
+  },
+  "uiBuild": {
+    "tsc": {
+      "command": [
+        "node",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/node_modules/typescript/bin/tsc",
+        "--project",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.5,
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "firstViteAttempt": {
+      "command": [
+        "node",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/node_modules/vite/bin/vite.js",
+        "build",
+        "--config",
+        "vite.geulgyeol-beta.config.mjs",
+        "--outDir",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/web/studio",
+        "--emptyOutDir"
+      ],
+      "exitCode": 1,
+      "elapsedSeconds": 0.2,
+      "logSHA256": "63f1b92d5132df94cb0cf951c6200a86bbb32468b9bee13c06e892c5cc04ebb1"
+    },
+    "vite": {
+      "command": [
+        "node",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/node_modules/vite/bin/vite.js",
+        "build",
+        "--config",
+        "vite.geulgyeol-beta.config.mjs",
+        "--configLoader",
+        "native",
+        "--outDir",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/web/studio",
+        "--emptyOutDir"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.84,
+      "logSHA256": "d07bbd9727fdc884157ddb0fc89d1b6a2de5974dae580aa1cb4879ac0eddc7e6"
+    }
+  },
+  "currentRuntime": {
+    "engineSHA256": "5964e2fe21c7dd3965a18601431a6a2314b1c8638aca9fcb41fe27a29f77e12d",
+    "cases": 288,
+    "snapshotUndoRedoOperations": 576,
+    "actualMergeInverseCases": 72,
+    "currentSourceUICommandCases": 72,
+    "atomicRejections": 21,
+    "serializedOutputs": 1224,
+    "actualGeneratedWasmBindingsExecuted": true,
+    "allFiveEnterExportsExecuted": true,
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false
+  },
+  "packagedRuntime": {
+    "engineSHA256": "5964e2fe21c7dd3965a18601431a6a2314b1c8638aca9fcb41fe27a29f77e12d",
+    "cases": 288,
+    "snapshotUndoRedoOperations": 576,
+    "actualMergeInverseCases": 72,
+    "currentSourceUICommandCases": 72,
+    "atomicRejections": 21,
+    "serializedOutputs": 1224,
+    "actualGeneratedWasmBindingsExecuted": true,
+    "allFiveEnterExportsExecuted": true,
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false
+  },
+  "packagedRuntimeNativeComparison": {
+    "GUI_verified": false,
+    "actualWasmOutputsReopened": 1224,
+    "allParagraphTextStyleShapeRunsAndStyleReferencesMatchNative": true
+  },
+  "packagedDesktopSuite": {
+    "counts": {
+      "tests": 33,
+      "pass": 31,
+      "fail": 0,
+      "skipped": 1,
+      "todo": 1
+    },
+    "invocation": {
+      "command": [
+        "node",
+        "--test",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/cell-equations.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/close.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/complex-layout.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/document-shortcuts.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/edit-history.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/engine.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/equation-target.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/inline-pictures.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/new-document.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/server.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/storage.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/style-deletion-ui.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/style-deletion.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/style-propagation-ui.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/style-propagation.test.cjs",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/table-roundtrip.test.cjs"
+      ],
+      "engineDir": "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/packaged-engine",
+      "fixtureDir": "/Users/sw107/Documents/Codex/2026-10-06/task/style-lint-qa/behavior/final-enter-propagation",
+      "exitCode": 0,
+      "elapsedSeconds": 0.83
+    },
+    "engine": "5964e2fe21c7dd3965a18601431a6a2314b1c8638aca9fcb41fe27a29f77e12d"
+  },
+  "nativeFixtureStrictClippy": {
+    "command": [
+      "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "clippy",
+      "--offline",
+      "--locked",
+      "--manifest-path",
+      "engine/Cargo.toml",
+      "-p",
+      "rhwp",
+      "--lib",
+      "--example",
+      "next_style_enter_check",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 1.29
+  },
+  "package": {
+    "app": "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app",
+    "version": "0.4.4-dev.5",
+    "product": "GeulgyeolDevEnter",
+    "bundleId": "org.geulgyeol.dev.enter",
+    "profileName": "GeulgyeolDevEnter",
+    "sourceAppUnchanged": true,
+    "files": 79,
+    "engineSHA256": "5964e2fe21c7dd3965a18601431a6a2314b1c8638aca9fcb41fe27a29f77e12d",
+    "asarSHA256": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+    "asarHeaderSHA256": "4b63de8832303a24eec033b259fb943c70f81cce30eecf4e0ac251205a168d63",
+    "requiresAdHocResigning": true,
+    "newZipCreated": false
+  },
+  "packageVerification": {
+    "version": "0.4.4-dev.5",
+    "bundleId": "org.geulgyeol.dev.enter",
+    "helpers": [
+      {
+        "name": "GeulgyeolDevEnter Helper (Renderer)",
+        "bundleId": "org.geulgyeol.dev.enter.helper.Renderer"
+      },
+      {
+        "name": "GeulgyeolDevEnter Helper (GPU)",
+        "bundleId": "org.geulgyeol.dev.enter.helper.GPU"
+      },
+      {
+        "name": "GeulgyeolDevEnter Helper",
+        "bundleId": "org.geulgyeol.dev.enter.helper"
+      },
+      {
+        "name": "GeulgyeolDevEnter Helper (Plugin)",
+        "bundleId": "org.geulgyeol.dev.enter.helper.Plugin"
+      }
+    ],
+    "engineSHA256": "5964e2fe21c7dd3965a18601431a6a2314b1c8638aca9fcb41fe27a29f77e12d",
+    "generatedBindingsMatchFreshBuild": true,
+    "allViteAssetsMatchFreshBuild": true,
+    "fiveEnterExportsPresentInCompiledUI": true,
+    "viteAssets": {
+      "studio-plugin-Cp8dJ3L_.js": "abdcbcab732aad8d91b551c97ff045bec6b140ae87d94c5fd44235d5515fb4e7",
+      "canvaskit-renderer-C2jsX_wY.js": "0b07d0e9aa3874ef5e617cadeb2b233f1a32905f8b20b19f783f487365155353",
+      "rhwp_bg-BQNx1pLG.wasm": "5964e2fe21c7dd3965a18601431a6a2314b1c8638aca9fcb41fe27a29f77e12d",
+      "index-804HVpMQ.js": "03c85cdd00246c6e62d78fa4547d724024ba612daa1b55866d61de0c2f1d7be9",
+      "canvaskit-SCAxUyCS.wasm": "25ebed8e60158c5854f8dc807b936daca21354f8bfb6a2231266b0a93812f301",
+      "index-EHujs-C0.css": "f0783ab4c24b02f241c1e3807f971396337209afc63c32146f59f65123cf963a"
+    },
+    "profileIsolated": true,
+    "noTestOrNodeModulesInApp": true,
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false
+  },
+  "lifecycle": {
+    "version": "0.4.4-dev.5",
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false,
+    "profileBase": "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/profile",
+    "pid": 59074,
+    "basicProcessAndLocalServerPassed": true,
+    "htmlVersionMatched": true,
+    "servedEngineSHA256": "5964e2fe21c7dd3965a18601431a6a2314b1c8638aca9fcb41fe27a29f77e12d",
+    "processAlive": true,
+    "quitRequestExit": 0,
+    "quitStderr": "",
+    "normalQuit": true,
+    "finalProcessExit": 0
+  },
+  "targetFinalBytes": 2035216384,
+  "qaFinalBytesAtRecording": 436895744,
+  "additionalDiskEstimateBytes": 998424576,
+  "preservedBeta1AsarSHA256": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+  "publicPushAttempted": false,
+  "newZipCreated": false,
+  "GUIAutomationToolAvailable": false,
+  "actualGUIEditingOrIMEVerified": false,
+  "notarizationOrSecuritySettingsChanged": false,
+  "LinuxExecutionOrRemoteTransferPerformed": false,
+  "logs": {
+    "current-runtime-run.log": "3f9b58e0d77493cbda45295f0d28c5b1aa1724df74d151ef25892b2af2c51665",
+    "vite-bundled-config-permission-failure.log": "63f1b92d5132df94cb0cf951c6200a86bbb32468b9bee13c06e892c5cc04ebb1",
+    "signature.log": "e07884cb21c2d4ead85defeb7b683f7734208c4691d63e491b5aae379e56e5fe",
+    "basic-launch.log": "0f5a49b18e55d59d2b8a9c6096909e778cad63e9257801b578d5b084f95e32cb",
+    "wasm-release-build.log": "177bada3d1b6cce002bd9d7d20c5bce0c37283f5ed870048ec298032904db923",
+    "fixtures-run.log": "fb82d7b8a663e508c4936e842018a0d6e602da8d63e312ddb091d5e1f8016f26",
+    "native-fixture-clippy.log": "e50a3aa6af2bc870e7d60118f1935c2453485840a773462780ecbb27b6026626",
+    "packaged-desktop-tests.log": "89198d804c3a357cde4c972a22631000de22e394e267d377ff008ca62bbcce1f",
+    "desktop-tests.log": "892214e14078daabbe751d8106678ae0bb0e145d2999e72af37a76e319af9a85",
+    "packaged-runtime.log": "4a0dbb5b84532361c291e951435b5ee377ff1afc0386511fb097de434237bdf3",
+    "tsc.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "vite.log": "d07bbd9727fdc884157ddb0fc89d1b6a2de5974dae580aa1cb4879ac0eddc7e6",
+    "wasm-bindgen.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "current-runtime.log": "5d3edfe8d447c0a2382c70eb4e13e14399ba9aca22e6fed93c98125b7ae4bd9e",
+    "packaged-runtime-run.log": "bd45c1569fdb00de2ca7c2751fc9a1d8aefe278a86442f499c5d910e9d05cc8a"
+  },
+  "limitations": [
+    "Actual GUI/IME and native save dialogs not verified",
+    "Hancom middle Enter/direct format parity not independently verified",
+    "Large document repeated Enter snapshot cost not profiled",
+    "One private layout fixture test skipped; createEmpty default-style test remains TODO",
+    "Lifecycle logs contain sandbox_extension_issue_file warning; renderer correctness not established by launch alone"
+  ],
+  "processCleanup": {
+    "candidateProcessesAfterNormalQuit": [],
+    "queryExitCode": 1,
+    "noCandidateProcessesRemain": true
+  },
+  "supportScriptSHA256": {
+    "current-desktop-tests.py": "58b782dc6d99a91dd0c692b0600867cf516f8cb5e4265fe134047f7df963a50b",
+    "current-mac-lifecycle.py": "a7a37cdc795ccdb05116761650ebf1d0ff53de1b05f2a0535387d471b01eb3be",
+    "bounded-example.py": "d4d5ebf8a31a3b03a35f9c81f7db44b627937a378ee333be1f6be333215747be",
+    "wasm-release-build.py": "223a132a0f4bd6174bee8ab139d5fc0f3b281039c1017f930296ef6db6d2f2a7"
+  }
+}
