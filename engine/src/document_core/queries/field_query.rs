@@ -489,17 +489,29 @@ impl DocumentCore {
     ) -> Result<String, HwpError> {
         // 먼저 필드 위치 찾기
         let fields = self.collect_all_fields();
-        let fi = fields
-            .iter()
-            .find(|f| f.field.field_id == field_id)
+        let mut matches = fields.iter().filter(|f| f.field.field_id == field_id);
+        let fi = matches
+            .next()
             .ok_or_else(|| HwpError::InvalidField(format!("필드 ID {} 없음", field_id)))?;
+        // Cell IDs are synthetic and may collide across tables or with a real field.
+        // An ID alone cannot choose an owner in that case; names/occurrences can.
+        if matches.next().is_some() {
+            return Err(HwpError::InvalidField(format!("필드 ID {} 소유권 중복", field_id)));
+        }
 
         let location = fi.location.clone();
         let fri = fi.field_range_index;
         let old_value = fi.value.clone();
 
         let section_index = location.section_index;
-        self.set_field_text_at(&location, fri, value)?;
+        if fi.field.ctrl_id == 0 {
+            self.set_cell_field_text(&location, value)?;
+            if let Some(sec) = self.document.sections.get_mut(section_index) {
+                sec.raw_stream = None;
+            }
+        } else {
+            self.set_field_text_at(&location, fri, value)?;
+        }
         self.recompose_section(section_index);
 
         Ok(format!(
@@ -776,6 +788,21 @@ impl DocumentCore {
         location: &FieldLocation,
         value: &str,
     ) -> Result<(), HwpError> {
+        // A named cell owns its first paragraph, not that paragraph's first
+        // ClickHere range. Whole-text replacement has no defined ownership rule
+        // for inner fields, anchored objects, or range references. Reject before
+        // obtaining mutable access or invalidating the original raw stream.
+        if !matches!(location.nested_path.last(), Some(NestedEntry::TableCell { para_index: 0, .. })) {
+            return Err(HwpError::InvalidField("셀 필드의 첫 문단 위치가 아님".into()));
+        }
+        let first = para_at_location(self, location)
+            .ok_or_else(|| HwpError::InvalidField("셀 필드의 첫 문단 없음".into()))?;
+        validate_field_edit_axis(first)?;
+        if !first.controls.is_empty() || !first.field_ranges.is_empty()
+            || !first.range_tags.is_empty() || first.ctrl_data_records.iter().any(Option::is_some)
+        {
+            return Err(HwpError::InvalidField("셀 값 교체: 내부 필드/제어/범위 참조 소유권을 보존할 수 없음".into()));
+        }
         if location.nested_path.is_empty() {
             return Err(HwpError::InvalidField(
                 "셀 필드 위치에 중첩 경로 없음".into(),
@@ -2131,6 +2158,9 @@ fn para_at_location<'a>(core: &'a DocumentCore, location: &FieldLocation) -> Opt
 
 fn field_range_bounds(core: &DocumentCore, fi: &FieldInfo) -> Option<(usize, usize)> {
     let para = para_at_location(core, &fi.location)?;
+    if fi.field.ctrl_id == 0 {
+        return Some((0, para.text.chars().count()));
+    }
     let range = para.field_ranges.get(fi.field_range_index)?;
     Some((range.start_char_idx, range.end_char_idx))
 }

@@ -1,0 +1,113 @@
+{
+  "baseCommit": "6f576bdca0202850bd2d7ba733cc119b9a903daa",
+  "productionChangedFiles": [
+    "engine/src/document_core/queries/field_query.rs"
+  ],
+  "productionSourceSHA256": "f8c0a608a108d68ec9b7c611c43fc1a5cd130ce58875f6c8539de1935e46d145",
+  "candidateWasmPath": "/Users/sw107/Documents/Codex/2026-10-06/task/named-cell-value-qa/pkg/rhwp_bg.wasm",
+  "candidateWasmSHA256": "89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf",
+  "sourceSHA256": {
+    "engine/src/document_core/queries/field_query.rs": "f8c0a608a108d68ec9b7c611c43fc1a5cd130ce58875f6c8539de1935e46d145",
+    "engine/examples/named_cell_value_check.rs": "cdcbead445a0d2f1512cf02ec709585ff7d3c188ac25de3fe5aefd5870b48d76",
+    "scripts/check-named-cell-value.mjs": "243046b3981b6a2e83e4e009d6a302529d6a20646571352cccc74885a96b09d3",
+    "rhwp-studio/src/core/wasm-bridge.ts": "ca581c8273d6b898f1d1c1684f23b8b41e3230264c4dd54643d6d3d2d647562f",
+    "rhwp-studio/src/engine/input-handler.ts": "58767f925ee260969314b7777df352a4f52045aeb05907644bba0bc7f2ebbacd",
+    "rhwp-studio/src/engine/command.ts": "6d6b72bfe8c0cabb02461406c971a9cfa8c9e3eff7cd9c7d52ea27179a8c8968",
+    "rhwp-studio/src/engine/history.ts": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db",
+    "npm/hwpctrl-ocx/src/index.mjs": "5d67bfd70df65a21f43d91bee3290291abc82ea313655e7255775b59f703beed"
+  },
+  "baselineRegression": {
+    "file": "/Users/sw107/Documents/Codex/2026-10-06/task/named-cell-value-qa/baseline-failure.log",
+    "exitCode": 1,
+    "missingExpectedRefusal": true,
+    "originalInnerValueBefore": "",
+    "originalInnerValueAfter": "새값🙂",
+    "originalHwpAndHwpxReopenReproduced": true
+  },
+  "native": {
+    "positiveCases": 36,
+    "reopens": 72,
+    "snapshotUndoRedoPairs": 36,
+    "refusalCalls": 169,
+    "wholeDocumentRawStreamAndEventsUnchanged": true,
+    "caseKinds": [
+      "bad-axis",
+      "duplicate-cell-name",
+      "duplicate-id",
+      "empty-paragraphs",
+      "first-note",
+      "inner-field",
+      "inner-target",
+      "normal",
+      "range-reference",
+      "same-name-inner",
+      "same-name-occurrence",
+      "unknown"
+    ]
+  },
+  "wasm": {
+    "accepted": 48,
+    "rejected": 188,
+    "reopens": 96,
+    "undos": 72,
+    "redos": 72,
+    "collisions": 20,
+    "actualWasmBridge": true,
+    "actualInputHandlerExecuteOperation": true,
+    "actualSnapshotCommandAndHistory": true
+  },
+  "nativeCrossCheckOfWasmFiles": {
+    "files": 96,
+    "fullRecursiveParagraphAndCellNoteAndFieldAndShapeReferences": true
+  },
+  "previousClickHere": {
+    "reopens": 54,
+    "undos": 24,
+    "redos": 24,
+    "rejections": 14,
+    "cellRegressions": 6
+  },
+  "previousClickHereAdditionalReopens": 4,
+  "previousValueAtomic": {
+    "supported": 10,
+    "unsupported": 18,
+    "acceptedUnsupported": 0
+  },
+  "previousValueAtomicReopens": 20,
+  "preservation": {
+    "sourceCommit": "6f576bdca0202850bd2d7ba733cc119b9a903daa",
+    "oldSourceSHA256": "ca5ed628ebb8fc880a3d52aeb222070ae1eb5517854dac5e1d64753b428e4f16",
+    "protectedSHA256": {
+      "dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+      "dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+      "app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+      "geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+      "geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7"
+    },
+    "dev8AsarSHA256": "66e9af062d45efaca508053e87a7a759489d7f98e0484798e7fd60b5d468a104",
+    "previousCandidateWasmSHA256": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1"
+  },
+  "budget": {
+    "targetLimitBytes": 4294967296,
+    "targetPeakBytes": 3492241408,
+    "targetFinalBytes": 3403378688,
+    "minDiskFreeBytes": 24453120000,
+    "currentDiskFreeBytes": 24657920000,
+    "minimumDiskFreeBytes": 10737418240,
+    "cacheDeleted": false
+  },
+  "newPackaging": false,
+  "newGUIWindowsOpened": false,
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxVerified": false,
+  "publicPushOrRelease": false,
+  "securityAccountCertificateRemotePermissionsChanged": false,
+  "limitations": [
+    "Whole first paragraph replacement with inner controls/fields/range references is rejected; separate inner-name edit remains supported where existing field guards allow it",
+    "Same-name default remains first document-order match; Native/CLI occurrence selection tested. UI/OCX occurrence forwarding was not changed or certified",
+    "ID writes with multiple owners are rejected; the existing ID read lookup is unchanged",
+    "Adjacent empty ClickHere boundary clearing and vertical cell pagination limitations remain",
+    "Full library tests remain blocked by three preexisting missing include_bytes fixtures"
+  ]
+}
