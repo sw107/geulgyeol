@@ -23,6 +23,8 @@ def main():
     parser.add_argument("--product", default="GeulgyeolDevEnter")
     parser.add_argument("--bundle-id", default="org.geulgyeol.dev.enter")
     parser.add_argument("--version", default="0.4.4-dev.5")
+    parser.add_argument("--engine-dir", type=pathlib.Path)
+    parser.add_argument("--expected-source-sha256", default="95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b")
     args = parser.parse_args()
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9]+", args.product):
         raise ValueError("Product must be a simple executable/profile name")
@@ -39,7 +41,7 @@ def main():
         raise ValueError("Use a separate nonexistent output app")
     archive = source / "Contents/Resources/app.asar"
     source_hash = sha(archive.read_bytes())
-    if source_hash != "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b":
+    if source_hash != args.expected_source_sha256:
         raise ValueError("Expected the preserved verified beta1 runtime")
     old_header, contents = helper.read_archive(archive)
     old_nodes = dict(helper.entries(old_header))
@@ -48,8 +50,9 @@ def main():
     for file in args.studio_dir.resolve().rglob("*"):
         if file.is_file():
             contents["web/studio/" + file.relative_to(args.studio_dir.resolve()).as_posix()] = file.read_bytes()
+    engine_dir = args.engine_dir.resolve() if args.engine_dir else root / "pkg"
     for name in ["rhwp.js", "rhwp.d.ts", "rhwp_bg.wasm", "rhwp_bg.wasm.d.ts"]:
-        contents["web/studio/" + name] = (root / "pkg" / name).read_bytes()
+        contents["web/studio/" + name] = (engine_dir / name).read_bytes()
     product, bundle_id, version = args.product, args.bundle_id, args.version
     package = json.loads((root / "desktop/package.json").read_text())
     package.update(name=("geulgyeol-dev-enter" if product == "GeulgyeolDevEnter" else product.lower()), productName=product, version=version)
@@ -94,6 +97,7 @@ def main():
     print(json.dumps({"app": str(output), "version": version, "product": product,
                       "bundleId": bundle_id, "profileName": product, "sourceAppUnchanged": True,
                       "files": len(contents), "engineSHA256": sha(actual["web/studio/rhwp_bg.wasm"]),
+                      "engineDir": str(engine_dir),
                       "asarSHA256": sha(new_archive.read_bytes()), "asarHeaderSHA256": sha(raw_header),
                       "requiresAdHocResigning": True, "newZipCreated": False}, indent=2))
 

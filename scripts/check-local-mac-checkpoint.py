@@ -20,6 +20,7 @@ def main():
     parser.add_argument("--output-dir", type=pathlib.Path, required=True)
     parser.add_argument("--required-ui-method", action="append", default=[])
     parser.add_argument("--source-proof", type=pathlib.Path)
+    parser.add_argument("--engine-dir", type=pathlib.Path)
     args = parser.parse_args()
     root = pathlib.Path(__file__).resolve().parent.parent
     spec = importlib.util.spec_from_file_location("asar", root / "scripts/repackage-mac-candidate.py")
@@ -67,9 +68,10 @@ def main():
             assets[name] = sha(contents["web/studio/" + name])
     engine = output / "packaged-engine"
     engine.mkdir(exist_ok=True)
+    engine_dir = args.engine_dir.resolve() if args.engine_dir else root / "pkg"
     for name in ["rhwp.js", "rhwp.d.ts", "rhwp_bg.wasm", "rhwp_bg.wasm.d.ts"]:
         value = contents["web/studio/" + name]
-        assert value == (root / "pkg" / name).read_bytes(), name
+        assert value == (engine_dir / name).read_bytes(), name
         (engine / name).write_bytes(value)
     (engine / "package.json").write_text('{"type":"module"}\n')
     engine_sha = sha(contents["web/studio/rhwp_bg.wasm"])
