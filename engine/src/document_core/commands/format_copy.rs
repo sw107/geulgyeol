@@ -107,8 +107,9 @@ impl DocumentCore {
     ) -> Result<String, HwpError> {
         let path = parse_path(json)?;
         self.validate_cell_format_path(sec, parent, &path)?;
-        let para = self.resolve_paragraph_by_path(sec, parent, &path)?;
-        Ok(self.build_para_properties_json(para.para_shape_id, sec))
+        let table = self.resolve_table_by_path(sec, parent, &path)?;
+        let (_, cell, para) = *path.last().unwrap();
+        Ok(self.build_numbered_para_properties_json(&table.cells[cell].paragraphs, para, sec))
     }
     pub fn apply_cell_own_properties_by_paths_native(
         &mut self,

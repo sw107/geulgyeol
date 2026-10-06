@@ -1084,6 +1084,7 @@ impl LayoutEngine {
             };
 
             let mut para_y = text_y_start;
+            let numbering_counters = self.cell_numbering_counters(&cell.paragraphs, styles, 0);
             let para_count = composed_paras.len();
             let cell_idx = cell_enum_idx;
             for (pidx, (composed, para)) in composed_paras
@@ -1114,7 +1115,7 @@ impl LayoutEngine {
                     Some((s, p, c)) => (s, pidx, Some(c)),
                     None => (0, 0, None),
                 };
-                let numbered_comp = self.apply_paragraph_numbering(Some(composed), para, styles, 0);
+                let numbered_comp = self.apply_cell_paragraph_numbering(Some(composed), para, styles, 0, numbering_counters[pidx]);
                 let composed_for_layout = numbered_comp.as_ref().unwrap_or(composed);
                 para_y = self.layout_composed_paragraph(
                     tree,

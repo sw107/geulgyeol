@@ -957,6 +957,7 @@ impl LayoutEngine {
             // [#4149] windowed 프로브면 창 문단만 lazy compose. 그 외에는 종전과
             // 동일한 순서로 전량 compose → shrink → recompose.
             let probe_windowed = probe.is_some_and(|p| p.windowed);
+            let numbering_counters = self.cell_numbering_counters(&cell.paragraphs, styles, outline_numbering_id);
             let mut composed_store: CellComposedStore;
             if probe_windowed {
                 // shrink 생략 근거: 프로브 사전 게이트가 line_segs>=2 문단 존재를
@@ -1759,11 +1760,12 @@ impl LayoutEngine {
                 {
                     let is_last_para = cp_idx == last_rendered_para_idx;
                     let numbered_comp = if start_line == 0 {
-                        self.apply_paragraph_numbering(
+                        self.apply_cell_paragraph_numbering(
                             Some(composed),
                             para,
                             styles,
                             outline_numbering_id,
+                            numbering_counters[cp_idx],
                         )
                     } else {
                         None

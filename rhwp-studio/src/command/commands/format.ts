@@ -348,11 +348,12 @@ export const formatCommands: CommandDef[] = [
       dialog.currentNumberingId = props.numberingId ?? 0;
       dialog.currentRestartMode = (props as any).numberingRestartMode ?? 0;
       dialog.currentStartNumber = (props as any).numberingStartNum ?? 1;
-      const bodyNumbering = ih.captureBodyNumbering();
+      const bodyNumbering = ih.captureBodyNumbering() ?? ih.captureCellNumbering();
       if (bodyNumbering) {
         dialog.previousLists = bodyNumbering.lists;
         dialog.previousNumberingId = bodyNumbering.preferredId;
         dialog.onApplyDefinition = bodyNumbering.apply;
+        if (ih.getCursorPosition().parentParaIndex !== undefined) dialog.continuationHint = '이어쓰기는 각 셀 안의 이전 목록에 적용됩니다. 여러 셀을 선택하면 각 셀의 목록과 수준을 유지합니다. 새 목록은 위 번호 형식으로 시작합니다.';
       }
       // Bullet일 때 현재 bullet 문자 전달
       if (props.headType === 'Bullet' && props.numberingId && props.numberingId > 0) {

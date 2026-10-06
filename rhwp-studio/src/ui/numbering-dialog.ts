@@ -161,6 +161,7 @@ export class NumberingDialog extends ModalDialog {
   previousLists: { id: number; label: string }[] = [];
   previousNumberingId = 0;
   currentStartNumber = 1;
+  continuationHint = '';
   /** 글머리표 적용 콜백 */
   onApplyBullet?: (bulletChar: string) => void;
   onClose?: () => void;
@@ -370,7 +371,7 @@ export class NumberingDialog extends ModalDialog {
       label.appendChild(previousSelect);
       restartSection.appendChild(label);
       const hint = document.createElement('p');
-      hint.textContent = '이어쓰기는 선택한 목록의 번호 모양과 문단 수준을 유지합니다. 새 목록은 위 번호 형식으로 시작합니다.';
+      hint.textContent = this.continuationHint || '이어쓰기는 선택한 목록의 번호 모양과 문단 수준을 유지합니다. 새 목록은 위 번호 형식으로 시작합니다.';
       restartSection.appendChild(hint);
     }
     panel.appendChild(restartSection);

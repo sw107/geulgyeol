@@ -8219,6 +8219,49 @@ impl LayoutEngine {
         styles: &ResolvedStyleSet,
         outline_numbering_id: u16,
     ) -> Option<ComposedParagraph> {
+        self.apply_paragraph_numbering_with_counters(composed, para, styles, outline_numbering_id, None)
+    }
+
+    /// Each cell owns list counters. Precompute from the complete cell, including paragraphs
+    /// outside a page fragment, so rendering order and nested tables cannot advance another list.
+    pub(crate) fn cell_numbering_counters(
+        &self,
+        paragraphs: &[Paragraph],
+        styles: &ResolvedStyleSet,
+        outline_numbering_id: u16,
+    ) -> Vec<[u32; 7]> {
+        let mut state = super::NumberingState::default();
+        paragraphs.iter().map(|para| {
+            let Some(style) = styles.para_styles.get(para.para_shape_id as usize) else { return [0; 7]; };
+            if !matches!(style.head_type, HeadType::Number | HeadType::Outline) { return [0; 7]; }
+            let id = resolve_numbering_id(style.head_type, style.numbering_id, outline_numbering_id);
+            if style.head_type == HeadType::Number &&
+                id.checked_sub(1).and_then(|i| styles.numberings.get(i as usize)).is_none() {
+                return [0; 7];
+            }
+            state.advance(id, style.para_level, para.numbering_restart)
+        }).collect()
+    }
+
+    pub(crate) fn apply_cell_paragraph_numbering(
+        &self,
+        composed: Option<&ComposedParagraph>,
+        para: &Paragraph,
+        styles: &ResolvedStyleSet,
+        outline_numbering_id: u16,
+        counters: [u32; 7],
+    ) -> Option<ComposedParagraph> {
+        self.apply_paragraph_numbering_with_counters(composed, para, styles, outline_numbering_id, Some(counters))
+    }
+
+    fn apply_paragraph_numbering_with_counters(
+        &self,
+        composed: Option<&ComposedParagraph>,
+        para: &Paragraph,
+        styles: &ResolvedStyleSet,
+        outline_numbering_id: u16,
+        cell_counters: Option<[u32; 7]>,
+    ) -> Option<ComposedParagraph> {
         let para_style = styles.para_styles.get(para.para_shape_id as usize)?;
 
         let head_text = match para_style.head_type {
@@ -8247,11 +8290,11 @@ impl LayoutEngine {
                     None => return None,
                 };
 
-                let counters = self.numbering_state.borrow_mut().advance(
+                let counters = cell_counters.unwrap_or_else(|| self.numbering_state.borrow_mut().advance(
                     numbering_id,
                     level,
                     para.numbering_restart,
-                );
+                ));
                 let start_numbers = numbering.level_start_numbers;
 
                 let level_idx = (level as usize).min(6);

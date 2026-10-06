@@ -1,0 +1,255 @@
+{
+  "baseCommit": "9b859745d68030c5a422d1b5cd105ad35a1d3030",
+  "baselineCases": 12,
+  "cellUI": {
+    "cases": 78,
+    "reopens": 156,
+    "undos": 210,
+    "redos": 204,
+    "rejections": 258,
+    "noOps": 18,
+    "rollbacks": 6,
+    "engineSHA256": "bc74a237b0d466a7c00447fa156f977bf9695a15314e4567683c75f56a0dcc02",
+    "actualDialogBodyAndListeners": true,
+    "actualInputHandlerAndHistory": true,
+    "GUIVerified": false
+  },
+  "cellNative": {
+    "GUIVerified": false,
+    "allSavedParaPropertiesAndDefinitions": true,
+    "bodyAndCellContentStyleCharGeometryRefsPreserved": true,
+    "displayLabels": true,
+    "nativeAtomicBadPaths": 156,
+    "verifiedUIExports": 156
+  },
+  "multiPageWasm": {
+    "pageCount": 4,
+    "paragraphs": 124,
+    "reopens": 2,
+    "undo": 1,
+    "redo": 1,
+    "GUIVerified": false
+  },
+  "bodyUI": {
+    "cases": 20,
+    "reopens": 44,
+    "undos": 52,
+    "redos": 51,
+    "rejections": 85,
+    "noOps": 5,
+    "structural": 2,
+    "rollbacks": 1,
+    "engineSHA256": "bc74a237b0d466a7c00447fa156f977bf9695a15314e4567683c75f56a0dcc02",
+    "actualNumberingDialogBodyAndInputListeners": true,
+    "actualNumberingDialogConfirm": true,
+    "actualFormatCommand": true,
+    "actualInputHandlerExecuteOperation": true,
+    "realCommandHistory": true,
+    "GUIVerified": false
+  },
+  "bodyNative": {
+    "GUIVerified": false,
+    "allSavedParagraphProperties": true,
+    "displayLabels": true,
+    "textCharStyleAndNoteReferencesPreserved": true,
+    "verifiedUIExports": 44
+  },
+  "nativeRegressions": {
+    "stylePropagation": {
+      "atomic_rejections": 17,
+      "cases": 48,
+      "large_document_paragraphs": 600,
+      "large_document_update_ms": 19,
+      "native_GUI_verified": false,
+      "other_styles_and_direct_format_preserved": true,
+      "snapshot_undo_redo_operations": 96,
+      "two_format_reopens": 96
+    },
+    "styleDeletion": {
+      "atomic_rejections": 11,
+      "cases": 16,
+      "native_GUI_verified": false,
+      "nested_style_references_preserved": true,
+      "physical_IME_verified": false,
+      "snapshot_undo_redo_cases": 16,
+      "two_format_reopens": 32
+    },
+    "cellEquation": {
+      "atomic_rejections": 10,
+      "body_and_neighbor_preserved": true,
+      "cases": 72,
+      "hwp_hwpx_reopens": 288,
+      "native_GUI_verified": false,
+      "physical_IME_verified": false,
+      "precise_cell_layout_targets": true,
+      "snapshot_undo_redo_operations": 504
+    },
+    "storedRowUngroup": {
+      "atomic_rejections": 14,
+      "cases": 108,
+      "maximum_corner_error_px": 0.013333685313568822,
+      "native_GUI_save_verified": false,
+      "physical_IME_verified": false,
+      "snapshot_undo_redo_cases": 108,
+      "two_format_reopens": 216
+    },
+    "nextStyleEnter": {
+      "GUI_verified": false,
+      "atomic_rejections": 126,
+      "baseline": false,
+      "cachedSnapshots": false,
+      "cases": 162,
+      "merge_inverse_cases": 36,
+      "physical_IME_verified": false,
+      "snapshot_undo_redo_operations": 288,
+      "two_format_reopens": 324
+    }
+  },
+  "uiRegressions": [
+    {
+      "label": "footnote-char",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-footnote-char-wasm.mjs",
+        "pkg",
+        "../footnote-char-qa/behavior/native",
+        "../cell-numbering-qa/regressions/footnote-char"
+      ]
+    },
+    {
+      "label": "note-paragraph",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-note-paragraph-wasm.mjs",
+        "pkg",
+        "../note-paragraph-qa/behavior/native",
+        "../cell-numbering-qa/regressions/note-paragraph"
+      ]
+    },
+    {
+      "label": "note-pending",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-note-pending-format.mjs",
+        "pkg",
+        "../note-paragraph-qa/behavior/native",
+        "../cell-numbering-qa/regressions/note-pending"
+      ]
+    },
+    {
+      "label": "nested-paragraph",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-nested-paragraph-format.mjs",
+        "pkg",
+        "../nested-paragraph-qa/behavior/native",
+        "../cell-numbering-qa/regressions/nested-paragraph"
+      ]
+    },
+    {
+      "label": "nested-copy",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-nested-format-copy-wasm.mjs",
+        "pkg",
+        "../nested-format-copy-qa/behavior/native",
+        "../cell-numbering-qa/regressions/nested-copy"
+      ]
+    },
+    {
+      "label": "search",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-search-span-wasm.mjs",
+        "pkg",
+        "../search-span-qa/behavior/native",
+        "../cell-numbering-qa/regressions/search"
+      ]
+    },
+    {
+      "label": "cell-layout",
+      "exitCode": 0,
+      "command": [
+        "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/MacOS/GeulgyeolDev7",
+        "scripts/check-cell-layout-history.mjs",
+        "pkg",
+        "../cell-numbering-qa/regressions/cell-layout"
+      ]
+    }
+  ],
+  "build": {
+    "wasm-release": {
+      "exitCode": 0,
+      "targetPeakBytes": 3019194368,
+      "targetFinalBytes": 3019194368,
+      "targetLimitBytes": 3221225472,
+      "stoppedForBudget": false
+    },
+    "native": {
+      "exitCode": 0,
+      "targetPeakBytes": 3091488768,
+      "targetFinalBytes": 3091488768,
+      "targetLimitBytes": 3221225472,
+      "stoppedForBudget": false
+    },
+    "native-clippy": {
+      "exitCode": 0,
+      "targetPeakBytes": 3091509248,
+      "targetFinalBytes": 3091509248,
+      "targetLimitBytes": 3221225472,
+      "stoppedForBudget": false
+    },
+    "wasm-clippy": {
+      "exitCode": 0,
+      "targetPeakBytes": 3091513344,
+      "targetFinalBytes": 3091513344,
+      "targetLimitBytes": 3221225472,
+      "stoppedForBudget": false
+    },
+    "typeScriptExitCode": 0,
+    "viteExitCode": 0,
+    "viteEngineWasmMatches": true
+  },
+  "integrity": {
+    "sourceFilesMatched": 868,
+    "wasmSHA256": "bc74a237b0d466a7c00447fa156f977bf9695a15314e4567683c75f56a0dcc02",
+    "protectedApps": {
+      "dev6": {
+        "sha256": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+        "unchanged": true
+      },
+      "devEnter": {
+        "sha256": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+        "unchanged": true
+      },
+      "betaNext": {
+        "sha256": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+        "unchanged": true
+      },
+      "dev7": {
+        "sha256": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+        "unchanged": true
+      }
+    },
+    "webEngineWasm": {
+      "assets/rhwp_bg-CqjSAe5l.wasm": "bc74a237b0d466a7c00447fa156f977bf9695a15314e4567683c75f56a0dcc02"
+    }
+  },
+  "limitations": [
+    "No real Mac GUI, physical IME or Linux run",
+    "No new app packaging, public push or release",
+    "HF/note numbering UI and vertical-writing cells excluded",
+    "Full library suite blocked by three original fixtures; 11 verified, 0 restored, no substitute/skip"
+  ],
+  "testSourceSHA256": {
+    "scripts/check-cell-numbering.mjs": "7b4d3f63ea78eef2e66552fa3d806f85267dd49f5630c1f988632079881f19cd",
+    "scripts/check-cell-numbering-pages.mjs": "a35b83ebaee70cfb58956a9101bd4086d5bc9c9a9bba4895c650a916d76b59ef",
+    "engine/examples/cell_numbering_check.rs": "44315da0122427e03eb507e172c7666d8336c373e3bbfbe24952fda5feebd005"
+  }
+}

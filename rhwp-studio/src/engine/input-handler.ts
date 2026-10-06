@@ -6012,6 +6012,85 @@ export class InputHandler {
     } };
   }
 
+  /** 번호 정의는 공유할 수 있지만 이어쓰기 대상은 각 셀 안의 문단이다. */
+  captureCellNumbering(): ReturnType<InputHandler['captureBodyNumbering']> {
+    const targets = this.getParaFormatTargetsAtCursor();
+    if (!targets.length || targets.some(t => t.kind !== 'cell')) return null;
+    const cells = targets as Extract<ParaFormatTarget, { kind: 'cell' }>[];
+    const sec = cells[0].sec, parent = cells[0].parentPara;
+    if (cells.some(t => t.sec !== sec || t.parentPara !== parent)) return null;
+    const paths = cells.map(t => t.cellPath?.map(p => ({ ...p })) ?? [{ controlIndex: t.controlIdx, cellIndex: t.cellIdx, cellParaIndex: t.cellParaIdx }]);
+    // Empty formatting is a read-only preflight of every path and existing reference.
+    this.wasm.applyParaFormatInCellsByPaths(sec, parent, paths, {});
+    const generation = this.wasm.documentGeneration;
+    const definitions = this.wasm.getNumberingList(), valid = new Set(definitions.map(n => n.id));
+    const groups = new Map<string, { base: typeof paths[number]; targets: typeof paths; before: { props: ParaProperties; text: string }[]; prior: { id: number; label: string }[]; preferred: number }>();
+    const view = (base: typeof paths[number]) => {
+      const count = this.wasm.getCellParagraphCountByPath(sec, parent, JSON.stringify(base));
+      return Array.from({ length: count }, (_, p) => {
+        const path = withCellPathTarget(base, base[base.length - 1].cellIndex, p), json = JSON.stringify(path);
+        return { props: this.wasm.getCellParaPropertiesAtByPath(sec, parent, json), text: this.wasm.getTextInCellByPath(sec, parent, json, 0, this.wasm.getCellParagraphLengthByPath(sec, parent, json)) };
+      });
+    };
+    for (const path of paths) {
+      const base = withCellPathTarget(path, path[path.length - 1].cellIndex, 0), key = JSON.stringify(base);
+      let group = groups.get(key);
+      if (!group) { group = { base, targets: [], before: view(base), prior: [], preferred: 0 }; groups.set(key, group); }
+      group.targets.push(path);
+    }
+    for (const group of groups.values()) {
+      group.targets.sort((a, b) => a[a.length - 1].cellParaIndex - b[b.length - 1].cellParaIndex);
+      const first = group.targets[0][group.targets[0].length - 1].cellParaIndex;
+      for (let p = first - 1; p >= 0; p--) {
+        const { props, text } = group.before[p];
+        if ((props.headType === 'Number' || props.headType === 'Outline') && props.numberingId && valid.has(props.numberingId) && !group.prior.some(n => n.id === props.numberingId)) {
+          group.prior.push({ id: props.numberingId, label: `${p + 1}번째 셀 문단 · ${Array.from(text).slice(0, 32).join('')}` });
+        }
+      }
+      const current = group.before[first].props;
+      const currentId = (current.headType === 'Number' || current.headType === 'Outline') && current.numberingId && valid.has(current.numberingId) ? current.numberingId : 0;
+      group.preferred = group.prior.find(n => n.id === currentId)?.id ?? group.prior[0]?.id ?? currentId;
+    }
+    const single = groups.size === 1 ? [...groups.values()][0] : null;
+    const cursorBefore = { ...this.cursor.getPosition() };
+    return { lists: single?.prior ?? [], preferredId: single?.prior.length ? single.preferred : 0, apply: (definition, mode, start, previousId) => {
+      if (generation !== this.wasm.documentGeneration || !Number.isInteger(mode) || mode < 0 || mode > 2 || !Number.isInteger(start) || start < 1 || start > 999 ||
+          (mode === 1 && previousId !== 0 && (!single || !single.prior.some(n => n.id === previousId)))) return false;
+      try {
+        if (JSON.stringify(this.wasm.getNumberingList()) !== JSON.stringify(definitions) || [...groups.values()].some(g => JSON.stringify(view(g.base)) !== JSON.stringify(g.before))) return false;
+        this.wasm.applyParaFormatInCellsByPaths(sec, parent, paths, {});
+      } catch { return false; }
+      this.executeOperation({ kind: 'snapshot', operationType: 'cellNumbering', operation: wasm => {
+        const newIds = new Map<number, number>();
+        let changed = false;
+        wasm.runInBatch(() => {
+          for (const group of groups.values()) {
+            let nid = definition === null ? 0 : mode === 2 ? 0 : mode === 0 ? group.prior[0]?.id ?? group.preferred : previousId || group.preferred;
+            if (definition !== null && !nid) {
+              const first = group.targets[0][group.targets[0].length - 1].cellParaIndex, props = group.before[first].props;
+              const level = props.headType === 'Number' || props.headType === 'Outline' ? props.paraLevel ?? 0 : 0;
+              nid = newIds.get(level) ?? wasm.createNumbering(JSON.stringify({ ...JSON.parse(definition), startNumber: start, startLevel: level }));
+              if (!nid) throw new Error('셀 번호 정의 생성 실패');
+              newIds.set(level, nid);
+            }
+            for (const path of group.targets) {
+              const before = group.before[path[path.length - 1].cellParaIndex].props;
+              const headType = definition === null ? 'None' : 'Number';
+              if (before.headType === headType && before.numberingId === nid) continue;
+              const props: Partial<ParaProperties> = { headType, numberingId: nid };
+              if (definition !== null) props.paraLevel = before.headType === 'Number' || before.headType === 'Outline' ? before.paraLevel ?? 0 : 0;
+              wasm.applyParaFormatInCellsByPaths(sec, parent, [path], props);
+              changed = true;
+            }
+          }
+        });
+        return changed ? cursorBefore : null;
+      } });
+      this.focusTextarea();
+      return true;
+    } };
+  }
+
   /** 문단 번호 모양 적용 (대화상자에서 선택한 numberingId) */
   applyNumbering(numberingId: number): void {
     try {

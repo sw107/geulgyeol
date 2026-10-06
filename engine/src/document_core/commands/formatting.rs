@@ -177,13 +177,12 @@ impl DocumentCore {
         para_idx: usize,
     ) -> Result<String, HwpError> {
         use crate::model::control::Control;
-        use crate::model::style::HeadType;
         let section = self
             .document
             .sections
             .get(sec_idx)
             .ok_or_else(|| HwpError::RenderError(format!("구역 {} 범위 초과", sec_idx)))?;
-        let Some(para) = section.paragraphs.get(para_idx) else {
+        let Some(_) = section.paragraphs.get(para_idx) else {
             if let Some(src) = self.virtual_endnote_para_source(sec_idx, para_idx) {
                 return self.get_para_properties_in_footnote_native(
                     src.section_index,
@@ -197,6 +196,17 @@ impl DocumentCore {
                 para_idx
             )));
         };
+        Ok(self.build_numbered_para_properties_json(&section.paragraphs, para_idx, sec_idx))
+    }
+
+    pub(super) fn build_numbered_para_properties_json(
+        &self,
+        paragraphs: &[crate::model::paragraph::Paragraph],
+        para_idx: usize,
+        sec_idx: usize,
+    ) -> String {
+        use crate::model::style::HeadType;
+        let para = &paragraphs[para_idx];
         let mut json = self.build_para_properties_json(para.para_shape_id, sec_idx);
 
         // 번호 시작 방식 판별: numbering_id 패턴 기반
@@ -210,7 +220,7 @@ impl DocumentCore {
                 let mut prev_nid: Option<u16> = None;
                 let mut seen_before = false;
                 for pi in (0..para_idx).rev() {
-                    let pp = &section.paragraphs[pi];
+                    let pp = &paragraphs[pi];
                     let pps = self.styles.para_styles.get(pp.para_shape_id as usize);
                     let pht = pps.map(|s| s.head_type).unwrap_or(HeadType::None);
                     if !matches!(pht, HeadType::Number | HeadType::Outline) {
@@ -246,7 +256,7 @@ impl DocumentCore {
             ));
         }
 
-        Ok(json)
+        json
     }
 
     fn virtual_endnote_para_source(
@@ -272,16 +282,15 @@ impl DocumentCore {
         cell_idx: usize,
         cell_para_idx: usize,
     ) -> Result<String, HwpError> {
-        let para = self
-            .get_cell_paragraph_ref(
-                sec_idx,
-                parent_para_idx,
-                control_idx,
-                cell_idx,
-                cell_para_idx,
-            )
-            .ok_or_else(|| HwpError::RenderError("셀 문단을 찾을 수 없음".to_string()))?;
-        Ok(self.build_para_properties_json(para.para_shape_id, sec_idx))
+        let table = self.resolve_table_by_path(
+            sec_idx, parent_para_idx, &[(control_idx, cell_idx, cell_para_idx)],
+        )?;
+        let cell = table.cells.get(cell_idx)
+            .ok_or_else(|| HwpError::RenderError("셀 범위 초과".to_string()))?;
+        if cell_para_idx >= cell.paragraphs.len() {
+            return Err(HwpError::RenderError("셀 문단 범위 초과".to_string()));
+        }
+        Ok(self.build_numbered_para_properties_json(&cell.paragraphs, cell_para_idx, sec_idx))
     }
 
     /// 글자 속성 JSON 생성 헬퍼
