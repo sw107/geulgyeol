@@ -12,6 +12,7 @@ const {BridgeProbe}=await import('data:text/javascript;base64,'+Buffer.from('fun
 const configs=JSON.parse(fs.readFileSync(path.join(fixtures,'manifest.json')));
 // Large-document correctness checks run after every timed trial has finished.
 const largeHistory=[];
+const largeParity=[];
 const views=d=>Array.from({length:d.pageCount()},(_,i)=>{const svg=d.renderPageSvg(i);const digest=crypto.createHash('sha256').update(svg).digest('hex');globalThis.gc?.();assert(process.memoryUsage().rss<768*1024*1024);assert(wasm.memory.buffer.byteLength<512*1024*1024);return digest;});
 const semantic=(d,c)=>({text:d.getTextFileText(),styles:d.getStyleList(),paragraphs:d.getParagraphCount(0),bodyStyles:Array.from({length:d.getParagraphCount(0)},(_,i)=>JSON.parse(d.getStyleAt(0,i)).id),cellStyles:c.scope==='cell'?Array.from({length:d.getCellParagraphCount(0,c.target,0,0)},(_,i)=>JSON.parse(d.getCellStyleAt(0,c.target,0,0,i)).id):[]});
 for(const c of configs.filter(c=>c.paragraphs===8192)) {
@@ -26,6 +27,8 @@ for(const c of configs.filter(c=>c.paragraphs===8192)) {
   cmd.execute(b);assert.deepEqual(semantic(d,c),after);assert.deepEqual(views(d),afterSvg);reopen(after);
   const rss=process.memoryUsage().rss,wasmBytes=wasm.memory.buffer.byteLength;assert(rss<768*1024*1024);assert(wasmBytes<512*1024*1024);
   largeHistory.push({scope:c.scope,paragraphs:c.paragraphs,pagesBefore:beforeSvg.length,pagesAfter:afterSvg.length,exactEveryPageSvgUndoRedo:true,fullTextAndAllBodyStyleIdsPreserved:true,twoFormatReopens:reopens,rssBytes:rss,wasmBytes});
+  largeParity.push({scope:c.scope,paragraphs:c.paragraphs,beforePageSHA256:beforeSvg,afterPageSHA256:afterSvg,beforeSemanticSHA256:crypto.createHash('sha256').update(JSON.stringify(before)).digest('hex'),afterSemanticSHA256:crypto.createHash('sha256').update(JSON.stringify(after)).digest('hex')});
  }finally{cmd.discard(b);d.free();}
 }
+fs.writeFileSync(path.join(q,'large-history-parity.json'),JSON.stringify(largeParity,null,2));
 fs.writeFileSync(path.join(q,'large-history-proof.json'),JSON.stringify({engineSHA256:crypto.createHash('sha256').update(bytes).digest('hex'),node:process.version,largeHistory,comparison:'per-page SHA256 without retaining SVG strings',GUIVerified:false,physicalIMEVerified:false},null,2));console.log(JSON.stringify(largeHistory));

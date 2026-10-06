@@ -1,8 +1,11 @@
 // Synthetic Enter/undo timings using generated WASM and the current typed UI command source.
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL,fileURLToPath} from 'node:url';import {stripTypeScriptTypes} from 'node:module';import {performance} from 'node:perf_hooks';import assert from 'node:assert/strict';import crypto from 'node:crypto';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const [engineArg,fixturesArg,outArg,label='measured']=process.argv.slice(2);
-assert(engineArg && fixturesArg && outArg,'ENGINE_DIR FIXTURE_DIR OUTPUT_DIR [LABEL]');
+const [engineArg,fixturesArg,outArg,label='measured',modesArg]=process.argv.slice(2);
+assert(engineArg && fixturesArg && outArg,'ENGINE_DIR FIXTURE_DIR OUTPUT_DIR [LABEL] [MODES_CSV]');
+const allowedModes=['legacy-core','next-core','legacy-command','next-command'];
+const modes=modesArg===undefined?allowedModes:modesArg.split(',');
+assert(modes.length>0 && new Set(modes).size===modes.length && modes.every(mode=>allowedModes.includes(mode)),'MODES_CSV must contain unique supported modes');
 const engine=path.resolve(engineArg),fixtures=path.resolve(fixturesArg),q=path.resolve(outArg);fs.mkdirSync(q,{recursive:true});
 const {initSync,HwpDocument}=await import(pathToFileURL(path.join(engine,'rhwp.js')));const bytes=fs.readFileSync(path.join(engine,'rhwp_bg.wasm'));const wasm=initSync({module:bytes});
 let source=fs.readFileSync(path.join(root,'rhwp-studio/src/engine/command.ts'),'utf8');let js='const MAX_PAGE_LOCAL_TEXT_EDIT_CHARS=10000;\n'+stripTypeScriptTypes(source,{mode:'transform'}).replace(/^import .*?;\s*$/gm,'');const commands=await import('data:text/javascript;base64,'+Buffer.from(js).toString('base64'));
@@ -11,7 +14,7 @@ for(const n of ['splitParagraph','splitParagraphInCell','mergeParagraph','mergeP
 const {BridgeProbe}=await import('data:text/javascript;base64,'+Buffer.from('function serializeParaMeta(m){return m?JSON.stringify(m):undefined;}\n'+stripTypeScriptTypes(code,{mode:'transform'})).toString('base64'));
 const configs=JSON.parse(fs.readFileSync(path.join(fixtures,'manifest.json')));const results=[];let maxRss=0,maxWasm=0;
 const timed=f=>{const a=performance.now();const value=f();return {value,ms:performance.now()-a};};const summary=a=>{a=a.toSorted((x,y)=>x-y);return {medianMs:(a[Math.floor((a.length-1)/2)]+a[Math.floor(a.length/2)])/2,p95Ms:a[Math.min(a.length-1,Math.ceil(a.length*.95)-1)],minMs:a[0],maxMs:a.at(-1)};};
-for(const c of configs){const data=fs.readFileSync(path.resolve(fixtures,path.basename(c.file)));const values=Object.fromEntries(['legacy-core','next-core','legacy-command','next-command'].map(n=>[n,[]]));let pages=0;
+for(const c of configs){const data=fs.readFileSync(path.resolve(fixtures,path.basename(c.file)));const values=Object.fromEntries(modes.map(n=>[n,[]]));let pages=0;
  for(let trial=-3;trial<12;trial++){
   const order=trial%2===0?Object.keys(values):Object.keys(values).reverse();
   for(const mode of order){globalThis.gc?.();const load=timed(()=>new HwpDocument(data));const d=load.value;const b=new BridgeProbe(d);const parts={save:[],restore:[],split:[],merge:[]};
@@ -31,4 +34,4 @@ for(const c of configs){const data=fs.readFileSync(path.resolve(fixtures,path.ba
  for(const [mode,samples]of Object.entries(values)){const row={scope:c.scope,paragraphs:c.paragraphs,textScalars:c.textScalars,pages,mode,samples:12,metrics:{}};for(const key of ['enter','undo','load','saveBefore','saveAfter','restore','split','merge'])row.metrics[key]=summary(samples.map(x=>x[key]));row.raw=samples;results.push(row);console.log(JSON.stringify({...row,raw:undefined}));}
  fs.writeFileSync(path.join(q,label+'-partial.json'),JSON.stringify(results,null,2));
 }
-const proof={engineSHA256:crypto.createHash('sha256').update(bytes).digest('hex'),node:process.version,platform:process.platform,arch:process.arch,warmupTrials:3,measuredTrials:12,alternatingModeOrder:true,gcBetweenTrials:typeof globalThis.gc==='function',rssLimitBytes:768*1024*1024,wasmLimitBytes:512*1024*1024,maxRssBytes:maxRss,maxWasmBytes:maxWasm,sourceSHA256:crypto.createHash('sha256').update(source).digest('hex'),bridgeSHA256:crypto.createHash('sha256').update(src).digest('hex'),GUIVerified:false,physicalIMEVerified:false,results};fs.writeFileSync(path.join(q,label+'-proof.json'),JSON.stringify(proof,null,2));console.log(JSON.stringify({complete:true,maxRss,maxWasm}));
+const proof={engineSHA256:crypto.createHash('sha256').update(bytes).digest('hex'),node:process.version,platform:process.platform,arch:process.arch,warmupTrials:3,measuredTrials:12,alternatingModeOrder:true,modes,gcBetweenTrials:typeof globalThis.gc==='function',rssLimitBytes:768*1024*1024,wasmLimitBytes:512*1024*1024,maxRssBytes:maxRss,maxWasmBytes:maxWasm,sourceSHA256:crypto.createHash('sha256').update(source).digest('hex'),bridgeSHA256:crypto.createHash('sha256').update(src).digest('hex'),GUIVerified:false,physicalIMEVerified:false,results};fs.writeFileSync(path.join(q,label+'-proof.json'),JSON.stringify(proof,null,2));console.log(JSON.stringify({complete:true,maxRss,maxWasm}));
