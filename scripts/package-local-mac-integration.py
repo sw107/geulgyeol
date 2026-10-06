@@ -6,6 +6,7 @@ import importlib.util
 import json
 import pathlib
 import plistlib
+import re
 import shutil
 import struct
 
@@ -19,7 +20,16 @@ def main():
     parser.add_argument("--source-app", type=pathlib.Path, required=True)
     parser.add_argument("--studio-dir", type=pathlib.Path, required=True)
     parser.add_argument("--output-app", type=pathlib.Path, required=True)
+    parser.add_argument("--product", default="GeulgyeolDevEnter")
+    parser.add_argument("--bundle-id", default="org.geulgyeol.dev.enter")
+    parser.add_argument("--version", default="0.4.4-dev.5")
     args = parser.parse_args()
+    if not re.fullmatch(r"[A-Za-z][A-Za-z0-9]+", args.product):
+        raise ValueError("Product must be a simple executable/profile name")
+    if not re.fullmatch(r"[a-z][a-z0-9]*(?:\.[a-z0-9]+)+", args.bundle_id):
+        raise ValueError("Use a separate valid development bundle ID")
+    if not re.fullmatch(r"\d+\.\d+\.\d+-dev\.\d+", args.version):
+        raise ValueError("Only local development versions are supported")
     root = pathlib.Path(__file__).resolve().parent.parent
     spec = importlib.util.spec_from_file_location("candidate_helpers", root / "scripts/repackage-mac-candidate.py")
     helper = importlib.util.module_from_spec(spec)
@@ -40,9 +50,9 @@ def main():
             contents["web/studio/" + file.relative_to(args.studio_dir.resolve()).as_posix()] = file.read_bytes()
     for name in ["rhwp.js", "rhwp.d.ts", "rhwp_bg.wasm", "rhwp_bg.wasm.d.ts"]:
         contents["web/studio/" + name] = (root / "pkg" / name).read_bytes()
-    product, bundle_id, version = "GeulgyeolDevEnter", "org.geulgyeol.dev.enter", "0.4.4-dev.5"
+    product, bundle_id, version = args.product, args.bundle_id, args.version
     package = json.loads((root / "desktop/package.json").read_text())
-    package.update(name="geulgyeol-dev-enter", productName=product, version=version)
+    package.update(name=("geulgyeol-dev-enter" if product == "GeulgyeolDevEnter" else product.lower()), productName=product, version=version)
     contents["package.json"] = (json.dumps(package, ensure_ascii=False, indent=2) + "\n").encode()
     main_text = (root / "desktop/main.cjs").read_text().replace("GeulgyeolBetaNext", product).replace("0.4.4-beta.1", version).replace("글결 베타", "글결 개발 후보")
     old_profile = "path.join(app.getPath('appData'),'" + product + "')"
