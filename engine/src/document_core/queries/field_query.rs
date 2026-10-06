@@ -920,6 +920,12 @@ impl DocumentCore {
         field_range_index: usize,
         value: &str,
     ) -> Result<(), HwpError> {
+        let original_ranges = {
+            let para = para_at_location(self, location)
+                .ok_or_else(|| HwpError::InvalidField("필드 문단 위치 초과".into()))?;
+            validate_field_value_edit(para, field_range_index, value)?;
+            para.field_ranges.clone()
+        };
         // raw_stream 무효화: 직렬화 시 수정된 모델을 사용하도록 강제
         if let Some(sec) = self.document.sections.get_mut(location.section_index) {
             sec.raw_stream = None;
@@ -954,6 +960,19 @@ impl DocumentCore {
         current_fr.start_char_idx = start_idx;
         current_fr.end_char_idx = new_end;
         let control_idx = current_fr.control_idx;
+        // Replacement owns only this field. Generic text insertion includes an
+        // equal boundary in neighboring fields; restore their original ownership.
+        for (i, original) in original_ranges.iter().enumerate() {
+            if i == field_range_index { continue; }
+            let range = &mut para.field_ranges[i];
+            *range = original.clone();
+            if original.start_char_idx >= fr.end_char_idx
+                && (original.start_char_idx > start_idx || original.control_idx > control_idx)
+            {
+                range.start_char_idx = new_end + (original.start_char_idx - fr.end_char_idx);
+                range.end_char_idx = new_end + (original.end_char_idx - fr.end_char_idx);
+            }
+        }
 
         // [#3380] 값을 채운 필드는 더 이상 "초기 상태"가 아니다 — properties 비트 15를 세운다.
         //
@@ -1452,7 +1471,7 @@ fn collect_fields_from_paragraph(
                     + if fr.start_char_idx == fr.end_char_idx {
                         guide_units(para, fr.control_idx)
                     } else {
-                        para.text.chars().skip(fr.start_char_idx).take(fr.end_char_idx - fr.start_char_idx)
+                        para.text.chars().skip(fr.start_char_idx).take(fr.end_char_idx.saturating_sub(fr.start_char_idx))
                             .map(|ch| stream_char_units(ch) as usize).sum()
                     },
             });
@@ -2403,6 +2422,36 @@ fn validate_field_edit_axis(para: &Paragraph) -> Result<(), HwpError> {
     if para.controls.iter().enumerate().any(|(ci, ctrl)| matches!(ctrl, Control::Field(_)) && !seen.contains(&ci)) {
         return Err(invalid());
     }
+    Ok(())
+}
+
+fn validate_field_value_edit(para: &Paragraph, range_index: usize, value: &str) -> Result<(), HwpError> {
+    validate_field_edit_axis(para)?;
+    let fr = para.field_ranges.get(range_index)
+        .ok_or_else(|| HwpError::InvalidField("field_range 인덱스 초과".into()))?;
+    let invalid = || HwpError::InvalidField("필드 값 교체: 내부 제어/필드 소유권을 보존할 수 없는 범위".into());
+    let start = fr.start_char_idx;
+    let end = fr.end_char_idx;
+    for (i, other) in para.field_ranges.iter().enumerate() {
+        if i == range_index { continue; }
+        // Clearing into another field's begin makes equal-position BEGIN/END
+        // ownership ambiguous in HWP storage. Keep the original document intact.
+        if value.is_empty()
+            && ((other.start_char_idx == end && other.control_idx > fr.control_idx)
+                || (other.start_char_idx == other.end_char_idx && other.end_char_idx == start))
+        { return Err(invalid()); }
+        if other.start_char_idx == start && other.start_char_idx == other.end_char_idx
+            && (start < end || other.control_idx < fr.control_idx)
+        { return Err(invalid()); }
+        if (start < other.end_char_idx && other.start_char_idx < end)
+            || (start == end && other.start_char_idx < start && start < other.end_char_idx)
+            || (other.start_char_idx == start && other.end_char_idx > end && other.control_idx < fr.control_idx)
+        { return Err(invalid()); }
+    }
+    let positions = para.control_text_positions();
+    if para.controls.iter().enumerate().any(|(ci, ctrl)|
+        !matches!(ctrl, Control::Field(_)) && positions[ci] > start && positions[ci] < end)
+    { return Err(invalid()); }
     Ok(())
 }
 
