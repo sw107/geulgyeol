@@ -3046,6 +3046,11 @@ export class WasmBridge {
     return this.doc.saveSnapshot();
   }
 
+  saveSnapshotWithComposition(): number {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return this.doc.saveSnapshotWithComposition();
+  }
+
   restoreSnapshot(id: number): void {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     this.doc.restoreSnapshot(id);

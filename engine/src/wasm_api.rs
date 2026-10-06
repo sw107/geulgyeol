@@ -7123,6 +7123,12 @@ impl HwpDocument {
         self.save_snapshot_native()
     }
 
+    /// Exact snapshot with bounded deterministic composition, for Enter history.
+    #[wasm_bindgen(js_name = saveSnapshotWithComposition)]
+    pub fn save_snapshot_with_composition(&mut self) -> u32 {
+        self.save_snapshot_with_composition_native()
+    }
+
     /// 지정 ID의 스냅샷으로 Document를 복원한다.
     #[wasm_bindgen(js_name = restoreSnapshot)]
     pub fn restore_snapshot(&mut self, id: u32) -> Result<String, JsValue> {

@@ -4188,6 +4188,17 @@ impl DocumentCore {
         self.rebuild_resolved_styles();
         self.rebuild_embedded_exact_font_sources();
         self.recompose_all_with_horizontal_shaping();
+        self.finish_derived_state_rebuild();
+    }
+
+    pub(crate) fn finish_derived_state_rebuild(&mut self) {
+        self.finish_derived_state_rebuild_with_measurements(None);
+    }
+
+    pub(crate) fn finish_derived_state_rebuild_with_measurements(
+        &mut self,
+        cached: Option<Vec<Vec<crate::renderer::height_measurer::MeasuredParagraph>>>,
+    ) {
         self.mark_all_sections_dirty();
         self.measured_tables.clear();
         self.measured_sections.clear();
@@ -4195,6 +4206,12 @@ impl DocumentCore {
         self.para_column_map.clear();
         self.invalidate_page_tree_cache();
         self.overflow_links_cache.borrow_mut().clear();
+        if let Some(sections) = cached {
+            // Only matching plain paragraph heights are reused. Tables are remeasured.
+            self.dirty_paragraphs = sections.iter().map(|s| Some(vec![false; s.len()])).collect();
+            self.measured_sections = sections.into_iter().map(|fallback_paragraphs|
+                MeasuredSection { fallback_paragraphs, tables: Vec::new() }).collect();
+        }
         self.paginate();
     }
 

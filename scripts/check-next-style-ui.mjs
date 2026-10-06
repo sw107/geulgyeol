@@ -20,6 +20,7 @@ let cases=0;
 function mock(){
  const calls=[];const snapshots=new Map();let id=0;let state={paragraphs:[{style:'A',runs:[{pos:0,id:1}]}],unrelated:{table:'keep',refs:[5,7]}};
  const bridge={calls,snapshots,get state(){return state},saveSnapshot(){snapshots.set(++id,structuredClone(state));return id},restoreSnapshot(n){state=structuredClone(snapshots.get(n))},discardSnapshot(n){snapshots.delete(n)}};
+ bridge.saveSnapshotWithComposition=()=>bridge.saveSnapshot();
  const doc={};for(const name of methods)for(const enter of [false,true]){const api=name+(enter?'WithNextStyle':'');doc[api]=(...args)=>{calls.push({api,args});state.paragraphs.push({style:enter?'B':'A',runs:[{pos:0,id:enter?2:1}]});return JSON.stringify({ok:true,paraIdx:1,hfParaIndex:1,fnParaIndex:1,cellParaIndex:1})};}
  const routes=new BridgeProbe(doc);for(const name of methods)bridge[name]=routes[name].bind(routes);bridge.mergeParagraph=()=>{state.paragraphs.pop()};bridge.mergeParagraphInCell=()=>{state.paragraphs.pop()};bridge.mergeParagraphInCellByPath=()=>{state.paragraphs.pop()};return bridge;
 }

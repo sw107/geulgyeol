@@ -467,16 +467,21 @@ fn main() {
         return;
     }
     let baseline = std::env::args().any(|a| a == "--baseline");
+    let cached = std::env::args().any(|a| a == "--cached-snapshots");
     let (mut cases, mut reopens, mut history, mut rejects) = (0, 0, 0, 0);
     let mut observations = vec![];
     for kind in 0..9 {
         for direct in 0..4 {
             for mode in 0..4 {
                 let (mut d, l, a, b, ac, ap, bc, bp) = fixture(kind, direct);
+                if cached {
+                    let bytes = d.export_hwpx_native().unwrap();
+                    d = DocumentCore::from_bytes(&bytes).unwrap();
+                }
                 let before = semantic(&d);
                 let source = paragraphs(&d, l)[0].clone();
                 let len = source.text.chars().count();
-                let undo = d.save_snapshot_native();
+                let undo = if cached { d.save_snapshot_with_composition_native() } else { d.save_snapshot_native() };
                 let off = if mode == 1 { 2 } else { len };
                 let meta = if mode == 3 {
                     Some(source.capture_meta())
@@ -529,7 +534,7 @@ fn main() {
                         "merge inverse must retain B, scope={kind} direct={direct}"
                     );
                 }
-                let redo = d.save_snapshot_native();
+                let redo = if cached { d.save_snapshot_with_composition_native() } else { d.save_snapshot_native() };
                 d.restore_snapshot_native(undo).unwrap();
                 assert_eq!(semantic(&d), before);
                 d.restore_snapshot_native(redo).unwrap();
@@ -656,7 +661,7 @@ fn main() {
             }
         }
     }
-    let proof = json!({"baseline":baseline,"cases":cases,"two_format_reopens":reopens,"snapshot_undo_redo_operations":history,"merge_inverse_cases":if baseline{0}else{36},"atomic_rejections":rejects,"observations":observations,"GUI_verified":false,"physical_IME_verified":false});
+    let proof = json!({"baseline":baseline,"cachedSnapshots":cached,"cases":cases,"two_format_reopens":reopens,"snapshot_undo_redo_operations":history,"merge_inverse_cases":if baseline{0}else{36},"atomic_rejections":rejects,"observations":observations,"GUI_verified":false,"physical_IME_verified":false});
     std::fs::write(
         format!("{out}/native-next-style-proof.json"),
         serde_json::to_vec_pretty(&proof).unwrap(),

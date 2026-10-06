@@ -138,9 +138,22 @@ pub(crate) struct RenderNormalizationState {
     pub(crate) overlay: Arc<RenderNormalizationOverlay>,
 }
 
-/// HWP 문서 핵심 도메인 모델
-///
-/// 문서 데이터, 레이아웃 상태, 설정, 캐시를 포함한다.
+/// Optional bounded, deterministic composition for an exact document snapshot.
+#[derive(Clone)]
+pub(crate) struct SnapshotComposition {
+    pub(crate) dpi: f64,
+    pub(crate) hangul2024_compat: bool,
+    pub(crate) bytes: usize,
+    pub(crate) paragraphs: Vec<Vec<ComposedParagraph>>,
+    pub(crate) measured_paragraphs: Vec<Vec<crate::renderer::height_measurer::MeasuredParagraph>>,
+}
+#[derive(Clone)]
+pub(crate) struct DocumentSnapshot {
+    pub(crate) document: Document,
+    pub(crate) composition: Option<SnapshotComposition>,
+}
+
+/// HWP 문서 핵심 도메인 모델. 문서 데이터, 레이아웃 상태, 설정, 캐시를 포함한다.
 /// WASM 바인딩 없이 순수 Rust 타입만 사용한다.
 pub struct DocumentCore {
     /// IR 문서
@@ -236,7 +249,7 @@ pub struct DocumentCore {
     pub(crate) overflow_links_cache:
         RefCell<HashMap<usize, Vec<queries::doc_tree_nav::OverflowLink>>>,
     /// Undo/Redo용 Document 스냅샷 저장소 (ID → Document 클론)
-    pub(crate) snapshot_store: Vec<(u32, Document)>,
+    pub(crate) snapshot_store: Vec<(u32, DocumentSnapshot)>,
     /// 다음 스냅샷 ID
     pub(crate) next_snapshot_id: u32,
     /// [#5769] Undo/Redo용 삭제 조각 저장소 (ID → DeleteFragment).

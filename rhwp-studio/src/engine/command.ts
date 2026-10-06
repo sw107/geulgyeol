@@ -825,7 +825,7 @@ export class SplitParagraphCommand implements EditCommand {
   execute(wasm: WasmBridge): DocumentPosition {
     if (this.applyNextStyle) {
       this.enterSnapshot ??= new SnapshotCommand(this.type, this.position, this.position,
-        (bridge) => this.executeSplit(bridge));
+        (bridge) => this.executeSplit(bridge), true);
       const result = this.enterSnapshot.execute(wasm);
       return result;
     }
@@ -1723,7 +1723,7 @@ export class SplitParagraphInCellCommand implements EditCommand {
   execute(wasm: WasmBridge): DocumentPosition {
     if (this.applyNextStyle) {
       this.enterSnapshot ??= new SnapshotCommand(this.type, this.position, this.position,
-        (bridge) => this.executeSplit(bridge));
+        (bridge) => this.executeSplit(bridge), true);
       const result = this.enterSnapshot.execute(wasm);
       this.lastMutationEffects = IMMEDIATE_TEXT_MUTATION_EFFECTS;
       return result;
@@ -2852,6 +2852,7 @@ export class SnapshotCommand implements EditCommand {
     private cursorBefore: DocumentPosition,
     private cursorAfter: DocumentPosition,
     private operation: ((wasm: WasmBridge) => DocumentPosition | null) | null,
+    private cacheComposition = false,
   ) {
     this.type = `snapshot:${operationType}`;
   }
@@ -2876,7 +2877,7 @@ export class SnapshotCommand implements EditCommand {
 
     // 최초 실행: before 저장 → 작업 수행 (after 는 undo 시점에 잡는다)
     this.executed = true;
-    this.beforeId = wasm.saveSnapshot();
+    this.beforeId = this.cacheComposition ? wasm.saveSnapshotWithComposition() : wasm.saveSnapshot();
     // [Task #2328] operation 이 throw 하면 커맨드가 히스토리에 등록되지 못해 discard
     // 주체가 사라진다 → 스냅샷 영구 누수(orphan → WASM 무통보 축출 재발). 아래 catch 가
     // before 를 대칭적으로 해제한다.
@@ -2928,7 +2929,7 @@ export class SnapshotCommand implements EditCommand {
     // "현재 문서 == 이 명령 실행 직후 상태" 라는 뜻이므로 실행 시점에 찍은 것과 값이 같다.
     if (this.afterId === null && !this.redoUnavailable) {
       try {
-        this.afterId = wasm.saveSnapshot();
+        this.afterId = this.cacheComposition ? wasm.saveSnapshotWithComposition() : wasm.saveSnapshot();
       } catch {
         // 저장 실패로 **되돌리기 자체를 막지 않는다.** undo 는 수행하고 redo 만 포기한다 —
         // 여기서 던지면 사용자의 Ctrl+Z 가 아무 일도 못 하고 히스토리 엔트리까지 잃는다.

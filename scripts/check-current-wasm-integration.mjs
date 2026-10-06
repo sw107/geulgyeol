@@ -14,7 +14,7 @@ const wasmBytes = fs.readFileSync(path.join(engineDir, 'rhwp_bg.wasm'));
 initSync({module: wasmBytes});
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const bridgeSource = fs.readFileSync(path.join(root, 'rhwp-studio/src/core/wasm-bridge.ts'), 'utf8');
-const methods = ['splitParagraph', 'splitParagraphInCell', 'splitParagraphInCellByPath', 'splitParagraphInHeaderFooter', 'splitParagraphInFootnote', 'saveSnapshot', 'restoreSnapshot', 'discardSnapshot'];
+const methods = ['splitParagraph', 'splitParagraphInCell', 'splitParagraphInCellByPath', 'splitParagraphInHeaderFooter', 'splitParagraphInFootnote', 'saveSnapshot', 'saveSnapshotWithComposition', 'restoreSnapshot', 'discardSnapshot'];
 let probe = 'class BridgeProbe {doc; constructor(doc){this.doc=doc;}\n';
 for (const name of methods) {
   const a = bridgeSource.indexOf('  ' + name + '(');
@@ -74,6 +74,7 @@ for (const c of fixtures) {
   let undo, redo, cmd;
   try {
     const styles = d.getStyleList();
+    const beforeSvg = Array.from({length: d.pageCount()}, (_, i) => d.renderPageSvg(i));
     if (c.mode === 0) {
       const pos = position(c), r = c.route;
       if (r.kind === 'body') cmd = new commands.SplitParagraphCommand(pos, true);
@@ -87,10 +88,13 @@ for (const c of fixtures) {
       cmd.execute(bridge); uiCases++;
     } else {undo = d.saveSnapshot(); split(bridge, c); redo = d.saveSnapshot();}
     assert.equal(d.getStyleList(), styles, c.id + ' preserves style definitions');
+    const afterSvg = Array.from({length: d.pageCount()}, (_, i) => d.renderPageSvg(i));
     persist(d, c, 'after', c.after);
     if (cmd) cmd.undo(bridge); else d.restoreSnapshot(undo);
+    assert.deepEqual(Array.from({length: d.pageCount()}, (_, i) => d.renderPageSvg(i)), beforeSvg, c.id + ' undo appearance');
     persist(d, c, 'undo', c.before, ['Hwpx']); history++;
     if (cmd) cmd.execute(bridge); else d.restoreSnapshot(redo);
+    assert.deepEqual(Array.from({length: d.pageCount()}, (_, i) => d.renderPageSvg(i)), afterSvg, c.id + ' redo appearance');
     persist(d, c, 'redo', c.after, ['Hwpx']); history++;
     if (c.mode === 0) {
       const merged = merge(d, c);
@@ -128,6 +132,6 @@ for (const c of fixtures.filter(c => c.direct === 0 && c.mode === 0 && c.input.e
   } finally {d.free();}
 }
 fs.writeFileSync(path.join(outputDir, 'runtime-results.json'), JSON.stringify(rows));
-const proof = {engineSHA256: crypto.createHash('sha256').update(wasmBytes).digest('hex'), cases, snapshotUndoRedoOperations: history, actualMergeInverseCases: inverse, currentSourceUICommandCases: uiCases, atomicRejections: rejects, serializedOutputs: rows.length, actualGeneratedWasmBindingsExecuted: true, allFiveEnterExportsExecuted: true, nativeGUIVerified: false, physicalIMEVerified: false};
+const proof = {engineSHA256: crypto.createHash('sha256').update(wasmBytes).digest('hex'), cases, snapshotUndoRedoOperations: history, actualMergeInverseCases: inverse, currentSourceUICommandCases: uiCases, exactEveryPageSvgHistoryVerified: true, atomicRejections: rejects, serializedOutputs: rows.length, actualGeneratedWasmBindingsExecuted: true, allFiveEnterExportsExecuted: true, nativeGUIVerified: false, physicalIMEVerified: false};
 fs.writeFileSync(path.join(outputDir, 'runtime-proof.json'), JSON.stringify(proof, null, 2) + '\n');
 console.log(JSON.stringify(proof));
