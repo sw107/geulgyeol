@@ -19,3 +19,5 @@ pub(crate) mod section_raw_journal;
 mod style_ops;
 
 mod style_shapes;
+
+mod style_metadata;

@@ -7247,31 +7247,12 @@ impl HwpDocument {
     /// 스타일의 메타 정보(이름/영문이름/nextStyleId)를 수정한다.
     ///
     /// json: {"name":"...", "englishName":"...", "nextStyleId":0}
+    /// 잘못된 입력/참조는 이름도 변경하지 않고 false를 반환한다.
     #[wasm_bindgen(js_name = updateStyle)]
     pub fn update_style(&mut self, style_id: u32, json: &str) -> bool {
-        use crate::document_core::helpers::json_i32;
-        let styles = &mut self.core.document.doc_info.styles;
-        let style = match styles.get_mut(style_id as usize) {
-            Some(s) => s,
-            None => return false,
-        };
-        // 이름 파싱
-        if let Some(name) = crate::document_core::helpers::json_str(json, "name") {
-            style.local_name = name;
-        }
-        if let Some(en) = crate::document_core::helpers::json_str(json, "englishName") {
-            style.english_name = en;
-        }
-        if let Some(v) = json_i32(json, "nextStyleId") {
-            style.next_style_id = v as u8;
-        }
-        // raw_data 무효화 (수정됨)
-        style.raw_data = None;
-        // DocInfo 스트림 무효화. serialize_doc_info 는 raw_stream_dirty 가 false 이면
-        // 원본 스트림을 그대로 반환하고(레코드 raw_data 는 그 이전에 단락됨), 이름/nextStyleId
-        // 변경이 .hwp 저장에서 유실된다. 형제 update_style_shapes 는 이미 이 플래그를 세운다.
-        self.core.document.doc_info.raw_stream_dirty = true;
-        true
+        self.core
+            .update_style_metadata_native(style_id as usize, json)
+            .is_ok()
     }
 
     /// 스타일의 CharShape/ParaShape를 수정한다.
@@ -7305,52 +7286,13 @@ impl HwpDocument {
     /// 새 스타일을 생성한다.
     ///
     /// json: {"name":"...", "englishName":"...", "type":0, "nextStyleId":0}
-    /// 반환값: 새 스타일 ID (0-based)
+    /// 반환값: 새 스타일 ID (0-based), 잘못된 참조/입력은 변경 없이 -1.
     #[wasm_bindgen(js_name = createStyle)]
     pub fn create_style(&mut self, json: &str) -> i32 {
-        use crate::document_core::helpers::{json_i32, json_str};
-        use crate::model::style::Style;
-
-        let name = json_str(json, "name").unwrap_or_default();
-        let english_name = json_str(json, "englishName").unwrap_or_default();
-        let style_type = json_i32(json, "type").unwrap_or(0) as u8;
-        let next_style_id = json_i32(json, "nextStyleId").unwrap_or(0) as u8;
-
-        // 한컴 스타일 추가 흐름은 현재 문단의 모양을 기본값으로 삼는다.
-        // 호출자가 base ID를 넘기지 않으면 기존 호환성을 위해 바탕글을 사용한다.
-        let base_style = self.core.document.doc_info.styles.first();
-        let (fallback_char_shape_id, fallback_para_shape_id) = match base_style {
-            Some(s) => (s.char_shape_id, s.para_shape_id),
-            None => (0, 0),
-        };
-        let char_shape_id = json_i32(json, "baseCharShapeId")
-            .filter(|id| *id >= 0)
-            .map(|id| id as u16)
-            .filter(|id| (*id as usize) < self.core.document.doc_info.char_shapes.len())
-            .unwrap_or(fallback_char_shape_id);
-        let para_shape_id = json_i32(json, "baseParaShapeId")
-            .filter(|id| *id >= 0)
-            .map(|id| id as u16)
-            .filter(|id| (*id as usize) < self.core.document.doc_info.para_shapes.len())
-            .unwrap_or(fallback_para_shape_id);
-
-        let new_style = Style {
-            raw_data: None,
-            local_name: name,
-            english_name,
-            style_type,
-            next_style_id,
-            lang_id: 1042, // 한국어 default (HWP5 spec 표 47)
-            para_shape_id,
-            char_shape_id,
-            lock_form: false,
-        };
-        self.core.document.doc_info.styles.push(new_style);
-        self.core.document.doc_info.raw_stream_dirty = true;
-        let new_id = (self.core.document.doc_info.styles.len() - 1) as i32;
-        // 스타일 캐시 갱신
-        self.core.rebuild_resolved_styles();
-        new_id
+        self.core
+            .create_style_native(json)
+            .map(|id| id as i32)
+            .unwrap_or(-1)
     }
 
     /// 스타일을 삭제한다.
