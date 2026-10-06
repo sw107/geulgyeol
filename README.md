@@ -4,11 +4,11 @@ HWP/HWPX 문서를 로컬에서 읽고 편집하는 데스크톱 앱입니다. M
 
 ## 베타 사용
 
-버전 **0.4.3-beta.2**, macOS Apple Silicon(arm64), Electron 44.3.0. GitHub Releases의 Mac ZIP을 풀고 `GeulgyeolBeta.app`을 실행합니다. Intel Mac/Windows용 빌드는 제공하지 않습니다. 별도 베타 설정 폴더를 사용하므로 기존 글결 앱을 교체하지 않습니다.
+최신 Mac 버전 **0.4.4-beta.1**, macOS Apple Silicon(arm64), Electron 44.3.0. GitHub Releases의 Mac ZIP을 풀고 `GeulgyeolBetaNext.app`을 실행합니다. Intel Mac/Windows용 빌드는 제공하지 않습니다. 별도 베타 설정 폴더를 사용하므로 기존 글결 앱을 교체하지 않습니다.
 
-베타2는 앱 번들 전체의 ad-hoc 서명을 고쳐 베타1의 서명 리소스 결함을 해결했습니다. **Apple Developer ID 인증서 서명·Apple 공증은 없습니다.** 일반 다운로드 실행은 macOS가 차단할 수 있으며, 시험하기로 선택한 사용자가 시스템 설정 → 개인정보 보호 및 보안 → 그래도 열기에서 직접 허용해야 할 수 있습니다. 자동 허용이나 보안 설정 변경 스크립트는 제공하지 않습니다. 자세한 절차는 [빠른 시작](BETA_QUICK_START_KO.md)을 확인하세요.
+0.4.3-beta.2는 앱 번들 전체의 ad-hoc 서명을 고쳐 0.4.3-beta.1의 서명 리소스 결함을 해결했습니다. 최신 0.4.4-beta.1도 전체 번들 서명을 검증합니다. **Apple Developer ID 인증서 서명·Apple 공증은 없습니다.** 일반 다운로드 실행은 macOS가 차단할 수 있으며, 시험하기로 선택한 사용자가 시스템 설정 → 개인정보 보호 및 보안 → 그래도 열기에서 직접 허용해야 할 수 있습니다. 자동 허용이나 보안 설정 변경 스크립트는 제공하지 않습니다. 자세한 절차는 [빠른 시작](BETA_QUICK_START_KO.md)을 확인하세요.
 
-[베타2 릴리스](https://github.com/sw107/geulgyeol/releases/tag/v0.4.3-beta.2)를 사용하세요. 베타1은 기록 보존용이며 Mac 앱 서명 결함 때문에 실행을 권장하지 않습니다. Ubuntu 24.04 amd64용 **실험 베타2**도 공개했습니다. [Linux 설치·테스트 안내](https://github.com/sw107/geulgyeol/releases/download/v0.4.3-beta.2/LINUX_TESTING_KO.md)를 확인하세요. 설치·일반 사용자 실행·엔진의 두 형식 변환은 확인했지만, 실제 한글 IME, 실행취소·다시 실행, 저장 대화상자와 재열기 화면 검증은 남아 있습니다. Linux arm64 및 다른 배포판은 미검증입니다.
+[최신 Mac 베타 릴리스](https://github.com/sw107/geulgyeol/releases/tag/v0.4.4-beta.1)를 사용하세요. 기존 beta.2는 보존합니다. 기존 0.4.3-beta.1은 기록 보존용이며 Mac 앱 서명 결함 때문에 실행을 권장하지 않습니다. Ubuntu 24.04 amd64용 **실험 베타2**도 공개했습니다. [Linux 설치·테스트 안내](https://github.com/sw107/geulgyeol/releases/download/v0.4.3-beta.2/LINUX_TESTING_KO.md)를 확인하세요. 설치·일반 사용자 실행·엔진의 두 형식 변환은 확인했지만, 실제 한글 IME, 실행취소·다시 실행, 저장 대화상자와 재열기 화면 검증은 남아 있습니다. Linux arm64 및 다른 배포판은 미검증입니다.
 
 먼저 문서 사본으로 시험하세요. 열기, 본문·서식 편집, 표 편집, 그림·일부 도형 편집, 실행취소·다시 실행, HWP/HWPX 사본 저장을 지원합니다. 저장 후 사본을 다시 열어 확인하세요. 문서는 앱 안에서 로컬 처리되며 외부 리소스 요청을 차단합니다.
 
@@ -23,7 +23,7 @@ HWP/HWPX 문서를 로컬에서 읽고 편집하는 데스크톱 앱입니다. M
 
 ## 개발
 
-현재 작업 트리는 공개 beta.2와 dev.3를 보존한 별도 **0.4.4-dev.4 개발 후보**입니다. 스타일 모양 변경을 본문·셀·중첩 셀·머리말·각주 등 모델링된 문단에 전파하고 직접 지정한 서식과 문서 참조를 보존합니다. 바탕쪽·불명확한 참조는 무변경 거절합니다. `GeulgyeolDevPropagation` 앱과 별도 설정 폴더를 사용합니다. 자세한 검증 범위는 이번 체크포인트에서 확인하세요.
+현재 소스는 공개 beta.2와 dev.3/dev.4를 보존한 **0.4.4-beta.1 Mac 베타**입니다. 스타일 모양 변경을 본문·셀·중첩 셀·머리말·각주 등 모델링된 문단에 전파하고 직접 지정한 서식과 문서 참조를 보존합니다. 바탕쪽·불명확한 참조는 무변경 거절합니다. `GeulgyeolBetaNext` 앱과 별도 설정 폴더를 사용합니다. 검증된 dev.4 엔진을 그대로 재포장했으며 실제 Mac GUI·물리 IME와 새 Linux 검증은 미완료입니다. 자세한 범위와 재현 방법은 [베타 검증 기록](verification/beta1/RELEASE_KO.md)을 확인하세요.
 
 `engine/`은 수정된 Rust 엔진, `rhwp-studio/`는 편집 화면, `desktop/`은 Electron 호스트입니다. `rhwp-shared/` 및 `npm/`은 RHWP 공유 계약과 SDK/플러그인 소스입니다. 생성된 WASM, 앱, 사용자 문서, 개발용 캐시·로컬 설정은 Git 소스에서 제외합니다. 새 문서 생성에 필수인 upstream 빈 템플릿 `engine/saved/blank2010.hwp` 한 개만 포함합니다.
 
@@ -40,7 +40,7 @@ npm run package:mac --prefix desktop
 
 `package:mac`은 패키징 뒤 앱 번들 전체를 ad-hoc 서명하고 strict 검증합니다. 서명 결함이 있으면 실패로 종료합니다. 이 검사는 Gatekeeper 승인이나 Apple 공증을 뜻하지 않습니다.
 
-베타 ZIP은 검증된 통합 엔진을 사용합니다. 공개할 소스에서 다시 빌드한 엔진 WASM의 SHA-256도 베타 엔진과 일치했습니다. 앱 전체의 재현 가능한 빌드 인증을 뜻하지는 않습니다. `VERIFICATION.md`에서 새 시험과 이전 검증을 구분합니다.
+베타 ZIP은 검증된 통합 엔진을 사용합니다. 공개할 소스에서 다시 빌드한 엔진 WASM의 SHA-256도 베타 엔진과 일치했습니다. 앱 전체의 재현 가능한 빌드 인증을 뜻하지는 않습니다. 릴리스 첨부 `VERIFICATION.md`와 `verification/beta1/RELEASE_KO.md`에서 새 시험과 이전 검증을 구분합니다.
 
 ## 출처와 라이선스
 

@@ -1,3 +1,24 @@
+# 글결 0.4.4-beta.1 검증 기록 — 2026-10-06
+
+## 이번 Mac 패키지에서 확인
+
+- dev.4 소스 `c2ed2bcc2975c6622605fa5b3d65949495282d60`의 검증된 WASM과 편집 UI를 재사용했다. Cargo/WASM/Vite 재빌드는 하지 않았다.
+- package.json·화면/도움말·Info.plist 버전은 `0.4.4-beta.1`이며 별도 GeulgyeolBetaNext 앱/설정 폴더를 사용한다. ASAR에서 바뀐 파일은 package.json·main.cjs·web/index.html 세 개뿐이다.
+- 엔진 SHA256: `ccac2d483f32fdfeea8dc717bf8f3767b91e7301a1b0f63b3586d77261b3c1d8`. ASAR SHA256: `95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b`.
+- ASAR 모든 파일 integrity와 새 Info.plist header integrity를 검사했다. main/helper 번들 이름과 실행 파일을 일치시켜 초기 재포장의 helper 검색 실패를 수정하고, 전체 번들 strict ad-hoc 서명을 통과했다. Developer ID 서명·Apple 공증은 없다.
+- 실제 앱 프로세스의 로컬 서버가 새 버전 HTML과 동일 SHA의 엔진을 제공함을 확인했고 앱에 정상 종료를 요청하여 exit 0을 확인했다. 화면 편집·native 저장 대화상자 검사는 아니다.
+- 최종 앱의 Electron 런타임과 ASAR에서 추출한 엔진으로 본문/셀/중첩 셀/머리말·각주 등 16개 입력, 두 형식 재열기 32회, snapshot undo·redo 32회를 확인했다.
+- 최종 데스크톱 검사 31 pass/0 fail/기존 skip 1/TODO 1. TODO는 createEmpty 기본 스타일 초기화이며 앱은 createBlankDocument를 사용한다. 스타일 UI 컨트롤러 6개와 삭제 UI 3개를 포함한다.
+- 기존 Native 전파 48개 조합/재열기 96회/undo·redo 96회/거절 17개, 스타일 삭제 16개·표 셀 수식 72개·저장 줄 회전그룹 108개 회귀 증거는 `verification/dev4/` 및 Git의 개발 기록에 보존했다. 이번 릴리스 준비 중 Native 검사를 다시 실행하지 않았다.
+
+## 남은 확인
+
+실제 GUI 상호작용·물리 한글 IME·다운로드 앱 실행·새 Linux 검사와 한컴 전체 호환성은 미검증이다. strict Clippy는 변경하지 않은 파일의 기존 8개 진단으로 실패했고 baseline 재확인은 중단됐다. 저장소에 GitHub Actions workflow/check run/status가 없으므로 CI 통과 결과는 없다. 문서 사본으로 시험하고 저장 후 다시 확인한다.
+
+ZIP CRC, 공개 첨부 다운로드 SHA256 대조와 정확한 태그 커밋은 릴리스 설명/첨부 SHA256SUMS 및 QA 로그에 기록한다. 아래는 이전 beta.2/beta.1의 역사적 검증이며 이번 버전의 GUI 성공으로 해석하지 않는다.
+
+---
+
 # 글결 0.4.3-beta.2 검증 기록 — 2026-10-05
 
 ## Mac 베타2에서 실제 확인
