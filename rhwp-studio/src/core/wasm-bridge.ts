@@ -1510,7 +1510,14 @@ export class WasmBridge {
 
     let raw: string;
     let paginationDeferred = false;
-    if (typeof d.replaceTextInCellDeferredPagination === 'function') {
+    // The deferred engine path accepts only 1..8 original scalar deletions and
+    // 1..8 replacement scalars. A folded match can cover more source scalars;
+    // empty/long replacements use the existing full cell edit path instead.
+    const replacementScalars = [...text].length;
+    const canDefer = deleteCount > 0 && deleteCount <= 8
+      && replacementScalars > 0 && replacementScalars <= 8
+      && !/[\r\n\t]/.test(text);
+    if (canDefer && typeof d.replaceTextInCellDeferredPagination === 'function') {
       raw = d.replaceTextInCellDeferredPagination(
         sec,
         parentPara,

@@ -1,6 +1,6 @@
-// Diagnostic reproduction, intentionally records the unfixed search/replace mismatch.
+// Frozen reproduction. --verify fails when adjacent text is lost or a match suffix remains.
 import fs from 'node:fs';import path from 'node:path';import crypto from 'node:crypto';import assert from 'node:assert/strict';import {pathToFileURL} from 'node:url';
-const [engineArg,outArg]=process.argv.slice(2);assert(engineArg&&outArg,'ENGINE_DIR OUTPUT_DIR');fs.mkdirSync(outArg,{recursive:true});
+const [engineArg,outArg,mode]=process.argv.slice(2);assert(engineArg&&outArg,'ENGINE_DIR OUTPUT_DIR');fs.mkdirSync(outArg,{recursive:true});
 const bytes=fs.readFileSync(path.resolve(engineArg,'rhwp_bg.wasm'));const {initSync,HwpDocument}=await import(pathToFileURL(path.resolve(engineArg,'rhwp.js')));initSync({module:bytes});
 const examples=[
  {id:'expanded-query-deletes-ascii-neighbor',text:'İAB',query:'i\u0307a',expected:'QB'},
@@ -24,4 +24,6 @@ for(const example of examples)for(const api of ['replaceOne','replaceAll','repla
   cases.push({...example,api,hit,before,actual:after,contentPreservationDefect:after!==example.expected,exportedWrongTextPersists:after!==example.expected,undoRestoresSource:true,files});
  }finally{d.free();}
 }
-const proof={engineSHA256:crypto.createHash('sha256').update(bytes).digest('hex'),node:process.version,cases,total:cases.length,observedDefects:cases.filter(x=>x.contentPreservationDefect).length,controlPasses:cases.filter(x=>!x.contentPreservationDefect).length,allReopensPreserveObservedText:true,productionCodeChanged:false,GUIVerified:false,actualHancomUnicodeBehaviorVerified:false};fs.writeFileSync(path.join(outArg,'search-span-reproduction.json'),JSON.stringify(proof,null,2));console.log(JSON.stringify({total:proof.total,observedDefects:proof.observedDefects,controlPasses:proof.controlPasses}));
+const proof={engineSHA256:crypto.createHash('sha256').update(bytes).digest('hex'),node:process.version,cases,total:cases.length,observedDefects:cases.filter(x=>x.contentPreservationDefect).length,controlPasses:cases.filter(x=>!x.contentPreservationDefect).length,allReopensPreserveObservedText:true,verificationRequested:mode==='--verify',GUIVerified:false,actualHancomUnicodeBehaviorVerified:false};fs.writeFileSync(path.join(outArg,'search-span-reproduction.json'),JSON.stringify(proof,null,2));console.log(JSON.stringify({total:proof.total,observedDefects:proof.observedDefects,controlPasses:proof.controlPasses}));
+
+if(mode==='--verify')assert.equal(proof.observedDefects,0,'search replacement must preserve adjacent text in all nine frozen regressions');
