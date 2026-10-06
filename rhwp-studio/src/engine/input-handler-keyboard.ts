@@ -2,7 +2,7 @@ import { deleteEquationSelection } from './equation-target';
 /** input-handler keyboard methods — extracted from InputHandler class */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { InsertTextCommand, InsertLineBreakCommand, InsertTabCommand, SplitParagraphCommand, SplitParagraphInCellCommand, InsertTextInHeaderFooterCommand, DeleteTextInFootnoteCommand, MergeParagraphInFootnoteCommand, cellParaIndexOf } from './command';
+import { InsertTextCommand, InsertLineBreakCommand, InsertTabCommand, SplitParagraphCommand, SplitParagraphInCellCommand, InsertTextInHeaderFooterCommand, cellParaIndexOf } from './command';
 import { matchShortcut, defaultShortcuts } from '@/command/shortcut-map';
 import {
   resolveCellBlockCtrlShiftS,
@@ -1045,36 +1045,36 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
       const target = { sectionIdx: this.cursor.fnSectionIdx, paraIdx: this.cursor.fnParaIdx, controlIdx: this.cursor.fnControlIdx, footnoteIndex: this.cursor.fnFootnoteIndex, pageNum: this.cursor.fnPageNum };
       const innerParaIdx = this.cursor.fnInnerParaIdx;
       const fnOff = this.cursor.fnCharOffset;
-      if (e.key === 'Backspace') {
-        if (fnOff > 0) {
-          try {
-            // [Task #2337] 삭제 텍스트를 반환에서 확보해 역연산 기록. Backspace → undo 후 커서 fnOff.
-            const res = this.wasm.deleteTextInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx, fnOff - 1, 1);
-            this.executeOperation({ kind: 'record', command: new DeleteTextInFootnoteCommand(target, innerParaIdx, fnOff - 1, res.deletedText ?? '', fnOff) });
-            this.cursor.setFnCursorPosition(innerParaIdx, fnOff - 1);
-            this.afterEdit();
-          } catch { /* ignore */ }
-        } else if (innerParaIdx > 0) {
-          // 문단 시작에서 Backspace → 이전 문단과 병합. 병합 전 커서 (innerParaIdx, 0).
-          try {
-            const result = this.wasm.mergeParagraphInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx);
-            this.executeOperation({ kind: 'record', command: new MergeParagraphInFootnoteCommand(target, innerParaIdx, result.fnParaIndex, result.charOffset, innerParaIdx, 0, result.removedParaMeta) });
-            this.cursor.setFnCursorPosition(result.fnParaIndex, result.charOffset);
-            this.afterEdit();
-          } catch { /* ignore */ }
-        }
-      } else {
-        // Delete(forward): 커서는 fnOff 유지 → undo 후에도 fnOff.
-        try {
-          const res = this.wasm.deleteTextInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx, fnOff, 1);
-          // 문단 끝(삭제 대상 없음)에서는 clamp 로 실삭제 0 → 유령 undo 엔트리를 만들지
-          // 않도록 실제로 삭제됐을 때만 기록한다(HF Delete 의 charCount 가드와 동형).
-          if (res.deletedText) {
-            this.executeOperation({ kind: 'record', command: new DeleteTextInFootnoteCommand(target, innerParaIdx, fnOff, res.deletedText, fnOff) });
-          }
-          this.afterEdit();
-        } catch { /* ignore */ }
-      }
+      const backward = e.key === 'Backspace';
+      const merge = backward && fnOff === 0 && innerParaIdx > 0;
+      const position = this.cursor.getPosition();
+      let afterPara = innerParaIdx;
+      let afterOffset = backward ? fnOff - 1 : fnOff;
+      try {
+        const textLength = Array.from(this.wasm.getFootnoteInfo(target.sectionIdx, target.paraIdx, target.controlIdx).texts[innerParaIdx] ?? '').length;
+        if (!merge && (backward ? fnOff === 0 : fnOff >= textLength)) return;
+        // Text inverses cannot restore mixed runs/definitions/layout exactly. Keep
+        // note deletion and paragraph merging in the same snapshot history as input.
+        this.executeOperation({ kind: 'snapshot', operationType: merge ? 'mergeParagraphInFootnote' : 'deleteTextInFootnote',
+          editContext: { mode: 'footnote', ...target, innerParaIdx, charOffset: fnOff },
+          editContextAfter: () => ({ mode: 'footnote', ...target, innerParaIdx: afterPara, charOffset: afterOffset }),
+          operation: (wasm: WasmBridge) => {
+            if (merge) {
+              const result = wasm.mergeParagraphInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx);
+              if (!result.ok) throw new Error('Footnote merge failed');
+              afterPara = result.fnParaIndex;
+              afterOffset = result.charOffset;
+            } else {
+              const result = wasm.deleteTextInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx, backward ? fnOff - 1 : fnOff, 1);
+              if (!result.ok) throw new Error('Footnote deletion failed');
+              if (!result.deletedText) return null;
+            }
+            return position;
+          },
+        });
+        this.cursor.setFnCursorPosition(afterPara, afterOffset);
+        this.afterEdit();
+      } catch { /* ignore */ }
       return;
     }
 

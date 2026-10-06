@@ -326,6 +326,11 @@ export class InputHandler {
   private pendingCharShape: Partial<CharProperties> | null = null;
   /** pendingCharShape 를 예약·연장한 캐럿 위치. 여기서 벗어나면(진짜 이동) 예약을 버린다. */
   private pendingCharShapeAnchor: DocumentPosition | null = null;
+  /** 각주 예약은 본문 예약과 분리하고 이동/선택/문서 교체 시 만료한다. */
+  private pendingFootnoteCharShape: { target: FootnoteSelectionSnapshot; props: Partial<CharProperties>; revision: number; generation: number } | null = null;
+  /** 조합 중 임시 변경을 취소하고 최종 입력을 하나의 기존 snapshot 명령으로 기록한다. */
+  private pendingFootnoteComposition: { beforeId: number; target: FootnoteSelectionSnapshot; props: Partial<CharProperties>; text: string; revision: number; generation: number } | null = null;
+  private pendingFootnoteCompositionCanceled = false;
   private dispatcher: CommandDispatcher | null = null;
   private contextMenu: ContextMenu | null = null;
   private commandPalette: CommandPalette | null = null;
@@ -625,6 +630,7 @@ export class InputHandler {
     this.onCompositionStartBound = this.onCompositionStart.bind(this);
     this.onCompositionEndBound = this.onCompositionEnd.bind(this);
     this.onInputBlurBound = () => {
+      if (this.pendingFootnoteComposition) this.onCompositionEnd();
       this.flushDeferredPaginationIfNeeded('input-blur', false);
     };
     this.onCopyBound = this.onCopy.bind(this);
@@ -1992,17 +1998,18 @@ export class InputHandler {
   private applyCharFormat(props: Partial<CharProperties>): void {
     // [#4271 리뷰] cursor.getPosition() 은 머리말/꼬리말·각주 모드 진입 전 본문 위치에
     // 고정돼(Cursor 편집 위치는 hfCharOffset/fnCharOffset 로 별도 추적) 예약 앵커로 쓸 수
-    // 없고, 전용 삽입 분기(insertTextInHeaderFooter/insertTextInFootnote)도 예약을 소비하지
-    // 않는다 — 그대로 두면 이 모드에서 고른 서식이 모드를 나온 뒤 본문으로 샌다. 아직 지원
-    // HF는 Stage 1의 전용 범위 API로 선택된 기존 텍스트만 바꾼다. 선택 없는 다음 입력
-    // 서식 예약은 이번 이슈 범위 밖이라 그대로 no-op이다.
+    // 없다. 각주 예약은 note 주소·커서 revision·문서 세대로 별도 추적한다.
+    // HF는 전용 범위 API로 선택된 기존 텍스트만 바꾸며, 선택 없는 예약은 no-op이다.
     if (this.cursor.isInHeaderFooter()) {
       this.applyCharFormatInHeaderFooterSelection(props);
       return;
     }
     if (this.cursor.isInFootnote()) {
       const selection = this.getFootnoteCharFormatSelection();
-      if (selection) this.applyCharPropsToFootnoteSelection(selection, props);
+      if (selection) {
+        this.clearPendingFootnoteCharShape();
+        this.applyCharPropsToFootnoteSelection(selection, props);
+      } else this.stagePendingFootnoteCharShape(props);
       return;
     }
     const block = this.getSelectedCellBlock();
@@ -2037,6 +2044,10 @@ export class InputHandler {
   applyCharPropsToFootnoteSelection(selection: FootnoteSelectionSnapshot, props: Partial<CharProperties>): void {
     const c = this.cursor;
     if (!c.isInFootnote() || c.fnSectionIdx !== selection.sectionIdx || c.fnParaIdx !== selection.parentParaIdx || c.fnControlIdx !== selection.controlIdx) return;
+    if (selection.start.fnParaIdx === selection.end.fnParaIdx && selection.start.charOffset === selection.end.charOffset) {
+      if (c.fnInnerParaIdx === selection.start.fnParaIdx && c.fnCharOffset === selection.start.charOffset) this.stagePendingFootnoteCharShape(props);
+      return;
+    }
     const saved = { ...selection, start: { ...selection.start }, end: { ...selection.end } };
     const context: EditContext = { mode: 'footnote', sectionIdx: saved.sectionIdx, paraIdx: saved.parentParaIdx,
       controlIdx: saved.controlIdx, innerParaIdx: c.fnInnerParaIdx, charOffset: c.fnCharOffset,
@@ -2087,6 +2098,144 @@ export class InputHandler {
       },
     });
     return true;
+  }
+
+  clearPendingFootnoteCharShape(): void { this.pendingFootnoteCharShape = null; }
+
+  getPendingFootnoteCharShape(): Partial<CharProperties> | undefined {
+    const p = this.pendingFootnoteCharShape, c = this.cursor;
+    if (!p) return undefined;
+    if (p.generation !== this.wasm.documentGeneration || !this.wasm.hasLoadedDocument() ||
+        !this.sameFootnoteSelectionTarget(p.target) || c.isInHeaderFooter() ||
+        c.fnFormatRevision !== p.revision || this.getFootnoteCharFormatSelection() ||
+        c.fnInnerParaIdx !== p.target.start.fnParaIdx || c.fnCharOffset !== p.target.start.charOffset) {
+      this.clearPendingFootnoteCharShape();
+      return undefined;
+    }
+    return p.props;
+  }
+
+  private stagePendingFootnoteCharShape(props: Partial<CharProperties>): void {
+    if (this.pendingFootnoteComposition) this.onCompositionEnd();
+    const old = this.getPendingFootnoteCharShape();
+    const target = this.getFootnoteParaFormatSelection();
+    if (!target || this.getFootnoteCharFormatSelection()) return;
+    const next = JSON.parse(JSON.stringify({ ...old, ...props })) as Partial<CharProperties>;
+    if (props.fontName !== undefined) { delete next.fontId; delete next.fontIds; }
+    else if (props.fontId !== undefined) { delete next.fontName; delete next.fontIds; }
+    else if (props.fontIds !== undefined) { delete next.fontName; delete next.fontId; }
+    // Empty range validates fields/references without allocating definitions or changing text.
+    this.wasm.applyCharFormatInFootnote(target.sectionIdx, target.parentParaIdx, target.controlIdx,
+      target.start.fnParaIdx, target.start.charOffset, target.end.fnParaIdx, target.end.charOffset, next);
+    this.pendingFootnoteCharShape = { target, props: next, revision: this.cursor.fnFormatRevision, generation: this.wasm.documentGeneration };
+  }
+
+  private continuePendingFootnoteCharShape(target: FootnoteSelectionSnapshot, props: Partial<CharProperties>, count: number): void {
+    const point = { fnParaIdx: target.start.fnParaIdx, charOffset: target.start.charOffset + count };
+    this.pendingFootnoteCharShape = { target: { ...target, start: { ...point }, end: { ...point } },
+      props, revision: this.cursor.fnFormatRevision, generation: this.wasm.documentGeneration };
+  }
+
+  private insertFootnoteTextWithProps(target: FootnoteSelectionSnapshot, text: string, props: Partial<CharProperties>): void {
+    if (!text) return;
+    const { fnParaIdx, charOffset } = target.start;
+    const after = charOffset + Array.from(text).length;
+    const context: EditContext = { mode: 'footnote', sectionIdx: target.sectionIdx, paraIdx: target.parentParaIdx,
+      controlIdx: target.controlIdx, innerParaIdx: fnParaIdx, charOffset, pageNum: target.pageNum, footnoteIndex: target.footnoteIndex };
+    const bodyPosition = this.cursor.getPosition();
+    this.executeOperation({ kind: 'snapshot', operationType: 'insertFormattedTextInFootnote', editContext: context,
+      editContextAfter: { ...context, charOffset: after }, operation: wasm => {
+        wasm.applyCharFormatInFootnote(target.sectionIdx, target.parentParaIdx, target.controlIdx, fnParaIdx, charOffset, fnParaIdx, charOffset, props);
+        wasm.insertTextInFootnote(target.sectionIdx, target.parentParaIdx, target.controlIdx, fnParaIdx, charOffset, text);
+        wasm.applyCharFormatInFootnote(target.sectionIdx, target.parentParaIdx, target.controlIdx, fnParaIdx, charOffset, fnParaIdx, after, props);
+        return bodyPosition;
+      } });
+    this.continuePendingFootnoteCharShape(target, props, Array.from(text).length);
+  }
+
+  insertPendingFootnoteText(text: string): boolean {
+    const props = this.getPendingFootnoteCharShape();
+    const target = this.getFootnoteParaFormatSelection();
+    if (!props || !target) return false;
+    this.insertFootnoteTextWithProps(target, text, props);
+    return true;
+  }
+
+  beginPendingFootnoteComposition(): boolean {
+    this.pendingFootnoteCompositionCanceled = false;
+    const props = this.getPendingFootnoteCharShape();
+    const target = this.getFootnoteParaFormatSelection();
+    if (!props || !target) return false;
+    this.pendingFootnoteComposition = { beforeId: this.wasm.saveSnapshot(), target, props: { ...props }, text: '', revision: this.cursor.fnFormatRevision, generation: this.wasm.documentGeneration };
+    return true;
+  }
+
+  updatePendingFootnoteComposition(text: string): boolean {
+    if (this.pendingFootnoteCompositionCanceled) return true;
+    const state = this.pendingFootnoteComposition;
+    if (!state) return false;
+    if (state.generation !== this.wasm.documentGeneration || !this.wasm.hasLoadedDocument() ||
+        !this.sameFootnoteSelectionTarget(state.target) || this.cursor.fnFormatRevision !== state.revision) {
+      this.cancelPendingFootnoteComposition();
+      this.clearPendingFootnoteCharShape();
+      return true;
+    }
+    const backup = this.wasm.saveSnapshot();
+    try {
+      this.wasm.restoreSnapshot(state.beforeId);
+      const t = state.target, p = t.start;
+      if (text) {
+        this.wasm.insertTextInFootnote(t.sectionIdx, t.parentParaIdx, t.controlIdx, p.fnParaIdx, p.charOffset, text);
+        this.wasm.applyCharFormatInFootnote(t.sectionIdx, t.parentParaIdx, t.controlIdx, p.fnParaIdx, p.charOffset, p.fnParaIdx, p.charOffset + Array.from(text).length, state.props);
+      }
+      state.text = text;
+      this.compositionLength = Array.from(text).length;
+      this._lastCompositionText = text;
+      this.cursor.setFnCursorPosition(p.fnParaIdx, p.charOffset + this.compositionLength);
+      state.revision = this.cursor.fnFormatRevision;
+      this.continuePendingFootnoteCharShape(t, state.props, this.compositionLength);
+      this.afterEdit();
+    } catch (error) {
+      this.wasm.restoreSnapshot(backup);
+      throw error;
+    } finally { this.wasm.discardSnapshot(backup); }
+    return true;
+  }
+
+  finishPendingFootnoteComposition(): boolean {
+    if (this.pendingFootnoteCompositionCanceled) {
+      this.pendingFootnoteCompositionCanceled = false;
+      return true;
+    }
+    const state = this.pendingFootnoteComposition;
+    if (!state) return false;
+    const sameDocument = state.generation === this.wasm.documentGeneration && this.wasm.hasLoadedDocument();
+    const valid = sameDocument && this.sameFootnoteSelectionTarget(state.target) && this.cursor.fnFormatRevision === state.revision;
+    this.pendingFootnoteComposition = null;
+    // Loading a document frees the former handle and its snapshots before deactivate.
+    if (sameDocument) {
+      try { this.wasm.restoreSnapshot(state.beforeId); }
+      finally { this.wasm.discardSnapshot(state.beforeId); }
+    }
+    if (valid) {
+      this.cursor.setFnCursorPosition(state.target.start.fnParaIdx, state.target.start.charOffset);
+      if (state.text) this.insertFootnoteTextWithProps(state.target, state.text, state.props);
+      else this.continuePendingFootnoteCharShape(state.target, state.props, 0);
+    } else this.clearPendingFootnoteCharShape();
+    return true;
+  }
+
+  cancelPendingFootnoteComposition(): void {
+    const state = this.pendingFootnoteComposition;
+    this.pendingFootnoteComposition = null;
+    if (!state) return;
+    this.pendingFootnoteCompositionCanceled = true;
+    this.compositionLength = 0;
+    this._lastCompositionText = '';
+    if (state.generation === this.wasm.documentGeneration && this.wasm.hasLoadedDocument()) {
+      try { this.wasm.restoreSnapshot(state.beforeId); }
+      finally { this.wasm.discardSnapshot(state.beforeId); }
+    }
   }
 
   /** [#4162][#4271 리뷰] 선택 없이 지정한 글자 서식을 다음 삽입 런에 적용하도록 예약한다.
@@ -2294,7 +2443,11 @@ export class InputHandler {
       const selected = this.getFootnoteCharFormatSelection();
       const para = selected?.start.fnParaIdx ?? this.cursor.fnInnerParaIdx;
       const offset = selected?.start.charOffset ?? Math.max(0, this.cursor.fnCharOffset - 1);
-      return this.wasm.getCharPropertiesInFootnote(this.cursor.fnSectionIdx, this.cursor.fnParaIdx, this.cursor.fnControlIdx, para, offset);
+      const actual = this.wasm.getCharPropertiesInFootnote(this.cursor.fnSectionIdx, this.cursor.fnParaIdx, this.cursor.fnControlIdx, para, offset);
+      const pending = selected ? undefined : this.getPendingFootnoteCharShape();
+      const result = { ...actual, ...pending };
+      if (pending?.fontName) { result.fontFamily = pending.fontName; result.fontFamilies = Array(7).fill(pending.fontName); }
+      return result;
     }
     const sel = this.getNonEmptySelection();
     const pos = sel ? sel.start : this.cursor.getPosition();
@@ -2948,6 +3101,8 @@ export class InputHandler {
 
   /** Undo 처리 */
   private handleUndo(): void {
+    if (this.pendingFootnoteComposition) this.onCompositionEnd();
+    this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-undo', false);
     const newPos = this.history.undo(this.wasm);
     if (newPos) {
@@ -2966,6 +3121,8 @@ export class InputHandler {
 
   /** Redo 처리 */
   private handleRedo(): void {
+    if (this.pendingFootnoteComposition) this.onCompositionEnd();
+    this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-redo', false);
     const newPos = this.history.redo(this.wasm);
     if (newPos) {
@@ -3164,6 +3321,7 @@ export class InputHandler {
   }
 
   executeOperation(desc: OperationDescriptor): void {
+    if (this.pendingFootnoteComposition) this.onCompositionEnd();
     if (!this.isOperationAllowedInEditMode(desc)) return;
     switch (desc.kind) {
       case 'command': {
@@ -4290,6 +4448,8 @@ export class InputHandler {
   }
 
   deactivate(): void {
+    this.cancelPendingFootnoteComposition();
+    this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-deactivate', false);
     this.active = false;
     // 문서 교체와 mutation renderer 선택이 경합해 layout 완료 이벤트가 생략돼도
@@ -4338,6 +4498,8 @@ export class InputHandler {
   }
 
   dispose(): void {
+    this.cancelPendingFootnoteComposition();
+    this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-dispose', false);
     if (this.isResizeDragging) {
       this.cleanupResizeDrag();

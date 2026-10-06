@@ -41,7 +41,7 @@ const {
   CommandHistory
 } = await load('const {NO_TEXT_MUTATION_EFFECTS}=globalThis.__noteCommands;\n' + fs.readFileSync('rhwp-studio/src/engine/history.ts', 'utf8'));
 let bridge = 'export class BridgeProbe {doc;constructor(d){this.doc=d;}\n';
-for (const n of ['saveSnapshot', 'restoreSnapshot', 'discardSnapshot', 'getFootnoteInfo', 'getCharPropertiesInFootnote', 'applyCharFormatInFootnote', 'getCharPropertiesAt', 'getParaPropertiesInFootnote', 'applyParaFormatInFootnote', 'insertTextInFootnote', 'applyParaFormatInFootnoteRange']) bridge += method(bs, n);
+for (const n of ['hasLoadedDocument', 'saveSnapshot', 'restoreSnapshot', 'discardSnapshot', 'getFootnoteInfo', 'getCharPropertiesInFootnote', 'applyCharFormatInFootnote', 'getCharPropertiesAt', 'getParaPropertiesInFootnote', 'applyParaFormatInFootnote', 'insertTextInFootnote', 'applyParaFormatInFootnoteRange']) bridge += method(bs, n);
 bridge += '}';
 const {
   BridgeProbe
@@ -53,7 +53,7 @@ const {
   CursorProbe
 } = await load(cursor);
 let handler = 'const {SnapshotCommand,SubmodeSnapshotCommand,SubmodeSelectionSnapshotCommand}=globalThis.__noteCommands; export class HandlerProbe {\n';
-for (const n of ['toggleFormat', 'applyToggleFormat', 'applyCharFormat', 'getSelectedCellBlock', 'getCharPropertiesAtCursor', 'getCharProperties', 'getFootnoteCharFormatSelection', 'applyCharPropsToFootnoteSelection', 'restoreSelectionAfterUndo', 'restoreSelectionAfterRedo', 'sameFootnoteSelectionTarget', 'applyCharPropsToRange', 'adjustFontSize', 'adjustCharRatio', 'adjustCharSpacing', 'applyParaAlign', 'setLineSpacing', 'applyParaPropsAtCursor', 'applyParaFormat', 'applyParaFormatInNoteOrHeader', 'getParaProperties', 'getSelection', 'getCursorPosition', 'applyParaPropsToRange', 'getParaFormatTargetsForRange', 'executeParaFormatCommand', 'getFootnoteParaFormatSelection', 'applyParaPropsToFootnoteSelection', 'executeOperation', 'restoreEditContextAfterHistory']) handler += method(hs, n);
+for (const n of ['toggleFormat', 'applyToggleFormat', 'applyCharFormat', 'getSelectedCellBlock', 'clearPendingFootnoteCharShape', 'getPendingFootnoteCharShape', 'stagePendingFootnoteCharShape', 'getCharPropertiesAtCursor', 'getCharProperties', 'getFootnoteCharFormatSelection', 'applyCharPropsToFootnoteSelection', 'restoreSelectionAfterUndo', 'restoreSelectionAfterRedo', 'sameFootnoteSelectionTarget', 'applyCharPropsToRange', 'adjustFontSize', 'adjustCharRatio', 'adjustCharSpacing', 'applyParaAlign', 'setLineSpacing', 'applyParaPropsAtCursor', 'applyParaFormat', 'applyParaFormatInNoteOrHeader', 'getParaProperties', 'getSelection', 'getCursorPosition', 'applyParaPropsToRange', 'getParaFormatTargetsForRange', 'executeParaFormatCommand', 'getFootnoteParaFormatSelection', 'applyParaPropsToFootnoteSelection', 'executeOperation', 'restoreEditContextAfterHistory']) handler += method(hs, n);
 handler += '}';
 const {
   HandlerProbe

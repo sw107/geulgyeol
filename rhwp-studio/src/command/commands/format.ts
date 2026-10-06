@@ -254,7 +254,7 @@ export const formatCommands: CommandDef[] = [
       if (!ih) return;
       const charProps = ih.getCharProperties();
       // 대화상자 열기 전 선택 범위를 저장 (대화상자 조작 중 선택이 풀릴 수 있음)
-      const savedFootnote = ih.getFootnoteCharFormatSelection();
+      const savedFootnote = ih.getFootnoteParaFormatSelection();
       const savedSel = savedFootnote ? null : ih.getSelection();
       if (!savedFootnote && !savedSel) return;
       const dialog = new CharShapeDialog(services.wasm, services.eventBus);

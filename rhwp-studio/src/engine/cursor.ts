@@ -73,9 +73,21 @@ export class CursorState {
   /** 각주 컨트롤 인덱스 */
   private _fnControlIdx = 0;
   /** 각주 내 문단 인덱스 */
-  private _fnInnerParaIdx = 0;
+  private _fnFormatRevision = 0;
+  get fnFormatRevision(): number { return this._fnFormatRevision; }
+  private _fnInnerParaValue = 0;
+  private get _fnInnerParaIdx(): number { return this._fnInnerParaValue; }
+  private set _fnInnerParaIdx(value: number) {
+    if (value !== this._fnInnerParaValue) this._fnFormatRevision++;
+    this._fnInnerParaValue = value;
+  }
   /** 각주 내 문자 오프셋 */
-  private _fnCharOffset = 0;
+  private _fnCharOffsetValue = 0;
+  private get _fnCharOffset(): number { return this._fnCharOffsetValue; }
+  private set _fnCharOffset(value: number) {
+    if (value !== this._fnCharOffsetValue) this._fnFormatRevision++;
+    this._fnCharOffsetValue = value;
+  }
   /** 각주가 표시된 페이지 */
   private _fnPageNum = 0;
   /** footnotes 배열 내 인덱스 */
@@ -107,6 +119,7 @@ export class CursorState {
 
   /** Drop references to the previous document without querying its replaced engine. */
   resetForDocumentSwap(): void {
+    this._fnFormatRevision++;
     this._headerFooterMode = 'none';
     this._footnoteMode = false;
     this._savedBodyPosition = null;
@@ -213,6 +226,7 @@ export class CursorState {
   /** 현재 각주/미주 내부 위치를 anchor로 설정한다. */
   setFnAnchor(): void {
     if (!this.fnAnchor) {
+      this._fnFormatRevision++;
       this.fnAnchor = {
         fnParaIdx: this._fnInnerParaIdx,
         charOffset: this._fnCharOffset,
@@ -249,6 +263,7 @@ export class CursorState {
         p.charOffset <= Array.from(info.texts[p.fnParaIdx]).length;
       if (!valid(start) || !valid(end)) return false;
     } catch { return false; }
+    this._fnFormatRevision++;
     this.fnAnchor = { ...start };
     this._fnInnerParaIdx = end.fnParaIdx;
     this._fnCharOffset = end.charOffset;
@@ -363,6 +378,7 @@ export class CursorState {
   /** 선택을 해제한다 */
   clearSelection(): void {
     this.anchor = null;
+    if (this.fnAnchor) this._fnFormatRevision++;
     this.fnAnchor = null;
     this.hfAnchor = null;
   }
@@ -1962,6 +1978,7 @@ export class CursorState {
 
   /** 머리말/꼬리말 편집 모드에 진입한다. */
   enterHeaderFooterMode(isHeader: boolean, sectionIdx: number, applyTo: number, sourcePage = -1): void {
+    this._fnFormatRevision++;
     // 현재 본문 커서 위치 저장
     this._savedBodyPosition = { ...this.position };
 
@@ -1984,6 +2001,7 @@ export class CursorState {
 
   /** 머리말/꼬리말 편집 모드에서 탈출한다. */
   exitHeaderFooterMode(): void {
+    this._fnFormatRevision++;
     if (this._headerFooterMode === 'none') return;
 
     this._headerFooterMode = 'none';
@@ -2293,6 +2311,7 @@ export class CursorState {
     sectionIdx: number, paraIdx: number, controlIdx: number,
     footnoteIndex: number, pageNum: number,
   ): void {
+    this._fnFormatRevision++;
     this._savedBodyPosition = { ...this.position };
     this._footnoteMode = true;
     this._fnSectionIdx = sectionIdx;
@@ -2308,6 +2327,7 @@ export class CursorState {
 
   /** 각주 편집 모드에서 탈출한다. */
   exitFootnoteMode(): void {
+    this._fnFormatRevision++;
     if (!this._footnoteMode) return;
     this._footnoteMode = false;
     if (this._savedBodyPosition) {
