@@ -1,7 +1,7 @@
 //! 텍스트 삽입/삭제/문단 분리·병합/범위 삭제/문단 쿼리 관련 native 메서드
 
 use super::super::helpers::get_textbox_from_shape;
-use super::super::queries::field_query::rebuild_char_offsets;
+use super::super::queries::field_query::{rebuild_char_offsets, rebuild_char_offsets_after_text_edit};
 use super::super::queries::rendering::FocusedPageTreePatch;
 use crate::document_core::{
     ActiveFieldInfo, DeferredPaginationDescriptor, DeferredPaginationTargetStatus, DocumentCore,
@@ -1269,6 +1269,7 @@ impl DocumentCore {
         let active_field = self.active_field.clone();
         let mut deleted_count = 0;
         let mut apply_replace = |para: &mut Paragraph| {
+            let control_positions = para.control_text_positions();
             if delete_count > 0 { deleted_count = para.delete_text_at(char_offset, delete_count); }
             if new_chars_count > 0 {
                 let outside_insertions = inactive_field_end_insertions(
@@ -1280,7 +1281,7 @@ impl DocumentCore {
                 para.insert_text_at(char_offset, text);
                 keep_inactive_field_start_outside(para, &before_insertions, new_chars_count);
                 keep_inactive_field_end_outside(para, &outside_insertions, new_chars_count);
-                if has_clickhere_field_range(para) { rebuild_char_offsets(para); }
+                if has_clickhere_field_range(para) { rebuild_char_offsets_after_text_edit(para, &control_positions, char_offset, deleted_count, new_chars_count); }
             }
         };
         // Composition updates use this local replacement rather than the
@@ -1476,11 +1477,12 @@ impl DocumentCore {
             char_offset,
         );
         let apply_insert = |para: &mut Paragraph| {
+            let control_positions = para.control_text_positions();
             para.insert_text_at(char_offset, text);
             keep_inactive_field_start_outside(para, &before_insertions, new_chars_count);
             keep_inactive_field_end_outside(para, &outside_insertions, new_chars_count);
             if has_clickhere_field_range(para) {
-                rebuild_char_offsets(para);
+                rebuild_char_offsets_after_text_edit(para, &control_positions, char_offset, 0, new_chars_count);
             }
         };
         let picture_band_applied =
@@ -1897,6 +1899,7 @@ impl DocumentCore {
             );
         let units_fp_before =
             crate::renderer::layout::LayoutEngine::cell_paragraph_units_fingerprint(cell_para);
+        let control_positions = cell_para.control_text_positions();
         let deleted_count = if delete_count > 0 {
             cell_para.delete_text_at(char_offset, delete_count)
         } else {
@@ -1923,7 +1926,7 @@ impl DocumentCore {
             keep_inactive_field_start_outside(cell_para, &before_insertions, new_chars_count);
             keep_inactive_field_end_outside(cell_para, &outside_insertions, new_chars_count);
             if has_clickhere_field_range(cell_para) {
-                rebuild_char_offsets(cell_para);
+                rebuild_char_offsets_after_text_edit(cell_para, &control_positions, char_offset, deleted_count, new_chars_count);
             }
         }
         debug_assert_eq!(deleted_count, delete_count);
@@ -5740,11 +5743,12 @@ impl DocumentCore {
             Some(path),
             char_offset,
         );
+        let control_positions = cell_para.control_text_positions();
         cell_para.insert_text_at(char_offset, text);
         keep_inactive_field_start_outside(cell_para, &before_insertions, new_chars_count);
         keep_inactive_field_end_outside(cell_para, &outside_insertions, new_chars_count);
         if has_clickhere_field_range(cell_para) {
-            rebuild_char_offsets(cell_para);
+            rebuild_char_offsets_after_text_edit(cell_para, &control_positions, char_offset, 0, new_chars_count);
         }
 
         let inner_cell_para_idx = path.last().map(|entry| entry.2).unwrap_or(0);

@@ -8,6 +8,7 @@ import crypto from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { stripTypeScriptTypes } from 'node:module';
 const [engine, out, commandSource] = process.argv.slice(2);
+const expectPreserved = process.env.CLICKHERE_EXPECT_PRESERVED === '1';
 assert(engine && out);
 fs.mkdirSync(out, {
     recursive: true
@@ -195,8 +196,9 @@ const model = (d)=>{
         controls: parsed(d.getControls())
     };
 };
+const noteContents = d=>parsed(d.getControls()).filter(c=>c.list===0 && (c.ctrlId==='fn' || c.ctrlId==='en')).map(c=>({para:c.para,kind:c.ctrlId,info:parsed(d.getFootnoteInfo(0,c.para,c.controlIndex))}));
 const checkReopen = (d, label)=>{
-    const before = model(d);
+    const before = model(d), notes = noteContents(d);
     for (const format of [
         'Hwp',
         'Hwpx'
@@ -209,6 +211,7 @@ const checkReopen = (d, label)=>{
             const r = new HwpDocument(b);
             try {
                 assert.deepEqual(model(r), before, label + ' ' + format + ' reopen');
+                assert.deepEqual(noteContents(r), notes, label + ' note number/body');
                 reopens++;
             } finally{
                 r.free();
@@ -632,7 +635,8 @@ try {
     });
     const before = model(k.d), afterControlPositions = parsed(k.d.getControlTextPositions(0, 2));
     assert.deepEqual(beforeControlPositions, [2]);
-    assert.deepEqual(afterControlPositions, [1, 1]);
+    assert.deepEqual(afterControlPositions, expectPreserved ? [1, 2] : [1, 1]);
+    if (expectPreserved) assert.deepEqual(before.paragraphs, beforeInsert.paragraphs);
     const outputs = {};
     for (const format of [
         'Hwp',
@@ -651,7 +655,7 @@ try {
                     controlPositions: parsed(r.getControlTextPositions(0, 2))
                 };
                 assert.equal(report.count, 0);
-                if (format === 'Hwp') {
+                if (expectPreserved || format === 'Hwp') {
                     assert.deepEqual(after, before);
                 } else {
                     const expected = structuredClone(before);
@@ -672,14 +676,14 @@ try {
         }
     }
     knownFailure = {
-        status: 'reproduced-unfixed',
+        status: expectPreserved ? 'preserved' : 'reproduced-unfixed',
         kind: 'Field insertion loses existing inline footnote position; HWPX serialization further shifts anchors',
         beforeInsert,
         beforeControlPositions,
         afterControlPositions,
         before,
         outputs,
-        buildHeld: 'Rust temporary build estimate 100–300 MiB exceeds remaining target budget ~31 MiB; no build or cache cleanup performed'
+        buildHeld: expectPreserved ? null : 'Baseline recorded before the separately authorized engine build'
     };
 } finally{
     k.close();
@@ -697,8 +701,9 @@ try {
     q.insert({guide:'서식란',memo:'memo',name:'format',editable:true});
     const after=model(q.d);
     assert.equal(after.paragraphs[0].text,before.paragraphs[0].text);
-    assert.equal(after.paragraphs[0].chars[1].italic,false);
-    assert.equal(after.paragraphs[0].chars[2].bold,false);
+    assert.equal(after.paragraphs[0].chars[1].italic,expectPreserved);
+    assert.equal(after.paragraphs[0].chars[2].bold,expectPreserved);
+    if (expectPreserved) assert.deepEqual(after.paragraphs,before.paragraphs);
     q.ih.handleUndo();assert.deepEqual(model(q.d),before);
     q.ih.handleRedo();assert.deepEqual(model(q.d),after);
     const outputs={};
@@ -712,8 +717,48 @@ try {
             finally {r.free();}
         } finally {e.free();}
     }
-    formatFailure={status:'reproduced-unfixed',kind:'Existing italic/bold ranges lost on field insertion',before,after,outputs,snapshotUndoRedoRestoresExactStates:true};
+    formatFailure={status:expectPreserved?'preserved':'reproduced-unfixed',kind:'Existing italic/bold ranges lost on field insertion',before,after,outputs,snapshotUndoRedoRestoresExactStates:true};
 } finally {q.close();}
+// The repaired candidate additionally checks multiple fields around two same-paragraph notes.
+const complexRows=[];
+if (expectPreserved) {
+    const a=make();
+    try {
+        const note=parsed(a.d.insertFootnote(0,2,4));
+        assert.equal(note.ok,true);
+        for (const c of parsed(a.d.getControls()).filter(c=>c.list===0 && c.para===2 && c.ctrlId==='fn')) {
+            assert.equal(parsed(a.d.insertTextInFootnote(0,2,c.controlIndex,0,2,'각주🙂본문')).ok,true);
+        }
+        const baseline=model(a.d), notes=noteContents(a.d), ids=[];
+        for (const at of [1,2,5]) {
+            const before=model(a.d);
+            a.cursor.moveTo({sectionIndex:0,paragraphIndex:2,charOffset:at});
+            ids.push(a.insert({guide:'안내🙂',memo:'복수 메모',name:'field'+ids.length,editable:true}));
+            assert.deepEqual(model(a.d).paragraphs,baseline.paragraphs);
+            assert.deepEqual(noteContents(a.d),notes);
+            roundtrip(a,before,'complex-insert-'+ids.length);
+        }
+        for (const id of ids) {
+            const before=model(a.d);
+            a.ih.executeOperation({kind:'snapshot',operationType:'complexValue',operation:w=>{
+                assert.equal(w.setFieldValue(id,'값🙂').ok,true);return a.cursor.getPosition();
+            }});
+            const f=a.wasm.getFieldList().find(f=>f.fieldId===id);
+            assert.equal(f.endPos-f.startPos,3,'public UTF-16 value length');
+            assert.deepEqual(noteContents(a.d),notes);
+            roundtrip(a,before,'complex-value-'+id);
+        }
+        for (const id of ids) {
+            const before=model(a.d), f=a.wasm.getFieldList().find(f=>f.fieldId===id);
+            a.cursor.moveTo({sectionIndex:0,paragraphIndex:2,charOffset:f.startCharIdx});
+            a.ih.removeCurrentField();
+            assert.deepEqual(noteContents(a.d),notes);
+            roundtrip(a,before,'complex-remove-'+id);
+        }
+        assert.deepEqual(model(a.d),baseline,'all original formatting/reference anchors restored');
+        complexRows.push({fields:3,notes:2,undoRedoPairs:9,reopens:18,numberAndBodyPreserved:true});
+    } finally {a.close();}
+}
 // Form navigation fields use separate paragraphs from the sentinel footnote.
 const n = make();
 try {
@@ -935,12 +980,13 @@ const proof = {
     },
     rows,
     cellRegressions,
+    complexRows,
     fixtureNormalization,
     knownFailure,
     formatFailure,
     limitations: [
         'DOM/cursor geometry/render are adapters; real Mac GUI/physical IME not tested',
-        'Field insertion drops mixed existing char formatting and same-paragraph footnote position; HWPX adds anchor drift; unresolved',
+        expectPreserved ? 'Preservation checked only in supported plain body scenarios; complex ownership remains bounded' : 'Field insertion drops mixed existing char formatting and same-paragraph footnote position; HWPX adds anchor drift; unresolved',
         'Body ClickHere only; nested fields/field merging not certified',
         'Clipboard move uses supported API wrapped in actual snapshot/history, not platform clipboard GUI',
         'Linux and packaging not run; existing apps/WASM preserved'
@@ -950,7 +996,7 @@ fs.writeFileSync(path.join(out, 'proof.json'), JSON.stringify(proof, null, 2) + 
 console.log(JSON.stringify({
     checksPassed: true,
     featureComplete: false,
-    knownFailures: 2,
+    knownFailures: expectPreserved ? 0 : 2,
     ...proof.counts,
     wasmSha256: proof.wasmSha256
 }));

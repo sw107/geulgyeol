@@ -160,7 +160,6 @@ impl DocumentCore {
                 .sections
                 .get_mut(section_idx)
                 .ok_or_else(|| HwpError::InvalidField("구역 인덱스 초과".into()))?;
-            section.raw_stream = None;
             let para = section
                 .paragraphs
                 .get_mut(para_idx)
@@ -175,6 +174,8 @@ impl DocumentCore {
                 editable,
             )?
         };
+
+        self.document.sections[section_idx].raw_stream = None;
 
         // [Task #2299] 리셋 판별용 — reflow 이전 저장 흐름 end 캡처.
         let stored_end_for_reset = crate::renderer::composer::paragraph_flow_end(
@@ -930,6 +931,7 @@ impl DocumentCore {
             .ok_or_else(|| HwpError::InvalidField("field_range 인덱스 초과".into()))?
             .clone();
 
+        let positions = para.control_text_positions();
         let start_idx = fr.start_char_idx;
         let count = fr.end_char_idx.saturating_sub(start_idx);
 
@@ -967,7 +969,7 @@ impl DocumentCore {
         }
 
         // char_offsets 재생성: FIELD_BEGIN/END 갭, 탭 폭, UTF-16 code unit 크기 반영
-        rebuild_char_offsets(para);
+        rebuild_char_offsets_after_text_edit(para, &positions, start_idx, count, value.chars().count());
         para.replace_line_segs(Vec::new());
 
         Ok(())
@@ -1450,7 +1452,8 @@ fn collect_fields_from_paragraph(
                     + if fr.start_char_idx == fr.end_char_idx {
                         guide_units(para, fr.control_idx)
                     } else {
-                        fr.end_char_idx - fr.start_char_idx
+                        para.text.chars().skip(fr.start_char_idx).take(fr.end_char_idx - fr.start_char_idx)
+                            .map(|ch| stream_char_units(ch) as usize).sum()
                     },
             });
         }
@@ -1734,13 +1737,13 @@ pub(crate) fn select_start_pos(para: &Paragraph) -> usize {
 ///
 /// 원본 바이트로 확인한 세 규칙(영수증 서식 6개 필드 전수 일치):
 ///
-/// 1. 글자 하나는 1칸.
+/// 1. 글자는 UTF-16 폭만큼 센다(astral 문자는 2칸).
 /// 2. 확장 컨트롤(표·개체·누름틀 시작/끝)은 8칸. 누름틀 하나가 시작·끝 **두 개**를 낸다.
 /// 3. **빈 누름틀은 안내문 글자를 스트림에 담는다.** rhwp 는 적재 때 그것을 지우지만
 ///    한글은 파일을 열며 다시 채운다 — 그래서 그 뒤 위치가 안내문 길이만큼 밀린다.
 pub(crate) fn stream_pos(para: &Paragraph, char_idx: usize) -> usize {
     let control_positions = para.control_text_positions();
-    let mut units = char_idx + tab_padding(para, char_idx);
+    let mut units = text_stream_units(para, char_idx);
 
     // 필드가 아닌 확장 컨트롤 — 자기 자리에서 8칸.
     //
@@ -1814,25 +1817,20 @@ fn ctrl_stream_units(ctrl: &Control) -> usize {
     }
 }
 
-/// 탭이 스트림에서 더 차지하는 칸 수.
+/// 텍스트의 UTF-16 스트림 폭(탭은 8칸).
 ///
 /// 파서는 탭(`0x0009`)을 **글자 하나** `'\t'` 로 담는데 한글 스트림에서 탭은 **8칸**이다
 /// (`parse_para_text` 의 탭 가지가 `pos += 16` 으로 넘어간다 — 16바이트 = 8 코드 유닛).
 /// 그래서 탭이 든 문단은 그 뒤 자리가 탭 하나당 7칸씩 앞당겨져 보였다. 누름틀 좌표가
 /// 어긋나는 결함이라, 오라클 실측(`InsertTab` 뒤 캐럿 3 → 11)으로 확인하고 여기서 메운다.
-fn tab_padding(para: &Paragraph, char_idx: usize) -> usize {
-    para.text
-        .chars()
-        .take(char_idx)
-        .filter(|c| *c == '\t')
-        .count()
-        * (EXTENDED_CTRL_UNITS - 1)
+fn text_stream_units(para: &Paragraph, char_idx: usize) -> usize {
+    para.text.chars().take(char_idx).map(|ch| stream_char_units(ch) as usize).sum()
 }
 
-/// 빈 누름틀이 스트림에 담는 안내문 길이(글자 수). 안내문이 없으면 0.
+/// 빈 누름틀이 스트림에 담는 안내문 길이(UTF-16 코드 유닛 수). 안내문이 없으면 0.
 fn guide_units(para: &Paragraph, control_idx: usize) -> usize {
     match para.controls.get(control_idx) {
-        Some(Control::Field(field)) => field.guide_text().map(|g| g.chars().count()).unwrap_or(0),
+        Some(Control::Field(field)) => field.guide_text().map(|g| g.encode_utf16().count()).unwrap_or(0),
         _ => 0,
     }
 }
@@ -1858,7 +1856,7 @@ pub(crate) fn field_content_start(para: &Paragraph, field_range_index: usize) ->
         return 0;
     };
     let control_positions = para.control_text_positions();
-    let mut units = own.start_char_idx + tab_padding(para, own.start_char_idx);
+    let mut units = text_stream_units(para, own.start_char_idx);
 
     for (ci, ctrl) in para.controls.iter().enumerate() {
         if matches!(ctrl, Control::Field(_)) {
@@ -2232,7 +2230,8 @@ fn insert_click_here_field_in_para(
 ) -> Result<usize, HwpError> {
     let text_len = para.text.chars().count();
     let start = char_offset.min(text_len);
-    let positions = para.control_text_positions();
+    validate_field_edit_axis(para)?;
+    let mut positions = para.control_text_positions();
     let insert_idx = positions
         .iter()
         .position(|&pos| pos > start)
@@ -2289,7 +2288,8 @@ fn insert_click_here_field_in_para(
         })
         .unwrap_or(para.field_ranges.len());
     para.field_ranges.insert(range_idx, new_range);
-    rebuild_char_offsets(para);
+    positions.insert(insert_idx, start);
+    rebuild_char_offsets_at_positions(para, &positions);
 
     Ok(start)
 }
@@ -2336,6 +2336,7 @@ fn remove_field_in_para(para: &mut Paragraph, char_offset: usize) -> Result<(), 
     });
     match idx {
         Some(i) => {
+            let mut positions = para.control_text_positions();
             let start = para.field_ranges[i].start_char_idx;
             let end = para.field_ranges[i].end_char_idx;
             let removed_control_idx = para.field_ranges[i].control_idx;
@@ -2354,7 +2355,8 @@ fn remove_field_in_para(para: &mut Paragraph, char_offset: usize) -> Result<(), 
                     range.control_idx -= 1;
                 }
             }
-            rebuild_char_offsets(para);
+            positions.remove(removed_control_idx);
+            rebuild_char_offsets_after_text_edit(para, &positions, start, end - start, 0);
             Ok(())
         }
         None => Err(HwpError::InvalidField(
@@ -2368,73 +2370,117 @@ fn remove_field_in_para(para: &mut Paragraph, char_offset: usize) -> Result<(), 
 ///
 /// 원본 char_offsets에서 컨트롤 배치 패턴을 보존하면서,
 /// 텍스트 길이 변경(필드 값 삽입)에 맞게 오프셋을 재계산한다.
+/// Reject ambiguous control-token ownership before inserting a new field.
+/// Supported paragraphs have a complete HWP5 UTF-16 axis, including paired fields.
+fn validate_field_edit_axis(para: &Paragraph) -> Result<(), HwpError> {
+    let chars: Vec<char> = para.text.chars().collect();
+    let invalid = || HwpError::InvalidField("누름틀 편집: 제어 토큰 위치를 정확히 보존할 수 없는 문단".into());
+    if para.char_offsets.len() != chars.len()
+        || !para.orphan_field_ends.is_empty() || !para.title_marks.is_empty()
+        || para.controls.iter().any(|ctrl| !ctrl.occupies_ctrl_char_slot()
+            || matches!(ctrl, Control::Unknown(_) | Control::AutoNumber(_) | Control::NewNumber(_)))
+    { return Err(invalid()); }
+    let mut previous_end = 0;
+    let mut gap_units = 0;
+    for (&offset, &ch) in para.char_offsets.iter().zip(&chars) {
+        let gap = offset.checked_sub(previous_end).ok_or_else(invalid)?;
+        if gap % 8 != 0 { return Err(invalid()); }
+        gap_units += gap;
+        previous_end = offset + stream_char_units(ch);
+    }
+    let tail = para.char_count.checked_sub(previous_end + 1).ok_or_else(invalid)?;
+    if tail % 8 != 0 || gap_units + tail != (para.controls.len() + para.field_ranges.len()) as u32 * 8 {
+        return Err(invalid());
+    }
+    let positions = para.control_text_positions();
+    let mut seen = std::collections::HashSet::new();
+    for fr in &para.field_ranges {
+        if fr.start_char_idx > fr.end_char_idx || fr.end_char_idx > chars.len() || fr.inner_slot_count != 0
+            || !matches!(para.controls.get(fr.control_idx), Some(Control::Field(_)))
+            || !seen.insert(fr.control_idx) || positions[fr.control_idx] != fr.start_char_idx
+        { return Err(invalid()); }
+    }
+    if para.controls.iter().enumerate().any(|(ci, ctrl)| matches!(ctrl, Control::Field(_)) && !seen.contains(&ci)) {
+        return Err(invalid());
+    }
+    Ok(())
+}
+
+fn stream_char_units(ch: char) -> u32 {
+    if ch == '\t' { 8 } else { ch.len_utf16() as u32 }
+}
+
 pub(crate) fn rebuild_char_offsets(para: &mut Paragraph) {
-    // [#4149] 호출부는 방금 text/controls 수술을 마친 상태다 (필드 제거·필드값
-    // 기입·클립보드 트림 등, 셀 문단 포함) — 단일줄 과밀 memo 무효화의 수렴점.
+    let positions = para.control_text_positions();
+    rebuild_char_offsets_at_positions(para, &positions);
+}
+
+/// Keep non-field token anchors captured BEFORE text/field mutation; field tokens
+/// come from the final field_ranges. Remap raw metadata from the current text axis.
+fn rebuild_char_offsets_at_positions(para: &mut Paragraph, positions: &[usize]) {
     para.invalidate_single_line_overflow_memo();
-    let text_chars: Vec<char> = para.text.chars().collect();
-    let text_len = text_chars.len();
-
-    // 원본 char_offsets에서 첫 문자 이전 컨트롤 수 추정
-    // (원본 gap / 8 = 컨트롤 수)
-    let ctrls_before_text = if !para.char_offsets.is_empty() {
-        para.char_offsets[0] as usize / 8
-    } else {
-        para.controls.len()
+    let chars: Vec<char> = para.text.chars().collect();
+    let old_offsets = para.char_offsets.clone();
+    let old_end = old_offsets.last().zip(chars.last())
+        .map(|(&offset, &ch)| offset + stream_char_units(ch)).unwrap_or(0);
+    let mut gaps = vec![0u32; chars.len() + 1];
+    for (ci, ctrl) in para.controls.iter().enumerate() {
+        if !ctrl.occupies_ctrl_char_slot() { continue; }
+        let at = para.field_ranges.iter().find(|fr| fr.control_idx == ci)
+            .map(|fr| fr.start_char_idx).unwrap_or_else(|| positions.get(ci).copied().unwrap_or(0));
+        gaps[at.min(chars.len())] += 8;
     }
-    .min(para.controls.len());
-
-    // FIELD_BEGIN: 이미 char_offsets의 첫 갭에 포함된 선행 컨트롤은 보존하고,
-    // 새로 삽입된 시작 위치 필드는 첫 문자 앞에도 갭을 추가해야 한다.
-    let mut field_begin_at: Vec<usize> = vec![0; text_len + 1];
-    for fr in &para.field_ranges {
-        if fr.control_idx >= ctrls_before_text {
-            let idx = fr.start_char_idx.min(text_len);
-            field_begin_at[idx] += 1;
-        }
+    for fr in &para.field_ranges { gaps[fr.end_char_idx.min(chars.len())] += 8; }
+    for end in &para.orphan_field_ends { gaps[end.char_idx.min(chars.len())] += 8; }
+    let mut raw = 0;
+    let mut offsets = Vec::with_capacity(chars.len());
+    for (i, &ch) in chars.iter().enumerate() {
+        raw += gaps[i];
+        offsets.push(raw);
+        raw += stream_char_units(ch);
     }
-
-    // FIELD_END 수: field_ranges에서 end가 텍스트 범위 내인 것
-    let mut field_end_at: Vec<usize> = vec![0; text_len + 1];
-    for fr in &para.field_ranges {
-        let idx = fr.end_char_idx.min(text_len);
-        field_end_at[idx] += 1;
-    }
-
-    if text_len == 0 {
-        para.char_offsets = Vec::new();
-        para.char_count =
-            ((ctrls_before_text + field_begin_at[0] + field_end_at[0]) * 8 + 1) as u32;
-        return;
-    }
-
-    let mut offset: u32 = ctrls_before_text as u32 * 8;
-    let mut new_offsets = Vec::with_capacity(text_len);
-
-    for (i, ch) in text_chars.iter().enumerate() {
-        // 이 문자 앞에 FIELD_BEGIN 컨트롤 갭 삽입
-        offset += field_begin_at[i] as u32 * 8;
-        // 이 문자 앞에 FIELD_END 마커 갭 삽입
-        offset += field_end_at[i] as u32 * 8;
-
-        new_offsets.push(offset);
-
-        let char_size = match *ch {
-            '\t' => 8,
-            '\n' | '\u{00A0}' => 1,
-            c => {
-                let mut buf = [0u16; 2];
-                c.encode_utf16(&mut buf).len() as u32
+    let text_end = raw;
+    raw += gaps[chars.len()];
+    let remap = |unit: u32| -> u32 {
+        if unit == 0 { return 0; }
+        let i = old_offsets.partition_point(|&offset| offset < unit);
+        if let (Some(&old), Some(&new)) = (old_offsets.get(i), offsets.get(i)) {
+            if unit == old { return new; }
+            let (old_left, new_left) = if i == 0 { (0, 0) } else {
+                let width = stream_char_units(chars[i - 1]);
+                (old_offsets[i - 1] + width, offsets[i - 1] + width)
+            };
+            if unit < old_left {
+                // A UTF-16 boundary inside the preceding glyph keeps its glyph-relative offset.
+                offsets[i - 1] + (unit - old_offsets[i - 1])
+            } else {
+                // A boundary inside a control gap must stay inside that gap. Repeated
+                // delete/redo can shrink the gap; never let a style invade the previous glyph.
+                new.saturating_sub(old - unit).max(new_left)
             }
-        };
-        offset += char_size;
-    }
+        } else { text_end.saturating_add(unit.saturating_sub(old_end)).min(raw) }
+    };
+    for shape in &mut para.char_shapes { shape.start_pos = remap(shape.start_pos); }
+    for tag in &mut para.range_tags { tag.start = remap(tag.start); tag.end = remap(tag.end); }
+    for line in &mut para.line_segs { line.text_start = remap(line.text_start); }
+    para.char_offsets = offsets;
+    para.char_count = raw + 1;
+}
 
-    // 텍스트 뒤에 위치한 빈 필드/필드 끝 마커와 문단 끝 마커를 char_count에 반영한다.
-    offset += field_begin_at[text_len] as u32 * 8;
-    offset += field_end_at[text_len] as u32 * 8;
-    para.char_count = offset + 1;
-    para.char_offsets = new_offsets;
+pub(crate) fn rebuild_char_offsets_after_text_edit(
+    para: &mut Paragraph, positions: &[usize], start: usize, deleted: usize, inserted: usize,
+) {
+    let shifted: Vec<usize> = positions.iter().enumerate().map(|(ci, &pos)| {
+        if matches!(para.controls.get(ci), Some(Control::Field(_))) { return pos; }
+        let after_delete = if pos >= start { pos.saturating_sub(deleted).max(start) } else { pos };
+        // These controls insert before their anchor at an equal scalar offset.
+        let before_control = matches!(para.controls.get(ci), Some(Control::Shape(_) | Control::Table(_)
+            | Control::Picture(_) | Control::Equation(_) | Control::Footnote(_) | Control::Endnote(_) | Control::AutoNumber(_)));
+        let precedes_field = para.field_ranges.iter().any(|fr|
+            fr.start_char_idx == start && fr.end_char_idx > start && ci < fr.control_idx);
+        if after_delete > start || (after_delete == start && before_control && !precedes_field) { after_delete + inserted } else { after_delete }
+    }).collect();
+    rebuild_char_offsets_at_positions(para, &shifted);
 }
 
 pub(crate) fn json_escape(s: &str) -> String {

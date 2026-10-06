@@ -1,0 +1,1491 @@
+{
+  "baseCommit": "bd4e95b106490c5975a5ef7a17f5fdff5bc09573",
+  "candidateWasm": {
+    "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-engine-qa/pkg/rhwp_bg.wasm",
+    "sha256": "f0abe21a6227a522c9137987f73b8dcadc863445d53cc00bdeb6f015ac087af8"
+  },
+  "clickHere": {
+    "native": {
+      "atomicRejections": 2,
+      "cases": [
+        {
+          "before": {
+            "controlPositions": [
+              0,
+              0,
+              2
+            ],
+            "count": 32,
+            "fieldRanges": [],
+            "fields": [],
+            "offsets": [
+              16,
+              17,
+              27,
+              28,
+              29,
+              30
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 27
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 28
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 29
+              }
+            ],
+            "text": "앞🙂뒤가나끝"
+          },
+          "case": 0,
+          "insert": {
+            "controlPositions": [
+              0,
+              0,
+              0,
+              2
+            ],
+            "count": 48,
+            "fieldRanges": [
+              {
+                "control_idx": 2,
+                "end_char_idx": 0,
+                "end_field_id": 0,
+                "inner_slot_count": 0,
+                "start_char_idx": 0
+              }
+            ],
+            "fields": [
+              {
+                "cellField": false,
+                "command": "Clickhere:set:50:Direction:wstring:4:안내🙂 HelpState:wstring:4:memo  ",
+                "editableInForm": true,
+                "endCharIdx": 0,
+                "endPos": 28,
+                "fieldId": 1,
+                "fieldType": "clickhere",
+                "guide": "안내🙂",
+                "listId": 0,
+                "location": {
+                  "paraIndex": 0,
+                  "sectionIndex": 0
+                },
+                "name": "field",
+                "paraInList": 0,
+                "startCharIdx": 0,
+                "startPos": 24,
+                "value": ""
+              }
+            ],
+            "offsets": [
+              32,
+              33,
+              43,
+              44,
+              45,
+              46
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 43
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 44
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 45
+              }
+            ],
+            "text": "앞🙂뒤가나끝"
+          },
+          "start": 0,
+          "value": {
+            "controlPositions": [
+              0,
+              0,
+              0,
+              4
+            ],
+            "count": 51,
+            "fieldRanges": [
+              {
+                "control_idx": 2,
+                "end_char_idx": 2,
+                "end_field_id": 0,
+                "inner_slot_count": 0,
+                "start_char_idx": 0
+              }
+            ],
+            "fields": [
+              {
+                "cellField": false,
+                "command": "Clickhere:set:50:Direction:wstring:4:안내🙂 HelpState:wstring:4:memo  ",
+                "editableInForm": true,
+                "endCharIdx": 2,
+                "endPos": 27,
+                "fieldId": 1,
+                "fieldType": "clickhere",
+                "guide": "안내🙂",
+                "listId": 0,
+                "location": {
+                  "paraIndex": 0,
+                  "sectionIndex": 0
+                },
+                "name": "field",
+                "paraInList": 0,
+                "startCharIdx": 0,
+                "startPos": 24,
+                "value": "값🙂"
+              }
+            ],
+            "offsets": [
+              24,
+              25,
+              35,
+              36,
+              46,
+              47,
+              48,
+              49
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 46
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 47
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 48
+              }
+            ],
+            "text": "값🙂앞🙂뒤가나끝"
+          }
+        },
+        {
+          "before": {
+            "controlPositions": [
+              0,
+              0,
+              2
+            ],
+            "count": 32,
+            "fieldRanges": [],
+            "fields": [],
+            "offsets": [
+              16,
+              17,
+              27,
+              28,
+              29,
+              30
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 27
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 28
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 29
+              }
+            ],
+            "text": "앞🙂뒤가나끝"
+          },
+          "case": 1,
+          "insert": {
+            "controlPositions": [
+              0,
+              0,
+              1,
+              2
+            ],
+            "count": 48,
+            "fieldRanges": [
+              {
+                "control_idx": 2,
+                "end_char_idx": 1,
+                "end_field_id": 0,
+                "inner_slot_count": 0,
+                "start_char_idx": 1
+              }
+            ],
+            "fields": [
+              {
+                "cellField": false,
+                "command": "Clickhere:set:50:Direction:wstring:4:안내🙂 HelpState:wstring:4:memo  ",
+                "editableInForm": true,
+                "endCharIdx": 1,
+                "endPos": 29,
+                "fieldId": 1,
+                "fieldType": "clickhere",
+                "guide": "안내🙂",
+                "listId": 0,
+                "location": {
+                  "paraIndex": 0,
+                  "sectionIndex": 0
+                },
+                "name": "field",
+                "paraInList": 0,
+                "startCharIdx": 1,
+                "startPos": 25,
+                "value": ""
+              }
+            ],
+            "offsets": [
+              16,
+              33,
+              43,
+              44,
+              45,
+              46
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 43
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 44
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 45
+              }
+            ],
+            "text": "앞🙂뒤가나끝"
+          },
+          "start": 1,
+          "value": {
+            "controlPositions": [
+              0,
+              0,
+              1,
+              4
+            ],
+            "count": 51,
+            "fieldRanges": [
+              {
+                "control_idx": 2,
+                "end_char_idx": 3,
+                "end_field_id": 0,
+                "inner_slot_count": 0,
+                "start_char_idx": 1
+              }
+            ],
+            "fields": [
+              {
+                "cellField": false,
+                "command": "Clickhere:set:50:Direction:wstring:4:안내🙂 HelpState:wstring:4:memo  ",
+                "editableInForm": true,
+                "endCharIdx": 3,
+                "endPos": 28,
+                "fieldId": 1,
+                "fieldType": "clickhere",
+                "guide": "안내🙂",
+                "listId": 0,
+                "location": {
+                  "paraIndex": 0,
+                  "sectionIndex": 0
+                },
+                "name": "field",
+                "paraInList": 0,
+                "startCharIdx": 1,
+                "startPos": 25,
+                "value": "값🙂"
+              }
+            ],
+            "offsets": [
+              16,
+              25,
+              26,
+              36,
+              46,
+              47,
+              48,
+              49
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 46
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 47
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 48
+              }
+            ],
+            "text": "앞값🙂🙂뒤가나끝"
+          }
+        },
+        {
+          "before": {
+            "controlPositions": [
+              0,
+              0,
+              2
+            ],
+            "count": 32,
+            "fieldRanges": [],
+            "fields": [],
+            "offsets": [
+              16,
+              17,
+              27,
+              28,
+              29,
+              30
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 27
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 28
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 29
+              }
+            ],
+            "text": "앞🙂뒤가나끝"
+          },
+          "case": 2,
+          "insert": {
+            "controlPositions": [
+              0,
+              0,
+              2,
+              2
+            ],
+            "count": 48,
+            "fieldRanges": [
+              {
+                "control_idx": 3,
+                "end_char_idx": 2,
+                "end_field_id": 0,
+                "inner_slot_count": 0,
+                "start_char_idx": 2
+              }
+            ],
+            "fields": [
+              {
+                "cellField": false,
+                "command": "Clickhere:set:50:Direction:wstring:4:안내🙂 HelpState:wstring:4:memo  ",
+                "editableInForm": true,
+                "endCharIdx": 2,
+                "endPos": 39,
+                "fieldId": 1,
+                "fieldType": "clickhere",
+                "guide": "안내🙂",
+                "listId": 0,
+                "location": {
+                  "paraIndex": 0,
+                  "sectionIndex": 0
+                },
+                "name": "field",
+                "paraInList": 0,
+                "startCharIdx": 2,
+                "startPos": 35,
+                "value": ""
+              }
+            ],
+            "offsets": [
+              16,
+              17,
+              43,
+              44,
+              45,
+              46
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 43
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 44
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 45
+              }
+            ],
+            "text": "앞🙂뒤가나끝"
+          },
+          "start": 2,
+          "value": {
+            "controlPositions": [
+              0,
+              0,
+              2,
+              2
+            ],
+            "count": 51,
+            "fieldRanges": [
+              {
+                "control_idx": 3,
+                "end_char_idx": 4,
+                "end_field_id": 0,
+                "inner_slot_count": 0,
+                "start_char_idx": 2
+              }
+            ],
+            "fields": [
+              {
+                "cellField": false,
+                "command": "Clickhere:set:50:Direction:wstring:4:안내🙂 HelpState:wstring:4:memo  ",
+                "editableInForm": true,
+                "endCharIdx": 4,
+                "endPos": 38,
+                "fieldId": 1,
+                "fieldType": "clickhere",
+                "guide": "안내🙂",
+                "listId": 0,
+                "location": {
+                  "paraIndex": 0,
+                  "sectionIndex": 0
+                },
+                "name": "field",
+                "paraInList": 0,
+                "startCharIdx": 2,
+                "startPos": 35,
+                "value": "값🙂"
+              }
+            ],
+            "offsets": [
+              16,
+              17,
+              35,
+              36,
+              46,
+              47,
+              48,
+              49
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 46
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 47
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 48
+              }
+            ],
+            "text": "앞🙂값🙂뒤가나끝"
+          }
+        },
+        {
+          "before": {
+            "controlPositions": [
+              0,
+              0,
+              2
+            ],
+            "count": 32,
+            "fieldRanges": [],
+            "fields": [],
+            "offsets": [
+              16,
+              17,
+              27,
+              28,
+              29,
+              30
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 27
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 28
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 29
+              }
+            ],
+            "text": "앞🙂뒤가나끝"
+          },
+          "case": 3,
+          "insert": {
+            "controlPositions": [
+              0,
+              0,
+              2,
+              3
+            ],
+            "count": 48,
+            "fieldRanges": [
+              {
+                "control_idx": 3,
+                "end_char_idx": 3,
+                "end_field_id": 0,
+                "inner_slot_count": 0,
+                "start_char_idx": 3
+              }
+            ],
+            "fields": [
+              {
+                "cellField": false,
+                "command": "Clickhere:set:50:Direction:wstring:4:안내🙂 HelpState:wstring:4:memo  ",
+                "editableInForm": true,
+                "endCharIdx": 3,
+                "endPos": 40,
+                "fieldId": 1,
+                "fieldType": "clickhere",
+                "guide": "안내🙂",
+                "listId": 0,
+                "location": {
+                  "paraIndex": 0,
+                  "sectionIndex": 0
+                },
+                "name": "field",
+                "paraInList": 0,
+                "startCharIdx": 3,
+                "startPos": 36,
+                "value": ""
+              }
+            ],
+            "offsets": [
+              16,
+              17,
+              27,
+              44,
+              45,
+              46
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 27
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 44
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 45
+              }
+            ],
+            "text": "앞🙂뒤가나끝"
+          },
+          "start": 3,
+          "value": {
+            "controlPositions": [
+              0,
+              0,
+              2,
+              3
+            ],
+            "count": 51,
+            "fieldRanges": [
+              {
+                "control_idx": 3,
+                "end_char_idx": 5,
+                "end_field_id": 0,
+                "inner_slot_count": 0,
+                "start_char_idx": 3
+              }
+            ],
+            "fields": [
+              {
+                "cellField": false,
+                "command": "Clickhere:set:50:Direction:wstring:4:안내🙂 HelpState:wstring:4:memo  ",
+                "editableInForm": true,
+                "endCharIdx": 5,
+                "endPos": 39,
+                "fieldId": 1,
+                "fieldType": "clickhere",
+                "guide": "안내🙂",
+                "listId": 0,
+                "location": {
+                  "paraIndex": 0,
+                  "sectionIndex": 0
+                },
+                "name": "field",
+                "paraInList": 0,
+                "startCharIdx": 3,
+                "startPos": 36,
+                "value": "값🙂"
+              }
+            ],
+            "offsets": [
+              16,
+              17,
+              27,
+              36,
+              37,
+              47,
+              48,
+              49
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 27
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 47
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 48
+              }
+            ],
+            "text": "앞🙂뒤값🙂가나끝"
+          }
+        },
+        {
+          "before": {
+            "controlPositions": [
+              0,
+              0,
+              2
+            ],
+            "count": 32,
+            "fieldRanges": [],
+            "fields": [],
+            "offsets": [
+              16,
+              17,
+              27,
+              28,
+              29,
+              30
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 27
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 28
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 29
+              }
+            ],
+            "text": "앞🙂뒤가나끝"
+          },
+          "case": 4,
+          "insert": {
+            "controlPositions": [
+              0,
+              0,
+              2,
+              6
+            ],
+            "count": 48,
+            "fieldRanges": [
+              {
+                "control_idx": 3,
+                "end_char_idx": 6,
+                "end_field_id": 0,
+                "inner_slot_count": 0,
+                "start_char_idx": 6
+              }
+            ],
+            "fields": [
+              {
+                "cellField": false,
+                "command": "Clickhere:set:50:Direction:wstring:4:안내🙂 HelpState:wstring:4:memo  ",
+                "editableInForm": true,
+                "endCharIdx": 6,
+                "endPos": 43,
+                "fieldId": 1,
+                "fieldType": "clickhere",
+                "guide": "안내🙂",
+                "listId": 0,
+                "location": {
+                  "paraIndex": 0,
+                  "sectionIndex": 0
+                },
+                "name": "field",
+                "paraInList": 0,
+                "startCharIdx": 6,
+                "startPos": 39,
+                "value": ""
+              }
+            ],
+            "offsets": [
+              16,
+              17,
+              27,
+              28,
+              29,
+              30
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 27
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 28
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 29
+              }
+            ],
+            "text": "앞🙂뒤가나끝"
+          },
+          "start": 6,
+          "value": {
+            "controlPositions": [
+              0,
+              0,
+              2,
+              6
+            ],
+            "count": 51,
+            "fieldRanges": [
+              {
+                "control_idx": 3,
+                "end_char_idx": 8,
+                "end_field_id": 0,
+                "inner_slot_count": 0,
+                "start_char_idx": 6
+              }
+            ],
+            "fields": [
+              {
+                "cellField": false,
+                "command": "Clickhere:set:50:Direction:wstring:4:안내🙂 HelpState:wstring:4:memo  ",
+                "editableInForm": true,
+                "endCharIdx": 8,
+                "endPos": 42,
+                "fieldId": 1,
+                "fieldType": "clickhere",
+                "guide": "안내🙂",
+                "listId": 0,
+                "location": {
+                  "paraIndex": 0,
+                  "sectionIndex": 0
+                },
+                "name": "field",
+                "paraInList": 0,
+                "startCharIdx": 6,
+                "startPos": 39,
+                "value": "값🙂"
+              }
+            ],
+            "offsets": [
+              16,
+              17,
+              27,
+              28,
+              29,
+              30,
+              39,
+              40
+            ],
+            "shapeRefs": [
+              {
+                "char_shape_id": 0,
+                "start_pos": 0
+              },
+              {
+                "char_shape_id": 7,
+                "start_pos": 27
+              },
+              {
+                "char_shape_id": 8,
+                "start_pos": 28
+              },
+              {
+                "char_shape_id": 0,
+                "start_pos": 29
+              }
+            ],
+            "text": "앞🙂뒤가나끝값🙂"
+          }
+        }
+      ],
+      "multiFieldCases": 9,
+      "reopens": 66,
+      "repeatedCommandRedos": 4
+    },
+    "wasmCounts": {
+      "reopens": 54,
+      "undos": 24,
+      "redos": 24,
+      "rejections": 14,
+      "cellRegressions": 6
+    },
+    "complexRows": [
+      {
+        "fields": 3,
+        "notes": 2,
+        "undoRedoPairs": 9,
+        "reopens": 18,
+        "numberAndBodyPreserved": true
+      }
+    ],
+    "previousFailures": {
+      "baseline": [
+        "reproduced-unfixed",
+        "reproduced-unfixed"
+      ],
+      "candidate": [
+        "preserved",
+        "preserved"
+      ]
+    },
+    "knownCaseAdditionalReopens": 4
+  },
+  "regressions": {
+    "nativeNotes": {
+      "GUIVerified": false,
+      "cases": 20,
+      "fixtures": [
+        {
+          "control": 2,
+          "endnote": false,
+          "file": "../clickhere-engine-qa/footnote_char_format_check/endnotefalse-unicodefalse.hwpx",
+          "neighbor": 3,
+          "unicode": false
+        },
+        {
+          "control": 2,
+          "endnote": false,
+          "file": "../clickhere-engine-qa/footnote_char_format_check/endnotefalse-unicodetrue.hwpx",
+          "neighbor": 3,
+          "unicode": true
+        },
+        {
+          "control": 2,
+          "endnote": true,
+          "file": "../clickhere-engine-qa/footnote_char_format_check/endnotetrue-unicodefalse.hwpx",
+          "neighbor": 3,
+          "unicode": false
+        },
+        {
+          "control": 2,
+          "endnote": true,
+          "file": "../clickhere-engine-qa/footnote_char_format_check/endnotetrue-unicodetrue.hwpx",
+          "neighbor": 3,
+          "unicode": true
+        }
+      ],
+      "rejections": 212,
+      "reopens": 40,
+      "restores": 104
+    },
+    "nativeSearch": {
+      "GUIVerified": false,
+      "cases": 170,
+      "historyRestores": 340,
+      "historySvgDifferences": [],
+      "regexSupported": false,
+      "reopens": 340,
+      "unchanged": 50
+    },
+    "nativeSearchBoundaries": {
+      "GUIVerified": false,
+      "equationCases": 12,
+      "historyRestores": 24,
+      "regexSupported": false,
+      "reopens": 24,
+      "unsupportedAndEmptyNoChange": 4
+    },
+    "wasmNotes": {
+      "cases": 36,
+      "restores": 216,
+      "reopens": 72,
+      "rejections": 32,
+      "noOps": 40,
+      "selectionRestores": 216,
+      "savedSVGEqual": 72,
+      "engineSHA256": "f0abe21a6227a522c9137987f73b8dcadc863445d53cc00bdeb6f015ac087af8",
+      "sourceSHA256": {
+        "input": "58767f925ee260969314b7777df352a4f52045aeb05907644bba0bc7f2ebbacd",
+        "bridge": "ca581c8273d6b898f1d1c1684f23b8b41e3230264c4dd54643d6d3d2d647562f",
+        "command": "6d6b72bfe8c0cabb02461406c971a9cfa8c9e3eff7cd9c7d52ea27179a8c8968",
+        "cursor": "db27bdf9d8b39f5ea542fb062937c0bf1433fbf7440c2958b3076532fd3346e6"
+      },
+      "realCommandHistory": true,
+      "GUIVerified": false,
+      "DOMAndDispatchAdapter": true
+    }
+  },
+  "wasmSearch": {
+    "cases": 408,
+    "reopens": 2096,
+    "historyRestores": 640,
+    "historySvgDifferences": [],
+    "noMatchUnchanged": 120,
+    "GUIVerified": false
+  },
+  "nativeVerifiedWasmExports": {
+    "notes": 72,
+    "search": 2096
+  },
+  "styleRegression": {
+    "cases": 48,
+    "twoFormatReopens": 96,
+    "snapshotUndoRedoOperations": 96,
+    "atomicRejections": 17
+  },
+  "builds": {
+    "native-expanded-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "clickhere_preservation_check",
+        "--",
+        "../clickhere-engine-qa/native-expanded"
+      ],
+      "targetBeforeBytes": 3258593280,
+      "targetPeakBytes": 3347161088,
+      "targetFinalBytes": 3258662912,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 26337280000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 26.77
+    },
+    "native-field-tests-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib",
+        "field_query::tests",
+        "--",
+        "--nocapture"
+      ],
+      "targetBeforeBytes": 3258707968,
+      "targetPeakBytes": 3258773504,
+      "targetFinalBytes": 3258773504,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 26419200000,
+      "stoppedReason": null,
+      "exitCode": 101,
+      "elapsedSeconds": 20.59
+    },
+    "native-final-guard-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "clickhere_preservation_check",
+        "--",
+        "../clickhere-engine-qa/native-final"
+      ],
+      "targetBeforeBytes": 3259662336,
+      "targetPeakBytes": 3259662336,
+      "targetFinalBytes": 3259662336,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25231360000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 4.18
+    },
+    "native-footnote_char_format_check-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "footnote_char_format_check",
+        "--",
+        "../clickhere-engine-qa/footnote_char_format_check"
+      ],
+      "targetBeforeBytes": 3259441152,
+      "targetPeakBytes": 3259514880,
+      "targetFinalBytes": 3259514880,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 26337280000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 4.18
+    },
+    "native-initial-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "clickhere_preservation_check",
+        "--",
+        "../clickhere-engine-qa/native-initial"
+      ],
+      "targetBeforeBytes": 3188535296,
+      "targetPeakBytes": 3290578944,
+      "targetFinalBytes": 3188629504,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 26337280000,
+      "stoppedReason": null,
+      "exitCode": 101,
+      "elapsedSeconds": 26.77
+    },
+    "native-multi-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "clickhere_preservation_check",
+        "--",
+        "../clickhere-engine-qa/native-final"
+      ],
+      "targetBeforeBytes": 3258916864,
+      "targetPeakBytes": 3346935808,
+      "targetFinalBytes": 3259441152,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25722880000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 26.78
+    },
+    "native-redo-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "clickhere_preservation_check",
+        "--",
+        "../clickhere-engine-qa/native-final"
+      ],
+      "targetBeforeBytes": 3258855424,
+      "targetPeakBytes": 3352862720,
+      "targetFinalBytes": 3258916864,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 26296320000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 26.73
+    },
+    "native-search_span_boundaries_check-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "search_span_boundaries_check",
+        "--",
+        "../clickhere-engine-qa/search_span_boundaries_check"
+      ],
+      "targetBeforeBytes": 3259572224,
+      "targetPeakBytes": 3259654144,
+      "targetFinalBytes": 3259654144,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 26337280000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 2.12
+    },
+    "native-search_span_check-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "search_span_check",
+        "--",
+        "../clickhere-engine-qa/search_span_check"
+      ],
+      "targetBeforeBytes": 3259514880,
+      "targetPeakBytes": 3259572224,
+      "targetFinalBytes": 3259572224,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 26337280000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 6.22
+    },
+    "native-second-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "clickhere_preservation_check",
+        "--",
+        "../clickhere-engine-qa/native-second"
+      ],
+      "targetBeforeBytes": 3188629504,
+      "targetPeakBytes": 3290648576,
+      "targetFinalBytes": 3258593280,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 26337280000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 24.7
+    },
+    "native-style-preservation-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "style_propagation_check",
+        "--",
+        "../clickhere-engine-qa/native-style-preservation"
+      ],
+      "targetBeforeBytes": 3259662336,
+      "targetPeakBytes": 3259719680,
+      "targetFinalBytes": 3259719680,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25231360000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 4.17
+    },
+    "native-typed-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "clickhere_preservation_check",
+        "--",
+        "../clickhere-engine-qa/native-typed"
+      ],
+      "targetBeforeBytes": 3258662912,
+      "targetPeakBytes": 3463512064,
+      "targetFinalBytes": 3258707968,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 26173440000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 24.67
+    },
+    "native-verify-wasm-footnote-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "footnote_char_format_check",
+        "--",
+        "--verify-ui",
+        "../clickhere-engine-qa/wasm-footnote/export-manifest.json",
+        "../clickhere-engine-qa/native-verify-wasm-footnote"
+      ],
+      "targetBeforeBytes": 3259662336,
+      "targetPeakBytes": 3259662336,
+      "targetFinalBytes": 3259662336,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25231360000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 4.18
+    },
+    "native-verify-wasm-search-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "search_span_check",
+        "--",
+        "--verify-files",
+        "../clickhere-engine-qa/wasm-search/export-manifest.json"
+      ],
+      "targetBeforeBytes": 3259662336,
+      "targetPeakBytes": 3259662336,
+      "targetFinalBytes": 3259662336,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25231360000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 10.33
+    },
+    "wasm-candidate-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--lib",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp"
+      ],
+      "targetBeforeBytes": 3258773504,
+      "targetPeakBytes": 3258855424,
+      "targetFinalBytes": 3258855424,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 26296320000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 131.3
+    },
+    "wasm-final-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib"
+      ],
+      "targetBeforeBytes": 3259654144,
+      "targetPeakBytes": 3348512768,
+      "targetFinalBytes": 3259662336,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25026560000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 133.45
+    }
+  },
+  "preservation": {
+    "baselineSourceFiles": 1423,
+    "changedExistingSource": [
+      "engine/src/document_core/commands/text_editing.rs",
+      "engine/src/document_core/queries/field_query.rs",
+      "engine/src/model/paragraph.rs",
+      "rhwp-studio/src/engine/command.ts"
+    ],
+    "changedProductionEngineFiles": [
+      "engine/src/document_core/commands/text_editing.rs",
+      "engine/src/document_core/queries/field_query.rs",
+      "engine/src/model/paragraph.rs"
+    ],
+    "protectedApps": [
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar",
+        "sha256": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar",
+        "sha256": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar",
+        "sha256": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar",
+        "sha256": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129"
+      }
+    ],
+    "oldPkgWasmSha256": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "candidateWasmSha256": "f0abe21a6227a522c9137987f73b8dcadc863445d53cc00bdeb6f015ac087af8",
+    "productionSourceSha256": {
+      "engine/src/document_core/commands/text_editing.rs": "27e9e16f4b51d0699741b45e791e5021c406957a7c1be598f018028aa6dcf32f",
+      "engine/src/document_core/queries/field_query.rs": "2f8324af3657e9cb244896c199811707f0a50e122f82fc7840bcfb4b1eabbe10",
+      "engine/src/model/paragraph.rs": "96ee631ed2c6020466150eee85e99c828f90c7498768f64f9c41e22ebb505363",
+      "rhwp-studio/src/engine/command.ts": "6d6b72bfe8c0cabb02461406c971a9cfa8c9e3eff7cd9c7d52ea27179a8c8968"
+    },
+    "cacheFilesDeleted": 0,
+    "newPackaging": false,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "LinuxVerified": false,
+    "publicPushOrRelease": false,
+    "targetAllocatedBytes": 3259719680,
+    "targetSelfBudgetBytes": 4294967296,
+    "diskFreeBytes": 25190400000
+  },
+  "blockedLibraryUnitTests": {
+    "missingFixtures": [
+      "engine/samples/3-09월_교육_통합_2022.hwp",
+      "engine/samples/hwp3-sample16-hwp5.hwp",
+      "engine/samples/hwpx/aift.hwpx"
+    ],
+    "log": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-engine-qa/native-field-tests.log",
+    "fixturesRestoredOrSubstituted": false
+  },
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxVerified": false,
+  "appIntegrationOrPackaging": false,
+  "fullEvidence": {
+    "native": {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-engine-qa/native-final/proof.json",
+      "sha256": "658b0e6adcd3e30fbf770c7166fa7ecb06dd358510523272d237ca27422d4bfb"
+    },
+    "wasmBefore": {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-engine-qa/wasm-before-final/proof.json",
+      "sha256": "a54f6ca373c8ac0f3c550a6b834c879bbb93eaab4aa9acb3dc2f4ee3dc616456"
+    },
+    "wasmAfter": {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-engine-qa/wasm-after/proof.json",
+      "sha256": "cf96f501188eedcf6a736a5d8cb3556425f180bf1f1a45b6af0eb1036750de10"
+    },
+    "wasmSearch": {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/clickhere-engine-qa/wasm-search/proof.json",
+      "sha256": "da07f14b843568b96101848f2f8c65f1ed1425e09c733abc48375cad66a74869"
+    }
+  }
+}

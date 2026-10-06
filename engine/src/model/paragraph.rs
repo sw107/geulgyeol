@@ -1697,7 +1697,12 @@ impl Paragraph {
 
         // 첫 문자 이전의 갭: 확장 컨트롤이 텍스트 시작 전에 있는 경우
         let gap_before = offsets[0] as usize;
-        let n_ctrls_before = gap_before / 8;
+        // FIELD_END has no controls[] owner. Counting it as a control moves the
+        // next footnote/equation/field onto the preceding field's end boundary.
+        let field_ends_at = |boundary| self.field_ranges.iter()
+            .filter(|fr| fr.end_char_idx == boundary).count()
+            + self.orphan_field_ends.iter().filter(|end| end.char_idx == boundary).count();
+        let n_ctrls_before = (gap_before / 8).saturating_sub(field_ends_at(0));
         for _ in 0..n_ctrls_before {
             if positions.len() >= total_controls {
                 break;
@@ -1744,7 +1749,7 @@ impl Paragraph {
             }
             if next_off > current_off + char_width {
                 let gap = next_off - current_off - char_width;
-                let n_ctrls = gap / 8;
+                let n_ctrls = (gap / 8).saturating_sub(field_ends_at(i + 1));
                 for _ in 0..n_ctrls {
                     if positions.len() >= total_controls {
                         break;
