@@ -68,3 +68,16 @@ Mac 실제 GUI/물리 IME·이번 Linux 검증 없음. dev9의 strict ad-hoc 서
 현재 소스/패키지 엔진으로 검토 주석 삽입 `insert:comment` 누락을 재현했다. 일반 편집 문서에서도 실제 registry/dispatcher/menu 상태가 disabled, 편집 호출0·커맨드 이벤트0·HWP/HWPX 저장 바이트/문서 상태 동일이다. 전용 memo/comment export가 없다. 다음은 본문 한 문단 선택의 검토 메모 추가·수정·삭제를 기존 MEMO 참조·직접 서식·이력/저장 보존과 함께 연결하는 범위를 제안한다. 이번에는 구현하지 않았다. [재현 근거](dev9-checkpoint/next-gap-comment.json).
 
 이번 dev9은 후보 하나/ZIP 없음, 추가 최고548.9MiB·target 전후3.332GiB·최소 여유22.43GiB다. 별도 프로필의 앱 기동/서빙/정상 종료와 Node 패키지 엔진 검증을 실제 GUI/IME 성공으로 부르지 않는다. 엔진/UI 제품 소스·보안 권한 변경 및 공개 push/release 없음.
+
+## dev9 이후 검토 주석 저장 조사
+
+후속에서 기존 Memo 본문 모델과 HWPX 읽기·쓰기는 확인했지만, HWP5 메모 꼬리가 선택 범위의
+필드로 복원되지 않는 결함을 재현했다. HWP 재열기에서는 필드가 Unknown, 메모 본문이 비어 있고,
+HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원본 raw에만 남은 메모 꼬리도
+사라진다. 안전한 저작에 필요한 꼬리 소유·미해석 레코드 보존 표현이 없어 사용자가 허용한
+설계·재현 범위로 정리했다. **주석 추가·내용 편집·삭제 기능은 아직 구현하지 않았다.**
+
+별도 합성 Native 재현과 현재 WASM 저장본의 Native 재열기, 실제 메뉴/dispatcher의 192개
+무변경 거절, 기존 본문·셀 링크 회귀와 TypeScript/Clippy 검사를 기록했다. 일반 snapshot 복원은
+없는 주석 command의 undo/redo 검증으로 취급하지 않는다. [저장 선행 설계](review-comment-storage/DESIGN_KO.md),
+[이번 결과](review-comment-storage/RESULT_KO.md). dev9 앱·기존 후보를 보존하고 새 패키징·공개·GUI 실행은 하지 않았다.
