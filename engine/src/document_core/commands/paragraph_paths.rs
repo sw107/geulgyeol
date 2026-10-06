@@ -14,7 +14,7 @@ fn color(v: &Value) -> bool {
         s.len() == 7 && s.starts_with('#') && s[1..].bytes().all(|c| c.is_ascii_hexdigit())
     })
 }
-fn validate_props(props: &Value) -> Result<(), HwpError> {
+pub(super) fn validate_props(props: &Value) -> Result<(), HwpError> {
     let fields = props
         .as_object()
         .ok_or_else(|| error("문단 모양은 JSON 객체여야 합니다"))?;

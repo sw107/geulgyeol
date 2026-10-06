@@ -2331,21 +2331,42 @@ export class InputHandler {
     }
   }
 
-  /**
-   * 머리말/꼬리말·각주 문단에 문단 서식을 적용한다. 해당 문맥이 아니면 false.
-   *
-   * 코어에는 `applyParaFormatInHf` / `applyParaFormatInFootnote` 가 이미 있는데 호출하는
-   * 곳이 없었다 — `getParaFormatTargetsForRange` 가 두 문맥에서 빈 배열을 반환해 정렬·줄
-   * 간격이 아무 반응 없이 끝났다. 조회 쪽(`getParaProperties`)은 두 문맥을 정확히 분기하고
-   * 있어 툴바 표시만 맞고 적용은 안 되는 상태였다.
-   *
-   * `ApplyParaFormatCommand` 의 되돌리기는 문단 모양 ID 를 `setParaShapeId` /
-   * `setCellParaShapeId` 로 복원하는데 이 두 문맥용 setter 가 코어에 없다. 되돌리기를
-   * 포기하지 않으려고 표 구조 변경과 같은 스냅샷 경로를 쓴다.
-   * 근본 해결: 코어에 `setParaShapeIdInHf` / `setParaShapeIdInFootnote` 를 추가하고
-   * `ParaFormatTarget` 에 두 갈래를 넣어 네 문맥(본문/셀/머리말/각주)을 한 커맨드로 통일한다.
-   */
+  /** Saved paragraph-dialog target, including a caret with no text selection. */
+  getFootnoteParaFormatSelection(): FootnoteSelectionSnapshot | null {
+    const c = this.cursor;
+    if (!c.isInFootnote()) return null;
+    const selected = this.getFootnoteCharFormatSelection();
+    if (selected) return selected;
+    const point = { fnParaIdx: c.fnInnerParaIdx, charOffset: c.fnCharOffset };
+    return { mode: 'footnote', sectionIdx: c.fnSectionIdx, parentParaIdx: c.fnParaIdx,
+      controlIdx: c.fnControlIdx, start: { ...point }, end: { ...point },
+      pageNum: c.fnPageNum, footnoteIndex: c.fnFootnoteIndex };
+  }
+
+  applyParaPropsToFootnoteSelection(selection: FootnoteSelectionSnapshot, props: Partial<ParaProperties>): void {
+    if (!this.sameFootnoteSelectionTarget(selection)) return;
+    const saved = { ...selection, start: { ...selection.start }, end: { ...selection.end } };
+    const context: EditContext = { mode: 'footnote', sectionIdx: saved.sectionIdx, paraIdx: saved.parentParaIdx,
+      controlIdx: saved.controlIdx, innerParaIdx: saved.end.fnParaIdx, charOffset: saved.end.charOffset,
+      pageNum: saved.pageNum, footnoteIndex: saved.footnoteIndex };
+    const selected = saved.start.fnParaIdx !== saved.end.fnParaIdx || saved.start.charOffset !== saved.end.charOffset;
+    const before = this.cursor.getPosition();
+    this.executeOperation({ kind: 'snapshot', operationType: 'applyParaFormatInFootnoteRange',
+      editContext: context, editContextAfter: context, selectionBefore: selected ? saved : undefined,
+      selectionAfter: selected ? saved : undefined, operation: wasm => {
+        const result = wasm.applyParaFormatInFootnoteRange(saved.sectionIdx, saved.parentParaIdx, saved.controlIdx,
+          saved.start.fnParaIdx, saved.start.charOffset, saved.end.fnParaIdx, saved.end.charOffset, props);
+        return result.changed ? { ...before } : null;
+      } });
+  }
+
+  /** 머리말/꼬리말 및 각주 캐럿의 기존 문단 서식 경로. 각주 선택은 범위 API를 쓴다. */
   private applyParaFormatInNoteOrHeader(props: Record<string, unknown>): boolean {
+    const selectedNote = this.getFootnoteCharFormatSelection();
+    if (selectedNote) {
+      this.applyParaPropsToFootnoteSelection(selectedNote, props);
+      return true;
+    }
     const cur = this.cursor;
     const propsJson = JSON.stringify(props);
     const cursorBefore = cur.getPosition();
@@ -5795,7 +5816,7 @@ export class InputHandler {
         this.cursor.fnSectionIdx,
         this.cursor.fnParaIdx,
         this.cursor.fnControlIdx,
-        this.cursor.fnInnerParaIdx,
+        this.getFootnoteParaFormatSelection()!.start.fnParaIdx,
       );
     }
     const pos = this.cursor.getPosition();

@@ -5192,6 +5192,15 @@ impl HwpDocument {
     }
 
     /// 각주/미주 내부 문단 속성 적용
+    #[allow(clippy::too_many_arguments)]
+    #[wasm_bindgen(js_name = applyParaFormatInFootnoteRange)]
+    pub fn apply_para_format_in_footnote_range(&mut self, sec: f64, parent: f64, ctrl: f64, first: f64, start: f64, last: f64, end: f64, props: &str) -> Result<String, JsValue> {
+        if [sec, parent, ctrl, first, start, last, end].iter().any(|n| !n.is_finite() || n.fract() != 0.0 || *n < 0.0 || *n > u32::MAX as f64) {
+            return Err(JsValue::from_str("각주 문단 서식 주소는 유효한 정수여야 합니다"));
+        }
+        self.apply_para_format_in_footnote_range_native(sec as usize, parent as usize, ctrl as usize, first as usize, start as usize, last as usize, end as usize, props).map_err(|e| e.into())
+    }
+
     #[wasm_bindgen(js_name = applyParaFormatInFootnote)]
     pub fn apply_para_format_in_footnote(
         &mut self,

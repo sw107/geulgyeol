@@ -283,12 +283,14 @@ export const formatCommands: CommandDef[] = [
       const ih = services.getInputHandler();
       if (!ih) return;
       const paraProps = ih.getParaProperties();
-      const sel = ih.getSelection();
+      const savedFootnote = ih.getFootnoteParaFormatSelection();
+      const sel = savedFootnote ? null : ih.getSelection();
       const curPos = ih.getCursorPosition();
       const range = sel ?? { start: curPos, end: curPos };
       const dialog = new ParaShapeDialog(services.wasm, services.eventBus);
       dialog.onApply = (mods) => {
-        ih.applyParaPropsToRange(range.start, range.end, mods);
+        if (savedFootnote) ih.applyParaPropsToFootnoteSelection(savedFootnote, mods);
+        else ih.applyParaPropsToRange(range.start, range.end, mods);
       };
       dialog.onClose = () => ih.focus();
       dialog.show(paraProps);

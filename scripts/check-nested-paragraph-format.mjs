@@ -44,7 +44,7 @@ const {
 } = await load("const {NO_TEXT_MUTATION_EFFECTS}=globalThis.__gapCommands;\n" + fs.readFileSync(path.join(root, "rhwp-studio/src/engine/history.ts"), "utf8"));
 const source = fs.readFileSync(inputHandlerSource ? path.resolve(inputHandlerSource) : path.join(root, 'rhwp-studio/src/engine/input-handler.ts'), 'utf8');
 let handler = 'function pxToRaw2x(px){return Math.round(px*150); }\n' + fs.readFileSync(path.join(root, 'rhwp-studio/src/engine/hanging-indent.ts'), 'utf8') + 'const {ApplyParaFormatCommand}=globalThis.__gapCommands;\n' + fs.readFileSync(path.join(root, 'rhwp-studio/src/engine/cell-block-format.ts'), 'utf8') + 'class HandlerProbe {\n';
-for (const n of ['applyParaAlign', 'setLineSpacing', 'applyParaPropsAtCursor', 'applyParaPropsToRange', 'applyParaFormat', 'applyParaFormatInNoteOrHeader', 'getSelectedCellBlock', 'getParaFormatTargetsAtCursor', 'getParaFormatTargetsForCellBlock', 'getParaFormatTargetsForRange', 'executeParaFormatCommand', 'getParaProperties', 'applyStyle', 'applyHangingIndentAtCursor']) handler += method(source, n);
+for (const n of ['applyParaAlign', 'setLineSpacing', 'applyParaPropsAtCursor', 'applyParaPropsToRange', 'applyParaFormat', 'applyParaFormatInNoteOrHeader', 'getFootnoteCharFormatSelection', 'getSelectedCellBlock', 'getParaFormatTargetsAtCursor', 'getParaFormatTargetsForCellBlock', 'getParaFormatTargetsForRange', 'executeParaFormatCommand', 'getParaProperties', 'applyStyle', 'applyHangingIndentAtCursor']) handler += method(source, n);
 handler += '}\nexport {HandlerProbe};';
 const {
   HandlerProbe

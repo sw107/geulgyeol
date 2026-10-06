@@ -2562,6 +2562,11 @@ export class WasmBridge {
     return JSON.parse((this.doc as any).getParaPropertiesInFootnote(sec, para, controlIdx, fnParaIdx));
   }
 
+  applyParaFormatInFootnoteRange(sec: number, parent: number, control: number, first: number, start: number, last: number, end: number, props: Partial<ParaProperties>): { ok: boolean; changed: boolean } {
+    if (!this.doc) throw new Error('문서 없음');
+    return JSON.parse(this.doc.applyParaFormatInFootnoteRange(sec, parent, control, first, start, last, end, JSON.stringify(props)));
+  }
+
   applyParaFormatInFootnote(sec: number, para: number, controlIdx: number, fnParaIdx: number, propsJson: string): string {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     return (this.doc as any).applyParaFormatInFootnote(sec, para, controlIdx, fnParaIdx, propsJson);
