@@ -712,7 +712,8 @@ impl LayoutEngine {
                     control_index: Some(control_index),
                     cell_index: None,
                     cell_para_index: None,
-                    note_ref: None,
+                    cell_context: None,
+                                    note_ref: None,
                 }),
                 BoundingBox::new(eq_x, eq_y, eq_w, eq_h),
             );
@@ -2362,7 +2363,8 @@ impl LayoutEngine {
                                             control_index: Some(control_index),
                                             cell_index: table_cell_ref.map(|(c, _, _)| c),
                                             cell_para_index: table_cell_ref.map(|(_, p, _)| p),
-                                            note_ref: None,
+                                            cell_context: None,
+                                    note_ref: None,
                                         }),
                                         BoundingBox::new(render_x, render_y, render_w, render_h),
                                     );
@@ -3614,6 +3616,7 @@ impl LayoutEngine {
                                     control_index: Some(ctrl_idx_in_para),
                                     cell_index: None,
                                     cell_para_index: None,
+                                    cell_context: None,
                                     note_ref: None,
                                 }),
                                 BoundingBox::new(eq_x, eq_y, eq_w, eq_h),

@@ -14,7 +14,8 @@
  * (본문 lookup 으로 떨어지면 조용히 아무것도 안 바뀐다).
  */
 
-import type { CellPathLike } from '@/core/types';
+import { getEquationSelectionProperties, setEquationSelectionProperties } from './equation-target';
+import type { CellPathLike, NoteControlRef } from '@/core/types';
 import type { WasmBridge } from '@/core/wasm-bridge';
 
 /** 선택 개체 ref — `cursor.selectedPictureRef` 와 정합 (headerFooter optional, [Task #831]). */
@@ -24,6 +25,7 @@ export type ObjectPropsRef = {
   ci: number;
   type: string;
   cellPath?: CellPathLike;
+  cellIdx?: number; cellParaIdx?: number; outerTableControlIdx?: number; noteRef?: NoteControlRef;
   headerFooter?: { kind: 'header' | 'footer'; outerParaIdx: number; outerControlIdx: number };
 };
 
@@ -39,6 +41,7 @@ export type ObjectPropsRef = {
  * 되돌리기가 다른 개체를 만지므로 **둘은 반드시 같은 모양이어야 한다.**
  */
 export function getObjectProps(wasm: WasmBridge, ref: ObjectPropsRef): Record<string, unknown> {
+  if (ref.type === 'equation') return getEquationSelectionProperties(wasm, ref) as unknown as Record<string, unknown>;
   if (ref.type === 'shape' || ref.type === 'group') {
     if (ref.cellPath && ref.cellPath.length > 0) {
       return wasm.getCellShapePropertiesByPath(ref.sec, ref.ppi, ref.cellPath, ref.ci) as unknown as Record<string, unknown>;
@@ -73,6 +76,7 @@ export function setObjectProps(
   ref: ObjectPropsRef,
   props: Record<string, unknown>,
 ): unknown {
+  if (ref.type === 'equation') return setEquationSelectionProperties(wasm, ref, props);
   if (ref.type === 'shape' || ref.type === 'group') {
     if (ref.cellPath && ref.cellPath.length > 0) {
       return wasm.setCellShapePropertiesByPath(ref.sec, ref.ppi, ref.cellPath, ref.ci, props);

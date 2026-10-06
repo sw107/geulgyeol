@@ -3437,13 +3437,10 @@ impl LayoutEngine {
                             } else {
                                 Some(para_index)
                             },
-                            control_index: if let Some(ref ctx) = cell_ctx {
-                                ctx.path.first().map(|e| e.control_index).or(Some(tac_ci))
-                            } else {
-                                Some(tac_ci)
-                            },
+                            control_index: Some(tac_ci),
                             cell_index: eq_cell_idx,
                             cell_para_index: eq_cell_para_idx,
+                            cell_context: cell_ctx.clone(),
                             note_ref,
                         }),
                         BoundingBox::new(inline_x, eq_y, tac_w, eq_h),
@@ -6871,16 +6868,10 @@ impl LayoutEngine {
                                         } else {
                                             Some(para_index)
                                         },
-                                        control_index: if let Some(ref ctx) = cell_ctx {
-                                            ctx.path
-                                                .first()
-                                                .map(|e| e.control_index)
-                                                .or(Some(tac_ci))
-                                        } else {
-                                            Some(tac_ci)
-                                        },
+                                        control_index: Some(tac_ci),
                                         cell_index: eq_cell_idx,
                                         cell_para_index: eq_cell_para_idx,
+                            cell_context: cell_ctx.clone(),
                                         note_ref,
                                     },
                                 ),

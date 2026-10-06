@@ -1,3 +1,4 @@
+import { deleteEquationSelection } from './equation-target';
 import { WasmBridge } from '@/core/wasm-bridge';
 import type { DeferredFocusedPagePatch } from '@/core/wasm-bridge';
 import { EventBus } from '@/core/event-bus';
@@ -5315,7 +5316,7 @@ export class InputHandler {
           } else if (ref.type === 'image') {
             wasm.deletePictureControl(ref.sec, ref.ppi, ref.ci);
           } else if (ref.type === 'equation') {
-            wasm.deleteEquationControl(ref.sec, ref.ppi, ref.ci);
+            deleteEquationSelection(wasm, ref);
           } else {
             wasm.deleteShapeControl(ref.sec, ref.ppi, ref.ci);
           }

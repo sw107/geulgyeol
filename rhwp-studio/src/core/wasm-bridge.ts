@@ -2381,6 +2381,23 @@ export class WasmBridge {
     return JSON.parse((this.doc as any).insertEquation(sec, para, charOffset, script, fontSizeHwpunit, color));
   }
 
+  insertEquationInCell(sec: number, parent: number, table: number, cell: number, para: number, offset: number, script: string, fontSize: number, color: number): {ok: boolean; controlIdx: number; charOffset: number} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).insertEquationInCell(sec, parent, table, cell, para, offset, script, fontSize, color));
+  }
+  getEquationPropertiesInCell(sec: number, parent: number, cell: import('../engine/equation-target').EquationCellTarget): import('./types').EquationProperties {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).getEquationPropertiesInCell(sec, parent, cell.tableControlIdx, cell.cellIdx, cell.cellParaIdx, cell.controlIdx));
+  }
+  setEquationPropertiesInCell(sec: number, parent: number, cell: import('../engine/equation-target').EquationCellTarget, props: Record<string, unknown>): {ok: boolean} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).setEquationPropertiesInCell(sec, parent, cell.tableControlIdx, cell.cellIdx, cell.cellParaIdx, cell.controlIdx, JSON.stringify(props)));
+  }
+  deleteEquationControlInCell(sec: number, parent: number, cell: import('../engine/equation-target').EquationCellTarget): {ok: boolean} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).deleteEquationControlInCell(sec, parent, cell.tableControlIdx, cell.cellIdx, cell.cellParaIdx, cell.controlIdx));
+  }
+
   insertFootnote(sec: number, para: number, charOffset: number): { ok: boolean; paraIdx: number; controlIdx: number; footnoteNumber: number } {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     return JSON.parse((this.doc as any).insertFootnote(sec, para, charOffset));
@@ -2902,6 +2919,11 @@ export class WasmBridge {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (this.doc as any).deleteStyle(styleId);
+  }
+
+  deleteStylePreservingFormat(styleId: number): {ok: boolean; paragraphsReassigned: number; paragraphsReindexed: number; rubyReferencesReindexed: number; nextStylesAdjusted: number} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).deleteStylePreservingFormat(styleId));
   }
 
   // ─── 번호/글머리표 API ─────────────────────────────────

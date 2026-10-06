@@ -2553,14 +2553,71 @@ impl DocumentCore {
                 || sa.render_sy < 0.0
                 || matches!(shape, ShapeObject::Group(g) if g.children.iter().any(has_oriented_child))
         }
-        // A generated single-level picture group can be decomposed without
-        // discarding its composed affine geometry. Keep the common AABB as
-        // the flow frame, the current size as pixels, and the extended-control
-        // slots in sync. Imported stored-row hosts retain the guard below.
+        // Stored hosts need an exact, unambiguous mapping of every extended
+        // control slot. Do not infer starts from malformed/partial offset gaps.
+        fn stored_control_starts(para: &crate::model::paragraph::Paragraph) -> Option<Vec<u32>> {
+            if para.char_offsets.len() != para.text.chars().count()
+                || para.controls.iter().any(|c| !c.occupies_ctrl_char_slot()) {
+                return None;
+            }
+            let mut starts = Vec::with_capacity(para.controls.len());
+            let mut end = 0u32;
+            for (ch, &offset) in para.text.chars().zip(&para.char_offsets) {
+                let gap = offset.checked_sub(end)?;
+                if gap % 8 != 0 || (gap / 8) as usize > para.controls.len() - starts.len() {
+                    return None;
+                }
+                for _ in 0..gap / 8 {
+                    starts.push(end);
+                    end = end.checked_add(8)?;
+                }
+                end = offset.checked_add(ch.len_utf16() as u32)?;
+            }
+            while starts.len() < para.controls.len() {
+                starts.push(end);
+                end = end.checked_add(8)?;
+            }
+            (end.checked_add(1)? == para.char_count).then_some(starts)
+        }
+        let stored_starts = stored_control_starts(para);
+        // A single authentic row starting at zero owns the entire paragraph,
+        // including its floating controls and visible text. Expanding one
+        // extended-control slot changes stream positions, not that partition
+        // or the saved physical row. Other stored partitions remain guarded.
+        let stored_body_host = para.line_segs.len() == 1
+            && para.line_segs[0].text_start == 0
+            && para.line_segs[0].line_height > 0
+            && para.line_segs[0].text_height > 0
+            && para.line_segs[0].baseline_distance >= 0
+            && para.line_segs[0].baseline_distance <= para.line_segs[0].line_height
+            && para.line_segs[0].segment_width > 0
+            && para.line_segs[0].tag & crate::model::paragraph::LineSeg::TAG_IMPLEMENTATION_PROPERTY == 0
+            && para.layout_only_fill_lines == 0
+            && !para.stored_text_partition_is_dirty()
+            && para.char_offsets.len() == para.text.chars().count()
+            && !para.text.chars().any(|ch| ch.is_control() || ch == '\u{fffc}')
+            && para.field_ranges.is_empty()
+            && para.orphan_field_ends.is_empty()
+            && para.title_marks.is_empty()
+            // Generic range tags are not represented by the HWPX writer yet.
+            // Keep these imported hosts guarded instead of widening a path
+            // whose two-format preservation cannot be demonstrated.
+            && para.range_tags.is_empty()
+            && para.ctrl_data_records.get(control_idx).map_or(true, Option::is_none)
+            && stored_starts.is_some()
+            && para.controls.iter().enumerate().all(|(index, control)| {
+                index == control_idx || match control {
+                    Control::SectionDef(_) | Control::ColumnDef(_) => true,
+                    Control::Picture(p) => !p.common.treat_as_char && p.caption.is_none(),
+                    _ => false,
+                }
+            });
+        // Keep the common AABB as the flow frame, the current size as pixels,
+        // and all stream-indexed metadata in sync without dropping saved rows.
         let oriented_picture_group = match &para.controls[control_idx] {
             Control::Shape(shape) => match shape.as_ref() {
                 ShapeObject::Group(g) if has_oriented_child(shape)
-                    && para.line_segs.is_empty()
+                    && (para.line_segs.is_empty() || stored_body_host)
                     && crate::renderer::float_placement::supports_picture_group_exclusion(g)
                     => Some(g.clone()),
                 _ => None,
@@ -2633,15 +2690,47 @@ impl DocumentCore {
                 }
                 pictures.push(Control::Picture(pic));
             }
-            let positions = crate::document_core::helpers::find_control_text_positions(para);
-            let scalar = positions.get(control_idx).copied().unwrap_or(para.text.chars().count());
+            let positions = if stored_body_host {
+                stored_starts.unwrap()
+            } else {
+                para.control_utf16_positions()
+            };
+            let group_start = positions[control_idx];
+            let insertion = group_start.checked_add(8).ok_or_else(||
+                HwpError::RenderError("묶음의 문자 위치가 범위를 벗어났습니다.".to_string()))?;
             let count = pictures.len();
-            let delta = ((count-1)*8) as u32;
+            let delta = u32::try_from(count - 1).ok().and_then(|n| n.checked_mul(8))
+                .ok_or_else(|| HwpError::RenderError("묶음의 개체 수가 범위를 벗어났습니다.".to_string()))?;
+            // Reject ambiguous or overflowing source coordinates before any
+            // mutation. A style boundary inside the original control cannot
+            // be assigned to the expanded children without inventing meaning.
+            if para.char_shapes.iter().any(|cs| cs.start_pos > group_start && cs.start_pos < insertion)
+                || para.range_tags.iter().any(|tag| [tag.start, tag.end].iter()
+                    .any(|&pos| pos > group_start && pos < insertion))
+                || para.char_count.checked_add(delta).is_none()
+                || para.char_offsets.iter().any(|offset| offset.checked_add(delta).is_none())
+                || para.char_shapes.iter().any(|cs| cs.start_pos.checked_add(delta).is_none())
+                || para.range_tags.iter().any(|tag| tag.start.checked_add(delta).is_none()
+                    || tag.end.checked_add(delta).is_none()) {
+                return Err(HwpError::RenderError("묶음의 본문 범위를 안전하게 유지할 수 없습니다.".to_string()));
+            }
             para.align_ctrl_data_records();
             para.controls.splice(control_idx..control_idx+1,pictures);
             para.ctrl_data_records.splice(control_idx..control_idx+1,(0..count).map(|_|None));
-            para.char_count = para.char_count.saturating_add(delta);
-            for offset in para.char_offsets.iter_mut().skip(scalar) { *offset += delta; }
+            para.char_count += delta;
+            for offset in &mut para.char_offsets {
+                if *offset >= insertion { *offset += delta; }
+            }
+            for style in &mut para.char_shapes {
+                if style.start_pos >= insertion { style.start_pos += delta; }
+            }
+            for tag in &mut para.range_tags {
+                if tag.start >= insertion { tag.start += delta; }
+                if tag.end >= insertion { tag.end += delta; }
+            }
+            // No visible text or style assignment changed: preserve the valid
+            // stored partition and clear only the derived width memo.
+            para.invalidate_single_line_overflow_memo();
             para.control_mask |= 0x00000800;
             para.has_para_text = true;
             self.document.sections[section_idx].raw_stream = None;

@@ -4743,6 +4743,24 @@ impl HwpDocument {
         .map_err(|e| e.into())
     }
 
+    /// 일반 표 셀에 수식을 삽입한다. offset은 셀의 논리 문자 좌표다.
+    #[wasm_bindgen(js_name = insertEquationInCell)]
+    pub fn insert_equation_in_cell(&mut self, sec:u32, parent:u32, table:u32, cell:u32, para:u32, offset:u32, script:&str, font_size:u32, color:u32) -> Result<String,JsValue> {
+        self.insert_equation_in_cell_native(sec as usize,parent as usize,table as usize,cell as usize,para as usize,offset as usize,script,font_size,color).map_err(|e|e.into())
+    }
+    #[wasm_bindgen(js_name = getEquationPropertiesInCell)]
+    pub fn get_equation_properties_in_cell(&self,sec:u32,parent:u32,table:u32,cell:u32,para:u32,eq:u32)->Result<String,JsValue> {
+        self.get_equation_properties_in_cell_native(sec as usize,parent as usize,table as usize,cell as usize,para as usize,eq as usize).map_err(|e|e.into())
+    }
+    #[wasm_bindgen(js_name = setEquationPropertiesInCell)]
+    pub fn set_equation_properties_in_cell(&mut self,sec:u32,parent:u32,table:u32,cell:u32,para:u32,eq:u32,props:&str)->Result<String,JsValue> {
+        self.set_equation_properties_in_cell_native(sec as usize,parent as usize,table as usize,cell as usize,para as usize,eq as usize,props).map_err(|e|e.into())
+    }
+    #[wasm_bindgen(js_name = deleteEquationControlInCell)]
+    pub fn delete_equation_control_in_cell(&mut self,sec:u32,parent:u32,table:u32,cell:u32,para:u32,eq:u32)->Result<String,JsValue> {
+        self.delete_equation_control_in_cell_native(sec as usize,parent as usize,table as usize,cell as usize,para as usize,eq as usize).map_err(|e|e.into())
+    }
+
     /// 각주 정보를 조회한다.
     #[wasm_bindgen(js_name = getFootnoteInfo)]
     pub fn get_footnote_info(
@@ -7458,50 +7476,13 @@ impl HwpDocument {
     /// 삭제된 스타일을 사용 중인 문단은 바탕글(ID 0)로 변경된다.
     #[wasm_bindgen(js_name = deleteStyle)]
     pub fn delete_style(&mut self, style_id: u32) -> bool {
-        if style_id == 0 {
-            return false; // 바탕글은 삭제 불가
-        }
-        let styles = &self.core.document.doc_info.styles;
-        if style_id as usize >= styles.len() {
-            return false;
-        }
-        let sid = style_id as u8;
-        // 해당 스타일을 사용 중인 문단을 바탕글(0)로 변경
-        for section in &mut self.core.document.sections {
-            for para in &mut section.paragraphs {
-                if para.style_id == sid {
-                    para.style_id = 0;
-                }
-            }
-        }
-        // 스타일 삭제 (인덱스 기반이므로 뒤의 ID가 변경됨에 주의)
-        self.core.document.doc_info.styles.remove(style_id as usize);
-        // 삭제된 ID보다 큰 style_id를 가진 문단들 보정
-        for section in &mut self.core.document.sections {
-            for para in &mut section.paragraphs {
-                if para.style_id > sid {
-                    para.style_id -= 1;
-                }
-            }
-        }
-        // next_style_id 보정
-        for s in &mut self.core.document.doc_info.styles {
-            if s.next_style_id == sid {
-                s.next_style_id = 0;
-            } else if s.next_style_id > sid {
-                s.next_style_id -= 1;
-            }
-        }
-        // 스타일 캐시 갱신
-        self.core.rebuild_resolved_styles();
-        // DocInfo(styles 목록)와 문단 style_id 가 함께 바뀌었으므로 저장 스트림을 무효화한다.
-        // raw_stream_dirty 미설정 시 DocInfo 가, 섹션 raw_stream 잔존 시 본문이 각각 원본
-        // 바이트로 재방출돼 스타일 삭제·문단 재배정이 .hwp 저장에서 유실된다.
-        self.core.document.doc_info.raw_stream_dirty = true;
-        for section in &mut self.core.document.sections {
-            section.raw_stream = None;
-        }
-        true
+        self.core.delete_style_preserving_format_native(style_id as usize).is_ok()
+    }
+
+    /// 스타일 삭제 결과와 실패 원인을 편집 UI에 전달한다.
+    #[wasm_bindgen(js_name = deleteStylePreservingFormat)]
+    pub fn delete_style_preserving_format(&mut self, style_id: u32) -> Result<String, JsValue> {
+        self.core.delete_style_preserving_format_native(style_id as usize).map_err(|e|e.into())
     }
 
     /// 문서에 정의된 문단 번호(Numbering) 목록을 조회한다.

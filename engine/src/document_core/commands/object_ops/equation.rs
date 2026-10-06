@@ -415,24 +415,7 @@ impl DocumentCore {
             .flat_map(|paragraph| paragraph.controls.iter())
             .filter(|control| matches!(control, Control::Equation(_)))
             .count() as u32;
-        let equation_instance_order = self
-            .document
-            .sections
-            .iter()
-            .flat_map(|section| section.paragraphs.iter())
-            .flat_map(|paragraph| paragraph.controls.iter())
-            .filter(|control| matches!(control, Control::Equation(_)))
-            .count();
-        // 한컴 계열 0x44 접두는 유지하되, 접두와 겹치지 않는 하위 26비트에 문서 전체
-        // 수식 순서를 배정한다. 구역 번호를 OR하면 구역 0과 64가 같은 ID가 된다.
-        let equation_instance_sequence = u32::try_from(equation_instance_order)
-            .ok()
-            .and_then(|order| order.checked_add(1))
-            .filter(|&order| order <= 0x03ff_ffff)
-            .ok_or_else(|| {
-                HwpError::RenderError("수식 instance ID를 더 이상 배정할 수 없습니다.".to_string())
-            })?;
-        let instance_id = 0x4400_0000 | equation_instance_sequence;
+        let instance_id = self.next_equation_instance_id()?;
         let equation = Equation {
             common: CommonObjAttr {
                 ctrl_id: CTRL_EQUATION,

@@ -45,6 +45,7 @@ export const MUTATING_METHODS: readonly string[] = [
   'createShapeControl', 'setShapeProperties', 'deleteShapeControl', 'changeShapeZOrder',
   'applyShapeZOrderPairs', // [#5769 후속] z 절대 대입 — SetZOrderCommand 의 undo/redo 경로
   'groupShapes', 'ungroupShape', 'moveLineEndpoint', 'updateConnectorsInSection',
+  'insertEquationInCell', 'setEquationPropertiesInCell', 'deleteEquationControlInCell',
   'insertEquation', 'setEquationProperties', 'setNoteEquationProperties', 'deleteEquationControl',
   // 차트 데이터 (#4694) — bin_data_content 슬롯 바이트 변이 (IR 무변경이지만 직렬화 결과가 바뀐다)
   'setChartData', 'setChartDataByIndex',
@@ -60,7 +61,7 @@ export const MUTATING_METHODS: readonly string[] = [
   'setCharShapeIdInCell', 'setCharShapeIdInCellByPath',
   'applyParaFormat', 'setParaShapeId', 'applyParaFormatInCell', 'setCellParaShapeId',
   // 스타일/번호 정의 (DocInfo 변이 포함)
-  'updateStyle', 'updateStyleShapes', 'createStyle', 'deleteStyle', 'applyStyle',
+  'updateStyle', 'updateStyleShapes', 'createStyle', 'deleteStyle', 'deleteStylePreservingFormat', 'applyStyle',
   'applyCellStyle', 'createNumbering', 'ensureDefaultNumbering', 'ensureDefaultBullet',
   'findOrCreateFontId', 'findOrCreateFontIdForLang',
   // 머리말/꼬리말

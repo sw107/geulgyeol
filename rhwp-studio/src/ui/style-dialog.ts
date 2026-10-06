@@ -25,6 +25,7 @@ import type { WasmBridge } from '@/core/wasm-bridge';
 import type { EventBus } from '@/core/event-bus';
 import type { CommandServices } from '@/command/types';
 import type { CharProperties, ParaProperties } from '@/core/types';
+import { showToast } from './toast';
 import { ModalDialog } from './dialog';
 
 interface StyleEntry {
@@ -264,7 +265,7 @@ export class StyleDialog extends ModalDialog {
     }
     const style = this.styles.find(s => s.id === this.selectedId);
     if (!style) return;
-    if (!confirm(`'${style.name}' 스타일을 삭제하시겠습니까?\n이 스타일을 사용 중인 문단은 바탕글로 변경됩니다.`)) return;
+    if (!confirm(`'${style.name}' 스타일을 삭제하시겠습니까?\n이 스타일을 사용 중인 문단은 서식을 유지하면서 바탕글에 연결됩니다.`)) return;
     const deletedId = this.selectedId;
     // [Task #3387] 삭제는 스타일 목록뿐 아니라 그 스타일을 쓰던 전 문단의 style_id 와
     // 뒤 ID 의 재배정까지 바꾸는 전문서 효과다. 스냅샷이 Document 전체를 담고 복원이
@@ -272,26 +273,31 @@ export class StyleDialog extends ModalDialog {
     // 이 다이얼로그는 삭제 뒤에도 열려 있는 매니저형이라 작업마다 개별 스냅샷이다.
     try {
       const ih = this.services?.getInputHandler();
+      let deleted = false;
       if (ih) {
         ih.executeOperation({
           kind: 'snapshot',
           operationType: 'deleteStyle',
           operation: (wasm) => {
             // 의미상 실패(false)면 throw 해 before==after 무변 스냅샷 엔트리를 막는다.
-            if (!wasm.deleteStyle(deletedId)) {
+            if (!wasm.deleteStylePreservingFormat(deletedId).ok) {
               throw new Error('[StyleDialog] 스타일 삭제 실패');
             }
-            return ih.getPosition();
+            deleted = true;
+            return ih.getCursorPosition();
           },
         });
       } else {
-        this.wasm.deleteStyle(deletedId);
+        deleted = this.wasm.deleteStylePreservingFormat(deletedId).ok;
         this.eventBus.emit('document-changed');
       }
+      if (!deleted) return;
       this.selectedId = 0;
       this.loadStyles();
       this.updateInfo();
+      if (ih) this.setCurrentStyleId(ih.getCurrentStyleId());
     } catch (err) {
+      showToast({message: String(err), durationMs: 7000});
       console.warn('[StyleDialog] 삭제 실패:', err);
     }
   }

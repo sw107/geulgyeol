@@ -3622,12 +3622,14 @@ impl DocumentCore {
                         }
                         _ => String::new(),
                     };
-                    let cell_coords = match (eq_node.cell_index, eq_node.cell_para_index) {
+                    let cell_coords = if let Some(ctx) = &eq_node.cell_context {
+                        DocumentCore::ole_layout_context_json(Some(ctx))
+                    } else { match (eq_node.cell_index, eq_node.cell_para_index) {
                         (Some(ci), Some(cpi)) => {
                             format!(",\"cellIdx\":{},\"cellParaIdx\":{}", ci, cpi)
                         }
                         _ => String::new(),
-                    };
+                    } };
                     let note_ref = eq_node.note_ref.as_ref().map_or_else(String::new, |r| {
                         format!(
                             ",\"noteRef\":{{\"kind\":\"{}\",\"sectionIdx\":{},\"paraIdx\":{},\"controlIdx\":{},\"noteParaIdx\":{},\"innerControlIdx\":{}}}",

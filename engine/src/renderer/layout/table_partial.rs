@@ -2533,7 +2533,8 @@ impl LayoutEngine {
                                         control_index: Some(ctrl_idx),
                                         cell_index: Some(cell_idx),
                                         cell_para_index: Some(cp_idx),
-                                        note_ref: None,
+                                        cell_context: None,
+                                    note_ref: None,
                                     }),
                                     BoundingBox::new(eq_x, eq_y, eq_w, eq_h),
                                 );

@@ -2307,6 +2307,7 @@ mod tests {
             control_index: None,
             cell_index: None,
             cell_para_index: None,
+            cell_context: None,
             note_ref: None,
         }
     }

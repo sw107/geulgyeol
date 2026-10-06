@@ -1,3 +1,4 @@
+import { deleteEquationSelection } from './equation-target';
 /** input-handler keyboard methods — extracted from InputHandler class */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -234,7 +235,7 @@ function deleteSelectedObject(wasm: WasmBridge, ref: PictureDeleteRef): void {
       wasm.deletePictureControl(ref.sec, ref.ppi, ref.ci);
     }
   } else if (ref.type === 'equation') {
-    wasm.deleteEquationControl(ref.sec, ref.ppi, ref.ci);
+    deleteEquationSelection(wasm, ref);
   } else {
     wasm.deleteShapeControl(ref.sec, ref.ppi, ref.ci);
   }
