@@ -1,0 +1,10 @@
+[package]
+name = "rhwp-vertical-cell-plan"
+version = "0.1.0"
+edition = "2021"
+publish = false
+license = "MIT"
+description = "Experimental, unconnected vertical cell character ownership planner"
+
+[dev-dependencies]
+serde_json = "1.0"
