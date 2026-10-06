@@ -1082,7 +1082,7 @@ impl DocumentCore {
             )?;
             self.document.doc_info = staged.document.doc_info.clone();
             self.styles = staged.styles.clone();
-            self.event_log.extend(staged.event_log.drain(..));
+            self.event_log.append(&mut staged.event_log);
             self.commit_picture_band_edit(sec_idx, staged);
             return Ok(response);
         }
@@ -1530,7 +1530,7 @@ impl DocumentCore {
             let response = staged.apply_para_format_body_impl(sec_idx, para_idx, props_json, false)?;
             self.document.doc_info = staged.document.doc_info.clone();
             self.styles = staged.styles.clone();
-            self.event_log.extend(staged.event_log.drain(..));
+            self.event_log.append(&mut staged.event_log);
             self.commit_picture_band_edit(sec_idx, staged);
             return Ok(response);
         }

@@ -1,0 +1,25 @@
+{
+  "command": "cargo clippy --offline --locked --manifest-path engine/Cargo.toml -p rhwp --lib -- -D warnings",
+  "rustToolchain": "1.93.1-aarch64-apple-darwin",
+  "debugInfo": 0,
+  "incremental": false,
+  "targetLimitBytes": 805306368,
+  "targetPeakBytes": 211468288,
+  "targetFinalBytes": 211468288,
+  "stoppedForBudget": false,
+  "exitCode": 0,
+  "elapsedSeconds": 48.51,
+  "scope": "native default-feature library only",
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "baselineCommit": "e33de6056a6ccc95a077f85be3688983d61e46de",
+  "diagnosticsResolved": {
+    "extend_with_drain": 4,
+    "doc_lazy_continuation": 3,
+    "needless_update": 1
+  },
+  "newWasmOrMacPackageBuilt": false,
+  "publicReleaseModified": false,
+  "newReleaseCreated": false,
+  "clippyLogSHA256": "b5526a0330466457ace2b15c7516f0878f43bb1897bc6cebd5707f3e44af84dc"
+}

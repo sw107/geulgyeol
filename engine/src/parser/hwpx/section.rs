@@ -4678,7 +4678,6 @@ fn parse_shape_object(
             end1: e_end1,
             start2: e_start2,
             end2: e_end2,
-            ..Default::default()
         }),
         b"line" => ShapeObject::Line(LineShape {
             common,

@@ -372,6 +372,7 @@ impl DocumentCore {
     /// - `context`: 현재 컨텍스트 스택 (빈 배열 = body)
     /// - `max_para`: 현재 컨테이너에서 렌더링된 마지막 문단 인덱스 (None이면 제한 없음)
     /// - `overflow_links`: 글상자 오버플로우 연결 정보
+    ///
     /// Scalar-text counterpart to logical DFS navigation. Editing APIs and
     /// Studio's cursor store Unicode scalar offsets, while DFS includes object
     /// slots. Keep that translation at the boundary, including nested contexts.

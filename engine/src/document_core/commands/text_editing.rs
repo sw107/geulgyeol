@@ -3544,7 +3544,7 @@ impl DocumentCore {
                     .reserve_leading_extended_control_slots(leading_picture_slots);
             }
             staged.publish_staged_final_picture_chain(section_idx)?;
-            self.event_log.extend(staged.event_log.drain(..));
+            self.event_log.append(&mut staged.event_log);
             self.commit_picture_band_edit(section_idx, staged);
             return Ok(response);
         }
@@ -4069,7 +4069,7 @@ impl DocumentCore {
             let mut staged = self.picture_band_edit_shadow();
             let response = staged.merge_paragraph_body_impl(section_idx, para_idx, false)?;
             staged.publish_staged_final_picture_chain(section_idx)?;
-            self.event_log.extend(staged.event_log.drain(..));
+            self.event_log.append(&mut staged.event_log);
             self.commit_picture_band_edit(section_idx, staged);
             return Ok(response);
         }
