@@ -1,0 +1,262 @@
+{
+  "sourceCommit": "87e1e074d039a9fc6da9bb431afaa3a383ad46b7",
+  "version": "0.4.4-dev.9",
+  "product": "GeulgyeolDev9",
+  "app": "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app",
+  "engineSHA256": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198",
+  "asarSHA256": "12065a11b5217639bc145354dc12f53170702d922ad05cd1757e63568190db9b",
+  "asarHeaderSHA256": "10ddae302152b94eaed77914dad7ca310c6efd83b115c884c7aa721c5a2eef80",
+  "sourceFreezeFile": "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/source-freeze.json",
+  "sourceFreezeSHA256": "7f6a0139b75d79a9cacf1abd2a1c0f0d116e1057be227b794451b5114e4f2d0b",
+  "engineSourceMatchesVerifiedCellCandidate": true,
+  "rustRebuild": false,
+  "packageVerification": {
+    "app": "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app",
+    "version": "0.4.4-dev.9",
+    "bundleId": "org.geulgyeol.dev.checkpoint9",
+    "helpers": [
+      {
+        "name": "GeulgyeolDev9 Helper (GPU)",
+        "bundleId": "org.geulgyeol.dev.checkpoint9.helper.GPU"
+      },
+      {
+        "name": "GeulgyeolDev9 Helper (Plugin)",
+        "bundleId": "org.geulgyeol.dev.checkpoint9.helper.Plugin"
+      },
+      {
+        "name": "GeulgyeolDev9 Helper (Renderer)",
+        "bundleId": "org.geulgyeol.dev.checkpoint9.helper.Renderer"
+      },
+      {
+        "name": "GeulgyeolDev9 Helper",
+        "bundleId": "org.geulgyeol.dev.checkpoint9.helper"
+      }
+    ],
+    "asarSHA256": "12065a11b5217639bc145354dc12f53170702d922ad05cd1757e63568190db9b",
+    "asarHeaderSHA256": "10ddae302152b94eaed77914dad7ca310c6efd83b115c884c7aa721c5a2eef80",
+    "allEntryAndBlockIntegrityVerified": true,
+    "freshBindingsAndStudioAssetsMatch": true,
+    "engineSHA256": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198",
+    "compiledUIMethods": [
+      "applyCellOwnPropertiesByPaths",
+      "applyFormatCopyInCell",
+      "getCellOwnPropertiesByPath",
+      "getCellParaPropertiesAtByPath",
+      "insertBodyHyperlink",
+      "updateBodyHyperlink",
+      "removeBodyHyperlink",
+      "insertCellHyperlinkByPath",
+      "updateCellHyperlinkByPath",
+      "removeCellHyperlinkByPath",
+      "setFieldValueByName"
+    ],
+    "profileIsolated": true,
+    "onlyBindingsExtracted": true,
+    "allSymlinksStayInsideCandidate": true,
+    "noTestsOrNodeModulesInApp": true,
+    "GUIVerified": false,
+    "sourceFreezeProof": "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/source-freeze.json"
+  },
+  "assetsSHA256": {
+    "favicon.ico": "136d51c3d0a12bc67352964998fa78a5dcf2702873f73eb261990f9e20eb0ade",
+    "index.html": "11404e79cd8d63d862298b5e7f7dd2d44f987d8014968e6525ab5ed5b913ccc2",
+    "theme-init.js": "5a3afcc0139187bfe509414cd60fde2a0dfea72fd72751c4e6e696cdc0f6c587",
+    "print.html": "930907863afbafcc76099d386f6a995bc6c69387cb56838b18e4cdaf6eea6b79",
+    "images/icon_small_ko_dark.svg": "9d02ea0b8c1d399a89290d97613759826f19f3e3f392b6d79dcf6109e7e15fa6",
+    "images/icon_small_ko.svg": "a0ac1200a41b6a75e9afb30cda5bb850276087d45c2f25870605888238ba9b39",
+    "icons/icon-256.png": "b851d2271495a9858efd51def7615f68f2204417977672cde1da1ced53120ad0",
+    "icons/icon-192.png": "1180863b994272a7591043ecf0ae539de78c0f404eecad15b4e67b0315cbaf9c",
+    "icons/icon-128.png": "ce3047204dedd260b62b507ef1773ecfa1e68be1ddf08304a664fcb1341d502d",
+    "icons/icon-512.png": "25074cfb4bc9e9c543fd56504e4088741e4fe2b4927f36ab90741efa7947887a",
+    "assets/studio-plugin-Cp8dJ3L_.js": "abdcbcab732aad8d91b551c97ff045bec6b140ae87d94c5fd44235d5515fb4e7",
+    "assets/index-CxUTXF-a.js": "91d358d160fdda23d99a2d5f3bba687934ebc112ca678dfcf5012be34ee155f6",
+    "assets/canvaskit-renderer-Di7Frbas.js": "d3437a5b88a9ec52805182a53cc34b1d10308fe43e26ff796c4d77675c1ca3ab",
+    "assets/canvaskit-SCAxUyCS.wasm": "25ebed8e60158c5854f8dc807b936daca21354f8bfb6a2231266b0a93812f301",
+    "assets/index-EHujs-C0.css": "f0783ab4c24b02f241c1e3807f971396337209afc63c32146f59f65123cf963a",
+    "assets/rhwp_bg-C1EOpzqi.wasm": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198"
+  },
+  "runtime": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "node": "v24.20.0",
+    "electron": "44.3.0"
+  },
+  "packageEngineTests": {
+    "bodyLinks": {
+      "positive": 6,
+      "reopens": 22,
+      "undos": 6,
+      "redos": 6,
+      "refusals": 36,
+      "externalOpens": 0
+    },
+    "cellLinks": {
+      "positive": 84,
+      "reopens": 288,
+      "undos": 84,
+      "redos": 84,
+      "atomicRefusals": 444,
+      "layoutCases": 12,
+      "multipageCases": 12,
+      "externalOpens": 0
+    },
+    "namedCell": {
+      "accepted": 48,
+      "rejected": 188,
+      "reopens": 96,
+      "undos": 72,
+      "redos": 72,
+      "collisions": 20
+    },
+    "fieldValueAtomic": {
+      "supported": 10,
+      "unsupported": 18,
+      "acceptedUnsupported": 0
+    },
+    "clickHere": {
+      "reopens": 54,
+      "undos": 24,
+      "redos": 24,
+      "rejections": 14,
+      "cellRegressions": 6
+    },
+    "totalReopens": 484
+  },
+  "signature": "ad-hoc; codesign --verify --deep --strict passed before and after runtime checks",
+  "sandboxLaunchFailure": {
+    "version": "0.4.4-dev.9",
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false,
+    "profileBase": "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/profile",
+    "userDocumentsOpened": 0,
+    "externalLinksExecuted": 0,
+    "pid": 34163,
+    "failure": "No local asset server; process exit=-6",
+    "finalProcessExit": -6
+  },
+  "candidateScopedLaunch": {
+    "version": "0.4.4-dev.9",
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false,
+    "profileBase": "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/profile",
+    "userDocumentsOpened": 0,
+    "externalLinksExecuted": 0,
+    "pid": 35350,
+    "servedFreshAssetsSHA256": {
+      "theme-init.js": "5a3afcc0139187bfe509414cd60fde2a0dfea72fd72751c4e6e696cdc0f6c587",
+      "assets/studio-plugin-Cp8dJ3L_.js": "abdcbcab732aad8d91b551c97ff045bec6b140ae87d94c5fd44235d5515fb4e7",
+      "assets/index-CxUTXF-a.js": "91d358d160fdda23d99a2d5f3bba687934ebc112ca678dfcf5012be34ee155f6",
+      "assets/canvaskit-renderer-Di7Frbas.js": "d3437a5b88a9ec52805182a53cc34b1d10308fe43e26ff796c4d77675c1ca3ab",
+      "assets/canvaskit-SCAxUyCS.wasm": "25ebed8e60158c5854f8dc807b936daca21354f8bfb6a2231266b0a93812f301",
+      "assets/index-EHujs-C0.css": "f0783ab4c24b02f241c1e3807f971396337209afc63c32146f59f65123cf963a",
+      "assets/rhwp_bg-C1EOpzqi.wasm": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198"
+    },
+    "basicProcessAndLocalServerPassed": true,
+    "htmlVersionMatched": true,
+    "servedEngineSHA256": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198",
+    "processAlive": true,
+    "quitRequestExit": 0,
+    "quitStderr": "",
+    "normalQuit": true,
+    "finalProcessExit": 0
+  },
+  "processCleanup": {
+    "queryScopedToCandidateBundle": true,
+    "candidateProcessesRemaining": [],
+    "queryExit": 1,
+    "stderr": "",
+    "normalShutdownComplete": true
+  },
+  "nextGap": {
+    "feature": "선택 텍스트에 검토 주석/메모 삽입",
+    "command": "insert:comment",
+    "label": "주석",
+    "sourceCommit": "87e1e074d039a9fc6da9bb431afaa3a383ad46b7",
+    "candidateWasmSHA256": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198",
+    "seed": "../cell-hyperlink-qa/body-native/seed.hwpx",
+    "editableNormalDocument": true,
+    "hyperlinkEnabled": true,
+    "commentEnabled": false,
+    "dispatchResult": {
+      "ok": false,
+      "reason": "disabled"
+    },
+    "actualMenuStateDisabled": true,
+    "packagedMenuDisabled": true,
+    "operationCalls": 0,
+    "commandEvents": 0,
+    "entireDocumentBytesAndStateUnchanged": true,
+    "memoOrCommentExports": [],
+    "sourceSHA256": {
+      "insert": "08a348efdf5d7b135eb5ea67fa8589d608ee21eb4e3e67ff2d0c264df2a2fcff",
+      "hyperlink": "6b616cf47b051d345c4cad76ddbc69b3210a2852f72a787f8259538f45280eca",
+      "registry": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+      "dispatcher": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381",
+      "menu": "4299cf7a1b5c057da0a80a10b6525e00d46a96d997a61fc7cd0f71657069a77b"
+    },
+    "before": {
+      "hwp": "b49fb165a746a88f01b46c5c3518875966a9fba013ee9e38156319bcd718ee8e",
+      "hwpx": "ed77fc7b97c256dbbde8d2493dbf397c8ca3a564addd1063dc8f6d909303a108",
+      "text": "\"앞&#128578;한글&#66560;링크뒤참조끝\\r\\n다른스타일&#128578;보존\"",
+      "fields": "[]",
+      "info": "{\"version\":\"5.1.0.0\",\"sectionCount\":1,\"pageCount\":1,\"encrypted\":false,\"hwp3Variant\":false,\"fallbackFont\":\"/usr/share/fonts/truetype/nanum/NanumGothic.ttf\",\"fontsUsed\":[\"함초롬돋움\",\"함초롬바탕\"],\"fontSubstitutions\":[]}",
+      "events": "{\"ok\":true,\"events\":[]}"
+    },
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "implementationChanged": false,
+    "proposal": "먼저 일반 본문의 단일 문단 선택에 검토 메모를 추가·수정·삭제하고 기존 MEMO 필드/본문 참조와 undo/redo·HWP/HWPX 재열기를 보존하는 범위를 제안한다. 다른 문맥과 복합 선택은 편집 전 거절한다."
+  },
+  "resources": {
+    "additionalLimitBytes": 1073741824,
+    "additionalPeakBytes": 575610880,
+    "additionalFinalBytes": 406835200,
+    "targetLimitBytes": 4294967296,
+    "targetPeakBytes": 3577487360,
+    "targetFinalBytes": 3577487360,
+    "minDiskFreeBytes": 24084480000,
+    "diskFreeFinalBytes": 24207360000,
+    "budgetStopped": false
+  },
+  "protectedSHA256": {
+    "dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+    "dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+    "app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+    "geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+    "geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "dev8-checkpoint-qa/GeulgyeolDev8.app/Contents/Resources/app.asar": "66e9af062d45efaca508053e87a7a759489d7f98e0484798e7fd60b5d468a104",
+    "field-value-atomic-qa/pkg/rhwp_bg.wasm": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+    "named-cell-value-qa/pkg/rhwp_bg.wasm": "89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf",
+    "body-hyperlink-qa/pkg/rhwp_bg.wasm": "47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4",
+    "cell-hyperlink-qa/pkg/rhwp_bg.wasm": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198"
+  },
+  "sourceAppVitalSHA256": {
+    "dev8-checkpoint-qa/GeulgyeolDev8.app/Contents/Info.plist": "52f7cf8d0c2d5db3242e5ee194d01da8ebf048df68b49d107ba32dcbb6de26db",
+    "dev8-checkpoint-qa/GeulgyeolDev8.app/Contents/MacOS/GeulgyeolDev8": "201c4a98a33225f81c03afa2e24f3d9cb8b1cd1b1afb241493ef5652d6af5e3d"
+  },
+  "newCandidateCount": 1,
+  "newZipCount": 0,
+  "nativeGUIVerified": false,
+  "physicalIMEVerified": false,
+  "linuxThisTask": false,
+  "productEngineOrUISourceChanged": false,
+  "publicPushOrRelease": false,
+  "securityAccountCertificateOrRemotePermissionChanged": false,
+  "fullRustLibraryTests": "Previously blocked by three existing missing include_bytes fixtures; no Rust rebuild or fixture/test bypass this task",
+  "evidenceSHA256": {
+    "../dev9-checkpoint-qa/package-build.json": "0b622a202d1163a5a5e70d4bea75c3cc25d81af21f0c90ca70f4087838d07825",
+    "../dev9-checkpoint-qa/package-verification.json": "cc37faf787e39d98f3588f496bdea0a4697cab95a67ac34281aa8a966b24491c",
+    "../dev9-checkpoint-qa/source-freeze.json": "7f6a0139b75d79a9cacf1abd2a1c0f0d116e1057be227b794451b5114e4f2d0b",
+    "../dev9-checkpoint-qa/signature-final.log": "be4a277f0637846322009fd6888261049f01c1f839ed7c40881b76073cb31525",
+    "../dev9-checkpoint-qa/signature-details.log": "eb0a642d0c09e77877233664042f2836c41ebf29886d39df1c236fcfea2a4656",
+    "../dev9-checkpoint-qa/basic-launch-proof.json": "52a43af2801fa2c11d3f8184fae37f2511a8f2e1fdc920364c01141f7b6a9cc9",
+    "../dev9-checkpoint-qa/process-cleanup.json": "28cdd5c8a68a3d858ec5e7d6ca141c63af786ee091a0377bcad9cee5e10e1c80",
+    "../dev9-checkpoint-qa/body-links/proof.json": "143e1d041dd3d7c44e137cf518fe97cb4bd775ed5b0b319ae9a162ea07a4ee7b",
+    "../dev9-checkpoint-qa/cell-links/proof.json": "6328cf5ccc743cb916addddd74cf66e37dd99147aedfd27b5fed296001de57e5",
+    "../dev9-checkpoint-qa/named-cell/proof.json": "a3a9079ad1464f9ca3dbb70c9ffa8550880c01cad19dd8646749592fa1af68ef",
+    "../dev9-checkpoint-qa/atomic/proof.json": "1bded11ac98e15b58c9a8c39568c7811d7f69cfe965d7e33e52c85488dca46b1",
+    "../dev9-checkpoint-qa/clickhere/proof.json": "4c7c039ab7c264530355faef4629cac205580c0a2121dca40fc1806a8770b348",
+    "../dev9-checkpoint-qa/next-gap-comment.json": "5c1b49e8e3b287ae25d7b388b8d988f7523b300c80a08364785b59fa9082d717",
+    "../dev9-checkpoint-qa/probe-next-gap.mjs": "51fcd412e44adb40965f71e17b19f2e49e6f5dc08d7c5b807f5ac1bc130d9361"
+  }
+}
