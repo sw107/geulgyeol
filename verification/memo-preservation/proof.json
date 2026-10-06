@@ -1,0 +1,266 @@
+{
+  "scope": "Existing HWP5 memo preservation only; no comment authoring API/UI or packaging",
+  "baseHead": "702153114ea8c5053e31a3baa8af5ef455c970c9",
+  "candidateDirectory": "/Users/sw107/Documents/Codex/2026-10-06/task/memo-preservation-qa/pkg",
+  "native": {
+    "GUIVerified": false,
+    "bodyEditUndoRedo": true,
+    "crossSectionOwners": true,
+    "opaque": [
+      {
+        "hwpOriginalRecordsPreserved": true,
+        "hwpxAtomicRefusal": true,
+        "kind": "tail-unknown"
+      },
+      {
+        "hwpOriginalRecordsPreserved": true,
+        "hwpxAtomicRefusal": true,
+        "kind": "list-time"
+      },
+      {
+        "hwpOriginalRecordsPreserved": true,
+        "hwpxAtomicRefusal": true,
+        "kind": "control-time"
+      },
+      {
+        "hwpOriginalRecordsPreserved": true,
+        "hwpxAtomicRefusal": true,
+        "kind": "duplicate-index"
+      },
+      {
+        "hwpOriginalRecordsPreserved": true,
+        "hwpxAtomicRefusal": true,
+        "kind": "orphan-index"
+      },
+      {
+        "hwpOriginalRecordsPreserved": true,
+        "hwpxAtomicRefusal": true,
+        "kind": "root-unknown"
+      },
+      {
+        "hwpOriginalRecordsPreserved": true,
+        "hwpxAtomicRefusal": true,
+        "kind": "header-flags"
+      },
+      {
+        "hwpOriginalRecordsPreserved": true,
+        "hwpxAtomicRefusal": true,
+        "kind": "header-time"
+      },
+      {
+        "hwpOriginalRecordsPreserved": true,
+        "hwpxAtomicRefusal": true,
+        "kind": "invalid-utf16"
+      },
+      {
+        "hwpOriginalRecordsPreserved": true,
+        "hwpxAtomicRefusal": true,
+        "kind": "author-slash"
+      }
+    ],
+    "originalAuthorAndOpaqueTimeBytes": true,
+    "reopens": 32,
+    "selectedTextFormatRangesAdjacentHyperlinkNotes": true,
+    "sourceTamperingAndMetadataEditRefused": true,
+    "typedTimeHwpAtomicRefusal": true
+  },
+  "wasm": {
+    "wasmSHA256": "bcf54ce22f6bda180f8273f93e9cf30468c9116ac55148a4ffa387c6d16b93f5",
+    "cases": 16,
+    "saves": 37,
+    "atomicExportRefusals": 27,
+    "undo": 16,
+    "redo": 16,
+    "originalSnapshotBytesRestored": true,
+    "commentAuthoringImplemented": false,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "externalOpens": 0
+  },
+  "nativeWasmReopen": {
+    "independentlyReopened": 37,
+    "rangesMetadataMemoNotesAndRefs": true
+  },
+  "regressions": {
+    "bodyLinks": {
+      "wasmSha256": "bcf54ce22f6bda180f8273f93e9cf30468c9116ac55148a4ffa387c6d16b93f5",
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0,
+      "positive": 6,
+      "reopens": 22,
+      "undos": 6,
+      "redos": 6,
+      "refusals": 36
+    },
+    "cellLinks": {
+      "candidateWasmSHA256": "bcf54ce22f6bda180f8273f93e9cf30468c9116ac55148a4ffa387c6d16b93f5",
+      "positive": 84,
+      "reopens": 288,
+      "undos": 84,
+      "redos": 84,
+      "atomicRefusals": 444,
+      "layoutCases": 12,
+      "multipageCases": 12,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "clickHere": {
+      "counts": {
+        "reopens": 54,
+        "undos": 24,
+        "redos": 24,
+        "rejections": 14,
+        "cellRegressions": 6
+      }
+    },
+    "fieldValueAtomic": {
+      "observe": false,
+      "wasmSha256": "bcf54ce22f6bda180f8273f93e9cf30468c9116ac55148a4ffa387c6d16b93f5",
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "unsupported": 18,
+      "supported": 10,
+      "acceptedUnsupported": 0
+    },
+    "bodySavedFilesNative": {
+      "footnoteTree": true,
+      "fullCharParaStyleReferences": true,
+      "originalDefinitionsUnchanged": true,
+      "pairedFieldRanges": true,
+      "uiSavedFilesVerified": 22
+    },
+    "cellSavedFilesNative": {
+      "allSiblingCellBodyNoteReferences": true,
+      "fullCharParaStyleReferences": true,
+      "originalDefinitionsUnchanged": true,
+      "pairedFieldRanges": true,
+      "uiSavedFilesVerified": 264
+    },
+    "commentDispatcher": {
+      "disabledDispatchCases": 192,
+      "operations": 0,
+      "selectionReads": 0,
+      "emittedEvents": 0,
+      "commentAuthoringVerified": false,
+      "commentUndoRedoVerified": false
+    },
+    "typeScriptExitCode": 0,
+    "clippyExitCode": 0
+  },
+  "fullLibraryUnitCompile": {
+    "exitCode": 101,
+    "remainingCompilerErrors": 3,
+    "missingExistingFixtures": [
+      "engine/samples/3-09월_교육_통합_2022.hwp",
+      "engine/samples/hwp3-sample16-hwp5.hwp",
+      "engine/samples/hwpx/aift.hwpx"
+    ],
+    "fixturesNotReplacedOrExcluded": true
+  },
+  "resources": {
+    "targetPeakBytes": 3828674560,
+    "targetFinalBytes": 3728244736,
+    "targetLimitBytes": 4294967296,
+    "minimumDiskFreeBytes": 23920640000,
+    "diskStopFloorBytes": 10737418240,
+    "allBudgetStopsAbsent": true
+  },
+  "protection": {
+    "previousCheckpointBaselinesMatched": {
+      "dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+      "dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+      "app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+      "geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+      "geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+      "dev8-checkpoint-qa/GeulgyeolDev8.app/Contents/Resources/app.asar": "66e9af062d45efaca508053e87a7a759489d7f98e0484798e7fd60b5d468a104",
+      "field-value-atomic-qa/pkg/rhwp_bg.wasm": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+      "named-cell-value-qa/pkg/rhwp_bg.wasm": "89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf",
+      "body-hyperlink-qa/pkg/rhwp_bg.wasm": "47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4",
+      "cell-hyperlink-qa/pkg/rhwp_bg.wasm": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198"
+    },
+    "thisTaskBaselinesMatched": {
+      "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app/Contents/Resources/app.asar": "12065a11b5217639bc145354dc12f53170702d922ad05cd1757e63568190db9b",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app/Contents/Info.plist": "a17724fe485bbf15c3cfb045ae1ecefed150dd3d986032860d5ceac7bc183a3f",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/style-propagation-qa/Geulgyeol-0.4.4-dev.4-mac-arm64-candidate.zip": "198bd47563ed58178b6b88beb0a43c8c5c22444bc023885487506457b790257f"
+    },
+    "allUnchanged": true
+  },
+  "sourceFreeze": {
+    "baseHead": "702153114ea8c5053e31a3baa8af5ef455c970c9",
+    "sources": {
+      "engine/examples/memo_preservation_check.rs": "b3252e6df5865592d91d98f62d0f5da54a38091aba00ce797baa963183aa624b",
+      "engine/src/document_core/commands/header_footer_ops.rs": "e8fae956caab3be9ba779fc7f32e258e4f27b14a233e0b6a8782d603896f8434",
+      "engine/src/document_core/commands/object_ops/picture.rs": "9b4a882f119279c7a9d4b0f857b913dc78571a8ce87ca71e4e90e2a8acbfc288",
+      "engine/src/document_core/commands/object_ops/shape.rs": "ff78b3acd0fe9ecf637c876374c0a7060e0d550b5995688096685d1dc3a138fa",
+      "engine/src/document_core/queries/field_query.rs": "a8c456eaeb69a3f932b3e8c2ff890abbeecb8d0e722de3e324d0fc4c3d94140d",
+      "engine/src/document_core/queries/rendering.rs": "e053d06612ff2255521e6a21a22c134d9d271499312e0ff05b1787abe0fee4cf",
+      "engine/src/model/control.rs": "fcbaffcf008fcecb2cfe370a81bed2364f2ea062e0deca2c4cf71cc8610f345d",
+      "engine/src/model/document.rs": "c4e51056eb3acb3646c3d9c13257aaff45ac350718b565cae3ec2f96a91258ca",
+      "engine/src/model/memo.rs": "afe0c3bd52751e9b5aa3f0c8f6a1157623690fa4a04d9e112c0d29f5c31423db",
+      "engine/src/model/mod.rs": "3d6441901e414d507436fab54bd221b151fa4f2ec39ce5a23399b68e8e360997",
+      "engine/src/model/paragraph.rs": "b9fff226084459d47d38af55cbb3c3a0bfd5474955ba5cf09f08b965f8477733",
+      "engine/src/model/raw_provenance.rs": "03e2e699f4180893f7d1c6785713ebafe1283fb5412ebd6dd91756a3a14b9712",
+      "engine/src/parser/body_text.rs": "9b7b5970cb4e36e3768a312ebf34751d87c0a1d7c61e2b0496bd5644352e14a4",
+      "engine/src/parser/control.rs": "b5a6112602fb533275424235a17436e959d25e731034d0aa8f8544c421825051",
+      "engine/src/parser/hml/adapter.rs": "90c0147a5a158b3316edcea899910313ef34519e2b5350acdc549c46b8d4855c",
+      "engine/src/parser/hwp3/mod.rs": "ff960366175eb8fc012152e20e8c0b7f40e7f0128d1a9895c5c658f8df6d3b9a",
+      "engine/src/parser/memo.rs": "4b03437b3a501312c3f697be2a91d11661c8f06a9804ee89d74fb96bf6d684ca",
+      "engine/src/parser/mod.rs": "f4a179c7694240bd107b856bc4a84b603b4a9a54c79dbec1ad7243696015ac3c",
+      "engine/src/serializer/body_text.rs": "ec41568edeed7a428b491e6cb890c630fe9c193dc3252620441594898d1c8b86",
+      "engine/src/serializer/cfb_writer.rs": "928f55035e72054c6a84648100f5ba30596ec8f883df9c65ee4d2794518a17fc",
+      "engine/src/serializer/cfb_writer/tests.rs": "388f47bccf2edc8107461c8702a282506ad6c3a69c2adc6b8e5db32163f0eb9c",
+      "engine/src/serializer/control.rs": "caa033dba98f131586886bdfd319d08549affb4a0ef29c397bb6c274476c1593",
+      "engine/src/serializer/hwpx/mod.rs": "9a067d75b4cb0fc8647a00a09ee1ccdd28b6cd51ca487e083890472213b58d1d",
+      "engine/src/wasm_api/tests.rs": "091c5580733fc5dc75ae72987a3ced38c24a1167f80132917c26573cc0dd7182",
+      "scripts/check-memo-preservation.mjs": "a54d1cf34df6c915329384b0ca417675af643ab2210503b7a079bf1ef577b751"
+    },
+    "wasmPostBuildTestOnlyDefaults": [
+      "engine/src/document_core/commands/header_footer_ops.rs",
+      "engine/src/document_core/commands/object_ops/picture.rs",
+      "engine/src/document_core/commands/object_ops/shape.rs",
+      "engine/src/document_core/queries/rendering.rs",
+      "engine/src/serializer/body_text.rs",
+      "engine/src/serializer/cfb_writer/tests.rs",
+      "engine/src/wasm_api/tests.rs"
+    ]
+  },
+  "wasmBuildSource": {
+    "baseHead": "702153114ea8c5053e31a3baa8af5ef455c970c9",
+    "sources": {
+      "engine/examples/memo_preservation_check.rs": "b3252e6df5865592d91d98f62d0f5da54a38091aba00ce797baa963183aa624b",
+      "engine/src/document_core/queries/field_query.rs": "a8c456eaeb69a3f932b3e8c2ff890abbeecb8d0e722de3e324d0fc4c3d94140d",
+      "engine/src/model/control.rs": "fcbaffcf008fcecb2cfe370a81bed2364f2ea062e0deca2c4cf71cc8610f345d",
+      "engine/src/model/document.rs": "c4e51056eb3acb3646c3d9c13257aaff45ac350718b565cae3ec2f96a91258ca",
+      "engine/src/model/memo.rs": "afe0c3bd52751e9b5aa3f0c8f6a1157623690fa4a04d9e112c0d29f5c31423db",
+      "engine/src/model/mod.rs": "3d6441901e414d507436fab54bd221b151fa4f2ec39ce5a23399b68e8e360997",
+      "engine/src/model/paragraph.rs": "b9fff226084459d47d38af55cbb3c3a0bfd5474955ba5cf09f08b965f8477733",
+      "engine/src/model/raw_provenance.rs": "03e2e699f4180893f7d1c6785713ebafe1283fb5412ebd6dd91756a3a14b9712",
+      "engine/src/parser/body_text.rs": "9b7b5970cb4e36e3768a312ebf34751d87c0a1d7c61e2b0496bd5644352e14a4",
+      "engine/src/parser/control.rs": "b5a6112602fb533275424235a17436e959d25e731034d0aa8f8544c421825051",
+      "engine/src/parser/hml/adapter.rs": "90c0147a5a158b3316edcea899910313ef34519e2b5350acdc549c46b8d4855c",
+      "engine/src/parser/hwp3/mod.rs": "ff960366175eb8fc012152e20e8c0b7f40e7f0128d1a9895c5c658f8df6d3b9a",
+      "engine/src/parser/memo.rs": "4b03437b3a501312c3f697be2a91d11661c8f06a9804ee89d74fb96bf6d684ca",
+      "engine/src/parser/mod.rs": "f4a179c7694240bd107b856bc4a84b603b4a9a54c79dbec1ad7243696015ac3c",
+      "engine/src/serializer/body_text.rs": "6ab589a02c14605dc793fe868cdd8742793ed34d17ff70fad69dca0b7d749707",
+      "engine/src/serializer/cfb_writer.rs": "928f55035e72054c6a84648100f5ba30596ec8f883df9c65ee4d2794518a17fc",
+      "engine/src/serializer/control.rs": "caa033dba98f131586886bdfd319d08549affb4a0ef29c397bb6c274476c1593",
+      "engine/src/serializer/hwpx/mod.rs": "9a067d75b4cb0fc8647a00a09ee1ccdd28b6cd51ca487e083890472213b58d1d",
+      "scripts/check-memo-preservation.mjs": "a54d1cf34df6c915329384b0ca417675af643ab2210503b7a079bf1ef577b751"
+    }
+  },
+  "postWasmChanges": "21 None defaults in cfg(test) initializers only; runtime source unchanged",
+  "limits": {
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "linuxRun": false,
+    "hancomGUIOrFullCorpus": false,
+    "newAppPackaging": false,
+    "newPublicPushOrRelease": false,
+    "securityAccountPermissionChanges": false
+  },
+  "logsDirectory": "/Users/sw107/Documents/Codex/2026-10-06/task/memo-preservation-qa",
+  "earlyFailuresRetained": "Compile defaults, malformed initial fixture and incorrect unknown-command refusal expectation were fixed. Adjacent memo insertion crossing was an engine defect, fixed and rechecked."
+}

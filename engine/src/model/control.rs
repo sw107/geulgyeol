@@ -864,6 +864,8 @@ pub struct Field {
     /// 왕복 시 가로쓰기로 뒤집히지 않도록 원본 값을 보존한다.
     /// `None` 이면 기본값 "HORIZONTAL" 방출.
     pub memo_text_direction: Option<String>,
+    /// Original memo control records/markers; body edits must not invent metadata.
+    pub hwp_memo_control: Option<Box<crate::model::memo::HwpMemoControl>>,
     /// HWPX `<hp:parameters>` 요소 원문 verbatim (#1391).
     ///
     /// HWPX→HWPX 왕복 전용 바이트 정확 캐시다 — 이미 코퍼스 전수(3,418건)로 검증된

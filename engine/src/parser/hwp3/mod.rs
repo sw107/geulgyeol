@@ -4203,6 +4203,7 @@ fn parse_hwp3_inner(
         paragraphs,
         raw_provenance: None,
         raw_stream: None,
+        memo_tail: None,
     };
     doc.sections.push(section);
 

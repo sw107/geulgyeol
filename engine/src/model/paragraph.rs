@@ -981,7 +981,11 @@ impl Paragraph {
             if fr.start_char_idx > char_offset {
                 fr.start_char_idx += inserted_len;
             }
-            if fr.end_char_idx >= char_offset {
+            let memo = matches!(self.controls.get(fr.control_idx), Some(Control::Field(f)) if super::memo::is_memo(f));
+            // Body typing at a nonempty memo's end belongs outside that anchor.
+            // Extending both adjacent ranges creates crossing begin/end ownership.
+            if fr.end_char_idx > char_offset || (fr.end_char_idx == char_offset
+                && (!memo || fr.start_char_idx == fr.end_char_idx)) {
                 fr.end_char_idx += inserted_len;
             }
         }

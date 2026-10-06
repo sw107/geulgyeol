@@ -28,6 +28,7 @@ pub mod hwp3;
 pub mod hwp_summary;
 pub mod hwpx;
 pub mod ingest;
+mod memo;
 pub mod ole_container;
 pub mod record;
 pub mod tags;
@@ -1537,6 +1538,7 @@ fn parse_document_inner(
     password: Option<&[u8]>,
 ) -> Result<ParsedDocument, ParseError> {
     let mut parsed = parse_document_inner_unsealed(data, password)?;
+    crate::model::memo::link(&mut parsed.document);
     // [#4493] 파싱과 모든 load fixup 이 끝난 마지막 지점에서 DocInfo raw 출처를
     // 봉인한다 — 이보다 앞(포맷별 파서 내부)에서 봉인하면 HWP3-변환본 spacing
     // 반감 같은 로드 보정이 봉인을 깨서, 무변경 문서의 원본 바이트 통과가 죽는다.

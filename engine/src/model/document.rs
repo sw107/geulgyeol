@@ -284,6 +284,8 @@ pub struct Section {
     /// 원본 바이트의 다이제스트 쌍. 저장 시 둘 다 일치할 때만 raw 를 재사용한다.
     /// 계약 전문은 `model::raw_provenance` 모듈 주석.
     pub raw_provenance: Option<crate::model::raw_provenance::SectionSeal>,
+    /// HWP5 memo container, kept independently of the editable body raw cache.
+    pub memo_tail: Option<crate::model::memo::HwpMemoTail>,
 }
 
 /// 구역 정의 (HWPTAG_CTRL_HEADER - 'secd')

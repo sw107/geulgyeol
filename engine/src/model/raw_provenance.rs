@@ -255,6 +255,7 @@ pub fn section_model_digest(section: &crate::model::document::Section) -> [u8; 3
     let crate::model::document::Section {
         section_def,
         paragraphs,
+        memo_tail,
         raw_stream: _,
         raw_provenance: _,
     } = section;
@@ -263,6 +264,7 @@ pub fn section_model_digest(section: &crate::model::document::Section) -> [u8; 3
     struct Fingerprint<'a> {
         section_def: &'a crate::model::document::SectionDef,
         paragraphs: &'a [crate::model::paragraph::Paragraph],
+        memo_tail: &'a Option<crate::model::memo::HwpMemoTail>,
     }
 
     let mut hasher = blake3::Hasher::new();
@@ -271,6 +273,7 @@ pub fn section_model_digest(section: &crate::model::document::Section) -> [u8; 3
         &Fingerprint {
             section_def,
             paragraphs,
+            memo_tail,
         },
     )
     .expect("모델 다이제스트 직렬화는 실패할 수 없다 (순수 인메모리 인코딩)");

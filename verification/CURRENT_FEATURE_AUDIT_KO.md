@@ -69,7 +69,7 @@ Mac 실제 GUI/물리 IME·이번 Linux 검증 없음. dev9의 strict ad-hoc 서
 
 이번 dev9은 후보 하나/ZIP 없음, 추가 최고548.9MiB·target 전후3.332GiB·최소 여유22.43GiB다. 별도 프로필의 앱 기동/서빙/정상 종료와 Node 패키지 엔진 검증을 실제 GUI/IME 성공으로 부르지 않는다. 엔진/UI 제품 소스·보안 권한 변경 및 공개 push/release 없음.
 
-## dev9 이후 검토 주석 저장 조사
+## dev9 이후 검토 주석 저장 조사 (7021531 당시 역사 기록)
 
 후속에서 기존 Memo 본문 모델과 HWPX 읽기·쓰기는 확인했지만, HWP5 메모 꼬리가 선택 범위의
 필드로 복원되지 않는 결함을 재현했다. HWP 재열기에서는 필드가 Unknown, 메모 본문이 비어 있고,
@@ -81,3 +81,9 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 무변경 거절, 기존 본문·셀 링크 회귀와 TypeScript/Clippy 검사를 기록했다. 일반 snapshot 복원은
 없는 주석 command의 undo/redo 검증으로 취급하지 않는다. [저장 선행 설계](review-comment-storage/DESIGN_KO.md),
 [이번 결과](review-comment-storage/RESULT_KO.md). dev9 앱·기존 후보를 보존하고 새 패키징·공개·GUI 실행은 하지 않았다.
+
+## 기존 메모 저장 보존 후속
+
+현재 소스는 위 HWP5 꼬리 미연결 결함을 저장 보존 범위에서 수정했다. 문서 전체의 유일한 ID·index·표식·꼬리 소유 관계로 기존 메모 본문을 연결하고, 본문 편집 후 원본 메모 꼬리 바이트와 제어 payload를 보존한다. 명시적 원본 작성자를 유지하며 불명 시각/레코드는 HWP 보존 또는 형식 변환 거절로 처리한다. 새 검토 주석 저작 API/UI는 여전히 미연결이다. [후속 결과](memo-preservation/RESULT_KO.md), [검증 proof](memo-preservation/proof.json).
+
+새 엔진 후보는 `memo-preservation-qa/pkg`이며 기존 dev9 앱에는 아직 통합하지 않았다. 이 단계는 Native/WASM 자동 저장·본문 snapshot 검사이고 새 앱 패키징·GUI/IME·Linux·공개 배포 성공을 주장하지 않는다.
