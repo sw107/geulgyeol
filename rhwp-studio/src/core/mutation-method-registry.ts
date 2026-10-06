@@ -72,6 +72,7 @@ export const MUTATING_METHODS: readonly string[] = [
   // 필드/양식/찾아바꾸기/책갈피
   'setFieldValue', 'setFieldValueByName', 'removeFieldAt', 'insertClickHereField',
   'insertBodyHyperlink', 'updateBodyHyperlink', 'removeBodyHyperlink',
+  'insertCellHyperlinkByPath', 'updateCellHyperlinkByPath', 'removeCellHyperlinkByPath',
   'updateClickHereProps', 'setFormValue', 'setFormValueInCell',
   'replaceText', 'replaceOne', 'replaceAll',
   'addBookmark', 'deleteBookmark', 'renameBookmark',

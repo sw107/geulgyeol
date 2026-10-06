@@ -6161,6 +6161,34 @@ export class InputHandler {
     return this.cursor.getSelectionOrdered();
   }
 
+  /** One body paragraph or one table-cell paragraph; full path is the owner. */
+  getHyperlinkTarget(): {position: DocumentPosition; selection: {start: DocumentPosition; end: DocumentPosition} | null; cellPath: Array<{controlIndex: number; cellIndex: number; cellParaIndex: number}> | null} {
+    const position = this.getCursorPosition(), selection = this.getSelection();
+    const integer = (n: number | undefined) => n !== undefined && Number.isInteger(n) && n >= 0 && n <= 0xffffffff;
+    const owner = (p: DocumentPosition) => {
+      if (p.isTextBox || !integer(p.sectionIndex) || !integer(p.charOffset)) throw new Error('하이퍼링크 대상 좌표가 잘못됐습니다.');
+      if (p.parentParaIndex === undefined) {
+        if (p.cellPath?.length || !integer(p.paragraphIndex)) throw new Error('하이퍼링크 대상 경로가 잘못됐습니다.');
+        return {key: JSON.stringify([p.sectionIndex, p.paragraphIndex]), path: null};
+      }
+      const path = p.cellPath?.length ? p.cellPath.map(e => ({controlIndex: e.controlIndex, cellIndex: e.cellIndex, cellParaIndex: e.cellParaIndex})) :
+        [{controlIndex: p.controlIndex!, cellIndex: p.cellIndex!, cellParaIndex: p.cellParaIndex!}];
+      if (!integer(p.parentParaIndex) || path.length > 64 || path.some(e => !integer(e.controlIndex) || !integer(e.cellIndex) || !integer(e.cellParaIndex))) {
+        throw new Error('하이퍼링크 셀 경로가 잘못됐습니다.');
+      }
+      return {key: JSON.stringify([p.sectionIndex, p.parentParaIndex, path]), path};
+    };
+    if (this.editMode === 'form' || this.cursor.isInFootnote() || this.cursor.isInHeaderFooter()
+      || this.cursor.isInCellSelectionMode?.() || this.cursor.isInPictureObjectSelection() || this.cursor.isInTableObjectSelection()) {
+      throw new Error('하이퍼링크는 본문 또는 단일 표 셀의 한 문단에서만 지원합니다.');
+    }
+    const current = owner(position), selected = selection ? owner(selection.start) : current;
+    if (selection && (selected.key !== owner(selection.end).key || selected.key !== current.key)) {
+      throw new Error('하이퍼링크는 같은 셀/같은 문단 안에서 선택하세요.');
+    }
+    return {position: {...position}, selection: selection ? {start: {...selection.start}, end: {...selection.end}} : null, cellPath: selected.path};
+  }
+
   /** Hyperlink authoring deliberately supports only the main body, one paragraph. */
   getBodyHyperlinkTarget(): {position: DocumentPosition; selection: {start: DocumentPosition; end: DocumentPosition} | null} {
     const position = this.getCursorPosition();

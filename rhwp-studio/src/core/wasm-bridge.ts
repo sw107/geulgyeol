@@ -3483,6 +3483,26 @@ export class WasmBridge {
     return JSON.parse((this.doc as any).removeBodyHyperlink(sec, para, id));
   }
 
+  getCellHyperlinkAtByPath(sec: number, parent: number, path: CellPathEntry[], at: number): {ok: boolean; found: boolean; fieldId?: number; url?: string; text?: string; startCharIdx?: number; endCharIdx?: number} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).getCellHyperlinkAtByPath(sec, parent, JSON.stringify(path), at));
+  }
+
+  insertCellHyperlinkByPath(sec: number, parent: number, path: CellPathEntry[], start: number, end: number, url: string, display: string): {ok: boolean; fieldId: number; startCharIdx: number; endCharIdx: number} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).insertCellHyperlinkByPath(sec, parent, JSON.stringify(path), start, end, url, display));
+  }
+
+  updateCellHyperlinkByPath(sec: number, parent: number, path: CellPathEntry[], id: number, url: string): {ok: boolean} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).updateCellHyperlinkByPath(sec, parent, JSON.stringify(path), id, url));
+  }
+
+  removeCellHyperlinkByPath(sec: number, parent: number, path: CellPathEntry[], id: number): {ok: boolean} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).removeCellHyperlinkByPath(sec, parent, JSON.stringify(path), id));
+  }
+
   /** 필드 이름으로 값을 설정한다. */
   setFieldValueByName(name: string, value: string): { ok: boolean; fieldId: number; oldValue: string; newValue: string } {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');

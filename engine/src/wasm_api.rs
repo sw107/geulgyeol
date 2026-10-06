@@ -5415,6 +5415,82 @@ impl HwpDocument {
         )
         .map_err(Into::into)
     }
+    #[wasm_bindgen(js_name = getCellHyperlinkAtByPath)]
+    pub fn get_cell_hyperlink_at_by_path_api(
+        &self,
+        sec: f64,
+        parent: f64,
+        path_json: &str,
+        at: f64,
+    ) -> Result<String, JsValue> {
+        let path = hyperlink_path(path_json)?;
+        self.get_cell_hyperlink_at_by_path(
+            hyperlink_index(sec)?,
+            hyperlink_index(parent)?,
+            &path,
+            hyperlink_index(at)?,
+        )
+        .map_err(Into::into)
+    }
+    #[wasm_bindgen(js_name = insertCellHyperlinkByPath)]
+    pub fn insert_cell_hyperlink_by_path_api(
+        &mut self,
+        sec: f64,
+        parent: f64,
+        path_json: &str,
+        start: f64,
+        end: f64,
+        url: &str,
+        display: &str,
+    ) -> Result<String, JsValue> {
+        let path = hyperlink_path(path_json)?;
+        self.insert_cell_hyperlink_by_path(
+            hyperlink_index(sec)?,
+            hyperlink_index(parent)?,
+            &path,
+            hyperlink_index(start)?,
+            hyperlink_index(end)?,
+            url,
+            display,
+        )
+        .map_err(Into::into)
+    }
+    #[wasm_bindgen(js_name = updateCellHyperlinkByPath)]
+    pub fn update_cell_hyperlink_by_path_api(
+        &mut self,
+        sec: f64,
+        parent: f64,
+        path_json: &str,
+        id: f64,
+        url: &str,
+    ) -> Result<String, JsValue> {
+        let path = hyperlink_path(path_json)?;
+        self.update_cell_hyperlink_by_path(
+            hyperlink_index(sec)?,
+            hyperlink_index(parent)?,
+            &path,
+            hyperlink_index(id)? as u32,
+            url,
+        )
+        .map_err(Into::into)
+    }
+    #[wasm_bindgen(js_name = removeCellHyperlinkByPath)]
+    pub fn remove_cell_hyperlink_by_path_api(
+        &mut self,
+        sec: f64,
+        parent: f64,
+        path_json: &str,
+        id: f64,
+    ) -> Result<String, JsValue> {
+        let path = hyperlink_path(path_json)?;
+        self.remove_cell_hyperlink_by_path(
+            hyperlink_index(sec)?,
+            hyperlink_index(parent)?,
+            &path,
+            hyperlink_index(id)? as u32,
+        )
+        .map_err(Into::into)
+    }
     /// 현재 본문 위치에 ClickHere 누름틀을 삽입한다.
     #[wasm_bindgen(js_name = insertClickHereField)]
     pub fn insert_click_here_field_api(
@@ -8921,4 +8997,30 @@ fn hyperlink_index(value: f64) -> Result<usize, JsValue> {
         return Err(JsValue::from_str("본문 하이퍼링크 좌표/ID는 유효한 정수여야 합니다"));
     }
     Ok(value as usize)
+}
+
+/// No missing-key defaults, lossy number coercion or non-table target fallback.
+fn hyperlink_path(json: &str) -> Result<Vec<(usize, usize, usize)>, JsValue> {
+    #[derive(serde::Deserialize)]
+    #[serde(rename_all = "camelCase", deny_unknown_fields)]
+    struct Entry {
+        control_index: u32,
+        cell_index: u32,
+        cell_para_index: u32,
+    }
+    let entries: Vec<Entry> = serde_json::from_str(json)
+        .map_err(|_| JsValue::from_str("하이퍼링크 셀 경로 JSON이 잘못됨"))?;
+    if entries.is_empty() || entries.len() > 64 {
+        return Err(JsValue::from_str("하이퍼링크 셀 경로가 비었거나 과도함"));
+    }
+    Ok(entries
+        .into_iter()
+        .map(|e| {
+            (
+                e.control_index as usize,
+                e.cell_index as usize,
+                e.cell_para_index as usize,
+            )
+        })
+        .collect())
 }

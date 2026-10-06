@@ -128,40 +128,163 @@ impl DocumentCore {
         url: &str,
         display: &str,
     ) -> Result<String, HwpError> {
-        validate_body_hyperlink_url(url)?;
+        let id = self.allocate_hyperlink_id()?;
+        let (staged, end) = stage_hyperlink_insert(
+            self.body_hyperlink_paragraph(sec, p)?,
+            id,
+            start,
+            end,
+            url,
+            display,
+        )?;
+        self.document.sections[sec].paragraphs[p] = staged;
+        self.finish_body_hyperlink_edit(sec, p);
+        Ok(hyperlink_insert_json(id, start, end))
+    }
+    pub fn get_body_hyperlink_at(
+        &self,
+        sec: usize,
+        p: usize,
+        at: usize,
+    ) -> Result<String, HwpError> {
+        hyperlink_at_json(self.body_hyperlink_paragraph(sec, p)?, at)
+    }
+    pub fn update_body_hyperlink(
+        &mut self,
+        sec: usize,
+        p: usize,
+        id: u32,
+        url: &str,
+    ) -> Result<String, HwpError> {
         let original = self.body_hyperlink_paragraph(sec, p)?;
-        validate_body_hyperlink_range(original, start, end, None)?;
-        let inserted = if start == end {
-            if display.is_empty()
-                || display.encode_utf16().count() > 4096
-                || display.chars().any(char::is_control)
-            {
-                return Err(HwpError::InvalidField(
-                    "하이퍼링크 표시 문구가 비었거나 지원 범위를 벗어남".into(),
-                ));
-            }
-            display.chars().count()
-        } else {
-            0
-        };
-        let mut staged = original.clone();
-        let positions = staged.control_text_positions();
-        if inserted > 0 {
-            let ranges = staged.field_ranges.clone();
-            staged.insert_text_at(start, display);
-            staged.field_ranges = ranges
-                .into_iter()
-                .map(|mut fr| {
-                    if fr.start_char_idx >= start {
-                        fr.start_char_idx += inserted;
-                        fr.end_char_idx += inserted;
-                    }
-                    fr
-                })
-                .collect();
-            rebuild_char_offsets_after_text_edit(&mut staged, &positions, start, 0, inserted);
+        let (ci, _) = self.hyperlink_owner(original, id)?;
+        let staged = stage_hyperlink_update(original, ci, url)?;
+        self.document.sections[sec].paragraphs[p] = staged;
+        self.finish_body_hyperlink_edit(sec, p);
+        Ok("{\"ok\":true}".into())
+    }
+    pub fn remove_body_hyperlink(
+        &mut self,
+        sec: usize,
+        p: usize,
+        id: u32,
+    ) -> Result<String, HwpError> {
+        let original = self.body_hyperlink_paragraph(sec, p)?;
+        let (ci, ri) = self.hyperlink_owner(original, id)?;
+        let staged = stage_hyperlink_remove(original, ci, ri)?;
+        self.document.sections[sec].paragraphs[p] = staged;
+        self.finish_body_hyperlink_edit(sec, p);
+        Ok("{\"ok\":true}".into())
+    }
+    pub fn insert_cell_hyperlink_by_path(
+        &mut self,
+        sec: usize,
+        parent: usize,
+        path: &[(usize, usize, usize)],
+        start: usize,
+        end: usize,
+        url: &str,
+        display: &str,
+    ) -> Result<String, HwpError> {
+        let id = self.allocate_hyperlink_id()?;
+        let (staged, end) = stage_hyperlink_insert(
+            self.cell_hyperlink_paragraph(sec, parent, path)?,
+            id,
+            start,
+            end,
+            url,
+            display,
+        )?;
+        *self.get_cell_paragraph_mut_by_path(sec, parent, path)? = staged;
+        self.finish_cell_hyperlink_edit(sec, parent, path);
+        Ok(hyperlink_insert_json(id, start, end))
+    }
+    pub fn get_cell_hyperlink_at_by_path(
+        &self,
+        sec: usize,
+        parent: usize,
+        path: &[(usize, usize, usize)],
+        at: usize,
+    ) -> Result<String, HwpError> {
+        hyperlink_at_json(self.cell_hyperlink_paragraph(sec, parent, path)?, at)
+    }
+    pub fn update_cell_hyperlink_by_path(
+        &mut self,
+        sec: usize,
+        parent: usize,
+        path: &[(usize, usize, usize)],
+        id: u32,
+        url: &str,
+    ) -> Result<String, HwpError> {
+        let original = self.cell_hyperlink_paragraph(sec, parent, path)?;
+        let (ci, _) = self.hyperlink_owner(original, id)?;
+        let staged = stage_hyperlink_update(original, ci, url)?;
+        *self.get_cell_paragraph_mut_by_path(sec, parent, path)? = staged;
+        self.finish_cell_hyperlink_edit(sec, parent, path);
+        Ok("{\"ok\":true}".into())
+    }
+    pub fn remove_cell_hyperlink_by_path(
+        &mut self,
+        sec: usize,
+        parent: usize,
+        path: &[(usize, usize, usize)],
+        id: u32,
+    ) -> Result<String, HwpError> {
+        let original = self.cell_hyperlink_paragraph(sec, parent, path)?;
+        let (ci, ri) = self.hyperlink_owner(original, id)?;
+        let staged = stage_hyperlink_remove(original, ci, ri)?;
+        *self.get_cell_paragraph_mut_by_path(sec, parent, path)? = staged;
+        self.finish_cell_hyperlink_edit(sec, parent, path);
+        Ok("{\"ok\":true}".into())
+    }
+    fn body_hyperlink_paragraph(&self, sec: usize, p: usize) -> Result<&Paragraph, HwpError> {
+        self.document
+            .sections
+            .get(sec)
+            .and_then(|s| s.paragraphs.get(p))
+            .ok_or_else(|| HwpError::InvalidField("본문 하이퍼링크 문단 없음".into()))
+    }
+    fn cell_hyperlink_paragraph(
+        &self,
+        sec: usize,
+        parent: usize,
+        path: &[(usize, usize, usize)],
+    ) -> Result<&Paragraph, HwpError> {
+        if path.is_empty() || path.len() > 64 {
+            return Err(HwpError::InvalidField(
+                "하이퍼링크 셀 경로가 비었거나 과도함".into(),
+            ));
         }
-        let link_end = if inserted > 0 { start + inserted } else { end };
+        let mut para = self.body_hyperlink_paragraph(sec, parent)?;
+        for &(ctrl, cell, p) in path {
+            let Some(Control::Table(table)) = para.controls.get(ctrl) else {
+                return Err(HwpError::InvalidField(
+                    "하이퍼링크 경로가 표 셀이 아님".into(),
+                ));
+            };
+            para = table
+                .cells
+                .get(cell)
+                .and_then(|c| c.paragraphs.get(p))
+                .ok_or_else(|| HwpError::InvalidField("하이퍼링크 셀/문단 경로 초과".into()))?;
+        }
+        Ok(para)
+    }
+    fn hyperlink_owner(&self, para: &Paragraph, id: u32) -> Result<(usize, usize), HwpError> {
+        if self
+            .collect_all_fields()
+            .iter()
+            .filter(|f| f.field.field_id == id)
+            .count()
+            != 1
+        {
+            return Err(HwpError::InvalidField(
+                "하이퍼링크 ID 소유권 없음/중복".into(),
+            ));
+        }
+        hyperlink_owner_in_para(para, id)
+    }
+    fn allocate_hyperlink_id(&self) -> Result<u32, HwpError> {
         let field_id = self.next_click_here_field_id().max(
             self.collect_all_fields()
                 .iter()
@@ -180,159 +303,46 @@ impl DocumentCore {
                 "새 하이퍼링크 ID 소유권 중복".into(),
             ));
         }
-        insert_click_here_field_in_para(&mut staged, start, field_id, "", "", "", false)?;
-        let ci = staged
-            .controls
-            .iter()
-            .position(|c| matches!(c, Control::Field(f) if f.field_id == field_id))
-            .ok_or_else(|| HwpError::InvalidField("새 하이퍼링크 위치 없음".into()))?;
-        let positions = staged.control_text_positions();
-        staged.controls[ci] = Control::Field(Field {
-            ctrl_id: tags::FIELD_HYPERLINK,
-            field_type: FieldType::Hyperlink,
-            field_id,
-            command: url.into(),
-            ..Default::default()
-        });
-        staged
-            .field_ranges
-            .iter_mut()
-            .find(|fr| fr.control_idx == ci)
-            .unwrap()
-            .end_char_idx = link_end;
-        rebuild_char_offsets_at_positions(&mut staged, &positions);
-        validate_field_edit_axis(&staged)?;
-        self.document.sections[sec].paragraphs[p] = staged;
-        self.finish_body_hyperlink_edit(sec, p);
-        Ok(format!("{{\"ok\":true,\"fieldId\":{field_id},\"startCharIdx\":{start},\"endCharIdx\":{link_end}}}"))
+        Ok(field_id)
     }
-
-    pub fn get_body_hyperlink_at(
-        &self,
-        sec: usize,
-        p: usize,
-        at: usize,
-    ) -> Result<String, HwpError> {
-        let para = self.body_hyperlink_paragraph(sec, p)?;
-        if at > para.text.chars().count() {
-            return Err(HwpError::InvalidField("하이퍼링크 커서 범위 초과".into()));
-        }
-        let found = para.field_ranges.iter().find(|fr| fr.start_char_idx <= at && at < fr.end_char_idx
-            && matches!(para.controls.get(fr.control_idx), Some(Control::Field(f)) if f.field_type == FieldType::Hyperlink));
-        let Some(fr) = found else {
-            return Ok("{\"ok\":true,\"found\":false}".into());
-        };
-        let Control::Field(field) = &para.controls[fr.control_idx] else {
-            unreachable!()
-        };
-        let text: String = para
-            .text
-            .chars()
-            .skip(fr.start_char_idx)
-            .take(fr.end_char_idx.saturating_sub(fr.start_char_idx))
-            .collect();
-        Ok(format!("{{\"ok\":true,\"found\":true,\"fieldId\":{},\"url\":{},\"text\":{},\"startCharIdx\":{},\"endCharIdx\":{}}}", field.field_id, json_escape(&field.command), json_escape(&text), fr.start_char_idx, fr.end_char_idx))
-    }
-
-    pub fn update_body_hyperlink(
+    fn finish_cell_hyperlink_edit(
         &mut self,
         sec: usize,
-        p: usize,
-        id: u32,
-        url: &str,
-    ) -> Result<String, HwpError> {
-        validate_body_hyperlink_url(url)?;
-        let (ci, _) = self.body_hyperlink_owner(sec, p, id)?;
-        let Control::Field(field) = &mut self.document.sections[sec].paragraphs[p].controls[ci]
-        else {
-            unreachable!()
-        };
-        field.command = url.into();
-        field.raw_parameters_xml = None;
-        field.parameters = Default::default();
-        self.finish_body_hyperlink_edit(sec, p);
-        Ok("{\"ok\":true}".into())
-    }
-
-    /// Remove only the paired link tokens. The visible text and every char style stay.
-    pub fn remove_body_hyperlink(
-        &mut self,
-        sec: usize,
-        p: usize,
-        id: u32,
-    ) -> Result<String, HwpError> {
-        let (ci, ri) = self.body_hyperlink_owner(sec, p, id)?;
-        let mut staged = self.document.sections[sec].paragraphs[p].clone();
-        let mut positions = staged.control_text_positions();
-        staged.field_ranges.remove(ri);
-        staged.controls.remove(ci);
-        if ci < staged.ctrl_data_records.len() {
-            staged.ctrl_data_records.remove(ci);
-        }
-        for fr in &mut staged.field_ranges {
-            if fr.control_idx > ci {
-                fr.control_idx -= 1;
+        parent: usize,
+        path: &[(usize, usize, usize)],
+    ) {
+        // Every ancestor is dirty; committing only the leaf must not reuse a stored table.
+        let mut prefix = Vec::with_capacity(path.len());
+        for &(ctrl, cell, p) in path {
+            if prefix.is_empty() {
+                if let Some(Control::Table(t)) = self.document.sections[sec].paragraphs[parent]
+                    .controls
+                    .get_mut(ctrl)
+                {
+                    t.dirty = true;
+                }
+            } else if let Ok(host) = self.get_cell_paragraph_mut_by_path(sec, parent, &prefix) {
+                if let Some(Control::Table(t)) = host.controls.get_mut(ctrl) {
+                    t.dirty = true;
+                }
             }
+            prefix.push((ctrl, cell, p));
         }
-        positions.remove(ci);
-        rebuild_char_offsets_at_positions(&mut staged, &positions);
-        validate_field_edit_axis(&staged)?;
-        self.document.sections[sec].paragraphs[p] = staged;
-        self.finish_body_hyperlink_edit(sec, p);
-        Ok("{\"ok\":true}".into())
+        let inner = path.last().unwrap().2;
+        self.reflow_cell_paragraph_by_path(sec, parent, path, inner);
+        self.recalculate_cell_paragraph_vpos_by_path(sec, parent, path, inner, None);
+        self.mark_cell_control_dirty(sec, parent, path[0].0);
+        self.document.sections[sec].raw_stream = None;
+        self.mark_section_dirty(sec);
+        self.paginate_if_needed();
+        self.invalidate_page_tree_cache();
+        self.event_log.push(DocumentEvent::CellTextChanged {
+            section: sec,
+            para: parent,
+            ctrl: path[0].0,
+            cell: path[0].1,
+        });
     }
-
-    fn body_hyperlink_paragraph(&self, sec: usize, p: usize) -> Result<&Paragraph, HwpError> {
-        self.document
-            .sections
-            .get(sec)
-            .and_then(|s| s.paragraphs.get(p))
-            .ok_or_else(|| HwpError::InvalidField("본문 하이퍼링크 문단 없음".into()))
-    }
-
-    fn body_hyperlink_owner(
-        &self,
-        sec: usize,
-        p: usize,
-        id: u32,
-    ) -> Result<(usize, usize), HwpError> {
-        if self
-            .collect_all_fields()
-            .iter()
-            .filter(|f| f.field.field_id == id)
-            .count()
-            != 1
-        {
-            return Err(HwpError::InvalidField(
-                "하이퍼링크 ID 소유권 없음/중복".into(),
-            ));
-        }
-        let para = self.body_hyperlink_paragraph(sec, p)?;
-        let (ri, fr) = para.field_ranges.iter().enumerate().find(|(_,fr)|
-            matches!(para.controls.get(fr.control_idx), Some(Control::Field(f)) if f.field_type == FieldType::Hyperlink && f.field_id == id))
-            .ok_or_else(|| HwpError::InvalidField("이 본문의 하이퍼링크가 아님".into()))?;
-        validate_body_hyperlink_range(para, fr.start_char_idx, fr.end_char_idx, Some(ri))?;
-        let Control::Field(f) = &para.controls[fr.control_idx] else {
-            unreachable!()
-        };
-        if f.parameters
-            .items
-            .iter()
-            .any(|v| !matches!(v, Parameter::String { name: Some(n), .. } if n == "Command"))
-            || !f.memo_paragraphs.is_empty()
-            || f.guide_residue.is_some()
-            || para
-                .ctrl_data_records
-                .get(fr.control_idx)
-                .is_some_and(Option::is_some)
-        {
-            return Err(HwpError::InvalidField(
-                "복합 하이퍼링크 참조 편집은 지원하지 않음".into(),
-            ));
-        }
-        Ok((fr.control_idx, ri))
-    }
-
     fn finish_body_hyperlink_edit(&mut self, sec: usize, p: usize) {
         self.document.sections[sec].raw_stream = None;
         let stored_end = crate::renderer::composer::paragraph_flow_end(
@@ -2738,6 +2748,157 @@ fn stream_char_units(ch: char) -> u32 {
     if ch == '\t' { 8 } else { ch.len_utf16() as u32 }
 }
 
+fn hyperlink_insert_json(id: u32, start: usize, end: usize) -> String {
+    format!("{{\"ok\":true,\"fieldId\":{id},\"startCharIdx\":{start},\"endCharIdx\":{end}}}")
+}
+fn stage_hyperlink_insert(
+    original: &Paragraph,
+    field_id: u32,
+    start: usize,
+    end: usize,
+    url: &str,
+    display: &str,
+) -> Result<(Paragraph, usize), HwpError> {
+    validate_body_hyperlink_url(url)?;
+    validate_body_hyperlink_range(original, start, end, None)?;
+    let inserted = if start == end {
+        if display.is_empty()
+            || display.encode_utf16().count() > 4096
+            || display.chars().any(char::is_control)
+        {
+            return Err(HwpError::InvalidField(
+                "하이퍼링크 표시 문구가 비었거나 지원 범위를 벗어남".into(),
+            ));
+        }
+        display.chars().count()
+    } else {
+        0
+    };
+    let mut staged = original.clone();
+    let positions = staged.control_text_positions();
+    if inserted > 0 {
+        let ranges = staged.field_ranges.clone();
+        staged.insert_text_at(start, display);
+        staged.field_ranges = ranges
+            .into_iter()
+            .map(|mut fr| {
+                if fr.start_char_idx >= start {
+                    fr.start_char_idx += inserted;
+                    fr.end_char_idx += inserted;
+                }
+                fr
+            })
+            .collect();
+        rebuild_char_offsets_after_text_edit(&mut staged, &positions, start, 0, inserted);
+    }
+    let link_end = if inserted > 0 { start + inserted } else { end };
+    insert_click_here_field_in_para(&mut staged, start, field_id, "", "", "", false)?;
+    let ci = staged
+        .controls
+        .iter()
+        .position(|c| matches!(c, Control::Field(f) if f.field_id == field_id))
+        .ok_or_else(|| HwpError::InvalidField("새 하이퍼링크 위치 없음".into()))?;
+    let positions = staged.control_text_positions();
+    staged.controls[ci] = Control::Field(Field {
+        ctrl_id: tags::FIELD_HYPERLINK,
+        field_type: FieldType::Hyperlink,
+        field_id,
+        command: url.into(),
+        ..Default::default()
+    });
+    staged
+        .field_ranges
+        .iter_mut()
+        .find(|fr| fr.control_idx == ci)
+        .unwrap()
+        .end_char_idx = link_end;
+    rebuild_char_offsets_at_positions(&mut staged, &positions);
+    validate_field_edit_axis(&staged)?;
+    Ok((staged, link_end))
+}
+fn hyperlink_at_json(para: &Paragraph, at: usize) -> Result<String, HwpError> {
+    if at > para.text.chars().count() {
+        return Err(HwpError::InvalidField("하이퍼링크 커서 범위 초과".into()));
+    }
+    let found = para.field_ranges.iter().find(|fr| fr.start_char_idx <= at && at < fr.end_char_idx
+            && matches!(para.controls.get(fr.control_idx), Some(Control::Field(f)) if f.field_type == FieldType::Hyperlink));
+    let Some(fr) = found else {
+        return Ok("{\"ok\":true,\"found\":false}".into());
+    };
+    let Control::Field(field) = &para.controls[fr.control_idx] else {
+        unreachable!()
+    };
+    let text: String = para
+        .text
+        .chars()
+        .skip(fr.start_char_idx)
+        .take(fr.end_char_idx.saturating_sub(fr.start_char_idx))
+        .collect();
+    Ok(format!("{{\"ok\":true,\"found\":true,\"fieldId\":{},\"url\":{},\"text\":{},\"startCharIdx\":{},\"endCharIdx\":{}}}", field.field_id, json_escape(&field.command), json_escape(&text), fr.start_char_idx, fr.end_char_idx))
+}
+fn hyperlink_owner_in_para(para: &Paragraph, id: u32) -> Result<(usize, usize), HwpError> {
+    let (ri, fr) = para.field_ranges.iter().enumerate().find(|(_,fr)|
+            matches!(para.controls.get(fr.control_idx), Some(Control::Field(f)) if f.field_type == FieldType::Hyperlink && f.field_id == id))
+            .ok_or_else(|| HwpError::InvalidField("이 문단의 하이퍼링크가 아님".into()))?;
+    validate_body_hyperlink_range(para, fr.start_char_idx, fr.end_char_idx, Some(ri))?;
+    let Control::Field(f) = &para.controls[fr.control_idx] else {
+        unreachable!()
+    };
+    if f.parameters.items.len() > 1
+        || f.parameters
+            .items
+            .iter()
+            .any(|v| !matches!(v, Parameter::String { name: Some(n), .. } if n == "Command"))
+        || !f.memo_paragraphs.is_empty()
+        || f.guide_residue.is_some()
+        || para
+            .ctrl_data_records
+            .get(fr.control_idx)
+            .is_some_and(Option::is_some)
+    {
+        return Err(HwpError::InvalidField(
+            "복합 하이퍼링크 참조 편집은 지원하지 않음".into(),
+        ));
+    }
+    Ok((fr.control_idx, ri))
+}
+fn stage_hyperlink_update(
+    original: &Paragraph,
+    ci: usize,
+    url: &str,
+) -> Result<Paragraph, HwpError> {
+    validate_body_hyperlink_url(url)?;
+    let mut staged = original.clone();
+    let Control::Field(field) = &mut staged.controls[ci] else {
+        unreachable!()
+    };
+    field.command = url.into();
+    field.raw_parameters_xml = None;
+    field.parameters = Default::default();
+    Ok(staged)
+}
+fn stage_hyperlink_remove(
+    original: &Paragraph,
+    ci: usize,
+    ri: usize,
+) -> Result<Paragraph, HwpError> {
+    let mut staged = original.clone();
+    let mut positions = staged.control_text_positions();
+    staged.field_ranges.remove(ri);
+    staged.controls.remove(ci);
+    if ci < staged.ctrl_data_records.len() {
+        staged.ctrl_data_records.remove(ci);
+    }
+    for fr in &mut staged.field_ranges {
+        if fr.control_idx > ci {
+            fr.control_idx -= 1;
+        }
+    }
+    positions.remove(ci);
+    rebuild_char_offsets_at_positions(&mut staged, &positions);
+    validate_field_edit_axis(&staged)?;
+    Ok(staged)
+}
 fn validate_body_hyperlink_url(url: &str) -> Result<(), HwpError> {
     let invalid =
         || HwpError::InvalidField("명시적인 http:// 또는 https:// URL만 지원합니다".into());
