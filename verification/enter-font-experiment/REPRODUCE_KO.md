@@ -1,5 +1,7 @@
 # Enter 글꼴 분류 캐시 실험 재현
 
+> 이 파일은 2bdf2e9 시점의 실험 기록입니다. 후속 단일 통제 비교 후 로컬 채택한 현재 상태는 [통제 비교 결과](../enter-controlled-comparison/NOTES_KO.md)를 참조하세요.
+
 Mac arm64, Rust 1.93.1, wasm-bindgen 0.2.127, Node 24.20.0에서 기존 오프라인 의존성을 사용했다. target은 debug info/incremental을 끄고 jobs=2, 3GiB 상한으로 감시했다. 기존 원본 문서/앱 대신 합성 입력과 별도 checkout을 사용한다.
 
 ```sh

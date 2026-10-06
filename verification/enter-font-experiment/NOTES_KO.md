@@ -1,5 +1,7 @@
 # Enter 글꼴 분류 실험 — 후보 미채택
 
+> 이 파일은 2bdf2e9 시점의 실험 기록입니다. 후속 단일 통제 비교 후 로컬 채택한 현재 상태는 [통제 비교 결과](../enter-controlled-comparison/NOTES_KO.md)를 참조하세요.
+
 전체 section 조판이 native Enter pagination의 99% 이상을 차지한다. 8192문단 본문 Enter는 일반문단8193개, 셀 Enter는 일반문단8191개와 표1개를 다시 조판한다. 높이 측정 캐시는 사용되지만 전체 조판은 남는다. 진단과 무효화 범위는 ../enter-pagination-profile에 기록했다. 그 진단의 native debug 절대 시간은 실제 앱 지연과 비교하지 않는다.
 
 같은 font name의 KoPub 분류를 매 문자마다 반복하는 좁은 중복을 실험했다. Unicode 소문자 변환과 기존4개 substring 규칙/Dotum 우선 순위를 그대로 유지하고, 이름8개×256UTF8bytes 이하를 thread-local FIFO에 저장했다. 긴 이름은 기존 계산으로 처리했다. 폭, 굵기/기울임/크기/자간, 메트릭/별칭, 문단/페이지/Document를 캐시하지 않았다. 최대2KiB는 보존 이름 bytes만 의미하며 metadata나 전체 앱 메모리 한도가 아니다.

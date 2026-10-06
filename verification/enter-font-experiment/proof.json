@@ -1571,5 +1571,7 @@
     "childRssKiBAtMidRun": 248528,
     "systemProcessReadCompleted": true
   },
-  "targetFinalBytes": 2295996416
+  "targetFinalBytes": 2295996416,
+  "recordedAtCommit": "2bdf2e9d1cb56ab0f8e951f501e4401aba706147",
+  "supersededForCurrentAdoptionDecisionBy": "../enter-controlled-comparison/proof.json"
 }
