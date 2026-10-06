@@ -31,6 +31,7 @@
 | 세로 다문단/다열 metric·공유 adapter | 독립 계산 `695f01e` 테스트14/생성1,200 및 텍스트 투영8, `4c587f8` adapter 설계 | production 미연결·보류. supplied metric 계산/가상 조각을 실제 앱 페이지로 부르지 않음. 긴 세로 셀 반복 출력·clip 경계 미해결 |
 | 쪽/구역·머리말/꼬리말 | 기존 설정 대화상자·API와 지원 하위 문단 스타일 전파 | GUI 조작·복합 조판·바탕쪽 전체 호환 미완료 |
 | **본문 하이퍼링크 저작** | 기존 Field/FieldRange로 선택 감싸기·캐럿 표시 문구 삽입·URL 편집·텍스트 보존 해제. 메뉴/툴바/Ctrl+K,H 연결. Native 재열기12, 실제 WASM 명령 재열기22·undo/redo 각6, 저장물22개 Native ID 참조 대조 | 본문 한 문단/http·https만. 셀·각주·머리말 및 겹친/복합 참조는 거절. 기존 표시 문구 변경·URL 열기·GUI/물리 IME 미검증. 기본 앱/dev8 미연결 |
+| **일반·중첩 셀 하이퍼링크 저작** | 가져온 최소 Field 링크는 셀 path/URL/표시 범위가 조회·HWP/HWPX 재열기12건에서 유지됨. [후속 조사](hyperlink-cell-scope/RESULT_KO.md) | 실제 명령은 셀에서 disabled/직접 호출 거절. 셀/path 링크 API와 커서 조회가 아직 없음. 다음은 단일 셀 한 문단의 path 기반 삽입·URL 편집·텍스트 보존 해제 |
 
 이름 셀 후속 검사: Native 정상36/원자 거절169회/재열기72, WASM 정상48/거절188/undo·redo각72/재열기96, WASM 저장물96개를 Native 재귀 문단·셀 각주·필드/서식 참조로 교차 확인했다. [이름 셀 결과](named-cell-value/RESULT_KO.md), [값 교체 결과](field-value-atomic/RESULT_KO.md), [누름틀 보존 결과](clickhere-engine-preservation/RESULT_KO.md), [dev8 통합](dev8-checkpoint/RESULT_KO.md)를 근거로 하며 이전 후속 검사의 기록이다. 이번 본문 링크 후보에서는 기존 이름 셀 WASM 회귀(정상48/거절188/재열기96)와 ClickHere·값 교체 회귀를 다시 통과했다.
 
@@ -57,3 +58,5 @@ WASM에 `setFieldValueByNameAt` export가 없고 기존 `setFieldValueByName`은
 Mac 실제 GUI/물리 IME·이번 Linux 검증 없음. dev8의 strict ad-hoc 서명·자산 서빙·정상 종료는 통과했던 패키징 기록이며 실제 편집 GUI 성공으로 확대하지 않는다. 전체 library unit test는 기존 누락 include_bytes fixture3개로 막혀 있으며 복구/대체/검사 제외로 우회하지 않았다.
 
 선정 조사 당시 HEAD `815c5ff`와 dev8/root pkg를 보존한 상태에서 다음 구현을 정했다. 현재 본문 링크 후속은 별도 `body-hyperlink-qa/pkg`에 있고, target 최고3.358GiB/최종3.264GiB·최소 여유22.736GiB로 4GiB/10GiB 기준을 지켰다. 새 패키징/공개/캐시 삭제 없음. 검사 로그·보호 해시·소스 hash는 [본문 링크 proof](body-hyperlink/proof.json)에 있다. 다음은 별도 Mac 앱에서 실제 GUI·물리 IME를 확인하는 것이다.
+
+본문 링크 이후의 GUI 가능성 점검에서 실행 파일은 있었지만 화면 캡처 실패와 Accessibility 비활성으로 실제 화면 검증을 수행하지 못했다. 새 앱·권한 변경 없이 미검증을 유지했다. 셀 후속은 범위 선정/기존 API 조사만 했으며 새 엔진/UI 확장을 구현하지 않았다. 조사 동안 target은 동일3.264GiB였다.
