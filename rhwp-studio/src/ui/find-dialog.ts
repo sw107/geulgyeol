@@ -356,10 +356,12 @@ export class FindDialog {
     const cell = hit.cellContext;
     const applyReplace = (wasm: typeof this.services.wasm): ReplaceResult => {
       if (cell) {
-        const r = wasm.replaceTextInCellDeferredPagination(
+        // Snapshot commands do not publish deferred text-mutation effects to
+        // InputHandler. Finish pagination here before cursor/render/history reads.
+        const r = wasm.runInBatch(() => wasm.replaceTextInCellDeferredPagination(
           hit.sec!, cell.parentPara, cell.ctrlIdx, cell.cellIdx, cell.cellPara,
           hit.charOffset!, hit.length!, newText,
-        );
+        ));
         return { ok: r.ok };
       }
       return wasm.replaceText(
@@ -398,13 +400,13 @@ export class FindDialog {
     const ih = this.services.getInputHandler();
     if (ih) {
       ih.executeOperation({ kind: 'snapshot', operationType: 'replaceAll', operation: (wasm) => {
-        result = wasm.replaceAll(query, newText, this.caseSensitiveCheck.checked);
+        result = wasm.runInBatch(() => wasm.replaceAll(query, newText, this.caseSensitiveCheck.checked));
         return ih.getCursorPosition();
       }});
     } else {
-      result = this.services.wasm.replaceAll(
+      result = this.services.wasm.runInBatch(() => this.services.wasm.replaceAll(
         query, newText, this.caseSensitiveCheck.checked,
-      );
+      ));
       this.services.eventBus.emit('document-changed');
     }
 

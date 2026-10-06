@@ -407,6 +407,9 @@ fn main() {
                 serde_json::from_str::<Value>(&result).unwrap()["ok"],
                 api < 2 || !ranges.is_empty()
             );
+            if !ranges.is_empty() {
+                d.repaginate_if_needed();
+            }
             let expected_text = format!("앞😀{}뒤🧪", if api == 0 { all } else { one });
             check(&d, k, pi, ci, &expected_text, &shapes, style, para);
             let replaced_ranges = if api == 0 {

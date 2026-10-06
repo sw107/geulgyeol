@@ -575,6 +575,7 @@ impl DocumentCore {
 
         let mut count = 0usize;
         let mut affected_sections: Vec<usize> = Vec::new();
+        let mut affected_cell_controls = std::collections::BTreeSet::new();
         let mut affected_body_paragraphs: Vec<(usize, usize)> = Vec::new();
         // (구역, 부모 문단, 경로) — 경로의 마지막 엔트리가 곧 대상 셀 문단이다.
         let mut affected_cell_paragraphs: Vec<(usize, usize, Vec<(usize, usize, usize)>)> =
@@ -583,6 +584,9 @@ impl DocumentCore {
 
         for hit in &all_hits {
             if let Some(cell) = hit.cell_context.as_ref() {
+                if let Some(&(control_idx, _, _)) = cell.path.first() {
+                    affected_cell_controls.insert((hit.sec, cell.parent_para, control_idx));
+                }
                 // 표 셀 내부 치환
                 let section = self
                     .document
@@ -662,6 +666,12 @@ impl DocumentCore {
 
         // 변경된 섹션들 recompose
         if count > 0 {
+            // Recomposition alone does not invalidate MeasuredTable. Mark each
+            // owning control once so incremental pagination measures edited rows
+            // exactly as a fresh rebuild or snapshot restore does.
+            for (section_idx, parent_para, control_idx) in affected_cell_controls {
+                self.mark_cell_control_dirty(section_idx, parent_para, control_idx);
+            }
             affected_body_paragraphs.sort_unstable();
             affected_body_paragraphs.dedup();
             for (section_idx, para_idx) in affected_body_paragraphs {

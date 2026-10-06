@@ -71,6 +71,7 @@ fn main() {
                 }
                 .unwrap();
                 assert_eq!(serde_json::from_str::<Value>(&r).unwrap()["count"], 1);
+                d.repaginate_if_needed();
                 let after = scripts(&d);
                 let mut expected_state = before.clone();
                 for p in expected_state.as_array_mut().unwrap() {

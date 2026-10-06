@@ -2,18 +2,19 @@
 // DOM/cursor services are mocked; this is not a Mac GUI test.
 import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import crypto from 'node:crypto';
 import {pathToFileURL,fileURLToPath} from 'node:url';import {stripTypeScriptTypes} from 'node:module';
-const [engineDir,fixturesDir,out,filter]=process.argv.slice(2);assert(engineDir&&fixturesDir&&out,'ENGINE_DIR FIXTURES_DIR OUTPUT_DIR');fs.mkdirSync(out,{recursive:true});
+const [engineDir,fixturesDir,out,filter,dialogSourceArg]=process.argv.slice(2);assert(engineDir&&fixturesDir&&out,'ENGINE_DIR FIXTURES_DIR OUTPUT_DIR');fs.mkdirSync(out,{recursive:true});
 const {initSync,HwpDocument}=await import(pathToFileURL(path.resolve(engineDir,'rhwp.js')));const bytes=fs.readFileSync(path.resolve(engineDir,'rhwp_bg.wasm'));initSync({module:bytes});
 const root=path.dirname(path.dirname(fileURLToPath(import.meta.url)));const bridgeSource=fs.readFileSync(path.join(root,'rhwp-studio/src/core/wasm-bridge.ts'),'utf8');
 let source=bridgeSource.slice(bridgeSource.indexOf('function parseDeferredFocusedCellCursorGeometry('),bridgeSource.indexOf('export type DeferredPaginationStatus'));
 source+='class BridgeProbe {doc;constructor(doc){this.doc=doc;}\n';
-for(const name of ['searchText','searchAllText','replaceText','replaceOne','replaceAll','replaceTextInCellDeferredPagination','saveSnapshot','restoreSnapshot','discardSnapshot']) {
- const a=bridgeSource.indexOf('  '+name+'(');assert(a>=0,name);source+=bridgeSource.slice(a,bridgeSource.indexOf('\n  }',a)+4)+'\n';
+for(const name of ['searchText','searchAllText','replaceText','replaceOne','replaceAll','replaceTextInCellDeferredPagination','saveSnapshot','restoreSnapshot','discardSnapshot','runInBatch']) {
+ let a=bridgeSource.indexOf('  '+name+'(');if(a<0)a=bridgeSource.indexOf('  '+name+'<');assert(a>=0,name);source+=bridgeSource.slice(a,bridgeSource.indexOf('\n  }',a)+4)+'\n';
 }
 source+='}\nexport {BridgeProbe};';
 const load=async s=>import('data:text/javascript;base64,'+Buffer.from(stripTypeScriptTypes(s,{mode:'transform'}).replace(/^import .*?;\s*$/gm,'')).toString('base64'));
 const {BridgeProbe}=await load(source);const {SnapshotCommand}=await load('const MAX_PAGE_LOCAL_TEXT_EDIT_CHARS=10000;\n'+fs.readFileSync(path.join(root,'rhwp-studio/src/engine/command.ts'),'utf8'));
-const {FindDialog}=await load(fs.readFileSync(path.join(root,'rhwp-studio/src/ui/find-dialog.ts'),'utf8'));
+const dialogSourcePath=dialogSourceArg&&!dialogSourceArg.startsWith('--')?path.resolve(dialogSourceArg):path.join(root,'rhwp-studio/src/ui/find-dialog.ts');
+const {FindDialog}=await load(fs.readFileSync(dialogSourcePath,'utf8'));
 const fixtures=JSON.parse(fs.readFileSync(path.join(fixturesDir,'manifest.json'))).filter(c=>c.id.endsWith('-a0')&&(filter!=='--ascii-only'||c.id.includes('-c3-')));
 const text=(d,c)=>c.kind===0?d.getTextRange(0,c.parent,0,10000):c.kind===1?d.getTextInCell(0,c.parent,c.control,0,0,0,10000):d.getTextInCellByPath(0,c.parent,JSON.stringify(c.kind===2?[{controlIndex:c.control,cellIndex:0,cellParaIndex:0},{controlIndex:0,cellIndex:0,cellParaIndex:0}]:[{controlIndex:c.control,cellIndex:0,cellParaIndex:0}]),0,10000);
 const svgs=d=>Array.from({length:d.pageCount()},(_,i)=>d.renderPageSvg(i));let cases=0,ui=0,history=0,noMatch=0;const rows=[];const historySvgDifferences=[];const renderTrace=[];let deferredCellCalls=0,fullCellFallbackDeletes=0;
@@ -42,7 +43,7 @@ for(const base of fixtures)for(const [variant,replacement] of ['Q','','한😀�
    }else {dialog.doReplaceAll();if(c.query){assert.equal(command.type,'snapshot:replaceAll');assert.equal(dialog.statusLabel.textContent,`${c.matches}개 바꿈`);}else{assert.equal(command,undefined);}}
    ui++;
   }else{
-   command=new SnapshotCommand('replaceAll',{...pos},{...pos},w=>{const r=w.replaceAll(c.query,replacement,c.sensitive);assert.equal(r.ok,true);assert.equal(r.count,c.matches);return r.count?{...pos}:null;});command.execute(bridge);
+   command=new SnapshotCommand('replaceAll',{...pos},{...pos},w=>{const r=w.runInBatch(()=>w.replaceAll(c.query,replacement,c.sensitive));assert.equal(r.ok,true);assert.equal(r.count,c.matches);return r.count?{...pos}:null;});command.execute(bridge);
   }
   const expected=mode==='ui-one'?c.expectedOne:c.expectedAll;assert.equal(text(d,c),expected);const after=svgs(d);persist(d,c,mode,'after',expected);
   if(c.matches===0){assert.deepEqual(after,before);noMatch++;}
@@ -53,4 +54,6 @@ for(const base of fixtures)for(const [variant,replacement] of ['Q','','한😀�
   cases++;
  }finally{command?.discard(bridge);d.free();}
 }
-fs.writeFileSync(path.join(out,'export-manifest.json'),JSON.stringify(rows,null,2));const proof={cases,deferredCellCalls,fullCellFallbackDeletes,sourceSHA256:Object.fromEntries(['rhwp-studio/src/core/wasm-bridge.ts','rhwp-studio/src/ui/find-dialog.ts','rhwp-studio/src/engine/command.ts'].map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,f))).digest('hex')])),historySvgDifferences,renderTrace,actualUICases:ui,historyRestores:history,noMatchUnchanged:noMatch,reopens:rows.length,engineSHA256:crypto.createHash('sha256').update(bytes).digest('hex'),node:process.version,GUIVerified:false,regexSupported:false};fs.writeFileSync(path.join(out,'proof.json'),JSON.stringify(proof,null,2));console.log(JSON.stringify({...proof,historySvgDifferences:historySvgDifferences.length,renderTrace:renderTrace.length}));
+fs.writeFileSync(path.join(out,'export-manifest.json'),JSON.stringify(rows,null,2));const proof={cases,deferredCellCalls,fullCellFallbackDeletes,sourceSHA256:Object.fromEntries(['rhwp-studio/src/core/wasm-bridge.ts','rhwp-studio/src/ui/find-dialog.ts','rhwp-studio/src/engine/command.ts'].map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(f==='rhwp-studio/src/ui/find-dialog.ts'?dialogSourcePath:path.join(root,f))).digest('hex')])),historySvgDifferences,renderTrace,actualUICases:ui,historyRestores:history,noMatchUnchanged:noMatch,reopens:rows.length,engineSHA256:crypto.createHash('sha256').update(bytes).digest('hex'),node:process.version,GUIVerified:false,regexSupported:false};fs.writeFileSync(path.join(out,'proof.json'),JSON.stringify(proof,null,2));console.log(JSON.stringify({...proof,historySvgDifferences:historySvgDifferences.length,renderTrace:renderTrace.length}));
+
+if(process.argv.includes('--strict-ui-layout'))assert.deepEqual(historySvgDifferences.filter(c=>c.mode.startsWith('ui')),[],'committed UI replacement must match its redo SVG');
