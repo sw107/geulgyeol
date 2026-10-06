@@ -1,0 +1,1131 @@
+{
+  "baseCommit": "2d9599d91635493fb61138b3cfa7bae0a604300d",
+  "decision": "Stop after reproduction and design diagnosis; no production implementation",
+  "reason": "Horizontal line cuts do not define a valid vertical column/character budget. Range-only filtering still requires 824/867px of columns in a cell narrower than280px.",
+  "minimalFixtures": [
+    {
+      "id": "p1-d0",
+      "paragraphs": 1,
+      "direction": 0,
+      "pageCount": 2,
+      "modelDuplicates": 0,
+      "completeTextOccurrences": [
+        1
+      ],
+      "files": [
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d0.hwp",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d0.hwpx"
+      ]
+    },
+    {
+      "id": "p1-d1",
+      "paragraphs": 1,
+      "direction": 1,
+      "pageCount": 2,
+      "modelDuplicates": 0,
+      "completeTextOccurrences": [
+        2
+      ],
+      "files": [
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d1.hwp",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d1.hwpx"
+      ]
+    },
+    {
+      "id": "p1-d2",
+      "paragraphs": 1,
+      "direction": 2,
+      "pageCount": 2,
+      "modelDuplicates": 0,
+      "completeTextOccurrences": [
+        2
+      ],
+      "files": [
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d2.hwp",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d2.hwpx"
+      ]
+    },
+    {
+      "id": "p124-d0",
+      "paragraphs": 124,
+      "direction": 0,
+      "pageCount": 4,
+      "modelDuplicates": 0,
+      "completeTextOccurrences": [
+        1
+      ],
+      "files": [
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d0.hwp",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d0.hwpx"
+      ]
+    },
+    {
+      "id": "p124-d1",
+      "paragraphs": 124,
+      "direction": 1,
+      "pageCount": 4,
+      "modelDuplicates": 0,
+      "completeTextOccurrences": [
+        3
+      ],
+      "files": [
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d1.hwp",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d1.hwpx"
+      ]
+    },
+    {
+      "id": "p124-d2",
+      "paragraphs": 124,
+      "direction": 2,
+      "pageCount": 4,
+      "modelDuplicates": 0,
+      "completeTextOccurrences": [
+        3
+      ],
+      "files": [
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d2.hwp",
+        "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d2.hwpx"
+      ]
+    }
+  ],
+  "nativeCases": 12,
+  "integrity": {
+    "sourceFilesUnchanged": 868,
+    "engineWasmSHA256": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "appSHA256": {
+      "dev6": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+      "devEnter": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+      "betaNext": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+      "dev7": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129"
+    },
+    "appUnchanged": true,
+    "productionEngineUIChanged": false
+  },
+  "build": {
+    "native": {
+      "exitCode": 0,
+      "targetLimitBytes": 3221225472,
+      "targetPeakBytes": 3163643904,
+      "targetFinalBytes": 3163643904,
+      "stoppedForBudget": false
+    },
+    "native-clippy": {
+      "exitCode": 0,
+      "targetLimitBytes": 3221225472,
+      "targetPeakBytes": 3163664384,
+      "targetFinalBytes": 3163664384,
+      "stoppedForBudget": false
+    }
+  },
+  "productionEngineChanged": false,
+  "verticalPaginationSupported": false,
+  "visibleVerticalNumberingSupported": false,
+  "GUIVerified": false,
+  "sourceSHA256": {
+    "scripts/diagnose-vertical-cell-fragments.mjs": "68b445549692c23863474d0aed46e90a92a4ee340ff94938eb015a8295cd620e",
+    "engine/examples/vertical_cell_fragment_diagnose.rs": "5de99fa804f8e9da6803f9d1eff0cf8e8c30cefe3240982710cf46eef60f76f4"
+  },
+  "nativeCaseResults": [
+    {
+      "id": "p1-d0",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d0.hwp",
+      "modelParagraphs": 1,
+      "modelDuplicates": 0,
+      "direction": 0,
+      "pageCount": 2,
+      "renderedParaOwnerCounts": [
+        1
+      ],
+      "completeTextCounts": [
+        1
+      ]
+    },
+    {
+      "id": "p1-d0",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d0.hwpx",
+      "modelParagraphs": 1,
+      "modelDuplicates": 0,
+      "direction": 0,
+      "pageCount": 2,
+      "renderedParaOwnerCounts": [
+        1
+      ],
+      "completeTextCounts": [
+        1
+      ]
+    },
+    {
+      "id": "p1-d1",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d1.hwp",
+      "modelParagraphs": 1,
+      "modelDuplicates": 0,
+      "direction": 1,
+      "pageCount": 2,
+      "renderedParaOwnerCounts": [
+        2
+      ],
+      "completeTextCounts": [
+        2
+      ]
+    },
+    {
+      "id": "p1-d1",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d1.hwpx",
+      "modelParagraphs": 1,
+      "modelDuplicates": 0,
+      "direction": 1,
+      "pageCount": 2,
+      "renderedParaOwnerCounts": [
+        2
+      ],
+      "completeTextCounts": [
+        2
+      ]
+    },
+    {
+      "id": "p1-d2",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d2.hwp",
+      "modelParagraphs": 1,
+      "modelDuplicates": 0,
+      "direction": 2,
+      "pageCount": 2,
+      "renderedParaOwnerCounts": [
+        2
+      ],
+      "completeTextCounts": [
+        2
+      ]
+    },
+    {
+      "id": "p1-d2",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d2.hwpx",
+      "modelParagraphs": 1,
+      "modelDuplicates": 0,
+      "direction": 2,
+      "pageCount": 2,
+      "renderedParaOwnerCounts": [
+        2
+      ],
+      "completeTextCounts": [
+        2
+      ]
+    },
+    {
+      "id": "p124-d0",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d0.hwp",
+      "modelParagraphs": 124,
+      "modelDuplicates": 0,
+      "direction": 0,
+      "pageCount": 4,
+      "renderedParaOwnerCounts": [
+        1
+      ],
+      "completeTextCounts": [
+        1
+      ]
+    },
+    {
+      "id": "p124-d0",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d0.hwpx",
+      "modelParagraphs": 124,
+      "modelDuplicates": 0,
+      "direction": 0,
+      "pageCount": 4,
+      "renderedParaOwnerCounts": [
+        1
+      ],
+      "completeTextCounts": [
+        1
+      ]
+    },
+    {
+      "id": "p124-d1",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d1.hwp",
+      "modelParagraphs": 124,
+      "modelDuplicates": 0,
+      "direction": 1,
+      "pageCount": 4,
+      "renderedParaOwnerCounts": [
+        4
+      ],
+      "completeTextCounts": [
+        3
+      ]
+    },
+    {
+      "id": "p124-d1",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d1.hwpx",
+      "modelParagraphs": 124,
+      "modelDuplicates": 0,
+      "direction": 1,
+      "pageCount": 4,
+      "renderedParaOwnerCounts": [
+        4
+      ],
+      "completeTextCounts": [
+        3
+      ]
+    },
+    {
+      "id": "p124-d2",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d2.hwp",
+      "modelParagraphs": 124,
+      "modelDuplicates": 0,
+      "direction": 2,
+      "pageCount": 4,
+      "renderedParaOwnerCounts": [
+        4
+      ],
+      "completeTextCounts": [
+        3
+      ]
+    },
+    {
+      "id": "p124-d2",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d2.hwpx",
+      "modelParagraphs": 124,
+      "modelDuplicates": 0,
+      "direction": 2,
+      "pageCount": 4,
+      "renderedParaOwnerCounts": [
+        4
+      ],
+      "completeTextCounts": [
+        3
+      ]
+    }
+  ],
+  "nativeFragmentDetails": [
+    {
+      "id": "p1-d0",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d0.hwpx",
+      "modelParagraphs": 1,
+      "modelDuplicates": 0,
+      "direction": 0,
+      "pageCount": 2,
+      "renderedParaOwnerCounts": [
+        1
+      ],
+      "completeTextCounts": [
+        1
+      ],
+      "pages": [
+        {
+          "page": 0,
+          "fragmentItems": [
+            {
+              "endCut": [
+                1,
+                39
+              ],
+              "endRow": 1,
+              "isContinuation": false,
+              "kind": "partialTable",
+              "startCut": [],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 833.8800000000003,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 153.60000000000002
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 0,
+          "runsWhollyOutsideCell": 0,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 1,
+            "naiveColumnsWidthPx": 21.333333333333332,
+            "singleLineParagraphCountUpperBound": 1,
+            "startUnit": 0
+          },
+          "renderedParagraphRange": [
+            0,
+            0
+          ],
+          "renderedParagraphCount": 1
+        },
+        {
+          "page": 1,
+          "fragmentItems": [
+            {
+              "endCut": [],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                1,
+                39
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 804.546666666667,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 0,
+          "runsWhollyOutsideCell": 0,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 1,
+            "naiveColumnsWidthPx": 0.0,
+            "singleLineParagraphCountUpperBound": 0,
+            "startUnit": 1
+          },
+          "renderedParagraphRange": [],
+          "renderedParagraphCount": 0
+        }
+      ]
+    },
+    {
+      "id": "p1-d1",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d1.hwpx",
+      "modelParagraphs": 1,
+      "modelDuplicates": 0,
+      "direction": 1,
+      "pageCount": 2,
+      "renderedParaOwnerCounts": [
+        2
+      ],
+      "completeTextCounts": [
+        2
+      ],
+      "pages": [
+        {
+          "page": 0,
+          "fragmentItems": [
+            {
+              "endCut": [
+                1,
+                39
+              ],
+              "endRow": 1,
+              "isContinuation": false,
+              "kind": "partialTable",
+              "startCut": [],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 833.8800000000003,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 153.60000000000002
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 0,
+          "runsWhollyOutsideCell": 0,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 1,
+            "naiveColumnsWidthPx": 21.333333333333332,
+            "singleLineParagraphCountUpperBound": 1,
+            "startUnit": 0
+          },
+          "renderedParagraphRange": [
+            0,
+            0
+          ],
+          "renderedParagraphCount": 1
+        },
+        {
+          "page": 1,
+          "fragmentItems": [
+            {
+              "endCut": [],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                1,
+                39
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 804.546666666667,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 0,
+          "runsWhollyOutsideCell": 0,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 1,
+            "naiveColumnsWidthPx": 0.0,
+            "singleLineParagraphCountUpperBound": 0,
+            "startUnit": 1
+          },
+          "renderedParagraphRange": [
+            0,
+            0
+          ],
+          "renderedParagraphCount": 1
+        }
+      ]
+    },
+    {
+      "id": "p1-d2",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p1-d2.hwpx",
+      "modelParagraphs": 1,
+      "modelDuplicates": 0,
+      "direction": 2,
+      "pageCount": 2,
+      "renderedParaOwnerCounts": [
+        2
+      ],
+      "completeTextCounts": [
+        2
+      ],
+      "pages": [
+        {
+          "page": 0,
+          "fragmentItems": [
+            {
+              "endCut": [
+                1,
+                39
+              ],
+              "endRow": 1,
+              "isContinuation": false,
+              "kind": "partialTable",
+              "startCut": [],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 833.8800000000003,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 153.60000000000002
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 0,
+          "runsWhollyOutsideCell": 0,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 1,
+            "naiveColumnsWidthPx": 21.333333333333332,
+            "singleLineParagraphCountUpperBound": 1,
+            "startUnit": 0
+          },
+          "renderedParagraphRange": [
+            0,
+            0
+          ],
+          "renderedParagraphCount": 1
+        },
+        {
+          "page": 1,
+          "fragmentItems": [
+            {
+              "endCut": [],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                1,
+                39
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 804.546666666667,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 0,
+          "runsWhollyOutsideCell": 0,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 1,
+            "naiveColumnsWidthPx": 0.0,
+            "singleLineParagraphCountUpperBound": 0,
+            "startUnit": 1
+          },
+          "renderedParagraphRange": [
+            0,
+            0
+          ],
+          "renderedParagraphCount": 1
+        }
+      ]
+    },
+    {
+      "id": "p124-d0",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d0.hwpx",
+      "modelParagraphs": 124,
+      "modelDuplicates": 0,
+      "direction": 0,
+      "pageCount": 4,
+      "renderedParaOwnerCounts": [
+        1
+      ],
+      "completeTextCounts": [
+        1
+      ],
+      "pages": [
+        {
+          "page": 0,
+          "fragmentItems": [
+            {
+              "endCut": [
+                39,
+                39
+              ],
+              "endRow": 1,
+              "isContinuation": false,
+              "kind": "partialTable",
+              "startCut": [],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 833.8800000000003,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 153.60000000000002
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 0,
+          "runsWhollyOutsideCell": 0,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 39,
+            "naiveColumnsWidthPx": 832.0,
+            "singleLineParagraphCountUpperBound": 39,
+            "startUnit": 0
+          },
+          "renderedParagraphRange": [
+            0,
+            38
+          ],
+          "renderedParagraphCount": 39
+        },
+        {
+          "page": 1,
+          "fragmentItems": [
+            {
+              "endCut": [
+                80,
+                77
+              ],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                39,
+                39
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 876.5466666666671,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 0,
+          "runsWhollyOutsideCell": 0,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 80,
+            "naiveColumnsWidthPx": 874.6666666666666,
+            "singleLineParagraphCountUpperBound": 41,
+            "startUnit": 39
+          },
+          "renderedParagraphRange": [
+            39,
+            79
+          ],
+          "renderedParagraphCount": 41
+        },
+        {
+          "page": 2,
+          "fragmentItems": [
+            {
+              "endCut": [
+                121,
+                77
+              ],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                80,
+                77
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 876.5466666666671,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 0,
+          "runsWhollyOutsideCell": 0,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 121,
+            "naiveColumnsWidthPx": 874.6666666666666,
+            "singleLineParagraphCountUpperBound": 41,
+            "startUnit": 80
+          },
+          "renderedParagraphRange": [
+            80,
+            120
+          ],
+          "renderedParagraphCount": 41
+        },
+        {
+          "page": 3,
+          "fragmentItems": [
+            {
+              "endCut": [],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                121,
+                77
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 57.880000000000024,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 0,
+          "runsWhollyOutsideCell": 0,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 124,
+            "naiveColumnsWidthPx": 64.0,
+            "singleLineParagraphCountUpperBound": 3,
+            "startUnit": 121
+          },
+          "renderedParagraphRange": [
+            121,
+            123
+          ],
+          "renderedParagraphCount": 3
+        }
+      ]
+    },
+    {
+      "id": "p124-d1",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d1.hwpx",
+      "modelParagraphs": 124,
+      "modelDuplicates": 0,
+      "direction": 1,
+      "pageCount": 4,
+      "renderedParaOwnerCounts": [
+        4
+      ],
+      "completeTextCounts": [
+        3
+      ],
+      "pages": [
+        {
+          "page": 0,
+          "fragmentItems": [
+            {
+              "endCut": [
+                39,
+                39
+              ],
+              "endRow": 1,
+              "isContinuation": false,
+              "kind": "partialTable",
+              "startCut": [],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 833.8800000000003,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 153.60000000000002
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 912,
+          "runsWhollyOutsideCell": 912,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 39,
+            "naiveColumnsWidthPx": 832.0,
+            "singleLineParagraphCountUpperBound": 39,
+            "startUnit": 0
+          },
+          "renderedParagraphRange": [
+            0,
+            123
+          ],
+          "renderedParagraphCount": 124
+        },
+        {
+          "page": 1,
+          "fragmentItems": [
+            {
+              "endCut": [
+                80,
+                77
+              ],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                39,
+                39
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 876.5466666666671,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 912,
+          "runsWhollyOutsideCell": 912,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 80,
+            "naiveColumnsWidthPx": 874.6666666666666,
+            "singleLineParagraphCountUpperBound": 41,
+            "startUnit": 39
+          },
+          "renderedParagraphRange": [
+            0,
+            123
+          ],
+          "renderedParagraphCount": 124
+        },
+        {
+          "page": 2,
+          "fragmentItems": [
+            {
+              "endCut": [
+                121,
+                77
+              ],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                80,
+                77
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 876.5466666666671,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 912,
+          "runsWhollyOutsideCell": 912,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 121,
+            "naiveColumnsWidthPx": 874.6666666666666,
+            "singleLineParagraphCountUpperBound": 41,
+            "startUnit": 80
+          },
+          "renderedParagraphRange": [
+            0,
+            123
+          ],
+          "renderedParagraphCount": 124
+        },
+        {
+          "page": 3,
+          "fragmentItems": [
+            {
+              "endCut": [],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                121,
+                77
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 57.880000000000024,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 555,
+          "runsWhollyOutsideCell": 555,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 124,
+            "naiveColumnsWidthPx": 64.0,
+            "singleLineParagraphCountUpperBound": 3,
+            "startUnit": 121
+          },
+          "renderedParagraphRange": [
+            0,
+            123
+          ],
+          "renderedParagraphCount": 124
+        }
+      ]
+    },
+    {
+      "id": "p124-d2",
+      "file": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-fragment-qa/behavior/ui/p124-d2.hwpx",
+      "modelParagraphs": 124,
+      "modelDuplicates": 0,
+      "direction": 2,
+      "pageCount": 4,
+      "renderedParaOwnerCounts": [
+        4
+      ],
+      "completeTextCounts": [
+        3
+      ],
+      "pages": [
+        {
+          "page": 0,
+          "fragmentItems": [
+            {
+              "endCut": [
+                39,
+                39
+              ],
+              "endRow": 1,
+              "isContinuation": false,
+              "kind": "partialTable",
+              "startCut": [],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 833.8800000000003,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 153.60000000000002
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 912,
+          "runsWhollyOutsideCell": 912,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 39,
+            "naiveColumnsWidthPx": 832.0,
+            "singleLineParagraphCountUpperBound": 39,
+            "startUnit": 0
+          },
+          "renderedParagraphRange": [
+            0,
+            123
+          ],
+          "renderedParagraphCount": 124
+        },
+        {
+          "page": 1,
+          "fragmentItems": [
+            {
+              "endCut": [
+                80,
+                77
+              ],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                39,
+                39
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 876.5466666666671,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 912,
+          "runsWhollyOutsideCell": 912,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 80,
+            "naiveColumnsWidthPx": 874.6666666666666,
+            "singleLineParagraphCountUpperBound": 41,
+            "startUnit": 39
+          },
+          "renderedParagraphRange": [
+            0,
+            123
+          ],
+          "renderedParagraphCount": 124
+        },
+        {
+          "page": 2,
+          "fragmentItems": [
+            {
+              "endCut": [
+                121,
+                77
+              ],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                80,
+                77
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 876.5466666666671,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 912,
+          "runsWhollyOutsideCell": 912,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 121,
+            "naiveColumnsWidthPx": 874.6666666666666,
+            "singleLineParagraphCountUpperBound": 41,
+            "startUnit": 80
+          },
+          "renderedParagraphRange": [
+            0,
+            123
+          ],
+          "renderedParagraphCount": 124
+        },
+        {
+          "page": 3,
+          "fragmentItems": [
+            {
+              "endCut": [],
+              "endRow": 1,
+              "isContinuation": true,
+              "kind": "partialTable",
+              "startCut": [
+                121,
+                77
+              ],
+              "startRow": 0
+            }
+          ],
+          "cellBox": {
+            "height": 57.880000000000024,
+            "width": 279.6933333333333,
+            "x": 113.38666666666667,
+            "y": 132.26666666666668
+          },
+          "clipFlags": [
+            true,
+            true
+          ],
+          "runsOutsideCell": 444,
+          "runsWhollyOutsideCell": 444,
+          "horizontalCutAsNaiveColumns": {
+            "columnPitchFromStoredLinePx": 21.333333333333332,
+            "endUnit": 124,
+            "naiveColumnsWidthPx": 64.0,
+            "singleLineParagraphCountUpperBound": 3,
+            "startUnit": 121
+          },
+          "renderedParagraphRange": [
+            0,
+            123
+          ],
+          "renderedParagraphCount": 124
+        }
+      ]
+    }
+  ]
+}
