@@ -1,0 +1,42 @@
+{
+  "checkedSourceBase": "2f27fce361065d2672e9ce232829d375cc70b91d",
+  "existingPackageVersion": "0.4.4-beta.1",
+  "appName": "GeulgyeolBetaNext",
+  "bundleIdentifier": "org.geulgyeol.beta.next",
+  "helpers": [
+    {
+      "bundleName": "GeulgyeolBetaNext Helper (GPU).app",
+      "id": "org.geulgyeol.beta.next.helper.GPU",
+      "executable": "GeulgyeolBetaNext Helper (GPU)"
+    },
+    {
+      "bundleName": "GeulgyeolBetaNext Helper (Plugin).app",
+      "id": "org.geulgyeol.beta.next.helper.Plugin",
+      "executable": "GeulgyeolBetaNext Helper (Plugin)"
+    },
+    {
+      "bundleName": "GeulgyeolBetaNext Helper (Renderer).app",
+      "id": "org.geulgyeol.beta.next.helper.Renderer",
+      "executable": "GeulgyeolBetaNext Helper (Renderer)"
+    },
+    {
+      "bundleName": "GeulgyeolBetaNext Helper.app",
+      "id": "org.geulgyeol.beta.next.helper",
+      "executable": "GeulgyeolBetaNext Helper"
+    }
+  ],
+  "userDataFolder": "GeulgyeolBetaNext",
+  "nextInstallPathRecommendation": "~/Applications/GeulgyeolBetaNext.app; preserve an existing chosen install location",
+  "newPackageBuilt": false,
+  "existingAppModified": false,
+  "GUIUpdateVerified": false,
+  "securitySettingsModified": false,
+  "releaseAssetsModified": false,
+  "warningRemovalGuaranteed": false,
+  "sourceFileSha256": {
+    "desktop/package.json": "18c56cea1692a3be15217280492ee90ad740018a8228279a2ce26259711c96cd",
+    "desktop/main.cjs": "79cbebe9d0b89675fdbda659303bf175349c82b1d105bd26e0728318a48ddc84",
+    "scripts/repackage-mac-candidate.py": "a4ff8661056744a811cbe0f4361dbca16e59d3e0aff803b1475654435aea7bea",
+    "scripts/sign-mac-bundle.sh": "b1ded82a131bf6a0c930160b20a98a09deb09b0841a7acbf8471a9d8303e3c24"
+  }
+}
