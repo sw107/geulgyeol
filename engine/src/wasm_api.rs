@@ -7284,139 +7284,22 @@ impl HwpDocument {
         char_mods_json: &str,
         para_mods_json: &str,
     ) -> bool {
-        let styles = &self.core.document.doc_info.styles;
-        let style = match styles.get(style_id as usize) {
-            Some(s) => s.clone(),
-            None => return false,
-        };
-        let old_csid = style.char_shape_id as u32;
-        let old_psid = style.para_shape_id;
-        let style_type = style.style_type;
+        self.core
+            .update_style_shapes_native(style_id as usize, char_mods_json, para_mods_json)
+            .is_ok()
+    }
 
-        // CharShape 수정
-        if !char_mods_json.is_empty() && char_mods_json != "{}" {
-            let char_mods = crate::document_core::helpers::parse_char_shape_mods(char_mods_json);
-            if let Some(cs) = self
-                .core
-                .document
-                .doc_info
-                .char_shapes
-                .get(style.char_shape_id as usize)
-            {
-                let new_cs = char_mods.apply_to(cs);
-                // 새 CharShape를 추가하고 스타일에 연결
-                self.core.document.doc_info.char_shapes.push(new_cs);
-                let new_id = (self.core.document.doc_info.char_shapes.len() - 1) as u16;
-                self.core.document.doc_info.styles[style_id as usize].char_shape_id = new_id;
-            }
-        }
-
-        // ParaShape 수정
-        if !para_mods_json.is_empty() && para_mods_json != "{}" {
-            let para_mods = crate::document_core::helpers::parse_para_shape_mods(para_mods_json);
-            if let Some(ps) = self
-                .core
-                .document
-                .doc_info
-                .para_shapes
-                .get(style.para_shape_id as usize)
-            {
-                let new_ps = para_mods.apply_to(ps);
-                self.core.document.doc_info.para_shapes.push(new_ps);
-                let new_id = (self.core.document.doc_info.para_shapes.len() - 1) as u16;
-                self.core.document.doc_info.styles[style_id as usize].para_shape_id = new_id;
-            }
-        }
-
-        // raw_data 무효화
-        self.core.document.doc_info.styles[style_id as usize].raw_data = None;
-        self.core.document.doc_info.raw_stream_dirty = true;
-
-        let sid = style_id as u8;
-        let mut body_targets = Vec::new();
-        let mut cell_targets = Vec::new();
-        for (sec_idx, section) in self.core.document.sections.iter().enumerate() {
-            for (para_idx, para) in section.paragraphs.iter().enumerate() {
-                if para.style_id == sid {
-                    body_targets.push((sec_idx, para_idx));
-                }
-                for (control_idx, ctrl) in para.controls.iter().enumerate() {
-                    if let Control::Table(table) = ctrl {
-                        for (cell_idx, cell) in table.cells.iter().enumerate() {
-                            for (cell_para_idx, cpara) in cell.paragraphs.iter().enumerate() {
-                                if cpara.style_id == sid {
-                                    cell_targets.push((
-                                        sec_idx,
-                                        para_idx,
-                                        control_idx,
-                                        cell_idx,
-                                        cell_para_idx,
-                                    ));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // ── 스타일 변경을 해당 스타일을 사용하는 모든 문단에 전파 ──
-        let updated_style = self.core.document.doc_info.styles[style_id as usize].clone();
-        let new_csid = updated_style.char_shape_id as u32;
-        let new_psid = updated_style.para_shape_id;
-
-        for (sec_idx, para_idx) in body_targets {
-            if let Some(para) = self
-                .core
-                .document
-                .sections
-                .get_mut(sec_idx)
-                .and_then(|s| s.paragraphs.get_mut(para_idx))
-            {
-                if style_type == 0 && para.para_shape_id == old_psid {
-                    para.para_shape_id = new_psid;
-                }
-                para.replace_style_char_shape_preserving_overrides(old_csid, new_csid);
-            }
-            self.core.reflow_body_paragraph(sec_idx, para_idx);
-            if let Some(section) = self.core.document.sections.get_mut(sec_idx) {
-                section.raw_stream = None;
-            }
-        }
-
-        for (sec_idx, para_idx, control_idx, cell_idx, cell_para_idx) in cell_targets {
-            if let Ok(cpara) = self.core.get_cell_paragraph_mut(
-                sec_idx,
-                para_idx,
-                control_idx,
-                cell_idx,
-                cell_para_idx,
-            ) {
-                if style_type == 0 && cpara.para_shape_id == old_psid {
-                    cpara.para_shape_id = new_psid;
-                }
-                cpara.replace_style_char_shape_preserving_overrides(old_csid, new_csid);
-            }
-            self.core.reflow_cell_paragraph(
-                sec_idx,
-                para_idx,
-                control_idx,
-                cell_idx,
-                cell_para_idx,
-            );
-            self.core
-                .mark_cell_control_dirty(sec_idx, para_idx, control_idx);
-            if let Some(section) = self.core.document.sections.get_mut(sec_idx) {
-                section.raw_stream = None;
-            }
-        }
-
-        // 스타일 캐시 무효화 + 전체 리빌드
-        let num_sections = self.core.document.sections.len();
-        for sec_idx in 0..num_sections {
-            self.core.rebuild_section(sec_idx);
-        }
-        true
+    /// Result API exposes rejection reasons without mutating unsupported documents.
+    #[wasm_bindgen(js_name = updateStyleShapesPreservingOverrides)]
+    pub fn update_style_shapes_preserving_overrides(
+        &mut self,
+        style_id: u32,
+        char_json: &str,
+        para_json: &str,
+    ) -> Result<String, JsValue> {
+        self.core
+            .update_style_shapes_native(style_id as usize, char_json, para_json)
+            .map_err(|e| JsValue::from_str(&e.to_string()))
     }
 
     /// 새 스타일을 생성한다.

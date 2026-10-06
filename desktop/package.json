@@ -1,6 +1,6 @@
 {
   "name": "geulgyeol-dev",
-  "version": "0.4.4-dev.3",
+  "version": "0.4.4-dev.4",
   "private": true,
   "type": "module",
   "description": "Local HWP/HWPX desktop editor powered by RHWP",
@@ -9,8 +9,8 @@
   "scripts": {
     "start": "electron .",
     "test": "node --test tests/*.test.cjs",
-    "package:mac": "electron-packager . GeulgyeolDev --platform=darwin --arch=arm64 --electron-version=44.3.0 --out=../dist --app-bundle-id=org.geulgyeol.dev --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false && ../scripts/sign-mac-bundle.sh ../dist/GeulgyeolDev-darwin-arm64/GeulgyeolDev.app org.geulgyeol.dev",
-    "package:linux": "electron-packager . GeulgyeolDev --platform=linux --arch=x64 --electron-version=44.3.0 --out=../dist --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false"
+    "package:mac": "electron-packager . GeulgyeolDevPropagation --platform=darwin --arch=arm64 --electron-version=44.3.0 --out=../dist --app-bundle-id=org.geulgyeol.dev.propagation --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false && ../scripts/sign-mac-bundle.sh ../dist/GeulgyeolDevPropagation-darwin-arm64/GeulgyeolDevPropagation.app org.geulgyeol.dev.propagation",
+    "package:linux": "electron-packager . GeulgyeolDevPropagation --platform=linux --arch=x64 --electron-version=44.3.0 --out=../dist --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false"
   },
   "devDependencies": {
     "electron": "44.3.0",

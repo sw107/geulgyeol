@@ -17,3 +17,5 @@ mod text_editing;
 pub(crate) mod section_raw_journal;
 
 mod style_ops;
+
+mod style_shapes;

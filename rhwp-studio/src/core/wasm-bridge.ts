@@ -2909,6 +2909,12 @@ export class WasmBridge {
     return (this.doc as any).updateStyleShapes(styleId, charModsJson, paraModsJson);
   }
 
+  updateStyleShapesPreservingOverrides(styleId: number, charModsJson: string, paraModsJson: string): {ok: boolean; paragraphsUpdated: number} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).updateStyleShapesPreservingOverrides(styleId, charModsJson, paraModsJson));
+  }
+
+
   createStyle(json: string): number {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

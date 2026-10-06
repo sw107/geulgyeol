@@ -61,7 +61,7 @@ export const MUTATING_METHODS: readonly string[] = [
   'setCharShapeIdInCell', 'setCharShapeIdInCellByPath',
   'applyParaFormat', 'setParaShapeId', 'applyParaFormatInCell', 'setCellParaShapeId',
   // 스타일/번호 정의 (DocInfo 변이 포함)
-  'updateStyle', 'updateStyleShapes', 'createStyle', 'deleteStyle', 'deleteStylePreservingFormat', 'applyStyle',
+  'updateStyle', 'updateStyleShapes', 'updateStyleShapesPreservingOverrides', 'createStyle', 'deleteStyle', 'deleteStylePreservingFormat', 'applyStyle',
   'applyCellStyle', 'createNumbering', 'ensureDefaultNumbering', 'ensureDefaultBullet',
   'findOrCreateFontId', 'findOrCreateFontIdForLang',
   // 머리말/꼬리말

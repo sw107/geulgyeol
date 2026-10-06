@@ -1,0 +1,1401 @@
+--- a/README.md
++++ b/README.md
+@@ -23,7 +23,7 @@
+ 
+ ## 개발
+ 
+-현재 작업 트리는 공개 beta.2와 이전 dev.2를 보존한 별도 **0.4.4-dev.3 개발 후보**입니다. 스타일 삭제 시 본문·셀·하위 문단의 참조를 함께 보정하고 서식을 유지합니다. 바탕쪽·불명확한 참조는 무변경 거절하며 실제 GUI 검증은 남아 있습니다. `GeulgyeolDev` 앱 이름과 `GeulgyeolDev` 설정 폴더를 사용합니다. 개발 후보의 새 기능을 검증된 공개 베타 기능으로 해석하지 마세요.
++현재 작업 트리는 공개 beta.2와 dev.3를 보존한 별도 **0.4.4-dev.4 개발 후보**입니다. 스타일 모양 변경을 본문·셀·중첩 셀·머리말·각주 등 모델링된 문단에 전파하고 직접 지정한 서식과 문서 참조를 보존합니다. 바탕쪽·불명확한 참조는 무변경 거절합니다. `GeulgyeolDevPropagation` 앱과 별도 설정 폴더를 사용합니다. 자세한 검증 범위는 이번 체크포인트에서 확인하세요.
+ 
+ `engine/`은 수정된 Rust 엔진, `rhwp-studio/`는 편집 화면, `desktop/`은 Electron 호스트입니다. `rhwp-shared/` 및 `npm/`은 RHWP 공유 계약과 SDK/플러그인 소스입니다. 생성된 WASM, 앱, 사용자 문서, 개발용 캐시·로컬 설정은 Git 소스에서 제외합니다. 새 문서 생성에 필수인 upstream 빈 템플릿 `engine/saved/blank2010.hwp` 한 개만 포함합니다.
+ 
+--- a/DEV_CHANGES_KO.md
++++ b/DEV_CHANGES_KO.md
+@@ -57,3 +57,12 @@
+ 화면 도구 복구 후: 개발 후보에서 synthetic 저장 줄 문서 사본을 열고 회전 그룹 선택→개체 풀기→본문/서식/그림/쪽수 확인→실행취소/다시 실행→HWP와 HWPX 사본 저장→각각 재열기. 원래 혼합 인라인 문서는 안전한 거절과 문서 불변도 확인한다. 검증 창은 저장 여부를 확인하고 정상 종료한다. 화면 검증은 지원되는 도구가 복구되면 이어서 진행한다.
+ 
+ 반복 엔진 검증은 `engine/examples/stored_row_ungroup_check.rs`를 사용한다. 공개 저장소에 private 문서나 전체 upstream fixture를 넣지 않았으므로, fixture 디렉터리와 결과 디렉터리는 CLI 인자로 명시한다. 입력 파일 이름은 `native-rotated-resize-120x130.hwp` 및 `.hwpx`이며 프로그램이 지원/거절 경계 fixture를 명시적으로 생성한다.
++
++
++## 0.4.4-dev.4 — 스타일 모양 전파
++
++기존 updateStyleShapes가 본문/직접 셀만 갱신하던 결함을 수정했다. Native 트랜잭션은 본문·셀·중첩 셀·머리말/꼬리말·각주/미주·글상자·캡션의 동일 스타일 문단을 순회하며 기존 스타일 모양 ID와 일치하는 참조만 바꾼다. 직접 지정한 다른 ID와 다른 스타일, 텍스트·스타일/nextStyle 참조를 보존한다. 문단 스타일만 문단 모양을 갱신한다. 변경된 셀의 실제 폭/패딩으로 재배치하고 여러 문단의 vpos를 연결한다. 후보 모델 검증 후 한 번 반영하며 바탕쪽/덧말 직접 참조/미모델링 문단/STYLE/알 수 없는 개체/잘못된 ID/과도한 깊이는 무변경 거절한다. 결과 API와 UI의 메타데이터/모양 전체 rollback 및 임시 snapshot 해제를 연결했다.
++
++Native 48개 조합, undo/redo 96회, 두 형식 재열기 96회, 거절 17개 통과. 600개 추가 문단 색상 전파 34ms. 기존 삭제 16개/수식 72개/그룹 108개 회귀 통과. 패키징한 Mac Electron과 ASAR에서 꺼낸 실제 엔진으로 16개 입력/재열기 32회 검사를 통과했다. 데스크톱 31 pass/0 fail/기존 skip 1/TODO 1, UI 컨트롤러 6개, TypeScript/Vite 및 ad-hoc strict 서명/ZIP CRC 통과.
++
++실제 GUI는 getApp 연결 종료로 미검증이다. 실행 요청 뒤 후보 앱 프로세스가 없음을 확인했다. Linux 전송은 자동 승인 검토가 목적지와 전송 파일에 대한 명시적 승인이 없다고 거절하여 미실행이다. strict Clippy는 이번 변경이 없는 파일의 기존 8개 진단으로 실패했고, baseline 재확인 및 예외 적용 검사는 사용자의 저장공간 정리 요청에 따라 SIGTERM으로 중단했다. 개발 후보는 공개 beta.2/dev.3와 별도 앱/설정 폴더를 사용하며 새 공개·푸시는 없다.
+--- a/desktop/main.cjs
++++ b/desktop/main.cjs
+@@ -1,7 +1,7 @@
+ const {app,BrowserWindow,dialog,ipcMain,Menu,session}=require('electron');
+ const path=require('node:path');
+ const fs=require('node:fs/promises');
+-app.setPath('userData',path.join(app.getPath('appData'),'GeulgyeolDev'));
++app.setPath('userData',path.join(app.getPath('appData'),'GeulgyeolDevPropagation'));
+ const {startServer}=require('./server.cjs');
+ const {validateDocumentBytes,atomicWrite,MAX_BYTES}=require('./storage.cjs');
+ const {installCloseController}=require('./close-controller.cjs');
+@@ -24,7 +24,7 @@
+   };
+   session.defaultSession.setPermissionRequestHandler((wc,permission,callback,details)=>callback(allowFonts(wc,permission,details.requestingUrl)));
+   session.defaultSession.setPermissionCheckHandler((wc,permission,requestingOrigin)=>allowFonts(wc,permission,requestingOrigin));
+-  win=new BrowserWindow({width:1280,height:860,minWidth:900,minHeight:620,title:'글결 개발 후보 0.4.4-dev.3',show:false,
++  win=new BrowserWindow({width:1280,height:860,minWidth:900,minHeight:620,title:'글결 개발 후보 0.4.4-dev.4',show:false,
+     webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
+   installDocumentShortcuts(win.webContents,action);
+   win.webContents.setWindowOpenHandler(()=>({action:'deny'}));
+--- a/desktop/package.json
++++ b/desktop/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "geulgyeol-dev",
+-  "version": "0.4.4-dev.3",
++  "version": "0.4.4-dev.4",
+   "private": true,
+   "type": "module",
+   "description": "Local HWP/HWPX desktop editor powered by RHWP",
+@@ -9,8 +9,8 @@
+   "scripts": {
+     "start": "electron .",
+     "test": "node --test tests/*.test.cjs",
+-    "package:mac": "electron-packager . GeulgyeolDev --platform=darwin --arch=arm64 --electron-version=44.3.0 --out=../dist --app-bundle-id=org.geulgyeol.dev --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false && ../scripts/sign-mac-bundle.sh ../dist/GeulgyeolDev-darwin-arm64/GeulgyeolDev.app org.geulgyeol.dev",
+-    "package:linux": "electron-packager . GeulgyeolDev --platform=linux --arch=x64 --electron-version=44.3.0 --out=../dist --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false"
++    "package:mac": "electron-packager . GeulgyeolDevPropagation --platform=darwin --arch=arm64 --electron-version=44.3.0 --out=../dist --app-bundle-id=org.geulgyeol.dev.propagation --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false && ../scripts/sign-mac-bundle.sh ../dist/GeulgyeolDevPropagation-darwin-arm64/GeulgyeolDevPropagation.app org.geulgyeol.dev.propagation",
++    "package:linux": "electron-packager . GeulgyeolDevPropagation --platform=linux --arch=x64 --electron-version=44.3.0 --out=../dist --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false"
+   },
+   "devDependencies": {
+     "electron": "44.3.0",
+--- a/desktop/package-lock.json
++++ b/desktop/package-lock.json
+@@ -1,12 +1,12 @@
+ {
+   "name": "geulgyeol-dev",
+-  "version": "0.4.4-dev.3",
++  "version": "0.4.4-dev.4",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "geulgyeol-dev",
+-      "version": "0.4.4-dev.3",
++      "version": "0.4.4-dev.4",
+       "devDependencies": {
+         "@electron/packager": "20.3.0",
+         "electron": "44.3.0"
+--- a/desktop/web/index.html
++++ b/desktop/web/index.html
+@@ -1,8 +1,8 @@
+ <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>글결 문서 편집기</title><link rel="stylesheet" href="baram.css"></head>
+-<body><header><div class="brand"><span class="mark">글</span><div><strong>글결</strong><small>문서 편집기 · 0.4.4-dev.3 시험판</small></div></div><div class="document"><strong id="filename">새 문서</strong><span id="status" role="status">문서 엔진을 준비하고 있습니다…</span></div><nav aria-label="문서 작업"><button id="new" disabled>새 문서</button><button id="open" disabled>열기</button><select id="format" aria-label="저장 형식"><option value="hwpx">HWPX</option><option value="hwp">HWP</option></select><button id="save" class="primary" disabled>다른 이름으로 저장</button><button id="fonts" disabled>설치 글꼴</button><button id="about">도움말</button></nav></header>
++<body><header><div class="brand"><span class="mark">글</span><div><strong>글결</strong><small>문서 편집기 · 0.4.4-dev.4 시험판</small></div></div><div class="document"><strong id="filename">새 문서</strong><span id="status" role="status">문서 엔진을 준비하고 있습니다…</span></div><nav aria-label="문서 작업"><button id="new" disabled>새 문서</button><button id="open" disabled>열기</button><select id="format" aria-label="저장 형식"><option value="hwpx">HWPX</option><option value="hwp">HWP</option></select><button id="save" class="primary" disabled>다른 이름으로 저장</button><button id="fonts" disabled>설치 글꼴</button><button id="about">도움말</button></nav></header>
+ <div id="notice">로컬 편집 · 문서 엔진 RHWP · 복잡한 문서는 저장한 사본의 배치를 확인하세요.</div>
+ <main id="editor" aria-label="한글 문서 편집 영역"></main><div id="busy" hidden><span>문서를 처리하고 있습니다…</span></div>
+-<dialog id="about-dialog"><h2>글결 문서 편집기 0.4.4-dev.3</h2><p>HWP·HWPX 문서의 읽기·편집·저장을 위한 개발판입니다. 문서 편집 화면과 조판·저장 엔진은 RHWP 0.8.6을 사용합니다.</p><p>문서는 로컬에서 처리합니다. 포함된 대체 글꼴 때문에 원본과 줄·쪽 배치가 달라질 수 있습니다. 모든 문서의 호환성을 보장하지 않습니다.</p><p>상단 저장 버튼은 파일 쓰기가 끝난 뒤에만 저장 완료를 알립니다. 편집 화면 안쪽의 내보내기는 별도 저장 흐름입니다.</p><p>본 제품은 한컴의 HWP 문서 파일(.hwp) 공개 문서를 참고하여 개발하였습니다.</p><p>RHWP © 2025–2026 Edward Kim · MIT License. 포함 라이선스: <button id="licenses" type="button">라이선스 보기</button></p><form method="dialog"><button>닫기</button></form></dialog>
++<dialog id="about-dialog"><h2>글결 문서 편집기 0.4.4-dev.4</h2><p>HWP·HWPX 문서의 읽기·편집·저장을 위한 개발판입니다. 문서 편집 화면과 조판·저장 엔진은 RHWP 0.8.6을 사용합니다.</p><p>문서는 로컬에서 처리합니다. 포함된 대체 글꼴 때문에 원본과 줄·쪽 배치가 달라질 수 있습니다. 모든 문서의 호환성을 보장하지 않습니다.</p><p>상단 저장 버튼은 파일 쓰기가 끝난 뒤에만 저장 완료를 알립니다. 편집 화면 안쪽의 내보내기는 별도 저장 흐름입니다.</p><p>본 제품은 한컴의 HWP 문서 파일(.hwp) 공개 문서를 참고하여 개발하였습니다.</p><p>RHWP © 2025–2026 Edward Kim · MIT License. 포함 라이선스: <button id="licenses" type="button">라이선스 보기</button></p><form method="dialog"><button>닫기</button></form></dialog>
+ <dialog id="error-dialog"><h2>작업을 완료하지 못했습니다</h2><p id="error-text"></p><form method="dialog"><button>확인</button></form></dialog>
+ <input type="file" id="browser-file" accept=".hwp,.hwpx" hidden>
+ <script type="module" src="baram.js"></script></body></html>
+--- /dev/null
++++ b/desktop/tests/style-propagation.test.cjs
+@@ -0,0 +1,48 @@
++const {test}=require('node:test');const assert=require('node:assert/strict');
++const fs=require('node:fs');const path=require('node:path');const {pathToFileURL}=require('node:url');
++function preserved(before,after,sid){const clean=s=>JSON.parse(s).map(v=>{if(v.id===sid){delete v.charShapeId;delete v.paraShapeId;}return v;});assert.deepEqual(clean(after),clean(before));}
++test('style shape propagation across saved nested/header/note scopes preserves references and snapshot history',async()=>{
++  const root=process.env.GEULGYEOL_QA_ENGINE_DIR || path.resolve(__dirname,'../web/studio');
++  const {initSync,HwpDocument}=await import(pathToFileURL(path.join(root,'rhwp.js')));
++  initSync({module:fs.readFileSync(path.join(root,'rhwp_bg.wasm'))});
++  const fixtureRoot=process.env.GEULGYEOL_QA_FIXTURES;
++  const fixtures=fixtureRoot ? Array.from({length:8},(_,kind)=>['hwp','hwpx'].map(format=>path.join(fixtureRoot,`kind${kind}-${format}-source.${format}`))).flat() : [];
++  if(!fixtures.length){
++    const d=HwpDocument.createEmpty();try{
++      d.createBlankDocument();d.insertText(0,0,0,'스타일 본문');
++      const sid=d.createStyle('{"name":"Update A","englishName":"UpdateA","type":0}');d.applyStyle(0,0,sid);
++      const svg=d.renderPageSvg(0),undo=d.saveSnapshot(),styles=d.getStyleList();
++      assert.equal(JSON.parse(d.updateStyleShapesPreservingOverrides(sid,'{"fontSize":2400}','{}')).ok,true);
++      preserved(styles,d.getStyleList(),sid);assert.notEqual(d.renderPageSvg(0),svg);
++      const redo=d.saveSnapshot();d.restoreSnapshot(undo);assert.equal(d.renderPageSvg(0),svg);d.restoreSnapshot(redo);
++      assert.equal(d.updateStyleShapes(999,'{}','{}'),false);d.discardSnapshot(undo);d.discardSnapshot(redo);
++    }finally{d.free();}
++  }
++  for(const fixture of fixtures){
++    const d=new HwpDocument(fs.readFileSync(fixture));try{
++      const sid=JSON.parse(d.getStyleList()).find(s=>s.name==='Deleted A').id;
++      const styles=d.getStyleList(),detail=d.getStyleDetail(sid),text=d.getTextFileText(),svg=d.renderPageSvg(0),undo=d.saveSnapshot();
++      const baseline={};for(const format of ['Hwp','Hwpx']){const x=d['export'+format+'WithReport']();try{const r=new HwpDocument(x.takeBytes());try{baseline[format]=JSON.parse(r.getStyleDetail(sid));}finally{r.free();}}finally{x.free();}}
++      const result=JSON.parse(d.updateStyleShapesPreservingOverrides(sid,'{"fontSize":2400,"italic":true}','{"alignment":"center","marginLeft":900}'));
++      assert.equal(result.ok,true);assert(result.paragraphsUpdated>=4,fixture);preserved(styles,d.getStyleList(),sid);assert.equal(d.getTextFileText(),text);assert.notEqual(d.getStyleDetail(sid),detail);
++      const newStyles=d.getStyleList(),newDetail=d.getStyleDetail(sid),newSvg=d.renderPageSvg(0),redo=d.saveSnapshot();assert.notEqual(newSvg,svg);
++      d.restoreSnapshot(undo);assert.equal(d.getStyleDetail(sid),detail);assert.equal(d.renderPageSvg(0),svg);
++      d.restoreSnapshot(redo);assert.equal(d.getStyleDetail(sid),newDetail);assert.equal(d.renderPageSvg(0),newSvg);
++      assert.equal(JSON.parse(d.updateStyleShapesPreservingOverrides(sid,'{"fontSize":2400,"italic":true}','{"alignment":"center","marginLeft":900}')).paragraphsUpdated,0);
++      assert.throws(()=>d.updateStyleShapesPreservingOverrides(999,'{}','{}'));assert.throws(()=>d.updateStyleShapesPreservingOverrides(sid,'[','{}'));
++      assert.equal(d.getStyleDetail(sid),newDetail);assert.equal(d.renderPageSvg(0),newSvg);
++      for(const format of ['Hwp','Hwpx']){
++        const result=d['export'+format+'WithReport']();try{
++          assert.equal(JSON.parse(result.contentLoss()).count,0,fixture);const r=new HwpDocument(result.takeBytes());try{
++            assert.equal(r.getStyleList(),newStyles);const expected=baseline[format],updated=JSON.parse(newDetail);
++            for(const key of ['fontSize','italic','charShapeId'])expected.charProps[key]=updated.charProps[key];
++            for(const key of ['alignment','marginLeft','paraShapeId'])expected.paraProps[key]=updated.paraProps[key];
++            assert.deepEqual(JSON.parse(r.getStyleDetail(sid)),expected,fixture+' -> '+format);assert.equal(r.getTextFileText(),text);
++          }finally{r.free();}
++        }finally{result.free();}
++      }
++      d.discardSnapshot(undo);d.discardSnapshot(redo);
++    }finally{d.free();}
++  }
++  console.log(JSON.stringify({runtime:process.platform,fixtureCases:fixtures.length,twoFormatReopens:fixtures.length*2,snapshotUndoRedo:fixtures.length*2,nativeGUIVerified:false}));
++});
+--- /dev/null
++++ b/desktop/tests/style-propagation-ui.test.cjs
+@@ -0,0 +1,25 @@
++const {test}=require('node:test');const assert=require('node:assert/strict');
++const fs=require('node:fs');const path=require('node:path');const vm=require('node:vm');
++const {stripTypeScriptTypes}=require('node:module');
++function controller({fail=false,fallback=false,disabled=false,add=false}={}){
++  const notices=[],calls=[],exports={};let state={name:'original',shape:'original'},snap;
++  const api={saveSnapshot:()=>{snap=structuredClone(state);calls.push('save');return 7;},restoreSnapshot:id=>{assert.equal(id,7);state=structuredClone(snap);calls.push('rollback');},discardSnapshot:id=>{assert.equal(id,7);calls.push('discard');},
++    updateStyle:()=>{state.name='edited';calls.push('metadata');return true;},createStyle:()=>{state.name='created';calls.push('create');return 4;},
++    updateStyleShapesPreservingOverrides:()=>{calls.push('propagate');if(fail)throw Error('지원하지 않는 바탕쪽 참조');state.shape='updated';return {ok:true};}};
++  const source=fs.readFileSync(path.resolve(__dirname,'../../rhwp-studio/src/ui/style-edit-dialog.ts'),'utf8');
++  const code=stripTypeScriptTypes(source,{mode:'transform'}).replace(/import\s+\{([\s\S]*?)\}\s+from\s+(['"])(.+?)\2;/g,(_,names,q,target)=>`const {${names}}=require(${JSON.stringify(target)});`).replace('export const MAX_STYLE_NAME_LEN','const MAX_STYLE_NAME_LEN').replace('export class StyleEditDialog','exports.StyleEditDialog = class StyleEditDialog');
++  vm.runInNewContext(code,{exports,require:n=>n==='./toast'?{showToast:n=>notices.push(n)}:{ModalDialog:class{}},console:{warn(){}},alert:m=>notices.push({message:m})});
++  const dialog=Object.create(exports.StyleEditDialog.prototype);
++  Object.assign(dialog,{addMode:add,nameInput:{value:'edited'},enNameInput:{value:'edited'},typePara:{checked:true},nextStyleSelect:{value:'0'},styleInfo:{id:4,type:0,nextStyleId:0},baseInfo:{},charModsJson:'{"fontSize":2400}',paraModsJson:'{}',wasm:api,eventBus:{emit:()=>calls.push('event')},onSave:()=>calls.push('refresh'),
++    services:fallback?undefined:{getInputHandler:()=>({executeOperation:op=>{calls.push(op.kind);if(!disabled)op.operation(api);},getPosition:()=>({sectionIndex:0,paragraphIndex:0,charOffset:0})})}});
++  return {dialog,calls,notices,state:()=>state};
++}
++test('style editor commits metadata and propagation in one snapshot and releases its rollback snapshot',()=>{
++  const c=controller();assert.equal(c.dialog.onConfirm(),true);assert.deepEqual(c.calls,['snapshot','save','metadata','propagate','discard','refresh']);assert.deepEqual(c.state(),{name:'edited',shape:'updated'});
++});
++for(const fallback of [false,true])for(const add of [false,true])test(`unsupported propagation rolls back ${add?'create':'edit'} (${fallback?'fallback':'history'})`,()=>{
++  const c=controller({fail:true,fallback,add});assert.equal(c.dialog.onConfirm(),false);assert.deepEqual(c.state(),{name:'original',shape:'original'});assert(c.calls.includes('rollback'));assert(c.calls.includes('discard'));assert(!c.calls.includes('refresh'));assert(!c.calls.includes('event'));assert(c.notices[0].message.includes('바탕쪽'));
++});
++test('disabled editing routes leave style metadata and shapes untouched',()=>{
++  const c=controller({disabled:true});assert.equal(c.dialog.onConfirm(),false);assert.deepEqual(c.calls,['snapshot']);assert.deepEqual(c.state(),{name:'original',shape:'original'});
++});
+--- /dev/null
++++ b/engine/examples/style_propagation_check.rs
+@@ -0,0 +1,555 @@
++use rhwp::{
++    document_core::DocumentCore,
++    model::{
++        control::{Control, Ruby, UnknownControl},
++        header_footer::MasterPage,
++        paragraph::{CharShapeRef, Paragraph},
++        shape::{Caption, ShapeObject, TextBox},
++    },
++};
++use serde_json::{json, Value};
++fn idx(s: &str, k: &str) -> usize {
++    serde_json::from_str::<Value>(s).unwrap()[k]
++        .as_u64()
++        .unwrap() as usize
++}
++fn collect(p: &Paragraph, d: &DocumentCore, out: &mut Vec<Value>) {
++    let style = &d.document().doc_info.styles[p.style_id as usize];
++    out.push(json!({"text":p.text,"style":style.local_name,"para":p.para_shape_id,"chars":p.char_shapes.iter().map(|c|json!([c.start_pos,c.char_shape_id])).collect::<Vec<_>>() }));
++    for c in &p.controls {
++        match c {
++            Control::Table(t) => {
++                for c in &t.cells {
++                    for p in &c.paragraphs {
++                        collect(p, d, out);
++                    }
++                }
++                if let Some(c) = &t.caption {
++                    for p in &c.paragraphs {
++                        collect(p, d, out);
++                    }
++                }
++            }
++            Control::Header(h) => {
++                for p in &h.paragraphs {
++                    collect(p, d, out)
++                }
++            }
++            Control::Footer(h) => {
++                for p in &h.paragraphs {
++                    collect(p, d, out)
++                }
++            }
++            Control::Footnote(h) => {
++                for p in &h.paragraphs {
++                    collect(p, d, out)
++                }
++            }
++            Control::Endnote(h) => {
++                for p in &h.paragraphs {
++                    collect(p, d, out)
++                }
++            }
++            Control::HiddenComment(h) => {
++                for p in &h.paragraphs {
++                    collect(p, d, out)
++                }
++            }
++            Control::Field(h) => {
++                for p in &h.memo_paragraphs {
++                    collect(p, d, out)
++                }
++            }
++            Control::Shape(s) => {
++                if let Some(a) = s.drawing() {
++                    if let Some(t) = &a.text_box {
++                        for p in &t.paragraphs {
++                            collect(p, d, out);
++                        }
++                    }
++                    if let Some(c) = &a.caption {
++                        for p in &c.paragraphs {
++                            collect(p, d, out);
++                        }
++                    }
++                }
++            }
++            Control::SectionDef(s) => {
++                for m in &s.master_pages {
++                    for p in &m.paragraphs {
++                        collect(p, d, out)
++                    }
++                }
++            }
++            _ => {}
++        }
++    }
++}
++fn semantic(d: &DocumentCore) -> Value {
++    let mut ps = vec![];
++    for s in &d.document().sections {
++        for p in &s.paragraphs {
++            collect(p, d, &mut ps);
++        }
++        for m in &s.section_def.master_pages {
++            for p in &m.paragraphs {
++                collect(p, d, &mut ps);
++            }
++        }
++    }
++    let styles: Vec<_> = d
++        .document()
++        .doc_info
++        .styles
++        .iter()
++        .map(|s| {
++            json!([
++                s.local_name,
++                s.english_name,
++                s.char_shape_id,
++                s.para_shape_id,
++                d.document().doc_info.styles[s.next_style_id as usize].local_name
++            ])
++        })
++        .collect();
++    json!({"paragraphs":ps,"styles":styles})
++}
++fn fixture(kind: usize) -> (DocumentCore, usize) {
++    let mut d = DocumentCore::new_empty();
++    d.create_blank_document_native().unwrap();
++    let table = d.create_table_native(0, 0, 0, 2, 2).unwrap();
++    let p = idx(&table, "paraIdx");
++    let t = idx(&table, "controlIdx");
++    for c in 0..4 {
++        d.insert_text_in_cell_native(0, p, t, c, 0, 0, &format!("셀{c} 스타일😀"))
++            .unwrap();
++    }
++    d.insert_text_native(0, p + 1, 0, "본문 하나 둘").unwrap();
++    d.split_paragraph_native(0, p + 1, 5, None).unwrap();
++    let sid = d.document().doc_info.styles.len();
++    let mut a = d.document().doc_info.styles[0].clone();
++    a.local_name = "Deleted A".into();
++    a.english_name = "DeleteA".into();
++    a.raw_data = None;
++    let mut b = a.clone();
++    b.local_name = "Survivor B".into();
++    b.english_name = "KeepB".into();
++    b.next_style_id = sid as u8;
++    let mut c = b.clone();
++    c.local_name = "Survivor C".into();
++    c.english_name = "KeepC".into();
++    c.next_style_id = (sid + 1) as u8;
++    let mut cs = d.document().doc_info.char_shapes[a.char_shape_id as usize].clone();
++    cs.bold = true;
++    cs.base_size = 1400;
++    cs.raw_data = None;
++    a.char_shape_id = d.document().doc_info.char_shapes.len() as u16;
++    d.document_mut().doc_info.char_shapes.push(cs);
++    d.document_mut().doc_info.styles.extend([a, b, c]);
++    d.document_mut().doc_info.raw_stream_dirty = true;
++    d.apply_style_native(0, p + 1, sid).unwrap();
++    d.apply_style_native(0, p + 2, sid + 1).unwrap();
++    for (cell, style) in [(0, sid), (1, sid), (2, sid + 1), (3, sid + 2)] {
++        d.apply_cell_style_native(0, p, t, cell, 0, style).unwrap();
++    }
++    let prototype = match &d.document().sections[0].paragraphs[p].controls[t] {
++        Control::Table(t) => t.cells[0].paragraphs[0].clone(),
++        _ => panic!(),
++    };
++    match kind {
++        0 => {}
++        1 => {
++            let nested = match &d.document().sections[0].paragraphs[p].controls[t] {
++                Control::Table(t) => t.clone(),
++                _ => panic!(),
++            };
++            if let Control::Table(outer) =
++                &mut d.document_mut().sections[0].paragraphs[p].controls[t]
++            {
++                let cp = &mut outer.cells[1].paragraphs[0];
++                cp.controls.push(Control::Table(nested));
++                cp.char_count += 8;
++                cp.align_ctrl_data_records();
++            }
++        }
++        2 | 3 => {
++            d.create_header_footer_native(0, kind == 2, 0).unwrap();
++            for p in &mut d.document_mut().sections[0].paragraphs {
++                for c in &mut p.controls {
++                    match c {
++                        Control::Header(h) => h.paragraphs = vec![prototype.clone()],
++                        Control::Footer(h) => h.paragraphs = vec![prototype.clone()],
++                        _ => {}
++                    }
++                }
++            }
++        }
++        4 | 5 => {
++            if kind == 4 {
++                d.insert_footnote_native(0, p + 1, 0).unwrap();
++            } else {
++                d.insert_endnote_native(0, p + 1, 0).unwrap();
++            }
++            for p in &mut d.document_mut().sections[0].paragraphs {
++                for c in &mut p.controls {
++                    match c {
++                        Control::Footnote(h) => h.paragraphs = vec![prototype.clone()],
++                        Control::Endnote(h) => h.paragraphs = vec![prototype.clone()],
++                        _ => {}
++                    }
++                }
++            }
++        }
++        6 | 7 => {
++            let r = d
++                .create_shape_control_native(
++                    0,
++                    p + 1,
++                    0,
++                    8000,
++                    4000,
++                    0,
++                    0,
++                    false,
++                    "TopAndBottom",
++                    "rectangle",
++                    false,
++                    false,
++                    &[],
++                )
++                .unwrap();
++            let pi = idx(&r, "paraIdx");
++            let ci = idx(&r, "controlIdx");
++            if let Control::Shape(s) = &mut d.document_mut().sections[0].paragraphs[pi].controls[ci]
++            {
++                let drawing = s.drawing_mut().unwrap();
++                if kind == 6 {
++                    drawing.text_box = Some(TextBox {
++                        paragraphs: vec![prototype],
++                        ..Default::default()
++                    });
++                } else {
++                    drawing.caption = Some(Caption {
++                        paragraphs: vec![prototype],
++                        width: 8000,
++                        ..Default::default()
++                    });
++                }
++            }
++        }
++        8 => {
++            d.document_mut().sections[0]
++                .section_def
++                .master_pages
++                .push(MasterPage {
++                    paragraphs: vec![prototype],
++                    ..Default::default()
++                });
++        }
++        _ => unreachable!(),
++    }
++    for p in &mut d.document_mut().sections[0].paragraphs {
++        for c in &mut p.controls {
++            if let Control::Table(t) = c {
++                let styled = t.cells[0].paragraphs[0].clone();
++                let independent = t.cells[2].paragraphs[0].clone();
++                t.cells[0].paragraphs.extend([styled, independent]);
++            }
++        }
++    }
++    let mut override_para = d.document().doc_info.para_shapes[0].clone();
++    override_para.margin_left = 333;
++    override_para.raw_data = None;
++    let override_para_id = d.document().doc_info.para_shapes.len() as u16;
++    let direct_char = d.document().doc_info.styles[0].char_shape_id as u32;
++    d.document_mut().doc_info.para_shapes.push(override_para);
++    fn direct(ps: &mut [Paragraph], sid: usize, direct_char: u32, direct_para: u16) {
++        for p in ps {
++            if p.style_id as usize == sid {
++                p.apply_char_shape_range(2, p.text.chars().count(), direct_char);
++                if p.text.contains("셀1") {
++                    p.para_shape_id = direct_para;
++                }
++            }
++            for c in &mut p.controls {
++                match c {
++                    Control::Table(t) => {
++                        for c in &mut t.cells {
++                            direct(&mut c.paragraphs, sid, direct_char, direct_para);
++                        }
++                    }
++                    Control::Header(h) => direct(&mut h.paragraphs, sid, direct_char, direct_para),
++                    Control::Footer(h) => direct(&mut h.paragraphs, sid, direct_char, direct_para),
++                    Control::Footnote(h) => {
++                        direct(&mut h.paragraphs, sid, direct_char, direct_para)
++                    }
++                    Control::Endnote(h) => direct(&mut h.paragraphs, sid, direct_char, direct_para),
++                    Control::Shape(s) => {
++                        if let Some(d) = s.drawing_mut() {
++                            if let Some(t) = &mut d.text_box {
++                                direct(&mut t.paragraphs, sid, direct_char, direct_para);
++                            }
++                            if let Some(c) = &mut d.caption {
++                                direct(&mut c.paragraphs, sid, direct_char, direct_para);
++                            }
++                        }
++                    }
++                    _ => {}
++                }
++            }
++        }
++    }
++    direct(
++        &mut d.document_mut().sections[0].paragraphs,
++        sid,
++        direct_char,
++        override_para_id,
++    );
++    (d, sid)
++}
++
++fn reject(d: &mut DocumentCore, sid: usize, chars: &str, paras: &str, label: &str) {
++    let before = format!("{:?}", d.document());
++    assert!(
++        d.update_style_shapes_native(sid, chars, paras).is_err(),
++        "{label}"
++    );
++    assert_eq!(format!("{:?}", d.document()), before, "atomic {label}");
++}
++fn main() {
++    let out = std::env::args().nth(1).expect("OUTPUT_DIR");
++    std::fs::create_dir_all(&out).unwrap();
++    let (mut cases, mut reopens, mut rejects, mut history) = (0, 0, 0, 0);
++    for kind in 0..8 {
++        for mode in 0..3 {
++            for source in ["hwp", "hwpx"] {
++                let (mut d, sid) = fixture(kind);
++                if mode == 2 {
++                    d.document_mut().doc_info.styles[sid].style_type = 1;
++                }
++                let input = if source == "hwp" {
++                    d.export_hwp_with_adapter_snapshot().unwrap()
++                } else {
++                    d.export_hwpx_native().unwrap()
++                };
++                if mode == 0 {
++                    std::fs::write(format!("{out}/kind{kind}-{source}-source.{source}"), &input)
++                        .unwrap();
++                }
++                let mut d = DocumentCore::from_bytes(&input).unwrap();
++                let before = semantic(&d);
++                let old = d.document().doc_info.styles[sid].clone();
++                let old_defs = serde_json::to_value(&d.document().doc_info.styles).unwrap();
++                let old_chars = serde_json::to_value(&d.document().doc_info.char_shapes).unwrap();
++                let old_paras = serde_json::to_value(&d.document().doc_info.para_shapes).unwrap();
++                let svg_before = d.render_page_svg_native(0).unwrap();
++                let undo = d.save_snapshot_native();
++                let (char_json, para_json) = if mode == 1 {
++                    ("{\"textColor\":\"#D01234\"}", "{}")
++                } else {
++                    (
++                        "{\"fontSize\":2400,\"italic\":true}",
++                        "{\"alignment\":\"center\",\"marginLeft\":900}",
++                    )
++                };
++                let report = d
++                    .update_style_shapes_native(sid, char_json, para_json)
++                    .unwrap();
++                let after = semantic(&d);
++                let new = d.document().doc_info.styles[sid].clone();
++                assert_ne!(new.char_shape_id, old.char_shape_id);
++                assert_eq!(new.next_style_id, old.next_style_id);
++                assert_eq!(new.local_name, old.local_name);
++                if mode == 2 {
++                    assert_eq!(new.para_shape_id, old.para_shape_id);
++                }
++                let mut expected = before.clone();
++                let mut targets = 0;
++                for p in expected["paragraphs"].as_array_mut().unwrap() {
++                    if p["style"] == "Deleted A" {
++                        targets += 1;
++                        if mode != 2 && p["para"] == old.para_shape_id {
++                            p["para"] = json!(new.para_shape_id);
++                        }
++                        for run in p["chars"].as_array_mut().unwrap() {
++                            if run[1] == old.char_shape_id {
++                                run[1] = json!(new.char_shape_id);
++                            }
++                        }
++                    }
++                }
++                expected["styles"].as_array_mut().unwrap()[sid][2] = json!(new.char_shape_id);
++                expected["styles"].as_array_mut().unwrap()[sid][3] = json!(new.para_shape_id);
++                assert_eq!(
++                    after, expected,
++                    "propagation kind{kind} mode{mode} source{source}"
++                );
++                let defs = serde_json::to_value(&d.document().doc_info.styles).unwrap();
++                for i in 0..defs.as_array().unwrap().len() {
++                    if i != sid {
++                        assert_eq!(defs[i], old_defs[i], "other style");
++                    }
++                }
++                let chars = serde_json::to_value(&d.document().doc_info.char_shapes).unwrap();
++                let paras = serde_json::to_value(&d.document().doc_info.para_shapes).unwrap();
++                assert_eq!(
++                    &chars.as_array().unwrap()[..old_chars.as_array().unwrap().len()],
++                    old_chars.as_array().unwrap()
++                );
++                assert_eq!(
++                    &paras.as_array().unwrap()[..old_paras.as_array().unwrap().len()],
++                    old_paras.as_array().unwrap()
++                );
++                let svg_after = d.render_page_svg_native(0).unwrap();
++                assert_ne!(svg_after, svg_before, "rendered style change");
++                let redo = d.save_snapshot_native();
++                d.restore_snapshot_native(undo).unwrap();
++                assert_eq!(semantic(&d), before);
++                assert_eq!(d.render_page_svg_native(0).unwrap(), svg_before);
++                d.restore_snapshot_native(redo).unwrap();
++                assert_eq!(semantic(&d), after);
++                assert_eq!(d.render_page_svg_native(0).unwrap(), svg_after);
++                history += 2;
++                let unchanged = format!("{:?}", d.document());
++                d.update_style_shapes_native(sid, char_json, para_json)
++                    .unwrap();
++                assert_eq!(format!("{:?}", d.document()), unchanged, "idempotence");
++                for (format, bytes) in [
++                    ("hwp", d.export_hwp_with_adapter_snapshot().unwrap()),
++                    ("hwpx", d.export_hwpx_native().unwrap()),
++                ] {
++                    let r = DocumentCore::from_bytes(&bytes).unwrap();
++                    assert_eq!(
++                        semantic(&r),
++                        after,
++                        "reopen kind{kind} mode{mode} {source}->{format}"
++                    );
++                    if mode == 0 && source == "hwp" {
++                        std::fs::write(format!("{out}/kind{kind}-updated.{format}"), bytes)
++                            .unwrap();
++                    }
++                    reopens += 1;
++                }
++                println!("PASS kind{kind} mode{mode} source{source} targets{targets} {report}");
++                cases += 1;
++            }
++        }
++    }
++    for malformed in ["{", "[]", "null"] {
++        let (mut d, sid) = fixture(0);
++        reject(&mut d, sid, malformed, "{}", "bad JSON");
++        rejects += 1;
++    }
++    for kind in 0..13 {
++        let (mut d, sid) = fixture(if kind == 6 { 8 } else { 0 });
++        let mut target = sid;
++        match kind {
++            0 => target = 999,
++            1 => d.document_mut().sections[0].paragraphs[0].style_id = 255,
++            2 => d.document_mut().doc_info.styles[sid].char_shape_id = 65535,
++            3 => d.document_mut().doc_info.styles[sid].next_style_id = 255,
++            4 => d.document_mut().sections[0].paragraphs[0]
++                .controls
++                .push(Control::Unknown(UnknownControl { ctrl_id: 123 })),
++            5 => d.document_mut().sections[0].paragraphs[0]
++                .controls
++                .push(Control::Ruby(Ruby {
++                    style_id_ref: sid as u16,
++                    ..Default::default()
++                })),
++            6 => {}
++            7 => d.document_mut().sections[0]
++                .section_def
++                .extra_child_records
++                .push(rhwp::model::document::RawRecord {
++                    tag_id: rhwp::parser::tags::HWPTAG_PARA_HEADER,
++                    ..Default::default()
++                }),
++            8 => d
++                .document_mut()
++                .doc_info
++                .extra_records
++                .push(rhwp::model::document::RawRecord {
++                    tag_id: rhwp::parser::tags::HWPTAG_STYLE,
++                    ..Default::default()
++                }),
++            9 => d.document_mut().sections[0].paragraphs[0].char_shapes[0].char_shape_id = 65535,
++            10 => d.document_mut().sections[0].paragraphs[0].para_shape_id = 65535,
++            11 => {
++                let shape = d.document().doc_info.char_shapes[0].clone();
++                d.document_mut().doc_info.char_shapes.resize(65536, shape);
++            }
++            12 => {
++                let shape = d.document().doc_info.para_shapes[0].clone();
++                d.document_mut().doc_info.para_shapes.resize(65536, shape);
++            }
++            _ => unreachable!(),
++        }
++        reject(
++            &mut d,
++            target,
++            "{\"fontSize\":2400}",
++            "{\"marginLeft\":900}",
++            &format!("bad reference {kind}"),
++        );
++        rejects += 1;
++    }
++    let (mut deep, sid) = fixture(0);
++    let seed = deep.document().sections[0].paragraphs[0].clone();
++    let mut table = deep.document().sections[0]
++        .paragraphs
++        .iter()
++        .flat_map(|p| &p.controls)
++        .find_map(|c| {
++            if let Control::Table(t) = c {
++                Some(t.clone())
++            } else {
++                None
++            }
++        })
++        .unwrap();
++    table.cells.truncate(1);
++    let mut nested = seed.clone();
++    nested.controls.clear();
++    for _ in 0..70 {
++        let mut t = table.clone();
++        t.cells[0].paragraphs = vec![nested];
++        nested = seed.clone();
++        nested.controls = vec![Control::Table(t)];
++    }
++    deep.document_mut().sections[0].paragraphs.push(nested);
++    reject(&mut deep, sid, "{\"fontSize\":2400}", "{}", "depth guard");
++    rejects += 1;
++    let (mut large, sid) = fixture(0);
++    let prototype = large.document().sections[0]
++        .paragraphs
++        .iter()
++        .find(|p| p.style_id as usize == sid)
++        .unwrap()
++        .clone();
++    large.document_mut().sections[0]
++        .paragraphs
++        .extend(std::iter::repeat_n(prototype, 600));
++    let started = std::time::Instant::now();
++    large
++        .update_style_shapes_native(sid, "{\"textColor\":\"#D01234\"}", "{}")
++        .unwrap();
++    let elapsed_ms = started.elapsed().as_millis();
++    assert!(
++        elapsed_ms < 10000,
++        "600 paragraph performance {elapsed_ms} ms"
++    );
++    let (d, _) = fixture(1);
++    std::fs::write(
++        format!("{out}/gui-source.hwpx"),
++        d.export_hwpx_native().unwrap(),
++    )
++    .unwrap();
++    let proof = json!({"cases":cases,"snapshot_undo_redo_operations":history,"two_format_reopens":reopens,"atomic_rejections":rejects,"other_styles_and_direct_format_preserved":true,"native_GUI_verified":false,"large_document_paragraphs":600,"large_document_update_ms":elapsed_ms});
++    std::fs::write(
++        format!("{out}/native-propagation-proof.json"),
++        serde_json::to_vec_pretty(&proof).unwrap(),
++    )
++    .unwrap();
++    println!("{proof}");
++}
+--- a/engine/src/document_core/commands/mod.rs
++++ b/engine/src/document_core/commands/mod.rs
+@@ -17,3 +17,5 @@
+ pub(crate) mod section_raw_journal;
+ 
+ mod style_ops;
++
++mod style_shapes;
+--- /dev/null
++++ b/engine/src/document_core/commands/style_shapes.rs
+@@ -0,0 +1,406 @@
++//! Transactional style shape propagation through modeled paragraph containers.
++use super::formatting::{char_shape_mods_affect_text_flow, para_shape_mods_affect_text_flow};
++use crate::{
++    document_core::{
++        helpers::{parse_char_shape_mods, parse_para_shape_mods},
++        DocumentCore,
++    },
++    error::HwpError,
++    model::{
++        control::Control,
++        paragraph::Paragraph,
++        shape::{Caption, CaptionDirection, ShapeObject},
++    },
++    renderer::{
++        composer::{reflow_line_segs, ParagraphBox},
++        style_resolver::{resolve_styles_for_document, ResolvedStyleSet},
++    },
++};
++#[derive(Default, serde::Serialize)]
++#[serde(rename_all = "camelCase")]
++struct ShapeReport {
++    paragraphs_updated: usize,
++}
++struct Propagate<'a> {
++    target: usize,
++    count: usize,
++    old_char: u32,
++    new_char: u32,
++    old_para: u16,
++    new_para: u16,
++    paragraph_style: bool,
++    reflow: bool,
++    char_count: usize,
++    para_count: usize,
++    styles: &'a ResolvedStyleSet,
++    dpi: f64,
++    is_hwp3_variant: bool,
++    report: ShapeReport,
++}
++impl Propagate<'_> {
++    fn error(message: &str) -> HwpError {
++        HwpError::RenderError(message.into())
++    }
++    fn paragraphs(
++        &mut self,
++        ps: &mut [Paragraph],
++        depth: usize,
++        width: f64,
++    ) -> Result<bool, HwpError> {
++        if depth > 64 {
++            return Err(Self::error(
++                "과도한 중첩 문서의 스타일은 안전하게 변경할 수 없습니다.",
++            ));
++        }
++        let mut changed = false;
++        let mut first_reflow = None;
++        for (index, p) in ps.iter_mut().enumerate() {
++            if p.style_id as usize >= self.count
++                || p.para_shape_id as usize >= self.para_count
++                || p.char_shapes
++                    .iter()
++                    .any(|r| r.char_shape_id as usize >= self.char_count)
++            {
++                return Err(Self::error(
++                    "문단에 잘못된 스타일/모양 참조가 있어 변경하지 않았습니다.",
++                ));
++            }
++            if p.style_id as usize == self.target {
++                let para_changed = self.paragraph_style
++                    && p.para_shape_id == self.old_para
++                    && self.old_para != self.new_para;
++                let char_changed = self.old_char != self.new_char
++                    && (p.char_shapes.is_empty()
++                        || p.char_shapes
++                            .iter()
++                            .any(|r| r.char_shape_id == self.old_char));
++                if para_changed {
++                    p.para_shape_id = self.new_para;
++                }
++                if char_changed {
++                    p.replace_style_char_shape_preserving_overrides(self.old_char, self.new_char);
++                }
++                if para_changed || char_changed {
++                    if self.reflow {
++                        first_reflow.get_or_insert(index);
++                        let style = self.styles.para_styles.get(p.para_shape_id as usize);
++                        let margins = style.map(|s| s.margin_left + s.margin_right).unwrap_or(0.0);
++                        reflow_line_segs(
++                            p,
++                            ParagraphBox::content_width_px((width - margins).max(0.0), self.dpi),
++                            self.styles,
++                            self.dpi,
++                        );
++                    }
++                    self.report.paragraphs_updated += 1;
++                    changed = true;
++                }
++            }
++            for c in &mut p.controls {
++                changed |= self.control(c, depth + 1, width)?;
++            }
++        }
++        if let Some(first) = first_reflow {
++            super::text_editing::recalculate_cell_paragraph_vpos(
++                ps,
++                first,
++                None,
++                self.styles,
++                self.dpi,
++                self.is_hwp3_variant,
++            );
++        }
++        Ok(changed)
++    }
++    fn caption(&mut self, c: &mut Caption, depth: usize, fallback: f64) -> Result<bool, HwpError> {
++        let width = match c.direction {
++            CaptionDirection::Left | CaptionDirection::Right => c.width,
++            _ => c.max_width,
++        };
++        let width = if width > 0 {
++            crate::renderer::hwpunit_to_px(width as i32, self.dpi)
++        } else {
++            fallback
++        };
++        self.paragraphs(&mut c.paragraphs, depth, width)
++    }
++    fn shape(&mut self, s: &mut ShapeObject, depth: usize, width: f64) -> Result<bool, HwpError> {
++        if depth > 64 {
++            return Err(Self::error(
++                "과도한 중첩 도형의 스타일은 안전하게 변경할 수 없습니다.",
++            ));
++        }
++        let mut changed = false;
++        let shape_width = crate::renderer::hwpunit_to_px(s.common().width as i32, self.dpi);
++        if let Some(d) = s.drawing_mut() {
++            if let Some(t) = &mut d.text_box {
++                changed |= self.paragraphs(
++                    &mut t.paragraphs,
++                    depth + 1,
++                    (shape_width
++                        - crate::renderer::hwpunit_to_px(
++                            t.margin_left as i32 + t.margin_right as i32,
++                            self.dpi,
++                        ))
++                    .max(0.0),
++                )?;
++            }
++            if let Some(c) = &mut d.caption {
++                changed |= self.caption(c, depth + 1, width)?;
++            }
++        }
++        match s {
++            ShapeObject::Group(g) => {
++                for s in &mut g.children {
++                    changed |= self.shape(s, depth + 1, width)?;
++                }
++                if let Some(c) = &mut g.caption {
++                    changed |= self.caption(c, depth + 1, width)?;
++                }
++            }
++            ShapeObject::Picture(p) => {
++                if let Some(c) = &mut p.caption {
++                    changed |= self.caption(c, depth + 1, width)?;
++                }
++            }
++            ShapeObject::Chart(p) => {
++                if let Some(c) = &mut p.caption {
++                    changed |= self.caption(c, depth + 1, width)?;
++                }
++            }
++            ShapeObject::Ole(p) => {
++                if let Some(c) = &mut p.caption {
++                    changed |= self.caption(c, depth + 1, width)?;
++                }
++            }
++            _ => {}
++        }
++        Ok(changed)
++    }
++    fn control(&mut self, c: &mut Control, depth: usize, width: f64) -> Result<bool, HwpError> {
++        if depth > 64 {
++            return Err(Self::error(
++                "과도한 중첩 개체의 스타일은 안전하게 변경할 수 없습니다.",
++            ));
++        }
++        match c {
++            Control::Table(t) => {
++                let mut changed = false;
++                let metrics = DocumentCore::table_cell_reflow_metrics(t);
++                for (c, (owner, left, right)) in t.cells.iter_mut().zip(metrics) {
++                    let cell_width = crate::renderer::hwpunit_to_px(
++                        owner - left as i32 - right as i32,
++                        self.dpi,
++                    )
++                    .max(0.0);
++                    changed |= self.paragraphs(&mut c.paragraphs, depth, cell_width)?;
++                }
++                if let Some(c) = &mut t.caption {
++                    changed |= self.caption(c, depth, width)?;
++                }
++                if changed {
++                    t.dirty = true;
++                }
++                Ok(changed)
++            }
++            Control::Shape(s) => self.shape(s, depth, width),
++            Control::Picture(p) => {
++                if let Some(c) = &mut p.caption {
++                    self.caption(c, depth, width)
++                } else {
++                    Ok(false)
++                }
++            }
++            Control::Header(h) => self.paragraphs(&mut h.paragraphs, depth, width),
++            Control::Footer(h) => self.paragraphs(&mut h.paragraphs, depth, width),
++            Control::Footnote(h) => self.paragraphs(&mut h.paragraphs, depth, width),
++            Control::Endnote(h) => self.paragraphs(&mut h.paragraphs, depth, width),
++            Control::HiddenComment(h) => self.paragraphs(&mut h.paragraphs, depth, width),
++            Control::Field(h) => self.paragraphs(&mut h.memo_paragraphs, depth, width),
++            Control::SectionDef(s) => {
++                if !s.master_pages.is_empty() {
++                    return Err(Self::error(
++                        "바탕쪽이 포함된 문서의 스타일 모양 변경은 아직 지원하지 않습니다.",
++                    ));
++                }
++                if s.extra_child_records
++                    .iter()
++                    .any(|r| r.tag_id == crate::parser::tags::HWPTAG_PARA_HEADER)
++                {
++                    return Err(Self::error(
++                        "모델링되지 않은 문단의 스타일 참조가 있어 변경하지 않았습니다.",
++                    ));
++                }
++                let mut changed = false;
++                for m in &mut s.master_pages {
++                    changed |= self.paragraphs(&mut m.paragraphs, depth, width)?;
++                }
++                Ok(changed)
++            }
++            Control::Ruby(r) => {
++                let old = r.style_id_ref as usize;
++                if old >= self.count || old == self.target {
++                    return Err(Self::error(
++                        "덧말의 스타일 참조를 안전하게 변경할 수 없습니다.",
++                    ));
++                }
++                Ok(false)
++            }
++            Control::Unknown(_) => Err(Self::error(
++                "알 수 없는 개체가 있어 스타일 참조를 안전하게 바꿀 수 없습니다.",
++            )),
++            _ => Ok(false),
++        }
++    }
++}
++impl DocumentCore {
++    /// Validate and propagate on a clone; no document/cache changes on rejection.
++    pub fn update_style_shapes_native(
++        &mut self,
++        style_id: usize,
++        char_json: &str,
++        para_json: &str,
++    ) -> Result<String, HwpError> {
++        let normalize = |s: &str| -> Result<String, HwpError> {
++            let v: serde_json::Value =
++                serde_json::from_str(if s.trim().is_empty() { "{}" } else { s })
++                    .map_err(|_| Propagate::error("잘못된 스타일 모양 JSON입니다."))?;
++            if !v.is_object() {
++                return Err(Propagate::error("스타일 모양은 JSON 객체여야 합니다."));
++            }
++            Ok(v.to_string())
++        };
++        let char_json = normalize(char_json)?;
++        let para_json = normalize(para_json)?;
++        let info = &self.document.doc_info;
++        if style_id >= info.styles.len()
++            || info.styles.len() > 256
++            || info.styles.iter().any(|s| {
++                s.style_type > 1
++                    || s.next_style_id as usize >= info.styles.len()
++                    || s.char_shape_id as usize >= info.char_shapes.len()
++                    || s.para_shape_id as usize >= info.para_shapes.len()
++            })
++            || info
++                .extra_records
++                .iter()
++                .any(|r| r.tag_id == crate::parser::tags::HWPTAG_STYLE)
++        {
++            return Err(Propagate::error(
++                "스타일 정의에 잘못되거나 지원하지 않는 참조가 있어 변경하지 않았습니다.",
++            ));
++        }
++        let old = info.styles[style_id].clone();
++        let char_mods = parse_char_shape_mods(&char_json);
++        let para_mods = parse_para_shape_mods(&para_json);
++        let new_char = char_mods.apply_to(&info.char_shapes[old.char_shape_id as usize]);
++        let new_para = para_mods.apply_to(&info.para_shapes[old.para_shape_id as usize]);
++        let char_changed = new_char != info.char_shapes[old.char_shape_id as usize];
++        // Character styles never alter paragraph shape definitions or references.
++        let para_changed =
++            old.style_type == 0 && new_para != info.para_shapes[old.para_shape_id as usize];
++        if (char_changed && info.char_shapes.len() > u16::MAX as usize)
++            || (para_changed && info.para_shapes.len() > u16::MAX as usize)
++        {
++            return Err(Propagate::error(
++                "스타일 모양 ID 범위를 초과하여 변경하지 않았습니다.",
++            ));
++        }
++        let mut candidate = self.document.clone();
++        if char_changed {
++            let id = candidate.doc_info.char_shapes.len() as u16;
++            candidate.doc_info.char_shapes.push(new_char);
++            candidate.doc_info.styles[style_id].char_shape_id = id;
++        }
++        if para_changed {
++            let id = candidate.doc_info.para_shapes.len() as u16;
++            candidate.doc_info.para_shapes.push(new_para);
++            candidate.doc_info.styles[style_id].para_shape_id = id;
++        }
++        let updated = &candidate.doc_info.styles[style_id];
++        let resolved = resolve_styles_for_document(&candidate, self.dpi);
++        let mut propagation = Propagate {
++            target: style_id,
++            count: candidate.doc_info.styles.len(),
++            old_char: old.char_shape_id as u32,
++            new_char: updated.char_shape_id as u32,
++            old_para: old.para_shape_id,
++            new_para: updated.para_shape_id,
++            paragraph_style: old.style_type == 0,
++            reflow: (char_changed && char_shape_mods_affect_text_flow(&char_mods))
++                || (para_changed
++                    && (para_shape_mods_affect_text_flow(&para_mods)
++                        || para_mods.spacing_before.is_some()
++                        || para_mods.spacing_after.is_some())),
++            char_count: self.document.doc_info.char_shapes.len(),
++            para_count: self.document.doc_info.para_shapes.len(),
++            styles: &resolved,
++            dpi: self.dpi,
++            is_hwp3_variant: self.document.layout_profile().hwp3_layout(),
++            report: ShapeReport::default(),
++        };
++        for section in &mut candidate.sections {
++            if !section.section_def.master_pages.is_empty()
++                || section
++                    .section_def
++                    .extra_child_records
++                    .iter()
++                    .any(|r| r.tag_id == crate::parser::tags::HWPTAG_PARA_HEADER)
++            {
++                return Err(Propagate::error(
++                    "바탕쪽 또는 모델링되지 않은 문단의 스타일 모양 변경은 아직 지원하지 않습니다.",
++                ));
++            }
++            let page = &section.section_def.page_def;
++            let width = crate::renderer::hwpunit_to_px(
++                (page.width as i64 - page.margin_left as i64 - page.margin_right as i64)
++                    .clamp(0, i32::MAX as i64) as i32,
++                self.dpi,
++            );
++            // Body paragraphs are reflowed below with their actual column boxes.
++            let reflow = propagation.reflow;
++            for p in &mut section.paragraphs {
++                let controls = std::mem::take(&mut p.controls);
++                propagation.reflow = false;
++                propagation.paragraphs(std::slice::from_mut(p), 0, width)?;
++                p.controls = controls;
++                propagation.reflow = reflow;
++                for c in &mut p.controls {
++                    propagation.control(c, 1, width)?;
++                }
++            }
++            if char_changed || para_changed {
++                section.raw_stream = None;
++            }
++        }
++        let report = serde_json::json!({"ok":true,"styleId":style_id,"paragraphsUpdated":propagation.report.paragraphs_updated});
++        if !char_changed && !para_changed {
++            return Ok(report.to_string());
++        }
++        candidate.doc_info.styles[style_id].raw_data = None;
++        candidate.doc_info.raw_stream_dirty = true;
++        let reflow = propagation.reflow;
++        let new_char = propagation.new_char;
++        let new_para = propagation.new_para;
++        let old_char = propagation.old_char;
++        self.document = candidate;
++        self.rebuild_resolved_styles();
++        for sec in 0..self.document.sections.len() {
++            if reflow {
++                for para in 0..self.document.sections[sec].paragraphs.len() {
++                    let p = &self.document.sections[sec].paragraphs[para];
++                    if p.style_id as usize == style_id
++                        && (p.para_shape_id == new_para && old.para_shape_id != new_para
++                            || p.char_shapes.iter().any(|r| r.char_shape_id == new_char)
++                                && old_char != new_char)
++                    {
++                        self.reflow_body_paragraph(sec, para);
++                    }
++                }
++            }
++            self.rebuild_section(sec);
++        }
++        self.invalidate_page_tree_cache();
++        Ok(report.to_string())
++    }
++}
+--- a/engine/src/document_core/commands/text_editing.rs
++++ b/engine/src/document_core/commands/text_editing.rs
+@@ -23,7 +23,7 @@
+ 
+ pub(crate) type CellReflowMetrics = (i32, i16, i16);
+ 
+-fn recalculate_cell_paragraph_vpos(
++pub(super) fn recalculate_cell_paragraph_vpos(
+     paragraphs: &mut [Paragraph],
+     start_para: usize,
+     ignore_reset_at: Option<usize>,
+--- a/engine/src/wasm_api.rs
++++ b/engine/src/wasm_api.rs
+@@ -7284,139 +7284,22 @@
+         char_mods_json: &str,
+         para_mods_json: &str,
+     ) -> bool {
+-        let styles = &self.core.document.doc_info.styles;
+-        let style = match styles.get(style_id as usize) {
+-            Some(s) => s.clone(),
+-            None => return false,
+-        };
+-        let old_csid = style.char_shape_id as u32;
+-        let old_psid = style.para_shape_id;
+-        let style_type = style.style_type;
+-
+-        // CharShape 수정
+-        if !char_mods_json.is_empty() && char_mods_json != "{}" {
+-            let char_mods = crate::document_core::helpers::parse_char_shape_mods(char_mods_json);
+-            if let Some(cs) = self
+-                .core
+-                .document
+-                .doc_info
+-                .char_shapes
+-                .get(style.char_shape_id as usize)
+-            {
+-                let new_cs = char_mods.apply_to(cs);
+-                // 새 CharShape를 추가하고 스타일에 연결
+-                self.core.document.doc_info.char_shapes.push(new_cs);
+-                let new_id = (self.core.document.doc_info.char_shapes.len() - 1) as u16;
+-                self.core.document.doc_info.styles[style_id as usize].char_shape_id = new_id;
+-            }
+-        }
+-
+-        // ParaShape 수정
+-        if !para_mods_json.is_empty() && para_mods_json != "{}" {
+-            let para_mods = crate::document_core::helpers::parse_para_shape_mods(para_mods_json);
+-            if let Some(ps) = self
+-                .core
+-                .document
+-                .doc_info
+-                .para_shapes
+-                .get(style.para_shape_id as usize)
+-            {
+-                let new_ps = para_mods.apply_to(ps);
+-                self.core.document.doc_info.para_shapes.push(new_ps);
+-                let new_id = (self.core.document.doc_info.para_shapes.len() - 1) as u16;
+-                self.core.document.doc_info.styles[style_id as usize].para_shape_id = new_id;
+-            }
+-        }
+-
+-        // raw_data 무효화
+-        self.core.document.doc_info.styles[style_id as usize].raw_data = None;
+-        self.core.document.doc_info.raw_stream_dirty = true;
+-
+-        let sid = style_id as u8;
+-        let mut body_targets = Vec::new();
+-        let mut cell_targets = Vec::new();
+-        for (sec_idx, section) in self.core.document.sections.iter().enumerate() {
+-            for (para_idx, para) in section.paragraphs.iter().enumerate() {
+-                if para.style_id == sid {
+-                    body_targets.push((sec_idx, para_idx));
+-                }
+-                for (control_idx, ctrl) in para.controls.iter().enumerate() {
+-                    if let Control::Table(table) = ctrl {
+-                        for (cell_idx, cell) in table.cells.iter().enumerate() {
+-                            for (cell_para_idx, cpara) in cell.paragraphs.iter().enumerate() {
+-                                if cpara.style_id == sid {
+-                                    cell_targets.push((
+-                                        sec_idx,
+-                                        para_idx,
+-                                        control_idx,
+-                                        cell_idx,
+-                                        cell_para_idx,
+-                                    ));
+-                                }
+-                            }
+-                        }
+-                    }
+-                }
+-            }
+-        }
+-
+-        // ── 스타일 변경을 해당 스타일을 사용하는 모든 문단에 전파 ──
+-        let updated_style = self.core.document.doc_info.styles[style_id as usize].clone();
+-        let new_csid = updated_style.char_shape_id as u32;
+-        let new_psid = updated_style.para_shape_id;
+-
+-        for (sec_idx, para_idx) in body_targets {
+-            if let Some(para) = self
+-                .core
+-                .document
+-                .sections
+-                .get_mut(sec_idx)
+-                .and_then(|s| s.paragraphs.get_mut(para_idx))
+-            {
+-                if style_type == 0 && para.para_shape_id == old_psid {
+-                    para.para_shape_id = new_psid;
+-                }
+-                para.replace_style_char_shape_preserving_overrides(old_csid, new_csid);
+-            }
+-            self.core.reflow_body_paragraph(sec_idx, para_idx);
+-            if let Some(section) = self.core.document.sections.get_mut(sec_idx) {
+-                section.raw_stream = None;
+-            }
+-        }
+-
+-        for (sec_idx, para_idx, control_idx, cell_idx, cell_para_idx) in cell_targets {
+-            if let Ok(cpara) = self.core.get_cell_paragraph_mut(
+-                sec_idx,
+-                para_idx,
+-                control_idx,
+-                cell_idx,
+-                cell_para_idx,
+-            ) {
+-                if style_type == 0 && cpara.para_shape_id == old_psid {
+-                    cpara.para_shape_id = new_psid;
+-                }
+-                cpara.replace_style_char_shape_preserving_overrides(old_csid, new_csid);
+-            }
+-            self.core.reflow_cell_paragraph(
+-                sec_idx,
+-                para_idx,
+-                control_idx,
+-                cell_idx,
+-                cell_para_idx,
+-            );
+-            self.core
+-                .mark_cell_control_dirty(sec_idx, para_idx, control_idx);
+-            if let Some(section) = self.core.document.sections.get_mut(sec_idx) {
+-                section.raw_stream = None;
+-            }
+-        }
+-
+-        // 스타일 캐시 무효화 + 전체 리빌드
+-        let num_sections = self.core.document.sections.len();
+-        for sec_idx in 0..num_sections {
+-            self.core.rebuild_section(sec_idx);
+-        }
+-        true
++        self.core
++            .update_style_shapes_native(style_id as usize, char_mods_json, para_mods_json)
++            .is_ok()
++    }
++
++    /// Result API exposes rejection reasons without mutating unsupported documents.
++    #[wasm_bindgen(js_name = updateStyleShapesPreservingOverrides)]
++    pub fn update_style_shapes_preserving_overrides(
++        &mut self,
++        style_id: u32,
++        char_json: &str,
++        para_json: &str,
++    ) -> Result<String, JsValue> {
++        self.core
++            .update_style_shapes_native(style_id as usize, char_json, para_json)
++            .map_err(|e| JsValue::from_str(&e.to_string()))
+     }
+ 
+     /// 새 스타일을 생성한다.
+--- a/rhwp-studio/src/core/wasm-bridge.ts
++++ b/rhwp-studio/src/core/wasm-bridge.ts
+@@ -2909,6 +2909,12 @@
+     return (this.doc as any).updateStyleShapes(styleId, charModsJson, paraModsJson);
+   }
+ 
++  updateStyleShapesPreservingOverrides(styleId: number, charModsJson: string, paraModsJson: string): {ok: boolean; paragraphsUpdated: number} {
++    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
++    return JSON.parse((this.doc as any).updateStyleShapesPreservingOverrides(styleId, charModsJson, paraModsJson));
++  }
++
++
+   createStyle(json: string): number {
+     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+--- a/rhwp-studio/src/core/mutation-method-registry.ts
++++ b/rhwp-studio/src/core/mutation-method-registry.ts
+@@ -61,7 +61,7 @@
+   'setCharShapeIdInCell', 'setCharShapeIdInCellByPath',
+   'applyParaFormat', 'setParaShapeId', 'applyParaFormatInCell', 'setCellParaShapeId',
+   // 스타일/번호 정의 (DocInfo 변이 포함)
+-  'updateStyle', 'updateStyleShapes', 'createStyle', 'deleteStyle', 'deleteStylePreservingFormat', 'applyStyle',
++  'updateStyle', 'updateStyleShapes', 'updateStyleShapesPreservingOverrides', 'createStyle', 'deleteStyle', 'deleteStylePreservingFormat', 'applyStyle',
+   'applyCellStyle', 'createNumbering', 'ensureDefaultNumbering', 'ensureDefaultBullet',
+   'findOrCreateFontId', 'findOrCreateFontIdForLang',
+   // 머리말/꼬리말
+--- a/rhwp-studio/src/ui/style-edit-dialog.ts
++++ b/rhwp-studio/src/ui/style-edit-dialog.ts
+@@ -1,3 +1,4 @@
++import { showToast } from './toast';
+ /**
+  * 스타일 편집/추가 서브 대화상자 (StyleEditDialog)
+  *
+@@ -299,6 +300,9 @@
+     // undo 가 두 번 필요하고 그 사이에 모양만 빠진 스타일이 남는다 — #2366 계산식과 동형으로
+     // 한 스냅샷 안에서 둘을 끝낸다.
+     const apply = (wasm: WasmBridge): boolean => {
++      // Metadata/create and propagation must roll back together, including fallback callers.
++      const rollback = wasm.saveSnapshot();
++      try {
+       if (this.addMode) {
+         const baseParaShapeId = this.baseInfo.paraProps?.paraShapeId;
+         const baseCharShapeId = this.baseInfo.charProps?.charShapeId;
+@@ -307,8 +311,9 @@
+           ...(typeof baseParaShapeId === 'number' ? { baseParaShapeId } : {}),
+           ...(typeof baseCharShapeId === 'number' ? { baseCharShapeId } : {}),
+         }));
++        if (newId < 0) throw new Error('[StyleEditDialog] 스타일 생성 실패');
+         if (this.charModsJson !== '{}' || this.paraModsJson !== '{}') {
+-          if (!wasm.updateStyleShapes(newId, this.charModsJson, this.paraModsJson)) {
++          if (!wasm.updateStyleShapesPreservingOverrides(newId, this.charModsJson, this.paraModsJson).ok) {
+             throw new Error('[StyleEditDialog] 생성한 스타일의 모양 적용 실패');
+           }
+         }
+@@ -321,11 +326,17 @@
+           return false;
+         }
+         if (this.charModsJson !== '{}' || this.paraModsJson !== '{}') {
+-          if (!wasm.updateStyleShapes(this.styleInfo.id, this.charModsJson, this.paraModsJson)) {
++          if (!wasm.updateStyleShapesPreservingOverrides(this.styleInfo.id, this.charModsJson, this.paraModsJson).ok) {
+             throw new Error('[StyleEditDialog] 스타일 모양 적용 실패');
+           }
+         }
+         return true;
++      }
++      } catch (err) {
++        wasm.restoreSnapshot(rollback);
++        throw err;
++      } finally {
++        wasm.discardSnapshot(rollback);
+       }
+     };
+ 
+@@ -351,6 +362,7 @@
+       this.onSave?.();
+       return true;
+     } catch (err) {
++      showToast({message: String(err), durationMs: 7000});
+       console.warn('[StyleEditDialog] 저장 실패:', err);
+       return false;
+     }

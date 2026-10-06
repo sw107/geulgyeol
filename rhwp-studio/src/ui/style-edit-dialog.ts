@@ -1,3 +1,4 @@
+import { showToast } from './toast';
 /**
  * 스타일 편집/추가 서브 대화상자 (StyleEditDialog)
  *
@@ -299,6 +300,9 @@ export class StyleEditDialog extends ModalDialog {
     // undo 가 두 번 필요하고 그 사이에 모양만 빠진 스타일이 남는다 — #2366 계산식과 동형으로
     // 한 스냅샷 안에서 둘을 끝낸다.
     const apply = (wasm: WasmBridge): boolean => {
+      // Metadata/create and propagation must roll back together, including fallback callers.
+      const rollback = wasm.saveSnapshot();
+      try {
       if (this.addMode) {
         const baseParaShapeId = this.baseInfo.paraProps?.paraShapeId;
         const baseCharShapeId = this.baseInfo.charProps?.charShapeId;
@@ -307,8 +311,9 @@ export class StyleEditDialog extends ModalDialog {
           ...(typeof baseParaShapeId === 'number' ? { baseParaShapeId } : {}),
           ...(typeof baseCharShapeId === 'number' ? { baseCharShapeId } : {}),
         }));
+        if (newId < 0) throw new Error('[StyleEditDialog] 스타일 생성 실패');
         if (this.charModsJson !== '{}' || this.paraModsJson !== '{}') {
-          if (!wasm.updateStyleShapes(newId, this.charModsJson, this.paraModsJson)) {
+          if (!wasm.updateStyleShapesPreservingOverrides(newId, this.charModsJson, this.paraModsJson).ok) {
             throw new Error('[StyleEditDialog] 생성한 스타일의 모양 적용 실패');
           }
         }
@@ -321,11 +326,17 @@ export class StyleEditDialog extends ModalDialog {
           return false;
         }
         if (this.charModsJson !== '{}' || this.paraModsJson !== '{}') {
-          if (!wasm.updateStyleShapes(this.styleInfo.id, this.charModsJson, this.paraModsJson)) {
+          if (!wasm.updateStyleShapesPreservingOverrides(this.styleInfo.id, this.charModsJson, this.paraModsJson).ok) {
             throw new Error('[StyleEditDialog] 스타일 모양 적용 실패');
           }
         }
         return true;
+      }
+      } catch (err) {
+        wasm.restoreSnapshot(rollback);
+        throw err;
+      } finally {
+        wasm.discardSnapshot(rollback);
       }
     };
 
@@ -351,6 +362,7 @@ export class StyleEditDialog extends ModalDialog {
       this.onSave?.();
       return true;
     } catch (err) {
+      showToast({message: String(err), durationMs: 7000});
       console.warn('[StyleEditDialog] 저장 실패:', err);
       return false;
     }
