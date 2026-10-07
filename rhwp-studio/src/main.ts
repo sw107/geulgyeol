@@ -32,7 +32,7 @@ import { editCommands } from '@/command/commands/edit';
 import { syncClipMenu, syncTextMarkMenu, syncToolboxMenu, viewCommands } from '@/command/commands/view';
 import { formatCommands } from '@/command/commands/format';
 import { insertCommands } from '@/command/commands/insert';
-import { tableCommands } from '@/command/commands/table';
+import { tableCommands, nestedTableRowAvailability } from '@/command/commands/table';
 import { pageCommands } from '@/command/commands/page';
 import { toolCommands } from '@/command/commands/tool';
 import { installPwaFileHandling, type FileHandlingWindowLike } from '@/command/pwa-file-handling';
@@ -258,6 +258,7 @@ function getContext(): EditorContext {
       inputHandler?.getCursorPosition().cellPath?.length ?? 0,
       inputHandler?.getCellTableContext()?.cellPath?.length ?? 0,
     ) > 1,
+    ...nestedTableRowAvailability(inputHandler, wasm),
     inCellSelectionMode: inputHandler?.isInCellSelectionMode() ?? false,
     hasMultiCellSelection: inputHandler?.hasMultiCellSelection() ?? false,
     hasTableTransposeClipboard: wasm.hasTableTransposeClipboard(),

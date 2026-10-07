@@ -5491,6 +5491,11 @@ export class InputHandler {
   /** 커서가 표 셀 내부인가? */
   isInTable(): boolean { return this.cursor.isInCell(); }
 
+  /** 경로 기반 표 구조 명령의 첫 지원 범위: 본문 셀만 허용한다. */
+  isInBodyTableCell(): boolean {
+    return this.cursor.isInCell() && !this.cursor.isInHeaderFooter() && !this.cursor.isInFootnote();
+  }
+
   /** 셀 선택 모드인가? */
   isInCellSelectionMode(): boolean { return this.cursor.isInCellSelectionMode(); }
 

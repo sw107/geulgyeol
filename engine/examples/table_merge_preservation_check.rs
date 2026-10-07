@@ -2,6 +2,8 @@
 #[allow(dead_code)]
 #[path = "common/nested_cells.rs"]
 mod nested_cells;
+#[path = "common/nested_table_rows_check.rs"]
+mod nested_table_rows_check;
 use rhwp::{
     document_core::DocumentCore,
     model::{
@@ -204,6 +206,11 @@ fn operation(d: &mut DocumentCore, p: usize, c: usize, op: &Value) {
         );
     } else {
         match op["kind"].as_str().unwrap() {
+            "nestedRow" => {
+                let path = op["path"].to_string();
+                let target: Value = serde_json::from_str(&d.get_nested_table_row_target_native(0, p, &path).unwrap()).unwrap();
+                d.edit_nested_table_row_native(0, p, &json!({"path":op["path"],"action":op["action"],"expectedToken":target["token"]}).to_string()).unwrap();
+            }
             "insertRow" => {
                 d.insert_table_row_native(0, p, c, index, after).unwrap();
             }
@@ -333,6 +340,10 @@ fn main() {
         }
         std::fs::write(out.join(proof_file),serde_json::to_vec_pretty(&json!({"independentSavedReopens":n,"nativeOperationReexecution":true,"fullParagraphsControlsFieldOwnersBinDataAndSVG":true,"typedDocInfoCompared":true})).unwrap()).unwrap();
         println!("Independent Native reopens {n}");
+        return;
+    }
+    if args.get(1).is_some_and(|s| s == "--nested-rows") {
+        nested_table_rows_check::run(out);
         return;
     }
     if args.get(1).is_some_and(|s| s == "--nested-fixtures") {

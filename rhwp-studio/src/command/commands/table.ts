@@ -22,6 +22,8 @@ import {
 
 const inTable = (ctx: EditorContext) => ctx.inTable;
 const inRootTable = (ctx: EditorContext) => ctx.inTable && !ctx.inNestedTable;
+const canInsertRow = (ctx: EditorContext) => inRootTable(ctx) || Boolean(ctx.inTable && ctx.canInsertNestedTableRow);
+const canDeleteRow = (ctx: EditorContext) => inRootTable(ctx) || Boolean(ctx.inTable && ctx.canDeleteNestedTableRow);
 const inTableOrCellSelection = (ctx: EditorContext) => ctx.inTable || ctx.inCellSelectionMode;
 const hasMultiCellSelection = (ctx: EditorContext) => ctx.hasMultiCellSelection;
 
@@ -33,13 +35,72 @@ type TableCellCommandContext = {
   cellInfo: ReturnType<CommandServices['wasm']['getCellInfo']>;
 };
 
+function nestedRowTarget(ih: TableCellCommandContext['ih'], wasm: CommandServices['wasm']) {
+  const pos = ih.getCursorPosition(), path = pos.cellPath, context = ih.getCellTableContext();
+  if (path?.length !== 2 || pos.parentParaIndex === undefined ||
+      ih.isInCellSelectionMode() || ih.hasSelection() || ih.isInTableObjectSelection() || !ih.isInBodyTableCell() ||
+      !context || context.sec !== pos.sectionIndex || context.ppi !== pos.parentParaIndex ||
+      context.ci !== pos.controlIndex || JSON.stringify(context.cellPath) !== JSON.stringify(path) ||
+      path[0].controlIndex !== pos.controlIndex || path[0].cellIndex !== pos.cellIndex ||
+      path[0].cellParaIndex !== pos.cellParaIndex || path[1].cellParaIndex !== pos.paragraphIndex) return null;
+  try { return wasm.getNestedTableRowTarget(pos.sectionIndex, pos.parentParaIndex, path); }
+  catch { return null; }
+}
+
+/** Used by current-source menu/dispatcher context, with the same strict gate as execute. */
+export function nestedTableRowAvailability(ih: ReturnType<CommandServices['getInputHandler']>, wasm: CommandServices['wasm']) {
+  const target = ih ? nestedRowTarget(ih, wasm) : null;
+  return { canInsertNestedTableRow: target?.canInsert ?? false, canDeleteNestedTableRow: target?.canDelete ?? false };
+}
+
+function executeTableRow(services: CommandServices, action: 'insertAbove' | 'insertBelow' | 'delete'): void {
+  const ih = services.getInputHandler();
+  if (!ih) return;
+  const pos = ih.getCursorPosition();
+  if (Math.max(pos.cellPath?.length ?? 0, ih.getCellTableContext()?.cellPath?.length ?? 0) > 1) {
+    const target = nestedRowTarget(ih, services.wasm);
+    if (!target || !(action === 'delete' ? target.canDelete : target.canInsert)) {
+      showToast({ message: '이 안쪽 표의 줄은 편집할 수 없습니다. 비병합 표의 셀을 선택하세요. 필드·개체가 있는 줄은 지울 수 없습니다.' });
+      return;
+    }
+    const path = pos.cellPath!.map(p => ({ ...p })), generation = services.wasm.documentGeneration;
+    safeTableOp(() => ih.executeOperation({
+      kind: 'snapshot', operationType: action === 'delete' ? 'deleteTableRow' : 'insertTableRow',
+      operation: (wasm) => {
+        const current = ih.getCursorPosition();
+        // Snapshot execution can be deferred by an input transaction. Never
+        // reinterpret a captured path after the cursor/document/host changes.
+        if (wasm.documentGeneration !== generation || JSON.stringify(current) !== JSON.stringify(pos) ||
+            nestedRowTarget(ih, wasm)?.token !== target.token) return null;
+        const result = wasm.editNestedTableRow(pos.sectionIndex, pos.parentParaIndex!, path, target.token, action);
+        const next = path.map(p => ({ ...p }));
+        next[1].cellIndex = result.cellIndex;
+        next[1].cellParaIndex = result.cellParaIndex;
+        return { ...pos, cellPath: next, paragraphIndex: result.cellParaIndex,
+          charOffset: action === 'delete' ? 0 : pos.charOffset };
+      },
+    }), action === 'delete' ? '안쪽 줄 지우기' : '안쪽 줄 추가');
+    return;
+  }
+  if (!allowRootTableStructure(ih) || pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return;
+  const cell = services.wasm.getCellInfo(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex, pos.cellIndex);
+  safeTableOp(() => ih.executeOperation({
+    kind: 'snapshot', operationType: action === 'delete' ? 'deleteTableRow' : 'insertTableRow',
+    operation: (wasm) => {
+      if (action === 'delete') wasm.deleteTableRow(pos.sectionIndex, pos.parentParaIndex!, pos.controlIndex!, cell.row);
+      else wasm.insertTableRow(pos.sectionIndex, pos.parentParaIndex!, pos.controlIndex!, cell.row, action === 'insertBelow');
+      return pos;
+    },
+  }), action === 'delete' ? '줄 지우기' : '줄 추가');
+}
+
 // Structural APIs below address a root table only. Never discard an inner
 // cellPath and silently reinterpret its coordinates as a root-table target.
 function allowRootTableStructure(ih: TableCellCommandContext['ih']): boolean {
   const pos = ih.getCursorPosition();
   const context = ih.getCellTableContext();
   if ((pos.cellPath?.length ?? 0) > 1 || (context?.cellPath?.length ?? 0) > 1) {
-    showToast({ message: '안쪽 표의 셀 병합·나누기와 줄·칸 편집은 아직 지원하지 않습니다.' });
+    showToast({ message: '이 안쪽 표 구조 명령은 아직 지원하지 않습니다.' });
     return false;
   }
   const axis = pos.cellPath?.[0];
@@ -525,42 +586,14 @@ export const tableCommands: CommandDef[] = [
   {
     id: 'table:insert-row-above',
     label: '위쪽에 줄 추가하기',
-    canExecute: inRootTable,
-    execute(services) {
-      const ih = services.getInputHandler();
-      if (!ih || !allowRootTableStructure(ih)) return;
-      const pos = ih.getCursorPosition();
-      if (pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return;
-      const cellInfo = services.wasm.getCellInfo(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex, pos.cellIndex);
-      safeTableOp(() => ih.executeOperation({
-        kind: 'snapshot',
-        operationType: 'insertTableRow',
-        operation: (wasm) => {
-          wasm.insertTableRow(pos.sectionIndex, pos.parentParaIndex!, pos.controlIndex!, cellInfo.row, false);
-          return pos;
-        },
-      }), '줄 추가');
-    },
+    canExecute: canInsertRow,
+    execute(services) { executeTableRow(services, 'insertAbove'); },
   },
   {
     id: 'table:insert-row-below',
     label: '아래쪽에 줄 추가하기',
-    canExecute: inRootTable,
-    execute(services) {
-      const ih = services.getInputHandler();
-      if (!ih || !allowRootTableStructure(ih)) return;
-      const pos = ih.getCursorPosition();
-      if (pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return;
-      const cellInfo = services.wasm.getCellInfo(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex, pos.cellIndex);
-      safeTableOp(() => ih.executeOperation({
-        kind: 'snapshot',
-        operationType: 'insertTableRow',
-        operation: (wasm) => {
-          wasm.insertTableRow(pos.sectionIndex, pos.parentParaIndex!, pos.controlIndex!, cellInfo.row, true);
-          return pos;
-        },
-      }), '줄 추가');
-    },
+    canExecute: canInsertRow,
+    execute(services) { executeTableRow(services, 'insertBelow'); },
   },
   {
     id: 'table:insert-col-left',
@@ -605,22 +638,8 @@ export const tableCommands: CommandDef[] = [
   {
     id: 'table:delete-row',
     label: '줄 지우기',
-    canExecute: inRootTable,
-    execute(services) {
-      const ih = services.getInputHandler();
-      if (!ih || !allowRootTableStructure(ih)) return;
-      const pos = ih.getCursorPosition();
-      if (pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return;
-      const cellInfo = services.wasm.getCellInfo(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex, pos.cellIndex);
-      safeTableOp(() => ih.executeOperation({
-        kind: 'snapshot',
-        operationType: 'deleteTableRow',
-        operation: (wasm) => {
-          wasm.deleteTableRow(pos.sectionIndex, pos.parentParaIndex!, pos.controlIndex!, cellInfo.row);
-          return pos;
-        },
-      }), '줄 지우기');
-    },
+    canExecute: canDeleteRow,
+    execute(services) { executeTableRow(services, 'delete'); },
   },
   {
     id: 'table:delete-col',

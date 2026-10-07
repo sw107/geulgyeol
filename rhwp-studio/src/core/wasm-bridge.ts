@@ -2068,6 +2068,22 @@ export class WasmBridge {
     return JSON.parse(this.doc.insertTableRow(sec, parentPara, controlIdx, rowIdx, below));
   }
 
+  getNestedTableRowTarget(sec: number, parent: number, path: CellPathEntry[]): {
+    ok: boolean; token: string; row: number; col: number; rowCount: number; colCount: number;
+    canInsert: boolean; canDelete: boolean;
+  } {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse(this.doc.getNestedTableRowTarget(sec, parent, JSON.stringify(path)));
+  }
+
+  editNestedTableRow(sec: number, parent: number, path: CellPathEntry[], expectedToken: string,
+    action: 'insertAbove' | 'insertBelow' | 'delete'): {
+    ok: boolean; rowCount: number; colCount: number; cellIndex: number; cellParaIndex: number;
+  } {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse(this.doc.editNestedTableRow(sec, parent, JSON.stringify({ path, expectedToken, action })));
+  }
+
   insertTableColumn(sec: number, parentPara: number, controlIdx: number, colIdx: number, right: boolean): { ok: boolean; rowCount: number; colCount: number } {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     return JSON.parse(this.doc.insertTableColumn(sec, parentPara, controlIdx, colIdx, right));

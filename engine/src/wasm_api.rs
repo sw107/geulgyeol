@@ -2186,6 +2186,38 @@ impl HwpDocument {
         .map_err(|e| e.into())
     }
 
+    /// Query a guarded depth-two body-table row target.
+    #[wasm_bindgen(js_name = getNestedTableRowTarget)]
+    pub fn get_nested_table_row_target(
+        &self,
+        section: f64,
+        parent: f64,
+        path_json: &str,
+    ) -> Result<String, JsValue> {
+        self.get_nested_table_row_target_native(
+            table_edit_index(section, u32::MAX)?,
+            table_edit_index(parent, u32::MAX)?,
+            path_json,
+        )
+        .map_err(|e| e.into())
+    }
+
+    /// Insert above/below or delete a reference-free row using its query token.
+    #[wasm_bindgen(js_name = editNestedTableRow)]
+    pub fn edit_nested_table_row(
+        &mut self,
+        section: f64,
+        parent: f64,
+        options_json: &str,
+    ) -> Result<String, JsValue> {
+        self.edit_nested_table_row_native(
+            table_edit_index(section, u32::MAX)?,
+            table_edit_index(parent, u32::MAX)?,
+            options_json,
+        )
+        .map_err(|e| e.into())
+    }
+
     /// 표에 열을 삽입한다.
     ///
     /// 반환값: JSON `{"ok":true,"rowCount":<N>,"colCount":<M>}`
