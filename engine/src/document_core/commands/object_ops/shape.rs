@@ -333,6 +333,122 @@ impl DocumentCore {
             )),
         }
     }
+    fn body_rectangle_width_target(
+        &self,
+        sec: usize,
+        para: usize,
+        ci: usize,
+    ) -> Result<&ShapeObject, HwpError> {
+        let section = self
+            .document
+            .sections
+            .get(sec)
+            .ok_or_else(|| HwpError::RenderError("본문 구역 범위 초과".into()))?;
+        if section.section_def.text_direction != 0 || para >= section.paragraphs.len() {
+            return Err(HwpError::RenderError("가로 본문 문단만 지원합니다".into()));
+        }
+        let p = &section.paragraphs[para];
+        let info = &self.document.doc_info;
+        if p.para_shape_id as usize >= info.para_shapes.len()
+            || p.style_id as usize >= info.styles.len()
+            || p.char_shapes
+                .iter()
+                .any(|c| c.char_shape_id as usize >= info.char_shapes.len())
+        {
+            return Err(HwpError::RenderError(
+                "본문 사각형 문단의 서식 참조 범위 초과".into(),
+            ));
+        }
+        let shape = self.resolve_shape_control_ref(sec, para, ci)?;
+        if !shape.supports_body_rectangle_width() {
+            return Err(HwpError::RenderError(
+                "변환/흐름/글상자/캡션 없는 본문 사각형만 지원합니다".into(),
+            ));
+        }
+        Ok(shape)
+    }
+
+    /// Width and basis form one atomic value; relative widths use 1/100 percent.
+    pub fn get_body_rectangle_width_native(
+        &self,
+        sec: usize,
+        para: usize,
+        ci: usize,
+    ) -> Result<String, HwpError> {
+        let c = self.body_rectangle_width_target(sec, para, ci)?.common();
+        Ok(
+            serde_json::json!({"width":c.width,"widthCriterion":format!("{:?}",c.width_criterion)})
+                .to_string(),
+        )
+    }
+
+    /// Explicit width units, without extending the generic shape/cell setters.
+    pub fn set_body_rectangle_width_native(
+        &mut self,
+        sec: usize,
+        para: usize,
+        ci: usize,
+        props: &str,
+    ) -> Result<String, HwpError> {
+        use crate::model::shape::SizeCriterion;
+        let error = |s: &str| HwpError::RenderError(s.into());
+        let v: serde_json::Value =
+            serde_json::from_str(props).map_err(|_| error("잘못된 사각형 너비 JSON"))?;
+        let fields = v
+            .as_object()
+            .ok_or_else(|| error("사각형 너비 객체가 필요합니다"))?;
+        if fields.len() != 2
+            || !fields.contains_key("width")
+            || !fields.contains_key("widthCriterion")
+        {
+            return Err(error("width와 widthCriterion만 함께 지정해야 합니다"));
+        }
+        let basis = match v["widthCriterion"].as_str() {
+            Some("Absolute") => SizeCriterion::Absolute,
+            Some("Paper") => SizeCriterion::Paper,
+            Some("Page") => SizeCriterion::Page,
+            Some("Column") => SizeCriterion::Column,
+            Some("Para") => SizeCriterion::Para,
+            _ => return Err(error("지원하지 않는 너비 기준")),
+        };
+        let width = v["width"]
+            .as_u64()
+            .filter(|w| *w >= u64::from(MIN_SHAPE_SIZE) && *w <= i32::MAX as u64)
+            .ok_or_else(|| error("사각형 너비 범위 초과"))? as u32;
+        if basis != SizeCriterion::Absolute && width > 10000
+            || basis == SizeCriterion::Para && width != 10000
+        {
+            return Err(error(
+                "문단 너비는100%, 다른 상대 너비는2~100%만 지원합니다",
+            ));
+        }
+        self.body_rectangle_width_target(sec, para, ci)?;
+        let Control::Shape(shape) = &mut self.document.sections[sec].paragraphs[para].controls[ci]
+        else {
+            unreachable!()
+        };
+        let ShapeObject::Rectangle(r) = shape.as_mut() else {
+            unreachable!()
+        };
+        r.common.width = width;
+        r.common.width_criterion = basis;
+        Self::sync_common_obj_attr_known_bits(&mut r.common);
+        r.drawing.shape_attr.original_width = width;
+        r.drawing.shape_attr.current_width = width;
+        r.drawing.shape_attr.rotation_center.x = (width / 2) as i32;
+        r.x_coords = [0, width as i32, width as i32, 0];
+        self.document.sections[sec].raw_stream = None;
+        self.recompose_section(sec);
+        self.paginate_if_needed();
+        self.invalidate_page_tree_cache();
+        self.event_log.push(DocumentEvent::PictureResized {
+            section: sec,
+            para,
+            ctrl: ci,
+        });
+        Ok("{\"ok\":true}".into())
+    }
+
     /// 글상자(Shape) 속성 조회 (네이티브).
     pub fn get_shape_properties_native(
         &self,

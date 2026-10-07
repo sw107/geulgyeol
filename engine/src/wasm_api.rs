@@ -4662,6 +4662,31 @@ impl HwpDocument {
         .map_err(|e| e.into())
     }
 
+    /// Narrow body rectangle width/basis query (absolute HWPUNIT or relative 1/100 percent).
+    #[wasm_bindgen(js_name = getBodyRectangleWidth)]
+    pub fn get_body_rectangle_width(
+        &self,
+        sec: u32,
+        para: u32,
+        ci: u32,
+    ) -> Result<String, JsValue> {
+        self.get_body_rectangle_width_native(sec as usize, para as usize, ci as usize)
+            .map_err(Into::into)
+    }
+
+    /// Only a plain floating body rectangle; Para currently requires width=10000.
+    #[wasm_bindgen(js_name = setBodyRectangleWidth)]
+    pub fn set_body_rectangle_width(
+        &mut self,
+        sec: u32,
+        para: u32,
+        ci: u32,
+        props: &str,
+    ) -> Result<String, JsValue> {
+        self.set_body_rectangle_width_native(sec as usize, para as usize, ci as usize, props)
+            .map_err(Into::into)
+    }
+
     /// Shape(글상자) 속성을 변경한다.
     ///
     /// 반환: JSON `{"ok":true}`

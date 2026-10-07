@@ -653,6 +653,7 @@ impl LayoutEngine {
         bin_data_content: &[BinDataContent],
         overflow_map: &std::collections::HashMap<(usize, usize), Vec<Paragraph>>,
         clamp_negative_para_offset: bool,
+        body_rectangle_width: bool,
     ) {
         let para = match paragraphs.get(para_index) {
             Some(p) => p,
@@ -829,6 +830,20 @@ impl LayoutEngine {
         });
         let para_margin_left = composed_para.map(|ps| ps.margin_left).unwrap_or(0.0);
         let para_margin_right = composed_para.map(|ps| ps.margin_right).unwrap_or(0.0);
+
+        // Only the supported root body rectangle changes. The shared size resolver,
+        // pictures, cells, master/header shapes and other bases retain their old semantics.
+        if body_rectangle_width
+            && !paragraphs
+                .iter()
+                .flat_map(|p| &p.controls)
+                .any(|c| matches!(c, Control::SectionDef(s) if s.text_direction != 0))
+            && shape.supports_body_rectangle_width()
+            && common.width_criterion == crate::model::shape::SizeCriterion::Para
+            && common.width == 10000
+        {
+            shape_w = (col_area.width - para_margin_left - para_margin_right).max(0.0);
+        }
 
         // 인라인 Shape: paragraph_layout에서 계산된 좌표가 있으면 사용
         let inline_pos = if common.treat_as_char {

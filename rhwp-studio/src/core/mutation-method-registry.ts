@@ -42,7 +42,7 @@ export const MUTATING_METHODS: readonly string[] = [
   'insertPicture', 'assignPictureImage', 'setPictureProperties',
   'setHeaderFooterPictureProperties', 'setCellPicturePropertiesByPath',
   'setCellShapePropertiesByPath', 'deletePictureControl', 'deleteCellPictureControlByPath',
-  'createShapeControl', 'setShapeProperties', 'deleteShapeControl', 'changeShapeZOrder',
+  'createShapeControl', 'setShapeProperties', 'setBodyRectangleWidth', 'deleteShapeControl', 'changeShapeZOrder',
   'applyShapeZOrderPairs', // [#5769 후속] z 절대 대입 — SetZOrderCommand 의 undo/redo 경로
   'groupShapes', 'ungroupShape', 'moveLineEndpoint', 'updateConnectorsInSection',
   'insertEquationInCell', 'setEquationPropertiesInCell', 'deleteEquationControlInCell',

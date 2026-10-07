@@ -2370,6 +2370,16 @@ export class WasmBridge {
     return JSON.parse(this.doc.getShapeProperties(sec, para, ci));
   }
 
+  getBodyRectangleWidth(sec: number, para: number, ci: number): { width: number; widthCriterion: string } {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse(this.doc.getBodyRectangleWidth(sec, para, ci));
+  }
+
+  setBodyRectangleWidth(sec: number, para: number, ci: number, props: { width: number; widthCriterion: string }): { ok: boolean } {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse(this.doc.setBodyRectangleWidth(sec, para, ci, JSON.stringify(props)));
+  }
+
   getShapeText(sec: number, para: number, ci: number): { ok: boolean; text: string } {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     return JSON.parse((this.doc as any).getShapeText(sec, para, ci));

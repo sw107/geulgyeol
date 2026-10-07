@@ -391,6 +391,34 @@ pub enum ShapeObject {
 }
 
 impl ShapeObject {
+    /// Narrow geometry contract for body rectangle width editing/painting.
+    /// Flowing, transformed, captioned and textbox shapes retain their existing paths.
+    pub(crate) fn supports_body_rectangle_width(&self) -> bool {
+        let Self::Rectangle(r) = self else {
+            return false;
+        };
+        let c = &r.common;
+        let a = &r.drawing.shape_attr;
+        !c.treat_as_char
+            && c.height > 0
+            && c.height <= i32::MAX as u32
+            && matches!(c.text_wrap, TextWrap::InFrontOfText | TextWrap::BehindText)
+            && r.drawing.text_box.is_none()
+            && r.drawing.caption.is_none()
+            && r.round_rate == 0
+            && a.rotation_angle == 0
+            && !a.horz_flip
+            && !a.vert_flip
+            && a.render_b.abs() < 1e-9
+            && a.render_c.abs() < 1e-9
+            && (a.render_sx - 1.0).abs() < 1e-9
+            && (a.render_sy - 1.0).abs() < 1e-9
+            && a.render_tx.abs() < 1e-9
+            && a.render_ty.abs() < 1e-9
+            && !a.original_width_was_zero
+            && !a.current_width_was_zero
+    }
+
     /// 공통 속성 참조 반환
     pub fn common(&self) -> &CommonObjAttr {
         match self {

@@ -4030,6 +4030,7 @@ impl LayoutEngine {
                             bin_data_content,
                             &std::collections::HashMap::new(),
                             is_header,
+                            false,
                         );
                     }
                 }
@@ -4779,6 +4780,7 @@ impl LayoutEngine {
                                         Alignment::Left,
                                         bin_data_content,
                                         &std::collections::HashMap::new(),
+                                        false,
                                         false,
                                     );
                                 }
@@ -13142,6 +13144,7 @@ impl LayoutEngine {
                     bin_data_content,
                     &overflow_map,
                     false,
+                    true,
                 );
                 insert_before_para_text(
                     col_node,
@@ -13170,6 +13173,7 @@ impl LayoutEngine {
                     bin_data_content,
                     &overflow_map,
                     false,
+                    true,
                 );
                 if let Some(layer) = ctrl.and_then(|ctrl| match ctrl {
                     Control::Shape(shape) => Some(Self::render_layer_from_common(
@@ -13210,6 +13214,7 @@ impl LayoutEngine {
                     bin_data_content,
                     &overflow_map,
                     false,
+                    true,
                 );
             }
             // [Task #525] 비-TAC Picture/Shape Square wrap 의 어울림 문단 렌더링은

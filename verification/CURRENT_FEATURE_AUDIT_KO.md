@@ -1,12 +1,14 @@
 # 현재 개발 checkout 기능 대조
 
-현재 누적 제품 소스 `658b8b2`를 별도 Mac 후보 `GeulgyeolDev10.app` (`0.4.4-dev.10`)에 통합했다. 메모 저장 보존·제한된 본문 검토 주석 저작·본문 편집 앵커를 패키지 엔진에서 검증했고 저장본236개를 Native로 독립 대조했다. strict ad-hoc·최신 자산 로드·기동/정상 종료를 확인했다. 실제 GUI/물리 IME·Linux·한컴 전체 대체 완료는 미검증이다. 기존 앱/후보·공개 beta.2를 보존했다. [dev10 결과](dev10-checkpoint/RESULT_KO.md), [proof](dev10-checkpoint/proof.json).
+dev10 체크포인트에서 누적 제품 소스 `658b8b2`를 별도 Mac 후보 `GeulgyeolDev10.app` (`0.4.4-dev.10`)에 통합했다. 메모 저장 보존·제한된 본문 검토 주석 저작·본문 편집 앵커를 패키지 엔진에서 검증했고 저장본236개를 Native로 독립 대조했다. strict ad-hoc·최신 자산 로드·기동/정상 종료를 확인했다. 실제 GUI/물리 IME·Linux·한컴 전체 대체 완료는 미검증이다. 기존 앱/후보·공개 beta.2를 보존했다. [dev10 결과](dev10-checkpoint/RESULT_KO.md), [proof](dev10-checkpoint/proof.json).
+
+현재 소스에는 후속 본문 사각형 너비 기준 API와 지원 단순 사각형의 문단100% 계산이 추가됐다. 새 WASM은 별도 `body-rectangle-width-qa/pkg`에만 생성했으며 dev10 앱에는 통합하지 않았다. 문단 띠 메뉴는 disabled다. [이번 결과](body-rectangle-width/RESULT_KO.md), [proof](body-rectangle-width/proof.json).
 
 ## 소스·후보·앱 구분
 
 | 대상 | 포함 범위 |
 |---|---|
-| 현재 엔진/UI 소스 / `comment-anchor-qa/pkg` | 누적 `658b8b2`: 메모 보존·본문 주석 저작·본문 앵커 안정화 포함. SHA256 `15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af` |
+| 보존된 `comment-anchor-qa/pkg` | 누적 `658b8b2`: 메모 보존·본문 주석 저작·본문 앵커 안정화 포함. SHA256 `15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af` |
 | 별도 `GeulgyeolDev10.app`, `0.4.4-dev.10` | 최신 엔진/웹 자산 일치. 저작64·앵커168·메모 보존4 재열기, Native 독립236, strict ad-hoc·정상 기동/종료. GUI/IME 미검증 |
 | 보존된 `cell-hyperlink-qa/pkg` | 이름 셀 보호·본문 링크·단일 셀 path 링크 저작 포함. SHA256 `b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198`. UI 명령/대화상자/이력 자동 검사 완료 |
 | 보존된 `body-hyperlink-qa/pkg` | `d0e542e` 본문 링크 후보. SHA256 `47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4`. 이번 셀 저작은 미포함 |
@@ -106,6 +108,10 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 
 일반 본문 문단의 `insert:para-band` 삽입 메뉴가 최신 실제 registry/dispatcher에서 비활성임을 재현했다. 같은 문맥의 링크와 검토 주석은 활성이다. HWP/HWPX 바이트·문서 상태/이벤트 불변이고 편집 호출0이다. 다음은 기존 문단 테두리/배경 또는 개체 표현을 확인한 뒤 한 문단의 문단 띠 적용/제거를 참조·이력·저장 보존과 함께 연결하는 작은 범위다. 이번에는 구현하지 않았다. [재현](dev10-checkpoint/next-gap-paragraph-band.json), [후속 제안/한계](dev10-checkpoint/RESULT_KO.md).
 
-## 문단 띠 공식 의미 후속 대조
+## 문단 띠 공식 의미 후속 대조 (이전 진단 기록)
 
 한컴 Mac/공통 설명에서 문단 띠는 검정 채우기·선 없음·1mm·문단 너비100%의 사각형 개체로 확인됐다. 위 dev10 제안의 문단 테두리/배경 대안은 채택하지 않는다. 기존 RectangleShape/Para 크기 기준은 저장되지만 공개 개체 API가 너비 기준을 노출/변경하지 않으며 조판은 문단 여백을 뺀 폭 대신 단 전체 폭을 쓴다. Native/WASM·두 형식 render tree/SVG로 재현했다. 문단 모양 API만의 작은 구현 조건은 성립하지 않아 이번에는 설계·진단까지이며 제품 기능/메뉴는 변경하지 않았다. 광범위 모델 신설이 필수라고 단정하지 않는다. [공식 의미와 후속 계약](paragraph-band-scope/DESIGN_KO.md), [결과](paragraph-band-scope/RESULT_KO.md).
+
+## 본문 사각형 너비 기준 후속 구현
+
+가로 본문의 비인라인·비변환·캡션/글상자 없는 사각형에 별도 기준 조회/설정 API를 추가했다. Para100%는 현재 단 폭에서 문단 양쪽 여백을 빼며 공유 크기 계산은 유지한다. Native/WASM 각각 재열기40·undo/redo20쌍, 저장40개씩 독립 교차 대조, 기존4기준 SVG32개와 그림/타원/회전/그룹/셀 SVG10개 동일 확인. 기존 주석/앵커 재열기232·Native 독립232, 셀 링크 재열기288 회귀 통과. 문단 띠 사용자 삽입/삭제 명령·GUI/물리 IME·새 앱 패키징·Linux는 미완료/미검증이며 dev10 앱은 기존 상태다. [API 계약·결과·한계](body-rectangle-width/RESULT_KO.md).
