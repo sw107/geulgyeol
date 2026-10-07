@@ -1,0 +1,87 @@
+{
+  "GUIVerified": false,
+  "afterMarginsBounds": {
+    "height": 3.7733333333333334,
+    "width": 566.9333333333334,
+    "x": 126.72,
+    "y": 132.26666666666668
+  },
+  "appliedMargins": {
+    "alignment": "center",
+    "autoSpaceKrEn": false,
+    "autoSpaceKrNum": false,
+    "borderBottom": {
+      "color": "#000000",
+      "type": 0,
+      "width": 0
+    },
+    "borderConnect": false,
+    "borderFillId": 2,
+    "borderIgnoreMargin": false,
+    "borderLeft": {
+      "color": "#000000",
+      "type": 0,
+      "width": 0
+    },
+    "borderRight": {
+      "color": "#000000",
+      "type": 0,
+      "width": 0
+    },
+    "borderSpacing": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "borderTop": {
+      "color": "#000000",
+      "type": 0,
+      "width": 0
+    },
+    "defaultTabSpacing": 8000,
+    "englishBreakUnit": 0,
+    "fillColor": "#ffffff",
+    "fillType": "none",
+    "fontLineHeight": false,
+    "headType": "None",
+    "indent": 0.0,
+    "keepLines": false,
+    "keepWithNext": false,
+    "koreanBreakUnit": 1,
+    "lineSpacing": 160.0,
+    "lineSpacingType": "Percent",
+    "marginLeft": 13.3,
+    "marginRight": 20.0,
+    "numberingId": 0,
+    "pageBreakBefore": false,
+    "paraLevel": 0,
+    "paraShapeId": 22,
+    "patternColor": "#000000",
+    "patternType": 0,
+    "singleLine": false,
+    "spacingAfter": 0.0,
+    "spacingBefore": 0.0,
+    "tabAutoLeft": false,
+    "tabAutoRight": false,
+    "tabStops": [],
+    "verticalAlign": 0,
+    "widowOrphan": false
+  },
+  "beforeBounds": {
+    "height": 3.7733333333333334,
+    "width": 566.9333333333334,
+    "x": 118.25333333333333,
+    "y": 132.26666666666668
+  },
+  "diagnosticOnly": true,
+  "directIRAssignmentIsNotPublicFeature": true,
+  "existingIRStoresParaRelativeRectangle": true,
+  "existingShapeApiIgnoresWidthBasis": true,
+  "nativeSavedReopens": 6,
+  "paragraphBorderAddsNoObject": true,
+  "paragraphBorderPreservesSemanticReferences": true,
+  "paragraphRelativeWidthIgnoresMargins": true,
+  "productImplementationChanged": false,
+  "shapeGetterOmitsWidthBasis": true
+}

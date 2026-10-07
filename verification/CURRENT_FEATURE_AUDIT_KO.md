@@ -105,3 +105,7 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 ## dev10 통합 이후 다음 제안 하나
 
 일반 본문 문단의 `insert:para-band` 삽입 메뉴가 최신 실제 registry/dispatcher에서 비활성임을 재현했다. 같은 문맥의 링크와 검토 주석은 활성이다. HWP/HWPX 바이트·문서 상태/이벤트 불변이고 편집 호출0이다. 다음은 기존 문단 테두리/배경 또는 개체 표현을 확인한 뒤 한 문단의 문단 띠 적용/제거를 참조·이력·저장 보존과 함께 연결하는 작은 범위다. 이번에는 구현하지 않았다. [재현](dev10-checkpoint/next-gap-paragraph-band.json), [후속 제안/한계](dev10-checkpoint/RESULT_KO.md).
+
+## 문단 띠 공식 의미 후속 대조
+
+한컴 Mac/공통 설명에서 문단 띠는 검정 채우기·선 없음·1mm·문단 너비100%의 사각형 개체로 확인됐다. 위 dev10 제안의 문단 테두리/배경 대안은 채택하지 않는다. 기존 RectangleShape/Para 크기 기준은 저장되지만 공개 개체 API가 너비 기준을 노출/변경하지 않으며 조판은 문단 여백을 뺀 폭 대신 단 전체 폭을 쓴다. Native/WASM·두 형식 render tree/SVG로 재현했다. 문단 모양 API만의 작은 구현 조건은 성립하지 않아 이번에는 설계·진단까지이며 제품 기능/메뉴는 변경하지 않았다. 광범위 모델 신설이 필수라고 단정하지 않는다. [공식 의미와 후속 계약](paragraph-band-scope/DESIGN_KO.md), [결과](paragraph-band-scope/RESULT_KO.md).

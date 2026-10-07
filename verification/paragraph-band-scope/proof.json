@@ -1,0 +1,210 @@
+{
+  "baselineCommit": "9ed26def26190bd5b1096ad8745cc5b6d22e52c7",
+  "decision": "design-and-diagnostic-only; paragraph formatting is not the official rectangle object",
+  "officialSources": {
+    "mac": "https://help.hancom.com/hoffice_mac/ko_kr/hwp/insert/line.htm",
+    "multi": "https://help.hancom.com/hoffice/multi/ko_kr/hwp/insert/line.htm",
+    "paragraphBorder": "https://help.hancom.com/hoffice/multi/ko_kr/hwp/format/paragraph/paragraph(border).htm"
+  },
+  "native": {
+    "GUIVerified": false,
+    "afterMarginsBounds": {
+      "height": 3.7733333333333334,
+      "width": 566.9333333333334,
+      "x": 126.72,
+      "y": 132.26666666666668
+    },
+    "appliedMargins": {
+      "alignment": "center",
+      "autoSpaceKrEn": false,
+      "autoSpaceKrNum": false,
+      "borderBottom": {
+        "color": "#000000",
+        "type": 0,
+        "width": 0
+      },
+      "borderConnect": false,
+      "borderFillId": 2,
+      "borderIgnoreMargin": false,
+      "borderLeft": {
+        "color": "#000000",
+        "type": 0,
+        "width": 0
+      },
+      "borderRight": {
+        "color": "#000000",
+        "type": 0,
+        "width": 0
+      },
+      "borderSpacing": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderTop": {
+        "color": "#000000",
+        "type": 0,
+        "width": 0
+      },
+      "defaultTabSpacing": 8000,
+      "englishBreakUnit": 0,
+      "fillColor": "#ffffff",
+      "fillType": "none",
+      "fontLineHeight": false,
+      "headType": "None",
+      "indent": 0.0,
+      "keepLines": false,
+      "keepWithNext": false,
+      "koreanBreakUnit": 1,
+      "lineSpacing": 160.0,
+      "lineSpacingType": "Percent",
+      "marginLeft": 13.3,
+      "marginRight": 20.0,
+      "numberingId": 0,
+      "pageBreakBefore": false,
+      "paraLevel": 0,
+      "paraShapeId": 22,
+      "patternColor": "#000000",
+      "patternType": 0,
+      "singleLine": false,
+      "spacingAfter": 0.0,
+      "spacingBefore": 0.0,
+      "tabAutoLeft": false,
+      "tabAutoRight": false,
+      "tabStops": [],
+      "verticalAlign": 0,
+      "widowOrphan": false
+    },
+    "beforeBounds": {
+      "height": 3.7733333333333334,
+      "width": 566.9333333333334,
+      "x": 118.25333333333333,
+      "y": 132.26666666666668
+    },
+    "diagnosticOnly": true,
+    "directIRAssignmentIsNotPublicFeature": true,
+    "existingIRStoresParaRelativeRectangle": true,
+    "existingShapeApiIgnoresWidthBasis": true,
+    "nativeSavedReopens": 6,
+    "paragraphBorderAddsNoObject": true,
+    "paragraphBorderPreservesSemanticReferences": true,
+    "paragraphRelativeWidthIgnoresMargins": true,
+    "productImplementationChanged": false,
+    "shapeGetterOmitsWidthBasis": true
+  },
+  "wasm": {
+    "relativeWidthIgnoresParagraphMarginsBothFormats": true,
+    "diagnosticOnly": true,
+    "wasmSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+    "paragraphBorderPreservesTextFieldsNeighbor": true,
+    "paragraphBorderUndoExact": true,
+    "shapeGetterOmitsWidthBasis": true,
+    "roundtripReopens": 6,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "newPublicParagraphBandFeature": false
+  },
+  "independentWasmObjectSaves": {
+    "independentSavedReopens": 2,
+    "widthBasisStillAbsolute": true
+  },
+  "uiGap": {
+    "feature": "일반 본문 문단의 문단 띠 삽입 메뉴",
+    "command": "insert:para-band",
+    "label": "문단 띠",
+    "sourceCommit": "658b8b27f7409d9a76b6f3c28b8617d1618d422e",
+    "candidateWasmSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+    "seed": "../dev10-checkpoint-qa/authoring-native/seed.hwpx",
+    "editableNormalDocument": true,
+    "hyperlinkEnabled": true,
+    "reviewCommentEnabled": true,
+    "paragraphBandEnabled": false,
+    "dispatchResult": {
+      "ok": false,
+      "reason": "disabled"
+    },
+    "actualMenuStateDisabled": true,
+    "packagedMenuDisabled": true,
+    "operationCalls": 0,
+    "commandEvents": 0,
+    "entireDocumentBytesAndStateUnchanged": true,
+    "paragraphBandExports": [],
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "implementationChanged": false,
+    "proposal": "먼저 일반 본문 한 문단의 문단 띠 적용/제거 범위를 정하고 기존 문단 테두리/배경 또는 개체 저장 표현을 확인한다. 본문·스타일·직접 서식·필드/주석·각주 참조와 undo/redo·HWP/HWPX 재열기를 보존하며 복합 경로는 편집 전에 거절하는 작은 후속 범위를 제안한다. 이번에는 구현하지 않았다."
+  },
+  "nativeCommentRegression": {
+    "GUIVerified": false,
+    "bodyTextStylesNotesNeighborFieldUnchanged": true,
+    "commentSnapshotOperations": 4,
+    "genericBodySnapshotOperations": 2,
+    "memoParagraphIdsPreserved": true,
+    "nativeReopens": 40,
+    "newAuthorEmptyNoCreatedTime": true,
+    "originalAuthorAndTimePreserved": true,
+    "reopenedCommentRemainsEditable": true,
+    "typedTimeHwpxOnly": true,
+    "unsupportedImportedDocuments": 13,
+    "unsupportedParagraphReferences": 5,
+    "verticalHwpxOnly": true
+  },
+  "actualUICommentRegression": {
+    "mutations": 14,
+    "saves": 64,
+    "refusals": 55,
+    "undos": 16,
+    "redos": 16
+  },
+  "actualUIAnchorRegression": {
+    "normal": 43,
+    "saves": 168,
+    "refusals": 36,
+    "undos": 43,
+    "redos": 43
+  },
+  "independentComment": {
+    "allBodyMemoNoteFieldReferences": true,
+    "independentlyReopened": 64
+  },
+  "independentAnchor": {
+    "independentSavedReopens": 168,
+    "refsStylesMetadataAnchors": true
+  },
+  "typecheckPassed": true,
+  "clippyLibAndDiagnosticExampleWarningsDeniedPassed": true,
+  "protection": {
+    "existingProductSourcesUnchanged": true,
+    "productSourceCounts": {
+      "studioDesktop": 293,
+      "engine": 1147
+    },
+    "protectedPathsUnchanged": 17,
+    "dev10AsarSHA256": "c4b83977cd089650cfd6c51780ce3901d764f96205ec16e056a9b2eaede49b9e",
+    "wasmSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af"
+  },
+  "dev10QAArtifactHashesUnchanged": 314,
+  "qaManifestCorrection": {
+    "oldDev10ManifestHashesRestored": true,
+    "twoPriorQAManifestsTransientlyReplacedByExistingRegressionRunners": true,
+    "localRegressionCopiesRetained": true
+  },
+  "budget": {
+    "additionalPeakBytes": 8261632,
+    "targetPeakBytes": 3949289472,
+    "targetFinalBytes": 3949289472,
+    "minDiskFreeBytes": 23429120000,
+    "stopped": false,
+    "additionalFinalBytes": 8261632,
+    "diskFreeFinalBytes": 23429120000
+  },
+  "wholeLibTestNotRerunPriorFixtureBlock": true,
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "linuxRun": false,
+  "newWasmBuild": false,
+  "packaging": false,
+  "publicChanges": false,
+  "rawEvidenceDirectory": "/Users/sw107/Documents/Codex/2026-10-06/task/paragraph-band-scope-qa"
+}
