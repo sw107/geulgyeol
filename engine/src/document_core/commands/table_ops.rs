@@ -776,6 +776,12 @@ impl DocumentCore {
         table
             .split_cell_into(row, col, n_rows, m_cols, equal_row_height, merge_first)
             .map_err(|e| HwpError::RenderError(e))?;
+        if n_rows == 1 && m_cols == 1 {
+            return Ok(super::super::helpers::json_ok_with(&format!(
+                "\"cellCount\":{}",
+                table.cells.len()
+            )));
+        }
         table.dirty = true;
         let cell_count = table.cells.len();
 
@@ -886,6 +892,12 @@ impl DocumentCore {
                 equal_row_height,
             )
             .map_err(|e| HwpError::RenderError(e))?;
+        if n_rows == 1 && m_cols == 1 {
+            return Ok(super::super::helpers::json_ok_with(&format!(
+                "\"cellCount\":{}",
+                table.cells.len()
+            )));
+        }
         table.dirty = true;
         let cell_count = table.cells.len();
 

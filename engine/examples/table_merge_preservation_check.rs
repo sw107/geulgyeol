@@ -191,6 +191,8 @@ fn merge(d: &mut DocumentCore, p: usize, c: usize, r: &[u16]) {
         .unwrap();
 }
 fn operation(d: &mut DocumentCore, p: usize, c: usize, op: &Value) {
+    let index = op["index"].as_u64().unwrap_or(0) as u16;
+    let after = op["after"].as_bool().unwrap_or(false);
     if let Some(r) = op.as_array() {
         merge(
             d,
@@ -203,23 +205,49 @@ fn operation(d: &mut DocumentCore, p: usize, c: usize, op: &Value) {
     } else {
         match op["kind"].as_str().unwrap() {
             "insertRow" => {
-                d.insert_table_row_native(0, p, c, 0, false).unwrap();
+                d.insert_table_row_native(0, p, c, index, after).unwrap();
             }
             "deleteRow" => {
-                d.delete_table_row_native(0, p, c, 0).unwrap();
+                d.delete_table_row_native(0, p, c, index).unwrap();
             }
             "insertColumn" => {
-                d.insert_table_column_native(0, p, c, 0, false).unwrap();
+                d.insert_table_column_native(0, p, c, index, after).unwrap();
             }
             "deleteColumn" => {
-                d.delete_table_column_native(0, p, c, 0).unwrap();
+                d.delete_table_column_native(0, p, c, index).unwrap();
             }
             "split" => {
                 d.split_table_cell_native(0, p, c, 0, 0).unwrap();
             }
             "splitInto" => {
-                d.split_table_cell_into_native(0, p, c, 0, 0, 1, 2, false, false)
-                    .unwrap();
+                d.split_table_cell_into_native(
+                    0,
+                    p,
+                    c,
+                    op["row"].as_u64().unwrap_or(0) as u16,
+                    op["col"].as_u64().unwrap_or(0) as u16,
+                    op["nRows"].as_u64().unwrap_or(1) as u16,
+                    op["mCols"].as_u64().unwrap_or(2) as u16,
+                    op["equalRowHeight"].as_bool().unwrap_or(false),
+                    op["mergeFirst"].as_bool().unwrap_or(false),
+                )
+                .unwrap();
+            }
+            "splitRange" => {
+                let r = op["range"].as_array().unwrap();
+                d.split_table_cells_in_range_native(
+                    0,
+                    p,
+                    c,
+                    r[0].as_u64().unwrap() as u16,
+                    r[1].as_u64().unwrap() as u16,
+                    r[2].as_u64().unwrap() as u16,
+                    r[3].as_u64().unwrap() as u16,
+                    op["nRows"].as_u64().unwrap_or(1) as u16,
+                    op["mCols"].as_u64().unwrap_or(2) as u16,
+                    op["equalRowHeight"].as_bool().unwrap_or(false),
+                )
+                .unwrap();
             }
             "reopen" => {
                 *d = DocumentCore::from_bytes(&save(d, op["format"].as_str().unwrap())).unwrap();
@@ -305,6 +333,10 @@ fn main() {
         }
         std::fs::write(out.join(proof_file),serde_json::to_vec_pretty(&json!({"independentSavedReopens":n,"nativeOperationReexecution":true,"fullParagraphsControlsFieldOwnersBinDataAndSVG":true,"typedDocInfoCompared":true})).unwrap()).unwrap();
         println!("Independent Native reopens {n}");
+        return;
+    }
+    if args.get(1).is_some_and(|s| s == "--structure") {
+        structure(out);
         return;
     }
     let mut rows = vec![];
@@ -503,6 +535,269 @@ fn main() {
         d.discard_snapshot_native(redo);
     }
     let proof = json!({"cases":rows.len(),"snapshotPairs":pairs,"savedReopens":reopens,"atomicNativeRefusals":refusals,"adjacentCases":5,"adjacentPairs":adjacent_pairs,"adjacentReopens":adjacent_reopens,"wholeParagraphOwnersStylesAndSVGCompared":true});
+    std::fs::write(
+        out.join("native-proof.json"),
+        serde_json::to_vec_pretty(&proof).unwrap(),
+    )
+    .unwrap();
+    println!("{proof}");
+}
+
+// Reuse the strict merge owner/reopen oracle for adjacent structural editing.
+fn structure(out: &Path) {
+    let (mut seed, p, c) = make("link");
+    seed.insert_equation_in_cell_native(0, p, c, 1, 1, 2, "a over b", 1000, 0)
+        .unwrap();
+    seed.insert_equation_in_cell_native(0, p, c, 1, 1, 5, "x _1 ^2", 1200, 0)
+        .unwrap();
+    merge(&mut seed, p, c, &[0, 0, 1, 1]);
+    let cases = [
+        (
+            "insert-row-interior",
+            json!([{"kind":"insertRow","after":true}]),
+        ),
+        (
+            "insert-column-interior",
+            json!([{"kind":"insertColumn","after":true}]),
+        ),
+        ("delete-merged-anchor-row", json!([{"kind":"deleteRow"}])),
+        (
+            "delete-merged-anchor-column",
+            json!([{"kind":"deleteColumn"}]),
+        ),
+        (
+            "row-insert-delete",
+            json!([{"kind":"insertRow","after":true},{"kind":"deleteRow","index":1}]),
+        ),
+        (
+            "column-insert-delete",
+            json!([{"kind":"insertColumn","after":true},{"kind":"deleteColumn","index":1}]),
+        ),
+        ("unmerge", json!([{"kind":"split"}])),
+        (
+            "split-2x2",
+            json!([{"kind":"splitInto","nRows":2,"mCols":2}]),
+        ),
+        (
+            "split-1x3",
+            json!([{"kind":"splitInto","nRows":1,"mCols":3}]),
+        ),
+        (
+            "split-merge-first",
+            json!([{"kind":"splitInto","nRows":2,"mCols":3,"mergeFirst":true}]),
+        ),
+        (
+            "split-range",
+            json!([{"kind":"splitRange","range":[0,0,1,1],"nRows":2,"mCols":2}]),
+        ),
+        (
+            "unmerge-range",
+            json!([{"kind":"split"},{"kind":"splitRange","range":[0,0,1,1],"nRows":1,"mCols":2}]),
+        ),
+    ];
+    let mut fixtures = vec![];
+    let mut pairs = 0;
+    let mut reopens = 0;
+    let mut refusals = 0;
+    let mut noops = 0;
+    fn owners(d: &DocumentCore, p: usize, c: usize) -> Value {
+        content(
+            &table(d, p, c)
+                .cells
+                .iter()
+                .flat_map(|cell| cell.paragraphs.iter())
+                .filter(|p| {
+                    !p.text.is_empty() || !p.controls.is_empty() || !p.field_ranges.is_empty()
+                })
+                .cloned()
+                .collect::<Vec<_>>(),
+        )
+    }
+    for ext in ["hwp", "hwpx"] {
+        let input = out.join(format!("combined-merged-input.{ext}"));
+        let serialized = if ext == "hwp" {
+            seed.export_hwp_with_adapter_snapshot_with_report().unwrap()
+        } else {
+            seed.export_hwpx_native_with_report().unwrap()
+        };
+        assert!(serialized.content_loss().is_empty(), "seed content loss");
+        std::fs::write(&input, serialized.bytes()).unwrap();
+        for (name, operations) in &cases {
+            let label = format!("{ext}-{name}");
+            let mut d = DocumentCore::from_bytes(serialized.bytes()).unwrap();
+            let before = whole(&d);
+            let before_svg = nested_cells::svg(&d);
+            let before_fields = fields(&d);
+            let before_owners = owners(&d, p, c);
+            let before_root = content(
+                &d.document().sections[0]
+                    .paragraphs
+                    .iter()
+                    .enumerate()
+                    .filter(|(i, _)| *i != p)
+                    .map(|(_, p)| p.clone())
+                    .collect::<Vec<_>>(),
+            );
+            let undo = d.save_snapshot_with_composition_native();
+            for op in operations.as_array().unwrap() {
+                operation(&mut d, p, c, op);
+            }
+            assert_eq!(
+                owners(&d, p, c),
+                before_owners,
+                "whole content owners {label}"
+            );
+            assert_eq!(fields(&d), before_fields, "field identities {label}");
+            assert_eq!(
+                content(
+                    &d.document().sections[0]
+                        .paragraphs
+                        .iter()
+                        .enumerate()
+                        .filter(|(i, _)| *i != p)
+                        .map(|(_, p)| p.clone())
+                        .collect::<Vec<_>>()
+                ),
+                before_root
+            );
+            let after = whole(&d);
+            let after_svg = nested_cells::svg(&d);
+            let redo = d.save_snapshot_with_composition_native();
+            for _ in 0..4 {
+                d.restore_snapshot_native(undo).unwrap();
+                assert_eq!(whole(&d), before);
+                assert_eq!(nested_cells::svg(&d), before_svg);
+                d.restore_snapshot_native(redo).unwrap();
+                assert_eq!(whole(&d), after);
+                assert_eq!(nested_cells::svg(&d), after_svg);
+                pairs += 1;
+            }
+            for (stage, id) in [("after", redo), ("undo", undo)] {
+                d.restore_snapshot_native(id).unwrap();
+                for format in ["hwp", "hwpx"] {
+                    let data = if format == "hwp" {
+                        d.export_hwp_with_adapter_snapshot_with_report().unwrap()
+                    } else {
+                        d.export_hwpx_native_with_report().unwrap()
+                    };
+                    assert!(
+                        data.content_loss().is_empty(),
+                        "content loss {label} {stage} {format}"
+                    );
+                    let file = out.join(format!("{label}-{stage}.{format}"));
+                    std::fs::write(file, data.bytes()).unwrap();
+                    let reopened = DocumentCore::from_bytes(data.bytes()).unwrap();
+                    let saved = saved_content(&reopened.document().sections[0].paragraphs);
+                    let mut expected = saved_content(&d.document().sections[0].paragraphs);
+                    // Cross-format section defaults/packed PageBorderFill attributes
+                    // also change without a table edit. Compare untouched body owners
+                    // to the same-format saved input, and table owners to live IR.
+                    let input_core = DocumentCore::from_bytes(serialized.bytes()).unwrap();
+                    let baseline = DocumentCore::from_bytes(&save(&input_core, format)).unwrap();
+                    let canonical = saved_content(&baseline.document().sections[0].paragraphs);
+                    for i in 0..expected.as_array().unwrap().len() {
+                        if i != p {
+                            expected[i] = canonical[i].clone();
+                        }
+                    }
+                    assert_eq!(saved, expected, "saved owners {label} {stage} {format}");
+                    assert_eq!(typed_info(&reopened), typed_info(&baseline));
+                    assert_eq!(
+                        format!("{:?}", reopened.document().bin_data_content),
+                        format!("{:?}", baseline.document().bin_data_content)
+                    );
+                    assert_eq!(fields(&reopened), fields(&d));
+                    assert_eq!(
+                        nested_cells::svg(&reopened),
+                        nested_cells::svg(&d),
+                        "saved SVG {label} {stage} {format}"
+                    );
+                    reopens += 1;
+                }
+            }
+            d.discard_snapshot_native(undo);
+            d.discard_snapshot_native(redo);
+            fixtures.push(
+                json!({"label":label,"input":input,"ref":{"ppi":p,"ci":c},"operations":operations}),
+            );
+        }
+        let mut d = DocumentCore::from_bytes(serialized.bytes()).unwrap();
+        for (sr, sc, er, ec, nr, nc) in [
+            (0, 0, 1, 2, 1, 2),
+            (1, 0, 0, 1, 1, 2),
+            (0, 1, 1, 1, 1, 2),
+            (0, 0, 0, 0, 1, 2),
+            (0, 0, 1, 1, 0, 2),
+            (0, 1, 1, 1, 1, 1),
+            (0, 0, 1, 2, 1, 1),
+        ] {
+            let b = whole(&d);
+            let svg = nested_cells::svg(&d);
+            let events = d.serialize_event_log();
+            let hwp = save(&d, "hwp");
+            let hwpx = save(&d, "hwpx");
+            assert!(d
+                .split_table_cells_in_range_native(0, p, c, sr, sc, er, ec, nr, nc, false)
+                .is_err());
+            assert_eq!(whole(&d), b);
+            assert_eq!(nested_cells::svg(&d), svg);
+            assert_eq!(d.serialize_event_log(), events);
+            assert_eq!(save(&d, "hwp"), hwp);
+            assert_eq!(save(&d, "hwpx"), hwpx);
+            refusals += 1;
+        }
+        for (r, col, nr, nc, mf) in [
+            (0, 0, 65535, 2, true),
+            (0, 0, 0, 2, false),
+            (0, 1, 1, 2, false),
+            (2, 0, 1, 1, false),
+        ] {
+            let b = whole(&d);
+            let svg = nested_cells::svg(&d);
+            let events = d.serialize_event_log();
+            let hwp = save(&d, "hwp");
+            let hwpx = save(&d, "hwpx");
+            assert!(d
+                .split_table_cell_into_native(0, p, c, r, col, nr, nc, false, mf)
+                .is_err());
+            assert_eq!(whole(&d), b);
+            assert_eq!(nested_cells::svg(&d), svg);
+            assert_eq!(d.serialize_event_log(), events);
+            assert_eq!(save(&d, "hwp"), hwp);
+            assert_eq!(save(&d, "hwpx"), hwpx);
+            refusals += 1;
+        }
+        for is_range in [false, true] {
+            let b = whole(&d);
+            let events = d.serialize_event_log();
+            let svg = nested_cells::svg(&d);
+            if is_range {
+                d.split_table_cells_in_range_native(0, p, c, 0, 0, 1, 1, 1, 1, false)
+                    .unwrap();
+            } else {
+                d.split_table_cell_into_native(0, p, c, 0, 0, 1, 1, false, true)
+                    .unwrap();
+            }
+            assert_eq!(whole(&d), b);
+            assert_eq!(d.serialize_event_log(), events);
+            assert_eq!(nested_cells::svg(&d), svg);
+            noops += 1;
+        }
+    }
+    // Small synthetic grid: overflow happens after an earlier cell was split.
+    let mut t = table(&seed, p, c).clone();
+    t.split_cell(0, 0).unwrap();
+    t.row_count = u16::MAX - 1;
+    let b = format!("{t:?}");
+    assert!(t.split_cells_in_range(0, 0, 1, 1, 2, 1, false).is_err());
+    assert_eq!(format!("{t:?}"), b);
+    refusals += 1;
+    std::fs::write(
+        out.join("fixtures.json"),
+        serde_json::to_vec_pretty(&fixtures).unwrap(),
+    )
+    .unwrap();
+    let proof = json!({"cases":fixtures.len(),"snapshotPairs":pairs,"savedReopens":reopens,"atomicNativeRefusals":refusals,"unchangedValidNoops":noops,"wholeParagraphOwnersStylesAndSVGCompared":true,"savedContentLosses":0});
     std::fs::write(
         out.join("native-proof.json"),
         serde_json::to_vec_pretty(&proof).unwrap(),

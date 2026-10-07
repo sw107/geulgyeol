@@ -638,7 +638,9 @@ export const tableCommands: CommandDef[] = [
                 nRows, mCols, equalHeight, mergeFirst,
               );
             }
-            return pos;
+            // A validated 1×1 split leaves the engine unchanged. Keep pending
+            // redo and avoid adding an empty snapshot command to history.
+            return nRows === 1 && mCols === 1 ? null : pos;
           },
         }), '셀 나누기');
         if (isMultiCell) ih2.exitCellSelectionMode?.();

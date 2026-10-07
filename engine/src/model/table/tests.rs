@@ -1453,3 +1453,49 @@ fn insert_column_inherits_shape_when_row_has_only_merged_cells() {
         assert_inherited(cell, "insert_column");
     }
 }
+
+// Split failures must preserve the whole table, including merged content owners.
+#[test]
+fn split_range_rejects_invalid_and_partial_merged_selection_atomically() {
+    let mut table = make_table(2, 2);
+    set_cell_text(&mut table, 0, 1, "보존🙂");
+    table.merge_cells(0, 0, 0, 1).unwrap();
+    let before = format!("{table:?}");
+    for (sr, sc, er, ec) in [(0, 0, 1, 2), (1, 0, 0, 1), (0, 1, 1, 1)] {
+        for (nr, nc) in [(1, 2), (1, 1)] {
+            assert!(table.split_cells_in_range(sr, sc, er, ec, nr, nc, false).is_err());
+            assert_eq!(format!("{table:?}"), before);
+        }
+    }
+}
+
+#[test]
+fn split_merge_first_overflow_preserves_original_merge_and_content() {
+    let mut table = make_table(2, 2);
+    set_cell_text(&mut table, 0, 1, "수식과 링크 소유 문단🙂");
+    table.merge_cells(0, 0, 0, 1).unwrap();
+    let before = format!("{table:?}");
+    assert!(table.split_cell_into(0, 0, u16::MAX, 2, false, true).is_err());
+    assert_eq!(format!("{table:?}"), before);
+}
+
+#[test]
+fn split_range_late_overflow_rolls_back_earlier_cell_split() {
+    let mut table = make_table(2, 2);
+    table.row_count = u16::MAX - 1;
+    let before = format!("{table:?}");
+    // First (1,1) split grows the row count to MAX; (0,1) needs
+    // another row and fails after that earlier edit succeeded.
+    assert!(table.split_cells_in_range(0, 0, 1, 1, 2, 1, false).is_err());
+    assert_eq!(format!("{table:?}"), before);
+}
+
+#[test]
+fn split_noop_still_validates_target() {
+    let mut table = make_table(2, 2);
+    let before = format!("{table:?}");
+    assert!(table.split_cell_into(2, 0, 1, 1, false, false).is_err());
+    table.split_cell_into(0, 0, 1, 1, false, true).unwrap();
+    table.split_cells_in_range(0, 0, 1, 1, 1, 1, false).unwrap();
+    assert_eq!(format!("{table:?}"), before);
+}

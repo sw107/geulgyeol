@@ -2170,17 +2170,17 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = insertTableRow)]
     pub fn insert_table_row(
         &mut self,
-        section_idx: u32,
-        parent_para_idx: u32,
-        control_idx: u32,
-        row_idx: u32,
+        section_idx: f64,
+        parent_para_idx: f64,
+        control_idx: f64,
+        row_idx: f64,
         below: bool,
     ) -> Result<String, JsValue> {
         self.insert_table_row_native(
-            section_idx as usize,
-            parent_para_idx as usize,
-            control_idx as usize,
-            row_idx as u16,
+            table_edit_index(section_idx, u32::MAX)?,
+            table_edit_index(parent_para_idx, u32::MAX)?,
+            table_edit_index(control_idx, u32::MAX)?,
+            table_edit_index(row_idx, u16::MAX as u32)? as u16,
             below,
         )
         .map_err(|e| e.into())
@@ -2192,17 +2192,17 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = insertTableColumn)]
     pub fn insert_table_column(
         &mut self,
-        section_idx: u32,
-        parent_para_idx: u32,
-        control_idx: u32,
-        col_idx: u32,
+        section_idx: f64,
+        parent_para_idx: f64,
+        control_idx: f64,
+        col_idx: f64,
         right: bool,
     ) -> Result<String, JsValue> {
         self.insert_table_column_native(
-            section_idx as usize,
-            parent_para_idx as usize,
-            control_idx as usize,
-            col_idx as u16,
+            table_edit_index(section_idx, u32::MAX)?,
+            table_edit_index(parent_para_idx, u32::MAX)?,
+            table_edit_index(control_idx, u32::MAX)?,
+            table_edit_index(col_idx, u16::MAX as u32)? as u16,
             right,
         )
         .map_err(|e| e.into())
@@ -2214,16 +2214,16 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = deleteTableRow)]
     pub fn delete_table_row(
         &mut self,
-        section_idx: u32,
-        parent_para_idx: u32,
-        control_idx: u32,
-        row_idx: u32,
+        section_idx: f64,
+        parent_para_idx: f64,
+        control_idx: f64,
+        row_idx: f64,
     ) -> Result<String, JsValue> {
         self.delete_table_row_native(
-            section_idx as usize,
-            parent_para_idx as usize,
-            control_idx as usize,
-            row_idx as u16,
+            table_edit_index(section_idx, u32::MAX)?,
+            table_edit_index(parent_para_idx, u32::MAX)?,
+            table_edit_index(control_idx, u32::MAX)?,
+            table_edit_index(row_idx, u16::MAX as u32)? as u16,
         )
         .map_err(|e| e.into())
     }
@@ -2234,16 +2234,16 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = deleteTableColumn)]
     pub fn delete_table_column(
         &mut self,
-        section_idx: u32,
-        parent_para_idx: u32,
-        control_idx: u32,
-        col_idx: u32,
+        section_idx: f64,
+        parent_para_idx: f64,
+        control_idx: f64,
+        col_idx: f64,
     ) -> Result<String, JsValue> {
         self.delete_table_column_native(
-            section_idx as usize,
-            parent_para_idx as usize,
-            control_idx as usize,
-            col_idx as u16,
+            table_edit_index(section_idx, u32::MAX)?,
+            table_edit_index(parent_para_idx, u32::MAX)?,
+            table_edit_index(control_idx, u32::MAX)?,
+            table_edit_index(col_idx, u16::MAX as u32)? as u16,
         )
         .map_err(|e| e.into())
     }
@@ -2263,13 +2263,13 @@ impl HwpDocument {
         end_col: f64,
     ) -> Result<String, JsValue> {
         self.merge_table_cells_native(
-            table_merge_index(section_idx, u32::MAX)?,
-            table_merge_index(parent_para_idx, u32::MAX)?,
-            table_merge_index(control_idx, u32::MAX)?,
-            table_merge_index(start_row, u16::MAX as u32)? as u16,
-            table_merge_index(start_col, u16::MAX as u32)? as u16,
-            table_merge_index(end_row, u16::MAX as u32)? as u16,
-            table_merge_index(end_col, u16::MAX as u32)? as u16,
+            table_edit_index(section_idx, u32::MAX)?,
+            table_edit_index(parent_para_idx, u32::MAX)?,
+            table_edit_index(control_idx, u32::MAX)?,
+            table_edit_index(start_row, u16::MAX as u32)? as u16,
+            table_edit_index(start_col, u16::MAX as u32)? as u16,
+            table_edit_index(end_row, u16::MAX as u32)? as u16,
+            table_edit_index(end_col, u16::MAX as u32)? as u16,
         )
         .map_err(|e| e.into())
     }
@@ -2311,18 +2311,18 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = splitTableCell)]
     pub fn split_table_cell(
         &mut self,
-        section_idx: u32,
-        parent_para_idx: u32,
-        control_idx: u32,
-        row: u32,
-        col: u32,
+        section_idx: f64,
+        parent_para_idx: f64,
+        control_idx: f64,
+        row: f64,
+        col: f64,
     ) -> Result<String, JsValue> {
         self.split_table_cell_native(
-            section_idx as usize,
-            parent_para_idx as usize,
-            control_idx as usize,
-            row as u16,
-            col as u16,
+            table_edit_index(section_idx, u32::MAX)?,
+            table_edit_index(parent_para_idx, u32::MAX)?,
+            table_edit_index(control_idx, u32::MAX)?,
+            table_edit_index(row, u16::MAX as u32)? as u16,
+            table_edit_index(col, u16::MAX as u32)? as u16,
         )
         .map_err(|e| e.into())
     }
@@ -2333,24 +2333,24 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = splitTableCellInto)]
     pub fn split_table_cell_into(
         &mut self,
-        section_idx: u32,
-        parent_para_idx: u32,
-        control_idx: u32,
-        row: u32,
-        col: u32,
-        n_rows: u32,
-        m_cols: u32,
+        section_idx: f64,
+        parent_para_idx: f64,
+        control_idx: f64,
+        row: f64,
+        col: f64,
+        n_rows: f64,
+        m_cols: f64,
         equal_row_height: bool,
         merge_first: bool,
     ) -> Result<String, JsValue> {
         self.split_table_cell_into_native(
-            section_idx as usize,
-            parent_para_idx as usize,
-            control_idx as usize,
-            row as u16,
-            col as u16,
-            n_rows as u16,
-            m_cols as u16,
+            table_edit_index(section_idx, u32::MAX)?,
+            table_edit_index(parent_para_idx, u32::MAX)?,
+            table_edit_index(control_idx, u32::MAX)?,
+            table_edit_index(row, u16::MAX as u32)? as u16,
+            table_edit_index(col, u16::MAX as u32)? as u16,
+            table_edit_index(n_rows, u16::MAX as u32)? as u16,
+            table_edit_index(m_cols, u16::MAX as u32)? as u16,
             equal_row_height,
             merge_first,
         )
@@ -2363,17 +2363,33 @@ impl HwpDocument {
     /// equalRowHeight?, mergeFirst? }`. positional 과 동일 동작.
     #[wasm_bindgen(js_name = splitTableCellIntoEx)]
     pub fn split_table_cell_into_ex(&mut self, options_json: &str) -> Result<String, JsValue> {
-        use crate::document_core::helpers::{json_bool, json_u32};
+        #[derive(serde::Deserialize)]
+        #[serde(rename_all = "camelCase", deny_unknown_fields)]
+        struct Options {
+            section_idx: u32,
+            parent_para_idx: u32,
+            control_idx: u32,
+            row: u16,
+            col: u16,
+            n_rows: u16,
+            m_cols: u16,
+            #[serde(default)]
+            equal_row_height: bool,
+            #[serde(default)]
+            merge_first: bool,
+        }
+        let options: Options = serde_json::from_str(options_json)
+            .map_err(|_| JsValue::from_str("셀 분할 옵션에는 유효한 정수 좌표와 분할 수가 모두 필요합니다"))?;
         self.split_table_cell_into_native(
-            json_u32(options_json, "sectionIdx").unwrap_or(0) as usize,
-            json_u32(options_json, "parentParaIdx").unwrap_or(0) as usize,
-            json_u32(options_json, "controlIdx").unwrap_or(0) as usize,
-            json_u32(options_json, "row").unwrap_or(0) as u16,
-            json_u32(options_json, "col").unwrap_or(0) as u16,
-            json_u32(options_json, "nRows").unwrap_or(1) as u16,
-            json_u32(options_json, "mCols").unwrap_or(1) as u16,
-            json_bool(options_json, "equalRowHeight").unwrap_or(false),
-            json_bool(options_json, "mergeFirst").unwrap_or(false),
+            options.section_idx as usize,
+            options.parent_para_idx as usize,
+            options.control_idx as usize,
+            options.row,
+            options.col,
+            options.n_rows,
+            options.m_cols,
+            options.equal_row_height,
+            options.merge_first,
         )
         .map_err(|e| e.into())
     }
@@ -2384,27 +2400,27 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = splitTableCellsInRange)]
     pub fn split_table_cells_in_range(
         &mut self,
-        section_idx: u32,
-        parent_para_idx: u32,
-        control_idx: u32,
-        start_row: u32,
-        start_col: u32,
-        end_row: u32,
-        end_col: u32,
-        n_rows: u32,
-        m_cols: u32,
+        section_idx: f64,
+        parent_para_idx: f64,
+        control_idx: f64,
+        start_row: f64,
+        start_col: f64,
+        end_row: f64,
+        end_col: f64,
+        n_rows: f64,
+        m_cols: f64,
         equal_row_height: bool,
     ) -> Result<String, JsValue> {
         self.split_table_cells_in_range_native(
-            section_idx as usize,
-            parent_para_idx as usize,
-            control_idx as usize,
-            start_row as u16,
-            start_col as u16,
-            end_row as u16,
-            end_col as u16,
-            n_rows as u16,
-            m_cols as u16,
+            table_edit_index(section_idx, u32::MAX)?,
+            table_edit_index(parent_para_idx, u32::MAX)?,
+            table_edit_index(control_idx, u32::MAX)?,
+            table_edit_index(start_row, u16::MAX as u32)? as u16,
+            table_edit_index(start_col, u16::MAX as u32)? as u16,
+            table_edit_index(end_row, u16::MAX as u32)? as u16,
+            table_edit_index(end_col, u16::MAX as u32)? as u16,
+            table_edit_index(n_rows, u16::MAX as u32)? as u16,
+            table_edit_index(m_cols, u16::MAX as u32)? as u16,
             equal_row_height,
         )
         .map_err(|e| e.into())
@@ -2416,18 +2432,34 @@ impl HwpDocument {
     /// endRow, endCol, nRows, mCols, equalRowHeight? }`. positional 과 동일 동작.
     #[wasm_bindgen(js_name = splitTableCellsInRangeEx)]
     pub fn split_table_cells_in_range_ex(&mut self, options_json: &str) -> Result<String, JsValue> {
-        use crate::document_core::helpers::{json_bool, json_u32};
+        #[derive(serde::Deserialize)]
+        #[serde(rename_all = "camelCase", deny_unknown_fields)]
+        struct Options {
+            section_idx: u32,
+            parent_para_idx: u32,
+            control_idx: u32,
+            start_row: u16,
+            start_col: u16,
+            end_row: u16,
+            end_col: u16,
+            n_rows: u16,
+            m_cols: u16,
+            #[serde(default)]
+            equal_row_height: bool,
+        }
+        let options: Options = serde_json::from_str(options_json)
+            .map_err(|_| JsValue::from_str("셀 분할 옵션에는 유효한 정수 좌표와 분할 수가 모두 필요합니다"))?;
         self.split_table_cells_in_range_native(
-            json_u32(options_json, "sectionIdx").unwrap_or(0) as usize,
-            json_u32(options_json, "parentParaIdx").unwrap_or(0) as usize,
-            json_u32(options_json, "controlIdx").unwrap_or(0) as usize,
-            json_u32(options_json, "startRow").unwrap_or(0) as u16,
-            json_u32(options_json, "startCol").unwrap_or(0) as u16,
-            json_u32(options_json, "endRow").unwrap_or(0) as u16,
-            json_u32(options_json, "endCol").unwrap_or(0) as u16,
-            json_u32(options_json, "nRows").unwrap_or(1) as u16,
-            json_u32(options_json, "mCols").unwrap_or(1) as u16,
-            json_bool(options_json, "equalRowHeight").unwrap_or(false),
+            options.section_idx as usize,
+            options.parent_para_idx as usize,
+            options.control_idx as usize,
+            options.start_row,
+            options.start_col,
+            options.end_row,
+            options.end_col,
+            options.n_rows,
+            options.m_cols,
+            options.equal_row_height,
         )
         .map_err(|e| e.into())
     }
@@ -9119,9 +9151,9 @@ fn strict_comment_text(value: JsValue) -> Result<String, JsValue> {
 }
 
 /// wasm32 indices are unsigned 32-bit integers, never truncated JS numbers.
-fn table_merge_index(value: f64, maximum: u32) -> Result<usize, JsValue> {
+fn table_edit_index(value: f64, maximum: u32) -> Result<usize, JsValue> {
     if !value.is_finite() || value.fract() != 0.0 || value < 0.0 || value > maximum as f64 {
-        return Err(JsValue::from_str("셀 병합 좌표는 범위 안의 정수여야 합니다"));
+        return Err(JsValue::from_str("표 편집 좌표/분할 수는 범위 안의 정수여야 합니다"));
     }
     Ok(value as usize)
 }

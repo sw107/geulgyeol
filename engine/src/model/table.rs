@@ -2081,6 +2081,57 @@ impl Table {
         equal_row_height: bool,
         merge_first: bool,
     ) -> Result<(), String> {
+        if n_rows == 0 || m_cols == 0 {
+            return Err("분할 행/열 수는 1 이상이어야 합니다".into());
+        }
+        let cell = self
+            .cells
+            .iter()
+            .find(|c| c.row == target_row && c.col == target_col)
+            .ok_or_else(|| format!("셀 ({target_row},{target_col})을 찾을 수 없습니다"))?;
+        if checked_table_span_end(cell.row, cell.row_span, "행")? > self.row_count
+            || checked_table_span_end(cell.col, cell.col_span, "열")? > self.col_count
+        {
+            return Err("분할 대상 셀 범위가 표 크기를 벗어납니다".into());
+        }
+        if n_rows == 1 && m_cols == 1 {
+            return Ok(());
+        }
+        // merge_first can successfully unmerge before a later split fails.
+        // Stage that two-step edit once; ordinary preflighted splits need no clone.
+        if merge_first && (cell.row_span > 1 || cell.col_span > 1) {
+            let mut staged = self.clone();
+            staged.split_cell_into_in_place(
+                target_row,
+                target_col,
+                n_rows,
+                m_cols,
+                equal_row_height,
+                true,
+            )?;
+            *self = staged;
+            Ok(())
+        } else {
+            self.split_cell_into_in_place(
+                target_row,
+                target_col,
+                n_rows,
+                m_cols,
+                equal_row_height,
+                false,
+            )
+        }
+    }
+
+    fn split_cell_into_in_place(
+        &mut self,
+        target_row: u16,
+        target_col: u16,
+        n_rows: u16,
+        m_cols: u16,
+        equal_row_height: bool,
+        merge_first: bool,
+    ) -> Result<(), String> {
         if n_rows < 1 || m_cols < 1 {
             return Err("분할 행/열 수는 1 이상이어야 합니다".to_string());
         }
@@ -2308,10 +2359,59 @@ impl Table {
         if n_rows < 1 || m_cols < 1 {
             return Err("분할 행/열 수는 1 이상이어야 합니다".to_string());
         }
+
+        if start_row > end_row
+            || start_col > end_col
+            || end_row >= self.row_count
+            || end_col >= self.col_count
+        {
+            return Err("셀 분할 범위가 표 크기를 벗어나거나 역순입니다".into());
+        }
+        for cell in &self.cells {
+            let row_end = checked_table_span_end(cell.row, cell.row_span, "행")?;
+            let col_end = checked_table_span_end(cell.col, cell.col_span, "열")?;
+            let overlaps = cell.row <= end_row
+                && row_end > start_row
+                && cell.col <= end_col
+                && col_end > start_col;
+            if overlaps
+                && (cell.row < start_row
+                    || row_end > end_row + 1
+                    || cell.col < start_col
+                    || col_end > end_col + 1)
+            {
+                return Err("셀 분할 범위가 병합 셀의 일부만 포함합니다".into());
+            }
+        }
         if n_rows == 1 && m_cols == 1 {
             return Ok(());
         }
+        // Later cells may fail after earlier ones have changed the grid. Commit
+        // the complete range only after every split succeeds.
+        let mut staged = self.clone();
+        staged.split_cells_in_range_in_place(
+            start_row,
+            start_col,
+            end_row,
+            end_col,
+            n_rows,
+            m_cols,
+            equal_row_height,
+        )?;
+        *self = staged;
+        Ok(())
+    }
 
+    fn split_cells_in_range_in_place(
+        &mut self,
+        start_row: u16,
+        start_col: u16,
+        end_row: u16,
+        end_col: u16,
+        n_rows: u16,
+        m_cols: u16,
+        equal_row_height: bool,
+    ) -> Result<(), String> {
         // 열 우선 순서: 우측→좌측 열, 각 열 내에서 하단→상단
         // 같은 열 내 분할은 col을 시프트하지 않고 col_span만 확장하므로 안전.
         // 우측 열 처리 후 좌측 열의 셀 col은 아직 원래 값을 유지한다.
@@ -2321,7 +2421,7 @@ impl Table {
                 if !self.cells.iter().any(|cell| cell.col == c && cell.row == r) {
                     continue;
                 }
-                self.split_cell_into(r, c, n_rows, m_cols, equal_row_height, false)?;
+                self.split_cell_into_in_place(r, c, n_rows, m_cols, equal_row_height, false)?;
             }
         }
 

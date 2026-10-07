@@ -25228,7 +25228,7 @@ fn task1413_insert_picture_ex_optional_keys_default() {
 fn task1413_split_table_cell_into_ex_equivalent() {
     let mut doc_pos = create_doc_with_table();
     let res_pos = doc_pos
-        .split_table_cell_into(0, 0, 0, 0, 0, 2, 2, true, false)
+        .split_table_cell_into(0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 2.0, true, false)
         .expect("positional splitTableCellInto");
 
     let mut doc_ex = create_doc_with_table();
@@ -25246,7 +25246,7 @@ fn task1413_split_table_cell_into_ex_equivalent() {
 fn task1413_split_table_cells_in_range_ex_equivalent() {
     let mut doc_pos = create_doc_with_table();
     let res_pos = doc_pos
-        .split_table_cells_in_range(0, 0, 0, 0, 0, 0, 0, 2, 2, true)
+        .split_table_cells_in_range(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 2.0, true)
         .expect("positional splitTableCellsInRange");
 
     let mut doc_ex = create_doc_with_table();
@@ -25468,7 +25468,7 @@ fn task1413_paste_html_in_cell_ex_equivalent() {
 #[test]
 fn task1413_merge_table_cells_ex_equivalent() {
     let mut a = create_doc_with_table();
-    let rp = a.merge_table_cells(0, 0, 0, 0, 0, 0, 1);
+    let rp = a.merge_table_cells(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
     let mut b = create_doc_with_table();
     let re = b.merge_table_cells_ex(
         r#"{"sectionIdx":0,"parentParaIdx":0,"controlIdx":0,"startRow":0,"startCol":0,"endRow":0,"endCol":1}"#,
