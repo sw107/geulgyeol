@@ -1,6 +1,10 @@
 # 현재 개발 checkout 기능 대조
 
-현재 최신 소스 후보는 `243a1e1`의 **본문 깊이2 비병합 중첩 표 줄 편집**에 JS section/parent 타입 검사를 보완했다. null/문자열/boolean/배열·객체가 숫자로 강제변환되어 행이 추가되던 결함7건을 재현·수정했다. 새 독립 경계20사례/80이력쌍/80재열기·456무변경 거절/stale24와 기존 중첩·일반 표 회귀를 합쳐 실제 Mac68사례/78편집/312쌍/272재열기·독립 Native272를 통과했다. 참조 있는 행 삭제는 계속 거절하며 바깥 CrossRef와 삭제 행 이름 바인딩의 경계 근거를 남겼다. TS/Clippy·링크/수식 회귀 통과, library unit test는 기존 샘플3 누락으로 컴파일 차단. 별도 WASM 후보·앱 미통합·로컬 커밋만. [최신 타입·경계 결과](nested-row-boundary/RESULT_KO.md), [이전 중첩 행](nested-table-rows/RESULT_KO.md).
+최신 제품 소스 `30601b1`을 독립 Mac 개발 후보 **GeulgyeolDev12.app / 0.4.4-dev.12** 하나에 통합했다. 검증된 WASM/Native와 dev11 runtime을 재사용하고 웹 자산을 새로 빌드했다. 실제 Electron renderer에서 캡션·책갈피·일반 붙여넣기·셀 병합/분할·깊이2 행 편집11사례/44이력쌍/44재열기를 통과했다. Native44건을 독립 대조했으며, 책갈피/붙여넣기 HWP5건의 저장 캐럿·관련 digest 차이는 별도 제한 비교로 명시한다. 일반 실행/정상 종료·실행 후 strict ad-hoc·TS·기존 보호37,113개 및 소스1,470개 불변 확인. 물리 IME/클립보드·OS 저장 대화상자·한컴은 미검증이다. 직접 사용자 요청으로 제품 `30601b1`을 푸시했고, 그 이후 통합 검증 기록은 로컬 커밋만 했다. [통합 결과·한계](dev12-integration/RESULT_KO.md), [해시·증거](dev12-integration/proof.json).
+
+통합 전 소스 검증에서는 `243a1e1`의 **본문 깊이2 비병합 중첩 표 줄 편집**에 JS section/parent 타입 검사를 보완했다. null/문자열/boolean/배열·객체가 숫자로 강제변환되어 행이 추가되던 결함7건을 재현·수정했다. 새 독립 경계20사례/80이력쌍/80재열기·456무변경 거절/stale24와 기존 중첩·일반 표 회귀를 합쳐 실제 Mac68사례/78편집/312쌍/272재열기·독립 Native272를 통과했다. 참조 있는 행 삭제는 계속 거절하며 바깥 CrossRef와 삭제 행 이름 바인딩의 경계 근거를 남겼다. TS/Clippy·링크/수식 회귀 통과, library unit test는 기존 샘플3 누락으로 컴파일 차단. 당시 별도 WASM만 검증했으며 현재는 위 dev.12에 통합됐다. [타입·경계 결과](nested-row-boundary/RESULT_KO.md), [이전 중첩 행](nested-table-rows/RESULT_KO.md).
+
+다음 dev11 및 후속 소스 단락은 각 단계 당시의 기록이다. 그 안의 “dev11 미통합”은 현재 dev.12의 통합 여부와 구분한다.
 
 dev11 체크포인트에서 제품 소스 `573556d`를 별도 Mac 후보 `GeulgyeolDev11.app` (`0.4.4-dev.11`)에 통합했다. 기존 누적 메모/필드/스타일/셀 기능에 본문 사각형 너비 API·문단100% 계산과 문단 띠 메뉴/두께·색 편집/제거를 포함한다. 패키지 엔진 재열기172(띠132·너비40), 띠 Native 독립132, strict ad-hoc·최신 자산·기동/정상 종료/잔류0을 확인했다. GUI/물리 IME·renderer 편집·한컴·Linux는 미검증이며 기본 앱/공개 beta.2/dev10을 보존했다. [dev11 결과](dev11-checkpoint/RESULT_KO.md), [proof](dev11-checkpoint/proof.json).
 
@@ -18,7 +22,8 @@ dev11에서 재현한 그림 캡션 삽입 undo 누락을 후속 **소스 후보
 
 | 대상 | 포함 범위 |
 |---|---|
-| 최신 소스 / `nested-row-boundary-qa/pkg` | 중첩 행 두 API의 실제 JS Number 검사. 빈/Unicode 다문단·오른쪽 열·첫/마지막 행 경계와 현재 후보 전체 Mac68/312쌍/272재열기·Native독립272. 참조 행 삭제 거절 유지, 앱 미통합. [검증·한계](nested-row-boundary/RESULT_KO.md) |
+| 최신 통합 앱 `GeulgyeolDev12.app` | 제품30601b1·개발버전0.4.4-dev.12, 실제 Electron 대표 편집11/44쌍/44재열기·Native44 대조(HWP 캐럿5건 예외 명시), 일반 실행/정상 종료·strict ad-hoc. IME/실제 클립보드·OS 저장/한컴 미검증. [통합·한계](dev12-integration/RESULT_KO.md) |
+| 최신 엔진 / 보존된 `nested-row-boundary-qa/pkg` | 중첩 행 두 API의 실제 JS Number 검사. 빈/Unicode 다문단·오른쪽 열·첫/마지막 행 경계와 당시 후보 전체 Mac68/312쌍/272재열기·Native독립272. 참조 행 삭제 거절 유지, 현재 dev.12에 그대로 통합. [검증·한계](nested-row-boundary/RESULT_KO.md) |
 | 보존된 `nested-table-row-qa/pkg` | 본문 깊이2 정규 비병합 표의 줄 추가/참조 없는 줄 삭제. Mac 중첩24/112명령 이력쌍/96재열기, 일반 표 포함48/232쌍/192재열기·Native독립192. Native 중첩170거절, Mac 비지원736/오래된대상60·root stale38. 별도 새 WASM, 앱 미통합. [범위/검증](nested-table-rows/RESULT_KO.md) |
 | 이전 차단 UI / `nested-table-command-qa/pkg` | 안쪽10개 구조 명령 및 stale dialog/root축 오편집 차단. 깊이2/3 무변경 거절, 정상root·일반표Mac52/232쌍/208재열기·Native독립208. **엔진은 아래 후보를 읽기 전용 재사용, 앱 미통합** |
 | 보존된 `table-structure-qa/pkg` | 분할 범위·mergeFirst 실패 원자성 및 no-op 이력 보존, 행·열/분할 숫자/options 검사와 누적 병합 보존. SHA256 `92d6614e5ff0a3ebac84859857086d59ccdbd38d37852e696f3f2bba0f939d4b`. **소스 후보만, dev11 앱 미통합** |

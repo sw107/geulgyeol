@@ -1,0 +1,1072 @@
+{
+  "productSourceCommit": "30601b18ab81aeddc51ea059c6980003706ad1b8",
+  "candidatePath": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/GeulgyeolDev12.app",
+  "version": "0.4.4-dev.12",
+  "bundleId": "org.geulgyeol.dev.checkpoint12",
+  "engineVersion": "0.8.6",
+  "sourceFreezeSHA256": "33617df1f867ddc8e86a2a0a4c974de2084efb92c77235a11924c7f208ee299d",
+  "sourceFiles": 1470,
+  "sourceAppPath": "/Users/sw107/Documents/Codex/2026-10-06/task/dev11-checkpoint-qa/GeulgyeolDev11.app",
+  "sourceAppASARSHA256": "cc93b8d25713cca6f354739d3db542b4c5027cc897eccda1d9b576e6a515aa6f",
+  "asarSHA256": "7cb9e475d25d3ed7ec7d7a95b1b28e278547c3d32bd3dbc885d336ea0a113d36",
+  "asarHeaderSHA256": "88b952189e0c22626713312f5993c5e8dc984deb001e141e013acbc641db0e2a",
+  "wasmSHA256": "3a9e736e1025bf3c9c72bda67e1d9ca4a1665bfb3e2f06b5ab172932bc7f1a86",
+  "reusedBindingsPath": "/Users/sw107/Documents/Codex/2026-10-06/task/nested-row-boundary-qa/pkg",
+  "bindingsSHA256": {
+    "rhwp.js": "07e41c9045d0a4d3544e83a8b9658629b1aa9bb85f2f85ebc98b108b36af0eea",
+    "rhwp_bg.wasm.d.ts": "5e331d54a725774c61950f014b4e144f512c4c01e65dcaa69655de555be74642",
+    "rhwp_bg.wasm": "3a9e736e1025bf3c9c72bda67e1d9ca4a1665bfb3e2f06b5ab172932bc7f1a86",
+    "rhwp.d.ts": "8a740aa1973393e843bde2c1085f7e755766d4cdc29d3c0ca85d353dc0c90069"
+  },
+  "nativeExecutablesSHA256": {
+    "table_merge_preservation_check": "10a7becc5cd8b3296c952555e557b870fea39acad364c9594b0f6cd908c4fef3",
+    "bookmark_preservation_check": "9435b60f075ca3efb47a70a28b4b018aded922bd83acf2a5b7f9daddfd666c15",
+    "body_rectangle_width_check": "cabc87df4efc124eba977915a85fb18003e13760040577e5d3d2cfefc1355bab"
+  },
+  "nativeBuildProvenance": "Existing cached executables reused; table verifier was built in nested-row-boundary-qa. Bookmark/caption Native paths unchanged by the JS-only section/parent coercion fix. Full current-source build not rerun.",
+  "webBuildMode": "NODE_ENV=development, from source 30601b1, isolated web/studio; DEV Cursor globals retained for renderer automation",
+  "webAssetsSHA256": {
+    "favicon.ico": "136d51c3d0a12bc67352964998fa78a5dcf2702873f73eb261990f9e20eb0ade",
+    "index.html": "a7922de14d6debe8a31a08a33b23d0e2f920ac49d6d060ee5d20799f0b7a5978",
+    "theme-init.js": "5a3afcc0139187bfe509414cd60fde2a0dfea72fd72751c4e6e696cdc0f6c587",
+    "print.html": "930907863afbafcc76099d386f6a995bc6c69387cb56838b18e4cdaf6eea6b79",
+    "images/icon_small_ko_dark.svg": "9d02ea0b8c1d399a89290d97613759826f19f3e3f392b6d79dcf6109e7e15fa6",
+    "images/icon_small_ko.svg": "a0ac1200a41b6a75e9afb30cda5bb850276087d45c2f25870605888238ba9b39",
+    "icons/icon-256.png": "b851d2271495a9858efd51def7615f68f2204417977672cde1da1ced53120ad0",
+    "icons/icon-192.png": "1180863b994272a7591043ecf0ae539de78c0f404eecad15b4e67b0315cbaf9c",
+    "icons/icon-128.png": "ce3047204dedd260b62b507ef1773ecfa1e68be1ddf08304a664fcb1341d502d",
+    "icons/icon-512.png": "25074cfb4bc9e9c543fd56504e4088741e4fe2b4927f36ab90741efa7947887a",
+    "assets/studio-plugin-Cp8dJ3L_.js": "abdcbcab732aad8d91b551c97ff045bec6b140ae87d94c5fd44235d5515fb4e7",
+    "assets/canvaskit-renderer-B1MNmDd0.js": "702a3ca398fd31b8308769ad5e5849ce99e4be8bfddd6c26452a8156d9f482c0",
+    "assets/rhwp_bg-EDZ8NDDe.wasm": "3a9e736e1025bf3c9c72bda67e1d9ca4a1665bfb3e2f06b5ab172932bc7f1a86",
+    "assets/dev-probe-plugin-O5E0Ceov.js": "d4678c388a5a017d66de57ef739f9f6fac120eff3a4234f651f609c00423fcf9",
+    "assets/index-5GZQ8FIC.js": "bf7cb0f04bb58c294638334b3e6d03dc8f90ba3d23b14ec66d8b8ac7349a44bd",
+    "assets/subsecond-runtime-DHI2Ugih.js": "a134898afab7c2c90cf43953740918c882e132fdf315397782dc3c2e573ddf0c",
+    "assets/canvaskit-SCAxUyCS.wasm": "25ebed8e60158c5854f8dc807b936daca21354f8bfb6a2231266b0a93812f301",
+    "assets/index-EHujs-C0.css": "f0783ab4c24b02f241c1e3807f971396337209afc63c32146f59f65123cf963a"
+  },
+  "package": {
+    "app": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/GeulgyeolDev12.app",
+    "version": "0.4.4-dev.12",
+    "bundleId": "org.geulgyeol.dev.checkpoint12",
+    "helpers": [
+      {
+        "name": "GeulgyeolDev12 Helper (GPU)",
+        "bundleId": "org.geulgyeol.dev.checkpoint12.helper.GPU"
+      },
+      {
+        "name": "GeulgyeolDev12 Helper (Plugin)",
+        "bundleId": "org.geulgyeol.dev.checkpoint12.helper.Plugin"
+      },
+      {
+        "name": "GeulgyeolDev12 Helper (Renderer)",
+        "bundleId": "org.geulgyeol.dev.checkpoint12.helper.Renderer"
+      },
+      {
+        "name": "GeulgyeolDev12 Helper",
+        "bundleId": "org.geulgyeol.dev.checkpoint12.helper"
+      }
+    ],
+    "asarSHA256": "7cb9e475d25d3ed7ec7d7a95b1b28e278547c3d32bd3dbc885d336ea0a113d36",
+    "asarHeaderSHA256": "88b952189e0c22626713312f5993c5e8dc984deb001e141e013acbc641db0e2a",
+    "allEntryAndBlockIntegrityVerified": true,
+    "freshBindingsAndStudioAssetsMatch": true,
+    "engineSHA256": "3a9e736e1025bf3c9c72bda67e1d9ca4a1665bfb3e2f06b5ab172932bc7f1a86",
+    "compiledUIMethods": [
+      "applyCellOwnPropertiesByPaths",
+      "applyFormatCopyInCell",
+      "getCellOwnPropertiesByPath",
+      "getCellParaPropertiesAtByPath",
+      "editNestedTableRow",
+      "insert:caption-toggle",
+      "insert:bookmark"
+    ],
+    "profileIsolated": true,
+    "onlyBindingsExtracted": true,
+    "allSymlinksStayInsideCandidate": true,
+    "noTestsOrNodeModulesInApp": true,
+    "GUIVerified": false,
+    "sourceFreezeProof": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/source-freeze.json"
+  },
+  "renderer": {
+    "candidate": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/GeulgyeolDev12.app/Contents/MacOS/GeulgyeolDev12",
+    "pid": 24857,
+    "host": {
+      "info": {
+        "version": "0.4.4-dev.12",
+        "platform": "darwin"
+      },
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) GeulgyeolDev12/0.4.4-dev.12 Chrome/152.0.7977.78 Electron/44.3.0 Safari/537.36",
+      "nodeExposed": false,
+      "title": "글결 문서 편집기"
+    },
+    "studioURL": "http://127.0.0.1:65480/studio/?renderer=canvas2d",
+    "loadedWasmURL": "http://127.0.0.1:65480/studio/assets/rhwp_bg-EDZ8NDDe.wasm",
+    "loadedWasmSHA256": "3a9e736e1025bf3c9c72bda67e1d9ca4a1665bfb3e2f06b5ab172932bc7f1a86",
+    "cases": 11,
+    "undoRedoPairs": 44,
+    "savedReopens": 44,
+    "checks": [
+      {
+        "label": "bookmark-add",
+        "hwpUndoBinaryExact": true,
+        "undoRedoPairs": 4,
+        "reopens": 4
+      },
+      {
+        "label": "paste-selected",
+        "hwpUndoBinaryExact": true,
+        "undoRedoPairs": 4,
+        "reopens": 4
+      },
+      {
+        "label": "paste-multiline",
+        "hwpUndoBinaryExact": true,
+        "undoRedoPairs": 4,
+        "reopens": 4
+      },
+      {
+        "label": "caption-insert",
+        "hwpUndoBinaryExact": true,
+        "undoRedoPairs": 4,
+        "reopens": 4
+      },
+      {
+        "label": "caption-selection-replace",
+        "hwpUndoBinaryExact": true,
+        "undoRedoPairs": 4,
+        "reopens": 4
+      },
+      {
+        "label": "merge-link-row",
+        "hwpUndoBinaryExact": true,
+        "undoRedoPairs": 4,
+        "reopens": 4
+      },
+      {
+        "label": "merge-equations-row",
+        "hwpUndoBinaryExact": true,
+        "undoRedoPairs": 4,
+        "reopens": 4
+      },
+      {
+        "label": "split-2x2",
+        "hwpUndoBinaryExact": true,
+        "undoRedoPairs": 4,
+        "reopens": 4
+      },
+      {
+        "label": "nested-one-empty-hwpx-below-last",
+        "hwpUndoBinaryExact": true,
+        "undoRedoPairs": 4,
+        "reopens": 4
+      },
+      {
+        "label": "nested-three-unicode-hwp-above-first",
+        "hwpUndoBinaryExact": true,
+        "undoRedoPairs": 4,
+        "reopens": 4
+      },
+      {
+        "label": "nested-three-unicode-hwpx-delete-last",
+        "hwpUndoBinaryExact": true,
+        "undoRedoPairs": 4,
+        "reopens": 4
+      }
+    ],
+    "errors": [],
+    "actualElectronRenderer": true,
+    "preloadIPCVersionVerified": true,
+    "SDKEmbeddedIframe": true,
+    "DEVPositionSetup": true,
+    "keyboardViaCDP": true,
+    "syntheticPaste": true,
+    "OSClipboardAccessed": false,
+    "nativeFileDialogsVerified": false,
+    "physicalIMEVerified": false,
+    "HancomVerified": false
+  },
+  "normalRendererQuit": {
+    "normalQuit": true,
+    "exitCode": 0,
+    "signal": null
+  },
+  "ordinaryLaunchQuitWithoutDebugFlags": {
+    "version": "0.4.4-dev.12",
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false,
+    "profileBase": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/profile",
+    "userDocumentsOpened": 0,
+    "externalLinksExecuted": 0,
+    "pid": 35448,
+    "servedFreshAssetsSHA256": {
+      "theme-init.js": "5a3afcc0139187bfe509414cd60fde2a0dfea72fd72751c4e6e696cdc0f6c587",
+      "assets/studio-plugin-Cp8dJ3L_.js": "abdcbcab732aad8d91b551c97ff045bec6b140ae87d94c5fd44235d5515fb4e7",
+      "assets/canvaskit-renderer-B1MNmDd0.js": "702a3ca398fd31b8308769ad5e5849ce99e4be8bfddd6c26452a8156d9f482c0",
+      "assets/rhwp_bg-EDZ8NDDe.wasm": "3a9e736e1025bf3c9c72bda67e1d9ca4a1665bfb3e2f06b5ab172932bc7f1a86",
+      "assets/dev-probe-plugin-O5E0Ceov.js": "d4678c388a5a017d66de57ef739f9f6fac120eff3a4234f651f609c00423fcf9",
+      "assets/index-5GZQ8FIC.js": "bf7cb0f04bb58c294638334b3e6d03dc8f90ba3d23b14ec66d8b8ac7349a44bd",
+      "assets/subsecond-runtime-DHI2Ugih.js": "a134898afab7c2c90cf43953740918c882e132fdf315397782dc3c2e573ddf0c",
+      "assets/canvaskit-SCAxUyCS.wasm": "25ebed8e60158c5854f8dc807b936daca21354f8bfb6a2231266b0a93812f301",
+      "assets/index-EHujs-C0.css": "f0783ab4c24b02f241c1e3807f971396337209afc63c32146f59f65123cf963a"
+    },
+    "basicProcessAndLocalServerPassed": true,
+    "htmlVersionMatched": true,
+    "servedEngineSHA256": "3a9e736e1025bf3c9c72bda67e1d9ca4a1665bfb3e2f06b5ab172932bc7f1a86",
+    "processAlive": true,
+    "quitRequestExit": 0,
+    "quitStderr": "",
+    "normalQuit": true,
+    "finalProcessExit": 0
+  },
+  "native": {
+    "independentSavedReopens": 44,
+    "table": {
+      "fullParagraphsControlsFieldOwnersBinDataAndSVG": true,
+      "independentSavedReopens": 24,
+      "nativeOperationReexecution": true,
+      "typedDocInfoCompared": true
+    },
+    "caption": {
+      "captionScopeReadonlyRefusals": 0,
+      "fullSvgParagraphsStylesCaptionAndImageCompared": true,
+      "independentSavedReopens": 8,
+      "nativeCommandReexecution": true,
+      "noteHeaderTrailingZeroPaddingCanonicalized": true,
+      "snapshotPairs": 12
+    },
+    "bookmarkAndPaste": {
+      "nativeExecutable": "/Users/sw107/Documents/Codex/2026-10-06/task/style-lint-qa/target/debug/examples/bookmark_preservation_check",
+      "nativeSHA256": "9435b60f075ca3efb47a70a28b4b018aded922bd83acf2a5b7f9daddfd666c15",
+      "manifestSHA256": "32e4f57207ee79138379db0b21ecad3723567b87eff9d8db80aabec75a9dc7ab",
+      "independentSavedReopens": 12,
+      "strictPasses": 7,
+      "boundedSavedCaretComparisons": 5,
+      "boundedComparatorRefusalChecks": [
+        "paragraphsControlsReferences",
+        "typedDocInfo",
+        "documentCounters",
+        "otherRawRecord",
+        "nonCaretProvenance",
+        "provenanceOnlyWithoutCaretDifference"
+      ],
+      "documentsModified": false,
+      "rustRebuilt": false,
+      "checks": [
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/bookmark-add-after.hwp",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 101,
+          "nativeLogSHA256": "09bc4b2f023aee84508744b495b5450926d3ce7fa06aa5875b86dbf102c5fa31",
+          "nativeOperationReexecution": true,
+          "strictPassed": false,
+          "boundedSavedCaretComparison": {
+            "caretDifferences": [
+              {
+                "record": 0,
+                "tag": 16,
+                "actualSavedCaret": [
+                  0,
+                  0,
+                  28
+                ],
+                "expectedSavedCaret": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "rawRecordCount": 82,
+            "allOtherRawRecordsExact": true,
+            "typedDocInfoExact": true,
+            "paragraphsControlsBinDataExact": true,
+            "fullSvgExact": true,
+            "allNonCaretRecordSealsExact": true,
+            "actualRawDocInfoSHA256": "f72ab8e71807b6431a6a7f22142bb627590ab7d5f2a5112b46b34ff3c055cd42",
+            "expectedRawDocInfoSHA256": "d1f11be8122054ef0a9ec50bc37cc22e536b7081c8d66556b840eb0fa9dbc388",
+            "rawProvenanceExact": false,
+            "actualRawProvenanceSHA256": "6e9c996fd04e8a9035adb0c6879efcfeb9334e7b132b3361ed9c3e653a140cf6",
+            "expectedRawProvenanceSHA256": "3aadf7f977ca51a10a5469a6f3ad3c24d65f4f0656b1d77b29b97f9fbfef94aa"
+          }
+        },
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/bookmark-add-after.hwpx",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 0,
+          "nativeLogSHA256": "34dd1f087a3167bb4648d3d82da13b0f86ce6daeadcc19b0a0c9e4238e0c54e4",
+          "nativeOperationReexecution": true,
+          "strictPassed": true,
+          "nativeProof": {
+            "atomicNativeRefusals": 11,
+            "atomicNativeStructuralRefusals": 36,
+            "duplicateNameRefusalsAcrossNestedScopes": 28,
+            "fullSvgParagraphsStylesAndBinDataCompared": true,
+            "independentSavedReopens": 1,
+            "nativeOperationReexecution": true,
+            "noteHeaderTrailingZeroPaddingCanonicalized": true,
+            "readOnlyNestedNameScopes": 14,
+            "selectionFragmentPairs": 0,
+            "snapshotPairs": 3
+          }
+        },
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/bookmark-add-undo.hwp",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 101,
+          "nativeLogSHA256": "65bd8cab4d39212260e11045067e979536072e506675a7df512aca825a9bfb15",
+          "nativeOperationReexecution": true,
+          "strictPassed": false,
+          "boundedSavedCaretComparison": {
+            "caretDifferences": [
+              {
+                "record": 0,
+                "tag": 16,
+                "actualSavedCaret": [
+                  0,
+                  0,
+                  20
+                ],
+                "expectedSavedCaret": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "rawRecordCount": 82,
+            "allOtherRawRecordsExact": true,
+            "typedDocInfoExact": true,
+            "paragraphsControlsBinDataExact": true,
+            "fullSvgExact": true,
+            "allNonCaretRecordSealsExact": true,
+            "actualRawDocInfoSHA256": "28d5d89ee3721af84627ba4abcacfd0a656faf4aec387836c7368d36665201d6",
+            "expectedRawDocInfoSHA256": "d1f11be8122054ef0a9ec50bc37cc22e536b7081c8d66556b840eb0fa9dbc388",
+            "rawProvenanceExact": false,
+            "actualRawProvenanceSHA256": "b4feb187e793a1b4e9d7002726c45dc2c62aeedb3a312c6f159380ecd0f8784c",
+            "expectedRawProvenanceSHA256": "3aadf7f977ca51a10a5469a6f3ad3c24d65f4f0656b1d77b29b97f9fbfef94aa"
+          }
+        },
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/bookmark-add-undo.hwpx",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 0,
+          "nativeLogSHA256": "3db0dbaf5670c38c5f00ad04978c5b074a32512a17b0a086a6824f6c54f05126",
+          "nativeOperationReexecution": true,
+          "strictPassed": true,
+          "nativeProof": {
+            "atomicNativeRefusals": 11,
+            "atomicNativeStructuralRefusals": 36,
+            "duplicateNameRefusalsAcrossNestedScopes": 28,
+            "fullSvgParagraphsStylesAndBinDataCompared": true,
+            "independentSavedReopens": 1,
+            "nativeOperationReexecution": true,
+            "noteHeaderTrailingZeroPaddingCanonicalized": true,
+            "readOnlyNestedNameScopes": 14,
+            "selectionFragmentPairs": 0,
+            "snapshotPairs": 0
+          }
+        },
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/paste-selected-after.hwp",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 0,
+          "nativeLogSHA256": "34dd1f087a3167bb4648d3d82da13b0f86ce6daeadcc19b0a0c9e4238e0c54e4",
+          "nativeOperationReexecution": true,
+          "strictPassed": true,
+          "nativeProof": {
+            "atomicNativeRefusals": 11,
+            "atomicNativeStructuralRefusals": 36,
+            "duplicateNameRefusalsAcrossNestedScopes": 28,
+            "fullSvgParagraphsStylesAndBinDataCompared": true,
+            "independentSavedReopens": 1,
+            "nativeOperationReexecution": true,
+            "noteHeaderTrailingZeroPaddingCanonicalized": true,
+            "readOnlyNestedNameScopes": 14,
+            "selectionFragmentPairs": 0,
+            "snapshotPairs": 3
+          }
+        },
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/paste-selected-after.hwpx",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 0,
+          "nativeLogSHA256": "34dd1f087a3167bb4648d3d82da13b0f86ce6daeadcc19b0a0c9e4238e0c54e4",
+          "nativeOperationReexecution": true,
+          "strictPassed": true,
+          "nativeProof": {
+            "atomicNativeRefusals": 11,
+            "atomicNativeStructuralRefusals": 36,
+            "duplicateNameRefusalsAcrossNestedScopes": 28,
+            "fullSvgParagraphsStylesAndBinDataCompared": true,
+            "independentSavedReopens": 1,
+            "nativeOperationReexecution": true,
+            "noteHeaderTrailingZeroPaddingCanonicalized": true,
+            "readOnlyNestedNameScopes": 14,
+            "selectionFragmentPairs": 0,
+            "snapshotPairs": 3
+          }
+        },
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/paste-selected-undo.hwp",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 101,
+          "nativeLogSHA256": "f1f3a4464fe6629e3bd8b0f9e80218df4a513311ff558cde74fbda78a1e9a7d1",
+          "nativeOperationReexecution": true,
+          "strictPassed": false,
+          "boundedSavedCaretComparison": {
+            "caretDifferences": [
+              {
+                "record": 0,
+                "tag": 16,
+                "actualSavedCaret": [
+                  0,
+                  0,
+                  20
+                ],
+                "expectedSavedCaret": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "rawRecordCount": 82,
+            "allOtherRawRecordsExact": true,
+            "typedDocInfoExact": true,
+            "paragraphsControlsBinDataExact": true,
+            "fullSvgExact": true,
+            "allNonCaretRecordSealsExact": true,
+            "actualRawDocInfoSHA256": "28d5d89ee3721af84627ba4abcacfd0a656faf4aec387836c7368d36665201d6",
+            "expectedRawDocInfoSHA256": "d1f11be8122054ef0a9ec50bc37cc22e536b7081c8d66556b840eb0fa9dbc388",
+            "rawProvenanceExact": false,
+            "actualRawProvenanceSHA256": "b4feb187e793a1b4e9d7002726c45dc2c62aeedb3a312c6f159380ecd0f8784c",
+            "expectedRawProvenanceSHA256": "3aadf7f977ca51a10a5469a6f3ad3c24d65f4f0656b1d77b29b97f9fbfef94aa"
+          }
+        },
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/paste-selected-undo.hwpx",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 0,
+          "nativeLogSHA256": "3db0dbaf5670c38c5f00ad04978c5b074a32512a17b0a086a6824f6c54f05126",
+          "nativeOperationReexecution": true,
+          "strictPassed": true,
+          "nativeProof": {
+            "atomicNativeRefusals": 11,
+            "atomicNativeStructuralRefusals": 36,
+            "duplicateNameRefusalsAcrossNestedScopes": 28,
+            "fullSvgParagraphsStylesAndBinDataCompared": true,
+            "independentSavedReopens": 1,
+            "nativeOperationReexecution": true,
+            "noteHeaderTrailingZeroPaddingCanonicalized": true,
+            "readOnlyNestedNameScopes": 14,
+            "selectionFragmentPairs": 0,
+            "snapshotPairs": 0
+          }
+        },
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/paste-multiline-after.hwp",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 101,
+          "nativeLogSHA256": "2ae4ff9f0cc84ba58dd74ebf0b372ad0c3bf065d1be275ecf1c64b9e3aa71061",
+          "nativeOperationReexecution": true,
+          "strictPassed": false,
+          "boundedSavedCaretComparison": {
+            "caretDifferences": [
+              {
+                "record": 0,
+                "tag": 16,
+                "actualSavedCaret": [
+                  0,
+                  3,
+                  0
+                ],
+                "expectedSavedCaret": [
+                  0,
+                  2,
+                  3
+                ]
+              }
+            ],
+            "rawRecordCount": 82,
+            "allOtherRawRecordsExact": true,
+            "typedDocInfoExact": true,
+            "paragraphsControlsBinDataExact": true,
+            "fullSvgExact": true,
+            "allNonCaretRecordSealsExact": true,
+            "actualRawDocInfoSHA256": "bf4b67c4401496c0f5a6901e552f91cb95714cd4eaa3324e68d92f930dee1db6",
+            "expectedRawDocInfoSHA256": "0974e8a74200c8546e955f790f0047c28847c0edb49ae66873afbf1f62f513d9",
+            "rawProvenanceExact": false,
+            "actualRawProvenanceSHA256": "60c15b4d0e44846bb1aab79582ec49cf873f17b9b3117edf9fb6091e293a9b62",
+            "expectedRawProvenanceSHA256": "e19a779bb91e70b7a402262b26be6d7fe1ff791840686abe5743edd108341bde"
+          }
+        },
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/paste-multiline-after.hwpx",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 0,
+          "nativeLogSHA256": "34dd1f087a3167bb4648d3d82da13b0f86ce6daeadcc19b0a0c9e4238e0c54e4",
+          "nativeOperationReexecution": true,
+          "strictPassed": true,
+          "nativeProof": {
+            "atomicNativeRefusals": 11,
+            "atomicNativeStructuralRefusals": 36,
+            "duplicateNameRefusalsAcrossNestedScopes": 28,
+            "fullSvgParagraphsStylesAndBinDataCompared": true,
+            "independentSavedReopens": 1,
+            "nativeOperationReexecution": true,
+            "noteHeaderTrailingZeroPaddingCanonicalized": true,
+            "readOnlyNestedNameScopes": 14,
+            "selectionFragmentPairs": 0,
+            "snapshotPairs": 3
+          }
+        },
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/paste-multiline-undo.hwp",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 101,
+          "nativeLogSHA256": "fb29556ca8d20b5bceb642c388d0168cd7f01f54ffb98d0dfc23de42e811e408",
+          "nativeOperationReexecution": true,
+          "strictPassed": false,
+          "boundedSavedCaretComparison": {
+            "caretDifferences": [
+              {
+                "record": 0,
+                "tag": 16,
+                "actualSavedCaret": [
+                  0,
+                  2,
+                  1
+                ],
+                "expectedSavedCaret": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "rawRecordCount": 82,
+            "allOtherRawRecordsExact": true,
+            "typedDocInfoExact": true,
+            "paragraphsControlsBinDataExact": true,
+            "fullSvgExact": true,
+            "allNonCaretRecordSealsExact": true,
+            "actualRawDocInfoSHA256": "6834afc96ec9d9360c597719c96cd6b247f4253bea4edbf0d5d1d3e4dc1c7736",
+            "expectedRawDocInfoSHA256": "d1f11be8122054ef0a9ec50bc37cc22e536b7081c8d66556b840eb0fa9dbc388",
+            "rawProvenanceExact": false,
+            "actualRawProvenanceSHA256": "27a881a490a3fadfb6b8ef3db8f33ff497124c4940a36f3f4e4e4fd535db35b6",
+            "expectedRawProvenanceSHA256": "3aadf7f977ca51a10a5469a6f3ad3c24d65f4f0656b1d77b29b97f9fbfef94aa"
+          }
+        },
+        {
+          "file": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/paste-multiline-undo.hwpx",
+          "input": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+          "strictExitCode": 0,
+          "nativeLogSHA256": "3db0dbaf5670c38c5f00ad04978c5b074a32512a17b0a086a6824f6c54f05126",
+          "nativeOperationReexecution": true,
+          "strictPassed": true,
+          "nativeProof": {
+            "atomicNativeRefusals": 11,
+            "atomicNativeStructuralRefusals": 36,
+            "duplicateNameRefusalsAcrossNestedScopes": 28,
+            "fullSvgParagraphsStylesAndBinDataCompared": true,
+            "independentSavedReopens": 1,
+            "nativeOperationReexecution": true,
+            "noteHeaderTrailingZeroPaddingCanonicalized": true,
+            "readOnlyNestedNameScopes": 14,
+            "selectionFragmentPairs": 0,
+            "snapshotPairs": 0
+          }
+        }
+      ]
+    },
+    "wholeRawHwpDocInfoExactClaimed": false
+  },
+  "signature": {
+    "strictAdhocAfterExecution": true,
+    "DeveloperID": false,
+    "notarized": false,
+    "detailsSHA256": "083de87664e79f835df1bf0d505b60a938175bc62b36e6fdeb0501eb5c281f80"
+  },
+  "preservation": {
+    "timeUTC": "2026-10-07T19:38:58.636468+00:00",
+    "protectedFilesChecked": 37113,
+    "protectedMismatch": [],
+    "productSourceFilesChecked": 1470,
+    "productSourceMismatch": [],
+    "nativeExecutableMismatch": [],
+    "asarSHA256Unchanged": "7cb9e475d25d3ed7ec7d7a95b1b28e278547c3d32bd3dbc885d336ea0a113d36",
+    "engineSHA256Unchanged": "3a9e736e1025bf3c9c72bda67e1d9ca4a1665bfb3e2f06b5ab172932bc7f1a86",
+    "ownedCandidateProcesses": [],
+    "testAssetAndDevToolsPortsClosed": {
+      "65480": true,
+      "65479": true
+    },
+    "strictAdhocSignaturePassed": true,
+    "signatureDetailsSHA256": "083de87664e79f835df1bf0d505b60a938175bc62b36e6fdeb0501eb5c281f80",
+    "diskFreeBytes": 18639765504,
+    "sourceCommit": "30601b18ab81aeddc51ea059c6980003706ad1b8",
+    "currentHead": "30601b18ab81aeddc51ea059c6980003706ad1b8",
+    "remoteTrackingHead": "30601b18ab81aeddc51ea059c6980003706ad1b8"
+  },
+  "resources": {
+    "candidateAndQaPeakBytes": 407588864,
+    "candidateAndQaLimitBytes": 1073741824,
+    "actualDiskFreeMinimumMeasuredBytes": 18614984704,
+    "diskFreeFloorBytes": 16106127360,
+    "targetUnchangedBytes": 4340318208,
+    "newRustBuilds": 0,
+    "newTargetDirectories": 0,
+    "newAppCandidates": 1,
+    "newZIPs": 0,
+    "deletedArtifacts": 0,
+    "monitorStops": 0,
+    "stageBudgets": {
+      "engine-version-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "../dev12-integration-qa/engine-version.mjs"
+        ],
+        "exitCode": 1,
+        "additionalBeforeBytes": 407572480,
+        "additionalPeakBytes": 407576576,
+        "additionalFinalBytes": 407576576,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18634711040,
+        "diskFreeFinalBytes": 18634711040,
+        "stopReason": null,
+        "elapsedSeconds": 0.66
+      },
+      "engine-version-final-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "../dev12-integration-qa/engine-version-final.mjs"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 407584768,
+        "additionalPeakBytes": 407588864,
+        "additionalFinalBytes": 407588864,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18637819904,
+        "diskFreeFinalBytes": 18637811712,
+        "stopReason": null,
+        "elapsedSeconds": 0.65
+      },
+      "final-integrity-budget.json": {
+        "command": [
+          "python3",
+          "../dev12-integration-qa/verify-final.py"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 407527424,
+        "additionalPeakBytes": 407539712,
+        "additionalFinalBytes": 407539712,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18639687680,
+        "diskFreeFinalBytes": 18639753216,
+        "stopReason": null,
+        "elapsedSeconds": 10.55
+      },
+      "native-bookmark-bounded-budget.json": {
+        "command": [
+          "python3",
+          "scripts/check-native-bookmark-caret.py",
+          "--native",
+          "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+          "--manifest",
+          "../dev12-integration-qa/bookmark/manifest.json",
+          "--output",
+          "../dev12-integration-qa/bookmark-native-bounded"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 404586496,
+        "additionalPeakBytes": 405540864,
+        "additionalFinalBytes": 405540864,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18644451328,
+        "diskFreeFinalBytes": 18643570688,
+        "stopReason": null,
+        "elapsedSeconds": 0.64
+      },
+      "native-bookmark-budget.json": {
+        "command": [
+          "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+          "verify",
+          "../dev12-integration-qa/bookmark"
+        ],
+        "exitCode": 101,
+        "additionalBeforeBytes": 404389888,
+        "additionalPeakBytes": 404557824,
+        "additionalFinalBytes": 404557824,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18655338496,
+        "diskFreeFinalBytes": 18655170560,
+        "stopReason": null,
+        "elapsedSeconds": 0.65
+      },
+      "native-bookmark-final-budget.json": {
+        "command": [
+          "python3",
+          "scripts/check-native-bookmark-caret.py",
+          "--native",
+          "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+          "--manifest",
+          "../dev12-integration-qa/bookmark/manifest.json",
+          "--output",
+          "../dev12-integration-qa/bookmark-native-final"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 406564864,
+        "additionalPeakBytes": 407519232,
+        "additionalFinalBytes": 407519232,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18642427904,
+        "diskFreeFinalBytes": 18641440768,
+        "stopReason": null,
+        "elapsedSeconds": 0.64
+      },
+      "native-bookmark-seals-budget.json": {
+        "command": [
+          "python3",
+          "scripts/check-native-bookmark-caret.py",
+          "--native",
+          "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+          "--manifest",
+          "../dev12-integration-qa/bookmark/manifest.json",
+          "--output",
+          "../dev12-integration-qa/bookmark-native-seals"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 405606400,
+        "additionalPeakBytes": 406560768,
+        "additionalFinalBytes": 406560768,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18643824640,
+        "diskFreeFinalBytes": 18642763776,
+        "stopReason": null,
+        "elapsedSeconds": 0.64
+      },
+      "native-caption-budget.json": {
+        "command": [
+          "../style-lint-qa/target/debug/examples/body_rectangle_width_check",
+          "../dev12-integration-qa/caption",
+          "--verify-caption-history"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 404561920,
+        "additionalPeakBytes": 404566016,
+        "additionalFinalBytes": 404566016,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18658430976,
+        "diskFreeFinalBytes": 18658471936,
+        "stopReason": null,
+        "elapsedSeconds": 0.67
+      },
+      "native-table-budget.json": {
+        "command": [
+          "../style-lint-qa/target/debug/examples/table_merge_preservation_check",
+          "../dev12-integration-qa/table",
+          "--verify-wasm",
+          "manifest.json",
+          "native-proof.json"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 404377600,
+        "additionalPeakBytes": 404385792,
+        "additionalFinalBytes": 404385792,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18655182848,
+        "diskFreeFinalBytes": 18655358976,
+        "stopReason": null,
+        "elapsedSeconds": 1.2
+      },
+      "ordinary-launch-budget.json": {
+        "command": [
+          "python3",
+          "../dev12-integration-qa/mac-lifecycle.py"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 405557248,
+        "additionalPeakBytes": 405598208,
+        "additionalFinalBytes": 405598208,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18643066880,
+        "diskFreeFinalBytes": 18642096128,
+        "stopReason": null,
+        "elapsedSeconds": 1.29
+      },
+      "package-build-budget.json": {
+        "command": [
+          "env",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "python3",
+          "scripts/package-local-mac-integration.py",
+          "--source-app",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app",
+          "--studio-dir",
+          "../dev12-integration-qa/web/studio",
+          "--engine-dir",
+          "../nested-row-boundary-qa/pkg",
+          "--output-app",
+          "../dev12-integration-qa/GeulgyeolDev12.app",
+          "--product",
+          "GeulgyeolDev12",
+          "--bundle-id",
+          "org.geulgyeol.dev.checkpoint12",
+          "--version",
+          "0.4.4-dev.12",
+          "--expected-source-sha256",
+          "cc93b8d25713cca6f354739d3db542b4c5027cc897eccda1d9b576e6a515aa6f"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 30208000,
+        "additionalPeakBytes": 383049728,
+        "additionalFinalBytes": 383049728,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18692489216,
+        "diskFreeFinalBytes": 18692444160,
+        "stopReason": null,
+        "elapsedSeconds": 1.22
+      },
+      "package-check-budget.json": {
+        "command": [
+          "env",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "python3",
+          "scripts/check-local-mac-checkpoint.py",
+          "--app",
+          "../dev12-integration-qa/GeulgyeolDev12.app",
+          "--studio-dir",
+          "../dev12-integration-qa/web/studio",
+          "--engine-dir",
+          "../nested-row-boundary-qa/pkg",
+          "--output-dir",
+          "../dev12-integration-qa",
+          "--source-proof",
+          "../dev12-integration-qa/source-freeze.json",
+          "--required-ui-method",
+          "editNestedTableRow",
+          "--required-ui-method",
+          "insert:caption-toggle",
+          "--required-ui-method",
+          "insert:bookmark"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 383053824,
+        "additionalPeakBytes": 396333056,
+        "additionalFinalBytes": 396333056,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18692440064,
+        "diskFreeFinalBytes": 18679132160,
+        "stopReason": null,
+        "elapsedSeconds": 0.68
+      },
+      "renderer-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "scripts/check-mac-development-renderer.mjs",
+          "../dev12-integration-qa"
+        ],
+        "exitCode": 1,
+        "additionalBeforeBytes": 396345344,
+        "additionalPeakBytes": 400011264,
+        "additionalFinalBytes": 399970304,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18654769152,
+        "diskFreeFinalBytes": 18654650368,
+        "stopReason": null,
+        "elapsedSeconds": 21.5
+      },
+      "renderer-cursor-fixed-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "scripts/check-mac-development-renderer.mjs",
+          "../dev12-integration-qa"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 399974400,
+        "additionalPeakBytes": 404402176,
+        "additionalFinalBytes": 404373504,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18648432640,
+        "diskFreeFinalBytes": 18655379456,
+        "stopReason": null,
+        "elapsedSeconds": 30.91
+      },
+      "signature-budget.json": {
+        "command": [
+          "bash",
+          "scripts/sign-mac-bundle.sh",
+          "../dev12-integration-qa/GeulgyeolDev12.app",
+          "org.geulgyeol.dev.checkpoint12"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 396337152,
+        "additionalPeakBytes": 396341248,
+        "additionalFinalBytes": 396341248,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18679099392,
+        "diskFreeFinalBytes": 18678927360,
+        "stopReason": null,
+        "elapsedSeconds": 0.69
+      },
+      "typescript-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "rhwp-studio/node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "--incremental",
+          "false",
+          "-p",
+          "../dev12-integration-qa/tsconfig.candidate.json"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 405557248,
+        "additionalPeakBytes": 405598208,
+        "additionalFinalBytes": 405598208,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18643066880,
+        "diskFreeFinalBytes": 18642096128,
+        "stopReason": null,
+        "elapsedSeconds": 1.29
+      },
+      "web-build-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "NODE_ENV=development",
+          "GEULGYEOL_DEV_ENGINE_DIR=/Users/sw107/Documents/Codex/2026-10-06/task/nested-row-boundary-qa/pkg",
+          "../../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "node_modules/vite/bin/vite.js",
+          "build",
+          "--config",
+          "vite.geulgyeol-beta.config.mjs",
+          "--configLoader",
+          "native",
+          "--outDir",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/web/studio",
+          "--emptyOutDir"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7110656,
+        "additionalPeakBytes": 30203904,
+        "additionalFinalBytes": 30203904,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 19068456960,
+        "diskFreeFinalBytes": 19046637568,
+        "stopReason": null,
+        "elapsedSeconds": 1.18
+      }
+    },
+    "repositoryVerificationFilesConservativeBytes": 117859,
+    "conservativeTaskPeakBeforeCommitBytes": 407706723
+  },
+  "pushAuthorization": {
+    "requestSource": "Direct user message in this worker task",
+    "requestOriginal": "푸시 좀 해줄래",
+    "messageExactTimestampAvailable": false,
+    "firstResponse": "현재 개발 브랜치의 커밋을 원격에 푸시하겠습니다. 아직 커밋하지 않은 검증 스크립트는 이번 푸시에 포함되지 않습니다.",
+    "pushReflogTimeUTC": "2026-10-07T19:33:42Z",
+    "remote": "https://github.com/sw107/geulgyeol.git",
+    "branch": "dev/style-propagation",
+    "from": "243a1e194c48c5c976d81f62f48e215194a9c2c4",
+    "to": "30601b18ab81aeddc51ea059c6980003706ad1b8",
+    "remoteHeadVerified": true,
+    "uncommittedScriptExcluded": "scripts/check-mac-development-renderer.mjs",
+    "additionalPushesAuthorized": false
+  },
+  "integrationProofCommitPushed": false,
+  "limitations": [
+    "DEV cursor placement and CDP input automation; physical pointer/IME not verified",
+    "Synthetic plain ClipboardEvent; OS clipboard unchanged and real clipboard integration not exercised",
+    "App export + studio file-input reopen; native OS open/save dialogs and atomicWrite not verified",
+    "Five HWP bookmark/paste files differ only in saved caret plus model/raw/properties provenance digests; these are explicitly separated in Native comparison",
+    "Hancom application/corpus and Linux not verified in this Mac integration task",
+    "Full lib unit compilation remains blocked by three previously missing include_bytes fixtures; no fixtures fabricated",
+    "Developer build with DEV globals and diagnostic DevTools launch flags only in automation; normal no-debug launch separately tested"
+  ],
+  "evidenceDirectory": "/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa",
+  "evidenceManifestSHA256": "29ea2e9e87330ea5cc7e727de411937ae4005efab2e2af547dcb90f0031f85f6",
+  "verificationScriptsSHA256": {
+    "scripts/check-mac-development-renderer.mjs": "0596e6703cc9b8b0c3c6d349e9975d7625b6f40b5b7ca4e78af117ebc9a9078e",
+    "scripts/check-native-bookmark-caret.py": "4042a8c8bbe0d9fe7b164850260fd6e7c7623d2561a44fed031c5a057a7913cf"
+  },
+  "verifiedAtUTC": "2026-10-07T19:40:05.561893+00:00",
+  "packagedEngineVersionProbe": {
+    "mode": "Electron Node CLI on extracted candidate WASM",
+    "value": "0.8.6",
+    "finalBudget": "engine-version-final-budget.json",
+    "initialHelperExpectationFailurePreserved": true
+  },
+  "evidenceFinalManifestSHA256": "eaebc82f6b18d17321e38e1d5643fb719e65305800a280944b9b176cf4093ed9",
+  "evidenceFinalManifestFiles": 138,
+  "verificationScriptRefusalChecks": [
+    "paragraphsControlsReferences",
+    "typedDocInfo",
+    "documentCounters",
+    "otherRawRecord",
+    "nonCaretProvenance",
+    "provenanceOnlyWithoutCaretDifference"
+  ]
+}
