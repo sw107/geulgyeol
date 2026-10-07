@@ -335,6 +335,10 @@ fn main() {
         println!("Independent Native reopens {n}");
         return;
     }
+    if args.get(1).is_some_and(|s| s == "--nested-fixtures") {
+        nested_command_fixtures(out);
+        return;
+    }
     if args.get(1).is_some_and(|s| s == "--structure") {
         structure(out);
         return;
@@ -804,4 +808,56 @@ fn structure(out: &Path) {
     )
     .unwrap();
     println!("{proof}");
+}
+
+// Unsupported nested structural UI commands must never fall back to this root.
+fn nested_command_fixtures(out: &Path) {
+    let (equations, ep, ec) = make("equations");
+    let eq_para = table(&equations, ep, ec).cells[1].paragraphs[0].clone();
+    let mut rows = vec![];
+    for depth in [2, 3] {
+        for merged in [false, true] {
+            let (mut d, p, path) = nested_cells::fixture(depth, false);
+            let mut link_path = path.clone();
+            let leaf = link_path.last_mut().unwrap();
+            leaf.1 = 1;
+            leaf.2 = 0;
+            d.insert_cell_hyperlink_by_path(
+                0,
+                p,
+                &link_path,
+                2,
+                5,
+                "https://example.invalid/nested-table-owner",
+                "안쪽 표 링크🙂",
+            )
+            .unwrap();
+            d.add_bookmark_native(0, p + 1, 0, "바깥 본문 보존🙂")
+                .unwrap();
+            let t = nested_cells::table_mut(&mut d.document_mut().sections[0].paragraphs[p], &path);
+            t.cells[1].paragraphs[1] = eq_para.clone();
+            if merged {
+                t.merge_cells(0, 0, 0, 1).unwrap();
+            }
+            let doc = d.document().clone();
+            d.set_document(doc);
+            for format in ["hwp", "hwpx"] {
+                let file = out.join(format!("depth{depth}-merged{merged}.{format}"));
+                let bytes = if format == "hwp" {
+                    d.export_hwp_with_adapter_snapshot_with_report().unwrap()
+                } else {
+                    d.export_hwpx_native_with_report().unwrap()
+                };
+                assert!(bytes.content_loss().is_empty());
+                std::fs::write(&file, bytes.bytes()).unwrap();
+                rows.push(json!({"label":format!("depth{depth}-merged{merged}-{format}"),"input":file,"ref":{"ppi":p,"ci":path[0].0},"path":serde_json::from_str::<Value>(&nested_cells::path_json(&path)).unwrap(),"depth":depth,"merged":merged}));
+            }
+        }
+    }
+    std::fs::write(
+        out.join("nested-fixtures.json"),
+        serde_json::to_vec_pretty(&rows).unwrap(),
+    )
+    .unwrap();
+    println!("Prepared {} nested fixtures, depth 2/3, leaf link/two equations/direct format/body bookmark", rows.len());
 }

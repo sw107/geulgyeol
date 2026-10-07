@@ -16,6 +16,8 @@ export interface EditorContext {
   hasCopiedFormat: boolean;
   /** 커서가 표 셀 내부인가? */
   inTable: boolean;
+  /** 구조 편집 API가 지원하지 않는 안쪽 표인가? */
+  inNestedTable?: boolean;
   /** F5 셀 선택 모드인가? */
   inCellSelectionMode: boolean;
   /** 여러 셀이 선택된 상태인가? */

@@ -1,0 +1,350 @@
+{
+  "baselineCommit": "d9e28cfc41c6b6d9f468939d6a3b929f8868b92b",
+  "QAPath": "/Users/sw107/Documents/Codex/2026-10-06/task/nested-table-command-qa",
+  "productionEngineUnchanged": true,
+  "engineReadOnlyReusedFrom": "/Users/sw107/Documents/Codex/2026-10-06/task/table-structure-qa/pkg",
+  "candidateWASMSHA256": "92d6614e5ff0a3ebac84859857086d59ccdbd38d37852e696f3f2bba0f939d4b",
+  "sourceSHA256": {
+    "rhwp-studio/src/main.ts": "ad64ebdbd6526f320b8c506b7f8e8af356233d21e13546ebd9fbbed46d3cb42d",
+    "rhwp-studio/src/command/types.ts": "1a8719159209881d04e3f25b3528bf2b68106f7e82c9025b7758875a8872b3f6",
+    "rhwp-studio/src/command/commands/table.ts": "f0503211aabdbbcc8d316ab25e8f47650f1c01980b9b1819114121011f4ba393",
+    "engine/examples/table_merge_preservation_check.rs": "015e15d680ead2b19335896069ae24dfe37e8c82964ada16f1fd2b275daa00fd",
+    "scripts/check-nested-table-commands.mjs": "f8081691d1033358462d45b63c2aefd581a20c1682b7fa426bf8675829838bbc",
+    "scripts/check-table-structure.mjs": "786fad9c776803f3efc2974ac4ffb540c19a202935dec918eb0aaaa9885a0015"
+  },
+  "testedDepths": [
+    2,
+    3
+  ],
+  "depthDefinition": "Root table depth1; cursor/selection cellPath lengths2 and3 are unsupported inner structural targets.",
+  "fixtureVariants": {
+    "formats": [
+      "hwp",
+      "hwpx"
+    ],
+    "leafMerged": [
+      false,
+      true
+    ],
+    "outerAndLeafGrid": "2x2",
+    "leafOwners": "mixed direct format, hyperlink, two equations, named cell, adjacent body bookmark",
+    "count": 8
+  },
+  "reproduction": [
+    {
+      "command": "table:insert-row-below",
+      "result": {
+        "ok": true
+      },
+      "pathDepth": 2,
+      "beforeRoot": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "afterRoot": {
+        "rowCount": 3,
+        "colCount": 2,
+        "cellCount": 6
+      },
+      "beforeFields": 3,
+      "afterFields": 3,
+      "afterLeaf": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      }
+    },
+    {
+      "command": "table:insert-col-right",
+      "result": {
+        "ok": true
+      },
+      "pathDepth": 2,
+      "beforeRoot": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "afterRoot": {
+        "rowCount": 2,
+        "colCount": 3,
+        "cellCount": 6
+      },
+      "beforeFields": 3,
+      "afterFields": 3,
+      "afterLeaf": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      }
+    },
+    {
+      "command": "table:delete-row",
+      "result": {
+        "ok": true
+      },
+      "pathDepth": 2,
+      "beforeRoot": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "afterRoot": {
+        "rowCount": 1,
+        "colCount": 2,
+        "cellCount": 2
+      },
+      "beforeFields": 3,
+      "afterFields": 0,
+      "afterLeaf": {
+        "error": "렌더링 오류: 경로[1]: controls[0] 범위 초과"
+      }
+    },
+    {
+      "command": "table:delete-col",
+      "result": {
+        "ok": true
+      },
+      "pathDepth": 2,
+      "beforeRoot": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "afterRoot": {
+        "rowCount": 2,
+        "colCount": 1,
+        "cellCount": 2
+      },
+      "beforeFields": 3,
+      "afterFields": 1,
+      "afterLeaf": {
+        "error": "렌더링 오류: 경로[1]: controls[0] 범위 초과"
+      }
+    },
+    {
+      "command": "table:cell-merge",
+      "result": {
+        "ok": true
+      },
+      "pathDepth": 2,
+      "beforeRoot": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "afterRoot": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 3
+      },
+      "beforeFields": 3,
+      "afterFields": 3,
+      "afterLeaf": {
+        "error": "렌더링 오류: 경로[1]: controls[0] 범위 초과"
+      }
+    },
+    {
+      "command": "table:cell-split",
+      "result": {
+        "ok": true
+      },
+      "pathDepth": 2,
+      "beforeRoot": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "afterRoot": {
+        "rowCount": 2,
+        "colCount": 3,
+        "cellCount": 5
+      },
+      "beforeFields": 3,
+      "afterFields": 3,
+      "afterLeaf": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      }
+    }
+  ],
+  "MacNestedTargetRefusals": {
+    "commandIds": [
+      "table:cell-merge",
+      "table:cell-split",
+      "table:delete-col",
+      "table:delete-row",
+      "table:delete-row-col",
+      "table:insert-col-left",
+      "table:insert-col-right",
+      "table:insert-row-above",
+      "table:insert-row-below",
+      "table:insert-row-col"
+    ],
+    "disabledDispatches": 320,
+    "directExecuteRefusals": 320,
+    "nestedDialogApplyRefusals": 24,
+    "bytesWholeSVGHistoryAndPendingRedoUnchanged": true,
+    "additionalStaleTargetChecks": 38,
+    "additionalStaleKinds": [
+      "inconsistent-root-path-and-flat-cell",
+      "inner-selection-context-with-root-cursor",
+      "other-cell",
+      "other-range",
+      "reloaded-document"
+    ]
+  },
+  "MacRootOperationsContainingNestedTables": {
+    "insertRowColumn": {
+      "cases": 16,
+      "undoRedoPairs": 64,
+      "savedReopens": 64,
+      "independentNative": {
+        "fullParagraphsControlsFieldOwnersBinDataAndSVG": true,
+        "independentSavedReopens": 64,
+        "nativeOperationReexecution": true,
+        "typedDocInfoCompared": true
+      }
+    },
+    "normalInsertDeleteDialogs": {
+      "cases": 4,
+      "undoRedoPairs": 16,
+      "savedReopens": 16,
+      "independentNative": {
+        "fullParagraphsControlsFieldOwnersBinDataAndSVG": true,
+        "independentSavedReopens": 16,
+        "nativeOperationReexecution": true,
+        "typedDocInfoCompared": true
+      }
+    },
+    "rootMergeMovingNestedOwners": {
+      "cases": 8,
+      "undoRedoPairs": 32,
+      "savedReopens": 32,
+      "independentNative": {
+        "fullParagraphsControlsFieldOwnersBinDataAndSVG": true,
+        "independentSavedReopens": 32,
+        "nativeOperationReexecution": true,
+        "typedDocInfoCompared": true
+      }
+    }
+  },
+  "generalTableRegression": {
+    "Native": {
+      "atomicNativeRefusals": 23,
+      "cases": 24,
+      "savedContentLosses": 0,
+      "savedReopens": 96,
+      "snapshotPairs": 96,
+      "unchangedValidNoops": 4,
+      "wholeParagraphOwnersStylesAndSVGCompared": true
+    },
+    "MacCases": 24,
+    "MacCommandUndoRedoPairs": 120,
+    "MacSavedReopens": 96,
+    "MacAtomicRefusals": 281,
+    "MacValidNoops": 3,
+    "independentNative": {
+      "fullParagraphsControlsFieldOwnersBinDataAndSVG": true,
+      "independentSavedReopens": 96,
+      "nativeOperationReexecution": true,
+      "typedDocInfoCompared": true
+    },
+    "formatConversionBaselinesRetained": true
+  },
+  "cellLinkRegression": {
+    "positive": 84,
+    "reopens": 288,
+    "undos": 84,
+    "redos": 84,
+    "atomicRefusals": 444,
+    "layoutCases": 12,
+    "multipageCases": 12,
+    "externalOpens": 0
+  },
+  "NativeCellLink": {
+    "allSiblingCellBodyNoteReferences": true,
+    "fullCharParaStyleReferences": true,
+    "originalDefinitionsUnchanged": true,
+    "pairedFieldRanges": true,
+    "uiSavedFilesVerified": 264
+  },
+  "cellEquationRegression": {
+    "atomic_rejections": 10,
+    "body_and_neighbor_preserved": true,
+    "cases": 72,
+    "hwp_hwpx_reopens": 288,
+    "native_GUI_verified": false,
+    "physical_IME_verified": false,
+    "precise_cell_layout_targets": true,
+    "snapshot_undo_redo_operations": 504
+  },
+  "requiredChecks": {
+    "TypeScriptWithCandidateDts": 0,
+    "clippyLibAndThreeExamples": 0,
+    "gitDiffCheck": 0,
+    "productionRustSourceChanges": [],
+    "libraryUnitTests": "Not rerun: existing three missing fixtures remain; no production Rust changes or test exclusions."
+  },
+  "runtimeResponses": [
+    {
+      "url": "http://127.0.0.1:32170/studio/@fs/Users/sw107/Documents/Codex/2026-10-06/task/table-structure-qa/pkg/rhwp_bg.wasm",
+      "sha256": "92d6614e5ff0a3ebac84859857086d59ccdbd38d37852e696f3f2bba0f939d4b"
+    },
+    {
+      "url": "http://127.0.0.1:32170/studio/@fs/Users/sw107/Documents/Codex/2026-10-06/task/table-structure-qa/pkg/rhwp_bg.wasm",
+      "sha256": "92d6614e5ff0a3ebac84859857086d59ccdbd38d37852e696f3f2bba0f939d4b"
+    }
+  ],
+  "MacExecution": {
+    "headless": false,
+    "realDomCanvasCursorDispatcherInputHandlerAndDialogs": true,
+    "DEVPositionSetup": true,
+    "unexpectedPageErrors": [],
+    "OSClipboardAccessed": false,
+    "physicalIMEVerified": false,
+    "nativeElectronVerified": false
+  },
+  "shutdown": {
+    "ownedProcessCount": 0,
+    "ownedProcesses": [],
+    "localhostPort": 32170,
+    "localhostPortClosed": true,
+    "browserClosedByPuppeteer": true,
+    "serverExitCode": 143,
+    "serverStoppedWithSIGTERM": true,
+    "ChromeVersion": "154.0.8037.98",
+    "macOS": "27.0.1"
+  },
+  "resources": {
+    "targetPeakBytes": 4340125696,
+    "additionalPeakBytes": 89759744,
+    "minDiskFreeBytes": 20316160000,
+    "targetLimitBytes": 4831838208,
+    "minimumFreeBytes": 16106127360,
+    "finalIntegrity": {
+      "protectedFiles": 26101,
+      "changed": [],
+      "missing": [],
+      "additionalQABytes": 85655552,
+      "sharedTargetBytes": 4338421760,
+      "actualDiskFreeBytes": 21340160000
+    }
+  },
+  "limits": [
+    "Inner structural editing is rejected, not implemented: only the ten listed command paths and depths2/3 were tested.",
+    "Root merge can preserve nested content, but complete nested-table authoring/ancestor layout updates are not certified.",
+    "Header/footer, note/textbox tables, all document corpus and Hancom comparison are outside the tested scope.",
+    "Physical hit-testing/IME, OS clipboard, installed Electron IPC/native file dialogs and Linux were not verified.",
+    "The previous HWP metadata differences and edit-free HWP→HWPX default-property conversion differences remain."
+  ],
+  "MacPositiveTotals": {
+    "cases": 52,
+    "mutatingCommandEdits": 58,
+    "commandUndoRedoPairs": 232,
+    "savedReopens": 208,
+    "independentNativeSavedReopens": 208
+  }
+}

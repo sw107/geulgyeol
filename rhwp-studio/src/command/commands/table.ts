@@ -5,6 +5,7 @@ import type { TableCreateOptions } from '@/ui/table-create-dialog';
 import { CellSplitDialog } from '@/ui/cell-split-dialog';
 import { CellBorderBgDialog } from '@/ui/cell-border-bg-dialog';
 import { FormulaDialog } from '@/ui/formula-dialog';
+import { showToast } from '@/ui/toast';
 import {
   planBlockCalculation,
   preflightBlockCalculationJobs,
@@ -20,6 +21,7 @@ import {
 } from '@/ui/table-row-column-dialog';
 
 const inTable = (ctx: EditorContext) => ctx.inTable;
+const inRootTable = (ctx: EditorContext) => ctx.inTable && !ctx.inNestedTable;
 const inTableOrCellSelection = (ctx: EditorContext) => ctx.inTable || ctx.inCellSelectionMode;
 const hasMultiCellSelection = (ctx: EditorContext) => ctx.hasMultiCellSelection;
 
@@ -30,6 +32,42 @@ type TableCellCommandContext = {
   pos: ReturnType<NonNullable<ReturnType<CommandServices['getInputHandler']>>['getCursorPosition']>;
   cellInfo: ReturnType<CommandServices['wasm']['getCellInfo']>;
 };
+
+// Structural APIs below address a root table only. Never discard an inner
+// cellPath and silently reinterpret its coordinates as a root-table target.
+function allowRootTableStructure(ih: TableCellCommandContext['ih']): boolean {
+  const pos = ih.getCursorPosition();
+  const context = ih.getCellTableContext();
+  if ((pos.cellPath?.length ?? 0) > 1 || (context?.cellPath?.length ?? 0) > 1) {
+    showToast({ message: '안쪽 표의 셀 병합·나누기와 줄·칸 편집은 아직 지원하지 않습니다.' });
+    return false;
+  }
+  const axis = pos.cellPath?.[0];
+  if (axis && (axis.controlIndex !== pos.controlIndex || axis.cellIndex !== pos.cellIndex)) {
+    showToast({ message: '표 위치가 바뀌었습니다. 편집할 셀을 다시 선택하세요.' });
+    return false;
+  }
+  return true;
+}
+
+function unchangedTableDialogTarget(
+  services: CommandServices,
+  pos: TableCellCommandContext['pos'],
+  generation: number,
+  range: CellRange | null,
+): boolean {
+  const ih = services.getInputHandler();
+  if (!ih || !allowRootTableStructure(ih)) return false;
+  const current = ih.getCursorPosition();
+  if (services.wasm.documentGeneration !== generation ||
+      current.sectionIndex !== pos.sectionIndex || current.parentParaIndex !== pos.parentParaIndex ||
+      current.controlIndex !== pos.controlIndex || current.cellIndex !== pos.cellIndex ||
+      JSON.stringify(ih.getSelectedCellRange()) !== JSON.stringify(range)) {
+    showToast({ message: '표 위치가 바뀌었습니다. 대화상자를 다시 열어 주세요.' });
+    return false;
+  }
+  return true;
+}
 
 function safeTableOp(fn: () => void, label: string): void {
   try { fn(); } catch (e) { console.error(`[table] ${label} 실패:`, e); }
@@ -215,7 +253,7 @@ function openFormulaDialog(services: Parameters<CommandDef['execute']>[0]): void
 
 function currentTableCellContext(services: CommandServices): TableCellCommandContext | null {
   const ih = services.getInputHandler();
-  if (!ih) return null;
+  if (!ih || !allowRootTableStructure(ih)) return null;
   const pos = ih.getCursorPosition();
   if (pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return null;
   const cellInfo = services.wasm.getCellInfo(
@@ -451,12 +489,16 @@ export const tableCommands: CommandDef[] = [
     opensDialog: true,
     label: '줄/칸 추가하기(I)...',
     shortcutLabel: 'Alt+Enter',
-    canExecute: inTable,
+    canExecute: inRootTable,
     execute(services) {
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || !allowRootTableStructure(ih)) return;
+      const pos = ih.getCursorPosition(), generation = services.wasm.documentGeneration;
+      const range = ih.getSelectedCellRange();
       const dialog = new TableInsertRowColumnDialog();
-      dialog.onApply = ({ mode, count }) => applyTableInsertRowColumn(services, mode, count);
+      dialog.onApply = ({ mode, count }) => {
+        if (unchangedTableDialogTarget(services, pos, generation, range)) applyTableInsertRowColumn(services, mode, count);
+      };
       dialog.afterClose = () => restoreEditorFocus(ih);
       dialog.show();
     },
@@ -466,12 +508,16 @@ export const tableCommands: CommandDef[] = [
     opensDialog: true,
     label: '줄/칸 지우기(E)...',
     shortcutLabel: 'Alt+Delete',
-    canExecute: inTable,
+    canExecute: inRootTable,
     execute(services) {
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || !allowRootTableStructure(ih)) return;
+      const pos = ih.getCursorPosition(), generation = services.wasm.documentGeneration;
+      const range = ih.getSelectedCellRange();
       const dialog = new TableDeleteRowColumnDialog();
-      dialog.onApply = ({ mode }) => applyTableDeleteRowColumn(services, mode);
+      dialog.onApply = ({ mode }) => {
+        if (unchangedTableDialogTarget(services, pos, generation, range)) applyTableDeleteRowColumn(services, mode);
+      };
       dialog.afterClose = () => restoreEditorFocus(ih);
       dialog.show();
     },
@@ -479,10 +525,10 @@ export const tableCommands: CommandDef[] = [
   {
     id: 'table:insert-row-above',
     label: '위쪽에 줄 추가하기',
-    canExecute: inTable,
+    canExecute: inRootTable,
     execute(services) {
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || !allowRootTableStructure(ih)) return;
       const pos = ih.getCursorPosition();
       if (pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return;
       const cellInfo = services.wasm.getCellInfo(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex, pos.cellIndex);
@@ -499,10 +545,10 @@ export const tableCommands: CommandDef[] = [
   {
     id: 'table:insert-row-below',
     label: '아래쪽에 줄 추가하기',
-    canExecute: inTable,
+    canExecute: inRootTable,
     execute(services) {
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || !allowRootTableStructure(ih)) return;
       const pos = ih.getCursorPosition();
       if (pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return;
       const cellInfo = services.wasm.getCellInfo(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex, pos.cellIndex);
@@ -519,10 +565,10 @@ export const tableCommands: CommandDef[] = [
   {
     id: 'table:insert-col-left',
     label: '왼쪽에 칸 추가하기',
-    canExecute: inTable,
+    canExecute: inRootTable,
     execute(services) {
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || !allowRootTableStructure(ih)) return;
       const pos = ih.getCursorPosition();
       if (pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return;
       const cellInfo = services.wasm.getCellInfo(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex, pos.cellIndex);
@@ -539,10 +585,10 @@ export const tableCommands: CommandDef[] = [
   {
     id: 'table:insert-col-right',
     label: '오른쪽에 칸 추가하기',
-    canExecute: inTable,
+    canExecute: inRootTable,
     execute(services) {
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || !allowRootTableStructure(ih)) return;
       const pos = ih.getCursorPosition();
       if (pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return;
       const cellInfo = services.wasm.getCellInfo(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex, pos.cellIndex);
@@ -559,10 +605,10 @@ export const tableCommands: CommandDef[] = [
   {
     id: 'table:delete-row',
     label: '줄 지우기',
-    canExecute: inTable,
+    canExecute: inRootTable,
     execute(services) {
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || !allowRootTableStructure(ih)) return;
       const pos = ih.getCursorPosition();
       if (pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return;
       const cellInfo = services.wasm.getCellInfo(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex, pos.cellIndex);
@@ -579,10 +625,10 @@ export const tableCommands: CommandDef[] = [
   {
     id: 'table:delete-col',
     label: '칸 지우기',
-    canExecute: inTable,
+    canExecute: inRootTable,
     execute(services) {
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || !allowRootTableStructure(ih)) return;
       const pos = ih.getCursorPosition();
       if (pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return;
       const cellInfo = services.wasm.getCellInfo(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex, pos.cellIndex);
@@ -601,10 +647,10 @@ export const tableCommands: CommandDef[] = [
     opensDialog: true,
     label: '셀 나누기',
     shortcutLabel: 'S',
-    canExecute: inTable,
+    canExecute: inRootTable,
     execute(services) {
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || !allowRootTableStructure(ih)) return;
       const pos = ih.getCursorPosition();
       if (pos.parentParaIndex === undefined || pos.controlIndex === undefined || pos.cellIndex === undefined) return;
 
@@ -617,10 +663,11 @@ export const tableCommands: CommandDef[] = [
       const cellInfo = services.wasm.getCellInfo(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex, pos.cellIndex);
       const isMerged = !isMultiCell && (cellInfo.rowSpan > 1 || cellInfo.colSpan > 1);
 
+      const generation = services.wasm.documentGeneration;
       const dialog = new CellSplitDialog(isMerged);
       dialog.onApply = (nRows, mCols, equalHeight, mergeFirst) => {
         const ih2 = services.getInputHandler();
-        if (!ih2) return;
+        if (!ih2 || !unchangedTableDialogTarget(services, pos, generation, range)) return;
         safeTableOp(() => ih2.executeOperation({
           kind: 'snapshot',
           operationType: 'splitTableCell',
@@ -654,10 +701,10 @@ export const tableCommands: CommandDef[] = [
     id: 'table:cell-merge',
     label: '셀 합치기',
     shortcutLabel: 'M',
-    canExecute: (ctx) => ctx.inCellSelectionMode,
+    canExecute: (ctx) => ctx.inCellSelectionMode && !ctx.inNestedTable,
     execute(services) {
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || !allowRootTableStructure(ih)) return;
       const range = ih.getSelectedCellRange();
       const tableCtx = ih.getCellTableContext();
       if (!range || !tableCtx) return;

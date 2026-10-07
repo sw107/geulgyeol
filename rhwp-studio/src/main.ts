@@ -254,6 +254,10 @@ function getContext(): EditorContext {
     hasSelection: inputHandler?.hasSelection() ?? false,
     hasCopiedFormat: inputHandler?.hasCopiedFormat() ?? false,
     inTable: inputHandler?.isInTable() ?? false,
+    inNestedTable: Math.max(
+      inputHandler?.getCursorPosition().cellPath?.length ?? 0,
+      inputHandler?.getCellTableContext()?.cellPath?.length ?? 0,
+    ) > 1,
     inCellSelectionMode: inputHandler?.isInCellSelectionMode() ?? false,
     hasMultiCellSelection: inputHandler?.hasMultiCellSelection() ?? false,
     hasTableTransposeClipboard: wasm.hasTableTransposeClipboard(),
