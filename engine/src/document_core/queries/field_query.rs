@@ -284,7 +284,7 @@ impl DocumentCore {
         }
         hyperlink_owner_in_para(para, id)
     }
-    fn allocate_hyperlink_id(&self) -> Result<u32, HwpError> {
+    pub(super) fn allocate_hyperlink_id(&self) -> Result<u32, HwpError> {
         let field_id = self.next_click_here_field_id().max(
             self.collect_all_fields()
                 .iter()
@@ -343,7 +343,7 @@ impl DocumentCore {
             cell: path[0].1,
         });
     }
-    fn finish_body_hyperlink_edit(&mut self, sec: usize, p: usize) {
+    pub(super) fn finish_body_hyperlink_edit(&mut self, sec: usize, p: usize) {
         self.document.sections[sec].raw_stream = None;
         let stored_end = crate::renderer::composer::paragraph_flow_end(
             &self.document.sections[sec].paragraphs[p],
@@ -2528,7 +2528,7 @@ fn collect_max_field_id(para: &Paragraph, max_id: &mut u32) {
     }
 }
 
-fn insert_click_here_field_in_para(
+pub(super) fn insert_click_here_field_in_para(
     para: &mut Paragraph,
     char_offset: usize,
     field_id: u32,
@@ -2682,7 +2682,7 @@ fn remove_field_in_para(para: &mut Paragraph, char_offset: usize) -> Result<(), 
 /// 텍스트 길이 변경(필드 값 삽입)에 맞게 오프셋을 재계산한다.
 /// Reject ambiguous control-token ownership before inserting a new field.
 /// Supported paragraphs have a complete HWP5 UTF-16 axis, including paired fields.
-fn validate_field_edit_axis(para: &Paragraph) -> Result<(), HwpError> {
+pub(super) fn validate_field_edit_axis(para: &Paragraph) -> Result<(), HwpError> {
     let chars: Vec<char> = para.text.chars().collect();
     let invalid = || HwpError::InvalidField("누름틀 편집: 제어 토큰 위치를 정확히 보존할 수 없는 문단".into());
     if para.char_offsets.len() != chars.len()
@@ -2879,7 +2879,7 @@ fn stage_hyperlink_update(
     field.parameters = Default::default();
     Ok(staged)
 }
-fn stage_hyperlink_remove(
+pub(super) fn stage_hyperlink_remove(
     original: &Paragraph,
     ci: usize,
     ri: usize,
@@ -3012,7 +3012,7 @@ pub(crate) fn rebuild_char_offsets(para: &mut Paragraph) {
 
 /// Keep non-field token anchors captured BEFORE text/field mutation; field tokens
 /// come from the final field_ranges. Remap raw metadata from the current text axis.
-fn rebuild_char_offsets_at_positions(para: &mut Paragraph, positions: &[usize]) {
+pub(super) fn rebuild_char_offsets_at_positions(para: &mut Paragraph, positions: &[usize]) {
     para.invalidate_single_line_overflow_memo();
     let chars: Vec<char> = para.text.chars().collect();
     let old_offsets = para.char_offsets.clone();

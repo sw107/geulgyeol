@@ -3462,6 +3462,26 @@ export class WasmBridge {
     return JSON.parse((this.doc as any).setFieldValue(fieldId, value));
   }
 
+  getBodyCommentAt(sec: number, para: number, at: number): {ok: boolean; found: boolean; fieldId?: number; startCharIdx?: number; endCharIdx?: number; selectedText?: string; content?: string; author?: string; createDateTime?: string | null; editable?: boolean; supportedSaveFormats?: string[]; reason?: string | null} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).getBodyCommentAt(sec, para, at));
+  }
+
+  insertBodyComment(sec: number, para: number, start: number, end: number, content: string): {ok: boolean; changed: boolean; fieldId: number; startCharIdx: number; endCharIdx: number; supportedSaveFormats: string[]} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).insertBodyComment(sec, para, start, end, content));
+  }
+
+  updateBodyComment(sec: number, para: number, id: number, content: string): {ok: boolean; changed: boolean; supportedSaveFormats: string[]} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).updateBodyComment(sec, para, id, content));
+  }
+
+  removeBodyComment(sec: number, para: number, id: number): {ok: boolean; changed: boolean; supportedSaveFormats: string[]} {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse((this.doc as any).removeBodyComment(sec, para, id));
+  }
+
   /** 본문 하이퍼링크의 URL과 표시 범위를 조회한다. */
   getBodyHyperlinkAt(sec: number, para: number, at: number): {ok: boolean; found: boolean; fieldId?: number; url?: string; text?: string; startCharIdx?: number; endCharIdx?: number} {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');

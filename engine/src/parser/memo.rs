@@ -231,11 +231,18 @@ pub(super) fn tail(records: &[Record], data: &[u8]) -> Option<(usize, HwpMemoTai
                         .flat_map(u16::to_le_bytes)
                         .collect();
                     known &= p.controls.is_empty()
+                        && p.raw_header_extra.len() <= 12
+                        && p.raw_header_extra
+                            .get(10..)
+                            .is_none_or(|v| v.iter().all(|b| *b == 0))
                         && p.range_tags.is_empty()
                         && p.orphan_field_ends.is_empty()
                         && rs[0].data.len() == 24
-                        && text.len() == 1
-                        && text[0].data == expected;
+                        && ((text.len() == 1 && text[0].data == expected)
+                            || (text.is_empty()
+                                && p.text.is_empty()
+                                && p.char_count == 1
+                                && !p.has_para_text));
                     paragraphs.push(p);
                 }
                 Err(_) => known = false,

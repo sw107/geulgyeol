@@ -63,7 +63,7 @@ Mac 실제 GUI/물리 IME·이번 Linux 검증 없음. dev9의 strict ad-hoc 서
 
 본문 링크 이후 `0e68e38` 조사에서 화면 캡처 실패·Accessibility 비활성으로 GUI가 막혀 있음을 확인했고 권한을 변경하지 않았다. 그 조사 다음 셀 path 링크를 구현·자동 검증했다. 해당 단계의 후보는 `cell-hyperlink-qa/pkg`이며 target 최고3.419GiB/최종3.332GiB, 최소 여유21.858GiB다. 앱/pkg9개 해시를 보존했고 새 패키징/공개/캐시 삭제 없이 로컬 커밋했다. [셀 링크 proof](cell-hyperlink/proof.json).
 
-## dev9 통합 이후 다음 제안 하나
+## dev9 통합 이후 다음 제안 하나 (당시 역사 기록)
 
 현재 소스/패키지 엔진으로 검토 주석 삽입 `insert:comment` 누락을 재현했다. 일반 편집 문서에서도 실제 registry/dispatcher/menu 상태가 disabled, 편집 호출0·커맨드 이벤트0·HWP/HWPX 저장 바이트/문서 상태 동일이다. 전용 memo/comment export가 없다. 다음은 본문 한 문단 선택의 검토 메모 추가·수정·삭제를 기존 MEMO 참조·직접 서식·이력/저장 보존과 함께 연결하는 범위를 제안한다. 이번에는 구현하지 않았다. [재현 근거](dev9-checkpoint/next-gap-comment.json).
 
@@ -82,8 +82,14 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 없는 주석 command의 undo/redo 검증으로 취급하지 않는다. [저장 선행 설계](review-comment-storage/DESIGN_KO.md),
 [이번 결과](review-comment-storage/RESULT_KO.md). dev9 앱·기존 후보를 보존하고 새 패키징·공개·GUI 실행은 하지 않았다.
 
-## 기존 메모 저장 보존 후속
+## 기존 메모 저장 보존 후속 (2c60318 당시)
 
-현재 소스는 위 HWP5 꼬리 미연결 결함을 저장 보존 범위에서 수정했다. 문서 전체의 유일한 ID·index·표식·꼬리 소유 관계로 기존 메모 본문을 연결하고, 본문 편집 후 원본 메모 꼬리 바이트와 제어 payload를 보존한다. 명시적 원본 작성자를 유지하며 불명 시각/레코드는 HWP 보존 또는 형식 변환 거절로 처리한다. 새 검토 주석 저작 API/UI는 여전히 미연결이다. [후속 결과](memo-preservation/RESULT_KO.md), [검증 proof](memo-preservation/proof.json).
+현재 소스는 위 HWP5 꼬리 미연결 결함을 저장 보존 범위에서 수정했다. 문서 전체의 유일한 ID·index·표식·꼬리 소유 관계로 기존 메모 본문을 연결하고, 본문 편집 후 원본 메모 꼬리 바이트와 제어 payload를 보존한다. 명시적 원본 작성자를 유지하며 불명 시각/레코드는 HWP 보존 또는 형식 변환 거절로 처리한다. 이 저장 보존 단계에서는 새 검토 주석 저작 API/UI를 연결하지 않았다. [후속 결과](memo-preservation/RESULT_KO.md), [검증 proof](memo-preservation/proof.json).
 
 새 엔진 후보는 `memo-preservation-qa/pkg`이며 기존 dev9 앱에는 아직 통합하지 않았다. 이 단계는 Native/WASM 자동 저장·본문 snapshot 검사이고 새 앱 패키징·GUI/IME·Linux·공개 배포 성공을 주장하지 않는다.
+
+## 기존 메모 보존 이후 제한된 본문 주석 저작
+
+현재 소스는 단일 구역 문서의 일반 본문 한 문단 선택에 검토 주석 추가·조회·내용 수정·삭제와 실제 snapshot CommandHistory undo/redo를 연결했다. 주석 내용과 본문 텍스트를 분리하고 작성자/시각·직접 서식·각주·이웃 필드 참조를 유지한다. 새 작성자는 빈 값, 생성 시각은 없음으로 명시하며 기존 작성자를 추정하지 않는다. 일반 메모는 HWP/HWPX, HWP가 보존하지 못하는 명시적 생성 시각·세로 메모는 HWPX만 저장한다. 불명 레코드·변경 추적 참조·중복 ID/index·복수 구역·비본문/겹친 선택은 저작 전에 거절한다.
+
+후보 엔진은 `comment-authoring-qa/pkg`이다. dev9 앱과 기존 앱/엔진을 보존했고 이번 변경을 앱에 패키징하지 않았다. 실제 Native/WASM/UI 경로 자동 검사이며 GUI/물리 IME·한컴 corpus·Linux는 미검증이다. [저작 결과와 범위](body-comment/RESULT_KO.md), [최종 proof](body-comment/proof.json).

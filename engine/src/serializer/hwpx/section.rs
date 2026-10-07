@@ -2265,7 +2265,8 @@ fn render_control_slot(out: &mut String, control: &Control, ctx: &mut SerializeC
                         let (runs, linesegs, advance) =
                             render_paragraph_parts(para, vert_cursor, ctx);
                         vert_cursor = advance;
-                        let pid = ctx.next_para_id();
+                        let pid = crate::model::memo::paragraph_id(para)
+                            .unwrap_or_else(|| ctx.next_para_id());
                         out.push_str(&render_hp_p_open(para, pid, sid));
                         out.push_str(&runs);
                         out.push_str(&linesegs);

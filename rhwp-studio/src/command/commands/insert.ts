@@ -1,5 +1,6 @@
 import { equationCellTarget, deleteEquationSelection, type EquationCellTarget } from '@/engine/equation-target';
 import { bodyHyperlinkCommand } from './hyperlink';
+import { bodyCommentCommand } from './comment';
 import type { CommandDef } from '../types';
 import { PicturePropsDialog } from '@/ui/picture-props-dialog';
 import { ChartDataDialog } from '@/ui/chart-data-dialog';
@@ -264,7 +265,7 @@ export const insertCommands: CommandDef[] = [
   stub('insert:caption-bottom', '캡션 - 아래'),
   stub('insert:caption-none', '캡션 없음'),
   stub('insert:para-band', '문단 띠'),
-  stub('insert:comment', '주석', 'icon-comment'),
+  bodyCommentCommand,
   {
     id: 'insert:footnote',
     label: '각주',

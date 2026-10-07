@@ -113,6 +113,7 @@ pub struct SerializeContext {
     pub chart_entries: Vec<ChartPartEntry>,
     /// 문서 전역 문단 ID 카운터 — `<hp:p id="...">` 에 발급한다.
     para_id_counter: u32,
+    reserved_memo_para_ids: HashSet<u32>,
     /// HWP3 전용 Hyperlink control을 HWPX `fieldBegin`으로 승격할 때 쓰는 ID.
     /// HWP3 원본에는 HWPX field ID가 없으므로, 기존 Field ID와 충돌 가능성이 낮은
     /// 상위 범위를 문서 내에서 단조 감소시켜 링크마다 다른 값을 발급한다.
@@ -164,6 +165,7 @@ impl Default for SerializeContext {
             bin_seq_to_storage: HashMap::new(),
             chart_entries: Vec::new(),
             para_id_counter: 0,
+            reserved_memo_para_ids: HashSet::new(),
             generated_hyperlink_id: u32::MAX,
             sub_list_depth: 0,
             body_coldef_template_pending: false,
@@ -186,6 +188,7 @@ impl SerializeContext {
     /// 각 writer가 추가되면서 `reference()` 호출과 스캔 범위가 확장된다.
     pub fn collect_from_document(doc: &Document) -> Self {
         let mut ctx = Self::default();
+        ctx.reserved_memo_para_ids = crate::model::memo::paragraph_ids(doc);
         ctx.line_segs_on_hwpx_axis = doc.provenance.format
             == crate::model::provenance::SourceFormat::Hwpx
             || doc.provenance.hwpx_lineage;
@@ -422,6 +425,9 @@ impl SerializeContext {
 
     /// 문서 전역 문단 ID를 하나 발급하고 카운터를 증가시킨다.
     pub fn next_para_id(&mut self) -> u32 {
+        while self.reserved_memo_para_ids.contains(&self.para_id_counter) {
+            self.para_id_counter += 1;
+        }
         let id = self.para_id_counter;
         self.para_id_counter += 1;
         id

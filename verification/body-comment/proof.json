@@ -1,0 +1,230 @@
+{
+  "baselineCommit": "2c603180825ceaa788ddff77f30063e4a1f4945f",
+  "platform": "Mac arm64 Native/WASM via Electron Node mode",
+  "candidateWasmSHA256": "e3b9de44c9957597e47f0f622d43b5492eb59bf66feff9318fc737fd0f868315",
+  "nativeComment": {
+    "GUIVerified": false,
+    "bodyTextStylesNotesNeighborFieldUnchanged": true,
+    "commentSnapshotOperations": 4,
+    "genericBodySnapshotOperations": 2,
+    "memoParagraphIdsPreserved": true,
+    "nativeReopens": 40,
+    "newAuthorEmptyNoCreatedTime": true,
+    "originalAuthorAndTimePreserved": true,
+    "reopenedCommentRemainsEditable": true,
+    "typedTimeHwpxOnly": true,
+    "unsupportedImportedDocuments": 13,
+    "unsupportedParagraphReferences": 5,
+    "verticalHwpxOnly": true
+  },
+  "nativeAdditionalParagraphIdReopens": 4,
+  "uiComment": {
+    "wasmSHA256": "e3b9de44c9957597e47f0f622d43b5492eb59bf66feff9318fc737fd0f868315",
+    "mutations": 14,
+    "saves": 64,
+    "refusals": 55,
+    "undos": 16,
+    "redos": 16,
+    "newAuthorEmptyCreationTimeAbsent": true,
+    "originalAuthorTimePreserved": true,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "externalOpens": 0
+  },
+  "independentNativeComment": {
+    "allBodyMemoNoteFieldReferences": true,
+    "independentlyReopened": 64
+  },
+  "existingMemoNative": {
+    "GUIVerified": false,
+    "bodyEditUndoRedo": true,
+    "crossSectionOwners": true,
+    "originalAuthorAndOpaqueTimeBytes": true,
+    "reopens": 32,
+    "selectedTextFormatRangesAdjacentHyperlinkNotes": true,
+    "sourceTamperingAndMetadataEditRefused": true,
+    "typedTimeHwpAtomicRefusal": true
+  },
+  "existingMemoWasm": {
+    "wasmSHA256": "e3b9de44c9957597e47f0f622d43b5492eb59bf66feff9318fc737fd0f868315",
+    "saves": 37,
+    "atomicExportRefusals": 27,
+    "undo": 16,
+    "redo": 16,
+    "originalSnapshotBytesRestored": true,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "externalOpens": 0
+  },
+  "existingMemoIndependentNative": {
+    "independentlyReopened": 37,
+    "rangesMetadataMemoNotesAndRefs": true
+  },
+  "regressions": {
+    "body-regression": {
+      "wasmSha256": "e3b9de44c9957597e47f0f622d43b5492eb59bf66feff9318fc737fd0f868315",
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0,
+      "positive": 6,
+      "reopens": 22,
+      "undos": 6,
+      "redos": 6,
+      "refusals": 36
+    },
+    "cell-regression": {
+      "candidateWasmSHA256": "e3b9de44c9957597e47f0f622d43b5492eb59bf66feff9318fc737fd0f868315",
+      "positive": 84,
+      "reopens": 288,
+      "undos": 84,
+      "redos": 84,
+      "atomicRefusals": 444,
+      "layoutCases": 12,
+      "multipageCases": 12,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "atomic-regression": {
+      "observe": false,
+      "wasmSha256": "e3b9de44c9957597e47f0f622d43b5492eb59bf66feff9318fc737fd0f868315",
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "unsupported": 18,
+      "supported": 10,
+      "acceptedUnsupported": 0
+    },
+    "clickhere-regression": {
+      "wasmSha256": "e3b9de44c9957597e47f0f622d43b5492eb59bf66feff9318fc737fd0f868315",
+      "counts": {
+        "reopens": 54,
+        "undos": 24,
+        "redos": 24,
+        "rejections": 14,
+        "cellRegressions": 6
+      },
+      "cellRegressionCount": 6,
+      "knownFailure": {
+        "status": "preserved",
+        "kind": "Field insertion loses existing inline footnote position; HWPX serialization further shifts anchors",
+        "buildHeld": null
+      },
+      "formatFailure": {
+        "status": "preserved",
+        "kind": "Existing italic/bold ranges lost on field insertion",
+        "snapshotUndoRedoRestoresExactStates": true
+      }
+    }
+  },
+  "checks": {
+    "TypeScript": {
+      "exitCode": 0,
+      "log": "/Users/sw107/Documents/Codex/2026-10-06/task/comment-authoring-qa/tsc-final.log"
+    },
+    "Clippy": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib",
+        "--example",
+        "body_comment_check",
+        "--example",
+        "memo_preservation_check",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "targetBeforeBytes": 3801587712,
+      "targetPeakBytes": 3801587712,
+      "targetFinalBytes": 3801587712,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24002560000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 20.57
+    },
+    "wholeLibUnitTests": {
+      "exitCode": 101,
+      "status": "blocked by three pre-existing missing include_bytes fixtures",
+      "missingFixtures": [
+        "engine/samples/3-09월_교육_통합_2022.hwp",
+        "engine/samples/hwp3-sample16-hwp5.hwp",
+        "engine/samples/hwpx/aift.hwpx"
+      ],
+      "log": "/Users/sw107/Documents/Codex/2026-10-06/task/comment-authoring-qa/lib-test-final.log"
+    },
+    "diffWhitespace": "pass"
+  },
+  "resources": {
+    "targetLimitBytes": 4294967296,
+    "minimumDiskFreeLimitBytes": 10737418240,
+    "targetPeakBytes": 3898228736,
+    "targetFinalBytes": 3801587712,
+    "minimumDiskFreeBytes": 23879680000,
+    "budgetStops": []
+  },
+  "protection": {
+    "allUnchanged": true,
+    "baselineEntries": 15,
+    "uniqueProtectedPaths": 14,
+    "matched": {
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev8-checkpoint-qa/GeulgyeolDev8.app/Contents/Resources/app.asar": "66e9af062d45efaca508053e87a7a759489d7f98e0484798e7fd60b5d468a104",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/field-value-atomic-qa/pkg/rhwp_bg.wasm": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/named-cell-value-qa/pkg/rhwp_bg.wasm": "89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/body-hyperlink-qa/pkg/rhwp_bg.wasm": "47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/cell-hyperlink-qa/pkg/rhwp_bg.wasm": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app/Contents/Resources/app.asar": "12065a11b5217639bc145354dc12f53170702d922ad05cd1757e63568190db9b",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app/Contents/Info.plist": "a17724fe485bbf15c3cfb045ae1ecefed150dd3d986032860d5ceac7bc183a3f",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/style-propagation-qa/Geulgyeol-0.4.4-dev.4-mac-arm64-candidate.zip": "198bd47563ed58178b6b88beb0a43c8c5c22444bc023885487506457b790257f",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/memo-preservation-qa/pkg/rhwp_bg.wasm": "bcf54ce22f6bda180f8273f93e9cf30468c9116ac55148a4ffa387c6d16b93f5"
+    }
+  },
+  "sourceSHA256": {
+    "engine/src/document_core/queries/field_query.rs": "26e5aa4c818c3f045405efcb5a99108af9cb1e3a1326f228e00dad549e2cc0fd",
+    "engine/src/document_core/queries/mod.rs": "db2a4a3815bb864b3f469e324f56a2bc22e52b111980dbb2e205912a6dbe8135",
+    "engine/src/model/memo.rs": "fd92a2699369333a3a6d9437b939539851ad6acb17216fe31f1735883f468d0b",
+    "engine/src/parser/memo.rs": "89a1f83ffe7066db4b2c5eb7c67d6ba2cfefbee90466808986b4ba4fec8f0754",
+    "engine/src/serializer/body_text.rs": "07603578bc670282cb52898de0c67e00d27c27b69e1c049c3d91f524c5480e3e",
+    "engine/src/serializer/hwpx/context.rs": "9fc0c04aa64e0fa4e3755e4077ee14fa92d034063fbfb2cf1a39954cb7c0df02",
+    "engine/src/serializer/hwpx/section.rs": "3a84ede46dc3df5d06b85d88ffd3003b518801e9b5afd3afdcf24fd9edb51db8",
+    "engine/src/wasm_api.rs": "b2cd9547447cb54c6d8546b25337c0648b47872759ba6ed6a1b34de49a7b3281",
+    "rhwp-studio/index.html": "93d57e2c2cb9a85a5dbfd0e4d663aa25b8fa4c50ddc292206cbbcc9312d8e72c",
+    "rhwp-studio/src/command/commands/insert.ts": "5030ee990e066078ac284e0780f500d2e097950c45f88cc3b2616d28cb9d4a31",
+    "rhwp-studio/src/core/mutation-method-registry.ts": "a253c58f242c42116adcc9ed16c6b0099add3da204b14232ba36d0d21a2f5314",
+    "rhwp-studio/src/core/wasm-bridge.ts": "cc8061d4c78162486314117395b497b59d0124f07138a509672e9135c5256640",
+    "rhwp-studio/src/engine/input-handler.ts": "dfb88afc79b16440eb04c1ad3dd74587eced9db1c15718ec881ec5f59556f2ce",
+    "scripts/check-clickhere-preservation.mjs": "d4b1fd183a80b8ceca6bdc92876b9e53e85608a3403ffb3a10674678502a50ac",
+    "engine/examples/body_comment_check.rs": "0558d7cefe0bf209d91f611819ff8d79b2bdddb6c5ba25c1fcd007ad4bedf841",
+    "engine/src/document_core/queries/body_comment.rs": "c6b869c8853d7a4b527eb2c98f24912691c612ff7c54c44df3fbe3af3f6217d3",
+    "rhwp-studio/src/command/commands/comment.ts": "011f47aaa791d251f6bc44bed033ebf72ce1114e628a566347f26e1c7e6dd695",
+    "rhwp-studio/src/ui/comment-dialog.ts": "39b16467d3ded6dfa43990d2a30955f02a1107fbbe13135a1d149409d0e62317",
+    "scripts/check-body-comment.mjs": "d02dc4176c479ee96b713d9a0304734329883194fcfa0735f734f7b02ebd0383"
+  },
+  "artifactsRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/comment-authoring-qa",
+  "buildProofs": [
+    "native-references-build-proof.json",
+    "native-preservation-final-build-proof.json",
+    "final-wasm-build-proof.json",
+    "native-wasm-final-build-proof.json",
+    "native-preservation-wasm-build-proof.json",
+    "clippy-complete-build-proof.json"
+  ],
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxVerified": false,
+  "HancomGUIOrRealCorpusVerified": false,
+  "newPackaging": false,
+  "publicPushOrRelease": false,
+  "securityAccountPermissionChanges": false
+}

@@ -6189,6 +6189,16 @@ export class InputHandler {
     return {position: {...position}, selection: selection ? {start: {...selection.start}, end: {...selection.end}} : null, cellPath: selected.path};
   }
 
+  getBodyCommentTarget(): {position: DocumentPosition; selection: {start: DocumentPosition; end: DocumentPosition} | null} {
+    try {
+      const target = this.getHyperlinkTarget();
+      if (target.cellPath) throw new Error('cell');
+      return {position: target.position, selection: target.selection};
+    } catch {
+      throw new Error('검토 주석은 일반 본문 한 문단에서만 지원합니다.');
+    }
+  }
+
   /** Hyperlink authoring deliberately supports only the main body, one paragraph. */
   getBodyHyperlinkTarget(): {position: DocumentPosition; selection: {start: DocumentPosition; end: DocumentPosition} | null} {
     const position = this.getCursorPosition();

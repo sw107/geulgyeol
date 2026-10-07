@@ -1,4 +1,4 @@
-//! HWP5 memo ownership and opaque preservation. No comment-authoring surface.
+//! HWP5 memo ownership, opaque preservation, and guarded authoring preparation.
 use super::{
     control::{Control, Field, FieldType, Parameter, ParameterList},
     document::{Document, RawRecord},
@@ -6,7 +6,7 @@ use super::{
     shape::ShapeObject,
 };
 use crate::parser::tags;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 #[derive(Debug, Clone, serde::Serialize)]
 pub struct HwpMemoControl {
@@ -232,6 +232,19 @@ fn fields<'a>(doc: &'a Document) -> Vec<(&'a Field, &'a Paragraph, usize, bool)>
     }
     out
 }
+/// Positive source memo paragraph IDs are references, not allocator hints.
+pub fn paragraph_id(p: &Paragraph) -> Option<u32> {
+    let bytes: [u8; 4] = p.raw_header_extra.get(6..10)?.try_into().ok()?;
+    let id = u32::from_le_bytes(bytes);
+    (id != 0).then_some(id)
+}
+pub fn paragraph_ids(doc: &Document) -> HashSet<u32> {
+    fields(doc)
+        .into_iter()
+        .filter(|(f, _, _, _)| f.field_type == FieldType::Memo)
+        .flat_map(|(f, _, _, _)| f.memo_paragraphs.iter().filter_map(paragraph_id))
+        .collect()
+}
 fn range_valid(p: &Paragraph, ci: usize) -> bool {
     let ranges: Vec<_> = p
         .field_ranges
@@ -343,6 +356,30 @@ pub fn validate(doc: &Document, hwpx: bool) -> Result<(), String> {
         return Ok(());
     }
     let all = fields(doc);
+    let mut memo_para_ids = HashSet::new();
+    for (f, _, _, _) in &all {
+        if f.field_type != FieldType::Memo {
+            continue;
+        }
+        for p in &f.memo_paragraphs {
+            if let Some(id) = paragraph_id(p) {
+                if !memo_para_ids.insert(id) {
+                    return Err("메모 문단 ID가 중복되어 저장하지 않았습니다.".into());
+                }
+            }
+            if hwpx
+                && (p.raw_header_extra.len() > 12
+                    || p.raw_header_extra
+                        .get(10..)
+                        .is_some_and(|v| v.iter().any(|b| *b != 0)))
+            {
+                return Err(
+                    "메모 문단의 불명 변경 추적 참조를 HWPX로 보존할 수 없어 저장하지 않았습니다."
+                        .into(),
+                );
+            }
+        }
+    }
     let mut controls: Vec<_> = all
         .iter()
         .filter_map(|(f, _, _, _)| f.hwp_memo_control.as_ref().map(|o| o.records_digest))
@@ -429,14 +466,64 @@ pub fn validate(doc: &Document, hwpx: bool) -> Result<(), String> {
                     "미해석 메모 컨트롤을 HWPX로 보존할 수 없어 저장하지 않았습니다.".into(),
                 );
             }
-        } else if !hwpx && is_memo(f) && !f.parameters.is_empty() {
-            if !parameters_preserved(f) {
+        } else if !hwpx && is_memo(f) {
+            if !parameters_preserved(f)
+                || command_index(&f.command) != Some(f.memo_index)
+                || f.memo_text_direction
+                    .as_deref()
+                    .is_some_and(|d| d != "HORIZONTAL")
+            {
                 return Err(
-                    "작성 시각 등 메모 parameters를 HWP로 보존할 수 없어 저장하지 않았습니다."
+                    "작성 시각·메모 번호·방향 등 주석 데이터를 HWP로 보존할 수 없어 저장하지 않았습니다."
                         .into(),
                 );
             }
         }
     }
     Ok(())
+}
+
+/// Authoring may detach only completely understood, uniquely owned HWP storage.
+/// Unknown metadata stays in the original document and causes an atomic refusal.
+pub fn prepare_for_authoring(doc: &Document) -> Result<Document, String> {
+    if doc.sections.len() != 1 {
+        return Err("주석 저작은 단일 구역 문서의 본문에서만 지원합니다.".into());
+    }
+    validate(doc, true)?;
+    if fields(doc)
+        .iter()
+        .any(|(f, _, _, root)| is_memo(f) && !root)
+    {
+        return Err("본문 밖 메모가 있는 문서의 주석 저작은 지원하지 않습니다.".into());
+    }
+    let all = fields(doc);
+    let mut indices = std::collections::HashSet::new();
+    if all.iter().any(|(f, _, _, _)| {
+        is_memo(f)
+            && (f.memo_index == 0
+                || f.memo_index > u16::MAX as u32
+                || !indices.insert(f.memo_index)
+                || command_index(&f.command).is_some_and(|n| n != f.memo_index))
+    }) {
+        return Err("기존 주석의 메모 index가 없거나 중복입니다.".into());
+    }
+    let mut staged = doc.clone();
+    for s in &mut staged.sections {
+        let mut changed = s.memo_tail.take().is_some();
+        for p in &mut s.paragraphs {
+            for c in &mut p.controls {
+                if let Control::Field(f) = c {
+                    if f.hwp_memo_control.take().is_some() {
+                        f.ctrl_id = tags::FIELD_MEMO;
+                        changed = true;
+                    }
+                }
+            }
+        }
+        if changed {
+            s.raw_stream = None;
+            s.raw_provenance = None;
+        }
+    }
+    Ok(staged)
 }

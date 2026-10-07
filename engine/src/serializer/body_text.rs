@@ -209,7 +209,7 @@ fn serialize_memo_tail(
         let mut memo_paragraphs = paragraphs.clone();
         for para in &mut memo_paragraphs {
             if para.raw_header_extra.len() < 12 {
-                para.raw_header_extra = vec![0; 12];
+                para.raw_header_extra.resize(12, 0);
             }
             // Hancom writes memo body paragraphs under MEMO_LIST without
             // PARA_LINE_SEG records. HWPX subList parsing may synthesize a

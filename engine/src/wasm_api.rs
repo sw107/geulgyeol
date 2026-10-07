@@ -5352,6 +5352,66 @@ impl HwpDocument {
             .map_err(|e| e.into())
     }
 
+    #[wasm_bindgen(js_name = getBodyCommentAt)]
+    pub fn get_body_comment_at_api(&self, sec: f64, p: f64, at: f64) -> Result<String, JsValue> {
+        self.get_body_comment_at(
+            hyperlink_index(sec)?,
+            hyperlink_index(p)?,
+            hyperlink_index(at)?,
+        )
+        .map_err(Into::into)
+    }
+    #[wasm_bindgen(js_name = insertBodyComment)]
+    pub fn insert_body_comment_api(
+        &mut self,
+        sec: f64,
+        p: f64,
+        start: f64,
+        end: f64,
+        content: JsValue,
+    ) -> Result<String, JsValue> {
+        let content = strict_comment_text(content)?;
+        self.insert_body_comment(
+            hyperlink_index(sec)?,
+            hyperlink_index(p)?,
+            hyperlink_index(start)?,
+            hyperlink_index(end)?,
+            &content,
+        )
+        .map_err(Into::into)
+    }
+    #[wasm_bindgen(js_name = updateBodyComment)]
+    pub fn update_body_comment_api(
+        &mut self,
+        sec: f64,
+        p: f64,
+        id: f64,
+        content: JsValue,
+    ) -> Result<String, JsValue> {
+        let content = strict_comment_text(content)?;
+        self.update_body_comment(
+            hyperlink_index(sec)?,
+            hyperlink_index(p)?,
+            hyperlink_index(id)? as u32,
+            &content,
+        )
+        .map_err(Into::into)
+    }
+    #[wasm_bindgen(js_name = removeBodyComment)]
+    pub fn remove_body_comment_api(
+        &mut self,
+        sec: f64,
+        p: f64,
+        id: f64,
+    ) -> Result<String, JsValue> {
+        self.remove_body_comment(
+            hyperlink_index(sec)?,
+            hyperlink_index(p)?,
+            hyperlink_index(id)? as u32,
+        )
+        .map_err(Into::into)
+    }
+
     /// Main-body hyperlink authoring. Reject lossy JavaScript coordinate coercions.
     #[wasm_bindgen(js_name = insertBodyHyperlink)]
     pub fn insert_body_hyperlink_api(
@@ -8990,6 +9050,29 @@ fn base64_encode(data: &[u8]) -> String {
 
 #[cfg(test)]
 mod tests;
+
+// Validate the original JS UTF-16 before wasm-bindgen can replace lone surrogates.
+fn strict_comment_text(value: JsValue) -> Result<String, JsValue> {
+    if !value.is_string() {
+        return Err(JsValue::from_str("주석 내용은 문자열이어야 합니다"));
+    }
+    #[cfg(target_arch = "wasm32")]
+    {
+        let value = js_sys::JsString::from(value);
+        if value.length() > 4096 {
+            return Err(JsValue::from_str("주석 내용이 너무 깁니다"));
+        }
+        let units: Vec<_> = (0..value.length())
+            .map(|i| value.char_code_at(i) as u16)
+            .collect();
+        String::from_utf16(&units)
+            .map_err(|_| JsValue::from_str("주석 내용의 UTF-16이 손상되었습니다"))
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    value
+        .as_string()
+        .ok_or_else(|| JsValue::from_str("주석 문자열 없음"))
+}
 
 /// wasm32 indices are unsigned 32-bit integers, never truncated JS numbers.
 fn hyperlink_index(value: f64) -> Result<usize, JsValue> {
