@@ -6206,6 +6206,22 @@ export class InputHandler {
     return {position: {...position}, selection: selection ? {start: {...selection.start}, end: {...selection.end}} : null, cellPath: selected.path};
   }
 
+  /** Ordinary body paragraph, with a single root shape selection allowed for band editing. */
+  getBodyParagraphBandTarget(): {position: DocumentPosition; selection: {start: DocumentPosition; end: DocumentPosition} | null} {
+    try {
+      if (this.editMode === 'form' || this.cursor.isInFootnote() || this.cursor.isInHeaderFooter()
+        || this.cursor.isInCellSelectionMode?.() || this.cursor.isInTableObjectSelection() || this.isMultiPictureSelection()) throw new Error('mode');
+      const ref = this.getSelectedPictureRef();
+      if (ref) {
+        if (ref.type !== 'shape' || ref.cellPath?.length || ref.cellIdx !== undefined || ref.cellParaIdx !== undefined || ref.outerTableControlIdx !== undefined || ref.headerFooter || ref.noteRef) throw new Error('object');
+        return {position: {sectionIndex: ref.sec, paragraphIndex: ref.ppi, charOffset: this.wasm.getParagraphLength(ref.sec, ref.ppi)}, selection: null};
+      }
+      const target = this.getHyperlinkTarget();
+      if (target.cellPath) throw new Error('cell');
+      return {position: target.position, selection: target.selection};
+    } catch { throw new Error('문단 띠는 일반 본문 한 문단 또는 단순 문단 띠 개체 하나를 선택하세요.'); }
+  }
+
   getBodyCommentTarget(): {position: DocumentPosition; selection: {start: DocumentPosition; end: DocumentPosition} | null} {
     try {
       const target = this.getHyperlinkTarget();

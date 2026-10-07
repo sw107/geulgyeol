@@ -102,6 +102,131 @@ fn main() {
     let a = std::env::args().skip(1).collect::<Vec<_>>();
     let out = Path::new(&a[0]);
     std::fs::create_dir_all(out).unwrap();
+    if a[1] == "--verify-band-ui" {
+        let manifest: Vec<Value> =
+            serde_json::from_slice(&std::fs::read(out.join("manifest.json")).unwrap()).unwrap();
+        fn band_ci(d: &DocumentCore, para: usize) -> usize {
+            d.document().sections[0].paragraphs[para].controls.iter().rposition(|c| matches!(c, Control::Shape(s) if s.common().width_criterion == rhwp::model::shape::SizeCriterion::Para && s.common().width == 10000)).unwrap()
+        }
+        fn canonical_refs(mut d: DocumentCore) -> Value {
+            for p in &mut d.document_mut().sections[0].paragraphs {
+                for c in &mut p.controls {
+                    if let Control::Footnote(n) = c {
+                        for p in &mut n.paragraphs {
+                            while p.raw_header_extra.last() == Some(&0) {
+                                p.raw_header_extra.pop();
+                            }
+                        }
+                    }
+                }
+            }
+            refs(&d)
+        }
+        for row in &manifest {
+            let mut d =
+                DocumentCore::from_bytes(&std::fs::read(row["input"].as_str().unwrap()).unwrap())
+                    .unwrap();
+            let original = refs(&d);
+            for op in row["ops"].as_array().unwrap() {
+                let para = op["para"].as_u64().unwrap_or(0) as usize;
+                match op["kind"].as_str().unwrap() {
+                    "insert" => {
+                        let len = d.document().sections[0].paragraphs[para]
+                            .text
+                            .chars()
+                            .count();
+                        let result: Value = serde_json::from_str(
+                            &d.create_shape_control_native(
+                                0,
+                                para,
+                                len,
+                                10000,
+                                op["height"].as_u64().unwrap() as u32,
+                                0,
+                                0,
+                                false,
+                                "InFrontOfText",
+                                "rectangle",
+                                false,
+                                false,
+                                &[],
+                            )
+                            .unwrap(),
+                        )
+                        .unwrap();
+                        let ci = result["controlIdx"].as_u64().unwrap() as usize;
+                        d.set_shape_properties_native(0,para,ci,&json!({"horzRelTo":"Para","vertRelTo":"Para","horzAlign":"Left","vertAlign":"Top","horzOffset":0,"vertOffset":0,"fillType":"solid","fillBgColor":op["color"],"fillPatType":-1,"fillAlpha":0,"lineType":0}).to_string()).unwrap();
+                        d.set_body_rectangle_width_native(
+                            0,
+                            para,
+                            ci,
+                            r#"{"width":10000,"widthCriterion":"Para"}"#,
+                        )
+                        .unwrap();
+                        assert_eq!(refs(&d), original);
+                    }
+                    "edit" => {
+                        let ci = band_ci(&d, para);
+                        d.set_shape_properties_native(
+                            0,
+                            para,
+                            ci,
+                            &json!({"height":op["height"],"fillBgColor":op["color"]}).to_string(),
+                        )
+                        .unwrap();
+                        assert_eq!(refs(&d), original);
+                    }
+                    "remove" => {
+                        let ci = band_ci(&d, para);
+                        d.delete_shape_control_native(0, para, ci).unwrap();
+                        assert_eq!(refs(&d), original);
+                    }
+                    "margins" => {
+                        d.apply_para_format_native(
+                            0,
+                            0,
+                            r#"{"marginLeft":2000,"marginRight":3000}"#,
+                        )
+                        .unwrap();
+                    }
+                    "page" => {
+                        d.set_page_def_native(
+                            0,
+                            r#"{"width":66000,"marginLeft":9000,"marginRight":7000}"#,
+                        )
+                        .unwrap();
+                    }
+                    "columns" => {
+                        d.set_column_def_native(0, 2, 0, true, 1000).unwrap();
+                    }
+                    other => panic!("unknown op {other}"),
+                }
+            }
+            let file = Path::new(row["file"].as_str().unwrap());
+            let bytes = if file.extension().unwrap() == "hwp" {
+                d.export_hwp_native().unwrap()
+            } else {
+                d.export_hwpx_native().unwrap()
+            };
+            let expected = DocumentCore::from_bytes(&bytes).unwrap();
+            let actual = DocumentCore::from_bytes(&std::fs::read(file).unwrap()).unwrap();
+            // Full SVG includes the actual band geometry, fill and unchanged text glyphs.
+            assert_eq!(
+                actual.render_page_svg_native(0).unwrap(),
+                expected.render_page_svg_native(0).unwrap(),
+                "{}",
+                file.display()
+            );
+            assert_eq!(
+                canonical_refs(actual),
+                canonical_refs(expected),
+                "{}",
+                file.display()
+            );
+        }
+        std::fs::write(out.join("native-ui-proof.json"),serde_json::to_vec_pretty(&json!({"independentSavedReopens":manifest.len(),"nativeCommandReexecution":true,"fullSvgGeometryAndReferences":true,"noteHeaderTrailingZeroPaddingCanonicalized":true})).unwrap()).unwrap();
+        return;
+    }
     if a[1] == "--verify-wasm" {
         let manifest: Vec<Value> =
             serde_json::from_slice(&std::fs::read(out.join("wasm-manifest.json")).unwrap())

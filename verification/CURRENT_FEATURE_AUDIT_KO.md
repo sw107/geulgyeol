@@ -2,7 +2,7 @@
 
 dev10 체크포인트에서 누적 제품 소스 `658b8b2`를 별도 Mac 후보 `GeulgyeolDev10.app` (`0.4.4-dev.10`)에 통합했다. 메모 저장 보존·제한된 본문 검토 주석 저작·본문 편집 앵커를 패키지 엔진에서 검증했고 저장본236개를 Native로 독립 대조했다. strict ad-hoc·최신 자산 로드·기동/정상 종료를 확인했다. 실제 GUI/물리 IME·Linux·한컴 전체 대체 완료는 미검증이다. 기존 앱/후보·공개 beta.2를 보존했다. [dev10 결과](dev10-checkpoint/RESULT_KO.md), [proof](dev10-checkpoint/proof.json).
 
-현재 소스에는 후속 본문 사각형 너비 기준 API와 지원 단순 사각형의 문단100% 계산이 추가됐다. 새 WASM은 별도 `body-rectangle-width-qa/pkg`에만 생성했으며 dev10 앱에는 통합하지 않았다. 문단 띠 메뉴는 disabled다. [이번 결과](body-rectangle-width/RESULT_KO.md), [proof](body-rectangle-width/proof.json).
+현재 소스에는 본문 사각형 너비 기준 API·문단100% 계산과 일반 본문 한 문단의 문단 띠 메뉴/두께·면 색 편집/제거가 추가됐다. 새 WASM은 별도 `paragraph-band-ui-qa/pkg`에만 생성했으며 dev10 앱에는 통합하지 않았다. 지원 범위의 문단 띠 메뉴는 활성이다. [메뉴 결과](paragraph-band-ui/RESULT_KO.md). [이번 결과](body-rectangle-width/RESULT_KO.md), [proof](body-rectangle-width/proof.json).
 
 ## 소스·후보·앱 구분
 
@@ -112,6 +112,10 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 
 한컴 Mac/공통 설명에서 문단 띠는 검정 채우기·선 없음·1mm·문단 너비100%의 사각형 개체로 확인됐다. 위 dev10 제안의 문단 테두리/배경 대안은 채택하지 않는다. 기존 RectangleShape/Para 크기 기준은 저장되지만 공개 개체 API가 너비 기준을 노출/변경하지 않으며 조판은 문단 여백을 뺀 폭 대신 단 전체 폭을 쓴다. Native/WASM·두 형식 render tree/SVG로 재현했다. 문단 모양 API만의 작은 구현 조건은 성립하지 않아 이번에는 설계·진단까지이며 제품 기능/메뉴는 변경하지 않았다. 광범위 모델 신설이 필수라고 단정하지 않는다. [공식 의미와 후속 계약](paragraph-band-scope/DESIGN_KO.md), [결과](paragraph-band-scope/RESULT_KO.md).
 
-## 본문 사각형 너비 기준 후속 구현
+## 본문 사각형 너비 기준 후속 구현 (메뉴 연결 전 기록)
 
 가로 본문의 비인라인·비변환·캡션/글상자 없는 사각형에 별도 기준 조회/설정 API를 추가했다. Para100%는 현재 단 폭에서 문단 양쪽 여백을 빼며 공유 크기 계산은 유지한다. Native/WASM 각각 재열기40·undo/redo20쌍, 저장40개씩 독립 교차 대조, 기존4기준 SVG32개와 그림/타원/회전/그룹/셀 SVG10개 동일 확인. 기존 주석/앵커 재열기232·Native 독립232, 셀 링크 재열기288 회귀 통과. 문단 띠 사용자 삽입/삭제 명령·GUI/물리 IME·새 앱 패키징·Linux는 미완료/미검증이며 dev10 앱은 기존 상태다. [API 계약·결과·한계](body-rectangle-width/RESULT_KO.md).
+
+## 일반 본문 문단 띠 메뉴 후속 구현
+
+일반 본문 한 문단의 Para100%·두께1mm/검정/선없음 사각형 메뉴를 연결했다. 반복 메뉴는 기존 띠 편집, 개체 속성은 지원 두께/면 색 편집, 두 삭제 메뉴는 같은 API·snapshot 이력으로 처리한다. 앵커를 문단 끝에 저장해 앞의 주석/필드/각주를 보존하며 마지막 단순 Para100% 사각형 삭제의 FIELD_END 슬롯 오인만 좁게 보완했다. 중간 띠/뒤에 다른 개체·셀/각주/머리말·회전/그룹·다중 선택 등은 명확히 거절한다. 실제 WASM/UI 저장재열기132·undo/redo33쌍, Native 독립132 및 기존 개체/주석/앵커/셀 회귀 통과. GUI/IME·새 앱 패키징·Linux는 미검증/미실시이며 기존 앱/후보는 보존했다. [결과·지원 범위](paragraph-band-ui/RESULT_KO.md).

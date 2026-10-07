@@ -1,0 +1,447 @@
+{
+  "sourceBasisCommit": "7d336c9d7442a4613148d1baadcb8e942588840c",
+  "candidatePackage": "/Users/sw107/Documents/Codex/2026-10-06/task/paragraph-band-ui-qa/pkg",
+  "wasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+  "narrowEngineChange": "Last plain Para100 rectangle deletion skips FIELD_END gap walk; nontrailing plain Para100 rectangle deletion refuses before mutation",
+  "ui": {
+    "wasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+    "actualBandModalRegistryDispatcherInputHandlerHistory": true,
+    "objectPropertiesAndDeleteConnected": true,
+    "saves": 132,
+    "undos": 33,
+    "redos": 33,
+    "refusals": 58,
+    "cancels": 18,
+    "noOpRepeatInsert": 6,
+    "rows": [
+      {
+        "label": "notes-insert"
+      },
+      {
+        "label": "notes-edit"
+      },
+      {
+        "label": "notes-object-delete"
+      },
+      {
+        "label": "notes-reinsert"
+      },
+      {
+        "label": "notes-dialog-delete"
+      },
+      {
+        "label": "comments-insert"
+      },
+      {
+        "label": "comments-edit"
+      },
+      {
+        "label": "comments-object-delete"
+      },
+      {
+        "label": "comments-reinsert"
+      },
+      {
+        "label": "comments-dialog-delete"
+      },
+      {
+        "label": "notes-comments-insert"
+      },
+      {
+        "label": "notes-comments-edit"
+      },
+      {
+        "label": "notes-comments-object-delete"
+      },
+      {
+        "label": "notes-comments-reinsert"
+      },
+      {
+        "label": "notes-comments-dialog-delete"
+      },
+      {
+        "label": "fields-insert"
+      },
+      {
+        "label": "fields-edit"
+      },
+      {
+        "label": "fields-object-delete"
+      },
+      {
+        "label": "fields-reinsert"
+      },
+      {
+        "label": "fields-dialog-delete"
+      },
+      {
+        "label": "multiline-insert"
+      },
+      {
+        "label": "multiline-edit"
+      },
+      {
+        "label": "multiline-object-delete"
+      },
+      {
+        "label": "multiline-reinsert"
+      },
+      {
+        "label": "multiline-dialog-delete"
+      },
+      {
+        "label": "empty-insert"
+      },
+      {
+        "label": "empty-edit"
+      },
+      {
+        "label": "empty-object-delete"
+      },
+      {
+        "label": "empty-reinsert"
+      },
+      {
+        "label": "empty-dialog-delete"
+      },
+      {
+        "label": "geometry-margins"
+      },
+      {
+        "kind": "margins",
+        "bounds": {
+          "x": 126.7,
+          "y": 132.3,
+          "w": 533.6,
+          "h": 3.8
+        }
+      },
+      {
+        "label": "geometry-page"
+      },
+      {
+        "kind": "page",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 633.3,
+          "h": 3.8
+        }
+      },
+      {
+        "label": "geometry-columns"
+      },
+      {
+        "kind": "columns",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 293.3,
+          "h": 3.8
+        }
+      }
+    ],
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "newAppPackaged": false,
+    "sourceSHA256": {
+      "command": "6d6b72bfe8c0cabb02461406c971a9cfa8c9e3eff7cd9c7d52ea27179a8c8968",
+      "history": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db",
+      "input": "4833bb63a07c5238176c3487e4be18e2ccf8c1425d3863179dbee4fa53027495",
+      "bridge": "a7085f3e8e5c75747676858f77e0583d9d677f68d3b3dd0feb6048aca67997e1",
+      "band": "404be79fea3ac09282d9797129c094f45ba83931d7a0cb36027b6346d699bcd7",
+      "dialog": "f966d728e0826c6ac044c36499c39988117a2e9fc94cef4196cf300b9dc3eb30",
+      "modal": "c46d0c591dc828aabdcd2e7c7fa9ca8d8d10f05d9136db04bb313991587b74d5",
+      "insert": "0fb51d4e09417703ee4631c829eb2aa8016abd90dfd4c93d2cf8196a92486206",
+      "registry": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+      "dispatcher": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381",
+      "menu": "4299cf7a1b5c057da0a80a10b6525e00d46a96d997a61fc7cd0f71657069a77b"
+    }
+  },
+  "independentNative": {
+    "fullSvgGeometryAndReferences": true,
+    "independentSavedReopens": 132,
+    "nativeCommandReexecution": true,
+    "noteHeaderTrailingZeroPaddingCanonicalized": true
+  },
+  "regressions": {
+    "nativeGeometry": {
+      "GUIVerified": false,
+      "atomicRefusals": 17,
+      "bodyTextStyleNoteNeighborMemoPreserved": true,
+      "nativeReopens": 40,
+      "rows": [
+        {
+          "basis": "Absolute",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 160.0,
+            "x": 126.72,
+            "y": 132.26666666666668
+          },
+          "change": "margins"
+        },
+        {
+          "basis": "Absolute",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 160.0,
+            "x": 133.33333333333334,
+            "y": 132.26666666666668
+          },
+          "change": "page"
+        },
+        {
+          "basis": "Absolute",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 160.0,
+            "x": 133.33333333333334,
+            "y": 132.26666666666668
+          },
+          "change": "columns"
+        },
+        {
+          "basis": "Paper",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 793.7066666666667,
+            "x": 126.72,
+            "y": 132.26666666666668
+          },
+          "change": "margins"
+        },
+        {
+          "basis": "Paper",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 880.0,
+            "x": 133.33333333333334,
+            "y": 132.26666666666668
+          },
+          "change": "page"
+        },
+        {
+          "basis": "Paper",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 880.0,
+            "x": 133.33333333333334,
+            "y": 132.26666666666668
+          },
+          "change": "columns"
+        },
+        {
+          "basis": "Page",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 566.9333333333334,
+            "x": 126.72,
+            "y": 132.26666666666668
+          },
+          "change": "margins"
+        },
+        {
+          "basis": "Page",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 666.6666666666667,
+            "x": 133.33333333333334,
+            "y": 132.26666666666668
+          },
+          "change": "page"
+        },
+        {
+          "basis": "Page",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 666.6666666666667,
+            "x": 133.33333333333334,
+            "y": 132.26666666666668
+          },
+          "change": "columns"
+        },
+        {
+          "basis": "Column",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 566.9333333333334,
+            "x": 126.72,
+            "y": 132.26666666666668
+          },
+          "change": "margins"
+        },
+        {
+          "basis": "Column",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 666.6666666666667,
+            "x": 133.33333333333334,
+            "y": 132.26666666666668
+          },
+          "change": "page"
+        },
+        {
+          "basis": "Column",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 326.6666666666667,
+            "x": 133.33333333333334,
+            "y": 132.26666666666668
+          },
+          "change": "columns"
+        },
+        {
+          "basis": "Para",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 533.6,
+            "x": 126.72,
+            "y": 132.26666666666668
+          },
+          "change": "margins"
+        },
+        {
+          "basis": "Para",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 633.3333333333334,
+            "x": 133.33333333333334,
+            "y": 132.26666666666668
+          },
+          "change": "page"
+        },
+        {
+          "basis": "Para",
+          "bounds": {
+            "height": 3.7733333333333334,
+            "width": 293.33333333333337,
+            "x": 133.33333333333334,
+            "y": 132.26666666666668
+          },
+          "change": "columns"
+        }
+      ],
+      "snapshotUndoRedoPairs": 20
+    },
+    "wasmWidth": {
+      "wasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+      "oldWasmSHA256": "cd852d76c0ea4c2690afe728db34d717a00638dd51090b98cce913de456d8005",
+      "actualBridgeAndSnapshotHistory": true,
+      "saves": 40,
+      "undoRedoPairs": 20,
+      "atomicRefusals": 20,
+      "nativeSavedGeometryCrossChecks": 40,
+      "legacyBasisSVGExactMatches": 32,
+      "legacyOtherShapes": [
+        "ellipse-Hwp",
+        "ellipse-Hwpx",
+        "rotated-Hwp",
+        "rotated-Hwpx",
+        "group-Hwp",
+        "group-Hwpx",
+        "picture-Hwp",
+        "picture-Hwpx",
+        "Para-picture-nodes-and-glyphs",
+        "cell-Para-hwp",
+        "cell-Para-hwpx"
+      ],
+      "boundaryRefusals": 6,
+      "bodyTextFieldsNotesAndGlyphsPreserved": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "paragraphBandMenuComplete": false
+    },
+    "comment": {
+      "wasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+      "mutations": 14,
+      "saves": 64,
+      "refusals": 55,
+      "undos": 16,
+      "redos": 16,
+      "newAuthorEmptyCreationTimeAbsent": true,
+      "originalAuthorTimePreserved": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "anchor": {
+      "wasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+      "normal": 43,
+      "saves": 168,
+      "refusals": 36,
+      "undos": 43,
+      "redos": 43,
+      "actualBodyCommandHistory": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "cell": {
+      "candidateWasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+      "positive": 84,
+      "reopens": 288,
+      "undos": 84,
+      "redos": 84,
+      "atomicRefusals": 444,
+      "layoutCases": 12,
+      "multipageCases": 12,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "commentNative": {
+      "allBodyMemoNoteFieldReferences": true,
+      "independentlyReopened": 64
+    },
+    "anchorNative": {
+      "independentSavedReopens": 168,
+      "refsStylesMetadataAnchors": true
+    }
+  },
+  "protected": {
+    "pathsUnchanged": 18,
+    "dev10QAUnchanged": 314,
+    "priorWidthQAUnchanged": 771
+  },
+  "sourceSHA256": {
+    "engine/examples/body_rectangle_width_check.rs": "9b4c8fb173f10e10cc40e7142637ba1a11a8d926e96b82d0ac94c9b4b7bf0f0c",
+    "engine/src/document_core/commands/object_ops/shape.rs": "2451580679a69b368f00cb7400220e6fef31c9b30737e5af76ec48f46f2d2098",
+    "rhwp-studio/index.html": "1b99dc12973b6f4bd8ec48ff3cc1251dcda13caa9b86e8451747fe246c5d5f90",
+    "rhwp-studio/src/command/commands/insert.ts": "0fb51d4e09417703ee4631c829eb2aa8016abd90dfd4c93d2cf8196a92486206",
+    "rhwp-studio/src/command/commands/paragraph-band.ts": "404be79fea3ac09282d9797129c094f45ba83931d7a0cb36027b6346d699bcd7",
+    "rhwp-studio/src/engine/input-handler.ts": "4833bb63a07c5238176c3487e4be18e2ccf8c1425d3863179dbee4fa53027495",
+    "rhwp-studio/src/ui/paragraph-band-dialog.ts": "f966d728e0826c6ac044c36499c39988117a2e9fc94cef4196cf300b9dc3eb30",
+    "scripts/check-paragraph-band-ui.mjs": "cd5b780164c981655c53d142e30172809d0958107c976d68b339efa413fd4db7"
+  },
+  "resources": {
+    "targetPeakBytes": 4129120256,
+    "targetFinalBytes": 4025421824,
+    "additionalPeakBytes": 29253632,
+    "additionalCurrentBytes": 29253632,
+    "diskFreeMinimumBytes": 23101440000,
+    "diskFreeCurrentBytes": 23306240000,
+    "stopReasons": []
+  },
+  "finalChecks": [
+    "wasm-build-final",
+    "bindgen-final",
+    "native-geometry",
+    "band-ui-final",
+    "native-ui-final",
+    "width-regression",
+    "comment-regression",
+    "anchor-regression",
+    "cell-regression",
+    "comment-native-cross",
+    "anchor-native-cross",
+    "typescript-final",
+    "clippy-final"
+  ],
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxVerified": false,
+  "newAppPackaged": false,
+  "publicPushOrRelease": false,
+  "wholeLibUnitTests": "Not rerun: three existing missing include_bytes fixtures; no fixture replacement or test exclusion"
+}

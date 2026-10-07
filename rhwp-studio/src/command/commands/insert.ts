@@ -1,6 +1,7 @@
 import { equationCellTarget, deleteEquationSelection, type EquationCellTarget } from '@/engine/equation-target';
 import { bodyHyperlinkCommand } from './hyperlink';
 import { bodyCommentCommand } from './comment';
+import { bodyParagraphBandCommand, openParagraphBandObjectProperties, validateParagraphBandObjectDeletion } from './paragraph-band';
 import type { CommandDef } from '../types';
 import { PicturePropsDialog } from '@/ui/picture-props-dialog';
 import { ChartDataDialog } from '@/ui/chart-data-dialog';
@@ -264,7 +265,7 @@ export const insertCommands: CommandDef[] = [
   stub('insert:caption-rb', '캡션 - 오른쪽 아래'),
   stub('insert:caption-bottom', '캡션 - 아래'),
   stub('insert:caption-none', '캡션 없음'),
-  stub('insert:para-band', '문단 띠'),
+  bodyParagraphBandCommand,
   bodyCommentCommand,
   {
     id: 'insert:footnote',
@@ -351,6 +352,7 @@ export const insertCommands: CommandDef[] = [
       if (!ih) return;
       const ref = ih.getSelectedPictureRef();
       if (!ref) return;
+      if (openParagraphBandObjectProperties(services, ref)) return;
       if (ref.type === 'equation') {
         if (!equationPropsDialog) {
           equationPropsDialog = new EquationPropertiesDialog(services.wasm, services.eventBus, services);
@@ -543,6 +545,8 @@ export const insertCommands: CommandDef[] = [
       if (!ih) return;
       const ref = ih.getSelectedPictureRef();
       if (!ref) return;
+      try { validateParagraphBandObjectDeletion(services, ref); }
+      catch (error) { showToast({message: String(error), durationMs: 7000}); return; }
       recordObjectMutation(ih, 'deleteObject', (wasm) => {
         if (ref.type === 'shape' || ref.type === 'line' || ref.type === 'group') {
           wasm.deleteShapeControl(ref.sec, ref.ppi, ref.ci);
