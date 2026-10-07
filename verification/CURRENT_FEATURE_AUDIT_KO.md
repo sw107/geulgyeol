@@ -2,12 +2,13 @@
 
 dev11 체크포인트에서 제품 소스 `573556d`를 별도 Mac 후보 `GeulgyeolDev11.app` (`0.4.4-dev.11`)에 통합했다. 기존 누적 메모/필드/스타일/셀 기능에 본문 사각형 너비 API·문단100% 계산과 문단 띠 메뉴/두께·색 편집/제거를 포함한다. 패키지 엔진 재열기172(띠132·너비40), 띠 Native 독립132, strict ad-hoc·최신 자산·기동/정상 종료/잔류0을 확인했다. GUI/물리 IME·renderer 편집·한컴·Linux는 미검증이며 기본 앱/공개 beta.2/dev10을 보존했다. [dev11 결과](dev11-checkpoint/RESULT_KO.md), [proof](dev11-checkpoint/proof.json).
 
-다음 실제 편집 누락은 기존 그림 캡션 넣기의 실행 취소다. 캡션은 생성·저장되지만 snapshot/CommandHistory에 기록되지 않아 undo가 제거하지 못함을 패키지 엔진/실제 명령·InputHandler undo로 재현했다. 이번에는 구현하지 않았으며 아래 후속 범위를 제안한다. 방향 메뉴 비활성과 캡션 기능 전체 부재를 혼동하지 않는다. [재현](dev11-checkpoint/next-gap-caption-undo.json).
+dev11에서 재현한 그림 캡션 삽입 undo 누락을 후속 **소스 후보**에서 보완했다. 삽입/속성/캡션 제거/그림 삭제19작업·undo/redo91쌍·HWP/HWPX76 재열기의 전체 SVG/참조 일치, Native 독립76·snapshot498쌍을 확인했다. 캡션 저장 좌표·문단 끝 그림 삭제의 주석 좌표·삭제 후 번호 재할당과 지원 HWPX 캡션 조판도 보완했다. dev11 앱에는 미통합이며 새 앱/ZIP·공개/삭제 없이 로컬 개발만 진행했다. [캡션 결과·한계](caption-history/RESULT_KO.md), [proof](caption-history/proof.json).
 
 ## 소스·후보·앱 구분
 
 | 대상 | 포함 범위 |
 |---|---|
+| 이번 `caption-history-qa/pkg-layout` | 캡션 이력/저장 좌표·삭제 참조/번호·지원 HWPX 조판 보완. SHA256 `b2a3010c21c145d87603ac91b3d9660e6a3a54163a5761bc83e886bfdd9af97f`. **소스/검증 후보만, dev11 앱 미통합** |
 | 보존된 `comment-anchor-qa/pkg` | 누적 `658b8b2`: 메모 보존·본문 주석 저작·본문 앵커 안정화 포함. SHA256 `15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af` |
 | 별도 `GeulgyeolDev11.app`, `0.4.4-dev.11` | 누적 `573556d`·WASM `cdb8171f…`·최신 웹 자산 일치. 띠132/너비40 재열기·Native132·strict ad-hoc·기동/정상 종료. GUI/IME/한컴/Linux 미검증 |
 | 보존된 `GeulgyeolDev10.app`, `0.4.4-dev.10` | 이전 `658b8b2` 엔진/웹 자산 일치. 저작64·앵커168·메모 보존4 재열기, Native 독립236, strict ad-hoc·정상 기동/종료. GUI/IME 미검증 |
@@ -123,10 +124,16 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 
 일반 본문 한 문단의 Para100%·두께1mm/검정/선없음 사각형 메뉴를 연결했다. 반복 메뉴는 기존 띠 편집, 개체 속성은 지원 두께/면 색 편집, 두 삭제 메뉴는 같은 API·snapshot 이력으로 처리한다. 앵커를 문단 끝에 저장해 앞의 주석/필드/각주를 보존하며 마지막 단순 Para100% 사각형 삭제의 FIELD_END 슬롯 오인만 좁게 보완했다. 중간 띠/뒤에 다른 개체·셀/각주/머리말·회전/그룹·다중 선택 등은 명확히 거절한다. 실제 WASM/UI 저장재열기132·undo/redo33쌍, Native 독립132 및 기존 개체/주석/앵커/셀 회귀 통과. GUI/IME·새 앱 패키징·Linux는 미검증/미실시이며 기존 앱/후보는 보존했다. [결과·지원 범위](paragraph-band-ui/RESULT_KO.md).
 
-## dev11 통합과 다음 제안
+## dev11 통합과 다음 제안 (당시 역사 기록)
 
 최신 문단 띠/너비 변경은 위 dev11에 통합했다. 제품 소스·기존 앱/pkg는 그대로 보존하고 새 앱 하나/ZIP 없이 패키지 엔진 대표 검사와 문서만 로컬 커밋했다. 띠/너비/쪽·단·문단 여백·인접 필드/직접 서식·undo/저장 결과와 자동 검사/GUI 구분은 [통합 결과](dev11-checkpoint/RESULT_KO.md)를 따른다.
 
 다음은 일반 본문 단일 그림의 **기존 캡션 넣기 추가를 한 번의 snapshot undo/redo에 연결**한다. `insert:caption-toggle`은 명령에서 object-props setter로 직접 적용하므로 현 사례에서 InputHandler 이력 실행0·undo 항목 없음·undo 뒤 캡션/저장 바이트 불변이다. 자동 번호·그림/필드·직접 서식·이웃 참조/비지원 거절·HWP/HWPX를 검증하는 좁은 후속을 제안한다. 방향 메뉴/표/셀·그룹·각주 확장과 별도로 다룬다. 이번에는 새 기능/수정을 구현하지 않았다.
 
 이번 추가 약378.5MiB/새 앱336.32MiB, target3.749GiB/free최저21.32GiB. 세 프로젝트 범위 앱121/ZIP17 누적 du40.168GiB(APFS 공유 공간 미중복제거), 현재 workspace8.799GiB·디스크 사용439.069GiB/여유21.362GiB. 기존 누적물 삭제/공개 없음. 기동은 정상 종료·잔류0이며 실제 GUI/IME·renderer 편집·한컴/Linux 성공을 주장하지 않는다.
+
+## dev11 이후 그림 캡션 이력 소스 후보
+
+캡션 넣기의 새 삽입을 기존 snapshot 이력에 연결했고 반복 진입은 이력을 추가하지 않는다. 속성/캡션 제거/그림 삭제의 기존 이력 경로를 유지하면서 문단 끝 그림 삭제의 FIELD_END 오인과 삭제 후 자동 번호 재할당을 보완했다. 텍스트/AutoNumber만 있는 떠 있는 Top/Bottom 그림 캡션의 줄 정보 누락은 편집과 같은 폭/reflow의 렌더링용 복제로 처리한다. 원본 IR·권위 줄 정보·저장기의 synthetic LINE_SEG 생략 규칙을 유지했다. 재현한 HWPX 기준선1.0667px와 혼합 서식 줄바꿈 차이는 최종 전체 SVG 대조에서 해소됐다.
+
+이 후보로 문단 띠/너비 재열기172, 셀 링크288, 셀 치환 이력82, 주석/앵커232 회귀와 TypeScript/Clippy를 통과했다. 보호 파일2799개 해시 불변. 실제 GUI/물리 IME·한컴·Linux·누락 fixture3개가 있는 전체 lib unit test는 미검증/미실시다. Left/Right·인라인·복합 캡션의 새 조판 인증으로 확대하지 않는다. 새 앱/ZIP·공개·삭제 없이 소스와 검증자료만 로컬 커밋한다. [결과](caption-history/RESULT_KO.md).

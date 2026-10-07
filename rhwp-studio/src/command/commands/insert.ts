@@ -445,10 +445,12 @@ export const insertCommands: CommandDef[] = [
   {
     id: 'insert:caption-toggle',
     label: '캡션 넣기',
-    canExecute: (ctx) => ctx.inPictureObjectSelection,
+    canExecute: (ctx) => ctx.hasDocument && ctx.isEditable && !ctx.isFormMode && ctx.inPictureObjectSelection,
     execute(services) {
+      const ctx = services.getContext();
+      if (!ctx.hasDocument || !ctx.isEditable || ctx.isFormMode || !ctx.inPictureObjectSelection) return;
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || ih.isMultiPictureSelection()) return;
       const ref = ih.getSelectedPictureRef();
       if (!ref || ref.type === 'equation' || ref.type === 'group') return;
       // 현재 캡션 상태 조회
@@ -468,14 +470,23 @@ export const insertCommands: CommandDef[] = [
           captionSpacing: Math.round(3 * 283.46),
           captionIncludeMargin: false,
         };
-        let result: any;
-        // [Task #3230] `setProps` 래퍼가 사라져 공유 라우팅을 직접 부른다. 이 경로는 종전부터
-        // 라우터를 거치지 않고 직접 적용하고 `document-changed` 를 스스로 emit 한다 —
-        // 회전/대칭과 달리 이번 변경 대상이 아니라 종전 동작 그대로 둔다.
-        result = setObjectProps(services.wasm, ref, captionProps);
-        // "그림 N " 끝 위치를 Rust가 반환
-        charOffset = result?.captionCharOffset ?? 4;
-        services.eventBus.emit('document-changed');
+        let inserted = false;
+        const position = ih.getPosition();
+        // 캡션 문단·자동 번호·원본 참조를 역속성으로 재구성하지 않고 함께 복원한다.
+        ih.executeOperation({
+          kind: 'snapshot',
+          operationType: 'insertCaption',
+          operation: (wasm) => {
+            const result: any = setObjectProps(wasm, ref, captionProps);
+            if (result?.ok === false) throw new Error('[insert:caption-toggle] 캡션 삽입 실패');
+            // 기존 엔진의 "그림 N " 끝 위치와 자동 번호 규칙을 유지한다.
+            charOffset = result?.captionCharOffset ?? 4;
+            inserted = true;
+            return position;
+          },
+        });
+        // 편집 모드 게이트가 snapshot을 거절하면 캡션 편집 모드로도 진입하지 않는다.
+        if (!inserted) return;
       } else {
         // 이미 캡션이 있으면 캡션 텍스트 끝에 캐럿
         try {

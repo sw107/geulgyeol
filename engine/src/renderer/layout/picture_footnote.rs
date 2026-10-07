@@ -1,6 +1,8 @@
 //! 그림/캡션 레이아웃 + 각주 영역 레이아웃
 
-use super::super::composer::{compose_paragraph, ComposedLine, ComposedParagraph};
+use super::super::composer::{
+    compose_caption_paragraph, compose_paragraph, ComposedLine, ComposedParagraph,
+};
 use super::super::page_layout::LayoutRect;
 use super::super::pagination::{FootnoteFragment, FootnoteRef, FootnoteSource};
 use super::super::render_tree::*;
@@ -154,6 +156,9 @@ impl LayoutEngine {
         // [#6284] 캡션 문단 조판에 필요하다.
         styles: &ResolvedStyleSet,
     ) {
+        let projected =
+            super::super::composer::picture_with_reflowed_caption(picture, styles, self.dpi);
+        let picture = projected.as_ref().unwrap_or(picture);
         // 그림 크기 (HWPUNIT → 픽셀)
         // 회전 picture에서 common.width/height는 한컴이 저장한 회전 후 외접 프레임이고
         // current_width/current_height는 실제로 회전시킬 원본 표시 크기다. common 프레임을
@@ -560,6 +565,9 @@ impl LayoutEngine {
         // 진행하지 않는다. 이중 계상(gap + draw-advance) 방지.
         vpos_accounts_for_height: bool,
     ) -> f64 {
+        let projected =
+            super::super::composer::picture_with_reflowed_caption(picture, styles, self.dpi);
+        let picture = projected.as_ref().unwrap_or(picture);
         // 그림 크기 (HWPUNIT → 픽셀)
         // [Issue #1230] 측면흐름 wrap 은 common(개체 틀) 프레임으로 그린다.
         let (pic_width_hu, pic_height_hu) = super::utils::picture_flow_frame_size_hu(picture);
@@ -883,7 +891,7 @@ impl LayoutEngine {
         for (pi, para) in caption.paragraphs.iter().enumerate() {
             let para_y_before_layout = para_y;
             // 먼저 문단을 조합
-            let mut composed = compose_paragraph(para);
+            let mut composed = compose_caption_paragraph(para);
 
             // AutoNumber 컨트롤 처리: 조합된 텍스트에 번호 삽입
             self.apply_auto_numbers_to_composed(&mut composed, para, auto_counter);

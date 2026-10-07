@@ -654,8 +654,11 @@ impl DocumentCore {
                 self.resolve_picture_control_mut(section_idx, parent_para_idx, control_idx)?;
             let para = &mut pic_mut.caption.as_mut().unwrap().paragraphs[0];
             para.text = "그림  ".to_string();
-            para.char_offsets = vec![0, 1, 2, 11];
-            para.char_count = 13;
+            // AutoNumber's placeholder occupies the first unit of its eight-unit slot.
+            // The following space therefore starts at 2 + 8, matching both parsers.
+            // Counting the placeholder again shifts saved caption formatting by one.
+            para.char_offsets = vec![0, 1, 2, 10];
+            para.char_count = 12;
         }
         // [Issue #6204] 배제 밴드 기하가 바뀌었으면 그 밴드에 되감긴 문단들의 저장
         // `LINE_SEG` 를 새 위치 기준으로 다시 새긴다.
@@ -1334,6 +1337,15 @@ impl DocumentCore {
             ));
         }
 
+        // A last picture anchored after all visible text has no text to shift.
+        // The legacy gap walk also counts ownerless FIELD_END slots and can
+        // otherwise move preceding comment/field text when deleting this picture.
+        let trailing_picture = control_idx + 1 == para.controls.len()
+            && para.control_text_positions().get(control_idx).copied()
+                == Some(para.text.chars().count());
+        let removed_caption = matches!(&para.controls[control_idx], Control::Picture(p)
+            if p.caption.is_some());
+
         // 컨트롤이 차지하는 갭의 시작 위치를 찾아 char_offsets 조정
         let text_chars: Vec<char> = para.text.chars().collect();
         let mut ci = 0usize;
@@ -1374,7 +1386,7 @@ impl DocumentCore {
         }
 
         // char_offsets 조정
-        if let Some(gs) = gap_start {
+        if let Some(gs) = gap_start.filter(|_| !trailing_picture) {
             let threshold = gs + 8;
             for offset in para.char_offsets.iter_mut() {
                 if *offset >= threshold {
@@ -1398,6 +1410,11 @@ impl DocumentCore {
         Self::reflow_paragraph_line_segs_after_control_delete(para, &self.styles, self.dpi);
 
         section.raw_stream = None;
+        // Use the same numbering pass as caption removal in picture properties.
+        // Otherwise the surviving caption keeps its old number until reopening.
+        if removed_caption {
+            crate::parser::assign_auto_numbers(&mut self.document);
+        }
         self.recompose_section(section_idx);
         self.paginate_if_needed();
 

@@ -328,11 +328,67 @@ fn synthesize_marker_paragraph(para: &Paragraph) -> Option<Paragraph> {
 
 /// 문단을 줄별 텍스트 런으로 분할한다.
 pub fn compose_paragraph(para: &Paragraph) -> ComposedParagraph {
+    compose_paragraph_impl(para, false)
+}
+
+/// HWPX captions omit saved line segments; retain their direct character styles
+/// while using the existing caption wrapping and automatic-number projection.
+pub(crate) fn compose_caption_paragraph(para: &Paragraph) -> ComposedParagraph {
+    compose_paragraph_impl(para, true)
+}
+
+/// Rebuild missing layout for simple floating picture captions using the same
+/// width and reflow as caption editing. Keep this projection out of stored IR:
+/// synthetic HWPX line segments must continue to be omitted by the writer.
+pub(crate) fn picture_with_reflowed_caption(
+    picture: &crate::model::image::Picture,
+    styles: &ResolvedStyleSet,
+    dpi: f64,
+) -> Option<crate::model::image::Picture> {
+    use crate::model::shape::CaptionDirection;
+    let caption = picture.caption.as_ref()?;
+    if picture.common.treat_as_char
+        || picture.common.width == 0
+        || !matches!(
+            caption.direction,
+            CaptionDirection::Top | CaptionDirection::Bottom
+        )
+    {
+        return None;
+    }
+    let needs_reflow = |p: &Paragraph| {
+        p.line_segs.is_empty()
+            && !p.text.is_empty()
+            && p.controls.iter().all(|c| matches!(c, Control::AutoNumber(_)))
+    };
+    if !caption.paragraphs.iter().any(needs_reflow) {
+        return None;
+    }
+    let mut projected = picture.clone();
+    for para in &mut projected.caption.as_mut()?.paragraphs {
+        if needs_reflow(para) {
+            let width = hwpunit_to_px(picture.common.width as i32, dpi);
+            let para_style = styles.para_styles.get(para.para_shape_id as usize);
+            let margins = para_style
+                .map(|s| s.margin_left + s.margin_right)
+                .unwrap_or(0.0);
+            reflow_line_segs(
+                para,
+                ParagraphBox::content_width_px((width - margins).max(0.0), dpi),
+                styles,
+                dpi,
+            );
+        }
+    }
+    Some(projected)
+}
+
+fn compose_paragraph_impl(para: &Paragraph, caption: bool) -> ComposedParagraph {
     // [Task #991] HWP5 parser 의 inline marker 누락 보정 (rendering 전용)
     let synth_para = synthesize_marker_paragraph(para);
     let para = synth_para.as_ref().unwrap_or(para);
 
-    let mut lines = compose_lines(para);
+    let mut lines = compose_lines(para, caption);
     // With no text, render inline positions use object ordinals, whereas saved
     // LINE_SEG starts still use UTF-16 control slots. Project both into the
     // same space; preserving identical starts retains saved stacked-line rules.
@@ -822,7 +878,7 @@ fn inject_footnote_markers(lines: &mut [ComposedLine], positions: &[(usize, u16)
 }
 
 /// 문단의 텍스트를 줄별로 분할하고, 각 줄 내에서 CharShapeRef 경계에 따라 분할한다.
-fn compose_lines(para: &Paragraph) -> Vec<ComposedLine> {
+fn compose_lines(para: &Paragraph, caption: bool) -> Vec<ComposedLine> {
     if para.line_segs.is_empty() {
         // LineSeg가 없으면 텍스트를 ComposedLine 으로 분할
         if para.text.is_empty() {
@@ -875,14 +931,24 @@ fn compose_lines(para: &Paragraph) -> Vec<ComposedLine> {
             // control 을 든 문단)뿐이다.
             //
             lines.push(ComposedLine {
-                runs: split_runs_by_lang(vec![ComposedTextRun {
-                    text: line_text,
-                    char_style_id: default_style_id,
-                    lang_index: 0,
-                    char_overlap: None,
-                    footnote_marker: None,
-                    display_text: None,
-                }]),
+                runs: if caption {
+                    split_by_char_shapes(
+                        &line_text,
+                        offset,
+                        end,
+                        &para.char_offsets,
+                        &para.char_shapes,
+                    )
+                } else {
+                    split_runs_by_lang(vec![ComposedTextRun {
+                        text: line_text,
+                        char_style_id: default_style_id,
+                        lang_index: 0,
+                        char_overlap: None,
+                        footnote_marker: None,
+                        display_text: None,
+                    }])
+                },
                 line_height: 400,
                 baseline_distance: 320,
                 segment_width: 0,

@@ -102,6 +102,104 @@ fn main() {
     let a = std::env::args().skip(1).collect::<Vec<_>>();
     let out = Path::new(&a[0]);
     std::fs::create_dir_all(out).unwrap();
+    if a[1] == "--verify-caption-history" {
+        let manifest: Vec<Value> =
+            serde_json::from_slice(&std::fs::read(out.join("manifest.json")).unwrap()).unwrap();
+        let mut snapshot_pairs = 0;
+        fn apply(d: &mut DocumentCore, para: usize, ci: usize, op: &Value) {
+            match op["kind"].as_str().unwrap() {
+                "props" => {
+                    d.set_picture_properties_native(0, para, ci, &op["props"].to_string())
+                        .unwrap();
+                }
+                "text" => {
+                    d.insert_text_in_cell_native(
+                        0,
+                        para,
+                        ci,
+                        0,
+                        0,
+                        op["offset"].as_u64().unwrap() as usize,
+                        op["text"].as_str().unwrap(),
+                    )
+                    .unwrap();
+                    let f = &op["format"];
+                    d.apply_char_format_in_cell_native(
+                        0,
+                        para,
+                        ci,
+                        0,
+                        0,
+                        f["start"].as_u64().unwrap() as usize,
+                        f["end"].as_u64().unwrap() as usize,
+                        &f["props"].to_string(),
+                    )
+                    .unwrap();
+                }
+                "delete" => {
+                    d.delete_picture_control_native(0, para, ci).unwrap();
+                }
+                _ => panic!("Unknown caption history operation"),
+            }
+        }
+        fn canonical(mut d: DocumentCore) -> Value {
+            for p in &mut d.document_mut().sections[0].paragraphs {
+                for c in &mut p.controls {
+                    if let Control::Footnote(n) = c {
+                        for p in &mut n.paragraphs {
+                            while p.raw_header_extra.last() == Some(&0) {
+                                p.raw_header_extra.pop();
+                            }
+                        }
+                    }
+                }
+            }
+            json!({"paragraphs":d.document().sections[0].paragraphs,"styles":format!("{:?}", d.document().doc_info.styles),"charShapes":format!("{:?}", d.document().doc_info.char_shapes),"binData":format!("{:?}", d.document().bin_data_content)})
+        }
+        for row in &manifest {
+            let mut d =
+                DocumentCore::from_bytes(&std::fs::read(row["input"].as_str().unwrap()).unwrap())
+                    .unwrap();
+            let para = row["ref"]["ppi"].as_u64().unwrap() as usize;
+            let ci = row["ref"]["ci"].as_u64().unwrap() as usize;
+            for op in row["ops"].as_array().unwrap() {
+                let before = format!("{:?}", d.document());
+                let before_id = d.save_snapshot_native();
+                apply(&mut d, para, ci, op);
+                let after = format!("{:?}", d.document());
+                let after_id = d.save_snapshot_native();
+                for _ in 0..3 {
+                    d.restore_snapshot_native(before_id).unwrap();
+                    assert_eq!(format!("{:?}", d.document()), before);
+                    d.restore_snapshot_native(after_id).unwrap();
+                    assert_eq!(format!("{:?}", d.document()), after);
+                    snapshot_pairs += 1;
+                }
+                d.discard_snapshot_native(before_id);
+                d.discard_snapshot_native(after_id);
+            }
+            let file = Path::new(row["file"].as_str().unwrap());
+            let saved = if file.extension().unwrap() == "hwp" {
+                d.export_hwp_with_adapter_snapshot().unwrap()
+            } else {
+                d.export_hwpx_native().unwrap()
+            };
+            let expected = DocumentCore::from_bytes(&saved).unwrap();
+            let actual = DocumentCore::from_bytes(&std::fs::read(file).unwrap()).unwrap();
+            assert_eq!(actual.page_count(), expected.page_count());
+            for page in 0..actual.page_count() {
+                assert_eq!(
+                    actual.render_page_svg_native(page).unwrap(),
+                    expected.render_page_svg_native(page).unwrap(),
+                    "{}",
+                    file.display()
+                );
+            }
+            assert_eq!(canonical(actual), canonical(expected), "{}", file.display());
+        }
+        std::fs::write(out.join("native-caption-proof.json"),serde_json::to_vec_pretty(&json!({"independentSavedReopens":manifest.len(),"nativeCommandReexecution":true,"snapshotPairs":snapshot_pairs,"fullSvgParagraphsStylesCaptionAndImageCompared":true,"noteHeaderTrailingZeroPaddingCanonicalized":true})).unwrap()).unwrap();
+        return;
+    }
     if a[1] == "--verify-band-ui" {
         let manifest: Vec<Value> =
             serde_json::from_slice(&std::fs::read(out.join("manifest.json")).unwrap()).unwrap();
