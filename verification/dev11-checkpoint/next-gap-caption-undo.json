@@ -1,0 +1,30 @@
+{
+  "feature": "그림 캡션 넣기의 실행 취소 누락",
+  "command": "insert:caption-toggle",
+  "sourceCommit": "573556d1e3ce24481d217061021441ec89ed53a0",
+  "wasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+  "actualRegistryDispatcherObjectRouterBridgeAndCommandHistory": true,
+  "actualInputHandlerInlineEntryAndUndo": true,
+  "selectionCursorAdapters": true,
+  "normalBodySelectedPicture": true,
+  "commandEnabled": true,
+  "captionInserted": true,
+  "bothFormatsSavedReopened": true,
+  "inputOperationCalls": 0,
+  "captionInlineEditingEntered": true,
+  "undoEntryAbsent": true,
+  "undoDidNotRemoveCaption": true,
+  "sourceSHA256": {
+    "insert": "0fb51d4e09417703ee4631c829eb2aa8016abd90dfd4c93d2cf8196a92486206",
+    "objects": "1c89ac44f3b13e9406260013f37be17fcd16290c8742e19c722e3f6e17501343",
+    "bridge": "a7085f3e8e5c75747676858f77e0583d9d677f68d3b3dd0feb6048aca67997e1",
+    "history": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db",
+    "input": "4833bb63a07c5238176c3487e4be18e2ccf8c1425d3863179dbee4fa53027495",
+    "command": "6d6b72bfe8c0cabb02461406c971a9cfa8c9e3eff7cd9c7d52ea27179a8c8968",
+    "registry": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+    "dispatcher": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381"
+  },
+  "GUIVerified": false,
+  "implementationChanged": false,
+  "proposal": "일반 본문 단일 그림의 기존 캡션 넣기를 snapshot/CommandHistory에 연결해 캡션 추가가 한 번의 undo로 제거되고 redo로 복원되게 한다. 자동 번호·그림/필드·직접 서식·인접 참조와 HWP/HWPX 재열기 및 비지원 대상 거절을 검증한다. 메뉴 방향 확장이나 표/셀·그룹·각주 저작은 분리한다. 이번에는 구현하지 않았다."
+}

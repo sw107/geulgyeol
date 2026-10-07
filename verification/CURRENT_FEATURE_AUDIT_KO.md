@@ -1,15 +1,16 @@
 # 현재 개발 checkout 기능 대조
 
-dev10 체크포인트에서 누적 제품 소스 `658b8b2`를 별도 Mac 후보 `GeulgyeolDev10.app` (`0.4.4-dev.10`)에 통합했다. 메모 저장 보존·제한된 본문 검토 주석 저작·본문 편집 앵커를 패키지 엔진에서 검증했고 저장본236개를 Native로 독립 대조했다. strict ad-hoc·최신 자산 로드·기동/정상 종료를 확인했다. 실제 GUI/물리 IME·Linux·한컴 전체 대체 완료는 미검증이다. 기존 앱/후보·공개 beta.2를 보존했다. [dev10 결과](dev10-checkpoint/RESULT_KO.md), [proof](dev10-checkpoint/proof.json).
+dev11 체크포인트에서 제품 소스 `573556d`를 별도 Mac 후보 `GeulgyeolDev11.app` (`0.4.4-dev.11`)에 통합했다. 기존 누적 메모/필드/스타일/셀 기능에 본문 사각형 너비 API·문단100% 계산과 문단 띠 메뉴/두께·색 편집/제거를 포함한다. 패키지 엔진 재열기172(띠132·너비40), 띠 Native 독립132, strict ad-hoc·최신 자산·기동/정상 종료/잔류0을 확인했다. GUI/물리 IME·renderer 편집·한컴·Linux는 미검증이며 기본 앱/공개 beta.2/dev10을 보존했다. [dev11 결과](dev11-checkpoint/RESULT_KO.md), [proof](dev11-checkpoint/proof.json).
 
-현재 소스에는 본문 사각형 너비 기준 API·문단100% 계산과 일반 본문 한 문단의 문단 띠 메뉴/두께·면 색 편집/제거가 추가됐다. 새 WASM은 별도 `paragraph-band-ui-qa/pkg`에만 생성했으며 dev10 앱에는 통합하지 않았다. 지원 범위의 문단 띠 메뉴는 활성이다. [메뉴 결과](paragraph-band-ui/RESULT_KO.md). [이번 결과](body-rectangle-width/RESULT_KO.md), [proof](body-rectangle-width/proof.json).
+다음 실제 편집 누락은 기존 그림 캡션 넣기의 실행 취소다. 캡션은 생성·저장되지만 snapshot/CommandHistory에 기록되지 않아 undo가 제거하지 못함을 패키지 엔진/실제 명령·InputHandler undo로 재현했다. 이번에는 구현하지 않았으며 아래 후속 범위를 제안한다. 방향 메뉴 비활성과 캡션 기능 전체 부재를 혼동하지 않는다. [재현](dev11-checkpoint/next-gap-caption-undo.json).
 
 ## 소스·후보·앱 구분
 
 | 대상 | 포함 범위 |
 |---|---|
 | 보존된 `comment-anchor-qa/pkg` | 누적 `658b8b2`: 메모 보존·본문 주석 저작·본문 앵커 안정화 포함. SHA256 `15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af` |
-| 별도 `GeulgyeolDev10.app`, `0.4.4-dev.10` | 최신 엔진/웹 자산 일치. 저작64·앵커168·메모 보존4 재열기, Native 독립236, strict ad-hoc·정상 기동/종료. GUI/IME 미검증 |
+| 별도 `GeulgyeolDev11.app`, `0.4.4-dev.11` | 누적 `573556d`·WASM `cdb8171f…`·최신 웹 자산 일치. 띠132/너비40 재열기·Native132·strict ad-hoc·기동/정상 종료. GUI/IME/한컴/Linux 미검증 |
+| 보존된 `GeulgyeolDev10.app`, `0.4.4-dev.10` | 이전 `658b8b2` 엔진/웹 자산 일치. 저작64·앵커168·메모 보존4 재열기, Native 독립236, strict ad-hoc·정상 기동/종료. GUI/IME 미검증 |
 | 보존된 `cell-hyperlink-qa/pkg` | 이름 셀 보호·본문 링크·단일 셀 path 링크 저작 포함. SHA256 `b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198`. UI 명령/대화상자/이력 자동 검사 완료 |
 | 보존된 `body-hyperlink-qa/pkg` | `d0e542e` 본문 링크 후보. SHA256 `47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4`. 이번 셀 저작은 미포함 |
 | 보존된 `named-cell-value-qa/pkg` | `815c5ff`까지. 이름 셀 보호 포함, 본문 링크 저작은 미포함. SHA256 `89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf` |
@@ -23,6 +24,8 @@ dev10 체크포인트에서 누적 제품 소스 `658b8b2`를 별도 Mac 후보 
 | 기능 | 해결·지원된 개발 범위와 근거 | 남은 제한 |
 |---|---|---|
 | HWP/HWPX 읽기·저장, undo/redo | 지원 명령의 두 형식 저장재열기와 실제 CommandHistory 자동 대조. dev8 통합 재열기278회 | 원본 corpus 전체·한컴 GUI 비교 미완료. 저장이 모든 비지원 제어를 무손실 변환한다는 인증은 아님 |
+| 본문 사각형 너비·문단 띠 | Para100%는 현재 단에서 문단 양쪽 여백을 제외. 띠 메뉴·두께/색 편집·삭제/undo 연결, dev11 패키지 재열기132·33이력쌍·독립Native132·기존너비40/20쌍 | 일반 가로 본문 루트 한 문단/마지막 단순 띠만. 중간 앵커·셀/각주/머리말·그룹/회전·복합 선택 거절. GUI/IME 미검증 |
+| 그림 캡션 넣기 | 기존 선택 그림의 캡션 생성·본문 편집 진입·두 형식 저장은 있음 | `insert:caption-toggle` 추가가 이력 없이 직접 적용되어 undo 불가. 다음 제안 한 개로 재현/문서화, 이번 수정 없음 |
 | 본문 입력·글자/문단 서식 | 기존 InputHandler와 서식·이력 경로 유지 | 실제 Mac 선택/캐럿·물리 IME 미검증 |
 | 스타일 모양 전파·삭제·다음 스타일 | 지원 본문·셀·중첩 셀·머리말·각주 경로, 원본 참조/직접 서식·nextStyle 참조 보존, 누적 Native/WASM 및 다음 문단 Enter 검사 | 바탕쪽/불명확 참조 등 지원 밖 경로는 거절. 전체 corpus와 GUI 미완료 |
 | 본문 번호 목록 이어쓰기 | `9b85974`에서 기존 정의/이력 연결 수정. dev8 실제 번호 명령20사례·재열기44 | 과거 dev7의 ‘3 대신1’은 이미 해결된 역사 기록. 복잡 조판/실제 화면 확인은 별도 |
@@ -104,7 +107,7 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 
 새 후보는 `comment-anchor-qa/pkg`이며 기존 저작 후보와 앱을 보존했다. 실제 Native/WASM/UI 명령·이력 자동 검사이고 GUI/물리 IME·한컴 corpus·Linux는 미검증이다. 정상 편집과 거절 수치는 [앵커 안정화 결과](body-comment-anchor/RESULT_KO.md), [proof](body-comment-anchor/proof.json)를 참고한다.
 
-## dev10 통합 이후 다음 제안 하나
+## dev10 통합 이후 다음 제안 하나 (당시 역사 기록)
 
 일반 본문 문단의 `insert:para-band` 삽입 메뉴가 최신 실제 registry/dispatcher에서 비활성임을 재현했다. 같은 문맥의 링크와 검토 주석은 활성이다. HWP/HWPX 바이트·문서 상태/이벤트 불변이고 편집 호출0이다. 다음은 기존 문단 테두리/배경 또는 개체 표현을 확인한 뒤 한 문단의 문단 띠 적용/제거를 참조·이력·저장 보존과 함께 연결하는 작은 범위다. 이번에는 구현하지 않았다. [재현](dev10-checkpoint/next-gap-paragraph-band.json), [후속 제안/한계](dev10-checkpoint/RESULT_KO.md).
 
@@ -119,3 +122,11 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 ## 일반 본문 문단 띠 메뉴 후속 구현
 
 일반 본문 한 문단의 Para100%·두께1mm/검정/선없음 사각형 메뉴를 연결했다. 반복 메뉴는 기존 띠 편집, 개체 속성은 지원 두께/면 색 편집, 두 삭제 메뉴는 같은 API·snapshot 이력으로 처리한다. 앵커를 문단 끝에 저장해 앞의 주석/필드/각주를 보존하며 마지막 단순 Para100% 사각형 삭제의 FIELD_END 슬롯 오인만 좁게 보완했다. 중간 띠/뒤에 다른 개체·셀/각주/머리말·회전/그룹·다중 선택 등은 명확히 거절한다. 실제 WASM/UI 저장재열기132·undo/redo33쌍, Native 독립132 및 기존 개체/주석/앵커/셀 회귀 통과. GUI/IME·새 앱 패키징·Linux는 미검증/미실시이며 기존 앱/후보는 보존했다. [결과·지원 범위](paragraph-band-ui/RESULT_KO.md).
+
+## dev11 통합과 다음 제안
+
+최신 문단 띠/너비 변경은 위 dev11에 통합했다. 제품 소스·기존 앱/pkg는 그대로 보존하고 새 앱 하나/ZIP 없이 패키지 엔진 대표 검사와 문서만 로컬 커밋했다. 띠/너비/쪽·단·문단 여백·인접 필드/직접 서식·undo/저장 결과와 자동 검사/GUI 구분은 [통합 결과](dev11-checkpoint/RESULT_KO.md)를 따른다.
+
+다음은 일반 본문 단일 그림의 **기존 캡션 넣기 추가를 한 번의 snapshot undo/redo에 연결**한다. `insert:caption-toggle`은 명령에서 object-props setter로 직접 적용하므로 현 사례에서 InputHandler 이력 실행0·undo 항목 없음·undo 뒤 캡션/저장 바이트 불변이다. 자동 번호·그림/필드·직접 서식·이웃 참조/비지원 거절·HWP/HWPX를 검증하는 좁은 후속을 제안한다. 방향 메뉴/표/셀·그룹·각주 확장과 별도로 다룬다. 이번에는 새 기능/수정을 구현하지 않았다.
+
+이번 추가 약378.5MiB/새 앱336.32MiB, target3.749GiB/free최저21.32GiB. 세 프로젝트 범위 앱121/ZIP17 누적 du40.168GiB(APFS 공유 공간 미중복제거), 현재 workspace8.799GiB·디스크 사용439.069GiB/여유21.362GiB. 기존 누적물 삭제/공개 없음. 기동은 정상 종료·잔류0이며 실제 GUI/IME·renderer 편집·한컴/Linux 성공을 주장하지 않는다.
