@@ -93,7 +93,7 @@ async function main(){
  const fixtures=path.join(q,seed?'schema-fixtures':'fixtures');
  if(!sync.existsSync(fixtures)){
   await fs.mkdir(fixtures);
-  const engine=path.join(root,'../dev12-integration-qa/packaged-engine');
+  const engine=process.env.GEULGYEOL_QA_ENGINE_DIR||path.join(root,'../dev12-integration-qa/packaged-engine');
   const wasm=await import(pathToFileURL(path.join(engine,'rhwp.js')));
   wasm.initSync({module:await fs.readFile(path.join(engine,'rhwp_bg.wasm'))});
   for(const [label,text] of [['old','이전 합성 문서🙂'],['edited','저장 검증 한글🙂 새 내용']]){

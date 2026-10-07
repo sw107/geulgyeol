@@ -613,13 +613,43 @@ impl HwpDocument {
     /// 를 쓴다. 여기에 그 둘을 넣으면 `char_shapes` 자리가 16칸씩 밀려 기존 호출부가 깨진다.
     #[wasm_bindgen(js_name = createEmpty)]
     pub fn create_empty() -> HwpDocument {
+        use crate::model::style::{CharShape, Font, ParaShape, Style, TabDef};
+
         let mut core = DocumentCore::new_empty();
         let mut section = Section::default();
         // set_document가 styles/composed 재구성 + paginate까지 수행한다.
         section.section_def.page_def = crate::model::page::PageDef::a4_default();
+        section.section_def.default_tab_spacing = 8000;
         section.paragraphs.push(Paragraph::new_empty());
         let mut document = Document::default();
         document.sections.push(section);
+        document.doc_properties.section_count = 1;
+        // Even a bare paragraph emits ID 0 when saved. Define those resources
+        // here so the first HWPX does not acquire dangling refs on reopen.
+        // Imported documents and the UI's blank-template path stay untouched.
+        document.doc_info.font_faces = vec![
+            vec![Font {
+                name: "함초롬돋움".into(),
+                alt_type: 1,
+                ..Default::default()
+            }];
+            7
+        ];
+        document.doc_info.char_shapes.push(CharShape {
+            base_size: 1000,
+            ..Default::default()
+        });
+        document.doc_info.para_shapes.push(ParaShape {
+            line_spacing: 160,
+            ..Default::default()
+        });
+        document.doc_info.tab_defs.push(TabDef::default());
+        document.doc_info.styles.push(Style {
+            local_name: "바탕".into(),
+            english_name: "Normal".into(),
+            lang_id: 1042,
+            ..Default::default()
+        });
         core.set_document(document);
         HwpDocument { core }
     }

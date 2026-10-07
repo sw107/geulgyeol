@@ -1,5 +1,5 @@
 const {test}=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');const path=require('node:path');const {pathToFileURL}=require('node:url');
-for(const template of [true,false]) test(template?'app blank template preserves table edits through HWP and HWPX':'minimal engine document needs default style initialization',{todo:template?false:'createEmpty has no DocInfo styles; app uses createBlankDocument'},async()=>{
+for(const template of [true,false]) test(template?'app blank template preserves table edits through HWP and HWPX':'minimal engine document preserves table edits through HWP and HWPX',async()=>{
  const root=process.env.GEULGYEOL_QA_ENGINE_DIR || path.resolve(__dirname,'../web/studio');const {initSync,HwpDocument}=await import(pathToFileURL(root+'/rhwp.js'));
  initSync({module:fs.readFileSync(root+'/rhwp_bg.wasm')});const doc=HwpDocument.createEmpty();
  try{

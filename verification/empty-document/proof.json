@@ -1,0 +1,758 @@
+{
+  "baseHead": "b41551c8a64f014f2ae4f3e1841de1fd68e80118",
+  "finalBuildProvenance": {
+    "baseHead": "b41551c8a64f014f2ae4f3e1841de1fd68e80118",
+    "sourceSHA256": {
+      "engine/src/wasm_api.rs": "23115ced6c5773a2cbb71276d59947711040e29aa9cd6c05df0878f71fe9e6cf",
+      "engine/examples/empty_document_check.rs": "175e37cd93b1d6786af281116a1a806bb40f949aac12395368440d0c1f847040",
+      "desktop/tests/table-roundtrip.test.cjs": "2510901b595e495da9da2087861691a733d27be7fdd089b7f49955011dc9f2de",
+      "scripts/check-host-save.cjs": "8ecbee0f569326b5125a614eeabb13862d8fb875ec704ca89acd32723b7bb94f",
+      "scripts/check-empty-document.mjs": "b2bc79a247bad745f6425ec7751387d40d557ad8bd2ca8c66f0d6190c56a2648",
+      "scripts/check-new-document-renderer.mjs": "73712b7f46d15377b212cdaa4a0fea4b4c81ee0bd935e984cc6d2be57d29dd9f"
+    },
+    "wasmSHA256": "34df26516989e9bd2e80c98497ad905da5e3acbfac323234128db885dce3734e",
+    "nativeBinarySHA256": "e63049e4740f1e971c842caf2a4fa37fd18e894cf1488dabbe75b8df48cbf0a8",
+    "nativeBinaryCopiedFromExistingTarget": true,
+    "newTargetDirectory": false
+  },
+  "native": {
+    "bareSemanticComparedExactly": true,
+    "danglingId42StillRejectedWithoutMutation": true,
+    "independentFullSVGComparedExactly": true,
+    "independentNativeResaves": 118,
+    "independentWasmSavedReopens": 59,
+    "nativeFactoryAndTemplateCases": 6,
+    "nativeThreeSaveChainReopens": 60,
+    "resourceDefinitionsAndRefsChecked": true,
+    "templateTransparentFillGetterDifferenceUnfixed": true
+  },
+  "wasm": {
+    "cases": 6,
+    "savedFiles": 36,
+    "threeSaveChainReopens": 60,
+    "engineSHA256": "34df26516989e9bd2e80c98497ad905da5e3acbfac323234128db885dce3734e",
+    "bareSemanticComparedExactly": true,
+    "templateTransparentFillGetterDifferenceUnfixed": true,
+    "existingTemplateDifferences": [
+      {
+        "location": "template/blank/hwp/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwp/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwp/hwpx/hwp",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwp/hwpx/hwp",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwpx/hwp",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwpx/hwp",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwpx/hwp/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwpx/hwp/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwpx/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwpx/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwpx/hwpx/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/blank/hwpx/hwpx/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwp/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwp/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwp/hwpx/hwp",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwp/hwpx/hwp",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwpx/hwp",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwpx/hwp",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwpx/hwp/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwpx/hwp/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwpx/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwpx/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwpx/hwpx/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/text/hwpx/hwpx/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwp/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwp/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwp/hwpx/hwp",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwp/hwpx/hwp",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwpx/hwp",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwpx/hwp",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwpx/hwp/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwpx/hwp/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwpx/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwpx/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwpx/hwpx/hwpx",
+        "scope": "char",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "location": "template/formatted/hwpx/hwpx/hwpx",
+        "scope": "para",
+        "actual": {
+          "fillType": "none",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      }
+    ],
+    "svgRecordedForIndependentNativeComparison": true
+  },
+  "actualRenderer": {
+    "actualElectronRenderer": true,
+    "actualHostNewButtonAndSDKInitialization": true,
+    "UIProductSource": "30601b1 (unchanged new-document UI)",
+    "preservedAppModified": false,
+    "candidateEngineTestInjected": true,
+    "engineSHA256": "34df26516989e9bd2e80c98497ad905da5e3acbfac323234128db885dce3734e",
+    "states": 3,
+    "savedFiles": 6,
+    "currentEngineReopens": 18,
+    "packagedUIFileLoadVerified": false,
+    "templateTransparentFillGetterDifferenceUnfixed": true,
+    "templateGetterDifferences": [
+      {
+        "label": "blank/hwp/second",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "blank/hwp/second",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "blank/hwp/third",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "blank/hwp/third",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "blank/hwpx/first",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "blank/hwpx/first",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "blank/hwpx/second",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "blank/hwpx/second",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "blank/hwpx/third",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "blank/hwpx/third",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "text/hwp/second",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "text/hwp/second",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "text/hwp/third",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "text/hwp/third",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "text/hwpx/first",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "text/hwpx/first",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "text/hwpx/second",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "text/hwpx/second",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "text/hwpx/third",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "text/hwpx/third",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "formatted/hwp/second",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "formatted/hwp/second",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "formatted/hwp/third",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "formatted/hwp/third",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "formatted/hwpx/first",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "formatted/hwpx/first",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "formatted/hwpx/second",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "formatted/hwpx/second",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "formatted/hwpx/third",
+        "scope": "char",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      },
+      {
+        "label": "formatted/hwpx/third",
+        "scope": "para",
+        "fields": [
+          "fillType",
+          "patternColor",
+          "patternType"
+        ]
+      }
+    ],
+    "physicalIMEVerified": false,
+    "OSClipboardAccessed": false,
+    "OSDialogsInvoked": 0,
+    "errors": []
+  },
+  "xml": {
+    "files": 30,
+    "refsChecked": 2086,
+    "danglingRefs": 0,
+    "definitionsFromActualHeader": true,
+    "inheritedParaHeadFontSentinels": 210,
+    "sentinelScope": "hh:paraHead@charPrIDRef=4294967295 only"
+  },
+  "storageQAGroupChecks": 19,
+  "formalTests": 18,
+  "nativeExampleUnitTests": 1,
+  "typescriptNoEmitPassed": true,
+  "clippyLibAndExampleWarningsDeniedPassed": true,
+  "importedOriginalMissingCharId0StillRejectedWithoutMutation": true,
+  "oldAppNewDocumentPathAlreadyUsesBundledTemplate": true,
+  "sameBytesNativeAndWasmFullSVGExactFiles": 59,
+  "sourceBeforeSaveVsReopenedUIFullSVGExact": false,
+  "sourceSVGPreexistingDifferences": {
+    "baselineFiles": 6,
+    "currentFiles": 6,
+    "note": "raw SVG structural equality is not claimed before vs after serialization; compared exact only after loading identical bytes"
+  },
+  "protection": {
+    "protectedFiles": 37826,
+    "changed": [],
+    "missing": [],
+    "restoredExistingCacheFiles": 11,
+    "targetBytes": 4499447808,
+    "qaBytes": 438878208,
+    "diskFreeBytes": 18401751040,
+    "elapsedSeconds": 10.53
+  },
+  "budgets": {
+    "additionalPeakBytes": 438898688,
+    "targetPeakBytes": 4553637888,
+    "minimumFreeBytes": 18118291456,
+    "targetLimitGiB": 4.5,
+    "minimumFreeGiB": 15,
+    "newTargetDirectory": false
+  },
+  "allOwnedMacVerificationWindowsNormalQuit": true,
+  "dev12AdHocStrictSignatureVerified": true,
+  "newAppOrZipBuilt": false,
+  "publicPushOrRelease": false,
+  "remoteTrackingCommit": "30601b18ab81aeddc51ea059c6980003706ad1b8",
+  "physicalIMEVerified": false,
+  "clipboardVerifiedOrAccessed": false,
+  "OSDialogsInvoked": 0,
+  "packagedCurrentEngineIntegrationVerified": false,
+  "linuxRun": false,
+  "fullLibUnitBlockedByPreviouslyMissingThreeFixtures": true
+}
