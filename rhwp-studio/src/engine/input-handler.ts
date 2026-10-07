@@ -3332,20 +3332,21 @@ export class InputHandler {
         if (keepFieldStartOutside) {
           this.wasm.clearActiveField();
         }
-        // Inverse typing/merge cannot reconstruct a contracted memo anchor or mixed formatting.
-        // Preserve exact states only for body commands touching an existing review comment.
+        // Inverse typing/merge cannot reconstruct contracted anchors or mixed formatting.
+        // Preserve exact states for body commands touching review comments or bookmarks.
         const body = !this.cursor.isInFootnote() && !this.cursor.isInHeaderFooter()
           && beforePos.parentParaIndex === undefined && !beforePos.cellPath?.length;
         const type = desc.command.type;
         const paragraphs = type === 'mergeParagraph' ? [beforePos.paragraphIndex - 1, beforePos.paragraphIndex]
           : type === 'mergeNextParagraph' ? [beforePos.paragraphIndex, beforePos.paragraphIndex + 1]
           : [beforePos.paragraphIndex];
-        const memoEdit = body && this.editMode === 'normal'
+        const anchoredBodyEdit = body && this.editMode === 'normal'
           && ['insertText', 'deleteText', 'insertTab', 'splitParagraph', 'mergeParagraph', 'mergeNextParagraph'].includes(type)
-          && this.wasm.getFieldList().some((f: any) => f.fieldType === 'memo'
+          && (this.wasm.getFieldList().some((f: any) => f.fieldType === 'memo'
             && f.location?.sectionIndex === beforePos.sectionIndex && !f.location?.path?.length
-            && paragraphs.includes(f.location?.paraIndex));
-        const command = memoEdit ? new SnapshotCommand(type, beforePos, beforePos, bridge => {
+            && paragraphs.includes(f.location?.paraIndex))
+            || this.wasm.getBookmarks().some(b => b.editable && b.sec === beforePos.sectionIndex && paragraphs.includes(b.para)));
+        const command = anchoredBodyEdit ? new SnapshotCommand(type, beforePos, beforePos, bridge => {
           try { return desc.command.execute(bridge); }
           finally { desc.command.discard?.(bridge); }
         }) : desc.command;
@@ -3366,7 +3367,7 @@ export class InputHandler {
           this.markCurrentFieldStartOutside();
         }
         this.refreshAfterOperation(desc.meta?.refresh, 'auto', desc.command.type, beforePos, newPos, {
-          ...(memoEdit ? undefined : desc.command.getPageLocalTextEditOptions?.()),
+          ...(anchoredBodyEdit ? undefined : desc.command.getPageLocalTextEditOptions?.()),
           beforePageIndex,
           afterPageIndex: this.cursor.getRect()?.pageIndex,
         }, boundaryHandled);
@@ -6204,6 +6205,13 @@ export class InputHandler {
       throw new Error('하이퍼링크는 같은 셀/같은 문단 안에서 선택하세요.');
     }
     return {position: {...position}, selection: selection ? {start: {...selection.start}, end: {...selection.end}} : null, cellPath: selected.path};
+  }
+
+  /** Bookmark authoring uses visible body coordinates; nested locations need a path API. */
+  getBodyBookmarkTarget(): DocumentPosition {
+    const target = this.getHyperlinkTarget();
+    if (target.cellPath) throw new Error('책갈피 변경은 일반 본문 문단에서만 지원합니다.');
+    return target.position;
   }
 
   /** Ordinary body paragraph, with a single root shape selection allowed for band editing. */

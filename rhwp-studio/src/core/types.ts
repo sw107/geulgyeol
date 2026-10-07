@@ -891,6 +891,8 @@ export interface BookmarkInfo {
   para: number;
   ctrlIdx: number;
   charPos: number;
+  /** Nested bookmark coordinates are navigation hints, not editable body owners. */
+  editable: boolean;
 }
 
 export type LayerRenderProfile = 'fastPreview' | 'screen' | 'print' | 'highQuality';

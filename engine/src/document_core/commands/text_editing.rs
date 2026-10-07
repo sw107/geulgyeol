@@ -23,6 +23,50 @@ use crate::renderer::style_resolver::{resolve_styles_for_document, ResolvedStyle
 
 pub(crate) type CellReflowMetrics = (i32, i16, i16);
 
+// Deleting text across control gaps can collapse raw style boundaries differently
+// from scalar glyph boundaries. Keep surviving glyph styles on bookmark edits;
+// retain existing control-gap refs and add only the necessary glyph boundaries.
+fn bookmark_glyph_shapes(para: &Paragraph) -> Vec<Option<u32>> {
+    let mut shapes = para.char_shapes.iter().peekable();
+    let mut current = para.char_shapes.first().map(|s| s.char_shape_id);
+    para.char_offsets.iter().map(|offset| {
+        while shapes.peek().is_some_and(|s| s.start_pos <= *offset) {
+            current = shapes.next().map(|s| s.char_shape_id);
+        }
+        current
+    }).collect()
+}
+
+fn restore_bookmark_glyph_shapes(
+    para: &mut Paragraph, before: &[Option<u32>], start: usize, deleted: usize, inserted: usize,
+) {
+    let mut original = std::mem::take(&mut para.char_shapes).into_iter().peekable();
+    let mut current = original.peek().map(|s| s.char_shape_id);
+    let mut restored: Vec<crate::model::paragraph::CharShapeRef> = Vec::new();
+    for (i, &offset) in para.char_offsets.iter().enumerate() {
+        while original.peek().is_some_and(|s| s.start_pos <= offset) {
+            let shape = original.next().unwrap();
+            current = Some(shape.char_shape_id);
+            restored.push(shape);
+        }
+        let old = if i < start { Some(i) } else if i >= start + inserted {
+            Some(i - inserted + deleted)
+        } else { None };
+        if let Some(id) = old.and_then(|i| before.get(i)).copied().flatten() {
+            if current != Some(id) {
+                if let Some(last) = restored.last_mut().filter(|s| s.start_pos == offset) {
+                    last.char_shape_id = id;
+                } else {
+                    restored.push(crate::model::paragraph::CharShapeRef { start_pos: offset, char_shape_id: id });
+                }
+                current = Some(id);
+            }
+        }
+    }
+    restored.extend(original);
+    para.char_shapes = restored;
+}
+
 pub(super) fn recalculate_cell_paragraph_vpos(
     paragraphs: &mut [Paragraph],
     start_para: usize,
@@ -1245,6 +1289,7 @@ impl DocumentCore {
                 char_offset, delete_count, text_len,
             )));
         }
+        let bookmark_body = Self::validate_body_bookmark_text_axis(&section.paragraphs[para_idx])?;
         let memo_body = crate::model::memo::validate_body_anchors(&self.document, &[&self.document.sections[section_idx].paragraphs[para_idx]])
             .map_err(HwpError::InvalidField)?;
         if memo_body && text.chars().any(|c| matches!(c, '\r' | '\n')) {
@@ -1277,7 +1322,11 @@ impl DocumentCore {
         let mut deleted_count = 0;
         let mut apply_replace = |para: &mut Paragraph| {
             let control_positions = para.control_text_positions();
+            let glyph_shapes = bookmark_body.then(|| bookmark_glyph_shapes(para));
             if delete_count > 0 { deleted_count = para.delete_text_at(char_offset, delete_count); }
+            if let Some(shapes) = &glyph_shapes {
+                restore_bookmark_glyph_shapes(para, shapes, char_offset, deleted_count, 0);
+            }
             if new_chars_count > 0 {
                 let outside_insertions = inactive_field_end_insertions(
                     para, active_field.as_ref(), section_idx, para_idx, None, char_offset,
@@ -1288,7 +1337,11 @@ impl DocumentCore {
                 para.insert_text_at(char_offset, text);
                 keep_inactive_field_start_outside(para, &before_insertions, new_chars_count);
                 keep_inactive_field_end_outside(para, &outside_insertions, new_chars_count);
-                if has_clickhere_field_range(para) { rebuild_char_offsets_after_text_edit(para, &control_positions, char_offset, deleted_count, new_chars_count); }
+                if !bookmark_body && has_clickhere_field_range(para) { rebuild_char_offsets_after_text_edit(para, &control_positions, char_offset, deleted_count, new_chars_count); }
+            }
+            if let Some(shapes) = &glyph_shapes {
+                rebuild_char_offsets_after_text_edit(para, &control_positions, char_offset, deleted_count, new_chars_count);
+                restore_bookmark_glyph_shapes(para, shapes, char_offset, deleted_count, new_chars_count);
             }
         };
         // Composition updates use this local replacement rather than the
@@ -1464,6 +1517,10 @@ impl DocumentCore {
             )));
         }
 
+        let bookmark_body = Self::validate_body_bookmark_text_axis(&section.paragraphs[para_idx])?;
+        if bookmark_body && char_offset > section.paragraphs[para_idx].text.chars().count() {
+            return Err(HwpError::InvalidField("책갈피 본문 입력 위치가 범위를 벗어났습니다.".into()));
+        }
         let memo_body = crate::model::memo::validate_body_anchors(&self.document, &[&self.document.sections[section_idx].paragraphs[para_idx]])
             .map_err(HwpError::InvalidField)?;
         if memo_body && text.chars().any(|c| matches!(c, '\r' | '\n')) {
@@ -1493,7 +1550,7 @@ impl DocumentCore {
             para.insert_text_at(char_offset, text);
             keep_inactive_field_start_outside(para, &before_insertions, new_chars_count);
             keep_inactive_field_end_outside(para, &outside_insertions, new_chars_count);
-            if has_clickhere_field_range(para) {
+            if bookmark_body || has_clickhere_field_range(para) {
                 rebuild_char_offsets_after_text_edit(para, &control_positions, char_offset, 0, new_chars_count);
             }
         };
@@ -1620,12 +1677,23 @@ impl DocumentCore {
             )));
         }
 
+        let bookmark_body = Self::validate_body_bookmark_text_axis(&section.paragraphs[para_idx])?;
+        let text_len = section.paragraphs[para_idx].text.chars().count();
+        if bookmark_body && (char_offset > text_len || count > text_len.saturating_sub(char_offset)) {
+            return Err(HwpError::InvalidField("책갈피 본문 삭제 범위가 잘못됐습니다.".into()));
+        }
         let _ = crate::model::memo::validate_body_anchors(&self.document, &[&self.document.sections[section_idx].paragraphs[para_idx]])
             .map_err(HwpError::InvalidField)?;
         crate::model::memo::validate_body_deletion(&self.document, &self.document.sections[section_idx].paragraphs[para_idx], char_offset, count).map_err(HwpError::InvalidField)?;
         // 텍스트 삭제
         let apply_delete = |para: &mut Paragraph| {
-            para.delete_text_at(char_offset, count);
+            let positions = para.control_text_positions();
+            let glyph_shapes = bookmark_body.then(|| bookmark_glyph_shapes(para));
+            let deleted = para.delete_text_at(char_offset, count);
+            if let Some(shapes) = &glyph_shapes {
+                rebuild_char_offsets_after_text_edit(para, &positions, char_offset, deleted, 0);
+                restore_bookmark_glyph_shapes(para, shapes, char_offset, deleted, 0);
+            }
         };
         let picture_band_applied =
             self.apply_body_edit_through_picture_band(section_idx, para_idx, &apply_delete)?;
@@ -3289,6 +3357,10 @@ impl DocumentCore {
 
         if cell_ctx.is_none() {
             let ps: Vec<_> = self.document.sections[section_idx].paragraphs[start_para..=end_para].iter().collect();
+            if start_para == end_para && Self::validate_body_bookmark_text_axis(ps[0])? {
+                return self.delete_text_native(section_idx, start_para, start_offset, end_offset - start_offset);
+            }
+            if start_para != end_para { Self::reject_body_bookmark_structure_edit(&ps)?; }
             if start_para == end_para {
                 crate::model::memo::validate_body_deletion(&self.document, ps[0], start_offset, end_offset - start_offset).map_err(HwpError::InvalidField)?;
             }
@@ -3560,6 +3632,7 @@ impl DocumentCore {
             )));
         }
 
+        Self::reject_body_bookmark_structure_edit(&[&section.paragraphs[para_idx]])?;
         crate::model::memo::validate_body_structure(&self.document,
             &[&section.paragraphs[para_idx]], Some(char_offset)).map_err(HwpError::InvalidField)?;
         let next_style = super::next_style::prepare(&self.document.doc_info,
@@ -4111,6 +4184,7 @@ impl DocumentCore {
             )));
         }
 
+        Self::reject_body_bookmark_structure_edit(&[&section.paragraphs[para_idx - 1], &section.paragraphs[para_idx]])?;
         crate::model::memo::validate_body_structure(&self.document,
             &[&section.paragraphs[para_idx - 1], &section.paragraphs[para_idx]], None).map_err(HwpError::InvalidField)?;
         if stage_picture_edit && self.final_picture_host_matches_frame(section_idx, para_idx) {

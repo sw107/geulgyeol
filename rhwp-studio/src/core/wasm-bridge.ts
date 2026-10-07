@@ -3749,7 +3749,7 @@ export class WasmBridge {
     } catch { return []; }
   }
 
-  addBookmark(sec: number, para: number, charOffset: number, name: string): { ok: boolean; error?: string } {
+  addBookmark(sec: number, para: number, charOffset: number, name: string): { ok: boolean; changed?: boolean; error?: string } {
     if (!this.doc) return { ok: false, error: '문서가 로드되지 않았습니다' };
     try {
       const json = (this.doc as any).addBookmark(sec, para, charOffset, name);
@@ -3757,7 +3757,7 @@ export class WasmBridge {
     } catch (e) { return { ok: false, error: String(e) }; }
   }
 
-  deleteBookmark(sec: number, para: number, ctrlIdx: number): { ok: boolean; error?: string } {
+  deleteBookmark(sec: number, para: number, ctrlIdx: number): { ok: boolean; changed?: boolean; error?: string } {
     if (!this.doc) return { ok: false, error: '문서가 로드되지 않았습니다' };
     try {
       const json = (this.doc as any).deleteBookmark(sec, para, ctrlIdx);
@@ -3765,7 +3765,7 @@ export class WasmBridge {
     } catch (e) { return { ok: false, error: String(e) }; }
   }
 
-  renameBookmark(sec: number, para: number, ctrlIdx: number, newName: string): { ok: boolean; error?: string } {
+  renameBookmark(sec: number, para: number, ctrlIdx: number, newName: string): { ok: boolean; changed?: boolean; error?: string } {
     if (!this.doc) return { ok: false, error: '문서가 로드되지 않았습니다' };
     try {
       const json = (this.doc as any).renameBookmark(sec, para, ctrlIdx, newName);

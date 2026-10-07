@@ -9003,13 +9003,14 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = addBookmark)]
     pub fn add_bookmark(
         &mut self,
-        sec: u32,
-        para: u32,
-        char_offset: u32,
-        name: &str,
+        sec: f64,
+        para: f64,
+        char_offset: f64,
+        name: JsValue,
     ) -> Result<String, JsValue> {
+        let name = strict_bookmark_name(name)?;
         self.core
-            .add_bookmark_native(sec as usize, para as usize, char_offset as usize, name)
+            .add_bookmark_native(hyperlink_index(sec)?, hyperlink_index(para)?, hyperlink_index(char_offset)?, &name)
             .map_err(|e| e.into())
     }
 
@@ -9017,12 +9018,12 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = deleteBookmark)]
     pub fn delete_bookmark(
         &mut self,
-        sec: u32,
-        para: u32,
-        ctrl_idx: u32,
+        sec: f64,
+        para: f64,
+        ctrl_idx: f64,
     ) -> Result<String, JsValue> {
         self.core
-            .delete_bookmark_native(sec as usize, para as usize, ctrl_idx as usize)
+            .delete_bookmark_native(hyperlink_index(sec)?, hyperlink_index(para)?, hyperlink_index(ctrl_idx)?)
             .map_err(|e| e.into())
     }
 
@@ -9030,13 +9031,14 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = renameBookmark)]
     pub fn rename_bookmark(
         &mut self,
-        sec: u32,
-        para: u32,
-        ctrl_idx: u32,
-        new_name: &str,
+        sec: f64,
+        para: f64,
+        ctrl_idx: f64,
+        new_name: JsValue,
     ) -> Result<String, JsValue> {
+        let new_name = strict_bookmark_name(new_name)?;
         self.core
-            .rename_bookmark_native(sec as usize, para as usize, ctrl_idx as usize, new_name)
+            .rename_bookmark_native(hyperlink_index(sec)?, hyperlink_index(para)?, hyperlink_index(ctrl_idx)?, &new_name)
             .map_err(|e| e.into())
     }
 }
@@ -9131,4 +9133,26 @@ fn hyperlink_path(json: &str) -> Result<Vec<(usize, usize, usize)>, JsValue> {
             )
         })
         .collect())
+}
+
+// Bookmark names must retain the caller's exact, well-formed UTF-16 input.
+fn strict_bookmark_name(value: JsValue) -> Result<String, JsValue> {
+    if !value.is_string() {
+        return Err(JsValue::from_str("책갈피 이름은 문자열이어야 합니다"));
+    }
+    #[cfg(target_arch = "wasm32")]
+    {
+        let value = js_sys::JsString::from(value);
+        if value.length() > 250 {
+            return Err(JsValue::from_str("책갈피 이름이 너무 깁니다"));
+        }
+        let units: Vec<_> = (0..value.length())
+            .map(|i| value.char_code_at(i) as u16)
+            .collect();
+        String::from_utf16(&units).map_err(|_| JsValue::from_str("책갈피 이름의 UTF-16이 손상되었습니다"))
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    value
+        .as_string()
+        .ok_or_else(|| JsValue::from_str("책갈피 이름 없음"))
 }
