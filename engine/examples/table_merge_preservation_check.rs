@@ -4,6 +4,8 @@
 mod nested_cells;
 #[path = "common/nested_table_rows_check.rs"]
 mod nested_table_rows_check;
+#[path = "common/nested_row_boundary_check.rs"]
+mod nested_row_boundary_check;
 use rhwp::{
     document_core::DocumentCore,
     model::{
@@ -340,6 +342,10 @@ fn main() {
         }
         std::fs::write(out.join(proof_file),serde_json::to_vec_pretty(&json!({"independentSavedReopens":n,"nativeOperationReexecution":true,"fullParagraphsControlsFieldOwnersBinDataAndSVG":true,"typedDocInfoCompared":true})).unwrap()).unwrap();
         println!("Independent Native reopens {n}");
+        return;
+    }
+    if args.get(1).is_some_and(|s| s == "--nested-row-boundary") {
+        nested_row_boundary_check::run(out);
         return;
     }
     if args.get(1).is_some_and(|s| s == "--nested-rows") {

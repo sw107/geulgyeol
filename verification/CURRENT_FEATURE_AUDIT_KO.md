@@ -1,6 +1,6 @@
 # 현재 개발 checkout 기능 대조
 
-현재 최신 소스 후보는 `e815159`의 안전 거절에 **본문 깊이2 비병합 직사각형 중첩 표의 위/아래 줄 추가·참조 없는 줄 삭제**를 추가했다. 전체 cellPath와 대상 토큰으로 바깥 표/형제 셀/서식/참조/이력을 보존한다. 다른 구조 명령·깊이3 이상·보호/독립 크기/영역 속성 표·참조 있는 줄 삭제는 무변경 거절한다. 실제 Mac48사례/58편집/232이력쌍/192재열기·Native독립192, Native 중첩24/96쌍/96재열기/170거절·일반 표/링크/수식·TS/Clippy 통과. 새 엔진은 별도 QA 후보이며 앱 미통합·추가 공개 없음. [최신 중첩 행 결과](nested-table-rows/RESULT_KO.md).
+현재 최신 소스 후보는 `243a1e1`의 **본문 깊이2 비병합 중첩 표 줄 편집**에 JS section/parent 타입 검사를 보완했다. null/문자열/boolean/배열·객체가 숫자로 강제변환되어 행이 추가되던 결함7건을 재현·수정했다. 새 독립 경계20사례/80이력쌍/80재열기·456무변경 거절/stale24와 기존 중첩·일반 표 회귀를 합쳐 실제 Mac68사례/78편집/312쌍/272재열기·독립 Native272를 통과했다. 참조 있는 행 삭제는 계속 거절하며 바깥 CrossRef와 삭제 행 이름 바인딩의 경계 근거를 남겼다. TS/Clippy·링크/수식 회귀 통과, library unit test는 기존 샘플3 누락으로 컴파일 차단. 별도 WASM 후보·앱 미통합·로컬 커밋만. [최신 타입·경계 결과](nested-row-boundary/RESULT_KO.md), [이전 중첩 행](nested-table-rows/RESULT_KO.md).
 
 dev11 체크포인트에서 제품 소스 `573556d`를 별도 Mac 후보 `GeulgyeolDev11.app` (`0.4.4-dev.11`)에 통합했다. 기존 누적 메모/필드/스타일/셀 기능에 본문 사각형 너비 API·문단100% 계산과 문단 띠 메뉴/두께·색 편집/제거를 포함한다. 패키지 엔진 재열기172(띠132·너비40), 띠 Native 독립132, strict ad-hoc·최신 자산·기동/정상 종료/잔류0을 확인했다. GUI/물리 IME·renderer 편집·한컴·Linux는 미검증이며 기본 앱/공개 beta.2/dev10을 보존했다. [dev11 결과](dev11-checkpoint/RESULT_KO.md), [proof](dev11-checkpoint/proof.json).
 
@@ -18,7 +18,8 @@ dev11에서 재현한 그림 캡션 삽입 undo 누락을 후속 **소스 후보
 
 | 대상 | 포함 범위 |
 |---|---|
-| 최신 소스 / `nested-table-row-qa/pkg` | 본문 깊이2 정규 비병합 표의 줄 추가/참조 없는 줄 삭제. Mac 중첩24/112명령 이력쌍/96재열기, 일반 표 포함48/232쌍/192재열기·Native독립192. Native 중첩170거절, Mac 비지원736/오래된대상60·root stale38. 별도 새 WASM, 앱 미통합. [범위/검증](nested-table-rows/RESULT_KO.md) |
+| 최신 소스 / `nested-row-boundary-qa/pkg` | 중첩 행 두 API의 실제 JS Number 검사. 빈/Unicode 다문단·오른쪽 열·첫/마지막 행 경계와 현재 후보 전체 Mac68/312쌍/272재열기·Native독립272. 참조 행 삭제 거절 유지, 앱 미통합. [검증·한계](nested-row-boundary/RESULT_KO.md) |
+| 보존된 `nested-table-row-qa/pkg` | 본문 깊이2 정규 비병합 표의 줄 추가/참조 없는 줄 삭제. Mac 중첩24/112명령 이력쌍/96재열기, 일반 표 포함48/232쌍/192재열기·Native독립192. Native 중첩170거절, Mac 비지원736/오래된대상60·root stale38. 별도 새 WASM, 앱 미통합. [범위/검증](nested-table-rows/RESULT_KO.md) |
 | 이전 차단 UI / `nested-table-command-qa/pkg` | 안쪽10개 구조 명령 및 stale dialog/root축 오편집 차단. 깊이2/3 무변경 거절, 정상root·일반표Mac52/232쌍/208재열기·Native독립208. **엔진은 아래 후보를 읽기 전용 재사용, 앱 미통합** |
 | 보존된 `table-structure-qa/pkg` | 분할 범위·mergeFirst 실패 원자성 및 no-op 이력 보존, 행·열/분할 숫자/options 검사와 누적 병합 보존. SHA256 `92d6614e5ff0a3ebac84859857086d59ccdbd38d37852e696f3f2bba0f939d4b`. **소스 후보만, dev11 앱 미통합** |
 | 보존된 `table-merge-qa/pkg` | 셀 병합 참조/서식 보존·숫자/options 원자 거절과 누적 혼합 캡션. SHA256 `10bee4f8edc18df7c581a9cc5cc4364fb4d4773aa82ce1831597b4739485135e`. **소스 후보만, dev11 앱 미통합** |

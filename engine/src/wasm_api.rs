@@ -2190,13 +2190,13 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = getNestedTableRowTarget)]
     pub fn get_nested_table_row_target(
         &self,
-        section: f64,
-        parent: f64,
+        section: JsValue,
+        parent: JsValue,
         path_json: &str,
     ) -> Result<String, JsValue> {
         self.get_nested_table_row_target_native(
-            table_edit_index(section, u32::MAX)?,
-            table_edit_index(parent, u32::MAX)?,
+            nested_row_js_index(&section)?,
+            nested_row_js_index(&parent)?,
             path_json,
         )
         .map_err(|e| e.into())
@@ -2206,13 +2206,13 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = editNestedTableRow)]
     pub fn edit_nested_table_row(
         &mut self,
-        section: f64,
-        parent: f64,
+        section: JsValue,
+        parent: JsValue,
         options_json: &str,
     ) -> Result<String, JsValue> {
         self.edit_nested_table_row_native(
-            table_edit_index(section, u32::MAX)?,
-            table_edit_index(parent, u32::MAX)?,
+            nested_row_js_index(&section)?,
+            nested_row_js_index(&parent)?,
             options_json,
         )
         .map_err(|e| e.into())
@@ -9188,6 +9188,15 @@ fn table_edit_index(value: f64, maximum: u32) -> Result<usize, JsValue> {
         return Err(JsValue::from_str("표 편집 좌표/분할 수는 범위 안의 정수여야 합니다"));
     }
     Ok(value as usize)
+}
+
+// f64 wasm-bindgen parameters coerce null/strings/booleans/objects before Rust
+// sees them. This new path API must preserve the original JS type until checked.
+fn nested_row_js_index(value: &JsValue) -> Result<usize, JsValue> {
+    let number = value
+        .as_f64()
+        .ok_or_else(|| JsValue::from_str("안쪽 표 인덱스는 숫자 정수여야 합니다"))?;
+    table_edit_index(number, u32::MAX)
 }
 
 fn hyperlink_index(value: f64) -> Result<usize, JsValue> {
