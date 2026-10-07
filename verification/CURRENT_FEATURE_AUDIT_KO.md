@@ -1,12 +1,14 @@
 # 현재 개발 checkout 기능 대조
 
-현재 누적 소스 `87e1e07`을 별도 Mac 후보 `GeulgyeolDev9.app` (`0.4.4-dev.9`)에 통합했다. 이름 셀 보호·본문/단일 셀 path 링크와 이력·저장재열기를 패키지 엔진에서 자동 검증했고 ad-hoc strict 서명·자산 서빙·기동/정상 종료를 확인했다. 실제 GUI/물리 IME와 한컴 전체 대체 완료는 미검증이며 기본 앱·공개 beta.2·기존 dev8은 보존했다. [dev9 결과](dev9-checkpoint/RESULT_KO.md), [proof](dev9-checkpoint/proof.json).
+현재 누적 제품 소스 `658b8b2`를 별도 Mac 후보 `GeulgyeolDev10.app` (`0.4.4-dev.10`)에 통합했다. 메모 저장 보존·제한된 본문 검토 주석 저작·본문 편집 앵커를 패키지 엔진에서 검증했고 저장본236개를 Native로 독립 대조했다. strict ad-hoc·최신 자산 로드·기동/정상 종료를 확인했다. 실제 GUI/물리 IME·Linux·한컴 전체 대체 완료는 미검증이다. 기존 앱/후보·공개 beta.2를 보존했다. [dev10 결과](dev10-checkpoint/RESULT_KO.md), [proof](dev10-checkpoint/proof.json).
 
 ## 소스·후보·앱 구분
 
 | 대상 | 포함 범위 |
 |---|---|
-| 현재 엔진/UI 소스 / `cell-hyperlink-qa/pkg` | 이름 셀 보호·본문 링크·단일 셀 path 링크 저작 포함. SHA256 `b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198`. UI 명령/대화상자/이력 자동 검사 완료 |
+| 현재 엔진/UI 소스 / `comment-anchor-qa/pkg` | 누적 `658b8b2`: 메모 보존·본문 주석 저작·본문 앵커 안정화 포함. SHA256 `15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af` |
+| 별도 `GeulgyeolDev10.app`, `0.4.4-dev.10` | 최신 엔진/웹 자산 일치. 저작64·앵커168·메모 보존4 재열기, Native 독립236, strict ad-hoc·정상 기동/종료. GUI/IME 미검증 |
+| 보존된 `cell-hyperlink-qa/pkg` | 이름 셀 보호·본문 링크·단일 셀 path 링크 저작 포함. SHA256 `b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198`. UI 명령/대화상자/이력 자동 검사 완료 |
 | 보존된 `body-hyperlink-qa/pkg` | `d0e542e` 본문 링크 후보. SHA256 `47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4`. 이번 셀 저작은 미포함 |
 | 보존된 `named-cell-value-qa/pkg` | `815c5ff`까지. 이름 셀 보호 포함, 본문 링크 저작은 미포함. SHA256 `89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf` |
 | 별도 `GeulgyeolDev9.app`, `0.4.4-dev.9` | 누적 `87e1e07` 소스: 이름 셀 보호·본문/단일 셀 path 링크 포함. SHA256 `b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198`. 새 웹 자산/엔진 일치·strict ad-hoc·패키지 명령 재열기484·정상 기동/종료 확인. GUI/IME 미검증 |
@@ -55,7 +57,7 @@ WASM에 `setFieldValueByNameAt` export가 없고 기존 `setFieldValueByName`은
 
 조사 원시 근거: `../editing-scope-research-qa/probe.mjs`, `probe.log`, [집계 proof](editing-scope-research/proof.json). 해당 스크립트는 repository production/test 코드로 추가하지 않았다.
 
-## 현재 검증 한계·자원
+## dev9 당시 검증 한계·자원 (역사 기록)
 
 Mac 실제 GUI/물리 IME·이번 Linux 검증 없음. dev9의 strict ad-hoc 서명·자산 서빙·정상 기동/종료와 Node 패키지 엔진 자동 검사는 통과했으며 실제 renderer 편집 GUI 성공으로 확대하지 않는다. 전체 library unit test는 기존 누락 include_bytes fixture3개로 막혀 있으며 복구/대체/검사 제외로 우회하지 않았다.
 
@@ -88,14 +90,18 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 
 새 엔진 후보는 `memo-preservation-qa/pkg`이며 기존 dev9 앱에는 아직 통합하지 않았다. 이 단계는 Native/WASM 자동 저장·본문 snapshot 검사이고 새 앱 패키징·GUI/IME·Linux·공개 배포 성공을 주장하지 않는다.
 
-## 기존 메모 보존 이후 제한된 본문 주석 저작
+## 기존 메모 보존 이후 제한된 본문 주석 저작 (365f7cd 당시)
 
 현재 소스는 단일 구역 문서의 일반 본문 한 문단 선택에 검토 주석 추가·조회·내용 수정·삭제와 실제 snapshot CommandHistory undo/redo를 연결했다. 주석 내용과 본문 텍스트를 분리하고 작성자/시각·직접 서식·각주·이웃 필드 참조를 유지한다. 새 작성자는 빈 값, 생성 시각은 없음으로 명시하며 기존 작성자를 추정하지 않는다. 일반 메모는 HWP/HWPX, HWP가 보존하지 못하는 명시적 생성 시각·세로 메모는 HWPX만 저장한다. 불명 레코드·변경 추적 참조·중복 ID/index·복수 구역·비본문/겹친 선택은 저작 전에 거절한다.
 
-후보 엔진은 `comment-authoring-qa/pkg`이다. dev9 앱과 기존 앱/엔진을 보존했고 이번 변경을 앱에 패키징하지 않았다. 실제 Native/WASM/UI 경로 자동 검사이며 GUI/물리 IME·한컴 corpus·Linux는 미검증이다. [저작 결과와 범위](body-comment/RESULT_KO.md), [최종 proof](body-comment/proof.json).
+후보 엔진은 `comment-authoring-qa/pkg`이다. dev9 앱과 기존 앱/엔진을 보존했고 이 저작 단계에서는 앱에 패키징하지 않았다. 후속 dev10 통합은 위 최신 기록을 참고한다. 실제 Native/WASM/UI 경로 자동 검사이며 GUI/물리 IME·한컴 corpus·Linux는 미검증이다. [저작 결과와 범위](body-comment/RESULT_KO.md), [최종 proof](body-comment/proof.json).
 
 ## 주석 본문 편집 앵커 안정화 후속
 
 현재 소스는 주석이 있는 일반 본문의 앞/안/뒤 텍스트 편집과 단순 문단의 주석 경계 분할·합치기를 검증하고 저장 좌표/정확한 snapshot 이력을 보강했다. 시작/끝 경계 입력은 주석 밖에 두고 안전한 빈 앵커는 유지한다. 주석 내부 분할, 각주/개체를 포함한 주석 문단의 분할/합치기, 문단 간 주석 선택 삭제, 겹침·불명 소유·삭제 후 빈 앵커 충돌은 편집 전에 원자 거절한다. 일반 메모는 HWP/HWPX, 명시적 생성 시각·세로 메모는 HWPX만 저장한다.
 
 새 후보는 `comment-anchor-qa/pkg`이며 기존 저작 후보와 앱을 보존했다. 실제 Native/WASM/UI 명령·이력 자동 검사이고 GUI/물리 IME·한컴 corpus·Linux는 미검증이다. 정상 편집과 거절 수치는 [앵커 안정화 결과](body-comment-anchor/RESULT_KO.md), [proof](body-comment-anchor/proof.json)를 참고한다.
+
+## dev10 통합 이후 다음 제안 하나
+
+일반 본문 문단의 `insert:para-band` 삽입 메뉴가 최신 실제 registry/dispatcher에서 비활성임을 재현했다. 같은 문맥의 링크와 검토 주석은 활성이다. HWP/HWPX 바이트·문서 상태/이벤트 불변이고 편집 호출0이다. 다음은 기존 문단 테두리/배경 또는 개체 표현을 확인한 뒤 한 문단의 문단 띠 적용/제거를 참조·이력·저장 보존과 함께 연결하는 작은 범위다. 이번에는 구현하지 않았다. [재현](dev10-checkpoint/next-gap-paragraph-band.json), [후속 제안/한계](dev10-checkpoint/RESULT_KO.md).
