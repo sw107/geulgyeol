@@ -1,0 +1,188 @@
+{
+  "sourceHead": "3df19d970f7b3c21865dcd3b4fb81a4b9b885bc3",
+  "qaDirectory": "/Users/sw107/Documents/Codex/2026-10-06/task/source-gui-qa",
+  "productCodeChanged": false,
+  "sourceExecution": "Official vite.geulgyeol-beta.config.mjs through existing Vite API; QA cacheDir/local host overrides. GEULGYEOL_DEV_ENGINE_DIR points to preserved plain-paste-qa/pkg-final. Existing Electron executable used only as Node CLI.",
+  "desktopStoredWasmSHA256": "ccac2d483f32fdfeea8dc717bf8f3767b91e7301a1b0f63b3586d77261b3c1d8",
+  "renderer": {
+    "runtimeWasm": [
+      {
+        "url": "http://127.0.0.1:32167/studio/@fs/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/pkg-final/rhwp_bg.wasm",
+        "sha256": "cef3ef66709627ee07284df957fb75f24f330f672b5b8df5fac1f79d3bcf8cf1"
+      }
+    ],
+    "sourceUrl": "http://127.0.0.1:32167/studio/?renderer=canvas2d",
+    "browserPid": 14127,
+    "headless": false,
+    "rows": [
+      {
+        "label": "bookmark-add",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": true
+      },
+      {
+        "label": "bookmark-split",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": true
+      },
+      {
+        "label": "bookmark-backspace-merge",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": true
+      },
+      {
+        "label": "bookmark-delete-merge",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": true
+      },
+      {
+        "label": "bookmark-selection-delete",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": true
+      },
+      {
+        "label": "plain-paste-selected",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": true
+      },
+      {
+        "label": "plain-multiline-paste",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": true
+      },
+      {
+        "label": "picture-caption-insert",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": true
+      },
+      {
+        "label": "picture-caption-text",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": false
+      },
+      {
+        "label": "picture-caption-remove",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": true
+      },
+      {
+        "label": "caption-picture-delete",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": false
+      },
+      {
+        "label": "automated-Chrome-composition",
+        "undoRedoPairs": 3,
+        "hwpBinaryExact": false
+      }
+    ],
+    "undoRedoPairs": 36,
+    "savedReopens": 30,
+    "screens": [
+      "bookmark-added",
+      "bookmark-selection-deleted",
+      "plain-multiline-pasted",
+      "caption-inserted",
+      "caption-text"
+    ],
+    "errors": [],
+    "realDomCursorInputHandlerCanvasRenderer": true,
+    "keyboardInputViaChromeProtocol": true,
+    "pasteViaSyntheticClipboardEvent": true,
+    "OSClipboardAccessed": false,
+    "nativeFileDialogsVerified": false,
+    "physicalImeVerified": false
+  },
+  "permissions": {
+    "sandbox": {
+      "accessibilityTrusted": false,
+      "clipboardAccessed": false,
+      "displayCount": 0,
+      "permissionRequestsIssued": false,
+      "screenCapturePreflight": false
+    },
+    "host": {
+      "screenCapturePreflight": true,
+      "accessibilityTrusted": false,
+      "displayCount": 2,
+      "permissionRequestsIssued": false,
+      "clipboardAccessed": false
+    }
+  },
+  "screenCapture": {
+    "windowId": 62476,
+    "exitCode": 0,
+    "stderr": "",
+    "onlyOwnedWindow": true
+  },
+  "preservation": {
+    "protectedFiles": 18777,
+    "changed": [],
+    "missing": [],
+    "additionalQABytes": 412028928,
+    "sharedTargetBytes": 4252307456,
+    "actualDiskFreeBytes": 20971520000
+  },
+  "shutdown": {
+    "ownSourceServerOrBrowserProcessesRemaining": [],
+    "sourcePort32167Open": false,
+    "serverToolExitCode": 143,
+    "normalServerShutdownRequest": "SIGTERM exact own PID; server.close SIGTERM handler installed",
+    "browserShutdown": "await browser.close() in finally for each run",
+    "otherAppsTouched": false
+  },
+  "hwpMetadataAssertions": {
+    "passed": true,
+    "rows": [
+      {
+        "case": "caption",
+        "changedStream": "Section0",
+        "difference": "edited paragraph line count 0→1 and one LINE_SEG only",
+        "allOtherStreamsAndRecordsExact": true
+      },
+      {
+        "case": "delete",
+        "changedStream": "DocInfo",
+        "difference": "saved caret paragraph/character only",
+        "allOtherStreamsAndRecordsExact": true
+      },
+      {
+        "case": "composition",
+        "changedStream": "Section0",
+        "difference": "edited paragraph line count 0→1 and one LINE_SEG only",
+        "allOtherStreamsAndRecordsExact": true
+      }
+    ]
+  },
+  "budget": {
+    "additionalPeakBytes": 429793280,
+    "targetPeakBytes": 4252307456,
+    "minActualFreeBytes": 20930560000,
+    "stopReasons": []
+  },
+  "hwpUndoByteDifferences": {
+    "picture-caption-text": "Only caption PARA_HEADER.numLineSegs 0→1 and inserted LINE_SEG. Exact HWPX and effective content/format/controls/images/full SVG preserved; undo files reopened.",
+    "caption-picture-delete": "Only DocInfo DOCUMENT_PROPERTIES caret_para_id 0→1, caret_char_pos 16→0. Section0 and all other streams identical. Exact HWPX and effective projection preserved; undo files reopened.",
+    "automated-Chrome-composition": "Only body PARA_HEADER.numLineSegs 0→1 and inserted LINE_SEG. Exact HWPX and effective projection preserved; undo files reopened."
+  },
+  "evidenceSHA256": {
+    "renderer-integration.mjs": "221e8a39ec2a4808e8f7f46dfff7babbb8d944e62182ef0ff072c4693ad3215f",
+    "serve.mjs": "c809ae2e327882d8fdc6797c2560fe482d3f65214ba4ad454943b88f11d4f63c",
+    "permissions.swift": "957c8198edd5762f6373bf78b57acd243ef2abddc59d1342af0cdc4f01c68f7a",
+    "own-window.swift": "ab7dc497cf14d2ad7295477a6278e37d5ed207470bccfeac69b73bc3ac1b9947",
+    "caption-hwp-aligned-diff.json": "af59b54b4cd7c8cc98eb2299bc45142dcabff6aef12145b66aa87dc968ea0c20",
+    "delete-hwp-diff.json": "36350f9966dafc2749ccf4e0b1c47ba3caf79a26f60c47cf7723768d8b3b8e90",
+    "composition-hwp-diff.json": "9d8df3122a49f8ca7b180b6129f22a18013f782f3cdf1edae97fbbec06d42bd0",
+    "bookmark-added-mac-window.png": "e01b44a309576c491242a29875b897902f45b4dc9f0a1bf079e0be113396bc0a",
+    "caption-text-mac-window.png": "00b344f32144a028c97d5dc0805afd62b66a0f09f019217c2cc41a9ac4dd859e"
+  },
+  "limitations": [
+    "Installed Electron GUI/host filesystem IPC untested. npm start uses older preserved desktop assets.",
+    "CDP keyboard/automated composition and programmatic real Cursor positioning; physical macOS Korean IME and mouse hit-testing untested.",
+    "Synthetic ClipboardEvent; OS clipboard never read/written and Cmd+V untested.",
+    "Reported export content-loss gate plus actual source file-input reopen; native file/save dialogs untested.",
+    "Accessibility false; no permission request, security/account/certificate change.",
+    "Linux/Hancom untested in this Mac UI task.",
+    "No new app/ZIP/target, public push/release, profile overwrite, or QA/cache deletion."
+  ]
+}

@@ -150,3 +150,9 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 캡션 넣기의 새 삽입을 기존 snapshot 이력에 연결했고 반복 진입은 이력을 추가하지 않는다. 속성/캡션 제거/그림 삭제의 기존 이력 경로를 유지하면서 문단 끝 그림 삭제의 FIELD_END 오인과 삭제 후 자동 번호 재할당을 보완했다. 텍스트/AutoNumber만 있는 떠 있는 Top/Bottom 그림 캡션의 줄 정보 누락은 편집과 같은 폭/reflow의 렌더링용 복제로 처리한다. 원본 IR·권위 줄 정보·저장기의 synthetic LINE_SEG 생략 규칙을 유지했다. 재현한 HWPX 기준선1.0667px와 혼합 서식 줄바꿈 차이는 최종 전체 SVG 대조에서 해소됐다.
 
 이 후보로 문단 띠/너비 재열기172, 셀 링크288, 셀 치환 이력82, 주석/앵커232 회귀와 TypeScript/Clippy를 통과했다. 보호 파일2799개 해시 불변. 실제 GUI/물리 IME·한컴·Linux·누락 fixture3개가 있는 전체 lib unit test는 미검증/미실시다. Left/Right·인라인·복합 캡션의 새 조판 인증으로 확대하지 않는다. 새 앱/ZIP·공개·삭제 없이 소스와 검증자료만 로컬 커밋한다. [결과](caption-history/RESULT_KO.md).
+
+## 현재 소스의 Mac 브라우저 UI 검증
+
+`3df19d9`의 실제 소스/최종 엔진을 공식 Vite 설정+QA 전용 headed Mac Chrome으로 실행했다. 실제 DOM/Canvas2D/InputHandler에서 책갈피 구조·선택 삭제/일반 붙여넣기·그림 캡션 삽입/입력/속성 제거/개체 Delete·Chrome 자동 조합12흐름, undo/redo36쌍, HWP/HWPX30재열기를 통과했다. 기존 화면 권한으로 자체 창만 캡처했고 AX 권한은 false다. OS 권한·클립보드·기존 앱 변경은 없으며 물리 IME/마우스 hit-testing/네이티브 파일대화상자/Electron host/Linux/한컴 검증은 아니다.
+
+캡션 일반 입력/자동 조합 undo의 HWP 저장 줄 생성과 그림 Delete undo의 저장 캐럿 위치 차이는 독립 레코드 대조로 확인했다. 정확 HWPX·내용/서식/참조·이미지·전체 SVG 및 undo 재열기 통과이며 HWP 바이트 완전 복원은 주장하지 않는다. 제품 코드 수정 없음. 기존18777보호파일 불변·추가약409.9MiB/target3.960GiB/free최저19.49GiB·검증 창/서버 잔류0. [상세 결과](mac-source-ui/RESULT_KO.md). 다음 개발 제안은 기존 혼합 서식 캡션의 선택 교체/삭제/줄나눔 원자 이력이며 이번에는 구현하지 않았다.
