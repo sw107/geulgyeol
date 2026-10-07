@@ -3078,24 +3078,34 @@ export class InputHandler {
     const sel = this.cursor.getSelectionOrdered();
     if (!sel) return;
     if (!this.canDeleteSelectionInFormMode()) return;
+    if (sel.start.parentParaIndex === undefined && sel.end.parentParaIndex === undefined
+      && sel.start.sectionIndex === sel.end.sectionIndex
+      && sel.start.paragraphIndex === sel.end.paragraphIndex
+      && sel.start.charOffset === sel.end.charOffset) return;
 
     // [Task #3416] F3 블록이면 확장 단계도 함께 기록한다 — 한컴은 undo 뒤 단계까지 되돌린다.
-    const cmd = new DeleteSelectionCommand(sel.start, sel.end, this.cursor.blockSelectionPhase());
+    const blockPhase = this.cursor.blockSelectionPhase();
+    const cmd = new DeleteSelectionCommand(sel.start, sel.end, blockPhase);
     this.cursor.clearSelection();
-    if (options?.deferRecord) {
-      // 붙여넣기 등 스냅샷 콜백에서 호출될 때 — 히스토리 기록 없이 직접 실행만.
-      // 호출자의 SnapshotCommand 가 before-snapshot 으로 전체 undo 를 커버한다.
-      //
-      // 반환값을 반드시 소비해 JS 커서를 옮긴다 — getPosition() 은 내부 캐시
-      // (`{ ...this.position }`)라 WASM 캐럿이 움직여도 갱신되지 않는다. 놓치면
-      // 이어지는 붙여넣기가 삭제 **전** 좌표(선택 끝)에 삽입된다(실측:
-      // "AAAABBBBCCCC" 에서 BBBB 선택+붙여넣기 → XYZ 가 끝에 붙는다).
-      // executeOperation('command') 의 moveTo·resetPreferredX 에 해당하는 최소 배선.
-      const newPos = cmd.execute(this.wasm);
-      this.cursor.moveTo(newPos);
-      this.cursor.resetPreferredX();
-    } else {
-      this.executeOperation({ kind: 'command', command: cmd });
+    try {
+      if (options?.deferRecord) {
+        // 붙여넣기 등 스냅샷 콜백에서 호출될 때 — 히스토리 기록 없이 직접 실행만.
+        // 호출자의 SnapshotCommand 가 before-snapshot 으로 전체 undo 를 커버한다.
+        //
+        // 반환값을 반드시 소비해 JS 커서를 옮긴다 — getPosition() 은 내부 캐시
+        // (`{ ...this.position }`)라 WASM 캐럿이 움직여도 갱신되지 않는다. 놓치면
+        // 이어지는 붙여넣기가 삭제 **전** 좌표(선택 끝)에 삽입된다(실측:
+        // "AAAABBBBCCCC" 에서 BBBB 선택+붙여넣기 → XYZ 가 끝에 붙는다).
+        // executeOperation('command') 의 moveTo·resetPreferredX 에 해당하는 최소 배선.
+        const newPos = cmd.execute(this.wasm);
+        this.cursor.moveTo(newPos);
+        this.cursor.resetPreferredX();
+      } else {
+        this.executeOperation({ kind: 'command', command: cmd });
+      }
+    } catch (error) {
+      this.cursor.selectRange(sel.start, sel.end, blockPhase);
+      throw error;
     }
   }
 

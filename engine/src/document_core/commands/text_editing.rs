@@ -1369,6 +1369,118 @@ impl DocumentCore {
         restore_bookmark_glyph_shapes(&mut merged, &shapes, 0, 0, 0);
         Ok(Some((merged, len)))
     }
+    /// Stage a scalar, half-open body selection before changing any owned data.
+    /// Point bookmarks in the removed span collapse to its start. Whole fields
+    /// and notes strictly outside the span survive; cutting a reference refuses.
+    fn stage_bookmark_body_range_delete(
+        &self,
+        section: usize,
+        start_para: usize,
+        start: usize,
+        end_para: usize,
+        end: usize,
+    ) -> Result<Option<Paragraph>, HwpError> {
+        let ps = &self.document.sections[section].paragraphs[start_para..=end_para];
+        if !ps
+            .iter()
+            .any(|p| p.controls.iter().any(|c| matches!(c, Control::Bookmark(_))))
+        {
+            return Ok(None);
+        }
+        if self.document.sections.len() != 1
+            || ps.iter().skip(1).any(|p| {
+                p.raw_break_type != 0
+                    || p.column_type != crate::model::paragraph::ColumnBreakType::None
+                    || p.page_break_synthesized
+                    || self
+                        .styles
+                        .para_styles
+                        .get(p.para_shape_id as usize)
+                        .is_some_and(|s| s.page_break_before)
+                    || p.controls
+                        .iter()
+                        .any(|c| matches!(c, Control::SectionDef(_) | Control::ColumnDef(_)))
+            })
+            || ps.windows(2).any(|pair| {
+                matches!((pair[0].line_segs.last(), pair[1].line_segs.first()),
+                (Some(a), Some(b)) if b.vertical_pos < a.vertical_pos)
+            })
+            || ps.iter().any(|p| {
+                p.line_segs
+                    .windows(2)
+                    .any(|pair| pair[1].vertical_pos < pair[0].vertical_pos)
+            })
+        {
+            return Err(HwpError::InvalidField(
+                "책갈피 선택 삭제의 구역/단/쪽 경계는 지원하지 않습니다.".into(),
+            ));
+        }
+        let refs: Vec<_> = ps.iter().collect();
+        crate::model::memo::validate_body_structure(&self.document, &refs, None)
+            .map_err(HwpError::InvalidField)?;
+        for p in ps {
+            Self::validate_bookmark_structure_paragraph(p)?;
+        }
+        let mut merged = ps[0].clone();
+        merged.controls.clear();
+        merged.ctrl_data_records.clear();
+        merged.field_ranges.clear();
+        merged.split_at(start);
+        let last = ps.last().unwrap();
+        let mut suffix = last.clone();
+        suffix.controls.clear();
+        suffix.ctrl_data_records.clear();
+        suffix.field_ranges.clear();
+        let suffix = suffix.split_at(end);
+        merged.merge_from(&suffix);
+        let mut shapes = bookmark_glyph_shapes(&ps[0])[..start].to_vec();
+        shapes.extend_from_slice(&bookmark_glyph_shapes(last)[end..]);
+        let mut anchors = Vec::new();
+        for (pi, p) in ps.iter().enumerate() {
+            for (ci, at) in p.control_text_positions().into_iter().enumerate() {
+                let c = &p.controls[ci];
+                let field = p.field_ranges.iter().find(|r| r.control_idx == ci);
+                let prefix = pi == 0
+                    && field.map_or(at < start, |r| {
+                        r.end_char_idx <= start && r.start_char_idx < start
+                    });
+                let suffix = pi == ps.len() - 1
+                    && field.map_or(at > end, |r| {
+                        r.start_char_idx >= end && r.end_char_idx > end
+                    });
+                let structural = matches!(c, Control::SectionDef(_) | Control::ColumnDef(_));
+                if !matches!(c, Control::Bookmark(_)) && !structural && !prefix && !suffix {
+                    return Err(HwpError::InvalidField("필드·주석·각주 참조를 포함하거나 자르는 책갈피 선택 삭제는 지원하지 않습니다.".into()));
+                }
+                let mapped = if structural || (pi == 0 && at < start) {
+                    at
+                } else if pi == ps.len() - 1 && at > end {
+                    start + at - end
+                } else {
+                    start
+                };
+                let new_ci = merged.controls.len();
+                merged.controls.push(c.clone());
+                merged
+                    .ctrl_data_records
+                    .push(p.ctrl_data_records.get(ci).cloned().flatten());
+                anchors.push(mapped);
+                if let Some(r) = field {
+                    let mut r = r.clone();
+                    r.control_idx = new_ci;
+                    if suffix {
+                        r.start_char_idx = start + r.start_char_idx - end;
+                        r.end_char_idx = start + r.end_char_idx - end;
+                    }
+                    merged.field_ranges.push(r);
+                }
+            }
+        }
+        Self::rebuild_bookmark_structure_axis(&mut merged, &anchors)?;
+        restore_bookmark_glyph_shapes(&mut merged, &shapes, 0, 0, 0);
+        Ok(Some(merged))
+    }
+
     pub fn replace_body_text_local_native(
         &mut self,
         section_idx: usize,
@@ -3468,16 +3580,25 @@ impl DocumentCore {
             }
         }
 
+        let mut bookmark_range = None;
         if cell_ctx.is_none() {
             let ps: Vec<_> = self.document.sections[section_idx].paragraphs[start_para..=end_para].iter().collect();
+            if start_offset > ps[0].text.chars().count() || end_offset > ps.last().unwrap().text.chars().count() {
+                return Err(HwpError::InvalidField("본문 선택 삭제 문자 위치가 범위를 벗어났습니다.".into()));
+            }
+            if start_para == end_para && start_offset == end_offset {
+                return Ok(super::super::helpers::json_ok_with(&format!("\"changed\":false,\"paraIdx\":{},\"charOffset\":{}", start_para, start_offset)));
+            }
             if start_para == end_para && Self::validate_body_bookmark_text_axis(ps[0])? {
                 return self.delete_text_native(section_idx, start_para, start_offset, end_offset - start_offset);
             }
-            if start_para != end_para { Self::reject_body_bookmark_structure_edit(&ps)?; }
+            if start_para != end_para {
+                bookmark_range = self.stage_bookmark_body_range_delete(section_idx, start_para, start_offset, end_para, end_offset)?;
+            }
             if start_para == end_para {
                 crate::model::memo::validate_body_deletion(&self.document, ps[0], start_offset, end_offset - start_offset).map_err(HwpError::InvalidField)?;
             }
-            if crate::model::memo::validate_body_anchors(&self.document, &ps).map_err(HwpError::InvalidField)? && start_para != end_para {
+            if crate::model::memo::validate_body_anchors(&self.document, &ps).map_err(HwpError::InvalidField)? && start_para != end_para && bookmark_range.is_none() {
                 return Err(HwpError::InvalidField("주석이 있는 문단 간 선택 삭제는 지원하지 않습니다.".into()));
             }
         }
@@ -3568,6 +3689,23 @@ impl DocumentCore {
                     );
                 }
                 // 변경 문단만 재구성
+                self.recompose_paragraph(section_idx, start_para);
+            } else if let Some(staged) = bookmark_range {
+                self.document.sections[section_idx].paragraphs[start_para] = staged;
+                for pi in (start_para + 1..=end_para).rev() {
+                    self.document.sections[section_idx].paragraphs.remove(pi);
+                    self.remove_composed_paragraph(section_idx, pi);
+                }
+                let stored_end_for_reset = crate::renderer::composer::paragraph_flow_end(
+                    &self.document.sections[section_idx].paragraphs[start_para],
+                );
+                self.reflow_paragraph(section_idx, start_para);
+                let hwp3_layout = self.document.layout_profile().hwp3_layout();
+                crate::renderer::composer::recalculate_section_vpos(
+                    &mut self.document.sections[section_idx].paragraphs, start_para, None,
+                    stored_end_for_reset, &self.styles, self.dpi,
+                    hwp3_layout,
+                );
                 self.recompose_paragraph(section_idx, start_para);
             } else {
                 // 1) 마지막 문단 앞부분 삭제

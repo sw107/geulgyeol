@@ -66,10 +66,131 @@ fn apply(d: &mut DocumentCore, op: &Value) {
             op["nextStyle"].as_bool().unwrap_or(false),
         ),
         "merge" => d.merge_paragraph_native(0, para),
+        "rangeDelete" => apply_range(d, op),
         _ => panic!("Unknown operation"),
     }
     .unwrap();
     assert_eq!(json_result(r)["ok"], true);
+}
+fn apply_range(d: &mut DocumentCore, op: &Value) -> Result<String, rhwp::error::HwpError> {
+    let sp = op["startPara"].as_u64().unwrap() as usize;
+    let start = op["start"].as_u64().unwrap() as usize;
+    let ep = op["endPara"].as_u64().unwrap() as usize;
+    let end = op["end"].as_u64().unwrap() as usize;
+    let original = d.document().clone();
+    let ps = &original.sections[0].paragraphs;
+    let before = format!("{original:?}");
+    let svg_before: Vec<_> = (0..d.page_count())
+        .map(|p| d.render_page_svg_native(p).unwrap())
+        .collect();
+    let expected_text = ps[sp]
+        .text
+        .chars()
+        .take(start)
+        .chain(ps[ep].text.chars().skip(end))
+        .collect::<String>();
+    let expected_shapes = (0..start)
+        .map(|i| ps[sp].char_shape_id_at(i))
+        .chain((end..ps[ep].text.chars().count()).map(|i| ps[ep].char_shape_id_at(i)))
+        .collect::<Vec<_>>();
+    let mut expected_bookmarks = bookmarks(d);
+    for b in &mut expected_bookmarks {
+        let para = b["para"].as_u64().unwrap() as usize;
+        let at = b["charPos"].as_u64().unwrap() as usize;
+        let (p, a) = if para < sp {
+            (para, at)
+        } else if para > ep {
+            (para - (ep - sp), at)
+        } else if para == sp && at < start {
+            (sp, at)
+        } else if para == ep && at > end {
+            (sp, start + at - end)
+        } else {
+            (sp, start)
+        };
+        b["para"] = json!(p);
+        b["charPos"] = json!(a);
+        b.as_object_mut().unwrap().remove("ctrlIdx");
+    }
+    let owned = |paras: &[rhwp::model::paragraph::Paragraph]| {
+        paras
+            .iter()
+            .flat_map(|p| {
+                p.controls
+                    .iter()
+                    .enumerate()
+                    .filter(|(_, c)| !matches!(c, Control::SectionDef(_) | Control::ColumnDef(_)))
+                    .map(|(i, c)| {
+                        format!(
+                            "{:?}:{:?}",
+                            c,
+                            p.ctrl_data_records.get(i).cloned().flatten()
+                        )
+                    })
+            })
+            .collect::<Vec<_>>()
+    };
+    let old_owned = owned(ps);
+    let mut expected_after = None;
+    for round in 0..4 {
+        let fragment = d.capture_delete_range_native(0, sp, ep)?;
+        let result = d.delete_range_native(0, sp, start, ep, end, None)?;
+        let now = &d.document().sections[0].paragraphs;
+        assert_eq!(now.len(), ps.len() - (ep - sp));
+        assert_eq!(now[sp].text, expected_text);
+        assert_eq!(
+            (0..now[sp].text.chars().count())
+                .map(|i| now[sp].char_shape_id_at(i))
+                .collect::<Vec<_>>(),
+            expected_shapes
+        );
+        assert_eq!(now[sp].para_shape_id, ps[sp].para_shape_id);
+        assert_eq!(now[sp].style_id, ps[sp].style_id);
+        assert_eq!(
+            owned(now),
+            old_owned,
+            "owned controls and CTRL_DATA survive selection deletion"
+        );
+        assert_eq!(
+            format!("{:?}", d.document().doc_info),
+            format!("{:?}", original.doc_info)
+        );
+        assert_eq!(
+            format!("{:?}", d.document().bin_data_content),
+            format!("{:?}", original.bin_data_content)
+        );
+        let actual = bookmarks(d)
+            .into_iter()
+            .map(|mut b| {
+                b.as_object_mut().unwrap().remove("ctrlIdx");
+                b
+            })
+            .collect::<Vec<_>>();
+        assert_eq!(actual, expected_bookmarks);
+        let after = format!("{:?}", d.document());
+        if let Some(expected) = &expected_after {
+            assert_eq!(&after, expected);
+        } else {
+            expected_after = Some(after);
+        }
+        if round == 3 {
+            d.discard_delete_fragment_native(fragment);
+            return Ok(result);
+        }
+        d.restore_delete_fragment_native(fragment)?;
+        assert_eq!(
+            format!("{:?}", d.document()),
+            before,
+            "fragment restores whole document"
+        );
+        assert_eq!(
+            (0..d.page_count())
+                .map(|p| d.render_page_svg_native(p).unwrap())
+                .collect::<Vec<_>>(),
+            svg_before
+        );
+    }
+    unreachable!()
 }
 fn refs(d: &DocumentCore) -> Value {
     json!({"paragraphs":d.document().sections.iter().map(|s|s.paragraphs.iter().map(|p|json!({"text":p.text,"style":p.style_id,"paraShape":p.para_shape_id,"chars":(0..p.text.chars().count()).map(|i|p.char_shape_id_at(i)).collect::<Vec<_>>(),"controls":p.controls.iter().filter(|c|!matches!(c,Control::Bookmark(_))).map(|c|format!("{c:?}")).collect::<Vec<_>>(),"fields":p.field_ranges.iter().map(|r|json!({"start":r.start_char_idx,"end":r.end_char_idx,"owner":format!("{:?}",p.controls[r.control_idx]),"inner":r.inner_slot_count})).collect::<Vec<_>>()})).collect::<Vec<_>>()).collect::<Vec<_>>(),"styles":format!("{:?}",d.document().doc_info),"images":format!("{:?}",d.document().bin_data_content)})
@@ -268,12 +389,14 @@ fn structural_native_refusals() -> usize {
                 .orphan_field_ends
                 .push(Default::default()),
         }
-        for merge in [false, true] {
+        for operation in 0..3 {
             let before = format!("{:?}", d.document());
-            assert!(if merge {
+            assert!(if operation == 1 {
                 d.merge_paragraph_native(0, 1)
-            } else {
+            } else if operation == 0 {
                 d.split_paragraph_native(0, 0, 2, None)
+            } else {
+                d.delete_range_native(0, 0, 2, 1, 0, None)
             }
             .is_err());
             assert_eq!(format!("{:?}", d.document()), before);
@@ -292,15 +415,162 @@ fn structural_native_refusals() -> usize {
         }
         let before = format!("{:?}", d.document());
         assert!(d.merge_paragraph_native(0, 1).is_err());
+        assert!(d.delete_range_native(0, 0, 2, 1, 0, None).is_err());
+        count += 1;
         assert_eq!(format!("{:?}", d.document()), before);
         count += 1;
     }
+    for kind in 0..5 {
+        let mut doc = base.document().clone();
+        let p = &mut doc.sections[0].paragraphs[1];
+        match kind {
+            0 => p.raw_break_type = 0x04,
+            1 => p.page_break_synthesized = true,
+            2 => {
+                let mut shape = doc
+                    .doc_info
+                    .para_shapes
+                    .first()
+                    .cloned()
+                    .unwrap_or_default();
+                shape.attr1 |= 1 << 19;
+                p.para_shape_id = doc.doc_info.para_shapes.len() as u16;
+                doc.doc_info.para_shapes.push(shape);
+            }
+            3 => {
+                p.line_segs = vec![rhwp::model::paragraph::LineSeg {
+                    vertical_pos: -100,
+                    ..Default::default()
+                }];
+            }
+            _ => {
+                p.line_segs = vec![
+                    rhwp::model::paragraph::LineSeg {
+                        vertical_pos: 100,
+                        ..Default::default()
+                    },
+                    rhwp::model::paragraph::LineSeg {
+                        vertical_pos: 0,
+                        ..Default::default()
+                    },
+                ];
+            }
+        }
+        let mut d = empty_core();
+        d.set_document(doc);
+        let before = format!("{:?}", d.document());
+        let events = d.serialize_event_log();
+        assert!(d.delete_range_native(0, 0, 2, 1, 0, None).is_err());
+        assert_eq!(format!("{:?}", d.document()), before);
+        assert_eq!(d.serialize_event_log(), events);
+        count += 1;
+    }
     count
+}
+fn prepare_range(out: &Path, fixtures: &Path) {
+    let reference =
+        DocumentCore::from_bytes(&std::fs::read(fixtures.join("seed.hwpx")).unwrap()).unwrap();
+    for empty in [false, true] {
+        let mut d = fixture_core(&reference);
+        let mut doc = d.document().clone();
+        doc.sections[0].paragraphs =
+            vec![rhwp::model::paragraph::Paragraph::new_empty(); if empty { 3 } else { 4 }];
+        d.set_document(doc);
+        for (pi, text) in if empty {
+            vec!["", "", ""]
+        } else {
+            vec!["가🙂나다𐐀마", "중🙂간", "끝𐐀본문", "후🙂보존"]
+        }
+        .into_iter()
+        .enumerate()
+        {
+            if !text.is_empty() {
+                d.insert_text_native(0, pi, 0, text).unwrap();
+                d.apply_char_format_native(
+                    0,
+                    pi,
+                    1,
+                    text.chars().count(),
+                    if pi % 2 == 0 {
+                        r##"{"bold":true,"textColor":"#345678"}"##
+                    } else {
+                        r##"{"italic":true,"fontSize":1800}"##
+                    },
+                )
+                .unwrap();
+            }
+            for (i, at) in [0, text.chars().count() / 2, text.chars().count()]
+                .into_iter()
+                .enumerate()
+            {
+                d.add_bookmark_native(0, pi, at, &format!("문단{pi}-점{i}"))
+                    .unwrap();
+            }
+        }
+        std::fs::write(
+            out.join(if empty { "empty.hwpx" } else { "plain.hwpx" }),
+            d.export_hwpx_native().unwrap(),
+        )
+        .unwrap();
+    }
+    let plain = DocumentCore::from_bytes(&std::fs::read(out.join("plain.hwpx")).unwrap()).unwrap();
+    for (keep, name) in [(0, "first-only"), (1, "middle-only"), (2, "last-only")] {
+        let mut d = empty_core();
+        d.set_document(plain.document().clone());
+        for b in bookmarks(&d) {
+            let pi = b["para"].as_u64().unwrap() as usize;
+            if pi != keep {
+                let (s, p, c) = owner(&d, b["name"].as_str().unwrap());
+                d.delete_bookmark_native(s, p, c).unwrap();
+            }
+        }
+        std::fs::write(
+            out.join(format!("{name}.hwpx")),
+            d.export_hwpx_native().unwrap(),
+        )
+        .unwrap();
+    }
+    for (kind, file) in [
+        ("fields", "field-neighbors.hwpx"),
+        ("notes", "seed.hwpx"),
+        ("complex", "notes-comments.hwpx"),
+    ] {
+        for suffix in [false, true] {
+            let mut d =
+                DocumentCore::from_bytes(&std::fs::read(fixtures.join(file)).unwrap()).unwrap();
+            d.add_bookmark_native(0, 0, 0, "참조 시작").unwrap();
+            if suffix {
+                if kind == "complex" {
+                    continue;
+                }
+                d.split_paragraph_native(0, 0, 0, None).unwrap();
+                d.insert_text_native(0, 0, 0, "삭제🙂앞부분").unwrap();
+                d.add_bookmark_native(0, 0, 2, "앞부분 점").unwrap();
+            }
+            for pi in 0..d.document().sections[0].paragraphs.len() {
+                let len = d.document().sections[0].paragraphs[pi].text.chars().count();
+                d.add_bookmark_native(0, pi, len, &format!("참조{pi} 끝"))
+                    .unwrap();
+            }
+            std::fs::write(
+                out.join(format!(
+                    "{}-{kind}.hwpx",
+                    if suffix { "suffix" } else { "prefix" }
+                )),
+                d.export_hwpx_native().unwrap(),
+            )
+            .unwrap();
+        }
+    }
 }
 fn main() {
     let a = std::env::args().skip(1).collect::<Vec<_>>();
     let out = Path::new(&a[1]);
     std::fs::create_dir_all(out).unwrap();
+    if a[0] == "prepare-range" {
+        prepare_range(out, Path::new(&a[2]));
+        return;
+    }
     if a[0] == "prepare" {
         let reference = DocumentCore::from_bytes(&std::fs::read(&a[2]).unwrap()).unwrap();
         let mut d = fixture_core(&reference);
@@ -367,7 +637,7 @@ fn main() {
             let b = d.save_snapshot_native();
             apply(&mut d, op);
             if op["kind"].as_str().unwrap().starts_with("text")
-                || matches!(op["kind"].as_str(), Some("split" | "merge"))
+                || matches!(op["kind"].as_str(), Some("split" | "merge" | "rangeDelete"))
             {
                 preserved = refs(&d);
             } else {
@@ -443,7 +713,7 @@ fn main() {
     refusals += 1;
     let nested_scopes = nested_name_guards();
     let structural_refusals = structural_native_refusals();
-    std::fs::write(out.join("native-proof.json"),serde_json::to_vec_pretty(&json!({"independentSavedReopens":rows.len(),"nativeOperationReexecution":true,"snapshotPairs":pairs,"atomicNativeRefusals":refusals,"atomicNativeStructuralRefusals":structural_refusals,"readOnlyNestedNameScopes":nested_scopes,"duplicateNameRefusalsAcrossNestedScopes":nested_scopes*2,"fullSvgParagraphsStylesAndBinDataCompared":true,"noteHeaderTrailingZeroPaddingCanonicalized":true})).unwrap()).unwrap();
+    std::fs::write(out.join("native-proof.json"),serde_json::to_vec_pretty(&json!({"independentSavedReopens":rows.len(),"nativeOperationReexecution":true,"snapshotPairs":pairs,"selectionFragmentPairs":rows.iter().flat_map(|r|r["ops"].as_array().unwrap()).filter(|o|o["kind"]=="rangeDelete").count()*3,"atomicNativeRefusals":refusals,"atomicNativeStructuralRefusals":structural_refusals,"readOnlyNestedNameScopes":nested_scopes,"duplicateNameRefusalsAcrossNestedScopes":nested_scopes*2,"fullSvgParagraphsStylesAndBinDataCompared":true,"noteHeaderTrailingZeroPaddingCanonicalized":true})).unwrap()).unwrap();
     println!(
         "{} independent reopens; {pairs} snapshot pairs; {refusals} refusals",
         rows.len()

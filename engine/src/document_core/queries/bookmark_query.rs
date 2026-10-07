@@ -180,20 +180,6 @@ impl DocumentCore {
         Ok(found)
     }
 
-    pub(crate) fn reject_body_bookmark_structure_edit(
-        paras: &[&Paragraph],
-    ) -> Result<(), HwpError> {
-        if paras
-            .iter()
-            .any(|p| p.controls.iter().any(|c| matches!(c, Control::Bookmark(_))))
-        {
-            return Err(HwpError::InvalidField(
-                "책갈피가 있는 문단의 분할·병합·문단 간 삭제는 아직 지원하지 않습니다.".into(),
-            ));
-        }
-        Ok(())
-    }
-
     pub(crate) fn validate_bookmark_structure_paragraph(para: &Paragraph) -> Result<(), HwpError> {
         Self::validate_body_bookmark_text_axis(para)?;
         validate_field_edit_axis(para)?;

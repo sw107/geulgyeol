@@ -929,6 +929,7 @@ export class FragmentDeleteCommand implements EditCommand {
 
   execute(wasm: WasmBridge): DocumentPosition {
     // 지역 변수로 받는다 — catch 에서 프로퍼티 좁히기가 풀려 TS2345 가 난다(CI 실측).
+    this.noOp = false;
     const fragmentId = wasm.captureDeleteRange(this.sectionIdx, this.startPara, this.endPara);
     this.fragmentId = fragmentId;
     try {
@@ -1003,6 +1004,9 @@ export class DeleteSelectionCommand implements EditCommand {
   };
 
   constructor(start: DocumentPosition, end: DocumentPosition, blockPhase: number | null = null) {
+    if (!isCell(start) && (isCell(end) || start.sectionIndex !== end.sectionIndex)) {
+      throw new Error('본문 선택 삭제는 같은 구역의 본문 범위만 지원합니다.');
+    }
     this.selection = { start: { ...start }, end: { ...end }, blockPhase };
 
     if (isCell(start)) {
@@ -1026,10 +1030,11 @@ export class DeleteSelectionCommand implements EditCommand {
         start.paragraphIndex,
         end.paragraphIndex,
         (wasm) => {
-          wasm.deleteRange(
+          const result = wasm.deleteRange(
             start.sectionIndex, start.paragraphIndex, start.charOffset,
             end.paragraphIndex, end.charOffset,
           );
+          if (result.changed === false) return null;
           return { ...start };
         },
       );

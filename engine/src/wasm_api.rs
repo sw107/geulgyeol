@@ -7082,18 +7082,18 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = deleteRange)]
     pub fn delete_range(
         &mut self,
-        section_idx: u32,
-        start_para_idx: u32,
-        start_char_offset: u32,
-        end_para_idx: u32,
-        end_char_offset: u32,
+        section_idx: f64,
+        start_para_idx: f64,
+        start_char_offset: f64,
+        end_para_idx: f64,
+        end_char_offset: f64,
     ) -> Result<String, JsValue> {
         self.delete_range_native(
-            section_idx as usize,
-            start_para_idx as usize,
-            start_char_offset as usize,
-            end_para_idx as usize,
-            end_char_offset as usize,
+            hyperlink_index(section_idx)?,
+            hyperlink_index(start_para_idx)?,
+            hyperlink_index(start_char_offset)?,
+            hyperlink_index(end_para_idx)?,
+            hyperlink_index(end_char_offset)?,
             None,
         )
         .map_err(|e| e.into())
