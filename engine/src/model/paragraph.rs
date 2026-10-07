@@ -576,7 +576,7 @@ impl Paragraph {
         }
     }
 
-    fn compute_control_mask_for(
+    pub(crate) fn compute_control_mask_for(
         text: &str,
         controls: &[Control],
         field_ranges: &[FieldRange],

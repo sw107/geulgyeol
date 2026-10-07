@@ -23,10 +23,11 @@ fn owner(d: &DocumentCore, name: &str) -> (usize, usize, usize) {
     )
 }
 fn apply(d: &mut DocumentCore, op: &Value) {
+    let para = op["para"].as_u64().unwrap_or(0) as usize;
     let r = match op["kind"].as_str().unwrap() {
         "add" => d.add_bookmark_native(
             0,
-            0,
+            para,
             op["at"].as_u64().unwrap() as usize,
             op["name"].as_str().unwrap(),
         ),
@@ -57,6 +58,14 @@ fn apply(d: &mut DocumentCore, op: &Value) {
             op["count"].as_u64().unwrap() as usize,
             op["text"].as_str().unwrap(),
         ),
+        "split" => d.split_paragraph_native_with_next_style(
+            0,
+            para,
+            op["at"].as_u64().unwrap() as usize,
+            None,
+            op["nextStyle"].as_bool().unwrap_or(false),
+        ),
+        "merge" => d.merge_paragraph_native(0, para),
         _ => panic!("Unknown operation"),
     }
     .unwrap();
@@ -216,6 +225,78 @@ fn nested_name_guards() -> usize {
     }
     nested.len()
 }
+fn structural_native_refusals() -> usize {
+    let mut base = empty_core();
+    base.insert_text_native(0, 0, 0, "가🙂나다").unwrap();
+    base.add_bookmark_native(0, 0, 0, "구조").unwrap();
+    base.document_mut().sections[0]
+        .paragraphs
+        .push(rhwp::model::paragraph::Paragraph::new_empty());
+    let mut count = 0;
+    for kind in 0..9 {
+        let mut d = empty_core();
+        d.set_document(base.document().clone());
+        match kind {
+            0 => d.document_mut().sections[0].paragraphs[0]
+                .range_tags
+                .push(Default::default()),
+            1 => d.document_mut().sections[0].paragraphs[0]
+                .raw_header_extra
+                .resize(11, 1),
+            2 => d.document_mut().sections[0].paragraphs[0].ctrl_data_records[0] = Some(vec![0xff]),
+            3 => {
+                let section = d.document().sections[0].clone();
+                d.document_mut().sections.push(section);
+            }
+            4 => {
+                let p = &mut d.document_mut().sections[0].paragraphs[0];
+                p.controls.push(Control::Picture(Box::default()));
+                p.char_count += 8;
+            }
+            5 => d.document_mut().sections[0].paragraphs[0]
+                .tab_extended
+                .push([0; 7]),
+            6 => d.document_mut().sections[0].paragraphs[0]
+                .ctrl_data_records
+                .push(Some(vec![0xab])),
+            7 => {
+                let p = &mut d.document_mut().sections[0].paragraphs[0];
+                p.raw_header_extra.resize(12, 0);
+                p.raw_header_extra[10] = 1;
+            }
+            _ => d.document_mut().sections[0].paragraphs[0]
+                .orphan_field_ends
+                .push(Default::default()),
+        }
+        for merge in [false, true] {
+            let before = format!("{:?}", d.document());
+            assert!(if merge {
+                d.merge_paragraph_native(0, 1)
+            } else {
+                d.split_paragraph_native(0, 0, 2, None)
+            }
+            .is_err());
+            assert_eq!(format!("{:?}", d.document()), before);
+            count += 1;
+        }
+    }
+    for kind in 0..2 {
+        let mut d = empty_core();
+        d.set_document(base.document().clone());
+        let p = &mut d.document_mut().sections[0].paragraphs[1];
+        if kind == 0 {
+            p.column_type = rhwp::model::paragraph::ColumnBreakType::Page;
+        } else {
+            p.controls.push(Control::SectionDef(Box::default()));
+            p.char_count += 8;
+        }
+        let before = format!("{:?}", d.document());
+        assert!(d.merge_paragraph_native(0, 1).is_err());
+        assert_eq!(format!("{:?}", d.document()), before);
+        count += 1;
+    }
+    count
+}
 fn main() {
     let a = std::env::args().skip(1).collect::<Vec<_>>();
     let out = Path::new(&a[1]);
@@ -252,6 +333,25 @@ fn main() {
             nested.export_hwpx_native().unwrap(),
         )
         .unwrap();
+        let mut styled = DocumentCore::from_bytes(&std::fs::read(&a[2]).unwrap()).unwrap();
+        let doc = styled.document_mut();
+        let id = doc.doc_info.styles.len() as u8;
+        let mut target = doc.doc_info.styles[0].clone();
+        target.local_name = "책갈피 다음".into();
+        target.english_name = "Bookmark successor".into();
+        target.next_style_id = id;
+        target.raw_data = None;
+        doc.doc_info.styles.push(target);
+        doc.doc_info.styles[0].next_style_id = id;
+        doc.doc_info.styles[0].raw_data = None;
+        doc.doc_info.raw_stream_dirty = true;
+        doc.doc_info.raw_stream = None;
+        doc.sections[0].raw_stream = None;
+        std::fs::write(
+            out.join("next-style-notes.hwpx"),
+            styled.export_hwpx_native().unwrap(),
+        )
+        .unwrap();
         return;
     }
     let rows: Vec<Value> =
@@ -266,7 +366,9 @@ fn main() {
             let before = format!("{:?}", d.document());
             let b = d.save_snapshot_native();
             apply(&mut d, op);
-            if op["kind"].as_str().unwrap().starts_with("text") {
+            if op["kind"].as_str().unwrap().starts_with("text")
+                || matches!(op["kind"].as_str(), Some("split" | "merge"))
+            {
                 preserved = refs(&d);
             } else {
                 assert_eq!(refs(&d), preserved, "reference preservation");
@@ -340,7 +442,8 @@ fn main() {
     assert_eq!(format!("{:?}", d.document()), before);
     refusals += 1;
     let nested_scopes = nested_name_guards();
-    std::fs::write(out.join("native-proof.json"),serde_json::to_vec_pretty(&json!({"independentSavedReopens":rows.len(),"nativeOperationReexecution":true,"snapshotPairs":pairs,"atomicNativeRefusals":refusals,"readOnlyNestedNameScopes":nested_scopes,"duplicateNameRefusalsAcrossNestedScopes":nested_scopes*2,"fullSvgParagraphsStylesAndBinDataCompared":true,"noteHeaderTrailingZeroPaddingCanonicalized":true})).unwrap()).unwrap();
+    let structural_refusals = structural_native_refusals();
+    std::fs::write(out.join("native-proof.json"),serde_json::to_vec_pretty(&json!({"independentSavedReopens":rows.len(),"nativeOperationReexecution":true,"snapshotPairs":pairs,"atomicNativeRefusals":refusals,"atomicNativeStructuralRefusals":structural_refusals,"readOnlyNestedNameScopes":nested_scopes,"duplicateNameRefusalsAcrossNestedScopes":nested_scopes*2,"fullSvgParagraphsStylesAndBinDataCompared":true,"noteHeaderTrailingZeroPaddingCanonicalized":true})).unwrap()).unwrap();
     println!(
         "{} independent reopens; {pairs} snapshot pairs; {refusals} refusals",
         rows.len()

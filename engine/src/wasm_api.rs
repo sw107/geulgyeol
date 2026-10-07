@@ -2512,15 +2512,15 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = splitParagraph)]
     pub fn split_paragraph(
         &mut self,
-        section_idx: u32,
-        para_idx: u32,
-        char_offset: u32,
+        section_idx: f64,
+        para_idx: f64,
+        char_offset: f64,
         removed_para_meta: Option<String>,
     ) -> Result<String, JsValue> {
         self.split_paragraph_native(
-            section_idx as usize,
-            para_idx as usize,
-            char_offset as usize,
+            hyperlink_index(section_idx)?,
+            hyperlink_index(para_idx)?,
+            hyperlink_index(char_offset)?,
             parse_removed_para_meta(removed_para_meta)?,
         )
         .map_err(|e| e.into())
@@ -2530,15 +2530,15 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = splitParagraphWithNextStyle)]
     pub fn split_paragraph_with_next_style(
         &mut self,
-        section_idx: u32,
-        para_idx: u32,
-        char_offset: u32,
+        section_idx: f64,
+        para_idx: f64,
+        char_offset: f64,
         removed_para_meta: Option<String>,
     ) -> Result<String, JsValue> {
         self.split_paragraph_native_with_next_style(
-            section_idx as usize,
-            para_idx as usize,
-            char_offset as usize,
+            hyperlink_index(section_idx)?,
+            hyperlink_index(para_idx)?,
+            hyperlink_index(char_offset)?,
             parse_removed_para_meta(removed_para_meta)?,
             true,
         )
@@ -2625,8 +2625,8 @@ impl HwpDocument {
     /// para_idx의 텍스트가 para_idx-1에 결합되고 para_idx는 삭제된다.
     /// 반환값: JSON `{"ok":true,"paraIdx":<merged_para_idx>,"charOffset":<merge_point>}`
     #[wasm_bindgen(js_name = mergeParagraph)]
-    pub fn merge_paragraph(&mut self, section_idx: u32, para_idx: u32) -> Result<String, JsValue> {
-        self.merge_paragraph_native(section_idx as usize, para_idx as usize)
+    pub fn merge_paragraph(&mut self, section_idx: f64, para_idx: f64) -> Result<String, JsValue> {
+        self.merge_paragraph_native(hyperlink_index(section_idx)?, hyperlink_index(para_idx)?)
             .map_err(|e| e.into())
     }
 

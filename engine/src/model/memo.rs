@@ -600,7 +600,7 @@ pub fn validate_body_structure(
         p.controls.iter().any(|c| {
             !matches!(
                 c,
-                Control::Field(_) | Control::SectionDef(_) | Control::ColumnDef(_)
+                Control::Field(_) | Control::SectionDef(_) | Control::ColumnDef(_) | Control::Bookmark(_)
             )
         })
     }) {

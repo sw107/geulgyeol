@@ -1256,6 +1256,119 @@ fn has_clickhere_field_range(para: &Paragraph) -> bool {
 }
 
 impl DocumentCore {
+    fn stage_bookmark_body_split(
+        &self,
+        section: usize,
+        para: usize,
+        at: usize,
+    ) -> Result<Option<(Paragraph, Paragraph)>, HwpError> {
+        let original = &self.document.sections[section].paragraphs[para];
+        if !Self::validate_body_bookmark_text_axis(original)? {
+            return Ok(None);
+        }
+        if self.document.sections.len() != 1 || at > original.text.chars().count() {
+            return Err(HwpError::InvalidField(
+                "책갈피 분할은 한 구역 본문의 유효한 문자 위치에서만 지원합니다.".into(),
+            ));
+        }
+        Self::validate_bookmark_structure_paragraph(original)?;
+        if original
+            .field_ranges
+            .iter()
+            .any(|r| r.start_char_idx < at && at < r.end_char_idx)
+        {
+            return Err(HwpError::InvalidField(
+                "필드/주석 안의 책갈피 문단 분할은 지원하지 않습니다.".into(),
+            ));
+        }
+        let shapes = bookmark_glyph_shapes(original);
+        let positions = original.control_text_positions();
+        let mut left = original.clone();
+        // Split metadata and glyph runs on the scalar axis; distribute owned controls below.
+        left.controls.clear();
+        left.ctrl_data_records.clear();
+        left.field_ranges.clear();
+        let mut right = left.split_at(at);
+        let mut left_positions = Vec::new();
+        let mut right_positions = Vec::new();
+        for (ci, c) in original.controls.iter().enumerate() {
+            let field = original.field_ranges.iter().find(|r| r.control_idx == ci);
+            let moves = field.map_or_else(
+                || {
+                    !matches!(c, Control::SectionDef(_) | Control::ColumnDef(_))
+                        && positions[ci] >= at
+                },
+                |r| r.start_char_idx >= at,
+            );
+            let (target, anchors) = if moves {
+                (&mut right, &mut right_positions)
+            } else {
+                (&mut left, &mut left_positions)
+            };
+            let new_ci = target.controls.len();
+            target.controls.push(c.clone());
+            target
+                .ctrl_data_records
+                .push(original.ctrl_data_records.get(ci).cloned().flatten());
+            anchors.push(if moves {
+                positions[ci] - at
+            } else {
+                positions[ci]
+            });
+            if let Some(r) = field {
+                let mut r = r.clone();
+                r.control_idx = new_ci;
+                if moves {
+                    r.start_char_idx -= at;
+                    r.end_char_idx -= at;
+                }
+                target.field_ranges.push(r);
+            }
+        }
+        Self::rebuild_bookmark_structure_axis(&mut left, &left_positions)?;
+        Self::rebuild_bookmark_structure_axis(&mut right, &right_positions)?;
+        restore_bookmark_glyph_shapes(&mut left, &shapes[..at], 0, 0, 0);
+        restore_bookmark_glyph_shapes(&mut right, &shapes[at..], 0, 0, 0);
+        Ok(Some((left, right)))
+    }
+
+    fn stage_bookmark_body_merge(
+        &self,
+        section: usize,
+        para: usize,
+    ) -> Result<Option<(Paragraph, usize)>, HwpError> {
+        let left = &self.document.sections[section].paragraphs[para - 1];
+        let right = &self.document.sections[section].paragraphs[para];
+        let has_left = Self::validate_body_bookmark_text_axis(left)?;
+        let has_right = Self::validate_body_bookmark_text_axis(right)?;
+        if !has_left && !has_right {
+            return Ok(None);
+        }
+        if self.document.sections.len() != 1
+            || right.raw_break_type != 0
+            || right.column_type != crate::model::paragraph::ColumnBreakType::None
+            || right
+                .controls
+                .iter()
+                .any(|c| matches!(c, Control::SectionDef(_) | Control::ColumnDef(_)))
+        {
+            return Err(HwpError::InvalidField(
+                "책갈피 병합의 구역/단/쪽 경계는 보존할 수 없어 거절합니다.".into(),
+            ));
+        }
+        Self::validate_bookmark_structure_paragraph(left)?;
+        Self::validate_bookmark_structure_paragraph(right)?;
+        let mut shapes = bookmark_glyph_shapes(left);
+        shapes.extend(bookmark_glyph_shapes(right));
+        let len = left.text.chars().count();
+        let mut positions = left.control_text_positions();
+        positions.extend(right.control_text_positions().into_iter().map(|p| p + len));
+        let mut merged = left.clone();
+        merged.merge_from(right);
+        Self::rebuild_bookmark_structure_axis(&mut merged, &positions)?;
+        restore_bookmark_glyph_shapes(&mut merged, &shapes, 0, 0, 0);
+        Ok(Some((merged, len)))
+    }
     pub fn replace_body_text_local_native(
         &mut self,
         section_idx: usize,
@@ -3632,11 +3745,16 @@ impl DocumentCore {
             )));
         }
 
-        Self::reject_body_bookmark_structure_edit(&[&section.paragraphs[para_idx]])?;
+        let bookmark_split = self.stage_bookmark_body_split(section_idx, para_idx, char_offset)?;
+        let staged_bookmark_split = bookmark_split.is_some();
         crate::model::memo::validate_body_structure(&self.document,
             &[&section.paragraphs[para_idx]], Some(char_offset)).map_err(HwpError::InvalidField)?;
+        // Bookmark staging uses scalar offsets, including paragraph-end Enter with notes.
+        let next_style_offset = if staged_bookmark_split && char_offset == section.paragraphs[para_idx].text.chars().count() {
+            char_offset + section.paragraphs[para_idx].controls.iter().filter(|c| c.is_logical_inline()).count()
+        } else { char_offset };
         let next_style = super::next_style::prepare(&self.document.doc_info,
-            &section.paragraphs[para_idx], char_offset, apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
+            &section.paragraphs[para_idx], next_style_offset, apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
 
         if stage_picture_edit && self.final_picture_host_matches_frame(section_idx, para_idx) {
             let mut staged = self.picture_band_edit_shadow();
@@ -3821,8 +3939,12 @@ impl DocumentCore {
         self.document.sections[section_idx].raw_stream = None;
 
         // 문단 분리
-        let mut new_para =
-            self.document.sections[section_idx].paragraphs[para_idx].split_at(char_offset);
+        let mut new_para = if let Some((left, right)) = bookmark_split {
+            self.document.sections[section_idx].paragraphs[para_idx] = left;
+            right
+        } else {
+            self.document.sections[section_idx].paragraphs[para_idx].split_at(char_offset)
+        };
         if let Some(meta) = restore_meta {
             new_para.apply_meta(meta);
         }
@@ -3834,7 +3956,7 @@ impl DocumentCore {
             .paragraphs
             .insert(new_para_idx, new_para);
         for i in para_idx..=new_para_idx {
-            if !self.document.sections[section_idx].paragraphs[i]
+            if !staged_bookmark_split && !self.document.sections[section_idx].paragraphs[i]
                 .field_ranges
                 .is_empty()
             {
@@ -4184,7 +4306,7 @@ impl DocumentCore {
             )));
         }
 
-        Self::reject_body_bookmark_structure_edit(&[&section.paragraphs[para_idx - 1], &section.paragraphs[para_idx]])?;
+        let bookmark_merge = self.stage_bookmark_body_merge(section_idx, para_idx)?;
         crate::model::memo::validate_body_structure(&self.document,
             &[&section.paragraphs[para_idx - 1], &section.paragraphs[para_idx]], None).map_err(HwpError::InvalidField)?;
         if stage_picture_edit && self.final_picture_host_matches_frame(section_idx, para_idx) {
@@ -4213,10 +4335,15 @@ impl DocumentCore {
         let prev_idx = para_idx - 1;
         let removed_meta =
             super::super::helpers::removed_para_meta_field(&current_para.capture_meta());
-        let merge_point =
-            self.document.sections[section_idx].paragraphs[prev_idx].merge_from(&current_para);
+        let merge_point = if let Some((merged, at)) = bookmark_merge {
+            self.document.sections[section_idx].paragraphs[prev_idx] = merged;
+            at
+        } else {
+            self.document.sections[section_idx].paragraphs[prev_idx].merge_from(&current_para)
+        };
         let merged = &mut self.document.sections[section_idx].paragraphs[prev_idx];
-        if merged.controls.iter().any(|c| matches!(c, Control::Field(f) if crate::model::memo::is_memo(f))) {
+        if merged.controls.iter().any(|c| matches!(c, Control::Field(f) if crate::model::memo::is_memo(f)))
+            && !merged.controls.iter().any(|c| matches!(c, Control::Bookmark(_))) {
             rebuild_char_offsets(merged);
         }
 

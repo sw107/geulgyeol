@@ -194,6 +194,59 @@ impl DocumentCore {
         Ok(())
     }
 
+    pub(crate) fn validate_bookmark_structure_paragraph(para: &Paragraph) -> Result<(), HwpError> {
+        Self::validate_body_bookmark_text_axis(para)?;
+        validate_field_edit_axis(para)?;
+        if para.ctrl_data_records.len() > para.controls.len()
+            || !para.range_tags.is_empty()
+            || !para.tab_extended.is_empty()
+            || para.raw_header_extra.len() > 12
+            || para.raw_header_extra.len() == 11
+            || para
+                .raw_header_extra
+                .get(10..)
+                .is_some_and(|tail| tail.iter().any(|&byte| byte != 0))
+            || para.text.contains(['\t', '\n', '\r'])
+            || para
+                .controls
+                .iter()
+                .zip(para.control_text_positions())
+                .any(|(c, at)| match c {
+                    Control::Bookmark(_) | Control::Footnote(_) | Control::Endnote(_) => false,
+                    Control::SectionDef(_) | Control::ColumnDef(_) => at != 0,
+                    Control::Field(f) => !matches!(
+                        f.field_type,
+                        crate::model::control::FieldType::ClickHere
+                            | crate::model::control::FieldType::Hyperlink
+                            | crate::model::control::FieldType::Memo
+                    ),
+                    _ => true,
+                })
+            || para.field_ranges.iter().enumerate().any(|(i, a)| {
+                para.field_ranges
+                    .iter()
+                    .skip(i + 1)
+                    .any(|b| a.start_char_idx < b.end_char_idx && b.start_char_idx < a.end_char_idx)
+            })
+        {
+            return Err(HwpError::InvalidField(
+                "책갈피 문단의 복합 개체·범위·저장 참조는 구조 편집하지 않습니다.".into(),
+            ));
+        }
+        Ok(())
+    }
+
+    pub(crate) fn rebuild_bookmark_structure_axis(
+        para: &mut Paragraph,
+        positions: &[usize],
+    ) -> Result<(), HwpError> {
+        rebuild_char_offsets_at_positions(para, positions);
+        para.control_mask =
+            Paragraph::compute_control_mask_for(&para.text, &para.controls, &para.field_ranges);
+        para.has_para_text = !para.text.is_empty() || !para.controls.is_empty();
+        validate_field_edit_axis(para)
+    }
+
     fn bookmark_body_paragraph(&self, sec: usize, para: usize) -> Result<&Paragraph, HwpError> {
         self.document
             .sections
