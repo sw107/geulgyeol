@@ -1,7 +1,7 @@
 //! 텍스트 삽입/삭제/문단 분리·병합/범위 삭제/문단 쿼리 관련 native 메서드
 
 use super::super::helpers::get_textbox_from_shape;
-use super::super::queries::field_query::{rebuild_char_offsets, rebuild_char_offsets_after_text_edit};
+use super::super::queries::field_query::{rebuild_char_offsets, rebuild_char_offsets_after_text_edit, validate_field_edit_axis};
 use super::super::queries::rendering::FocusedPageTreePatch;
 use crate::document_core::{
     ActiveFieldInfo, DeferredPaginationDescriptor, DeferredPaginationTargetStatus, DocumentCore,
@@ -996,7 +996,8 @@ fn inactive_field_end_insertions(
         .iter()
         .filter_map(|fr| {
             match para.controls.get(fr.control_idx) {
-                Some(Control::Field(field)) if matches!(field.field_type, FieldType::ClickHere | FieldType::Memo) => {}
+                Some(Control::Field(field)) if matches!(field.field_type, FieldType::ClickHere | FieldType::Memo)
+                    || (cell_path.is_none() && field.field_type == FieldType::Hyperlink) => {}
                 _ => return None,
             }
             // 빈 누름틀은 active 상태가 아직 반영되기 전 첫 입력도 값으로 받아야 한다.
@@ -1182,7 +1183,8 @@ fn inactive_field_start_insertions(
         .iter()
         .filter_map(|fr| {
             match para.controls.get(fr.control_idx) {
-                Some(Control::Field(field)) if matches!(field.field_type, FieldType::ClickHere | FieldType::Memo) => {}
+                Some(Control::Field(field)) if matches!(field.field_type, FieldType::ClickHere | FieldType::Memo)
+                    || (cell_path.is_none() && field.field_type == FieldType::Hyperlink) => {}
                 _ => return None,
             }
             // 빈 누름틀은 시작/끝 경계가 없고 첫 입력이 필드 값이어야 한다.
@@ -1515,6 +1517,8 @@ impl DocumentCore {
             )));
         }
         let bookmark_body = Self::validate_body_bookmark_text_axis(&section.paragraphs[para_idx])?;
+        let field_body = !section.paragraphs[para_idx].field_ranges.is_empty();
+        if field_body { validate_field_edit_axis(&section.paragraphs[para_idx])?; }
         let memo_body = crate::model::memo::validate_body_anchors(&self.document, &[&self.document.sections[section_idx].paragraphs[para_idx]])
             .map_err(HwpError::InvalidField)?;
         if memo_body && text.chars().any(|c| matches!(c, '\r' | '\n')) {
@@ -1547,7 +1551,7 @@ impl DocumentCore {
         let mut deleted_count = 0;
         let mut apply_replace = |para: &mut Paragraph| {
             let control_positions = para.control_text_positions();
-            let glyph_shapes = bookmark_body.then(|| bookmark_glyph_shapes(para));
+            let glyph_shapes = (bookmark_body || field_body).then(|| bookmark_glyph_shapes(para));
             if delete_count > 0 { deleted_count = para.delete_text_at(char_offset, delete_count); }
             if let Some(shapes) = &glyph_shapes {
                 restore_bookmark_glyph_shapes(para, shapes, char_offset, deleted_count, 0);
@@ -1746,6 +1750,8 @@ impl DocumentCore {
         if bookmark_body && char_offset > section.paragraphs[para_idx].text.chars().count() {
             return Err(HwpError::InvalidField("책갈피 본문 입력 위치가 범위를 벗어났습니다.".into()));
         }
+        let field_body = !section.paragraphs[para_idx].field_ranges.is_empty();
+        if field_body { validate_field_edit_axis(&section.paragraphs[para_idx])?; }
         let memo_body = crate::model::memo::validate_body_anchors(&self.document, &[&self.document.sections[section_idx].paragraphs[para_idx]])
             .map_err(HwpError::InvalidField)?;
         if memo_body && text.chars().any(|c| matches!(c, '\r' | '\n')) {
@@ -1772,11 +1778,15 @@ impl DocumentCore {
         );
         let apply_insert = |para: &mut Paragraph| {
             let control_positions = para.control_text_positions();
+            let glyph_shapes = (bookmark_body || field_body).then(|| bookmark_glyph_shapes(para));
             para.insert_text_at(char_offset, text);
             keep_inactive_field_start_outside(para, &before_insertions, new_chars_count);
             keep_inactive_field_end_outside(para, &outside_insertions, new_chars_count);
-            if bookmark_body || has_clickhere_field_range(para) {
+            if bookmark_body || field_body || has_clickhere_field_range(para) {
                 rebuild_char_offsets_after_text_edit(para, &control_positions, char_offset, 0, new_chars_count);
+            }
+            if let Some(shapes) = &glyph_shapes {
+                restore_bookmark_glyph_shapes(para, shapes, char_offset, 0, new_chars_count);
             }
         };
         let picture_band_applied =
@@ -1904,6 +1914,8 @@ impl DocumentCore {
 
         let bookmark_body = Self::validate_body_bookmark_text_axis(&section.paragraphs[para_idx])?;
         let text_len = section.paragraphs[para_idx].text.chars().count();
+        let field_body = !section.paragraphs[para_idx].field_ranges.is_empty();
+        if field_body { validate_field_edit_axis(&section.paragraphs[para_idx])?; }
         if bookmark_body && (char_offset > text_len || count > text_len.saturating_sub(char_offset)) {
             return Err(HwpError::InvalidField("책갈피 본문 삭제 범위가 잘못됐습니다.".into()));
         }
@@ -1913,7 +1925,7 @@ impl DocumentCore {
         // 텍스트 삭제
         let apply_delete = |para: &mut Paragraph| {
             let positions = para.control_text_positions();
-            let glyph_shapes = bookmark_body.then(|| bookmark_glyph_shapes(para));
+            let glyph_shapes = (bookmark_body || field_body).then(|| bookmark_glyph_shapes(para));
             let deleted = para.delete_text_at(char_offset, count);
             if let Some(shapes) = &glyph_shapes {
                 rebuild_char_offsets_after_text_edit(para, &positions, char_offset, deleted, 0);
@@ -3589,7 +3601,7 @@ impl DocumentCore {
             if start_para == end_para && start_offset == end_offset {
                 return Ok(super::super::helpers::json_ok_with(&format!("\"changed\":false,\"paraIdx\":{},\"charOffset\":{}", start_para, start_offset)));
             }
-            if start_para == end_para && Self::validate_body_bookmark_text_axis(ps[0])? {
+            if start_para == end_para && (Self::validate_body_bookmark_text_axis(ps[0])? || !ps[0].field_ranges.is_empty()) {
                 return self.delete_text_native(section_idx, start_para, start_offset, end_offset - start_offset);
             }
             if start_para != end_para {

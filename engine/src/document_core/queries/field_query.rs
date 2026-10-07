@@ -2682,7 +2682,7 @@ fn remove_field_in_para(para: &mut Paragraph, char_offset: usize) -> Result<(), 
 /// 텍스트 길이 변경(필드 값 삽입)에 맞게 오프셋을 재계산한다.
 /// Reject ambiguous control-token ownership before inserting a new field.
 /// Supported paragraphs have a complete HWP5 UTF-16 axis, including paired fields.
-pub(super) fn validate_field_edit_axis(para: &Paragraph) -> Result<(), HwpError> {
+pub(crate) fn validate_field_edit_axis(para: &Paragraph) -> Result<(), HwpError> {
     let chars: Vec<char> = para.text.chars().collect();
     let invalid = || HwpError::InvalidField("누름틀 편집: 제어 토큰 위치를 정확히 보존할 수 없는 문단".into());
     if para.char_offsets.len() != chars.len()

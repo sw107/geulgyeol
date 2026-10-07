@@ -8,13 +8,16 @@ dev11에서 재현한 그림 캡션 삽입 undo 누락을 후속 **소스 후보
 
 `b9c9896` 소스 후보에서는 한 섹션의 일반 본문 책갈피 문단을 Enter로 나누고 Backspace/Delete로 병합할 수 있다. 준비 포함222작업·888재열기·1,068이력쌍, Native 독립888·snapshot8,544쌍을 통과했다. HWP의 알려진0값 헤더 padding을 보존해 재열기 후 재편집도 통과했으며, 복합 참조/필드 안 분할/구역·쪽 경계/문단 간 선택 삭제는 거절한다. 기존 기능 회귀와 타입/Clippy도 통과했다. **dev11 앱에는 미통합**이다. [문단 구조 결과·한계](bookmark-structure/RESULT_KO.md), [proof](bookmark-structure/proof.json).
 
-최신 소스는 같은 섹션의 일반 본문에서 책갈피가 포함된 문단 간 선택 삭제도 지원한다. 삭제 범위의 점 책갈피는 시작점으로 모으고 생존 글자의 직접 서식과 삭제 밖 주석·링크·각주를 보존한다. 실제 선택 삭제/조각 이력17작업·68재열기·68이력쌍·Native 독립68 및 전체 Document 조각 복원102쌍, 복합/쪽 경계 원자 거절과 기존 기능 회귀·TS/Clippy가 통과했다. **dev11 앱에는 미통합**이다. [선택 삭제 결과·한계](bookmark-range/RESULT_KO.md), [proof](bookmark-range/proof.json).
+`66facdc` 소스는 같은 섹션의 일반 본문에서 책갈피가 포함된 문단 간 선택 삭제도 지원한다. 삭제 범위의 점 책갈피는 시작점으로 모으고 생존 글자의 직접 서식과 삭제 밖 주석·링크·각주를 보존한다. 실제 선택 삭제/조각 이력17작업·68재열기·68이력쌍·Native 독립68 및 전체 Document 조각 복원102쌍, 복합/쪽 경계 원자 거절과 기존 기능 회귀·TS/Clippy가 통과했다. **dev11 앱에는 미통합**이다. [선택 삭제 결과·한계](bookmark-range/RESULT_KO.md), [proof](bookmark-range/proof.json).
+
+최신 소스는 일반 본문 텍스트 붙여넣기의 선택 삭제와 한 줄/여러 줄 삽입을 하나의 이력으로 묶어 undo 시 원문을 복원한다. 필드 밖 생존 글자 서식과 비활성 링크 양 경계의 토큰/표시 텍스트를 저장재열기까지 보존한다. 실제 입력 경로19사례·76재열기·78이력쌍, Native 독립76·snapshot114쌍·기존 기능 회귀·TS/Clippy가 통과했다. **dev11 앱에는 미통합**이다. [붙여넣기 결과·한계](plain-paste/RESULT_KO.md), [proof](plain-paste/proof.json).
 
 ## 소스·후보·앱 구분
 
 | 대상 | 포함 범위 |
 |---|---|
-| 최신 `bookmark-range-qa/pkg-final` | 책갈피 문단 간 선택 삭제·삭제 밖 직접 서식/주석/링크/각주·조각 이력 보존. SHA256 `614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2`. **소스/검증 후보만, dev11 앱 미통합** |
+| 최신 `plain-paste-qa/pkg-final` | 일반 본문 일반 텍스트 붙여넣기의 단일 이력·실패/취소 보존·필드 밖 직접 서식·링크 시작/끝 경계 저장 보존. SHA256 `cef3ef66709627ee07284df957fb75f24f330f672b5b8df5fac1f79d3bcf8cf1`. **소스/검증 후보만, dev11 앱 미통합** |
+| 보존된 `bookmark-range-qa/pkg-final` | 책갈피 문단 간 선택 삭제·삭제 밖 직접 서식/주석/링크/각주·조각 이력 보존. SHA256 `614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2`. **소스/검증 후보만, dev11 앱 미통합** |
 | 보존된 `bookmark-structure-qa/pkg-header-final` | 본문 책갈피 문단 분할·병합·생존 서식/참조·HWP 재열기 재편집·다음 스타일 보존. SHA256 `17a530697fd11257f1c0a083a625b26ff152ef5029654c1e6e3ba0269965c363`. **소스/검증 후보만, dev11 앱 미통합** |
 | 보존된 `bookmark-preservation-qa/pkg-final` | 본문 책갈피 위치·텍스트 편집 서식/앵커·실패/no-op 이력 보존. SHA256 `a43b05118288fd34ec71800d5f4784b27024ea1bffc84b4af1b16ce17eec4c17`. **소스/검증 후보만, dev11 앱 미통합** |
 | 보존된 `caption-history-qa/pkg-layout` | 캡션 이력/저장 좌표·삭제 참조/번호·지원 HWPX 조판 보완. SHA256 `b2a3010c21c145d87603ac91b3d9660e6a3a54163a5761bc83e886bfdd9af97f`. **소스/검증 후보만, dev11 앱 미통합** |

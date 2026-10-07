@@ -2,7 +2,7 @@ import { deleteEquationSelection } from './equation-target';
 /** input-handler keyboard methods — extracted from InputHandler class */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { InsertTextCommand, InsertLineBreakCommand, InsertTabCommand, SplitParagraphCommand, SplitParagraphInCellCommand, InsertTextInHeaderFooterCommand, cellParaIndexOf } from './command';
+import { DeleteSelectionCommand, InsertTextCommand, InsertLineBreakCommand, InsertTabCommand, SplitParagraphCommand, SplitParagraphInCellCommand, InsertTextInHeaderFooterCommand, cellParaIndexOf } from './command';
 import { matchShortcut, defaultShortcuts } from '@/command/shortcut-map';
 import {
   resolveCellBlockCtrlShiftS,
@@ -390,13 +390,24 @@ function positionAfterPasteResult(pos: DocumentPosition, parsed: any): DocumentP
 }
 
 function pastePlainText(this: any, text: string, hasSelection: boolean): void {
-  const lines = text.split(/\r?\n/);
-  // A multiline body paste is one edit, including replacement of a selection.
+  if (!text) return;
+  // A body paste is one edit, including replacement of a selection.
   // Keep cell/note insertion on its existing submode path.
-  if (text && lines.length > 1 && !this.cursor.isInCell() && !this.cursor.isInFootnote()) {
+  if (!this.cursor.isInCell() && !this.cursor.isInFootnote()) {
+    const lines = text.replace(/\r\n?/g, '\n').split('\n');
+    if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f\ud800-\udfff\ufffe\uffff]/u.test(text)) {
+      throw new Error('붙여넣을 본문에 지원하지 않는 제어 문자나 잘못된 Unicode가 있습니다.');
+    }
+    const selection = hasSelection ? this.cursor.getSelectionOrdered() : null;
+    if (hasSelection && !selection) return;
     this.executeOperation({ kind: 'snapshot', operationType: 'pastePlainText', operation: (wasm: WasmBridge) => {
-      if (hasSelection) this.deleteSelection({ deferRecord: true });
       let position = this.cursor.getPosition();
+      if (selection) {
+        const deletion = new DeleteSelectionCommand(selection.start, selection.end, this.cursor.blockSelectionPhase());
+        try { position = deletion.execute(wasm); }
+        // The enclosing snapshot owns undo. Do not orphan a deletion fragment.
+        finally { deletion.discard(wasm); }
+      }
       for (let i = 0; i < lines.length; i++) {
         if (lines[i]) {
           new InsertTextCommand(position, lines[i]).execute(wasm);
@@ -416,8 +427,7 @@ function pastePlainText(this: any, text: string, hasSelection: boolean): void {
   if (hasSelection) {
     this.deleteSelection({ deferRecord: true });
   }
-  if (!text) return;
-
+  const lines = text.split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
     if (lines[i]) {
       this.executeOperation({ kind: 'command', command: new InsertTextCommand(this.cursor.getPosition(), lines[i]) });

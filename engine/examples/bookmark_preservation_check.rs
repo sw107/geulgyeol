@@ -67,10 +67,45 @@ fn apply(d: &mut DocumentCore, op: &Value) {
         ),
         "merge" => d.merge_paragraph_native(0, para),
         "rangeDelete" => apply_range(d, op),
+        "pastePlain" => apply_paste(d, op),
         _ => panic!("Unknown operation"),
     }
     .unwrap();
     assert_eq!(json_result(r)["ok"], true);
+}
+fn apply_paste(d: &mut DocumentCore, op: &Value) -> Result<String, rhwp::error::HwpError> {
+    let mut para = op["startPara"].as_u64().unwrap() as usize;
+    let mut at = op["start"].as_u64().unwrap() as usize;
+    if op["selection"].as_bool().unwrap() {
+        d.delete_range_native(
+            0,
+            para,
+            at,
+            op["endPara"].as_u64().unwrap() as usize,
+            op["end"].as_u64().unwrap() as usize,
+            None,
+        )?;
+    }
+    let text = op["text"]
+        .as_str()
+        .unwrap()
+        .replace("\r\n", "\n")
+        .replace('\r', "\n");
+    let lines: Vec<_> = text.split('\n').collect();
+    for (i, line) in lines.iter().enumerate() {
+        if !line.is_empty() {
+            d.insert_text_native(0, para, at, line)?;
+            at += line.chars().count();
+        }
+        if i + 1 < lines.len() {
+            d.split_paragraph_native(0, para, at, None)?;
+            para += 1;
+            at = 0;
+        }
+    }
+    Ok(format!(
+        "{{\"ok\":true,\"paraIdx\":{para},\"charOffset\":{at}}}"
+    ))
 }
 fn apply_range(d: &mut DocumentCore, op: &Value) -> Result<String, rhwp::error::HwpError> {
     let sp = op["startPara"].as_u64().unwrap() as usize;
@@ -567,6 +602,31 @@ fn main() {
     let a = std::env::args().skip(1).collect::<Vec<_>>();
     let out = Path::new(&a[1]);
     std::fs::create_dir_all(out).unwrap();
+    if a[0] == "prepare-paste" {
+        let reference =
+            DocumentCore::from_bytes(&std::fs::read(Path::new(&a[2]).join("seed.hwpx")).unwrap())
+                .unwrap();
+        let mut d = fixture_core(&reference);
+        let mut doc = d.document().clone();
+        doc.sections[0].paragraphs = vec![rhwp::model::paragraph::Paragraph::new_empty(); 4];
+        d.set_document(doc);
+        for (p, text) in ["가🙂나다𐐀마", "둘🙂문단", "셋𐐀본문", "끝🙂보존"]
+            .iter()
+            .enumerate()
+        {
+            d.insert_text_native(0, p, 0, text).unwrap();
+            d.apply_char_format_native(
+                0,
+                p,
+                1,
+                3,
+                r##"{"bold":true,"fontSize":1600,"textColor":"#345678"}"##,
+            )
+            .unwrap();
+        }
+        std::fs::write(out.join("plain.hwpx"), d.export_hwpx_native().unwrap()).unwrap();
+        return;
+    }
     if a[0] == "prepare-range" {
         prepare_range(out, Path::new(&a[2]));
         return;
@@ -637,7 +697,10 @@ fn main() {
             let b = d.save_snapshot_native();
             apply(&mut d, op);
             if op["kind"].as_str().unwrap().starts_with("text")
-                || matches!(op["kind"].as_str(), Some("split" | "merge" | "rangeDelete"))
+                || matches!(
+                    op["kind"].as_str(),
+                    Some("split" | "merge" | "rangeDelete" | "pastePlain")
+                )
             {
                 preserved = refs(&d);
             } else {
