@@ -2254,22 +2254,22 @@ impl HwpDocument {
     #[wasm_bindgen(js_name = mergeTableCells)]
     pub fn merge_table_cells(
         &mut self,
-        section_idx: u32,
-        parent_para_idx: u32,
-        control_idx: u32,
-        start_row: u32,
-        start_col: u32,
-        end_row: u32,
-        end_col: u32,
+        section_idx: f64,
+        parent_para_idx: f64,
+        control_idx: f64,
+        start_row: f64,
+        start_col: f64,
+        end_row: f64,
+        end_col: f64,
     ) -> Result<String, JsValue> {
         self.merge_table_cells_native(
-            section_idx as usize,
-            parent_para_idx as usize,
-            control_idx as usize,
-            start_row as u16,
-            start_col as u16,
-            end_row as u16,
-            end_col as u16,
+            table_merge_index(section_idx, u32::MAX)?,
+            table_merge_index(parent_para_idx, u32::MAX)?,
+            table_merge_index(control_idx, u32::MAX)?,
+            table_merge_index(start_row, u16::MAX as u32)? as u16,
+            table_merge_index(start_col, u16::MAX as u32)? as u16,
+            table_merge_index(end_row, u16::MAX as u32)? as u16,
+            table_merge_index(end_col, u16::MAX as u32)? as u16,
         )
         .map_err(|e| e.into())
     }
@@ -2280,15 +2280,27 @@ impl HwpDocument {
     /// endRow, endCol }`. positional 과 동일 동작.
     #[wasm_bindgen(js_name = mergeTableCellsEx)]
     pub fn merge_table_cells_ex(&mut self, options_json: &str) -> Result<String, JsValue> {
-        use crate::document_core::helpers::json_u32;
+        #[derive(serde::Deserialize)]
+        #[serde(rename_all = "camelCase", deny_unknown_fields)]
+        struct Options {
+            section_idx: u32,
+            parent_para_idx: u32,
+            control_idx: u32,
+            start_row: u16,
+            start_col: u16,
+            end_row: u16,
+            end_col: u16,
+        }
+        let options: Options = serde_json::from_str(options_json)
+            .map_err(|_| JsValue::from_str("셀 병합 옵션에는 유효한 정수 좌표가 모두 필요합니다"))?;
         self.merge_table_cells_native(
-            json_u32(options_json, "sectionIdx").unwrap_or(0) as usize,
-            json_u32(options_json, "parentParaIdx").unwrap_or(0) as usize,
-            json_u32(options_json, "controlIdx").unwrap_or(0) as usize,
-            json_u32(options_json, "startRow").unwrap_or(0) as u16,
-            json_u32(options_json, "startCol").unwrap_or(0) as u16,
-            json_u32(options_json, "endRow").unwrap_or(0) as u16,
-            json_u32(options_json, "endCol").unwrap_or(0) as u16,
+            options.section_idx as usize,
+            options.parent_para_idx as usize,
+            options.control_idx as usize,
+            options.start_row,
+            options.start_col,
+            options.end_row,
+            options.end_col,
         )
         .map_err(|e| e.into())
     }
@@ -9107,6 +9119,13 @@ fn strict_comment_text(value: JsValue) -> Result<String, JsValue> {
 }
 
 /// wasm32 indices are unsigned 32-bit integers, never truncated JS numbers.
+fn table_merge_index(value: f64, maximum: u32) -> Result<usize, JsValue> {
+    if !value.is_finite() || value.fract() != 0.0 || value < 0.0 || value > maximum as f64 {
+        return Err(JsValue::from_str("셀 병합 좌표는 범위 안의 정수여야 합니다"));
+    }
+    Ok(value as usize)
+}
+
 fn hyperlink_index(value: f64) -> Result<usize, JsValue> {
     if !value.is_finite() || value.fract() != 0.0 || value < 0.0 || value > u32::MAX as f64 {
         return Err(JsValue::from_str("본문 하이퍼링크 좌표/ID는 유효한 정수여야 합니다"));

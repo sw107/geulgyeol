@@ -1873,7 +1873,9 @@ impl Table {
             .map(|r| raw_row_heights.get(r as usize).copied().unwrap_or(0))
             .sum();
 
-        // 비주 셀의 비어있지 않은 문단 수집 (모든 메타데이터 보존)
+        // Move whole paragraphs: fields and nested controls own their offsets and
+        // CTRL_DATA inside this paragraph. Rebuilding only text/shape fields loses
+        // those owners while leaving their visible text or control slots behind.
         let mut extra_paragraphs: Vec<Paragraph> = Vec::new();
         for cell in &self.cells {
             if cell.col == start_col && cell.row == start_row {
@@ -1885,22 +1887,15 @@ impl Table {
                 && cell.row <= end_row;
             if in_range {
                 for para in &cell.paragraphs {
-                    if !para.text.is_empty() {
-                        extra_paragraphs.push(Paragraph {
-                            text: para.text.clone(),
-                            char_count: para.char_count,
-                            char_count_msb: para.char_count_msb,
-                            control_mask: para.control_mask,
-                            char_offsets: para.char_offsets.clone(),
-                            char_shapes: para.char_shapes.clone(),
-                            line_segs: para.line_segs.clone(),
-                            range_tags: para.range_tags.clone(),
-                            para_shape_id: para.para_shape_id,
-                            style_id: para.style_id,
-                            raw_header_extra: para.raw_header_extra.clone(),
-                            has_para_text: para.has_para_text,
-                            ..Default::default()
-                        });
+                    if !para.text.is_empty()
+                        || !para.controls.is_empty()
+                        || !para.field_ranges.is_empty()
+                        || !para.orphan_field_ends.is_empty()
+                        || !para.range_tags.is_empty()
+                        || !para.title_marks.is_empty()
+                        || para.ctrl_data_records.iter().any(Option::is_some)
+                    {
+                        extra_paragraphs.push(para.clone());
                     }
                 }
             }
