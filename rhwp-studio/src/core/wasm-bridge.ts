@@ -2157,6 +2157,11 @@ export class WasmBridge {
     return JSON.parse(this.doc.getPageControlLayout(pageNum));
   }
 
+  getPictureCaptionEditInfo(sec: number, para: number, ci: number): { paragraphs: { text: string; editFrom: number }[] } {
+    if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
+    return JSON.parse(this.doc.getPictureCaptionEditInfo(sec, para, ci));
+  }
+
   getPictureProperties(sec: number, para: number, ci: number): import('./types').PictureProperties {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     return JSON.parse(this.doc.getPictureProperties(sec, para, ci));

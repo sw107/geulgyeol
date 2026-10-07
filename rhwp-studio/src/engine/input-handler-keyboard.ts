@@ -1452,6 +1452,7 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
       e.preventDefault();
       if (this.isFormMode?.() && e.altKey) return;
       if (this.cursor.hasSelection()) {
+        if (this.tryEditPictureCaption?.('delete')) break;
         this.deleteSelection();
       } else if (e.altKey) {
         // Alt/Option+Backspace/Delete: 단어 삭제 (macOS standard)
@@ -1468,6 +1469,7 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
     case 'Enter': {
       e.preventDefault();
       if (this.isFormMode?.()) return;
+      if (this.tryEditPictureCaption?.(e.shiftKey ? 'break' : 'split')) break;
       if (this.cursor.hasSelection()) this.deleteSelection();
       if (e.shiftKey) {
         // Shift+Enter: 강제 줄바꿈 (문단 유지, 줄만 바꿈)
@@ -1957,6 +1959,11 @@ export function onPaste(this: any, e: ClipboardEvent): void {
   const clipboardData = e.clipboardData;
   const html = clipboardData?.getData('text/html') || '';
   const text = clipboardData?.getData('text/plain') || '';
+  // A picture caption accepts plain text only; reject rich/internal payloads before deletion.
+  if (this.isPictureCaptionEditing?.()) {
+    if (!html && text) this.tryEditPictureCaption?.('replace', text);
+    return;
+  }
   // HF는 이번 이슈에서 rich clipboard round-trip을 만들지 않는다. 내부 marker/HTML이
   // 있어도 시스템 plain text를 코어의 원자 범위 primitive로 삽입·치환한다.
   if (this.cursor.isInHeaderFooter()) {

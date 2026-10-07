@@ -221,6 +221,7 @@ function tryDeleteBodyFootnoteAtCursor(
 }
 
 export function handleBackspace(this: any, pos: DocumentPosition, inCell: boolean): void {
+  if (this.tryEditPictureCaption?.('backspace')) return;
   if (this.isFormMode?.() && !this.canEditCurrentFormField?.()) return;
   // 머리말/꼬리말 편집 모드
   if (this.cursor.isInHeaderFooter()) {
@@ -291,6 +292,7 @@ export function handleBackspace(this: any, pos: DocumentPosition, inCell: boolea
 }
 
 export function handleDelete(this: any, pos: DocumentPosition, inCell: boolean): void {
+  if (this.tryEditPictureCaption?.('forward')) return;
   if (this.isFormMode?.() && !this.canEditCurrentFormField?.()) return;
   // 머리말/꼬리말 편집 모드
   if (this.cursor.isInHeaderFooter()) {
@@ -387,6 +389,7 @@ export function onCompositionStart(this: any): void {
 
   this.resetRawTextMutationEffects();
   this.headerFooterSelectionComposition = false;
+  const captionComposition = this.beginPictureCaptionComposition?.() === true;
   // 선택 영역이 있으면 삭제 후 조합 시작
   if (
     this.cursor.isInHeaderFooter()
@@ -396,7 +399,7 @@ export function onCompositionStart(this: any): void {
       this.textarea.value = '';
       return;
     }
-  } else if (!this.cursor.isInHeaderFooter() && this.cursor.hasSelection()) {
+  } else if (!captionComposition && !this.cursor.isInHeaderFooter() && this.cursor.hasSelection()) {
     if (!this.canDeleteSelectionInFormMode?.()) {
       this.textarea.value = '';
       return;
@@ -443,6 +446,7 @@ export function onCompositionEnd(this: any): void {
   const finalLength = this.compositionLength;
   const headerFooterSelectionComposition = this.headerFooterSelectionComposition === true;
   const pendingFootnoteComposition = this.finishPendingFootnoteComposition?.() === true;
+  const pendingCaptionComposition = this.finishPictureCaptionComposition?.() === true;
 
   this.isComposing = false;
   this.compositionAnchor = null;
@@ -459,7 +463,7 @@ export function onCompositionEnd(this: any): void {
   // 조합 중 WASM 직접 호출로 이미 문서에 삽입된 텍스트를
   // Command로 기록하여 Undo 가능하게 한다.
   // [Task #2337] 머리말/꼬리말·각주 모드도 이제 기록한다(본문 스냅샷 undo 의 무언 파괴 차단).
-  if (anchor && finalLength > 0 && !headerFooterSelectionComposition && !pendingFootnoteComposition) {
+  if (anchor && finalLength > 0 && !headerFooterSelectionComposition && !pendingFootnoteComposition && !pendingCaptionComposition) {
     if (this.cursor.isInHeaderFooter()) {
       // HF 는 신뢰할 텍스트 read 가 없어 getTextAt(본문 리더)을 쓸 수 없으므로 조합 텍스트
       // (_lastCompositionText)를 그대로 기록한다. anchor.charOffset = 조합 시작 오프셋,
@@ -534,6 +538,7 @@ export function onInput(this: any, e?: InputEvent): void {
   // IME 조합 중: 이전 조합 텍스트 삭제 → 현재 조합 텍스트 삽입 (실시간 렌더링)
   // Undo 스택에는 기록하지 않음 (compositionend에서 한 번에 기록)
   if (this.isComposing && this.compositionAnchor) {
+    if (this.updatePictureCaptionComposition?.(text)) return;
     if (this.updatePendingFootnoteComposition?.(text)) return;
     let anchor = this.compositionAnchor;
     const beforePageIndex = this.cursor.getRect()?.pageIndex;
@@ -675,6 +680,8 @@ export function onInput(this: any, e?: InputEvent): void {
   }
   this._lastComposedText = '';
   this.textarea.value = '';
+
+  if (this.tryEditPictureCaption?.('replace', text)) return;
 
   // 머리말/꼬리말 편집 모드
   if (this.cursor.isInHeaderFooter()) {

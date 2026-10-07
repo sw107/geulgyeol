@@ -29,3 +29,4 @@ mod paragraph_paths;
 
 mod note_char_format;
 mod note_para_format;
+mod caption_text;

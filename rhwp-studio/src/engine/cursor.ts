@@ -344,6 +344,24 @@ export class CursorState {
     return true;
   }
 
+  /** Caption-only restoration; ordinary selectRange keeps its verified body contract. */
+  selectPictureCaptionRange(start: DocumentPosition, end: DocumentPosition): boolean {
+    if (start.sectionIndex !== end.sectionIndex || start.parentParaIndex === undefined
+      || start.parentParaIndex !== end.parentParaIndex || start.controlIndex !== end.controlIndex
+      || start.cellIndex !== 0 || end.cellIndex !== 0 || start.cellPath?.length || end.cellPath?.length) return false;
+    try {
+      const info = this.wasm.getPictureCaptionEditInfo(start.sectionIndex, start.parentParaIndex, start.controlIndex!);
+      for (const p of [start, end]) {
+        const paragraph = info.paragraphs[p.cellParaIndex ?? 0];
+        if (!paragraph || !Number.isInteger(p.charOffset) || p.charOffset < paragraph.editFrom || p.charOffset > [...paragraph.text].length) return false;
+      }
+      if (CursorState.comparePositions(start, end) > 0) return false;
+      this.anchor = { ...start }; this.position = { ...end };
+      this._blockSelectionMode = false; this._expandPhase = 0;
+      this.updateRect(); return true;
+    } catch { return false; }
+  }
+
   /**
    * 지금이 F3 블록 선택이면 그 확장 단계, 아니면 `null` (Task #3416).
    *

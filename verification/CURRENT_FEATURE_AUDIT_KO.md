@@ -156,3 +156,9 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 `3df19d9`의 실제 소스/최종 엔진을 공식 Vite 설정+QA 전용 headed Mac Chrome으로 실행했다. 실제 DOM/Canvas2D/InputHandler에서 책갈피 구조·선택 삭제/일반 붙여넣기·그림 캡션 삽입/입력/속성 제거/개체 Delete·Chrome 자동 조합12흐름, undo/redo36쌍, HWP/HWPX30재열기를 통과했다. 기존 화면 권한으로 자체 창만 캡처했고 AX 권한은 false다. OS 권한·클립보드·기존 앱 변경은 없으며 물리 IME/마우스 hit-testing/네이티브 파일대화상자/Electron host/Linux/한컴 검증은 아니다.
 
 캡션 일반 입력/자동 조합 undo의 HWP 저장 줄 생성과 그림 Delete undo의 저장 캐럿 위치 차이는 독립 레코드 대조로 확인했다. 정확 HWPX·내용/서식/참조·이미지·전체 SVG 및 undo 재열기 통과이며 HWP 바이트 완전 복원은 주장하지 않는다. 제품 코드 수정 없음. 기존18777보호파일 불변·추가약409.9MiB/target3.960GiB/free최저19.49GiB·검증 창/서버 잔류0. [상세 결과](mac-source-ui/RESULT_KO.md). 다음 개발 제안은 기존 혼합 서식 캡션의 선택 교체/삭제/줄나눔 원자 이력이며 이번에는 구현하지 않았다.
+
+## 기존 혼합 서식 캡션 편집 후속 구현
+
+직접 서식 Delete undo 손실, 선택 교체의 빈 경로 거절, 번호 캡션 Enter의 한 scalar 앞 나눔을 실제 Mac 현재 소스에서 재현·수정했다. 일반 본문 떠 있는 회전0 Top/Bottom·텍스트/그림 번호만 있는 캡션에 한정해 선택 교체/삭제·문단 합침/나눔·plain 여러 줄 붙여넣기·조합을 원자 snapshot 이력으로 연결했다. 번호/라벨·직접 서식·그림/주석/본문 참조를 보존하고 비지원 범위는 변경 전에 거절한다.
+
+실제 Mac headed 현재 소스36편집/144이력쌍/144재열기/12거절·취소·실패 통과, 독립 Native144재열기/264snapshot쌍/14비지원 조회 및 기존5회귀 WASM/Native 각1344재열기·TypeScript/Clippy 통과. 새 검사에서 undo 바이트가 정확해도 이전 HWP 메타데이터 차이3건은 해결 주장 없이 별도 보존한다. 기존20677보호파일 불변·추가261.4MiB/target최대4.071GiB/free최저19.226GiB·검증 프로세스잔류0. 새 앱/공개/삭제는 없고 물리 IME/설치 Electron/한컴/Linux는 미검증이다. [지원 범위·결과·한계](caption-text/RESULT_KO.md).

@@ -1464,6 +1464,11 @@ impl HwpDocument {
         .map_err(|e| e.into())
     }
 
+    #[wasm_bindgen(js_name = getPictureCaptionEditInfo)]
+    pub fn get_picture_caption_edit_info(&self, sec: u32, para: u32, ctrl: u32) -> Result<String, JsValue> {
+        self.get_picture_caption_edit_info_native(sec as usize, para as usize, ctrl as usize).map_err(|e| e.into())
+    }
+
     /// 표 셀 내부 문단에 텍스트를 삽입하되 전체 페이지네이션은 호출자가 지연한다.
     ///
     /// Studio의 page-local 단일 입력처럼 현재 페이지를 먼저 갱신하고 idle 시점에

@@ -4838,6 +4838,12 @@ impl DocumentCore {
             .ok_or_else(|| HwpError::RenderError("셀 문단 범위 초과".into()))?;
         let next_style = super::next_style::prepare(&self.document.doc_info, source, char_offset,
             apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
+        // Picture caption APIs expose visible scalar offsets. split_at also counts
+        // the automatic-number control slot; translate only this caption axis.
+        let split_offset = if matches!(self.document.sections[section_idx].paragraphs[parent_para_idx].controls.get(control_idx), Some(Control::Picture(_))) {
+            char_offset + source.controls.iter().zip(source.control_text_positions())
+                .filter(|(control, at)| Paragraph::is_split_movable_control(control) && *at < char_offset).count()
+        } else { char_offset };
         // 셀 문단 검증 및 분할
         let cell_para = self.get_cell_paragraph_mut(
             section_idx,
@@ -4847,7 +4853,7 @@ impl DocumentCore {
             cell_para_idx,
         )?;
         let original_vpos = cell_para.line_segs.first().map(|seg| seg.vertical_pos);
-        let mut new_para = cell_para.split_at(char_offset);
+        let mut new_para = cell_para.split_at(split_offset);
         if let Some(meta) = restore_meta {
             new_para.apply_meta(meta);
         }

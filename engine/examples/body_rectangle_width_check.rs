@@ -102,7 +102,7 @@ fn main() {
     let a = std::env::args().skip(1).collect::<Vec<_>>();
     let out = Path::new(&a[0]);
     std::fs::create_dir_all(out).unwrap();
-    if a[1] == "--verify-caption-history" {
+    if a[1] == "--verify-caption-history" || a[1] == "--verify-caption-text" {
         let manifest: Vec<Value> =
             serde_json::from_slice(&std::fs::read(out.join("manifest.json")).unwrap()).unwrap();
         let mut snapshot_pairs = 0;
@@ -139,6 +139,83 @@ fn main() {
                 "delete" => {
                     d.delete_picture_control_native(0, para, ci).unwrap();
                 }
+                "captionRange" => {
+                    let info: Value = serde_json::from_str(
+                        &d.get_picture_caption_edit_info_native(0, para, ci).unwrap(),
+                    )
+                    .unwrap();
+                    let sp = op["startPara"].as_u64().unwrap() as usize;
+                    let ep = op["endPara"].as_u64().unwrap() as usize;
+                    let at = op["start"].as_u64().unwrap() as usize;
+                    let end = op["end"].as_u64().unwrap() as usize;
+                    for (p, offset) in [(sp, at), (ep, end)] {
+                        assert!(
+                            offset >= info["paragraphs"][p]["editFrom"].as_u64().unwrap() as usize
+                        );
+                        assert!(
+                            offset
+                                <= info["paragraphs"][p]["text"]
+                                    .as_str()
+                                    .unwrap()
+                                    .chars()
+                                    .count()
+                        );
+                    }
+                    let shape = if op["inheritSelection"] == true {
+                        let props: Value = serde_json::from_str(
+                            &d.get_cell_char_properties_at_native(0, para, ci, 0, sp, at)
+                                .unwrap(),
+                        )
+                        .unwrap();
+                        Some(props["charShapeId"].as_u64().unwrap() as u32)
+                    } else {
+                        None
+                    };
+                    if sp != ep || at != end {
+                        d.delete_range_in_cell_by_path(0, para, &[(ci, 0, sp)], sp, at, ep, end)
+                            .unwrap();
+                    }
+                    let text = op["text"]
+                        .as_str()
+                        .unwrap_or("")
+                        .replace("\r\n", "\n")
+                        .replace('\r', "\n");
+                    let action = op["action"].as_str().unwrap();
+                    let lines = if action == "break" {
+                        vec!["\n"]
+                    } else {
+                        text.split('\n').collect::<Vec<_>>()
+                    };
+                    let mut p = sp;
+                    let mut offset = at;
+                    for (i, line) in lines.iter().enumerate() {
+                        if !line.is_empty() {
+                            d.insert_text_in_cell_native(0, para, ci, 0, p, offset, line)
+                                .unwrap();
+                            if let Some(id) = shape {
+                                d.set_char_shape_id_in_cell_native(
+                                    0,
+                                    para,
+                                    ci,
+                                    0,
+                                    p,
+                                    offset,
+                                    offset + line.chars().count(),
+                                    id,
+                                )
+                                .unwrap();
+                            }
+                            offset += line.chars().count();
+                        }
+                        if i + 1 < lines.len() || action == "split" {
+                            d.split_paragraph_in_cell_native(0, para, ci, 0, p, offset, None)
+                                .unwrap();
+                            p += 1;
+                            offset = 0;
+                        }
+                    }
+                }
+
                 _ => panic!("Unknown caption history operation"),
             }
         }
@@ -154,7 +231,11 @@ fn main() {
                     }
                 }
             }
-            json!({"paragraphs":d.document().sections[0].paragraphs,"styles":format!("{:?}", d.document().doc_info.styles),"charShapes":format!("{:?}", d.document().doc_info.char_shapes),"binData":format!("{:?}", d.document().bin_data_content)})
+            let mut info = d.document().doc_info.clone();
+            info.raw_stream = None;
+            info.raw_stream_dirty = false;
+            info.raw_provenance = None;
+            json!({"paragraphs":d.document().sections[0].paragraphs,"docInfo":format!("{:?}", info),"binData":format!("{:?}", d.document().bin_data_content)})
         }
         for row in &manifest {
             let mut d =
@@ -197,7 +278,69 @@ fn main() {
             }
             assert_eq!(canonical(actual), canonical(expected), "{}", file.display());
         }
-        std::fs::write(out.join("native-caption-proof.json"),serde_json::to_vec_pretty(&json!({"independentSavedReopens":manifest.len(),"nativeCommandReexecution":true,"snapshotPairs":snapshot_pairs,"fullSvgParagraphsStylesCaptionAndImageCompared":true,"noteHeaderTrailingZeroPaddingCanonicalized":true})).unwrap()).unwrap();
+        let mut caption_refusals = 0;
+        if a[1] == "--verify-caption-text" {
+            let row = &manifest[0];
+            let original =
+                DocumentCore::from_bytes(&std::fs::read(row["input"].as_str().unwrap()).unwrap())
+                    .unwrap()
+                    .document()
+                    .clone();
+            let para = row["ref"]["ppi"].as_u64().unwrap() as usize;
+            let ci = row["ref"]["ci"].as_u64().unwrap() as usize;
+            for kind in 0..10 {
+                let mut d = DocumentCore::new_empty();
+                d.set_document(original.clone());
+                let Control::Picture(pic) =
+                    &mut d.document_mut().sections[0].paragraphs[para].controls[ci]
+                else {
+                    panic!()
+                };
+                match kind {
+                    0 => pic.common.treat_as_char = true,
+                    1 => pic.shape_attr.rotation_angle = 30,
+                    2 => {
+                        pic.caption.as_mut().unwrap().direction =
+                            rhwp::model::shape::CaptionDirection::Left
+                    }
+                    3 => pic.caption = None,
+                    4 => pic.caption.as_mut().unwrap().paragraphs.clear(),
+                    5 => pic.caption.as_mut().unwrap().paragraphs[0].controls.push(
+                        Control::Bookmark(rhwp::model::control::Bookmark {
+                            name: "protected".into(),
+                        }),
+                    ),
+                    6 => pic.caption.as_mut().unwrap().paragraphs[0]
+                        .controls
+                        .push(Control::Field(Default::default())),
+                    7 => pic.caption.as_mut().unwrap().paragraphs[0]
+                        .range_tags
+                        .push(Default::default()),
+                    8 => pic.caption.as_mut().unwrap().paragraphs[0]
+                        .orphan_field_ends
+                        .push(Default::default()),
+                    _ => {
+                        let p = &mut pic.caption.as_mut().unwrap().paragraphs[0];
+                        p.text.clear();
+                        p.char_offsets.clear();
+                    }
+                }
+                let before = format!("{:?}", d.document());
+                assert!(d.get_picture_caption_edit_info_native(0, para, ci).is_err());
+                assert_eq!(format!("{:?}", d.document()), before);
+                caption_refusals += 1;
+            }
+            let d =
+                DocumentCore::from_bytes(&std::fs::read(row["input"].as_str().unwrap()).unwrap())
+                    .unwrap();
+            for (sec, p, c) in [(999, para, ci), (0, 999, ci), (0, para, 999), (0, para, 0)] {
+                let before = format!("{:?}", d.document());
+                assert!(d.get_picture_caption_edit_info_native(sec, p, c).is_err());
+                assert_eq!(format!("{:?}", d.document()), before);
+                caption_refusals += 1;
+            }
+        }
+        std::fs::write(out.join("native-caption-proof.json"),serde_json::to_vec_pretty(&json!({"independentSavedReopens":manifest.len(),"nativeCommandReexecution":true,"snapshotPairs":snapshot_pairs,"captionScopeReadonlyRefusals":caption_refusals,"fullSvgParagraphsStylesCaptionAndImageCompared":true,"noteHeaderTrailingZeroPaddingCanonicalized":true})).unwrap()).unwrap();
         return;
     }
     if a[1] == "--verify-band-ui" {

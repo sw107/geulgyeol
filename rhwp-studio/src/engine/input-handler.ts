@@ -1,3 +1,4 @@
+import * as _captionText from './input-handler-caption';
 import { deleteEquationSelection } from './equation-target';
 import { WasmBridge } from '@/core/wasm-bridge';
 import type { DeferredFocusedPagePatch } from '@/core/wasm-bridge';
@@ -630,7 +631,7 @@ export class InputHandler {
     this.onCompositionStartBound = this.onCompositionStart.bind(this);
     this.onCompositionEndBound = this.onCompositionEnd.bind(this);
     this.onInputBlurBound = () => {
-      if (this.pendingFootnoteComposition) this.onCompositionEnd();
+      if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition()) this.onCompositionEnd();
       this.flushDeferredPaginationIfNeeded('input-blur', false);
     };
     this.onCopyBound = this.onCopy.bind(this);
@@ -3111,7 +3112,7 @@ export class InputHandler {
 
   /** Undo 처리 */
   private handleUndo(): void {
-    if (this.pendingFootnoteComposition) this.onCompositionEnd();
+    if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
     this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-undo', false);
     const newPos = this.history.undo(this.wasm);
@@ -3131,6 +3132,7 @@ export class InputHandler {
 
   /** Redo 처리 */
   private handleRedo(): void {
+    if (this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
     if (this.pendingFootnoteComposition) this.onCompositionEnd();
     this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-redo', false);
@@ -3291,6 +3293,7 @@ export class InputHandler {
     // 차단은 anchor/focus 소유자의 계약이다). 거절되면 해제된 상태 그대로 둔다.
     // 블록 단계는 범위와 같은 호출로 세운다 — `resetDerivedStateAfterHistoryJump` 의
     // `exitBlockSelectionMode()` 가 방금 0 으로 되돌린 것을 여기서 되살린다.
+    if (range.start.parentParaIndex !== undefined && this.cursor.selectPictureCaptionRange(range.start, range.end)) return;
     this.cursor.selectRange(range.start, range.end, range.blockPhase);
   }
 
@@ -3331,7 +3334,7 @@ export class InputHandler {
   }
 
   executeOperation(desc: OperationDescriptor): void {
-    if (this.pendingFootnoteComposition) this.onCompositionEnd();
+    if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
     if (!this.isOperationAllowedInEditMode(desc)) return;
     switch (desc.kind) {
       case 'command': {
@@ -4476,6 +4479,7 @@ export class InputHandler {
   }
 
   deactivate(): void {
+    _captionText.cancelComposition.call(this);
     this.cancelPendingFootnoteComposition();
     this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-deactivate', false);
@@ -4526,6 +4530,7 @@ export class InputHandler {
   }
 
   dispose(): void {
+    _captionText.cancelComposition.call(this);
     this.cancelPendingFootnoteComposition();
     this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-dispose', false);
@@ -4866,6 +4871,13 @@ export class InputHandler {
     this.afterEdit();
   }
 
+  tryEditPictureCaption(action: 'replace' | 'delete' | 'backspace' | 'forward' | 'split' | 'break', text = ''): boolean { return _captionText.tryEdit.call(this, action, text); }
+  isPictureCaptionEditing(): boolean { return _captionText.isEditing.call(this); }
+  beginPictureCaptionComposition(): boolean { return _captionText.beginComposition.call(this); }
+  updatePictureCaptionComposition(text: string): boolean { return _captionText.updateComposition.call(this, text); }
+  finishPictureCaptionComposition(): boolean { return _captionText.finishComposition.call(this); }
+  hasPictureCaptionComposition(): boolean { return _captionText.hasComposition.call(this); }
+
   /** 글상자 내부 텍스트 편집 모드 진입 */
   private enterTextboxEditing(sec: number, ppi: number, ci: number): void {
     this.enterInlineEditing(sec, ppi, ci, 0);
@@ -4873,6 +4885,7 @@ export class InputHandler {
 
   /** 캡션/글상자 내부 텍스트 편집 모드 진입 (charOffset 지정 가능) */
   enterInlineEditing(sec: number, ppi: number, ci: number, charOffset = 0): void {
+    try { charOffset = Math.max(charOffset, this.wasm.getPictureCaptionEditInfo(sec, ppi, ci).paragraphs[0].editFrom); } catch { /* Other inline editors retain their position. */ }
     this.cursor.clearSelection();
     this.cursor.moveTo({
       sectionIndex: sec,
