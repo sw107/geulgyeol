@@ -1200,7 +1200,7 @@ impl DocumentCore {
                     )
                 }).collect();
                 let (fill_type_str, fill_color, pat_color, pat_type) = match &bf.fill.solid {
-                    Some(sf) if bf.fill.fill_type == FillType::Solid => {
+                    Some(sf) if bf.fill.effective_type() == FillType::Solid => {
                         ("solid", color_ref_to_css(sf.background_color),
                          color_ref_to_css(sf.pattern_color), sf.pattern_type)
                     }
@@ -1736,7 +1736,7 @@ impl DocumentCore {
             .and_then(|v| v.as_u64())
             .map(|v| v as u16)
             .unwrap_or(0);
-        if incoming_bf_id == 0 {
+        if incoming_bf_id == 0 && obj.contains_key("borderFillId") {
             return json.to_string();
         }
 
@@ -1755,6 +1755,17 @@ impl DocumentCore {
         let Some(cell) = table.cells.get(cell_idx) else {
             return json.to_string();
         };
+        if incoming_bf_id == 0 {
+            // A fill-only patch must inherit the cell's existing borders and
+            // diagonals rather than the new BorderFill's default solid lines.
+            obj.insert("borderFillId".to_string(), serde_json::Value::from(cell.border_fill_id));
+            if cell.border_fill_id == 0 {
+                for key in ["borderLeft", "borderRight", "borderTop", "borderBottom"] {
+                    obj.entry(key).or_insert_with(|| serde_json::json!({"type":0,"width":0,"color":"#000000"}));
+                }
+            }
+            return serde_json::to_string(&value).unwrap_or_else(|_| json.to_string());
+        }
         if cell.border_fill_id == incoming_bf_id
             || !Self::cell_is_covered_by_zone_border_fill(table, cell, incoming_bf_id)
         {
@@ -3299,7 +3310,19 @@ impl DocumentCore {
             || json.contains("\"diagonalColor\"")
             || json.contains("\"centerLine\"");
         if has_border_fill_change {
-            let new_bf_id = self.create_border_fill_from_json(json);
+            // Preserve unspecified attributes in partial table fill edits.
+            let mut border_json = serde_json::from_str::<serde_json::Value>(json)
+                .unwrap_or(serde_json::Value::Null);
+            if let Some(obj) = border_json.as_object_mut() {
+                obj.entry("borderFillId").or_insert_with(|| serde_json::Value::from(table.border_fill_id));
+                if table.border_fill_id == 0 && !json.contains("\"borderFillId\"") {
+                    for key in ["borderLeft", "borderRight", "borderTop", "borderBottom"] {
+                        obj.entry(key).or_insert_with(|| serde_json::json!({"type":0,"width":0,"color":"#000000"}));
+                    }
+                }
+            }
+            let border_json = serde_json::to_string(&border_json).unwrap_or_else(|_| json.to_string());
+            let new_bf_id = self.create_border_fill_from_json(&border_json);
             let table = self.get_table_mut(section_idx, parent_para_idx, control_idx)?;
             table.border_fill_id = new_bf_id;
             for cell in &mut table.cells {

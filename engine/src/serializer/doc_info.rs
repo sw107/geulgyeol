@@ -584,7 +584,8 @@ pub fn serialize_border_fill(bf: &BorderFill) -> Vec<u8> {
 }
 
 fn serialize_fill(w: &mut ByteWriter, fill: &crate::model::style::Fill) {
-    let fill_type_val: u32 = match fill.fill_type {
+    let stored_type = fill.hwp_storage_type();
+    let fill_type_val: u32 = match stored_type {
         FillType::None => 0,
         FillType::Solid => 1,
         FillType::Image => 2,
@@ -592,7 +593,7 @@ fn serialize_fill(w: &mut ByteWriter, fill: &crate::model::style::Fill) {
     };
     w.write_u32(fill_type_val).unwrap();
 
-    match fill.fill_type {
+    match stored_type {
         FillType::Solid => {
             if let Some(ref solid) = fill.solid {
                 w.write_color_ref(solid.background_color).unwrap();

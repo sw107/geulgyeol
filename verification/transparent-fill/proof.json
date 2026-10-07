@@ -1,0 +1,340 @@
+{
+  "baseHead": "4784d148dfc91b6810d49d1d8762942a038a80bd",
+  "buildProvenance": {
+    "baseHead": "4784d148dfc91b6810d49d1d8762942a038a80bd",
+    "sourceSHA256": {
+      "engine/examples/empty_document_check.rs": "9f9a2851a45e7ac0758e091046caeb3a3f190a2908c145eb8d23184ffb92eace",
+      "engine/src/document_core/commands/formatting.rs": "6c17bf7cf5e06972d201b4cccd0f48ab3cada5fa0213f9a49fe4ae53395aab9f",
+      "engine/src/document_core/commands/object_ops/shape.rs": "67d90a3036b67297c82649e6647d73e78144bef088e9b2339e46d0e297e82d13",
+      "engine/src/document_core/commands/table_ops.rs": "f1589ea8e4ff8214c76c8b3c99a30b3859360162d29221ac30ca90d0e398b1d8",
+      "engine/src/document_core/queries/rendering.rs": "7d04b23929520d2e6d55d34ea680bc9e57158dd8322c26c6d56ffd04f37863ac",
+      "engine/src/model/style.rs": "3f6523b6e3e3e292248ce0d168a8cbd311ba3b84f6d1456be36e287305869fe3",
+      "engine/src/serializer/control.rs": "910ee4adc2297999052f309081098145d29f18fed8b01e326656d6248064eb49",
+      "engine/src/serializer/doc_info.rs": "3a3a97fefb417c31a4509c788f4319f70528853747bfb24e60a25698d168a9d1",
+      "rhwp-studio/src/ui/picture-props-apply-model.ts": "ec6b13687f0184d17c0070b0fc787c13c37e370639bdcfbe24f63297419d04eb",
+      "scripts/check-empty-document.mjs": "ba39db9574640df1fde63504c247833be233c59416b45d86f1bfcd1ffb708a83",
+      "scripts/check-new-document-renderer.mjs": "25e42a7f0b78780898508820a97ebfbc18f7618eb2feecfa5fffee07b1270627",
+      "engine/examples/transparent_fill_check.rs": "1bae83ef9ca5ca4c86ed0ea565207737ce90d3fdfaa2d094ef566388531f7226",
+      "scripts/check-transparent-fill.mjs": "644d6508a3cd1e059e27dc34cea0e47b75b9a90b91066dab8db5b79ca50efeb1"
+    },
+    "wasmSHA256": "84a1052245d4541ff488b5338eac9ac752f00f6e694f0ec3e229306c09c55bc8",
+    "nativeSHA256": {
+      "transparent_fill_check": "634a96228d1ec0b0fd72db097c8f5ed6a178c19c93a35f51dead632042e72699",
+      "empty_document_check": "9ccd838d2fd430133cbe50321d88d01ac3d19cc5de8d2fbcb37dee73c758a2ab"
+    },
+    "newTargetDirectory": false
+  },
+  "diagnosis": {
+    "baselineIssues": [
+      {
+        "label": "template-transparent",
+        "stage": "initial",
+        "first": "hwpx",
+        "expected": {
+          "char": {
+            "fillType": "solid",
+            "fillColor": "#ffffff",
+            "patternColor": "#999999",
+            "patternType": -1
+          },
+          "para": {
+            "fillType": "solid",
+            "fillColor": "#ffffff",
+            "patternColor": "#999999",
+            "patternType": -1
+          }
+        },
+        "actual": {
+          "char": {
+            "fillType": "none",
+            "fillColor": "#ffffff",
+            "patternColor": "#000000",
+            "patternType": 0
+          },
+          "para": {
+            "fillType": "none",
+            "fillColor": "#ffffff",
+            "patternColor": "#000000",
+            "patternType": 0
+          }
+        }
+      },
+      {
+        "label": "cell-transparent",
+        "issue": "unchanged dialog-derived fill became visible white",
+        "patch": {
+          "fillType": "solid",
+          "fillColor": "#ffffff",
+          "patternColor": "#999999",
+          "patternType": -1
+        }
+      },
+      {
+        "label": "cell-transparent",
+        "stage": "initial",
+        "first": "hwpx",
+        "expected": {
+          "fillType": "solid",
+          "fillColor": "#ffffff",
+          "patternColor": "#999999",
+          "patternType": -1
+        },
+        "actual": {
+          "fillType": "none",
+          "fillColor": "#ffffff",
+          "patternColor": "#000000",
+          "patternType": 0
+        }
+      },
+      {
+        "label": "shape-transparent",
+        "issue": "unchanged dialog-derived fill became visible white",
+        "patch": {
+          "fillBgColor": 16777215,
+          "fillPatColor": 10066329,
+          "fillPatType": -1
+        }
+      },
+      {
+        "label": "shape-transparent",
+        "stage": "none",
+        "first": "hwpx",
+        "expected": {
+          "fillType": "none"
+        },
+        "actual": {
+          "fillType": "solid",
+          "fillBgColor": 16777215,
+          "fillPatColor": 0,
+          "fillPatType": -1
+        }
+      },
+      {
+        "label": "shape-white",
+        "stage": "none",
+        "first": "hwpx",
+        "expected": {
+          "fillType": "none"
+        },
+        "actual": {
+          "fillType": "solid",
+          "fillBgColor": 16777215,
+          "fillPatColor": 0,
+          "fillPatType": -1
+        }
+      },
+      {
+        "label": "shape-pattern",
+        "stage": "none",
+        "first": "hwpx",
+        "expected": {
+          "fillType": "none"
+        },
+        "actual": {
+          "fillType": "solid",
+          "fillBgColor": 16777215,
+          "fillPatColor": 0,
+          "fillPatType": -1
+        }
+      },
+      {
+        "label": "shape-none",
+        "stage": "initial",
+        "first": "hwpx",
+        "expected": {
+          "fillType": "none"
+        },
+        "actual": {
+          "fillType": "solid",
+          "fillBgColor": 16777215,
+          "fillPatColor": 10066329,
+          "fillPatType": -1
+        }
+      },
+      {
+        "label": "shape-none",
+        "stage": "none",
+        "first": "hwpx",
+        "expected": {
+          "fillType": "none"
+        },
+        "actual": {
+          "fillType": "solid",
+          "fillBgColor": 16777215,
+          "fillPatColor": 0,
+          "fillPatType": -1
+        }
+      }
+    ],
+    "baselineSource": "4784d14 WASM and preserved original TS patch builder",
+    "colorBackgroundUsed": "#d0e8ff",
+    "partialCellFillUnexpectedBorders": {
+      "borderFillId": {
+        "before": 2,
+        "after": 5
+      },
+      "borderLeft": {
+        "before": {
+          "type": 0,
+          "width": 0,
+          "color": "#000000"
+        },
+        "after": {
+          "type": 1,
+          "width": 0,
+          "color": "#000000"
+        }
+      },
+      "borderRight": {
+        "before": {
+          "type": 0,
+          "width": 0,
+          "color": "#000000"
+        },
+        "after": {
+          "type": 1,
+          "width": 0,
+          "color": "#000000"
+        }
+      },
+      "borderTop": {
+        "before": {
+          "type": 0,
+          "width": 0,
+          "color": "#000000"
+        },
+        "after": {
+          "type": 1,
+          "width": 0,
+          "color": "#000000"
+        }
+      },
+      "borderBottom": {
+        "before": {
+          "type": 0,
+          "width": 0,
+          "color": "#000000"
+        },
+        "after": {
+          "type": 1,
+          "width": 0,
+          "color": "#000000"
+        }
+      },
+      "diagonalLine": {
+        "before": 1,
+        "after": 0
+      }
+    },
+    "meaning": "CLR_NONE solid is already unpainted by renderer but old CSS getter says white; explicit shape none retained opaque brush; HWPX empty winBrush payload was dropped by HWP writers"
+  },
+  "baseline": {
+    "mode": "baseline-colored",
+    "cases": 7,
+    "savedFiles": 42,
+    "reopens": 210,
+    "undoRedo": 7,
+    "actualShapeDialogPatchBuilderExecuted": true,
+    "cellDialogFillBranchMirroredFromSource": true,
+    "actualGUIVerified": false
+  },
+  "finalWasm": {
+    "mode": "final",
+    "cases": 8,
+    "savedFiles": 48,
+    "reopens": 240,
+    "undoRedo": 8,
+    "issues": [],
+    "actualShapeDialogPatchBuilderExecuted": true,
+    "cellDialogFillBranchMirroredFromSource": true,
+    "actualGUIVerified": false
+  },
+  "nativeFill": {
+    "dormantSolidPayloadAndAlphaExact": true,
+    "explicitNoneClearsStaleSolidGradientImage": true,
+    "getterAndSaveNoMutation": true,
+    "nativeTwoFormatResaves": 96,
+    "nativeUndoRedo": true,
+    "patternedSentinelAndRealWhiteRemainSolid": true,
+    "sameByteFullSVGAndFillGettersExact": 48
+  },
+  "factoryWasm": {
+    "cases": 6,
+    "savedFiles": 36,
+    "threeSaveChainReopens": 60,
+    "engineSHA256": "84a1052245d4541ff488b5338eac9ac752f00f6e694f0ec3e229306c09c55bc8",
+    "bareSemanticComparedExactly": true,
+    "templateTransparentFillGetterDifferenceUnfixed": false,
+    "existingTemplateDifferences": [],
+    "svgRecordedForIndependentNativeComparison": true
+  },
+  "nativeFactoryAndStorage": {
+    "bareSemanticComparedExactly": true,
+    "danglingId42StillRejectedWithoutMutation": true,
+    "independentFullSVGComparedExactly": true,
+    "independentNativeResaves": 94,
+    "independentWasmSavedReopens": 47,
+    "nativeFactoryAndTemplateCases": 6,
+    "nativeThreeSaveChainReopens": 60,
+    "resourceDefinitionsAndRefsChecked": true,
+    "templateTransparentFillGetterDifferenceUnfixed": false
+  },
+  "oldSamplesNativeModelDiagnosis": {
+    "dormantSolidPayloadAndAlphaExact": true,
+    "explicitNoneClearsStaleSolidGradientImage": true,
+    "getterAndSaveNoMutation": true,
+    "nativeTwoFormatResaves": 84,
+    "nativeUndoRedo": true,
+    "patternedSentinelAndRealWhiteRemainSolid": true,
+    "sameByteFullSVGAndFillGettersExact": 42
+  },
+  "oldSamplesSameBytesSVGUnchangedByReadOnlyFix": true,
+  "oldSamplesGetterDifferences": 4,
+  "oldSamples": 42,
+  "currentUniqueNativeFiles": 95,
+  "currentNativeTwoFormatResaves": 190,
+  "formalRegressionTests": 18,
+  "hostSaveQAGroups": 19,
+  "nativeExampleUnitTests": 2,
+  "typescriptNoEmitPassed": true,
+  "clippyLibAndBothExamplesDenyWarningsPassed": true,
+  "invalidUndoBorderId0RejectedWithoutMutation": true,
+  "invalidCharId42AndPreviouslyMissingId0StillRejected": true,
+  "templateGetterExceptionsRemaining": 0,
+  "xmlResources": {
+    "files": 48,
+    "refsChecked": 3763,
+    "danglingRefs": 0,
+    "inheritedParaHeadFontSentinels": 390,
+    "sentinelScope": "hh:paraHead@charPrIDRef=4294967295 only"
+  },
+  "protection": {
+    "protectedFiles": 38857,
+    "changed": [],
+    "missing": [],
+    "restoredExistingCacheFiles": 14,
+    "targetBytes": 4615041024,
+    "qaBytes": 189767680,
+    "diskFreeBytes": 18257285120,
+    "elapsedSeconds": 10.97
+  },
+  "budget": {
+    "additionalPeakBytes": 189886464,
+    "targetPeakBytes": 4716552192,
+    "minimumFreeBytes": 17582014464,
+    "currentFreeBytes": 17585238016,
+    "targetLimitGiB": 4.5,
+    "minimumFreeGiB": 15,
+    "newTargetDirectory": false
+  },
+  "dev12StrictSignatureVerified": true,
+  "actualMacGUIVerified": false,
+  "physicalIMEVerified": false,
+  "OSClipboardAccessed": false,
+  "OSDialogsInvoked": 0,
+  "newAppOrZIP": false,
+  "publicPushOrRelease": false,
+  "linuxExecution": false,
+  "oldArtifactsDeleted": false,
+  "remoteTrackingCommit": "30601b18ab81aeddc51ea059c6980003706ad1b8"
+}

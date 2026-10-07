@@ -717,6 +717,34 @@ pub struct Fill {
     pub alpha: u8,
 }
 
+impl Fill {
+    /// A COLORREF with a nonzero high byte has no solid background in the
+    /// renderer. A hatch can still be visible, so keep patterned fills solid.
+    /// This is a view of the paint, not a mutation of the retained brush.
+    pub fn effective_type(&self) -> FillType {
+        if self.fill_type == FillType::Solid
+            && self.solid.is_some_and(|s| s.pattern_type <= 0 && s.background_color >> 24 != 0)
+        {
+            FillType::None
+        } else {
+            self.fill_type
+        }
+    }
+
+    /// HWPX retains an empty winBrush as None + solid. HWP represents that
+    /// brush as a Solid record with CLR_NONE; retain its dormant color/alpha
+    /// payload without introducing paint on HWPX -> HWP -> HWPX saves.
+    pub(crate) fn hwp_storage_type(&self) -> FillType {
+        if self.fill_type == FillType::None
+            && self.solid.is_some_and(|s| s.pattern_type <= 0 && s.background_color == u32::MAX)
+        {
+            FillType::Solid
+        } else {
+            self.fill_type
+        }
+    }
+}
+
 /// 채우기 종류
 #[derive(Debug, Clone, Copy, Default, PartialEq, serde::Serialize)]
 pub enum FillType {

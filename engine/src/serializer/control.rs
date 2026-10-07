@@ -2736,7 +2736,7 @@ fn write_parsed_rendering_matrix(w: &mut ByteWriter, attr: &ShapeComponentAttr) 
 
 /// 도형 채우기 직렬화 (SHAPE_COMPONENT 내부 — parse_fill과 동일한 형식)
 fn serialize_shape_fill(w: &mut ByteWriter, fill: &Fill) {
-    let fill_type_val: u32 = match fill.fill_type {
+    let fill_type_val: u32 = match fill.hwp_storage_type() {
         FillType::None => 0,
         FillType::Solid => 1,
         FillType::Image => 2,

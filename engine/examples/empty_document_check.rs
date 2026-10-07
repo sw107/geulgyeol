@@ -29,34 +29,8 @@ fn semantic(d: &HwpDocument) -> Value {
     result
 }
 
-// The unchanged blank2010 template carries a transparent Solid brush. HWPX
-// already exposes it as None (retaining the original solid payload). Report
-// this existing getter difference explicitly; never accept any other delta.
 fn compare(actual: Value, expected: &Value, label: &str) {
-    if actual == *expected {
-        return;
-    }
-    assert_eq!(
-        expected["styles"].as_array().unwrap().len(),
-        22,
-        "only unchanged blank2010 template may have this reported getter difference"
-    );
-    let mut adjusted = actual.clone();
-    for scope in ["char", "para"] {
-        if actual[scope]["fillType"] == "none"
-            && expected[scope]["fillType"] == "solid"
-            && actual[scope]["patternColor"] == "#000000"
-            && expected[scope]["patternColor"] == "#999999"
-            && actual[scope]["patternType"] == 0
-            && expected[scope]["patternType"] == -1
-        {
-            for field in ["fillType", "patternColor", "patternType"] {
-                adjusted[scope][field] = expected[scope][field].clone();
-            }
-        }
-    }
-    assert_eq!(adjusted, *expected, "{label}");
-    println!("KNOWN_EXISTING_TEMPLATE_GETTER_DIFFERENCE {label}");
+    assert_eq!(actual, *expected, "{label}");
 }
 
 fn save(d: &HwpDocument, format: &str) -> Vec<u8> {
@@ -218,7 +192,7 @@ fn main() {
         "independentWasmSavedReopens":independent,"independentNativeResaves":resaves,
         "resourceDefinitionsAndRefsChecked":true,"bareSemanticComparedExactly":true,
         "independentFullSVGComparedExactly":true,
-        "templateTransparentFillGetterDifferenceUnfixed":true,
+        "templateTransparentFillGetterDifferenceUnfixed":false,
         "danglingId42StillRejectedWithoutMutation":true});
     std::fs::write(
         output.join("proof.json"),

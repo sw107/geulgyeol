@@ -79,7 +79,7 @@ assert.equal(reopens, 60);
 fs.writeFileSync(path.join(output, 'manifest.json'), JSON.stringify(rows, null, 2));
 const proof = { cases: 6, savedFiles: rows.length, threeSaveChainReopens: reopens,
   engineSHA256: crypto.createHash('sha256').update(bytes).digest('hex'),
-  bareSemanticComparedExactly: true, templateTransparentFillGetterDifferenceUnfixed: true,
+  bareSemanticComparedExactly: true, templateTransparentFillGetterDifferenceUnfixed: existingTemplateDifferences.length > 0,
   existingTemplateDifferences, svgRecordedForIndependentNativeComparison: true };
 fs.writeFileSync(path.join(output, 'proof.json'), JSON.stringify(proof, null, 2));
 console.log(JSON.stringify(proof));

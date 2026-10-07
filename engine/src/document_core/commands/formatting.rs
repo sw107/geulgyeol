@@ -701,7 +701,7 @@ impl DocumentCore {
                     )
                 }).collect();
                 let (fill_type_str, fill_color, pat_color, pat_type) = match &bf.fill.solid {
-                    Some(sf) if bf.fill.fill_type == FillType::Solid => {
+                    Some(sf) if bf.fill.effective_type() == FillType::Solid => {
                         ("solid", color_ref_to_css(sf.background_color),
                          color_ref_to_css(sf.pattern_color), sf.pattern_type)
                     }
@@ -789,7 +789,7 @@ impl DocumentCore {
                     })
                     .collect();
                 let (fill_type_str, fill_color, pat_color, pat_type) = match &bf.fill.solid {
-                    Some(sf) if bf.fill.fill_type == FillType::Solid => (
+                    Some(sf) if bf.fill.effective_type() == FillType::Solid => (
                         "solid",
                         color_ref_to_css(sf.background_color),
                         color_ref_to_css(sf.pattern_color),

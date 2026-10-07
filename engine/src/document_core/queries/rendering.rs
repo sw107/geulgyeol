@@ -3082,7 +3082,7 @@ impl DocumentCore {
                     .collect::<Vec<_>>()
                     .join(",");
                 let (fill_type, fill_color, pattern_color, pattern_type) =
-                    match (&bf.fill.fill_type, &bf.fill.solid) {
+                    match (bf.fill.effective_type(), &bf.fill.solid) {
                         (FillType::Solid, Some(solid)) => (
                             "solid",
                             color_ref_to_css(solid.background_color),

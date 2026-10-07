@@ -481,7 +481,7 @@ impl DocumentCore {
         let extra_json = if let Some(d) = drawing {
             let sa = &d.shape_attr;
             let fill = &d.fill;
-            let fill_type = match fill.fill_type {
+            let fill_type = match fill.effective_type() {
                 crate::model::style::FillType::None => "none",
                 crate::model::style::FillType::Solid => "solid",
                 crate::model::style::FillType::Gradient => "gradient",
@@ -754,6 +754,11 @@ impl DocumentCore {
                 let grad = d.fill.gradient.get_or_insert_with(Default::default);
                 grad.blur = v as i16;
             }
+            // An explicit "none" wins over dormant/stale brush controls.
+            // Otherwise the drawing renderer still paints the retained solid.
+            if json_str(props_json, "fillType").as_deref() == Some("none") {
+                d.fill = crate::model::style::Fill::default();
+            }
 
             // 그림자
             if let Some(v) = crate::document_core::helpers::json_u32(props_json, "shadowType") {
@@ -985,7 +990,7 @@ impl DocumentCore {
         let extra_json = if let Some(d) = drawing {
             let sa = &d.shape_attr;
             let fill = &d.fill;
-            let fill_type = match fill.fill_type {
+            let fill_type = match fill.effective_type() {
                 crate::model::style::FillType::None => "none",
                 crate::model::style::FillType::Solid => "solid",
                 crate::model::style::FillType::Gradient => "gradient",
@@ -1223,6 +1228,11 @@ impl DocumentCore {
             if let Some(v) = json_i32(props_json, "gradientBlur") {
                 let grad = d.fill.gradient.get_or_insert_with(Default::default);
                 grad.blur = v as i16;
+            }
+            // An explicit "none" wins over dormant/stale brush controls.
+            // Otherwise the drawing renderer still paints the retained solid.
+            if json_str(props_json, "fillType").as_deref() == Some("none") {
+                d.fill = crate::model::style::Fill::default();
             }
             if let Some(v) = crate::document_core::helpers::json_u32(props_json, "shadowType") {
                 d.shadow_type = v;
