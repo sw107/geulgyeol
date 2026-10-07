@@ -93,3 +93,9 @@ HWP→HWPX는 빈 메모를 만든다. HWP 본문 편집 후 저장에서는 원
 현재 소스는 단일 구역 문서의 일반 본문 한 문단 선택에 검토 주석 추가·조회·내용 수정·삭제와 실제 snapshot CommandHistory undo/redo를 연결했다. 주석 내용과 본문 텍스트를 분리하고 작성자/시각·직접 서식·각주·이웃 필드 참조를 유지한다. 새 작성자는 빈 값, 생성 시각은 없음으로 명시하며 기존 작성자를 추정하지 않는다. 일반 메모는 HWP/HWPX, HWP가 보존하지 못하는 명시적 생성 시각·세로 메모는 HWPX만 저장한다. 불명 레코드·변경 추적 참조·중복 ID/index·복수 구역·비본문/겹친 선택은 저작 전에 거절한다.
 
 후보 엔진은 `comment-authoring-qa/pkg`이다. dev9 앱과 기존 앱/엔진을 보존했고 이번 변경을 앱에 패키징하지 않았다. 실제 Native/WASM/UI 경로 자동 검사이며 GUI/물리 IME·한컴 corpus·Linux는 미검증이다. [저작 결과와 범위](body-comment/RESULT_KO.md), [최종 proof](body-comment/proof.json).
+
+## 주석 본문 편집 앵커 안정화 후속
+
+현재 소스는 주석이 있는 일반 본문의 앞/안/뒤 텍스트 편집과 단순 문단의 주석 경계 분할·합치기를 검증하고 저장 좌표/정확한 snapshot 이력을 보강했다. 시작/끝 경계 입력은 주석 밖에 두고 안전한 빈 앵커는 유지한다. 주석 내부 분할, 각주/개체를 포함한 주석 문단의 분할/합치기, 문단 간 주석 선택 삭제, 겹침·불명 소유·삭제 후 빈 앵커 충돌은 편집 전에 원자 거절한다. 일반 메모는 HWP/HWPX, 명시적 생성 시각·세로 메모는 HWPX만 저장한다.
+
+새 후보는 `comment-anchor-qa/pkg`이며 기존 저작 후보와 앱을 보존했다. 실제 Native/WASM/UI 명령·이력 자동 검사이고 GUI/물리 IME·한컴 corpus·Linux는 미검증이다. 정상 편집과 거절 수치는 [앵커 안정화 결과](body-comment-anchor/RESULT_KO.md), [proof](body-comment-anchor/proof.json)를 참고한다.

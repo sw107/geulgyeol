@@ -3332,7 +3332,24 @@ export class InputHandler {
         if (keepFieldStartOutside) {
           this.wasm.clearActiveField();
         }
-        const newPos = this.history.execute(desc.command, this.wasm);
+        // Inverse typing/merge cannot reconstruct a contracted memo anchor or mixed formatting.
+        // Preserve exact states only for body commands touching an existing review comment.
+        const body = !this.cursor.isInFootnote() && !this.cursor.isInHeaderFooter()
+          && beforePos.parentParaIndex === undefined && !beforePos.cellPath?.length;
+        const type = desc.command.type;
+        const paragraphs = type === 'mergeParagraph' ? [beforePos.paragraphIndex - 1, beforePos.paragraphIndex]
+          : type === 'mergeNextParagraph' ? [beforePos.paragraphIndex, beforePos.paragraphIndex + 1]
+          : [beforePos.paragraphIndex];
+        const memoEdit = body && this.editMode === 'normal'
+          && ['insertText', 'deleteText', 'insertTab', 'splitParagraph', 'mergeParagraph', 'mergeNextParagraph'].includes(type)
+          && this.wasm.getFieldList().some((f: any) => f.fieldType === 'memo'
+            && f.location?.sectionIndex === beforePos.sectionIndex && !f.location?.path?.length
+            && paragraphs.includes(f.location?.paraIndex));
+        const command = memoEdit ? new SnapshotCommand(type, beforePos, beforePos, bridge => {
+          try { return desc.command.execute(bridge); }
+          finally { desc.command.discard?.(bridge); }
+        }) : desc.command;
+        const newPos = this.history.execute(command, this.wasm);
         const boundaryHandled = this.prepareTextMutationBeforeCursor(
           this.history.consumeLastExecutionEffects(),
         );
@@ -3349,7 +3366,7 @@ export class InputHandler {
           this.markCurrentFieldStartOutside();
         }
         this.refreshAfterOperation(desc.meta?.refresh, 'auto', desc.command.type, beforePos, newPos, {
-          ...desc.command.getPageLocalTextEditOptions?.(),
+          ...(memoEdit ? undefined : desc.command.getPageLocalTextEditOptions?.()),
           beforePageIndex,
           afterPageIndex: this.cursor.getRect()?.pageIndex,
         }, boundaryHandled);

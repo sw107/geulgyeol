@@ -527,3 +527,130 @@ pub fn prepare_for_authoring(doc: &Document) -> Result<Document, String> {
     }
     Ok(staged)
 }
+
+/// Body edits keep review content untouched; reject ambiguous anchors before mutation.
+pub fn validate_body_anchors(doc: &Document, ps: &[&Paragraph]) -> Result<bool, String> {
+    if !ps.iter().any(|p| {
+        p.controls
+            .iter()
+            .any(|c| matches!(c, Control::Field(f) if is_memo(f) || f.hwp_memo_control.is_some()))
+    }) {
+        return Ok(false);
+    }
+    let all = fields(doc);
+    let mut found = false;
+    for p in ps {
+        for (ci, c) in p.controls.iter().enumerate() {
+            let Control::Field(f) = c else { continue };
+            if !is_memo(f) && f.hwp_memo_control.is_none() {
+                continue;
+            }
+            found = true;
+            validate_flat_body_range(p, ci)?;
+            if f.field_type != FieldType::Memo
+                || f.memo_paragraphs.is_empty()
+                || f.field_id == 0
+                || all
+                    .iter()
+                    .filter(|(v, _, _, _)| v.field_id == f.field_id)
+                    .count()
+                    != 1
+                || f.memo_index == 0
+                || all
+                    .iter()
+                    .filter(|(v, _, _, _)| is_memo(v) && v.memo_index == f.memo_index)
+                    .count()
+                    != 1
+                || command_index(&f.command).is_some_and(|n| n != f.memo_index)
+                || !range_valid(p, ci)
+                || !p.range_tags.is_empty()
+                || !p.orphan_field_ends.is_empty()
+            {
+                return Err(
+                    "주석의 불명/겹친 범위 또는 소유권 때문에 본문 편집을 하지 않았습니다.".into(),
+                );
+            }
+            if let Some(o) = &f.hwp_memo_control {
+                if !valid_markers(f)
+                    || field_digest(f) != o.field_digest
+                    || records_digest(&o.records) != o.records_digest
+                    || !doc
+                        .sections
+                        .iter()
+                        .filter_map(|s| s.memo_tail.as_ref())
+                        .flat_map(|t| &t.entries)
+                        .any(|e| e.owner_id == Some(f.field_id) && e.index == f.memo_index)
+                {
+                    return Err("원본 주석 표식/꼬리의 소유권을 보존할 수 없어 본문 편집을 하지 않았습니다.".into());
+                }
+            }
+        }
+    }
+    Ok(found)
+}
+pub fn validate_body_structure(
+    doc: &Document,
+    ps: &[&Paragraph],
+    split: Option<usize>,
+) -> Result<(), String> {
+    if !validate_body_anchors(doc, ps)? {
+        return Ok(());
+    }
+    if ps.iter().any(|p| {
+        p.controls.iter().any(|c| {
+            !matches!(
+                c,
+                Control::Field(_) | Control::SectionDef(_) | Control::ColumnDef(_)
+            )
+        })
+    }) {
+        return Err("주석과 각주/개체가 함께 있는 문단의 분할·합치기는 지원하지 않습니다.".into());
+    }
+    if let Some(at) = split {
+        if ps[0].field_ranges.iter().any(|r| r.start_char_idx < at && at < r.end_char_idx
+            && matches!(ps[0].controls.get(r.control_idx), Some(Control::Field(f)) if is_memo(f) || f.hwp_memo_control.is_some())) {
+            return Err("주석 선택 범위 안의 문단 분할은 지원하지 않습니다.".into());
+        }
+    }
+    Ok(())
+}
+
+fn validate_flat_body_range(p: &Paragraph, ci: usize) -> Result<(), String> {
+    if let Some(own) = p.field_ranges.iter().find(|r| r.control_idx == ci) {
+        if p.field_ranges.iter().any(|other| {
+            other.control_idx != ci
+                && ((own.start_char_idx < other.end_char_idx
+                    && other.start_char_idx < own.end_char_idx)
+                    || (own.start_char_idx == own.end_char_idx
+                        && other.start_char_idx <= own.start_char_idx
+                        && own.start_char_idx <= other.end_char_idx)
+                    || (other.start_char_idx == other.end_char_idx
+                        && own.start_char_idx <= other.start_char_idx
+                        && other.start_char_idx <= own.end_char_idx))
+        }) {
+            return Err(
+                "주석과 이웃 필드의 범위가 겹치거나 빈 앵커가 합쳐져 본문 편집을 하지 않았습니다."
+                    .into(),
+            );
+        }
+    }
+    Ok(())
+}
+pub fn validate_body_deletion(
+    doc: &Document,
+    p: &Paragraph,
+    at: usize,
+    count: usize,
+) -> Result<(), String> {
+    if !validate_body_anchors(doc, &[p])? || count == 0 {
+        return Ok(());
+    }
+    let mut staged = p.clone();
+    staged.delete_text_at(at, count);
+    for (ci, c) in staged.controls.iter().enumerate() {
+        if matches!(c, Control::Field(f) if is_memo(f) || f.hwp_memo_control.is_some()) {
+            validate_flat_body_range(&staged, ci)?;
+        }
+    }
+    Ok(())
+}

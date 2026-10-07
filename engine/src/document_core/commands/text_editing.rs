@@ -952,7 +952,7 @@ fn inactive_field_end_insertions(
         .iter()
         .filter_map(|fr| {
             match para.controls.get(fr.control_idx) {
-                Some(Control::Field(field)) if field.field_type == FieldType::ClickHere => {}
+                Some(Control::Field(field)) if matches!(field.field_type, FieldType::ClickHere | FieldType::Memo) => {}
                 _ => return None,
             }
             // 빈 누름틀은 active 상태가 아직 반영되기 전 첫 입력도 값으로 받아야 한다.
@@ -1138,11 +1138,12 @@ fn inactive_field_start_insertions(
         .iter()
         .filter_map(|fr| {
             match para.controls.get(fr.control_idx) {
-                Some(Control::Field(field)) if field.field_type == FieldType::ClickHere => {}
+                Some(Control::Field(field)) if matches!(field.field_type, FieldType::ClickHere | FieldType::Memo) => {}
                 _ => return None,
             }
             // 빈 누름틀은 시작/끝 경계가 없고 첫 입력이 필드 값이어야 한다.
-            if fr.start_char_idx == fr.end_char_idx || fr.start_char_idx != char_offset {
+            let memo = matches!(para.controls.get(fr.control_idx), Some(Control::Field(f)) if f.field_type == FieldType::Memo);
+            if (!memo && fr.start_char_idx == fr.end_char_idx) || fr.start_char_idx != char_offset {
                 return None;
             }
             if active_field_matches(
@@ -1205,7 +1206,7 @@ fn has_clickhere_field_range(para: &Paragraph) -> bool {
     para.field_ranges.iter().any(|fr| {
         matches!(
             para.controls.get(fr.control_idx),
-            Some(Control::Field(field)) if field.field_type == FieldType::ClickHere
+            Some(Control::Field(field)) if matches!(field.field_type, FieldType::ClickHere | FieldType::Memo)
         )
     })
 }
@@ -1244,6 +1245,12 @@ impl DocumentCore {
                 char_offset, delete_count, text_len,
             )));
         }
+        let memo_body = crate::model::memo::validate_body_anchors(&self.document, &[&self.document.sections[section_idx].paragraphs[para_idx]])
+            .map_err(HwpError::InvalidField)?;
+        if memo_body && text.chars().any(|c| matches!(c, '\r' | '\n')) {
+            return Err(HwpError::InvalidField("주석 본문에 줄바꿈 문자를 직접 삽입할 수 없습니다.".into()));
+        }
+        crate::model::memo::validate_body_deletion(&self.document, &section.paragraphs[para_idx], char_offset, delete_count).map_err(HwpError::InvalidField)?;
         let new_chars_count = text.chars().count();
         if delete_count > 8
             || new_chars_count > 8
@@ -1457,6 +1464,11 @@ impl DocumentCore {
             )));
         }
 
+        let memo_body = crate::model::memo::validate_body_anchors(&self.document, &[&self.document.sections[section_idx].paragraphs[para_idx]])
+            .map_err(HwpError::InvalidField)?;
+        if memo_body && text.chars().any(|c| matches!(c, '\r' | '\n')) {
+            return Err(HwpError::InvalidField("주석 본문에 줄바꿈 문자를 직접 삽입할 수 없습니다.".into()));
+        }
         // 텍스트 삽입
         let new_chars_count = text.chars().count();
         let active_field = self.active_field.clone();
@@ -1608,6 +1620,9 @@ impl DocumentCore {
             )));
         }
 
+        let _ = crate::model::memo::validate_body_anchors(&self.document, &[&self.document.sections[section_idx].paragraphs[para_idx]])
+            .map_err(HwpError::InvalidField)?;
+        crate::model::memo::validate_body_deletion(&self.document, &self.document.sections[section_idx].paragraphs[para_idx], char_offset, count).map_err(HwpError::InvalidField)?;
         // 텍스트 삭제
         let apply_delete = |para: &mut Paragraph| {
             para.delete_text_at(char_offset, count);
@@ -3272,6 +3287,15 @@ impl DocumentCore {
             }
         }
 
+        if cell_ctx.is_none() {
+            let ps: Vec<_> = self.document.sections[section_idx].paragraphs[start_para..=end_para].iter().collect();
+            if start_para == end_para {
+                crate::model::memo::validate_body_deletion(&self.document, ps[0], start_offset, end_offset - start_offset).map_err(HwpError::InvalidField)?;
+            }
+            if crate::model::memo::validate_body_anchors(&self.document, &ps).map_err(HwpError::InvalidField)? && start_para != end_para {
+                return Err(HwpError::InvalidField("주석이 있는 문단 간 선택 삭제는 지원하지 않습니다.".into()));
+            }
+        }
         // Section raw 스트림 무효화 (재직렬화 유도)
         self.document.sections[section_idx].raw_stream = None;
         // DocInfo raw_stream은 유지 (전체 재직렬화 시 FIX-4 문제 발생)
@@ -3536,6 +3560,8 @@ impl DocumentCore {
             )));
         }
 
+        crate::model::memo::validate_body_structure(&self.document,
+            &[&section.paragraphs[para_idx]], Some(char_offset)).map_err(HwpError::InvalidField)?;
         let next_style = super::next_style::prepare(&self.document.doc_info,
             &section.paragraphs[para_idx], char_offset, apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
 
@@ -4085,6 +4111,8 @@ impl DocumentCore {
             )));
         }
 
+        crate::model::memo::validate_body_structure(&self.document,
+            &[&section.paragraphs[para_idx - 1], &section.paragraphs[para_idx]], None).map_err(HwpError::InvalidField)?;
         if stage_picture_edit && self.final_picture_host_matches_frame(section_idx, para_idx) {
             let mut staged = self.picture_band_edit_shadow();
             let response = staged.merge_paragraph_body_impl(section_idx, para_idx, false)?;
@@ -4113,6 +4141,11 @@ impl DocumentCore {
             super::super::helpers::removed_para_meta_field(&current_para.capture_meta());
         let merge_point =
             self.document.sections[section_idx].paragraphs[prev_idx].merge_from(&current_para);
+        let merged = &mut self.document.sections[section_idx].paragraphs[prev_idx];
+        if merged.controls.iter().any(|c| matches!(c, Control::Field(f) if crate::model::memo::is_memo(f))) {
+            rebuild_char_offsets(merged);
+        }
+
 
         if preserve_square_ole_wrap_line {
             let doc_hwp3_layout = self.document.layout_profile().hwp3_layout();

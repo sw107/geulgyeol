@@ -1,0 +1,194 @@
+{
+  "baselineCommit": "365f7cd925290c83390dc11fbfa3cf2fbb111721",
+  "platform": "Mac arm64 Native/WASM and actual UI commands in Electron Node mode",
+  "candidateWasmSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+  "native": {
+    "GUIVerified": false,
+    "atomicRefusals": 30,
+    "crossParagraphDeleteRefused": true,
+    "nativeNormal": 36,
+    "nativeReopens": 72,
+    "splitInsideOrNotesRefused": true
+  },
+  "ui": {
+    "wasmSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+    "normal": 43,
+    "saves": 168,
+    "refusals": 36,
+    "undos": 43,
+    "redos": 43,
+    "actualBodyCommandHistory": true,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "externalOpens": 0
+  },
+  "independentNative": {
+    "independentSavedReopens": 168,
+    "refsStylesMetadataAnchors": true
+  },
+  "authoringRegression": {
+    "native": {
+      "GUIVerified": false,
+      "bodyTextStylesNotesNeighborFieldUnchanged": true,
+      "commentSnapshotOperations": 4,
+      "genericBodySnapshotOperations": 2,
+      "memoParagraphIdsPreserved": true,
+      "nativeReopens": 40,
+      "newAuthorEmptyNoCreatedTime": true,
+      "originalAuthorAndTimePreserved": true,
+      "reopenedCommentRemainsEditable": true,
+      "typedTimeHwpxOnly": true,
+      "unsupportedImportedDocuments": 13,
+      "unsupportedParagraphReferences": 5,
+      "verticalHwpxOnly": true
+    },
+    "ui": {
+      "wasmSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+      "mutations": 14,
+      "saves": 64,
+      "refusals": 55,
+      "undos": 16,
+      "redos": 16,
+      "newAuthorEmptyCreationTimeAbsent": true,
+      "originalAuthorTimePreserved": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "independentNative": {
+      "allBodyMemoNoteFieldReferences": true,
+      "independentlyReopened": 64
+    }
+  },
+  "regressions": {
+    "body-regression": {
+      "wasmSha256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0,
+      "positive": 6,
+      "reopens": 22,
+      "undos": 6,
+      "redos": 6,
+      "refusals": 36
+    },
+    "cell-regression": {
+      "candidateWasmSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+      "positive": 84,
+      "reopens": 288,
+      "undos": 84,
+      "redos": 84,
+      "atomicRefusals": 444,
+      "layoutCases": 12,
+      "multipageCases": 12,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "clickhere-regression": {
+      "wasmSha256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+      "counts": {
+        "reopens": 54,
+        "undos": 24,
+        "redos": 24,
+        "rejections": 14,
+        "cellRegressions": 6
+      },
+      "knownFailureStatus": "preserved",
+      "formatFailureStatus": "preserved"
+    }
+  },
+  "TypeScript": {
+    "exitCode": 0,
+    "log": "/Users/sw107/Documents/Codex/2026-10-06/task/comment-anchor-qa/tsc-candidate.log"
+  },
+  "Clippy": {
+    "command": [
+      "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "clippy",
+      "--offline",
+      "--locked",
+      "--manifest-path",
+      "engine/Cargo.toml",
+      "-p",
+      "rhwp",
+      "--lib",
+      "--example",
+      "body_comment_anchor_check",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "targetBeforeBytes": 3874463744,
+    "targetPeakBytes": 3874492416,
+    "targetFinalBytes": 3874492416,
+    "targetLimitBytes": 4294967296,
+    "minDiskFreeBytes": 23961600000,
+    "stoppedReason": null,
+    "exitCode": 0,
+    "elapsedSeconds": 20.7
+  },
+  "wholeLibUnitTests": {
+    "exitCode": 101,
+    "reason": "three pre-existing missing include_bytes fixtures",
+    "missingFixtures": [
+      "engine/samples/3-09월_교육_통합_2022.hwp",
+      "engine/samples/hwp3-sample16-hwp5.hwp",
+      "engine/samples/hwpx/aift.hwpx"
+    ],
+    "log": "/Users/sw107/Documents/Codex/2026-10-06/task/comment-anchor-qa/lib-test.log"
+  },
+  "resources": {
+    "targetLimitBytes": 4294967296,
+    "minimumFreeLimitBytes": 10737418240,
+    "targetPeakBytes": 3973238784,
+    "targetFinalBytes": 3874578432,
+    "minimumDiskFreeBytes": 23879680000,
+    "budgetStops": []
+  },
+  "protection": {
+    "allUnchanged": true,
+    "baselineEntries": 16,
+    "uniqueProtectedPaths": 15,
+    "matched": {
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev8-checkpoint-qa/GeulgyeolDev8.app/Contents/Resources/app.asar": "66e9af062d45efaca508053e87a7a759489d7f98e0484798e7fd60b5d468a104",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/field-value-atomic-qa/pkg/rhwp_bg.wasm": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/named-cell-value-qa/pkg/rhwp_bg.wasm": "89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/body-hyperlink-qa/pkg/rhwp_bg.wasm": "47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/cell-hyperlink-qa/pkg/rhwp_bg.wasm": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app/Contents/Resources/app.asar": "12065a11b5217639bc145354dc12f53170702d922ad05cd1757e63568190db9b",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app/Contents/Info.plist": "a17724fe485bbf15c3cfb045ae1ecefed150dd3d986032860d5ceac7bc183a3f",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/style-propagation-qa/Geulgyeol-0.4.4-dev.4-mac-arm64-candidate.zip": "198bd47563ed58178b6b88beb0a43c8c5c22444bc023885487506457b790257f",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/memo-preservation-qa/pkg/rhwp_bg.wasm": "bcf54ce22f6bda180f8273f93e9cf30468c9116ac55148a4ffa387c6d16b93f5",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/comment-authoring-qa/pkg/rhwp_bg.wasm": "e3b9de44c9957597e47f0f622d43b5492eb59bf66feff9318fc737fd0f868315"
+    }
+  },
+  "sourceSHA256": {
+    "engine/src/document_core/commands/text_editing.rs": "a9420b3b2e2b4e81424e743760078769e53133ca0aa95abe47d891a7bf27a25c",
+    "engine/src/model/memo.rs": "a43971629fdd245d12398ea836ee3c7a5e4bf2886f1b54a8e263e0af2bff1078",
+    "rhwp-studio/src/engine/input-handler.ts": "9b53d461e6e667b827ee56e30b77e85db181db044248f4b9a28d80a3ea755651",
+    "engine/examples/body_comment_anchor_check.rs": "fec362da1728035c3ea265f5d4e7cb44b6df69fe402c803d40d14a0ce762652f",
+    "scripts/check-body-comment-anchor.mjs": "d0dea815d00688f143d1dd79f177b674dd9444eed425d71eb63cf6fc619f7182"
+  },
+  "artifactsRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/comment-anchor-qa",
+  "successfulCargoLogs": [
+    "native-final",
+    "authoring-regression",
+    "clippy",
+    "wasm-final",
+    "native-wasm-oracle",
+    "authoring-wasm-oracle"
+  ],
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxVerified": false,
+  "realHancomCorpusVerified": false,
+  "newPackaging": false,
+  "publicPushRelease": false,
+  "securityAccountPermissionChanges": false
+}
