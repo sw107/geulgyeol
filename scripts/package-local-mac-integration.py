@@ -57,6 +57,7 @@ def main():
     package = json.loads((root / "desktop/package.json").read_text())
     package.update(name=("geulgyeol-dev-enter" if product == "GeulgyeolDevEnter" else product.lower()), productName=product, version=version)
     contents["package.json"] = (json.dumps(package, ensure_ascii=False, indent=2) + "\n").encode()
+    contents["storage.cjs"] = (root / "desktop/storage.cjs").read_bytes()
     main_text = (root / "desktop/main.cjs").read_text().replace("GeulgyeolBetaNext", product).replace("0.4.4-beta.1", version).replace("글결 베타", "글결 개발 후보")
     old_profile = "path.join(app.getPath('appData'),'" + product + "')"
     assert old_profile in main_text

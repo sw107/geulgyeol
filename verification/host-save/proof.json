@@ -1,0 +1,714 @@
+{
+  "baseHead": "7f027512a224719dca9942385de4961637e6ac1d",
+  "currentProductCodeSHA256": {
+    "desktop/main.cjs": "40f93f1a8320d24d9cf1eb983169849571dfe83b6d7e17fca7817c4e7fa79058",
+    "desktop/storage.cjs": "d212624214bbae40863f09159ff17a1db6ade8c051785ec4a7c4060400edebab",
+    "scripts/package-local-mac-integration.py": "f4071c07808e971a7b1ff9115723ecf476cc4478ac9257db1be29f68bec4e1f8",
+    "scripts/check-host-save.cjs": "b53a9194360daafada23d81e9f958313bf11dbbabd314417af48589026a21940",
+    "desktop/tests/host-save.test.cjs": "39fe60d19273f85c4f6a9c8617c1feb899a44b0c77334a40813d9fc5150f0624"
+  },
+  "baseline": {
+    "mode": "baseline",
+    "mainSHA256": "79cbebe9d0b89675fdbda659303bf175349c82b1d105bd26e0728318a48ddc84",
+    "storageSHA256": "cbf0bc95d1b9156ff7254eddd5c8f9ece8996ef08f1c0d3c5be32a0a469a3ab2",
+    "actualRegisteredHostIPCHandler": true,
+    "actualFilesystem": true,
+    "ElectronWindowAndDialogAdapters": true,
+    "OSDialogsInvoked": 0,
+    "OSClipboardAccessed": false,
+    "userFilesAccessed": false,
+    "permissionsChanged": false,
+    "faultInjection": [
+      "sync EIO",
+      "write EIO with close EIO",
+      "exclusive create collision",
+      "native chooser completion order"
+    ],
+    "rendererVerified": false,
+    "syntheticDocuments": true,
+    "fixtureSHA256": {
+      "old.hwp": "32198e77e368a04612f73a1a3e3b7638cd3de7289f89c1acafd245087d8dbe44",
+      "edited.hwp": "62dc14ed1eea66eb1fffec80d26c1423bf000d78edce1be2b8bfbc471e2c1cbd",
+      "old.hwpx": "092594ee739e4aed579007dec92c4ce5ab11b8a2d34dc80c2e777be68af485d5",
+      "edited.hwpx": "dfaf1ba369e8febf788e25bd569c85d3741be4f90b9e15e6b044e7088a2a2db8"
+    },
+    "checks": [
+      {
+        "name": "new-hwp",
+        "file": "/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/baseline/new.hwp",
+        "bytes": 3584
+      },
+      {
+        "name": "replace-hwp",
+        "file": "/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/baseline/replace.hwp"
+      },
+      {
+        "name": "new-hwpx",
+        "file": "/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/baseline/new.hwpx",
+        "bytes": 4744
+      },
+      {
+        "name": "replace-hwpx",
+        "file": "/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/baseline/replace.hwpx"
+      },
+      {
+        "name": "cancel-and-no-path-preserve"
+      },
+      {
+        "name": "extension-mismatch-preserves-existing"
+      },
+      {
+        "name": "uppercase-extension"
+      },
+      {
+        "name": "six-data-and-format-refusals-before-dialog"
+      },
+      {
+        "name": "untrusted-refusal"
+      },
+      {
+        "name": "four-invalid-path-refusals-and-rename-cleanup"
+      },
+      {
+        "name": "fault-sync",
+        "fault": "sync",
+        "error": "synthetic-sync-EIO",
+        "code": "EIO",
+        "originalPreserved": true,
+        "temps": [],
+        "counters": {
+          "closes": 1,
+          "opens": 1
+        }
+      },
+      {
+        "name": "fault-write-and-close",
+        "fault": "write-and-close",
+        "error": "synthetic-close-EIO",
+        "code": "EIO",
+        "originalPreserved": true,
+        "temps": [
+          ".baram-8b58fbda-6f77-496b-b3f9-8afbc0aa3556.tmp"
+        ],
+        "counters": {
+          "closes": 1,
+          "opens": 1
+        }
+      },
+      {
+        "name": "exclusive-create-collision",
+        "preexistingTempPreserved": false
+      },
+      {
+        "name": "concurrent-save-and-retry",
+        "secondRejected": false,
+        "dialogsAfterRetry": 3
+      },
+      {
+        "name": "retry-after-cancel-format-path-failures"
+      },
+      {
+        "name": "ui-duplicate-and-success-after-completion"
+      },
+      {
+        "name": "ui-cancel-retains-dirty"
+      },
+      {
+        "name": "ui-failure-reports-error-and-retains-dirty"
+      },
+      {
+        "name": "ui-edit-during-save-retains-dirty"
+      }
+    ],
+    "problems": [
+      {
+        "name": "failed-write-cleanup-and-primary-error",
+        "fault": "write-and-close",
+        "error": "synthetic-close-EIO",
+        "code": "EIO",
+        "originalPreserved": true,
+        "temps": [
+          ".baram-8b58fbda-6f77-496b-b3f9-8afbc0aa3556.tmp"
+        ],
+        "counters": {
+          "closes": 1,
+          "opens": 1
+        }
+      },
+      {
+        "name": "exclusive-create-failure-deletes-unowned-temp"
+      },
+      {
+        "name": "concurrent-host-save-stale-overwrite",
+        "dialogs": 2,
+        "newerSaveReportedSuccess": true,
+        "olderBytesOverwroteNewer": true
+      }
+    ],
+    "nativeSavedFiles": 8,
+    "formatValidationScope": "size/type and HWP CFB / HWPX ZIP magic; full parse is checked independently by cached Native oracle"
+  },
+  "finalHostAndUI": {
+    "mode": "final-schema",
+    "mainSHA256": "47b42b7c90ea58c9641fbecfeb7098252dd28dad880a6e0dbf4778b8ff11f486",
+    "storageSHA256": "d212624214bbae40863f09159ff17a1db6ade8c051785ec4a7c4060400edebab",
+    "actualRegisteredHostIPCHandler": true,
+    "actualFilesystem": true,
+    "ElectronWindowAndDialogAdapters": true,
+    "OSDialogsInvoked": 0,
+    "OSClipboardAccessed": false,
+    "userFilesAccessed": false,
+    "permissionsChanged": false,
+    "faultInjection": [
+      "sync EIO",
+      "write EIO with close EIO",
+      "exclusive create collision",
+      "native chooser completion order"
+    ],
+    "rendererVerified": false,
+    "syntheticDocuments": true,
+    "syntheticSeed": "/Users/sw107/Documents/Codex/2026-10-06/task/plain-paste-qa/fixtures/plain.hwpx",
+    "syntheticSeedSHA256": "25dfc2bb1eeb13b44f9bb49bc3ef507691108ed7be5911cc8c8e7ec70d75b905",
+    "fixtureSHA256": {
+      "old.hwp": "b472d7dece00eaa22bd4fa9fd3328f79565bfe6de8c03628661d5a740065afbd",
+      "edited.hwp": "563bc34f3cfbb2c8d8f68400152c7da53e35ad5f586edfbccb52d20a8b7aa0ea",
+      "old.hwpx": "fe7d2647e1a2d26d1a49216e63e06e4c135898d9db19b09a44e2854c0d93a0ce",
+      "edited.hwpx": "e741a0079c58543c368b6407075b4f23d2f7ba3d1615e20ef0e41b1e1ee94673"
+    },
+    "checks": [
+      {
+        "name": "new-hwp",
+        "file": "/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/final-schema/new.hwp",
+        "bytes": 6656
+      },
+      {
+        "name": "replace-hwp",
+        "file": "/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/final-schema/replace.hwp"
+      },
+      {
+        "name": "new-hwpx",
+        "file": "/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/final-schema/new.hwpx",
+        "bytes": 7527
+      },
+      {
+        "name": "replace-hwpx",
+        "file": "/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/final-schema/replace.hwpx"
+      },
+      {
+        "name": "cancel-and-no-path-preserve"
+      },
+      {
+        "name": "extension-mismatch-preserves-existing"
+      },
+      {
+        "name": "uppercase-extension"
+      },
+      {
+        "name": "six-data-and-format-refusals-before-dialog"
+      },
+      {
+        "name": "untrusted-refusal"
+      },
+      {
+        "name": "four-invalid-path-refusals-and-rename-cleanup"
+      },
+      {
+        "name": "fault-sync",
+        "fault": "sync",
+        "error": "synthetic-sync-EIO",
+        "code": "EIO",
+        "originalPreserved": true,
+        "temps": [],
+        "counters": {
+          "closes": 1,
+          "opens": 1
+        }
+      },
+      {
+        "name": "fault-write-and-close",
+        "fault": "write-and-close",
+        "error": "synthetic-write-EIO",
+        "code": "EIO",
+        "originalPreserved": true,
+        "temps": [],
+        "counters": {
+          "closes": 1,
+          "opens": 1
+        }
+      },
+      {
+        "name": "exclusive-create-collision",
+        "preexistingTempPreserved": true
+      },
+      {
+        "name": "concurrent-save-and-retry",
+        "secondRejected": true,
+        "dialogsAfterRetry": 2
+      },
+      {
+        "name": "retry-after-cancel-format-path-failures"
+      },
+      {
+        "name": "ui-duplicate-and-success-after-completion"
+      },
+      {
+        "name": "ui-cancel-retains-dirty"
+      },
+      {
+        "name": "ui-failure-reports-error-and-retains-dirty"
+      },
+      {
+        "name": "ui-edit-during-save-retains-dirty"
+      }
+    ],
+    "problems": [],
+    "nativeSavedFiles": 8,
+    "formatValidationScope": "size/type and HWP CFB / HWPX ZIP magic; full parse is checked independently by cached Native oracle"
+  },
+  "finalMainWhitespaceOnlyIndentChangedAfter19CaseRun": true,
+  "finalCurrentMainSHA256": "40f93f1a8320d24d9cf1eb983169849571dfe83b6d7e17fca7817c4e7fa79058",
+  "finalLatestHostRegression": {
+    "tests": 4,
+    "passed": 4,
+    "failed": 0,
+    "actualHostErrorsReachActualUISaveFunction": true,
+    "realFilesystemWrites": true,
+    "log": "final-host-regression.log",
+    "logSHA256": "fa4914fc0df08078755257b7fa2496f9e81bb6aa8ecf96c2c637acdb9ffbfaa8"
+  },
+  "existingHostRegression": {
+    "tests": 10,
+    "passed": 10,
+    "failed": 0,
+    "log": "focused-host-tests.log"
+  },
+  "native": {
+    "finalIndependentSavedReopens": 11,
+    "representativeHostFiles": {
+      "atomicNativeRefusals": 11,
+      "atomicNativeStructuralRefusals": 36,
+      "duplicateNameRefusalsAcrossNestedScopes": 28,
+      "fullSvgParagraphsStylesAndBinDataCompared": true,
+      "independentSavedReopens": 8,
+      "nativeOperationReexecution": true,
+      "noteHeaderTrailingZeroPaddingCanonicalized": true,
+      "readOnlyNestedNameScopes": 14,
+      "selectionFragmentPairs": 0,
+      "snapshotPairs": 0
+    },
+    "latestHostUIRegressionFiles": {
+      "atomicNativeRefusals": 11,
+      "atomicNativeStructuralRefusals": 36,
+      "duplicateNameRefusalsAcrossNestedScopes": 28,
+      "fullSvgParagraphsStylesAndBinDataCompared": true,
+      "independentSavedReopens": 3,
+      "nativeOperationReexecution": true,
+      "noteHeaderTrailingZeroPaddingCanonicalized": true,
+      "readOnlyNestedNameScopes": 14,
+      "selectionFragmentPairs": 0,
+      "snapshotPairs": 0
+    },
+    "earlierSameRegression3PassesRetainedSeparately": {
+      "atomicNativeRefusals": 11,
+      "atomicNativeStructuralRefusals": 36,
+      "duplicateNameRefusalsAcrossNestedScopes": 28,
+      "fullSvgParagraphsStylesAndBinDataCompared": true,
+      "independentSavedReopens": 3,
+      "nativeOperationReexecution": true,
+      "noteHeaderTrailingZeroPaddingCanonicalized": true,
+      "readOnlyNestedNameScopes": 14,
+      "selectionFragmentPairs": 0,
+      "snapshotPairs": 0
+    },
+    "uppercaseSameInodeAlias": [
+      {
+        "original": "/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/final-schema/uppercase.HWP",
+        "nativeAlias": "/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/native-final/uppercase-native.hwp",
+        "sameInode": true,
+        "SHA256": "563bc34f3cfbb2c8d8f68400152c7da53e35ad5f586edfbccb52d20a8b7aa0ea",
+        "why": "Cached Native oracle selects output format with case-sensitive extension == hwp; host correctly accepts uppercase HWP. One same-inode alias selects the HWP branch without altering saved bytes."
+      }
+    ],
+    "savedFilesByteExactBeforeNative": true,
+    "noSavedCaretNormalizationUsed": true,
+    "noEditOperationsReplayed": true,
+    "cachedBinarySHA256": "9435b60f075ca3efb47a70a28b4b018aded922bd83acf2a5b7f9daddfd666c15",
+    "binaryRebuilt": false
+  },
+  "packagingPlan": [
+    {
+      "mode": "baseline",
+      "packageScriptSHA256": "363a29a8223446dc2accb1ba907ec6058bb4fe1293a5d64c6ff5a681ae3579e1",
+      "plannedStorageSHA256": "cbf0bc95d1b9156ff7254eddd5c8f9ece8996ef08f1c0d3c5be32a0a469a3ab2",
+      "currentStorageSHA256": "d212624214bbae40863f09159ff17a1db6ade8c051785ec4a7c4060400edebab",
+      "includesCurrentStorage": false,
+      "plannedMainSHA256": "7dedf3bebf2405c0fcabfe3d9cc77189e8225638adaf0296473862f3c89cd513",
+      "stoppedBeforeAppCreation": true,
+      "appCreated": false
+    },
+    {
+      "mode": "fixed",
+      "packageScriptSHA256": "f4071c07808e971a7b1ff9115723ecf476cc4478ac9257db1be29f68bec4e1f8",
+      "plannedStorageSHA256": "d212624214bbae40863f09159ff17a1db6ade8c051785ec4a7c4060400edebab",
+      "currentStorageSHA256": "d212624214bbae40863f09159ff17a1db6ade8c051785ec4a7c4060400edebab",
+      "includesCurrentStorage": true,
+      "plannedMainSHA256": "7dedf3bebf2405c0fcabfe3d9cc77189e8225638adaf0296473862f3c89cd513",
+      "stoppedBeforeAppCreation": true,
+      "appCreated": false
+    }
+  ],
+  "preservation": {
+    "protectedFiles": 37702,
+    "protectedMismatch": [],
+    "sourceFreezeFilesChecked": 1470,
+    "plannedSourceChangesOnly": [
+      "desktop/storage.cjs",
+      "desktop/main.cjs",
+      "scripts/package-local-mac-integration.py"
+    ],
+    "targetBytes": 4340318208,
+    "targetUnchanged": true,
+    "diskFreeBytes": 18624344064,
+    "dev12StrictAdhocPassed": true,
+    "dev12OwnedProcesses": [],
+    "dev12ASARSHA256": "7cb9e475d25d3ed7ec7d7a95b1b28e278547c3d32bd3dbc885d336ea0a113d36",
+    "nativeExecutableSHA256": "9435b60f075ca3efb47a70a28b4b018aded922bd83acf2a5b7f9daddfd666c15",
+    "currentHead": "7f027512a224719dca9942385de4961637e6ac1d",
+    "timeUTC": "2026-10-07T20:17:12.314271+00:00"
+  },
+  "resources": {
+    "qaAdditionalPeakBytes": 7876608,
+    "qaLimitBytes": 1073741824,
+    "minimumActualFreeBytes": 18618253312,
+    "freeFloorBytes": 16106127360,
+    "targetLimitBytes": 4831838208,
+    "targetUnchangedBytes": 4340318208,
+    "monitorStops": 0,
+    "stageBudgets": {
+      "baseline-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "scripts/check-host-save.cjs",
+          "../host-save-qa",
+          "baseline"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7065600,
+        "additionalPeakBytes": 7163904,
+        "additionalFinalBytes": 7163904,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18642526208,
+        "diskFreeFinalBytes": 18642423808,
+        "stopReason": null,
+        "elapsedSeconds": 0.63
+      },
+      "final-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "scripts/check-host-save.cjs",
+          "../host-save-qa",
+          "final"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7168000,
+        "additionalPeakBytes": 7241728,
+        "additionalFinalBytes": 7241728,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18640584704,
+        "diskFreeFinalBytes": 18640605184,
+        "stopReason": null,
+        "elapsedSeconds": 0.63
+      },
+      "final-host-regression-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "GEULGYEOL_HOST_SAVE_QA_DIR=/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/final-regression-files",
+          "GEULGYEOL_HOST_SAVE_FIXTURE_DIR=/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/schema-fixtures",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "--test",
+          "desktop/tests/host-save.test.cjs"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7827456,
+        "additionalPeakBytes": 7860224,
+        "additionalFinalBytes": 7860224,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18621997056,
+        "diskFreeFinalBytes": 18622001152,
+        "stopReason": null,
+        "elapsedSeconds": 0.62
+      },
+      "final-schema-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "scripts/check-host-save.cjs",
+          "../host-save-qa",
+          "final-schema",
+          "../plain-paste-qa/fixtures/plain.hwpx"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7262208,
+        "additionalPeakBytes": 7397376,
+        "additionalFinalBytes": 7397376,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18638241792,
+        "diskFreeFinalBytes": 18638209024,
+        "stopReason": null,
+        "elapsedSeconds": 0.63
+      },
+      "focused-host-tests-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "GEULGYEOL_QA_ENGINE_DIR=/Users/sw107/Documents/Codex/2026-10-06/task/dev12-integration-qa/packaged-engine",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "--test",
+          "desktop/tests/new-document.test.cjs",
+          "desktop/tests/close.test.cjs",
+          "desktop/tests/document-shortcuts.test.cjs",
+          "desktop/tests/edit-history.test.cjs",
+          "desktop/tests/engine.test.cjs"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7245824,
+        "additionalPeakBytes": 7254016,
+        "additionalFinalBytes": 7254016,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18640359424,
+        "diskFreeFinalBytes": 18640326656,
+        "stopReason": null,
+        "elapsedSeconds": 0.65
+      },
+      "host-save-regression-budget.json": {
+        "command": [
+          "env",
+          "ELECTRON_RUN_AS_NODE=1",
+          "GEULGYEOL_HOST_SAVE_QA_DIR=/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa",
+          "GEULGYEOL_HOST_SAVE_FIXTURE_DIR=/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa/schema-fixtures",
+          "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+          "--test",
+          "desktop/tests/host-save.test.cjs"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7757824,
+        "additionalPeakBytes": 7790592,
+        "additionalFinalBytes": 7790592,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18619772928,
+        "diskFreeFinalBytes": 18619740160,
+        "stopReason": null,
+        "elapsedSeconds": 0.64
+      },
+      "native-final-budget.json": {
+        "command": [
+          "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+          "verify",
+          "../host-save-qa/native-final"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7729152,
+        "additionalPeakBytes": 7737344,
+        "additionalFinalBytes": 7737344,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18618265600,
+        "diskFreeFinalBytes": 18618228736,
+        "stopReason": null,
+        "elapsedSeconds": 0.63
+      },
+      "native-final-regression-budget.json": {
+        "command": [
+          "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+          "verify",
+          "../host-save-qa/native-final-regression"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7868416,
+        "additionalPeakBytes": 7876608,
+        "additionalFinalBytes": 7876608,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18621964288,
+        "diskFreeFinalBytes": 18621952000,
+        "stopReason": null,
+        "elapsedSeconds": 0.63
+      },
+      "native-reopen-budget.json": {
+        "command": [
+          "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+          "verify",
+          "../host-save-qa/final/native"
+        ],
+        "exitCode": 101,
+        "additionalBeforeBytes": 7245824,
+        "additionalPeakBytes": 7254016,
+        "additionalFinalBytes": 7254016,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18640359424,
+        "diskFreeFinalBytes": 18640326656,
+        "stopReason": null,
+        "elapsedSeconds": 0.65
+      },
+      "native-schema-bounded-budget.json": {
+        "command": [
+          "python3",
+          "scripts/check-native-bookmark-caret.py",
+          "--native",
+          "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+          "--manifest",
+          "../host-save-qa/final-schema/native/manifest.json",
+          "--output",
+          "../host-save-qa/native-schema-cases"
+        ],
+        "exitCode": 1,
+        "additionalBeforeBytes": 7532544,
+        "additionalPeakBytes": 7716864,
+        "additionalFinalBytes": 7716864,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18637893632,
+        "diskFreeFinalBytes": 18637701120,
+        "stopReason": null,
+        "elapsedSeconds": 0.64
+      },
+      "native-schema-reopen-budget.json": {
+        "command": [
+          "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+          "verify",
+          "../host-save-qa/final-schema/native"
+        ],
+        "exitCode": 101,
+        "additionalBeforeBytes": 7401472,
+        "additionalPeakBytes": 7528448,
+        "additionalFinalBytes": 7528448,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18638184448,
+        "diskFreeFinalBytes": 18638020608,
+        "stopReason": null,
+        "elapsedSeconds": 0.63
+      },
+      "native-ui-budget.json": {
+        "command": [
+          "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+          "verify",
+          "../host-save-qa/native-ui"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7798784,
+        "additionalPeakBytes": 7806976,
+        "additionalFinalBytes": 7806976,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18622509056,
+        "diskFreeFinalBytes": 18622496768,
+        "stopReason": null,
+        "elapsedSeconds": 0.64
+      },
+      "package-planning-budget.json": {
+        "command": [
+          "env",
+          "PYTHONDONTWRITEBYTECODE=1",
+          "python3",
+          "../host-save-qa/check-package-planning.py"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7745536,
+        "additionalPeakBytes": 7753728,
+        "additionalFinalBytes": 7753728,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18618253312,
+        "diskFreeFinalBytes": 18618220544,
+        "stopReason": null,
+        "elapsedSeconds": 0.63
+      },
+      "preservation-budget.json": {
+        "command": [
+          "python3",
+          "../host-save-qa/verify-preserved.py"
+        ],
+        "exitCode": 0,
+        "additionalBeforeBytes": 7815168,
+        "additionalPeakBytes": 7823360,
+        "additionalFinalBytes": 7823360,
+        "additionalLimitBytes": 1073741824,
+        "targetPeakBytes": 4340318208,
+        "targetFinalBytes": 4340318208,
+        "targetLimitBytes": 4831838208,
+        "minDiskFreeBytes": 18624311296,
+        "diskFreeFinalBytes": 18624311296,
+        "stopReason": null,
+        "elapsedSeconds": 10.46
+      }
+    },
+    "qaAllocatedBytesAtRecord": 7897088,
+    "repositoryFilesConservativeBytes": 105419,
+    "taskAdditionalConservativeBytesBeforeCommit": 8002507
+  },
+  "actualElectronRendererVerifiedInThisTask": false,
+  "OSDialogInvocations": 0,
+  "userOriginalFilesAccessed": false,
+  "OSClipboardAccessed": false,
+  "systemPermissionsOrAccountsChanged": false,
+  "dev12Modified": false,
+  "fixIncludedInDev12": false,
+  "newApps": 0,
+  "newZIPs": 0,
+  "newTargets": 0,
+  "rustBuilds": 0,
+  "previousArtifactsDeleted": 0,
+  "publicPushOrRelease": false,
+  "limitations": [
+    "Official main.cjs registered IPC handler and host UI functions used through Electron/DOM/preload adapters with real FS; actual Electron IPC transport, renderer and OS save dialog not exercised",
+    "Bare createEmpty synthetic HWPX failed cached Native re-export before comparison: unregistered charPrIDRef [0]. Initial samples/logs preserved; valid schema-seeded synthetic samples pass. This does not establish that the actual UI new-document path fails.",
+    "Cached Native verifier uses case-sensitive HWP extension; uppercase HWP is tested through one same-inode lowercase alias, with original bytes unchanged",
+    "Fault injection represents write/sync/close errors; physical disk failure and power-loss durability not tested",
+    "Host format validation remains byte type/size, CFB/ZIP magic, extension match; Native structure checked for recorded successful samples",
+    "Source fixes are not integrated into preserved dev12; physical input, native OS dialogs, clipboard, Hancom and Linux not tested"
+  ],
+  "evidenceDirectory": "/Users/sw107/Documents/Codex/2026-10-06/task/host-save-qa",
+  "verifiedAtUTC": "2026-10-07T20:19:53.197260+00:00",
+  "evidenceManifestSHA256": "6ec62b34a118078c9e798d12820f55c7995f3f4e240caae950c64b71eab35905",
+  "evidenceFiles": 118
+}

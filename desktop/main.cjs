@@ -6,7 +6,7 @@ const {startServer}=require('./server.cjs');
 const {validateDocumentBytes,atomicWrite,MAX_BYTES}=require('./storage.cjs');
 const {installCloseController}=require('./close-controller.cjs');
 const {installDocumentShortcuts}=require('./document-shortcuts.cjs');
-let win,origin,server,dirty=false;
+let win,origin,server,dirty=false,saving=false;
 function trusted(event){return win&&!win.isDestroyed()&&event.sender===win.webContents&&event.senderFrame===win.webContents.mainFrame&&event.senderFrame.url===origin+'/';}
 function action(name){if(win&&!win.isDestroyed())win.webContents.send('baram:action',name);}
 if(!app.requestSingleInstanceLock()){app.quit();}else{
@@ -58,12 +58,16 @@ app.whenReady().then(async()=>{
   });
   ipcMain.handle('baram:save',async(event,{data,name,format})=>{
     if(!trusted(event))throw new Error('허용되지 않은 요청');
-    const bytes=validateDocumentBytes(data,format);
-    const base=path.basename(typeof name==='string'?name:'문서').replace(/\.(hwpx|hwp)$/i,'');
-    const selected=await dialog.showSaveDialog(win,{defaultPath:base+'-편집.'+format,filters:[{name:format.toUpperCase(),extensions:[format]}]});
-    if(selected.canceled||!selected.filePath)return null;
-    if(path.extname(selected.filePath).toLowerCase()!=='.'+format)throw new Error('선택한 형식과 확장자가 일치하지 않습니다.');
-    await atomicWrite(selected.filePath,bytes);return {name:path.basename(selected.filePath),size:bytes.length};
+    if(saving)throw new Error('저장 작업이 진행 중입니다. 완료 후 다시 시도하세요.');
+    saving=true;
+    try{
+      const bytes=validateDocumentBytes(data,format);
+      const base=path.basename(typeof name==='string'?name:'문서').replace(/\.(hwpx|hwp)$/i,'');
+      const selected=await dialog.showSaveDialog(win,{defaultPath:base+'-편집.'+format,filters:[{name:format.toUpperCase(),extensions:[format]}]});
+      if(selected.canceled||!selected.filePath)return null;
+      if(path.extname(selected.filePath).toLowerCase()!=='.'+format)throw new Error('선택한 형식과 확장자가 일치하지 않습니다.');
+      await atomicWrite(selected.filePath,bytes);return {name:path.basename(selected.filePath),size:bytes.length};
+    }finally{saving=false;}
   });
   session.defaultSession.on('will-download',(_event,item)=>{
     // Studio's built-in export uses Chromium's native save dialog.

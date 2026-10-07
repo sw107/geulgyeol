@@ -14,8 +14,8 @@ function validateDocumentBytes(data,format) {
 }
 async function atomicWrite(destination,data) {
   const temp=path.join(path.dirname(destination),`.baram-${crypto.randomUUID()}.tmp`);
-  let handle;
-  try {handle=await fs.open(temp,'wx',0o600);await handle.writeFile(data);await handle.sync();await handle.close();handle=null;await fs.rename(temp,destination);}
-  finally {if(handle)await handle.close();await fs.unlink(temp).catch(()=>{});}
+  let handle,created=false;
+  try {handle=await fs.open(temp,'wx',0o600);created=true;await handle.writeFile(data);await handle.sync();await handle.close();handle=null;await fs.rename(temp,destination);}
+  finally {if(handle)await handle.close().catch(()=>{});if(created)await fs.unlink(temp).catch(()=>{});}
 }
 module.exports={validateDocumentBytes,atomicWrite,MAX_BYTES};
