@@ -156,6 +156,14 @@ function baramState() { return { dirty: documentState.isDirty(), fileName: wasm.
   ready: async () => { await initPromise; await startupDocumentPromise; },
   state: baramState,
   assertDocumentVersion: assertHostDocumentVersion,
+  freezeDocumentWrites: (expected: HostDocumentVersion) => {
+    if (inputHandler?.hasPendingDocumentAgentOperation()) {
+      throw new Error('진행 중인 편집이 있습니다. 완료 후 다시 닫아 주세요.');
+    }
+    assertHostDocumentVersion(expected);
+    wasm.lockDocumentWrites();
+  },
+  unfreezeDocumentWrites: () => wasm.unlockDocumentWrites(),
   cancelDiscardClose: () => autosaveManager.cancelDiscardClose(),
   setFileActions: (dispatch: Parameters<typeof installHostFileActions>[1]) => installHostFileActions(registry, dispatch),
   newDocument: async (expected?: HostDocumentVersion) => { await createNewDocument(true, expected); return baramState(); },

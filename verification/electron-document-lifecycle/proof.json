@@ -1,6 +1,6 @@
 {
-  "verifiedAtUTC": "2026-10-08T15:20:57.277014+00:00",
-  "baseCommit": "bdd41f3412c047891bdf6f395fb7431205e9f4b5",
+  "verifiedAtUTC": "2026-10-08T16:03:16.513302+00:00",
+  "baseCommit": "d128670daa17d01c80643d2c836a38e4885b2b79",
   "actualElectron": true,
   "defaultViewport": null,
   "controlledNativeResponses": true,
@@ -478,7 +478,7 @@
       },
       {
         "name": "aborted cleanup restores actual IndexedDB recovery draft",
-        "draftId": "2efd02aa-3ef9-4a2c-8e2e-8e9f71f2f0ae",
+        "draftId": "81c3efd0-3f66-499c-92c8-3c30e0595c78",
         "SHA256": "7ce557e2ddeebaba651a71432917aecd4ff345fa2212146dce8357d0d3d0f384"
       },
       {
@@ -728,7 +728,7 @@
       },
       {
         "id": "final close rejection resumes actual IndexedDB recovery",
-        "draftId": "2a18722f-957d-45db-bc41-22b5f5e7bdc7",
+        "draftId": "305caa07-10aa-4bbc-a2f6-1ab7e6415979",
         "SHA256": "abe49a68f36dbd1a74693897a41658a83573cc1583feb32f36499280b6a5224f"
       }
     ],
@@ -759,7 +759,7 @@
             "defaultId": 0,
             "cancelId": 0,
             "message": "편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.",
-            "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 기존 복구본은 삭제하지 않습니다."
+            "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 복구본은 이미 정리됐을 수 있습니다."
           }
         },
         {
@@ -775,7 +775,7 @@
       "rows": [
         {
           "name": "actual IndexedDB draft exists before failure",
-          "id": "42dee8bd-529d-4c2d-83fe-7cd5e97b5944",
+          "id": "cb0ef218-1cc2-43b3-bf4e-342a0260e227",
           "SHA256": "4d7a551f4952a74a504af1d4414c077e22339529e9990d00dfd87f4ddb9ce2a6"
         },
         {
@@ -789,7 +789,7 @@
             "defaultId": 0,
             "cancelId": 0,
             "message": "편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.",
-            "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 기존 복구본은 삭제하지 않습니다."
+            "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 복구본은 이미 정리됐을 수 있습니다."
           }
         },
         {
@@ -805,7 +805,7 @@
       "rows": [
         {
           "name": "actual IndexedDB draft exists before failure",
-          "id": "dfd5f4a2-8598-4caa-862f-c57a231c4178",
+          "id": "8a02f14b-d9a1-4c9f-adbc-a9fc8fc54649",
           "SHA256": "4d7a551f4952a74a504af1d4414c077e22339529e9990d00dfd87f4ddb9ce2a6"
         },
         {
@@ -819,7 +819,7 @@
             "defaultId": 0,
             "cancelId": 0,
             "message": "편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.",
-            "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 기존 복구본은 삭제하지 않습니다."
+            "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 복구본은 이미 정리됐을 수 있습니다."
           }
         },
         {
@@ -829,8 +829,8 @@
     }
   },
   "automatedTests": {
-    "total": 44,
-    "passed": 43,
+    "total": 46,
+    "passed": 45,
     "failed": 0,
     "skipped": 1,
     "privateDocumentSkipped": true,
@@ -842,13 +842,13 @@
     "chooserFailure": "controlled native chooser rejection",
     "filesystemFailure": "three actual EISDIR rename failures in original main.cjs/storage.cjs; target directory sentinel and document unchanged; temporary files cleaned",
     "indexedDBFailure": "controlled throw at real renderer IDBObjectStore.delete API; current document and actual existing draft retained",
-    "rendererCrash": "actual webContents.forcefullyCrashRenderer; native cancel/explicit exit; no renderer cleanup calls after crash; no successful-save claim"
+    "rendererCrash": "actual webContents.forcefullyCrashRenderer; native cancel/explicit exit; no renderer cleanup calls after crash; no successful-save claim",
+    "finalizeFailure": "Controlled executeJavaScript reply rejection after finalize code successfully executed; prepare cleanup and final write lock both real; cancel restoration verified"
   },
   "lifecycle": {
     "stages": [
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -856,7 +856,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-4",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0,
@@ -865,7 +864,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-3",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0,
@@ -874,7 +872,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-11",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -882,7 +879,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-10",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0,
@@ -891,7 +887,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-2",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0,
@@ -900,7 +895,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-5",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -908,7 +902,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/baseline-confirmed",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -916,7 +909,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-7",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -924,7 +916,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-9",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0,
@@ -933,7 +924,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-8",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0,
@@ -942,7 +932,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-6",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -950,7 +939,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0,
@@ -959,7 +947,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/lifecycle-final",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -967,7 +954,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/final-4",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -975,7 +961,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/final-3",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0,
@@ -984,7 +969,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/final-2",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0,
@@ -993,7 +977,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/final-5",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -1001,7 +984,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/baseline",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0,
@@ -1010,7 +992,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/startup-failure",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -1018,7 +999,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/baseline-2",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -1026,7 +1006,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/final",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0,
@@ -1035,7 +1014,6 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/renderer-crash",
-        "willQuit": true,
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -1043,7 +1021,182 @@
       },
       {
         "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/javascript-failure",
-        "willQuit": true,
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/lifecycle-final",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/baseline-public-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-public",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-image-decode",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-public-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/pending-render",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/close-fence-final",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/baseline-public",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "Error: {\"ok\":false,\"reason\":\"threw\",\"message\":\"Cannot read properties of undefined (reading 'bind')\"}"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-file-read-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/renderer-crash-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/startup-failure",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/baseline-image-decode",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-cancel",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/javascript-failure-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-image-decode-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/startup-failure-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/baseline-cancel",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/close-fence-final-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/pending-render-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/renderer-crash",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/javascript-failure",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-cancel-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/lifecycle-final-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/baseline-file-read",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-file-read",
         "lifecycle": {
           "normalQuit": true,
           "exitCode": 0
@@ -1053,6 +1206,56 @@
     "checkedPorts": [
       49487,
       49489,
+      49675,
+      49677,
+      49684,
+      49686,
+      49736,
+      49738,
+      49744,
+      49746,
+      49766,
+      49768,
+      49779,
+      49781,
+      49788,
+      49790,
+      49819,
+      49821,
+      49825,
+      49826,
+      49832,
+      49834,
+      49840,
+      49842,
+      49852,
+      49853,
+      49863,
+      49865,
+      49896,
+      49898,
+      49908,
+      49910,
+      50047,
+      50049,
+      50053,
+      50054,
+      50060,
+      50061,
+      50066,
+      50067,
+      50074,
+      50075,
+      50080,
+      50081,
+      50086,
+      50087,
+      50093,
+      50094,
+      50098,
+      50100,
+      50104,
+      50106,
       56892,
       56894,
       57199,
@@ -1104,9 +1307,9 @@
   },
   "resources": {
     "targetPeakBytes": 4690055168,
-    "currentQAPeakBytes": 51728384,
+    "currentQAPeakBytes": 84660224,
     "priorQAPeakBytes": 92758016,
-    "minFreeBytes": 42734342144,
+    "minFreeBytes": 42645684224,
     "currentFinalPreservation": {
       "protected-before": {
         "count": 73368,
@@ -1123,48 +1326,59 @@
           "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/close.test.cjs",
           "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/new-document.test.cjs",
           "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/main.ts",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/core/wasm-bridge.ts",
           "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/recovery/autosave-manager.ts",
           "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/document-agent/controller.ts",
-          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/engine/input-handler.ts"
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/engine/input-handler.ts",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/engine/input-handler-picture.ts"
         ],
+        "missing": []
+      },
+      "previousQA": {
+        "count": 3388,
+        "changed": [],
         "missing": []
       },
       "originalCache": {
         "count": 579,
         "changedOrMissing": []
       },
-      "HEAD": "bdd41f3412c047891bdf6f395fb7431205e9f4b5",
+      "HEAD": "d128670daa17d01c80643d2c836a38e4885b2b79",
       "engineSHA256": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
       "targetBytes": 4690055168,
-      "QABytes": 51732480,
-      "priorQABytes": 92729344,
-      "freeBytes": 42733199360,
-      "seconds": 16.98
+      "QABytes": 84643840,
+      "freeBytes": 42640830464,
+      "seconds": 16.82
     }
   },
   "reusedUIAssets": {
     "reused": 13,
     "written": 3,
-    "writtenBytes": 2132056,
-    "out": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/p1-ui-current-2"
+    "writtenBytes": 2134007,
+    "out": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/ui-current-3"
   },
   "sourceSHA256": {
     "desktop/close-controller.cjs": "b17fd29233f4e1445e3fd3c429e7738561db2d2fdd7530b57a70ea52b52a68f4",
-    "desktop/main.cjs": "f5c285f60c0123c0fe121ad37575930f47fc74e38f48cfade9825e8c3812bc05",
+    "desktop/main.cjs": "6f8845ee61b449a50d7ec83e16f96eaa51b83ea9e4ed4ae56a5b56fc41d47b92",
     "desktop/preload.cjs": "b85220910bb09d3894bf928e1d14e5d5d82e8162f1d3e5cb803febc6d7b17fe8",
     "desktop/tests/close.test.cjs": "8e1f0bb91e3eedff25e8c2f9f20315b8284c18cee4643a3b5d0a3b63c5ddd61c",
-    "desktop/tests/new-document.test.cjs": "7b31782c940f26ae070fbcbe8ac23b9edc6f05833b75c5dc5e45d36feb8eccef",
-    "desktop/web/baram.js": "eab15fb8bf76b83d4340e1f8494c61a6ff668fb6c457f786c2b625aa9e5de013",
-    "rhwp-studio/src/document-agent/controller.ts": "e41681fc6dbd4704a17e1ab3133e1523056e2e5dad2d42b3e96f8afdd082049b",
-    "rhwp-studio/src/engine/input-handler.ts": "447fedb6d95288d3168169130da151413e4a752ed9abf84711bcd3519bc4f8d3",
-    "rhwp-studio/src/main.ts": "2476602a42d07e4659e4c3d84a90ee38a5d1df119669184cb31754ca69c0f6c7",
-    "rhwp-studio/src/recovery/autosave-manager.ts": "7e20019d0cf78cfc2480ea9c277eddfeeb62f8480a8f4621ae37016ae2e34801",
-    "scripts/check-host-save.cjs": "35bf9e65cad5a49fabfe14b3215a1003e99b6e4699225d139c5edb5028a3895c",
     "desktop/tests/document-version.test.cjs": "12e3295113e7919cd811f52c105a1ed6f6a945e52c9c44003097a456679f2d88",
-    "scripts/check-electron-document-lifecycle.mjs": "a863fa874d702a737df9ebe0cbdfe6731685c1628138b07b5006700e3be74910",
+    "desktop/tests/document-write-fence.test.cjs": "270d130592493e7977df2c7c0cf19ed61f73d385a8a44b284649710703360172",
+    "desktop/tests/new-document.test.cjs": "7b31782c940f26ae070fbcbe8ac23b9edc6f05833b75c5dc5e45d36feb8eccef",
+    "desktop/web/baram.js": "43326d90f25c11e9beaa8dd1cbb9c1442e27f90eb02b195f2e132fa92acabeda",
+    "rhwp-studio/src/core/document-write-fence.ts": "827acc49d18630b05c9a90ffa57f8fbaa3feb152f0c50e41ee6070c93b21aaf7",
+    "rhwp-studio/src/core/wasm-bridge.ts": "7ac178a38f87e991217eeeaaa24eca77e9248d5cc1405f79f6a589db6c8f9046",
+    "rhwp-studio/src/document-agent/controller.ts": "e41681fc6dbd4704a17e1ab3133e1523056e2e5dad2d42b3e96f8afdd082049b",
+    "rhwp-studio/src/engine/input-handler-picture.ts": "8c77428274a08964b0aa4806d3f903ccd5fe11e65c023006192a89ff28be3b26",
+    "rhwp-studio/src/engine/input-handler.ts": "73991827062aa1ce6e398b7362a83a5d5e7581bc3853c3215c5fbcd6c90eeaf0",
+    "rhwp-studio/src/main.ts": "fb248fa47f6af1f73d753c5c7b32652ca20ef538dcce1eebc88f6245e6ef0204",
+    "rhwp-studio/src/recovery/autosave-manager.ts": "7e20019d0cf78cfc2480ea9c277eddfeeb62f8480a8f4621ae37016ae2e34801",
     "scripts/check-electron-close-fence.mjs": "416c8bd7ae142033cfb939eedb3e5271d982b947ff6fb09f693031366e8663a1",
-    "scripts/check-electron-unavailable-close.mjs": "7bd24b63d33218639b920428e46f2ff014e4546a139d5b46a35a6d690424a7ae",
-    "scripts/electron-document-lifecycle-bootstrap.cjs": "6049170a34916ce1aedeeae37e5da75484231b272edb127f4cab68057700a061"
+    "scripts/check-electron-document-lifecycle.mjs": "a863fa874d702a737df9ebe0cbdfe6731685c1628138b07b5006700e3be74910",
+    "scripts/check-electron-final-ack.mjs": "82b75d58d9bc28804b7cabdd04b7bc5f30513dd0d66330437345ba5890d604e0",
+    "scripts/check-electron-unavailable-close.mjs": "7d66f5220a121431c67bc7a1aae07f07b9a48f35a5d78e10925c572b7b132925",
+    "scripts/check-host-save.cjs": "35bf9e65cad5a49fabfe14b3215a1003e99b6e4699225d139c5edb5028a3895c",
+    "scripts/electron-document-lifecycle-bootstrap.cjs": "812b4dd81357d0ff21743aa175e872063b9ad588da8d150e76372c85ba161c90"
   },
   "packageBuilt": false,
   "RustTargetBuilt": false,
@@ -1182,6 +1396,319 @@
   },
   "readOnlyEvidenceRoots": [
     "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa",
-    "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa"
+    "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa",
+    "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa"
+  ],
+  "historicalCommit": "bdd41f3412c047891bdf6f395fb7431205e9f4b5",
+  "finalAcknowledgement": {
+    "baselineCommit": "d128670daa17d01c80643d2c836a38e4885b2b79",
+    "injectionPoint": "after successful execution of window.baramFinalizeClose(), before its reply reaches main and the native window is destroyed",
+    "baseline": {
+      "public": {
+        "scenario": "public",
+        "baseline": true,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "public",
+            "errors": [],
+            "beforeSHA256": "9cdee892f0c370ae6f9f91b1ffc4bdb7229729f9ffc615114e6e58cfec355532",
+            "afterSHA256": "546f9f60e90e44b43f5bda31fabb4191a5b30ae7189dfacedb893d79e77ff759",
+            "state": {
+              "host": {
+                "dirty": true,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": false,
+              "error": ""
+            }
+          },
+          {
+            "name": "baseline loses post-finalize edits on normal close"
+          }
+        ]
+      },
+      "fileRead": {
+        "scenario": "file-read",
+        "baseline": true,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "file-read",
+            "errors": [],
+            "beforeSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "afterSHA256": "c4792ad109bb541d19945ca2832cafd02f8b04cd40f8487497926583df36cf73",
+            "state": {
+              "host": {
+                "dirty": true,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": false,
+              "error": ""
+            }
+          },
+          {
+            "name": "baseline loses post-finalize edits on normal close"
+          }
+        ]
+      },
+      "imageDecode": {
+        "scenario": "image-decode",
+        "baseline": true,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "image-decode",
+            "errors": [],
+            "beforeSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "afterSHA256": "c4792ad109bb541d19945ca2832cafd02f8b04cd40f8487497926583df36cf73",
+            "state": {
+              "host": {
+                "dirty": true,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": false,
+              "error": ""
+            }
+          },
+          {
+            "name": "baseline loses post-finalize edits on normal close"
+          }
+        ]
+      },
+      "cancel": {
+        "scenario": "cancel",
+        "baseline": true,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "prepare succeeded, finalize reply rejected, native warning cancelled",
+            "state": {
+              "host": {
+                "dirty": true,
+                "fileName": "새 문서.hwp"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": false,
+              "error": ""
+            },
+            "warning": {
+              "type": "warning",
+              "buttons": [
+                "취소",
+                "종료"
+              ],
+              "defaultId": 0,
+              "cancelId": 0,
+              "message": "편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.",
+              "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 기존 복구본은 삭제하지 않습니다."
+            }
+          },
+          {
+            "name": "baseline remains locked and recovery draft absent after edit"
+          }
+        ]
+      }
+    },
+    "final": {
+      "public": {
+        "scenario": "public",
+        "baseline": false,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "public",
+            "errors": [
+              "Error: 문서를 닫는 중에는 편집할 수 없습니다.",
+              "Error: 문서를 닫는 중에는 편집할 수 없습니다.",
+              "Error: 문서를 닫는 중에는 편집할 수 없습니다."
+            ],
+            "beforeSHA256": "9cdee892f0c370ae6f9f91b1ffc4bdb7229729f9ffc615114e6e58cfec355532",
+            "afterSHA256": "9cdee892f0c370ae6f9f91b1ffc4bdb7229729f9ffc615114e6e58cfec355532",
+            "state": {
+              "host": {
+                "dirty": false,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": true,
+              "error": ""
+            }
+          },
+          {
+            "name": "post-finalize writes blocked and exact saved document retained"
+          }
+        ]
+      },
+      "fileRead": {
+        "scenario": "file-read",
+        "baseline": false,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "file-read",
+            "errors": [],
+            "beforeSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "afterSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "state": {
+              "host": {
+                "dirty": false,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": true,
+              "error": ""
+            }
+          },
+          {
+            "name": "post-finalize writes blocked and exact saved document retained"
+          }
+        ]
+      },
+      "imageDecode": {
+        "scenario": "image-decode",
+        "baseline": false,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "image-decode",
+            "errors": [],
+            "beforeSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "afterSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "state": {
+              "host": {
+                "dirty": false,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": true,
+              "error": ""
+            }
+          },
+          {
+            "name": "post-finalize writes blocked and exact saved document retained"
+          }
+        ]
+      },
+      "cancel": {
+        "scenario": "cancel",
+        "baseline": false,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "prepare succeeded, finalize reply rejected, native warning cancelled",
+            "state": {
+              "host": {
+                "dirty": true,
+                "fileName": "새 문서.hwp"
+              },
+              "busy": false,
+              "inert": false,
+              "childInert": false,
+              "locked": false,
+              "error": ""
+            },
+            "warning": {
+              "type": "warning",
+              "buttons": [
+                "취소",
+                "종료"
+              ],
+              "defaultId": 0,
+              "cancelId": 0,
+              "message": "편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.",
+              "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 복구본은 이미 정리됐을 수 있습니다."
+            }
+          },
+          {
+            "name": "cancel restores editing and actual IndexedDB recovery",
+            "draftSHA256": "f99e3e037d3d49fdb82b3fdf8427967e7aa2dbdeb77e1652f108578f146fdfe5"
+          },
+          {
+            "name": "close retry saves latest edits and quits normally"
+          }
+        ]
+      },
+      "pendingRender": {
+        "scenario": "pending-render",
+        "baseline": false,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "pending real document-agent transaction rejects final close and restores editing"
+          },
+          {
+            "name": "completed transaction saves exactly and normal close retry succeeds"
+          }
+        ]
+      }
+    },
+    "controlledImageFiles": "Real canvas-generated blue/red PNG File objects; actual production picture handler and native browser decoder; file-read or load callback completion delayed",
+    "supportedWriteScope": [
+      "InputHandler.executeOperation",
+      "InputHandler.executeDocumentAgentOperation with in-flight render tracking",
+      "WasmBridge mutations/document replacement/release",
+      "borrowed HwpDocument method calls including pre-captured bound writers",
+      "promptAssignPictureImage delayed file and image completions",
+      "findOrCreateFontId is a font-table write, not an allowed read"
+    ],
+    "cancelRestoration": "finalize actually freezes writes, its reply then rejects; native cancel calls renderer cancellation; locks/token reset, dirty edits and actual recovery draft containing them restored; save/close retry persists all bytes"
+  },
+  "knownLimits": [
+    "Supported editor/bridge/borrowed-handle writes are guarded; this is not a claim about arbitrary external JavaScript modifying the WASM implementation",
+    "Native chooser responses and timing are controlled; physical IME/mouse/clipboard and OS chooser interaction unverified",
+    "Renderer-unavailable cancellation cannot promise resumed editing or that an already-cleaned recovery draft still exists; warning no longer promises draft preservation",
+    "New installation package, Linux run and complete Hancom compatibility unverified; no merge or release",
+    "Full Rust lib suite blocked by three missing existing samples"
   ]
 }

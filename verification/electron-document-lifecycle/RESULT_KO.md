@@ -2,37 +2,40 @@
 
 새 문서·열기·닫기는 실제 편집기의 문서 세대와 변경 번호를 확인한다. 확인부터 저장·교체까지 파일 작업을 잠그고, 저장·저장하지 않기·취소를 같은 네이티브 확인 경로에서 제공한다. 취소·저장 실패·확인 뒤 추가 편집은 문서를 유지한다. 새 문서 생성과 파일 파싱 직전에도 승인한 버전을 검사한다. 저장 완료는 같은 renderer 작업에서 버전을 비교한 뒤에만 clean을 적용하므로, RPC 응답 직후의 편집이나 이전 문서의 저장 결과가 현재 문서의 수정 상태를 지우지 않는다.
 
-독립 검토에서 확인된 두 결함도 보완했다. 도형 삽입과 그림/도형 크기 변경처럼 `document-changed`만 알리는 편집도 변경 번호를 올린다. 본문 명령과 쪽 계산의 짝지어진 렌더 알림은 중복 계산하지 않는다. 종료 승인이 성공해도 파일 작업 및 iframe 내부 입력 잠금을 풀지 않고, native 창을 닫기 직전에 버전을 다시 확인한다. 승인 뒤 공개 API 편집이 발생하면 종료를 거절하고 복구 저장을 재개한다.
+독립 검토에서 확인된 두 결함도 보완했다. 도형 삽입과 그림/도형 크기 변경처럼 `document-changed`만 알리는 편집도 변경 번호를 올린다. 본문 명령과 쪽 계산의 짝지어진 렌더 알림은 중복 계산하지 않는다. prepare 승인 뒤에도 파일 작업·iframe 입력 잠금을 유지하고, finalize 실행 전의 추가 편집은 버전 검사로 종료를 거절한다. 이전 `d128670`의 검증은 prepare 뒤의 편집만 다뤘으며, finalize가 true를 반환한 뒤 창이 파괴되기 전의 공개 API 쓰기까지 보호한다는 근거는 없었다. 그 마지막 구간에서 추가 손실을 실제 재현하여 이번 수정에 문서 쓰기 동결을 추가했다. 최종 승인은 편집 라우터·WASM 브리지·빌린 문서 핸들의 지원 쓰기 호출을 잠그며, 미리 얻은 함수도 같은 잠금을 확인한다. 글꼴을 찾거나 생성하는 함수도 쓰기이므로 동결 대상이다. 진행 중인 document-agent 트랜잭션은 종료를 거절하고, 파일 읽기·이미지 로딩의 뒤늦은 완료는 문서에 적용하지 않는다.
 
-최초 빈 문서 초기화가 끝날 때까지 파일 작업을 활성화하지 않는다. 영구 시작 실패·JavaScript 실행 실패·renderer 장애에서는 취소가 기본인 종료 경고를 제공한다. 명시적 종료는 저장 성공으로 표시하지 않으며 기존 복구본을 정리하는 renderer 경로를 실행하지 않는다. 엔진 파일 및 일반 SDK의 `notifySaved` 계약은 유지했다.
+최초 빈 문서 초기화가 끝날 때까지 파일 작업을 활성화하지 않는다. 영구 시작 실패·JavaScript 실행 실패·renderer 장애에서는 취소가 기본인 종료 경고를 제공한다. 명시적 종료는 저장 성공으로 표시하지 않는다. prepare 단계가 복구본을 이미 정리했을 수 있으므로 경고는 기존 복구본 보존을 보장하지 않는다. renderer가 실행 가능한 finalize 호출 실패의 취소는 승인 토큰·입력/문서 쓰기 잠금과 autosave closing 상태를 되돌린다. 복원 호출도 실패하면 편집 재개 실패를 명시하며 정상 복원을 주장하지 않는다. Rust 엔진/WASM 파일 및 일반 SDK의 `notifySaved` 계약은 유지했다.
 
 ## 재현과 최종 검사
 
-수정 전 공식 Electron에서 실제 편집이 포함된 전체 HWPX를 확보한 뒤, 비동기 dirty 전달 전 새 문서 교체로 내용이 사라지는 결함과 저장 상태 응답 직후 편집이 잘못 clean 처리되는 결함을 재현했다. 추가 검토 기준의 이전 소스에서도 도형 삽입·크기 변경이 같은 변경 번호로 저장 완료 처리되는 결함과 종료 승인 뒤 입력 잠금이 풀리는 결함을 재현했다. 성공·실패 기록을 모두 보존한다.
+수정 전 공식 Electron에서 실제 편집이 포함된 전체 HWPX를 확보한 뒤, 비동기 dirty 전달 전 새 문서 교체로 내용이 사라지는 결함과 저장 상태 응답 직후 편집이 잘못 clean 처리되는 결함을 재현했다. 추가 검토 기준의 이전 소스에서도 도형 삽입·크기 변경이 같은 변경 번호로 저장 완료 처리되는 결함과 종료 승인 뒤 입력 잠금이 풀리는 결함을 재현했다. 성공·실패 기록을 모두 보존한다. 이번 추가 검토는 처음에는 정적 지적이었으나, `d128670`의 실제 Electron에서 finalize true 응답 뒤 공개 라우터/빌린 함수·파일 읽기/이미지 로딩 완료의 내용 손실과, finalize 응답 실패 취소 뒤 잠금 유지·복구본 부재를 각각 재현했다.
 
 | 검사 | 결과 | 실제 확인 범위 |
 |---|---|---|
-| `electron-close-fence-qa/lifecycle-final` | 29개 통과·정상 종료 exit0 | 전체 문서 보존, 저장/확인/선택 중 편집, 이전 문서 세대의 저장 완료, 중복 요청, HWP/HWPX 저장 후 실제 앱 재열기, 취소/실패, 복구본 정리 중 편집과 복구본 재생성 |
-| `electron-close-fence-qa/final-5` | 7개 통과·정상 종료 exit0 | 도형 삽입·크기 변경의 버전 증가와 dirty 보존, 보기 확대 무변경, 승인 뒤 잠금·CDP 입력 차단, 공개 API 편집 시 종료 거절 및 실제 IndexedDB 복구본 재생성 |
+| `electron-final-ack-qa/lifecycle-final-2` | 29개 통과·정상 종료 exit0 | 전체 문서 보존, 저장/확인/선택 중 편집, 이전 문서 세대의 저장 완료, 중복 요청, HWP/HWPX 저장 후 실제 앱 재열기, 취소/실패, 복구본 정리 중 편집과 복구본 재생성 |
+| `electron-final-ack-qa/close-fence-final-2` | 7개 통과·정상 종료 exit0 | 도형 삽입·크기 변경의 버전 증가와 dirty 보존, 보기 확대 무변경, 승인 뒤 잠금·CDP 입력 차단, 공개 API 편집 시 종료 거절 및 실제 IndexedDB 복구본 재생성 |
+| finalize true 응답 뒤 쓰기 경합 3종 | 각 2개 통과·정상 종료 exit0 | 공개 `executeOperation` 및 미리 얻은 문서 쓰기 함수 거절, 실제 파일 읽기·이미지 로딩 완료의 적용 취소, 전체 문서/실제 저장 파일 일치 |
+| finalize 응답 실패 후 취소 | 3개 통과·정상 종료 exit0 | busy·parent/child inert·문서 쓰기 잠금 해제, 승인 토큰 초기화, 새 편집이 포함된 실제 IndexedDB 복구본, 저장 후 닫기 재시도 |
+| 진행 중인 document-agent 트랜잭션 | 2개 통과·정상 종료 exit0 | final 승인 거절·잠금 복원, 실제 렌더 완료 후 최신 내용 저장·정상 종료 |
 | 시작 실패·JavaScript 실패·renderer 강제 장애 | 각 3개 통과·정상 종료 exit0 | 취소 기본 경고·중복 요청 억제·명시적 종료. 장애 전 실제 복구본 생성 및 renderer 장애 후 정리 호출 부재 |
-| 데스크톱 자동 회귀 | 43개 통과·실패 0·skip 1 | 현재 엔진 계약, 이전 스타일/수식/그림/이력 회귀, host 저장, 변경 번호의 단일/짝 알림·문서 세대·구독 해제. 비공개 문서 검사는 skip |
+| 데스크톱 자동 회귀 | 45개 통과·실패 0·skip 1 | 현재 엔진 계약, 이전 스타일/수식/그림/이력 회귀, host 저장, 변경 번호의 단일/짝 알림·문서 세대·구독 해제와 문서 쓰기 잠금의 캡처 함수·수신 객체·알 수 없는 연산 거절. 비공개 문서 검사는 skip |
 | 정적 검사 | 통과 | 현재 엔진 선언으로 TypeScript noEmit, 변경 JS/CJS 문법, diff 공백 |
 
 실패 종류를 구분한다. 선택창 실패는 QA가 제어한 선택창 거절이다. 파일 쓰기 실패 3건은 전용 경로의 기존 디렉터리를 저장 대상으로 골라 원래 IPC·원자 파일 쓰기에서 실제 `EISDIR` rename 실패를 발생시켰다. 문서와 디렉터리 sentinel이 불변이고 임시 파일이 정리됨을 확인했다. IndexedDB 실패는 실제 renderer의 삭제 API에서 한 번 오류를 던지도록 통제한 검사이며, 현재 문서와 이미 생성된 실제 복구본이 보존됨을 확인했다. 물리 디스크 고장이나 실제 저장 장치 손상을 재현한 결과는 아니다.
 
-네이티브 선택창의 응답과 비동기 타이밍은 QA에서 제어했다. 문서 입력은 공개 플러그인/host API, 도형 작업은 실제 DOM 마우스 처리 경로, 승인 뒤 입력 시도는 CDP를 사용했다. 실제 공식 Electron·production Studio UI·원래 preload/등록 IPC/파일 쓰기의 검사이며, OS 선택창 직접 조작·물리 IME/마우스·클립보드·한컴 시각 대조의 인증으로 확대하지 않는다. QA 창은 `defaultViewport:null`, `showInactive`, focusable=false였고 제품 앱의 포커스 동작은 변경하지 않았다. 별도 웹 개발 서버나 Chrome UI 검증을 실행하지 않았다.
+prepare 뒤의 이전 gate와 별도로, 실제 finalize가 true를 반환한 뒤 main이 응답을 받기 전에 새 지연을 넣었다. finalize 실패 검사는 renderer에서 쓰기 동결까지 실제 실행한 뒤 응답을 거절한다. 그림은 공개 등록 커맨드로 얻은 실제 InputHandler의 그림 지정 경로를 사용했고, 실제 PNG File과 브라우저 decoder의 완료 시점만 통제했다. OS 파일 선택을 직접 조작한 것은 아니다. 네이티브 선택창의 응답과 비동기 타이밍은 QA에서 제어했다. 문서 입력은 공개 플러그인/host API, 도형 작업은 실제 DOM 마우스 처리 경로, 승인 뒤 입력 시도는 CDP를 사용했다. 실제 공식 Electron·production Studio UI·원래 preload/등록 IPC/파일 쓰기의 검사이며, OS 선택창 직접 조작·물리 IME/마우스·클립보드·한컴 시각 대조의 인증으로 확대하지 않는다. QA 창은 `defaultViewport:null`, `showInactive`, focusable=false였고 제품 앱의 포커스 동작은 변경하지 않았다. 별도 웹 개발 서버나 Chrome UI 검증을 실행하지 않았다.
 
-앞선 실패도 보존한다. 초기화 대기 부족, 검증 확장자 불일치, 종료된 renderer 조회, 예상 밖 문단 편집, 원인 미확인인 초기 최종 닫기 타임아웃이 있었다. 추가 검토 때 문서 hash를 버전 비교에 사용하는 시도는 저장 메타데이터 변화 때문에 무편집 저장까지 거절하여 채택하지 않았다. 크기 드래그가 중간·확정 변경을 각각 알리는 것을 한 번으로 가정한 검사도 수정했다. parent iframe 잠금만으로 CDP 입력이 막히지 않는 재현 뒤 내부 문서까지 잠갔다. 기본 오래된 pkg 선언을 사용한 TypeScript 실패는 별도 로그에 남기고, 실제 검증 엔진인 `table-size-qa/pkg`를 지정하여 통과했다. 실행 서버 연결이 끊겼지만 renderer 강제 장애 검사는 그 전에 정상 종료까지 기록됐음을 재개 후 확인했다. 연결 단절의 원인은 단정하지 않는다.
+앞선 실패도 보존한다. 초기화 대기 부족, 검증 확장자 불일치, 종료된 renderer 조회, 예상 밖 문단 편집, 원인 미확인인 초기 최종 닫기 타임아웃이 있었다. 추가 검토 때 문서 hash를 버전 비교에 사용하는 시도는 저장 메타데이터 변화 때문에 무편집 저장까지 거절하여 채택하지 않았다. 크기 드래그가 중간·확정 변경을 각각 알리는 것을 한 번으로 가정한 검사도 수정했다. parent iframe 잠금만으로 CDP 입력이 막히지 않는 재현 뒤 내부 문서까지 잠갔다. 기본 오래된 pkg 선언을 사용한 TypeScript 실패는 별도 로그에 남기고, 실제 검증 엔진인 `table-size-qa/pkg`를 지정하여 통과했다. 실행 서버 연결이 끊겼지만 renderer 강제 장애 검사는 그 전에 정상 종료까지 기록됐음을 재개 후 확인했다. 연결 단절의 원인은 단정하지 않는다. 이번 첫 추가 baseline의 함수 이름을 잘못 지정한 QA 어댑터 실패도 남겨 두었으며, 올바른 실제 쓰기 함수로 다시 재현한 결과와 구분한다.
 
 ## 보존·실행 환경·공개 범위
 
-보호 파일 73,368개와 기존 cache 579개가 모두 해시 불변이다. 소스 대조 1,530개 중 기존 파일 변경 10개는 이번 host/Studio 및 검사 수정이며 누락은 없다. WASM `e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45`와 Rust 엔진 파일은 그대로다. 누적 검증 실행 24회는 모두 정상 종료했으며 해당 실행의 포트 48개가 닫혔고 실행 중인 검증 Electron이 없다. 사용자 앱은 임의로 닫지 않았다.
+보호 파일 73,368개와 기존 cache 579개, 직전 QA 증거·자산 3,388개가 모두 해시 불변이다. 소스 대조 1,530개 중 기존 파일 변경 12개는 이번 host/Studio 및 검사 수정이며 누락은 없다. WASM `e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45`와 Rust 엔진 파일은 그대로다. 누적 검증 실행 49회는 모두 정상 종료했으며 해당 실행의 포트 98개가 닫혔고 실행 중인 검증 Electron이 없다. 사용자 앱은 임의로 닫지 않았다.
 
-Rust target은 4,690,055,168 bytes(4.368 GiB)로 불변이다. 이번 QA는 최고 약 49.33 MiB, 이전 QA는 약 88.46 MiB이며 각 96 MiB 예산 안에 있다. 이번 검사 중 디스크 최저 여유는 약 39.80 GiB로 15 GiB 기준 이상이다. 최종 UI 빌드는 동일 자산 13개를 하드링크로 재사용하고 새 자산 3개·2,132,056 bytes를 기록했다. 공유 inode는 덮어쓰지 않았고 기존 자료 삭제·휴지통 재시도·옛 target 재생성은 없었다.
+Rust target은 4,690,055,168 bytes(4.368 GiB)로 불변이다. 이번 추가 QA는 최고 약 80.74 MiB, 이전 QA는 약 88.46 MiB이며 각 96 MiB 예산 안에 있다. 이번 검사 중 디스크 최저 여유는 약 39.71 GiB로 15 GiB 기준 이상이다. 최종 UI 빌드는 동일 자산 13개를 하드링크로 재사용하고 새 자산 3개·2,134,007 bytes를 기록했다. 공유 inode는 덮어쓰지 않았고 기존 자료 삭제·휴지통 재시도·옛 target 재생성은 없었다.
 
 사용자가 승인한 공개 범위에 따라 소스·테스트·검증 문서만 `dev/style-propagation`에 커밋·정상 푸시하는 작업이다. 개인 원본 문서·프로필·캐시·합성 문서 출력·빌드 자산은 커밋하지 않는다. main 병합과 릴리스는 부모의 독립 재검토 이후 별도 작업이다. 새 .app·ZIP·Rust target·Linux 실행은 없으며, 이 수정이 기존 dev.12/기본 앱/공개 beta.2에 통합됐다는 뜻이 아니다. 전체 Rust lib 검사는 기존 샘플 3개 누락 때문에 차단된 상태다.
 
-[집계 증거](proof.json). 원시 로그·재현·합성 문서·보존 대조는 `electron-unsaved-qa`와 `electron-close-fence-qa`에 보존한다. 증거에는 검증한 소스의 SHA256이 포함된다. 재실행은 서로 다른 새 전용 QA 디렉터리에 현재 desktop host/SDK, 현재 엔진으로 별도 빌드한 Studio UI 및 빈 files 디렉터리를 준비하고 bootstrap을 복사하여 실행한다. 기존 audit/profile이 있으면 검사를 시작 전에 거절한다. 시작 실패 모드는 전용 SDK 사본에만 `createStudio` 초기 예외를 넣는 통제 조건이다.
+[집계 증거](proof.json). 원시 로그·재현·합성 문서·보존 대조는 `electron-unsaved-qa`, `electron-close-fence-qa`, `electron-final-ack-qa`에 보존한다. 증거에는 검증한 소스의 SHA256이 포함된다. 재실행은 서로 다른 새 전용 QA 디렉터리에 현재 desktop host/SDK, 현재 엔진으로 별도 빌드한 Studio UI 및 빈 files 디렉터리를 준비하고 bootstrap을 복사하여 실행한다. 기존 audit/profile이 있으면 검사를 시작 전에 거절한다. 시작 실패 모드는 전용 SDK 사본에만 `createStudio` 초기 예외를 넣는 통제 조건이다.
 
 ```sh
 GEULGYEOL_QA_ENGINE_DIR=/path/to/current/pkg node scripts/check-electron-document-lifecycle.mjs /path/to/fresh/lifecycle-qa
@@ -40,6 +43,8 @@ GEULGYEOL_QA_ENGINE_DIR=/path/to/current/pkg node scripts/check-electron-close-f
 node scripts/check-electron-unavailable-close.mjs /path/to/fresh/startup-qa startup
 node scripts/check-electron-unavailable-close.mjs /path/to/fresh/javascript-qa javascript
 node scripts/check-electron-unavailable-close.mjs /path/to/fresh/crash-qa crash
+GEULGYEOL_QA_ENGINE_DIR=/path/to/current/pkg node scripts/check-electron-final-ack.mjs /path/to/fresh/final-ack-qa public
+# 별도 새 QA마다 file-read / image-decode / cancel / pending-render도 실행한다.
 ```
 
 ## 같은 기준으로 보는 남은 범위

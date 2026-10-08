@@ -36,8 +36,14 @@ window.baramPrepareClose=()=>startupFailed?Promise.resolve('startup-failed'):run
 },{keepBusyOnSuccess:true});
 window.baramFinalizeClose=async()=>{
   if(!busy||!closeVersion)return false;
-  try{host().assertDocumentVersion(closeVersion);return true;}
-  catch(e){closeVersion=null;host().cancelDiscardClose();syncState();setBusy(false);error(e);return false;}
+  try{host().freezeDocumentWrites(closeVersion);return true;}
+  catch(e){window.baramCancelClose();error(e);return false;}
+};
+window.baramCancelClose=()=>{
+  if(!closeVersion)return true;
+  closeVersion=null;
+  host().unfreezeDocumentWrites();host().cancelDiscardClose();
+  syncState();setBusy(false);return true;
 };
 async function open(){
   if(busy||!editor)return;

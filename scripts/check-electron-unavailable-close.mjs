@@ -48,7 +48,7 @@ try{
   assert.equal(p.exitCode,null);
   const warning=audit().find(e=>e.kind==='close-confirmation'&&e.plan==='cancel-close').options;
   assert.deepEqual(warning.buttons,['취소','종료']);assert.equal(warning.cancelId,0);assert.equal(warning.defaultId,0);
-  assert.match(warning.detail,/복구본은 삭제하지 않습니다/);
+  assert.match(warning.detail,/복구본은 이미 정리됐을 수 있습니다/);
   assert.equal(audit().filter(e=>e.kind==='close-confirmation'&&e.plan==='cancel-close').length,1);
   if(mode==='crash')assert.equal(audit().filter(e=>e.kind==='renderer-evaluate').length,evalCount,'crashed renderer never runs recovery cleanup');
   rows.push({name:'explicit warning cancel retains window; duplicate requests prompt once',warning});

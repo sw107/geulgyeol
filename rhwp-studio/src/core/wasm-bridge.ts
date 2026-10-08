@@ -2,6 +2,7 @@ import init, { HwpDocument, version } from '@wasm/rhwp.js';
 import * as wasmExports from '@wasm/rhwp.js';
 import { blake3 } from '@noble/hashes/blake3.js';
 import { bytesToHex } from '@noble/hashes/utils.js';
+import { DocumentWriteFence } from './document-write-fence';
 import type { DocumentInfo, PageInfo, PageDef, SectionDef, PageBorderFillSettings, EndnoteShapeSettings, NoteEditInfo, CursorRect, HitTestResult, BodyFootnoteMarkerHit, FootnoteAtCursorResult, DeleteFootnoteResult, LineInfo, TableDimensions, CellInfo, CellBbox, CellProperties, TableProperties, DocumentPosition, MoveVerticalResult, SelectionRect, CharProperties, ParaProperties, CellPathEntry, CellPathLike, NavContextEntry, FieldInfoResult, BookmarkInfo, LayerRenderProfile, PageLayerTree, CanvasKitDocumentPreflight } from './types';
 import { parseCanvasKitDocumentPreflight } from './canvaskit-document-preflight';
 import {
@@ -253,6 +254,7 @@ function installCanvasFontSubstitution(): void {
 }
 
 export class WasmBridge {
+  private readonly writeFence = new DocumentWriteFence();
   private doc: HwpDocument | null = null;
   private initialized = false;
   private _fileName = 'document.hwp';
@@ -268,6 +270,11 @@ export class WasmBridge {
    * 첫 렌더 이후에 fetch 가 끝나면 뷰가 재갱신 없이는 이미지를 표시하지 못하므로,
    * main 쪽에서 뷰 갱신을 배선한다 (dirty 마킹 없는 뷰 전용 경로여야 함). */
   onExternalImagesInjected?: (injected: number) => void;
+
+  get documentWritesLocked(): boolean { return this.writeFence.isLocked; }
+  lockDocumentWrites(): void { this.writeFence.lock(); }
+  unlockDocumentWrites(): void { this.writeFence.unlock(); }
+  assertDocumentWritable(): void { this.writeFence.assertWritable(); }
 
   async initialize(): Promise<void> {
     if (this.initialized) return;
@@ -322,6 +329,7 @@ export class WasmBridge {
    * 비교 상세 창 등 보조 WasmBridge 인스턴스에서 반복 로드 시 메모리 누수를 줄이기 위해 사용한다.
    */
   releaseDocument(): void {
+    this.assertDocumentWritable();
     if (this.doc) {
       try {
         this.doc.free();
@@ -341,6 +349,7 @@ export class WasmBridge {
     requiresPasswordForSave: boolean,
     createDocument: () => HwpDocument,
   ): DocumentInfo {
+    this.assertDocumentWritable();
     const nextFileName = fileName ?? 'document.hwp';
     const nextDocumentDigest = `blake3:${bytesToHex(blake3(data))}`;
     let nextDoc: HwpDocument | null = null;
@@ -355,7 +364,7 @@ export class WasmBridge {
       // 새 문서를 끝까지 준비한 뒤에만 기존 문서를 교체한다. 암호 필요·오답·손상
       // 오류에서는 현재 문서와 최근 문서 연결을 그대로 유지해야 한다 (#3474).
       const previousDoc = this.doc;
-      this.doc = nextDoc;
+      this.doc = this.writeFence.guard(nextDoc);
       this._fileName = nextFileName;
       this._currentFileHandle = null;
       // 암호 문자열은 보관하지 않는다. 다음 저장에서 암호 재입력이 필요한지 여부만
@@ -452,9 +461,10 @@ export class WasmBridge {
   }
 
   createNewDocument(): DocumentInfo {
+    this.assertDocumentWritable();
     if (!this.doc) {
       // 아직 WASM 객체가 없으면 더미로 생성 (createEmpty → 즉시 교체)
-      this.doc = HwpDocument.createEmpty();
+      this.doc = this.writeFence.guard(HwpDocument.createEmpty());
     }
     const info: DocumentInfo = JSON.parse(this.doc.createBlankDocument());
     this.ensureParagraphStableIds();
@@ -500,6 +510,7 @@ export class WasmBridge {
   }
 
   set fileName(name: string) {
+    this.assertDocumentWritable();
     this._fileName = name;
     this.doc?.setFileName(name);
   }
@@ -534,7 +545,7 @@ export class WasmBridge {
 
   exportHwp(): Uint8Array {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
-    this.onBeforeExport?.();
+    if (!this.documentWritesLocked) this.onBeforeExport?.();
     return this.doc.exportHwp();
   }
 
@@ -545,7 +556,7 @@ export class WasmBridge {
    */
   exportHwpWithReport(): DocumentExportArtifact {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
-    this.onBeforeExport?.();
+    if (!this.documentWritesLocked) this.onBeforeExport?.();
     const exportFn = (this.doc as unknown as Partial<ReportedWasmDocument>).exportHwpWithReport;
     if (typeof exportFn !== 'function') {
       throw new Error('현재 WASM 빌드는 HWP 내용 손실 보고를 지원하지 않습니다');
@@ -557,13 +568,13 @@ export class WasmBridge {
 
   exportHwpWithPassword(password: string): Uint8Array {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
-    this.onBeforeExport?.();
+    if (!this.documentWritesLocked) this.onBeforeExport?.();
     return this.doc.exportHwpWithPassword(password);
   }
 
   exportHwpWithPasswordAndReport(password: string): DocumentExportArtifact {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
-    this.onBeforeExport?.();
+    if (!this.documentWritesLocked) this.onBeforeExport?.();
     const exportFn = (this.doc as unknown as Partial<ReportedWasmDocument>)
       .exportHwpWithPasswordAndReport;
     if (typeof exportFn !== 'function') {
@@ -576,14 +587,14 @@ export class WasmBridge {
 
   exportHwpx(): Uint8Array {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
-    this.onBeforeExport?.();
+    if (!this.documentWritesLocked) this.onBeforeExport?.();
     return this.doc.exportHwpx();
   }
 
   /** 명시적 저장용 HWPX artifact. byte-only 보조 소비자와 의도적으로 분리한다. */
   exportHwpxWithReport(): DocumentExportArtifact {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
-    this.onBeforeExport?.();
+    if (!this.documentWritesLocked) this.onBeforeExport?.();
     const exportFn = (this.doc as unknown as Partial<ReportedWasmDocument>).exportHwpxWithReport;
     if (typeof exportFn !== 'function') {
       throw new Error('현재 WASM 빌드는 HWPX 내용 손실 보고를 지원하지 않습니다');
@@ -600,7 +611,7 @@ export class WasmBridge {
 
   exportHwpxWithPasswordAndReport(password: string): DocumentExportArtifact {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
-    this.onBeforeExport?.();
+    if (!this.documentWritesLocked) this.onBeforeExport?.();
     const exportFn = (this.doc as unknown as Partial<ReportedWasmDocument>)
       .exportHwpxWithPasswordAndReport;
     if (typeof exportFn !== 'function') {

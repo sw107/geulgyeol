@@ -32,7 +32,11 @@ app.whenReady().then(async()=>{
   win.webContents.on('render-process-gone',()=>{rendererFailed=true;});
   async function confirmUnavailableClose(){
     const result=await dialog.showMessageBox(win,{type:'warning',buttons:['취소','종료'],defaultId:0,cancelId:0,
-      message:'편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.',detail:'종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 기존 복구본은 삭제하지 않습니다.'});
+      message:'편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.',detail:'종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 복구본은 이미 정리됐을 수 있습니다.'});
+    if(result.response!==1&&!rendererFailed){
+      try{await win.webContents.executeJavaScript('window.baramCancelClose?.()');}
+      catch(error){dialog.showErrorBox('편집 재개 실패',String(error.message||error));}
+    }
     return result.response===1;
   }
   installCloseController(win,{

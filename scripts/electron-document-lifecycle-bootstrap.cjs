@@ -35,7 +35,7 @@ dialog.showOpenDialog = async (win, options) => {
 };
 dialog.showMessageBox = async (_win, options) => {
   const c=control();audit('close-confirmation',{options,plan:c.id});if(c.closeGate){while(!fs.existsSync(path.join(q,c.closeGate)))await sleep(20);}
-  const choice=c.choice||((c.quit||c.allowDiscard)?'discard':'cancel');
+  const choice=(options.buttons.includes('종료')?c.unavailableChoice:undefined)||c.choice||((c.quit||c.allowDiscard)?'discard':'cancel');
   const pattern=choice==='save'?/^저장$/:choice==='discard'?/저장.*않|저장 안/:choice==='exit'?/^종료$/:/취소|편집 계속/;
   const response=options.buttons.findIndex(b=>pattern.test(b));return {response:response<0?options.cancelId:response};
 };
@@ -60,6 +60,11 @@ app.on('browser-window-created', (_e,win)=>{
       audit('close-approved',{result,lock:await exec("({busy:document.querySelector('#save').disabled,inert:document.querySelector('#editor').inert})")});
       const deadline=Date.now()+20000;
       while(!fs.existsSync(path.join(q,gate))){if(Date.now()>deadline)throw new Error('QA final close gate timeout');await sleep(20);}
+    }
+    if(code==='window.baramFinalizeClose()'&&result===true){
+      const c=control();audit('finalize-approved',{plan:c.id});
+      if(c.rejectFinalize)throw new Error('QA controlled finalize reply failure after successful renderer execution');
+      if(c.afterFinalizeGate){const deadline=Date.now()+20000;while(!fs.existsSync(path.join(q,c.afterFinalizeGate))){if(Date.now()>deadline)throw new Error('QA final reply gate timeout');await sleep(20);}}
     }
     return result;
   };

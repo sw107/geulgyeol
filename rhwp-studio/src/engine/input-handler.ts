@@ -3334,6 +3334,7 @@ export class InputHandler {
   }
 
   executeOperation(desc: OperationDescriptor): void {
+    this.wasm.assertDocumentWritable();
     if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
     if (!this.isOperationAllowedInEditMode(desc)) return;
     switch (desc.kind) {
@@ -3453,7 +3454,21 @@ export class InputHandler {
    * exact command는 host 응답 전에 실제 visible page render가 성공해야 하므로, snapshot을
    * history에 올린 뒤 strict render를 먼저 기다리고 성공할 때만 mutation event를 commit한다.
    */
+  private pendingDocumentAgentOperations = 0;
+
+  hasPendingDocumentAgentOperation(): boolean { return this.pendingDocumentAgentOperations > 0; }
+
   async executeDocumentAgentOperation(
+    desc: Extract<OperationDescriptor, { kind: 'snapshot' }>,
+    render: () => Promise<void>,
+  ): Promise<void> {
+    this.wasm.assertDocumentWritable();
+    this.pendingDocumentAgentOperations += 1;
+    try { await this.performDocumentAgentOperation(desc, render); }
+    finally { this.pendingDocumentAgentOperations -= 1; }
+  }
+
+  private async performDocumentAgentOperation(
     desc: Extract<OperationDescriptor, { kind: 'snapshot' }>,
     render: () => Promise<void>,
   ): Promise<void> {

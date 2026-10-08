@@ -166,10 +166,12 @@ export function promptAssignPictureImage(this: any, ref: PictureObjectRef): void
   input.accept = 'image/png,image/jpeg,image/gif,image/bmp,image/webp';
   input.onchange = async () => {
     const file = input.files?.[0];
-    if (!file) return;
+    if (!file || this.wasm.documentWritesLocked) return;
+    const generation = this.wasm.documentGeneration;
     let objectUrl = '';
     try {
       const data = new Uint8Array(await file.arrayBuffer());
+      if (this.wasm.documentWritesLocked || this.wasm.documentGeneration !== generation) return;
       const ext = file.name.split('.').pop()?.toLowerCase() || 'png';
       const img = new Image();
       objectUrl = URL.createObjectURL(file);
@@ -185,6 +187,7 @@ export function promptAssignPictureImage(this: any, ref: PictureObjectRef): void
         img.src = objectUrl;
       });
       const cellPathJson = hasCellPath(ref) ? JSON.stringify(ref.cellPath) : '';
+      if (this.wasm.documentWritesLocked || this.wasm.documentGeneration !== generation) return;
       // 지정 후에는 실그림이므로 placeholder 선택 상태를 먼저 해제한다
       // (스냅샷 실행의 full refresh 가 stale 선택 표시를 남기지 않도록).
       this.cursor.exitPictureObjectSelection();
