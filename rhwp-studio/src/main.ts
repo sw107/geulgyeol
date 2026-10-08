@@ -32,7 +32,7 @@ import { editCommands } from '@/command/commands/edit';
 import { syncClipMenu, syncTextMarkMenu, syncToolboxMenu, viewCommands } from '@/command/commands/view';
 import { formatCommands } from '@/command/commands/format';
 import { insertCommands } from '@/command/commands/insert';
-import { tableCommands } from '@/command/commands/table';
+import { tableCommands, nestedTableRowAvailability } from '@/command/commands/table';
 import { pageCommands } from '@/command/commands/page';
 import { toolCommands } from '@/command/commands/tool';
 import { installPwaFileHandling, type FileHandlingWindowLike } from '@/command/pwa-file-handling';
@@ -107,6 +107,7 @@ import { DocumentAgentController } from '@/document-agent/controller';
 
 const wasm = new WasmBridge();
 const eventBus = new EventBus();
+let startupDocumentPromise: Promise<void> = Promise.resolve();
 const documentState = new DocumentDirtyState(eventBus);
 documentState.installBeforeUnload(window);
 const autosaveManager = new AutosaveManager({
@@ -143,13 +144,46 @@ async function completeHostSave(fileName?: string): Promise<{ ok: true; wasDirty
 }
 
 // Baram local host bridge — no filesystem or remote access.
+type HostDocumentVersion = { documentEpoch: number; changeSeq: number };
+function assertHostDocumentVersion(expected: HostDocumentVersion): void {
+  const current = documentAgent?.getDocumentState();
+  if (!current || current.documentEpoch !== expected.documentEpoch || current.changeSeq !== expected.changeSeq) {
+    throw new Error('확인 후 문서가 변경되었습니다. 추가 편집을 저장하거나 다시 확인해 주세요.');
+  }
+}
 function baramState() { return { dirty: documentState.isDirty(), fileName: wasm.fileName }; }
 (window as any).baramHost = {
+  ready: async () => { await initPromise; await startupDocumentPromise; },
   state: baramState,
+  assertDocumentVersion: assertHostDocumentVersion,
+  freezeDocumentWrites: (expected: HostDocumentVersion) => {
+    if (inputHandler?.hasPendingDocumentAgentOperation()) {
+      throw new Error('진행 중인 편집이 있습니다. 완료 후 다시 닫아 주세요.');
+    }
+    assertHostDocumentVersion(expected);
+    wasm.lockDocumentWrites();
+  },
+  unfreezeDocumentWrites: () => wasm.unlockDocumentWrites(),
+  cancelDiscardClose: () => autosaveManager.cancelDiscardClose(),
   setFileActions: (dispatch: Parameters<typeof installHostFileActions>[1]) => installHostFileActions(registry, dispatch),
-  newDocument: async () => { await createNewDocument(true); return baramState(); },
+  newDocument: async (expected?: HostDocumentVersion) => { await createNewDocument(true, expected); return baramState(); },
+  loadDocument: async (data: Uint8Array, fileName: string, expected: HostDocumentVersion) => {
+    await loadBytes(data, fileName, null, undefined, { expectedVersion: expected });
+    return { pageCount: wasm.pageCount };
+  },
+  completeSavedSnapshot: (fileName: string, expected: HostDocumentVersion) => {
+    // Compare and mark clean in the same renderer task. An earlier RPC reply
+    // cannot authorize clearing edits made after that reply was sent.
+    const current = documentAgent?.getDocumentState();
+    if (!current || current.documentEpoch !== expected.documentEpoch || current.changeSeq !== expected.changeSeq) {
+      return { ok: false, wasDirty: documentState.isDirty() };
+    }
+    return completeHostSave(fileName);
+  },
   focus: () => inputHandler?.focus(),
-  prepareDiscardClose: () => autosaveManager.prepareDiscardClose(),
+  prepareDiscardClose: (expected?: HostDocumentVersion) => autosaveManager.prepareDiscardClose(
+    expected ? () => assertHostDocumentVersion(expected) : undefined,
+  ),
   detectFonts: async () => {
     const fonts = await detectLocalFonts({ force: true });
     eventBus.emit('local-fonts-changed', { fonts, source: 'options-dialog' });
@@ -254,6 +288,11 @@ function getContext(): EditorContext {
     hasSelection: inputHandler?.hasSelection() ?? false,
     hasCopiedFormat: inputHandler?.hasCopiedFormat() ?? false,
     inTable: inputHandler?.isInTable() ?? false,
+    inNestedTable: Math.max(
+      inputHandler?.getCursorPosition().cellPath?.length ?? 0,
+      inputHandler?.getCellTableContext()?.cellPath?.length ?? 0,
+    ) > 1,
+    ...nestedTableRowAvailability(inputHandler, wasm),
     inCellSelectionMode: inputHandler?.isInCellSelectionMode() ?? false,
     hasMultiCellSelection: inputHandler?.hasMultiCellSelection() ?? false,
     hasTableTransposeClipboard: wasm.hasTableTransposeClipboard(),
@@ -799,7 +838,7 @@ async function initialize(): Promise<void> {
     setupGlobalShortcuts();
     // 시작 진입점은 순서를 지켜야 한다 — ?url= 로드와 자동저장 복구가 문서를 열 기회를
     // 먼저 갖고, 아무도 열지 않았을 때만 빈 문서를 연다.
-    void (async () => {
+    startupDocumentPromise = (async () => {
       await loadFromUrlParam();
       // embed 프로파일: 자동저장 복구 다이얼로그의 드래프트 복원도 호스트가 감지할 수
       // 없는 문서 교체 경로이므로 띄우지 않는다 (드래프트 기록 자체는 유지).
@@ -1475,7 +1514,7 @@ function passwordOpenFailure(error: unknown): Error {
  * 일반 열기를 먼저 시도하고, 지원되는 HWP3/HWP5 암호 문서가 감지된 경우에만 암호
  * 입력 UI로 전환한다. 암호 문자열은 이 함수의 단일 시도 범위를 벗어나 보관하지 않는다.
  */
-async function loadPasswordProtectedDocument(data: Uint8Array, fileName: string): Promise<DocumentInfo> {
+async function loadPasswordProtectedDocument(data: Uint8Array, fileName: string, expected?: HostDocumentVersion): Promise<DocumentInfo> {
   let retryMessage: string | undefined;
 
   while (true) {
@@ -1483,6 +1522,7 @@ async function loadPasswordProtectedDocument(data: Uint8Array, fileName: string)
     if (password === null) throw new DocumentOpenCancelledError();
 
     try {
+      if (expected) assertHostDocumentVersion(expected);
       return wasm.loadDocumentWithPassword(data, password, fileName);
     } catch (error) {
       // CFB 암호문은 인증 태그가 없으므로 오입력과 암호화 데이터 손상을 완전히 구분할 수
@@ -1501,12 +1541,13 @@ async function loadPasswordProtectedDocument(data: Uint8Array, fileName: string)
   }
 }
 
-async function loadDocumentForOpen(data: Uint8Array, fileName: string): Promise<DocumentInfo> {
+async function loadDocumentForOpen(data: Uint8Array, fileName: string, expected?: HostDocumentVersion): Promise<DocumentInfo> {
   try {
+    if (expected) assertHostDocumentVersion(expected);
     return wasm.loadDocument(data, fileName);
   } catch (error) {
     if (!isPasswordRequiredError(error)) throw error;
-    return loadPasswordProtectedDocument(data, fileName);
+    return loadPasswordProtectedDocument(data, fileName, expected);
   }
 }
 
@@ -1567,7 +1608,7 @@ async function loadBytes(
   fileName: string,
   fileHandle: typeof wasm.currentFileHandle,
   startTime = performance.now(),
-  options: { dataReadProgressShown?: boolean; skipRecent?: boolean; suppressDialogs?: boolean } = {},
+  options: { dataReadProgressShown?: boolean; skipRecent?: boolean; suppressDialogs?: boolean; expectedVersion?: HostDocumentVersion } = {},
 ): Promise<void> {
   // 바이트로 여는 모든 경로(파일 열기 · ?url= · 자동저장 복구 · 호스트 API)의 공통 깔때기다.
   // 파싱·쪽 계산 동안 빈 화면만 보이므로 여기서 대기 커서를 든다.
@@ -1580,7 +1621,7 @@ async function loadBytes(
       await updateLoadProgress(0, '문서 데이터 준비 중...');
     }
     await updateLoadProgress(25, '문서 파싱 및 쪽 계산 중...');
-    const docInfo = await loadDocumentForOpen(data, fileName);
+    const docInfo = await loadDocumentForOpen(data, fileName, options.expectedVersion);
     prepareCanvasRendererDocument();
     // 문서가 갈렸다 — 빌린 핸들을 쥔 플러그인에 새 lease 를 준다. 알리지 않으면 그쪽만 옛
     // 문서를 계속 만진다(세대 검사가 잡아 DOCUMENT_RELEASED 로 끊긴다).
@@ -1757,11 +1798,12 @@ async function restoreAutosaveDraft(draft: AutosaveDraft): Promise<void> {
 }
 
 
-async function createNewDocument(propagateErrors = false): Promise<void> {
+async function createNewDocument(propagateErrors = false, expected?: HostDocumentVersion): Promise<void> {
   const msg = sbMessage();
   try {
     await withBusyCursor(document.documentElement, async () => {
       msg.textContent = '새 문서 생성 중...';
+      if (expected) assertHostDocumentVersion(expected);
       const docInfo = wasm.createNewDocument();
       prepareCanvasRendererDocument();
       plugins.notifyDocumentSwap();

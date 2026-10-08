@@ -1,0 +1,1714 @@
+{
+  "verifiedAtUTC": "2026-10-08T16:03:16.513302+00:00",
+  "baseCommit": "d128670daa17d01c80643d2c836a38e4885b2b79",
+  "actualElectron": true,
+  "defaultViewport": null,
+  "controlledNativeResponses": true,
+  "OSChooserVerified": false,
+  "physicalIMEVerified": false,
+  "physicalMouseVerified": false,
+  "clipboardAccessed": false,
+  "QAWindowFocusable": false,
+  "QAWindowShownInactive": true,
+  "engineSHA256": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
+  "initialBugsBaseline": {
+    "rows": [
+      {
+        "case": "edit then new before dirty message",
+        "beforeText": "\"새 문서 전 미저장&#128578;\"",
+        "confirmationCount": 0,
+        "textAfter": "\"\"",
+        "lostEdit": true
+      },
+      {
+        "case": "edit after version response before notifySaved",
+        "fired": true,
+        "replies": [
+          {
+            "schemaVersion": 1,
+            "format": "hwp",
+            "documentEpoch": 3,
+            "changeSeq": 1,
+            "dirty": true,
+            "pageCount": 1,
+            "documentSha256": "c20ad70d83e6d2936534bad08ec87400fefe9a2b9d727f1e1dacb65459eee179"
+          },
+          {
+            "schemaVersion": 1,
+            "format": "hwp",
+            "documentEpoch": 3,
+            "changeSeq": 1,
+            "dirty": true,
+            "pageCount": 1,
+            "documentSha256": "c20ad70d83e6d2936534bad08ec87400fefe9a2b9d727f1e1dacb65459eee179"
+          }
+        ],
+        "currentText": "\"나중 편집&#128578;먼저 저장할 본문&#128578;\"",
+        "savedText": "\"먼저 저장할 본문&#128578;\"",
+        "state": {
+          "host": {
+            "dirty": false,
+            "fileName": "late-saved.hwpx"
+          },
+          "filename": "late-saved.hwpx",
+          "busy": false,
+          "status": "7,400바이트 저장 완료"
+        },
+        "wrongClean": true
+      },
+      {
+        "case": "close cancel/duplicate",
+        "buttons": [
+          "편집 계속",
+          "저장하지 않고 닫기"
+        ],
+        "prompts": 1,
+        "saveChoicePresent": false,
+        "cancelPreserved": true
+      }
+    ],
+    "dialogs": [],
+    "actualElectron": true,
+    "defaultViewport": null,
+    "controlledNativeResponses": true,
+    "OSChooserVerified": false
+  },
+  "reviewP1Baseline": {
+    "mode": "baseline",
+    "rows": [
+      {
+        "id": "shape",
+        "ui": {
+          "handles": 11
+        },
+        "sameSeq": true,
+        "changedHash": true,
+        "wrongClean": true,
+        "state": {
+          "host": {
+            "dirty": false,
+            "fileName": "shape-saved.hwpx"
+          },
+          "busy": false,
+          "inert": false,
+          "error": ""
+        },
+        "replyVersions": [
+          {
+            "epoch": 2,
+            "seq": 1,
+            "hash": "27b8b3dec6dea3d8d9c8684dc41629c485b34be10e81b5c13911e7841847757e"
+          },
+          {
+            "epoch": 2,
+            "seq": 1,
+            "hash": "5b3ac64f4200d2fe69d84f1e26f76935a8fd4eb29b7bea42e19b407769da2e01"
+          }
+        ],
+        "before": {
+          "text": "\"P1 도형 저장 검사&#128578;\"",
+          "controls": [
+            {
+              "ctrlId": "secd",
+              "ctrlCh": 2,
+              "userDesc": "구역 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 0,
+              "controlIndex": 0,
+              "props": {}
+            },
+            {
+              "ctrlId": "cold",
+              "ctrlCh": 2,
+              "userDesc": "단 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 8,
+              "controlIndex": 1,
+              "props": {}
+            }
+          ]
+        },
+        "after": {
+          "text": "\"P1 도형 저장 검사&#128578;\"",
+          "controls": [
+            {
+              "ctrlId": "secd",
+              "ctrlCh": 2,
+              "userDesc": "구역 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 0,
+              "controlIndex": 0,
+              "props": {}
+            },
+            {
+              "ctrlId": "cold",
+              "ctrlCh": 2,
+              "userDesc": "단 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 8,
+              "controlIndex": 1,
+              "props": {}
+            },
+            {
+              "ctrlId": "gso",
+              "ctrlCh": 11,
+              "userDesc": "사각형",
+              "list": 0,
+              "para": 0,
+              "pos": 16,
+              "controlIndex": 2,
+              "props": {
+                "Lock": 0,
+                "TreatAsChar": 0,
+                "AllowOverlap": 0,
+                "TextWrap": 0,
+                "Width": 9000,
+                "Height": 5250,
+                "HorzOffset": 5003,
+                "VertOffset": 12750
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "resize",
+        "sameSeq": true,
+        "changedHash": true,
+        "wrongClean": true,
+        "state": {
+          "host": {
+            "dirty": false,
+            "fileName": "resize-saved.hwpx"
+          },
+          "busy": false,
+          "inert": false,
+          "error": ""
+        },
+        "replyVersions": [
+          {
+            "epoch": 2,
+            "seq": 1,
+            "hash": "5b3ac64f4200d2fe69d84f1e26f76935a8fd4eb29b7bea42e19b407769da2e01"
+          },
+          {
+            "epoch": 2,
+            "seq": 1,
+            "hash": "b1869009e59083e653a386e0df772f26e7af0a7207ba298c73dbfb2f60258dda"
+          }
+        ],
+        "before": {
+          "text": "\"P1 도형 저장 검사&#128578;\"",
+          "controls": [
+            {
+              "ctrlId": "secd",
+              "ctrlCh": 2,
+              "userDesc": "구역 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 0,
+              "controlIndex": 0,
+              "props": {}
+            },
+            {
+              "ctrlId": "cold",
+              "ctrlCh": 2,
+              "userDesc": "단 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 8,
+              "controlIndex": 1,
+              "props": {}
+            },
+            {
+              "ctrlId": "gso",
+              "ctrlCh": 11,
+              "userDesc": "사각형",
+              "list": 0,
+              "para": 0,
+              "pos": 16,
+              "controlIndex": 2,
+              "props": {
+                "Lock": 0,
+                "TreatAsChar": 0,
+                "AllowOverlap": 0,
+                "TextWrap": 0,
+                "Width": 9000,
+                "Height": 5250,
+                "HorzOffset": 5003,
+                "VertOffset": 12750
+              }
+            }
+          ]
+        },
+        "after": {
+          "text": "\"P1 도형 저장 검사&#128578;\"",
+          "controls": [
+            {
+              "ctrlId": "secd",
+              "ctrlCh": 2,
+              "userDesc": "구역 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 0,
+              "controlIndex": 0,
+              "props": {}
+            },
+            {
+              "ctrlId": "cold",
+              "ctrlCh": 2,
+              "userDesc": "단 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 8,
+              "controlIndex": 1,
+              "props": {}
+            },
+            {
+              "ctrlId": "gso",
+              "ctrlCh": 11,
+              "userDesc": "사각형",
+              "list": 0,
+              "para": 0,
+              "pos": 16,
+              "controlIndex": 2,
+              "props": {
+                "Lock": 0,
+                "TreatAsChar": 0,
+                "AllowOverlap": 0,
+                "TextWrap": 0,
+                "Width": 12000,
+                "Height": 7500,
+                "HorzOffset": 5002,
+                "VertOffset": 12750
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "view-only zoom leaves bytes and dirty state unchanged"
+      },
+      {
+        "id": "approval lock",
+        "lock": {
+          "busy": false,
+          "inert": false
+        }
+      },
+      {
+        "id": "late public edit lost on baseline close",
+        "savedSHA256": "91740e59ce1a32ecaf036c09cdd65fff02d69c390915503715b0667ece0dd6a6",
+        "lateSHA256": "d9f566994bf337cf0f80fc053b53385e278d25d0d8c5baa1fb381ec73f74e1a0"
+      }
+    ],
+    "actualElectron": true,
+    "controlledNativeResponses": true,
+    "syntheticDOMMouseEvents": true,
+    "physicalMouseVerified": false
+  },
+  "documentLifecycle": {
+    "actualElectron": true,
+    "defaultViewport": null,
+    "controlledNativeResponses": true,
+    "OSChooserVerified": false,
+    "programmaticPublicPluginEdits": true,
+    "physicalIMEVerified": false,
+    "clipboardAccessed": false,
+    "rows": [
+      {
+        "name": "native viewport retained",
+        "width": 1280,
+        "height": 828,
+        "bodyWidth": 1280,
+        "bodyHeight": 828
+      },
+      {
+        "name": "same-task edit/new cancel preserves complete document",
+        "beforeSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "dirty": true
+      },
+      {
+        "name": "new save chooser cancel preserves document",
+        "beforeSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "afterSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "dirty": true
+      },
+      {
+        "name": "new save failure preserves document",
+        "failureKind": "controlled native chooser rejection",
+        "beforeSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "afterSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "dirty": true
+      },
+      {
+        "name": "new real filesystem failure preserves document",
+        "failureKind": "real filesystem rename failure",
+        "beforeSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "afterSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "dirty": true
+      },
+      {
+        "name": "open real filesystem failure preserves document",
+        "failureKind": "real filesystem rename failure",
+        "beforeSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "afterSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "dirty": true
+      },
+      {
+        "name": "close real filesystem failure preserves document",
+        "failureKind": "real filesystem rename failure",
+        "beforeSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "afterSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "dirty": true
+      },
+      {
+        "name": "open cancel preserves document",
+        "beforeSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "afterSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "dirty": true
+      },
+      {
+        "name": "open chooser cancel after discard preserves document",
+        "beforeSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "afterSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "dirty": true
+      },
+      {
+        "name": "invalid open preserves previous document",
+        "beforeSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "afterSHA256": "19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40",
+        "dirty": true
+      },
+      {
+        "name": "late edit after unchanged state reply remains dirty",
+        "replies": [
+          {
+            "schemaVersion": 1,
+            "format": "hwp",
+            "documentEpoch": 2,
+            "changeSeq": 1,
+            "dirty": true,
+            "pageCount": 1,
+            "documentSha256": "8e24362d3c0c15f3e8d4aedaf74e2889421518ec2a427b2a1d5b9181aa6e3546"
+          },
+          {
+            "schemaVersion": 1,
+            "format": "hwp",
+            "documentEpoch": 2,
+            "changeSeq": 1,
+            "dirty": true,
+            "pageCount": 1,
+            "documentSha256": "8e24362d3c0c15f3e8d4aedaf74e2889421518ec2a427b2a1d5b9181aa6e3546"
+          }
+        ],
+        "currentText": "나중 편집&#128578;새 문서 전 미저장&#128578;",
+        "savedText": "새 문서 전 미저장&#128578;",
+        "state": {
+          "host": {
+            "dirty": true,
+            "fileName": "새 문서.hwp"
+          },
+          "filename": "새 문서.hwp · 수정됨",
+          "busy": false,
+          "status": "사본 저장 완료 · 저장 중의 추가 편집은 아직 저장되지 않았습니다.",
+          "errorOpen": false,
+          "errorText": "유효하지 않은 파일: 지원하지 않는 포맷입니다: 알 수 없는 파일 형식. 오류코드: UNSUPPORTED_FILE_FORMAT. 현재 rhwp는 HWP 5.0, HWPX, 일부 HWP 3.0, HWPML 2.9 문서를 지원합니다."
+        }
+      },
+      {
+        "name": "duplicate file actions and close blocked while save pending; late edit retained"
+      },
+      {
+        "name": "save completion for old epoch preserves new document name and dirty state"
+      },
+      {
+        "name": "edit during confirmation invalidates discard approval"
+      },
+      {
+        "name": "save before new and actual app reopen hwp",
+        "diskSHA256": "d453ee13a62209ea37d1ba0d47263706a313a128c1cb67d25c50fda222c99511",
+        "text": "전환 전 저장 hwp&#128578;확인 대기 중 편집&#128578;새 문서 세대의 미저장 편집&#128578;"
+      },
+      {
+        "name": "save before new and actual app reopen hwpx",
+        "diskSHA256": "c24f8c80b62c42e2280ffd5bd33796ec91fc1b70af8c440f16bc969765a41d18",
+        "text": "전환 전 저장 hwpx&#128578;전환 전 저장 hwp&#128578;확인 대기 중 편집&#128578;새 문서 세대의 미저장 편집&#128578;"
+      },
+      {
+        "name": "new discard clears only approved document"
+      },
+      {
+        "name": "open save chooser cancel preserves document",
+        "beforeSHA256": "781515885144db1d03079cbd8959364ddac1aac38850e154ad61671ef45db96c",
+        "afterSHA256": "781515885144db1d03079cbd8959364ddac1aac38850e154ad61671ef45db96c",
+        "dirty": true
+      },
+      {
+        "name": "open save failure preserves document",
+        "failureKind": "controlled native chooser rejection",
+        "beforeSHA256": "781515885144db1d03079cbd8959364ddac1aac38850e154ad61671ef45db96c",
+        "afterSHA256": "781515885144db1d03079cbd8959364ddac1aac38850e154ad61671ef45db96c",
+        "dirty": true
+      },
+      {
+        "name": "save before open persists old document then loads chosen document"
+      },
+      {
+        "name": "edit during open chooser blocks stale replacement"
+      },
+      {
+        "name": "close-cancel preserves window/document"
+      },
+      {
+        "name": "close-save-cancel preserves window/document"
+      },
+      {
+        "name": "close-save-fail preserves window/document"
+      },
+      {
+        "name": "late edit during save before close keeps window dirty"
+      },
+      {
+        "name": "edit during draft cleanup aborts close and preserves edits"
+      },
+      {
+        "name": "aborted cleanup restores actual IndexedDB recovery draft",
+        "draftId": "81c3efd0-3f66-499c-92c8-3c30e0595c78",
+        "SHA256": "7ce557e2ddeebaba651a71432917aecd4ff345fa2212146dce8357d0d3d0f384"
+      },
+      {
+        "name": "controlled IndexedDB deletion failure preserves window, document and existing recovery draft",
+        "failureKind": "controlled real-renderer IDB delete API rejection",
+        "draftSHA256": "7ce557e2ddeebaba651a71432917aecd4ff345fa2212146dce8357d0d3d0f384"
+      },
+      {
+        "name": "save before close persists all edits then normal quit"
+      }
+    ],
+    "pageErrors": [],
+    "engineSHA256": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45"
+  },
+  "closeFence": {
+    "mode": "final",
+    "rows": [
+      {
+        "id": "shape",
+        "ui": {
+          "handles": 11
+        },
+        "sameSeq": false,
+        "changedHash": true,
+        "wrongClean": false,
+        "state": {
+          "host": {
+            "dirty": true,
+            "fileName": "새 문서.hwp"
+          },
+          "busy": false,
+          "inert": false,
+          "error": ""
+        },
+        "replyVersions": [
+          {
+            "epoch": 2,
+            "seq": 1,
+            "hash": "27b8b3dec6dea3d8d9c8684dc41629c485b34be10e81b5c13911e7841847757e"
+          },
+          {
+            "epoch": 2,
+            "seq": 2,
+            "hash": "fb51b937fc27ef260b0474c516598cf622d64431c3fabaab6712b113868c0642"
+          }
+        ],
+        "before": {
+          "text": "\"P1 도형 저장 검사&#128578;\"",
+          "controls": [
+            {
+              "ctrlId": "secd",
+              "ctrlCh": 2,
+              "userDesc": "구역 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 0,
+              "controlIndex": 0,
+              "props": {}
+            },
+            {
+              "ctrlId": "cold",
+              "ctrlCh": 2,
+              "userDesc": "단 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 8,
+              "controlIndex": 1,
+              "props": {}
+            }
+          ]
+        },
+        "after": {
+          "text": "\"P1 도형 저장 검사&#128578;\"",
+          "controls": [
+            {
+              "ctrlId": "secd",
+              "ctrlCh": 2,
+              "userDesc": "구역 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 0,
+              "controlIndex": 0,
+              "props": {}
+            },
+            {
+              "ctrlId": "cold",
+              "ctrlCh": 2,
+              "userDesc": "단 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 8,
+              "controlIndex": 1,
+              "props": {}
+            },
+            {
+              "ctrlId": "gso",
+              "ctrlCh": 11,
+              "userDesc": "사각형",
+              "list": 0,
+              "para": 0,
+              "pos": 16,
+              "controlIndex": 2,
+              "props": {
+                "Lock": 0,
+                "TreatAsChar": 0,
+                "AllowOverlap": 0,
+                "TextWrap": 0,
+                "Width": 9000,
+                "Height": 5250,
+                "HorzOffset": 5565,
+                "VertOffset": 12750
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "resize",
+        "sameSeq": false,
+        "changedHash": true,
+        "wrongClean": false,
+        "state": {
+          "host": {
+            "dirty": true,
+            "fileName": "새 문서.hwp"
+          },
+          "busy": false,
+          "inert": false,
+          "error": ""
+        },
+        "replyVersions": [
+          {
+            "epoch": 2,
+            "seq": 2,
+            "hash": "fb51b937fc27ef260b0474c516598cf622d64431c3fabaab6712b113868c0642"
+          },
+          {
+            "epoch": 2,
+            "seq": 4,
+            "hash": "37a186d6669629850268747becbfef5749fec175c1357da36ac61a7cabd54891"
+          }
+        ],
+        "before": {
+          "text": "\"P1 도형 저장 검사&#128578;\"",
+          "controls": [
+            {
+              "ctrlId": "secd",
+              "ctrlCh": 2,
+              "userDesc": "구역 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 0,
+              "controlIndex": 0,
+              "props": {}
+            },
+            {
+              "ctrlId": "cold",
+              "ctrlCh": 2,
+              "userDesc": "단 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 8,
+              "controlIndex": 1,
+              "props": {}
+            },
+            {
+              "ctrlId": "gso",
+              "ctrlCh": 11,
+              "userDesc": "사각형",
+              "list": 0,
+              "para": 0,
+              "pos": 16,
+              "controlIndex": 2,
+              "props": {
+                "Lock": 0,
+                "TreatAsChar": 0,
+                "AllowOverlap": 0,
+                "TextWrap": 0,
+                "Width": 9000,
+                "Height": 5250,
+                "HorzOffset": 5565,
+                "VertOffset": 12750
+              }
+            }
+          ]
+        },
+        "after": {
+          "text": "\"P1 도형 저장 검사&#128578;\"",
+          "controls": [
+            {
+              "ctrlId": "secd",
+              "ctrlCh": 2,
+              "userDesc": "구역 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 0,
+              "controlIndex": 0,
+              "props": {}
+            },
+            {
+              "ctrlId": "cold",
+              "ctrlCh": 2,
+              "userDesc": "단 정의",
+              "list": 0,
+              "para": 0,
+              "pos": 8,
+              "controlIndex": 1,
+              "props": {}
+            },
+            {
+              "ctrlId": "gso",
+              "ctrlCh": 11,
+              "userDesc": "사각형",
+              "list": 0,
+              "para": 0,
+              "pos": 16,
+              "controlIndex": 2,
+              "props": {
+                "Lock": 0,
+                "TreatAsChar": 0,
+                "AllowOverlap": 0,
+                "TextWrap": 0,
+                "Width": 12000,
+                "Height": 7500,
+                "HorzOffset": 5565,
+                "VertOffset": 12750
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "view-only zoom leaves bytes and dirty state unchanged"
+      },
+      {
+        "id": "approval lock",
+        "lock": {
+          "busy": true,
+          "inert": true
+        }
+      },
+      {
+        "id": "trusted CDP input after approval blocked"
+      },
+      {
+        "id": "late public edit aborts final close and preserves document"
+      },
+      {
+        "id": "final close rejection resumes actual IndexedDB recovery",
+        "draftId": "305caa07-10aa-4bbc-a2f6-1ab7e6415979",
+        "SHA256": "abe49a68f36dbd1a74693897a41658a83573cc1583feb32f36499280b6a5224f"
+      }
+    ],
+    "engineSHA256": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
+    "actualElectron": true,
+    "controlledNativeResponses": true,
+    "syntheticDOMMouseEvents": true,
+    "physicalMouseVerified": false
+  },
+  "unavailableClose": {
+    "startup": {
+      "mode": "startup",
+      "actualElectron": true,
+      "controlledNativeResponses": true,
+      "OSChooserVerified": false,
+      "rows": [
+        {
+          "name": "startup failure keeps file actions disabled"
+        },
+        {
+          "name": "explicit warning cancel retains window; duplicate requests prompt once",
+          "warning": {
+            "type": "warning",
+            "buttons": [
+              "취소",
+              "종료"
+            ],
+            "defaultId": 0,
+            "cancelId": 0,
+            "message": "편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.",
+            "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 복구본은 이미 정리됐을 수 있습니다."
+          }
+        },
+        {
+          "name": "explicit warning exit closes normally without successful-save claim"
+        }
+      ]
+    },
+    "javascript": {
+      "mode": "javascript",
+      "actualElectron": true,
+      "controlledNativeResponses": true,
+      "OSChooserVerified": false,
+      "rows": [
+        {
+          "name": "actual IndexedDB draft exists before failure",
+          "id": "cb0ef218-1cc2-43b3-bf4e-342a0260e227",
+          "SHA256": "4d7a551f4952a74a504af1d4414c077e22339529e9990d00dfd87f4ddb9ce2a6"
+        },
+        {
+          "name": "explicit warning cancel retains window; duplicate requests prompt once",
+          "warning": {
+            "type": "warning",
+            "buttons": [
+              "취소",
+              "종료"
+            ],
+            "defaultId": 0,
+            "cancelId": 0,
+            "message": "편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.",
+            "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 복구본은 이미 정리됐을 수 있습니다."
+          }
+        },
+        {
+          "name": "explicit warning exit closes normally without successful-save claim"
+        }
+      ]
+    },
+    "rendererCrash": {
+      "mode": "crash",
+      "actualElectron": true,
+      "controlledNativeResponses": true,
+      "OSChooserVerified": false,
+      "rows": [
+        {
+          "name": "actual IndexedDB draft exists before failure",
+          "id": "8a02f14b-d9a1-4c9f-adbc-a9fc8fc54649",
+          "SHA256": "4d7a551f4952a74a504af1d4414c077e22339529e9990d00dfd87f4ddb9ce2a6"
+        },
+        {
+          "name": "explicit warning cancel retains window; duplicate requests prompt once",
+          "warning": {
+            "type": "warning",
+            "buttons": [
+              "취소",
+              "종료"
+            ],
+            "defaultId": 0,
+            "cancelId": 0,
+            "message": "편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.",
+            "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 복구본은 이미 정리됐을 수 있습니다."
+          }
+        },
+        {
+          "name": "explicit warning exit closes normally without successful-save claim"
+        }
+      ]
+    }
+  },
+  "automatedTests": {
+    "total": 46,
+    "passed": 45,
+    "failed": 0,
+    "skipped": 1,
+    "privateDocumentSkipped": true,
+    "TypeScriptCurrentEngine": "passed",
+    "syntax": "passed",
+    "diffWhitespace": "passed"
+  },
+  "failureKinds": {
+    "chooserFailure": "controlled native chooser rejection",
+    "filesystemFailure": "three actual EISDIR rename failures in original main.cjs/storage.cjs; target directory sentinel and document unchanged; temporary files cleaned",
+    "indexedDBFailure": "controlled throw at real renderer IDBObjectStore.delete API; current document and actual existing draft retained",
+    "rendererCrash": "actual webContents.forcefullyCrashRenderer; native cancel/explicit exit; no renderer cleanup calls after crash; no successful-save claim",
+    "finalizeFailure": "Controlled executeJavaScript reply rejection after finalize code successfully executed; prepare cleanup and final write lock both real; cancel restoration verified"
+  },
+  "lifecycle": {
+    "stages": [
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-4",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'd26cf75a3ba9ad275fa457b35f1afbd419701ee1d68f66ef37003f7007daf627'\n- '19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40'\n"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-3",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "Error: Timeout save before close"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-11",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-10",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'e26004985ec3a5319ca1d3e3963265fbda6d0380df6d0d88cf1fa4eea12a58dc'\n- '19a524ade7bb1bbba507ac69aea89b81946242a610de438ad6cd448d02ab9e40'\n"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n... Skipped lines\n\n+ Buffer(7409) [Uint8Array] [\n- Buffer(7399) [Uint8Array] [\n    80,\n    75,\n    3,\n    4,\n    10,\n...\n    0,\n+   86,\n+   122,\n+   82,\n+   41,\n+   234,\n-   87,\n-   90,\n-   20,\n-   172,\n-   224,\n    4,\n    0,\n    0,\n+   147,\n-   141,\n    13,\n    0,\n    0,\n    21,\n    0,\n...\n    245,\n+   144,\n+   149,\n+   228,\n+   253,\n+   137,\n+   99,\n-   16,\n-   203,\n-   242,\n-   122,\n-   55,\n-   142,\n-   177,\n-   218,\n-   96,\n-   227,\n-   159,\n    172,\n-   1,\n-   71,\n    54,\n+   216,\n+   248,\n+   39,\n+   54,\n+   224,\n+   200,\n-   98,\n-   59,\n    139,\n+   216,\n+   155,\n-   244,\n-   178,\n-   160,\n-   165,\n-   177,\n-   196,\n-   134,\n-   34,\n-   89,\n-   146,\n-   90,\n-   219,\n-   57,\n-   5,\n-   109,\n-   14,\n-   125,\n-   133,\n-   2,\n    69,\n-   155,\n-   75,\n-   111,\n-   5,\n    122,\n+   89,\n+   208,\n+   210,\n+   88,\n-   205,\n-   59,\n-   101,\n-   15,\n-   125,\n-   132,\n-   130,\n-   164,\n-   37,\n-   123,\n-   211,\n-   38,\n-   240,\n-   33,\n-   64,\n-   209,\n-   250,\n    98,\n+   75,\n+   145,\n+   44,\n+   73,\n+   173,\n+   237,\n+   156,\n+   138,\n+   54,\n+   1,\n+   10,\n+   228,\n+   9,\n+   10,\n+   20,\n+   109,\n+   46,\n+   189,\n+   21,\n-   206,\n-   152,\n-   223,\n-   55,\n-   51,\n-   31,\n-   57,\n-   35,\n-   249,\n-   252,\n-   241,\n-   166,\n-   96,\n    232,\n+   53,\n+   239,\n+   147,\n+   99,\n+   246,\n+   208,\n-   22,\n-   148,\n-   166,\n-   130,\n    71,\n+   40,\n+   72,\n+   90,\n+   178,\n+   55,\n+   109,\n-   56,\n-   108,\n-   52,\n-   49,\n    2,\n+   31,\n+   2,\n+   20,\n+   173,\n+   47,\n+   230,\n+   140,\n-   158,\n-   136,\n-   148,\n-   242,\n-   44,\n-   194,\n-   139,\n    249,\n+   125,\n+   51,\n+   243,\n+   145,\n+   51,\n+   146,\n-   240,\n-   65,\n-   7,\n-   35,\n-   109,\n-   8,\n    79,\n+   31,\n-   9,\n-   19,\n-   28,\n-   34,\n-   188,\n-   5,\n-   141,\n-   209,\n-   227,\n-   139,\n-   243,\n-   92,\n-   119,\n-   53,\n-   36,\n-   104,\n-   83,\n-   48,\n    174,\n+   74,\n+   134,\n-   187,\n-   57,\n-   137,\n-   112,\n    110,\n+   64,\n+   105,\n+   42,\n+   120,\n    140,\n+   163,\n+   131,\n+   16,\n+   35,\n+   224,\n+   169,\n+   200,\n+   40,\n+   207,\n+   99,\n+   124,\n+   57,\n+   27,\n+   220,\n+   107,\n+   99,\n+   164,\n+   13,\n+   225,\n+   25,\n+   97,\n+   130,\n+   67,\n+   140,\n+   215,\n+   160,\n+   49,\n-   236,\n-   6,\n-   193,\n    122,\n+   120,\n+   118,\n+   90,\n+   232,\n+   142,\n+   134,\n+   20,\n+   173,\n-   189,\n-   110,\n-   228,\n-   132,\n-   39,\n-   162,\n-   104,\n-   36,\n-   162,\n-   241,\n    74,\n+   198,\n+   117,\n+   167,\n+   32,\n+   49,\n+   46,\n+   140,\n+   145,\n+   157,\n+   32,\n+   88,\n+   46,\n+   151,\n+   7,\n    5,\n+   225,\n+   169,\n+   40,\n+   15,\n+   82,\n+   113,\n+   240,\n+   141,\n+   10,\n+   138,\n+   165,\n-   249,\n-   90,\n-   22,\n    44,\n+   89,\n+   208,\n+   10,\n+   163,\n+   40,\n-   104,\n-   53,\n-   195,\n-   48,\n    32,\n    82,\n    226,\n+   26,\n-   10,\n    33,\n+   247,\n-   143,\n    66,\n    72,\n    162,\n    72,\n+   174,\n-   166,\n    136,\n+   44,\n+   182,\n-   204,\n-   247,\n    184,\n+   40,\n+   220,\n+   3,\n-   176,\n    121,\n-   4,\n    242,\n+   15,\n+   72,\n+   189,\n+   87,\n-   236,\n-   31,\n-   144,\n-   250,\n-   168,\n-   136,\n-   26,\n-   18,\n-   67,\n-   5,\n-   175,\n-   81,\n-   201,\n-   81,\n-   168,\n    68,\n+   13,\n+   169,\n+   161,\n+   130,\n+   55,\n-   40,\n    168,\n+   116,\n+   47,\n+   84,\n+   42,\n+   20,\n+   52,\n-   33,\n-   249,\n-   81,\n    144,\n+   98,\n+   47,\n-   28,\n    72,\n+   1,\n+   36,\n+   219,\n+   66,\n+   246,\n+   75,\n+   174,\n+   160,\n+   218,\n+   8,\n-   186,\n-   135,\n-   28,\n-   151,\n-   92,\n-   78,\n    181,\n+   110,\n+   96,\n+   229,\n+   94,\n+   168,\n+   146,\n+   104,\n+   3,\n+   234,\n+   158,\n+   36,\n+   249,\n+   54,\n+   71,\n+   185,\n+   248,\n+   56,\n+   84,\n+   167,\n+   5,\n+   148,\n+   100,\n+   19,\n+   81,\n+   46,\n-   17,\n    106,\n+   76,\n+   182,\n+   149,\n+   66,\n+   86,\n-   91,\n-   195,\n    138,\n+   29,\n-   163,\n-   80,\n-   5,\n-   209,\n-   6,\n-   212,\n-   3,\n-   73,\n-   178,\n-   125,\n-   142,\n-   114,\n-   245,\n-   105,\n-   168,\n-   78,\n-   114,\n-   40,\n-   200,\n-   46,\n-   162,\n-   92,\n-   85,\n-   152,\n-   116,\n-   47,\n-   133,\n-   44,\n-   21,\n-   107,\n    8,\n    149,\n+   7,\n+   89,\n+   26,\n-   5,\n-   105,\n-   18,\n    0,\n    131,\n+   18,\n-   2,\n    184,\n    209,\n    65,\n+   116,\n+   16,\n+   5,\n+   245,\n+   94,\n+   241,\n+   1,\n+   63,\n+   205,\n+   228,\n+   194,\n+   1,\n+   90,\n+   97,\n+   120,\n+   63,\n+   16,\n-   216,\n-   8,\n-   131,\n-   106,\n-   175,\n-   248,\n-   136,\n-   159,\n-   166,\n    114,\n+   177,\n+   221,\n+   41,\n+   86,\n+   37,\n-   229,\n-   0,\n-   173,\n-   102,\n-   243,\n-   97,\n-   32,\n-   228,\n-   106,\n-   191,\n-   83,\n-   108,\n-   10,\n-   150,\n-   228,\n-   68,\n-   153,\n-   163,\n-   142,\n-   117,\n-   191,\n-   189,\n-   46,\n-   101,\n-   45,\n    75,\n-   78,\n-   141,\n-   245,\n-   29,\n-   197,\n-   112,\n-   181,\n-   150,\n    11,\n-   78,\n-   77,\n-   47,\n-   39,\n-   170,\n    162,\n+   204,\n+   94,\n+   199,\n-   0,\n-   89,\n-   46,\n-   63,\n-   155,\n-   174,\n-   174,\n-   118,\n-   38,\n-   130,\n-   175,\n-   104,\n-   22,\n-   225,\n-   82,\n-   241,\n-   174,\n-   32,\n-   154,\n-   234,\n-   46,\n-   39,\n-   5,\n-   232,\n-   174,\n-   73,\n    186,\n+   221,\n+   222,\n+   148,\n+   178,\n+   148,\n+   21,\n+   167,\n+   198,\n+   250,\n+   246,\n+   98,\n+   24,\n-   66,\n-   2,\n-   79,\n-   69,\n-   82,\n-   90,\n-   49,\n-   186,\n-   135,\n-   187,\n-   187,\n-   182,\n-   169,\n    46,\n+   229,\n+   37,\n+   167,\n-   206,\n-   115,\n-   217,\n-   149,\n-   136,\n    166,\n+   91,\n+   16,\n+   85,\n+   83,\n+   128,\n+   172,\n+   230,\n+   159,\n+   76,\n+   87,\n+   215,\n+   59,\n+   83,\n+   193,\n+   23,\n+   52,\n+   143,\n+   113,\n+   165,\n+   120,\n+   71,\n+   16,\n+   77,\n+   117,\n+   135,\n+   147,\n+   18,\n+   116,\n+   199,\n+   164,\n+   29,\n+   33,\n+   129,\n+   103,\n+   34,\n+   173,\n+   172,\n+   24,\n+   157,\n+   221,\n+   221,\n+   29,\n+   219,\n-   17,\n-   110,\n-   98,\n-   100,\n-   47,\n-   231,\n    84,\n+   103,\n+   167,\n+   133,\n+   236,\n+   72,\n+   68,\n+   179,\n+   24,\n+   135,\n+   24,\n+   217,\n+   203,\n+   121,\n+   161,\n+   70,\n+   189,\n+   167,\n+   176,\n+   112,\n-   141,\n-   250,\n-   207,\n-   97,\n-   229,\n-   108,\n-   109,\n    182,\n+   54,\n+   107,\n+   6,\n+   91,\n+   211,\n+   158,\n+   212,\n+   35,\n+   5,\n+   228,\n+   27,\n-   12,\n-   246,\n-   166,\n-   61,\n-   169,\n-   39,\n-   10,\n-   200,\n-   43,\n    103,\n+   165,\n+   130,\n+   85,\n    37,\n-   130,\n-   149,\n-   5,\n    223,\n+   218,\n+   37,\n-   219,\n-   5,\n    168,\n-   12,\n    28,\n+   28,\n    143,\n    35,\n    85,\n+   21,\n-   37,\n    71,\n    182,\n    248,\n+   29,\n-   3,\n    62,\n    231,\n    215,\n    144,\n+   94,\n+   40,\n+   23,\n+   16,\n+   35,\n+   3,\n+   43,\n+   211,\n+   163,\n+   202,\n+   95,\n+   237,\n+   24,\n+   15,\n+   39,\n+   79,\n-   76,\n-   149,\n-   11,\n-   136,\n-   145,\n-   129,\n-   141,\n-   233,\n-   83,\n-   229,\n-   175,\n-   118,\n-   132,\n-   175,\n-   38,\n-   207,\n    71,\n+   95,\n+   77,\n+   146,\n+   217,\n-   223,\n-   76,\n-   226,\n    249,\n-   229,\n    24,\n    35,\n    45,\n    73,\n+   10,\n+   93,\n-   2,\n-   61,\n    23,\n    66,\n+   199,\n-   71,\n    56,\n+   138,\n+   14,\n+   143,\n+   48,\n+   50,\n+   100,\n+   62,\n+   53,\n+   66,\n+   198,\n+   184,\n+   29,\n+   134,\n+   97,\n+   99,\n+   62,\n-   12,\n-   79,\n-   218,\n-   24,\n-   25,\n-   178,\n-   156,\n-   25,\n-   33,\n    35,\n+   44,\n+   198,\n+   71,\n+   187,\n+   30,\n+   171,\n+   99,\n+   140,\n+   135,\n+   87,\n-   220,\n-   105,\n-   54,\n-   155,\n-   181,\n-   249,\n-   130,\n-   176,\n-   8,\n-   183,\n-   15,\n-   61,\n-   86,\n-   199,\n-   8,\n-   95,\n-   93,\n-   79,\n    23,\n+   151,\n+   201,\n-   241,\n    104,\n+   134,\n-   142,\n    145,\n+   168,\n+   12,\n-   40,\n-   13,\n    163,\n    28,\n+   166,\n+   5,\n-   102,\n-   57,\n    145,\n+   117,\n-   85,\n    49,\n+   145,\n-   161,\n    77,\n    183,\n+   20,\n+   187,\n-   16,\n-   135,\n    46,\n    11,\n    135,\n+   149,\n-   141,\n    121,\n+   6,\n-   1,\n    202,\n    208,\n+   148,\n-   132,\n    176,\n+   43,\n-   107,\n    154,\n+   153,\n+   98,\n+   8,\n+   196,\n+   11,\n+   227,\n+   175,\n+   234,\n+   5,\n-   154,\n-   252,\n-   10,\n-   136,\n-   23,\n-   198,\n-   95,\n-   213,\n-   41,\n    201,\n+   161,\n+   203,\n-   160,\n-   199,\n    77,\n+   83,\n-   93,\n    74,\n+   174,\n-   166,\n    104,\n+   134,\n-   138,\n    44,\n    245,\n+   99,\n-   83,\n    181,\n+   17,\n-   19,\n    208,\n    22,\n+   220,\n+   24,\n+   75,\n+   193,\n+   243,\n    92,\n-   27,\n-   107,\n-   193,\n-   179,\n-   76,\n    124,\n+   77,\n+   7,\n-   75,\n-   135,\n    66,\n+   149,\n-   21,\n    196,\n    161,\n    2,\n    175,\n    128,\n    33,\n    202,\n+   36,\n+   85,\n+   233,\n-   196,\n-   101,\n-   225,\n    244,\n    156,\n+   90,\n-   89,\n    67,\n    79,\n    120,\n+   140,\n+   31,\n+   77,\n+   102,\n+   67,\n+   175,\n+   177,\n+   23,\n+   155,\n+   166,\n+   62,\n+   169,\n+   57,\n+   115,\n+   223,\n+   240,\n+   109,\n+   69,\n+   188,\n-   132,\n-   159,\n    76,\n+   53,\n+   207,\n+   13,\n+   213,\n+   116,\n+   78,\n+   25,\n+   53,\n+   107,\n+   84,\n+   208,\n+   12,\n+   6,\n+   84,\n+   105,\n-   230,\n-   87,\n-   94,\n    99,\n+   51,\n+   6,\n+   229,\n+   0,\n+   141,\n+   111,\n+   32,\n+   132,\n+   249,\n+   208,\n+   247,\n+   164,\n+   41,\n+   200,\n+   249,\n+   231,\n+   66,\n+   57,\n+   216,\n+   116,\n+   56,\n+   185,\n+   186,\n+   62,\n+   31,\n+   143,\n+   49,\n+   90,\n+   80,\n+   198,\n+   118,\n+   237,\n+   6,\n+   105,\n+   49,\n+   73,\n+   85,\n+   222,\n+   165,\n+   235,\n+   151,\n+   210,\n+   172,\n+   199,\n+   212,\n+   14,\n+   98,\n+   123,\n+   109,\n+   10,\n+   177,\n+   180,\n+   70,\n-   47,\n-   54,\n-   77,\n-   124,\n    82,\n+   149,\n+   115,\n+   31,\n+   216,\n+   39,\n+   204,\n+   26,\n+   159,\n+   19,\n+   30,\n-   75,\n-   230,\n-   190,\n-   225,\n-   187,\n-   146,\n-   120,\n-   153,\n-   42,\n-   158,\n-   91,\n-   170,\n-   233,\n-   146,\n-   50,\n-   106,\n-   182,\n-   40,\n-   167,\n    41,\n+   112,\n+   82,\n+   204,\n+   214,\n-   12,\n-   169,\n    210,\n+   227,\n+   82,\n+   81,\n+   113,\n-   198,\n-   102,\n-   12,\n-   202,\n-   1,\n-   106,\n-   223,\n-   80,\n-   8,\n    243,\n-   177,\n-   239,\n-   89,\n-   93,\n-   144,\n-   243,\n-   47,\n-   133,\n-   114,\n-   176,\n-   217,\n-   213,\n-   228,\n-   250,\n-   230,\n-   114,\n-   60,\n-   198,\n    104,\n+   237,\n+   214,\n-   69,\n    25,\n+   181,\n+   211,\n+   61,\n+   221,\n+   16,\n-   59,\n-   180,\n-   107,\n-   164,\n-   197,\n-   196,\n-   101,\n-   113,\n-   159,\n    110,\n+   20,\n+   187,\n+   195,\n+   102,\n+   149,\n+   186,\n    80,\n-   72,\n-   179,\n-   29,\n-   83,\n-   59,\n    136,\n+   17,\n+   158,\n+   233,\n+   148,\n+   88,\n+   138,\n-   237,\n-   181,\n-   201,\n-   197,\n-   218,\n-   26,\n-   113,\n-   89,\n-   44,\n-   125,\n-   96,\n-   159,\n-   48,\n    171,\n+   81,\n+   175,\n+   63,\n+   126,\n+   142,\n+   209,\n+   210,\n+   158,\n+   93,\n+   140,\n-   125,\n-   78,\n-   120,\n-   164,\n-   192,\n-   73,\n-   49,\n-   223,\n-   74,\n    143,\n+   31,\n+   28,\n+   183,\n+   218,\n+   24,\n+   21,\n+   64,\n+   243,\n+   194,\n+   196,\n-   75,\n-   68,\n-   201,\n-   205,\n-   147,\n-   173,\n-   91,\n-   167,\n-   212,\n-   78,\n-   247,\n-   100,\n-   71,\n    184,\n+   125,\n-   83,\n-   236,\n-   30,\n-   155,\n-   85,\n-   106,\n-   170,\n-   16,\n-   35,\n-   60,\n-   213,\n-   9,\n-   177,\n    20,\n-   215,\n-   163,\n-   254,\n-   96,\n-   252,\n-   18,\n-   163,\n    181,\n+   79,\n-   61,\n-   187,\n-   8,\n-   159,\n-   62,\n-   58,\n-   109,\n-   117,\n    48,\n    202,\n+   43,\n-   129,\n-   102,\n-   185,\n-   137,\n-   112,\n-   167,\n-   29,\n-   118,\n-   206,\n-   48,\n-   202,\n-   74,\n    99,\n    64,\n    249,\n    152,\n    227,\n+   254,\n+   96,\n+   118,\n+   61,\n+   73,\n+   198,\n+   207,\n-   193,\n-   112,\n-   126,\n-   51,\n-   137,\n-   199,\n-   47,\n    253,\n    121,\n+   150,\n-   22,\n    68,\n+   229,\n-   101,\n    148,\n    35,\n    59,\n    1,\n    109,\n    160,\n+   163,\n+   214,\n+   113,\n+   11,\n+   163,\n-   118,\n-   235,\n-   180,\n-   133,\n-   209,\n-   106,\n-   167,\n-   158,\n-   183,\n-   60,\n-   218,\n-   37,\n    197,\n+   70,\n-   96,\n-   101,\n-   89,\n-   79,\n-   155,\n-   109,\n-   140,\n-   212,\n-   46,\n-   132,\n-   51,\n-   220,\n-   21,\n    61,\n+   111,\n+   121,\n+   180,\n+   75,\n+   138,\n+   193,\n+   194,\n+   178,\n+   30,\n+   135,\n+   71,\n+   24,\n+   169,\n+   77,\n+   8,\n+   103,\n+   184,\n+   43,\n+   122,\n+   124,\n+   114,\n+   210,\n+   182,\n+   186,\n+   26,\n+   35,\n+   202,\n+   13,\n+   56,\n+   56,\n-   61,\n    59,\n+   13,\n+   154,\n+   188,\n-   235,\n-   88,\n    93,\n+   64,\n+   203,\n+   157,\n+   8,\n+   83,\n+   155,\n+   164,\n+   50,\n+   34,\n-   141,\n-   17,\n-   197,\n-   14,\n-   28,\n-   92,\n-   156,\n-   7,\n-   117,\n-   222,\n-   46,\n-   160,\n-   229,\n-   142,\n-   133,\n    169,\n+   74,\n+   127,\n+   95,\n+   144,\n+   113,\n+   41,\n-   76,\n-   82,\n-   26,\n-   17,\n-   151,\n-   133,\n-   191,\n-   47,\n-   200,\n-   184,\n-   20,\n-   251,\n-   163,\n-   167,\n    246,\n+   70,\n+   143,\n+   237,\n+   29,\n+   174,\n+   52,\n+   40,\n+   59,\n-   14,\n-   151,\n    26,\n+   108,\n+   215,\n+   72,\n+   5,\n+   11,\n+   186,\n+   170,\n+   45,\n+   93,\n+   45,\n+   26,\n+   235,\n+   75,\n-   148,\n-   29,\n-   13,\n-   182,\n    107,\n+   74,\n+   157,\n+   42,\n+   42,\n+   119,\n+   238,\n+   27,\n+   23,\n+   6,\n+   236,\n+   113,\n+   32,\n+   6,\n+   60,\n+   183,\n+   194,\n+   220,\n+   139,\n+   240,\n+   134,\n+   125,\n+   58,\n+   25,\n+   143,\n+   122,\n-   164,\n-   130,\n-   21,\n-   221,\n-   84,\n-   150,\n-   46,\n-   87,\n-   181,\n-   245,\n-   181,\n-   53,\n-   165,\n-   78,\n-   20,\n-   149,\n-   7,\n-   247,\n    141,\n+   96,\n+   225,\n+   65,\n+   212,\n+   66,\n+   101,\n+   233,\n-   11,\n-   3,\n-   246,\n-   56,\n-   16,\n-   3,\n-   158,\n-   89,\n-   97,\n-   30,\n-   132,\n-   120,\n-   199,\n-   62,\n-   155,\n-   140,\n-   71,\n-   253,\n    90,\n+   91,\n+   168,\n+   24,\n+   127,\n+   17,\n-   176,\n-   102,\n-   35,\n-   108,\n-   161,\n-   162,\n-   112,\n-   173,\n-   45,\n-   84,\n-   132,\n-   191,\n-   106,\n    186,\n    207,\n+   14,\n-   1,\n    205,\n+   84,\n-   76,\n    146,\n+   148,\n-   132,\n    242,\n+   28,\n+   205,\n-   12,\n-   45,\n    193,\n+   44,\n-   172,\n    1,\n    184,\n    205,\n    93,\n+   199,\n-   71,\n    184,\n    213,\n+   62,\n+   196,\n-   57,\n-   193,\n    104,\n+   14,\n-   9,\n    204,\n    159,\n    186,\n    173,\n    253,\n+   62,\n-   33,\n    70,\n    100,\n+   46,\n-   41,\n    110,\n+   92,\n-   93,\n    88,\n    39,\n    75,\n+   205,\n-   197,\n    225,\n    206,\n    208,\n    50,\n    248,\n    248,\n+   221,\n-   189,\n    73,\n+   50,\n+   27,\n+   37,\n+   151,\n+   147,\n+   203,\n+   41,\n+   70,\n+   28,\n+   150,\n+   238,\n+   94,\n+   69,\n+   245,\n+   249,\n+   50,\n+   146,\n+   186,\n-   60,\n-   31,\n-   197,\n-   139,\n-   201,\n-   98,\n-   134,\n    17,\n+   142,\n+   220,\n+   42,\n+   198,\n+   253,\n+   243,\n+   238,\n-   135,\n-   181,\n-   187,\n-   87,\n-   97,\n-   117,\n-   190,\n-   140,\n-   36,\n-   110,\n-   132,\n-   35,\n-   183,\n-   138,\n    240,\n+   186,\n+   59,\n+   25,\n+   95,\n+   62,\n+   73,\n+   108,\n+   56,\n+   14,\n+   196,\n+   20,\n+   51,\n+   88,\n+   213,\n+   149,\n+   6,\n+   127,\n-   224,\n-   178,\n-   119,\n-   117,\n-   211,\n-   155,\n-   140,\n    23,\n+   20,\n+   120,\n+   246,\n+   47,\n+   200,\n-   207,\n-   98,\n    27,\n+   181,\n+   90,\n+   237,\n+   240,\n+   243,\n+   42,\n-   142,\n-   3,\n-   49,\n-   249,\n    28,\n+   126,\n+   82,\n-   54,\n-   85,\n-   165,\n-   193,\n    223,\n-   5,\n-   5,\n-   158,\n-   254,\n-   11,\n-   242,\n-   134,\n-   173,\n    86,\n+   235,\n+   232,\n+   179,\n+   232,\n+   155,\n+   244,\n+   174,\n+   39,\n+   131,\n+   235,\n+   222,\n+   164,\n+   123,\n-   167,\n    249,\n+   164,\n+   159,\n+   204,\n+   62,\n+   166,\n+   241,\n+   93,\n+   81,\n+   221,\n+   51,\n+   193,\n+   77,\n+   143,\n+   1,\n    101,\n+   108,\n+   19,\n+   214,\n+   143,\n+   178,\n+   121,\n+   227,\n+   222,\n+   78,\n+   93,\n+   59,\n+   98,\n-   21,\n-   110,\n-   126,\n-   86,\n-   223,\n-   86,\n-   171,\n    253,\n+   246,\n+   24,\n+   95,\n+   156,\n+   95,\n-   69,\n    244,\n+   159,\n+   226,\n+   77,\n+   187,\n    141,\n+   184,\n+   166,\n+   153,\n+   239,\n+   118,\n+   223,\n+   113,\n+   187,\n+   14,\n+   202,\n+   216,\n+   185,\n+   2,\n+   82,\n+   67,\n+   92,\n+   96,\n+   177,\n+   88,\n+   104,\n+   48,\n+   155,\n+   46,\n+   140,\n+   142,\n+   162,\n    251,\n-   55,\n-   147,\n-   225,\n    77,\n+   23,\n+   122,\n+   195,\n+   117,\n+   161,\n-   127,\n-   210,\n-   91,\n-   60,\n-   27,\n-   196,\n-   243,\n-   79,\n-   105,\n-   124,\n    95,\n+   214,\n+   93,\n+   232,\n+   172,\n+   157,\n+   46,\n+   220,\n+   230,\n+   253,\n+   241,\n+   82,\n+   250,\n+   207,\n+   250,\n+   201,\n+   255,\n+   164,\n+   148,\n+   73,\n+   175,\n-   84,\n    247,\n+   31,\n+   171,\n+   36,\n+   168,\n+   223,\n+   23,\n+   28,\n+   121,\n+   106,\n+   148,\n+   175,\n+   46,\n+   21,\n+   108,\n+   251,\n+   10,\n+   225,\n+   74,\n+   75,\n+   250,\n+   87,\n-   76,\n-   112,\n    211,\n+   77,\n+   230,\n+   140,\n+   172,\n+   69,\n+   101,\n+   252,\n-   99,\n-   72,\n-   25,\n-   219,\n-   133,\n-   245,\n-   163,\n    108,\n+   119,\n+   125,\n+   214,\n+   181,\n+   79,\n+   21,\n+   87,\n+   167,\n+   38,\n+   37,\n+   76,\n+   95,\n+   52,\n-   89,\n-   187,\n-   247,\n-   83,\n-   215,\n-   142,\n-   88,\n-   191,\n-   61,\n-   194,\n-   211,\n    203,\n+   199,\n+   68,\n+   238,\n+   92,\n-   233,\n-   224,\n-   57,\n-   222,\n-   181,\n-   219,\n-   136,\n    107,\n+   207,\n-   154,\n-   250,\n    110,\n+   87,\n+   170,\n+   226,\n+   159,\n+   124,\n+   131,\n+   49,\n+   103,\n+   239,\n+   94,\n+   189,\n+   126,\n    247,\n-   29,\n-   119,\n-   232,\n-   160,\n-   140,\n-   93,\n-   42,\n-   32,\n-   21,\n-   196,\n-   5,\n-   22,\n-   171,\n-   149,\n-   6,\n-   179,\n-   235,\n-   194,\n-   176,\n-   29,\n-   62,\n-   172,\n-   187,\n-   208,\n-   27,\n-   174,\n-   11,\n-   253,\n-   178,\n    234,\n-   66,\n-   103,\n-   29,\n-   116,\n-   225,\n-   62,\n-   239,\n-   79,\n-   151,\n-   50,\n-   120,\n-   49,\n-   136,\n-   255,\n-   39,\n-   165,\n-   76,\n-   250,\n-   253,\n-   255,\n-   88,\n-   37,\n-   65,\n    245,\n-   190,\n-   224,\n-   200,\n-   19,\n-   163,\n-   124,\n-   117,\n-   137,\n-   96,\n-   251,\n-   87,\n-   8,\n-   87,\n-   90,\n-   60,\n-   184,\n-   158,\n    237,\n+   15,\n+   63,\n+   162,\n+   247,\n+   191,\n+   191,\n+   189,\n-   50,\n-   103,\n-   100,\n-   43,\n-   74,\n-   227,\n-   103,\n-   187,\n-   235,\n-   179,\n-   158,\n    125,\n+   249,\n+   51,\n-   170,\n-   184,\n-   58,\n-   53,\n-   41,\n-   96,\n-   246,\n    186,\n+   125,\n+   243,\n+   18,\n+   189,\n-   94,\n-   62,\n-   37,\n-   242,\n-   224,\n-   90,\n-   123,\n-   118,\n-   187,\n-   82,\n-   37,\n    255,\n+   227,\n+   237,\n+   237,\n+   155,\n-   236,\n-   27,\n-   140,\n-   185,\n-   184,\n-   251,\n-   225,\n-   71,\n-   244,\n-   225,\n-   247,\n-   247,\n-   119,\n-   111,\n-   127,\n-   70,\n-   119,\n    239,\n+   110,\n-   222,\n-   162,\n-   15,\n    127,\n+   249,\n+   237,\n-   188,\n-   191,\n-   123,\n-   247,\n-   230,\n-   238,\n-   151,\n-   223,\n-   254,\n-   252,\n-   245,\n-   167,\n-   239,\n-   29,\n-   133,\n-   185,\n    207,\n-   100,\n-   31,\n-   124,\n-   26,\n-   50,\n-   162,\n-   20,\n-   217,\n-   30,\n-   58,\n-   156,\n-   242,\n-   82,\n-   248,\n-   6,\n-   191,\n-   5,\n-   117,\n-   111,\n-   173,\n-   233,\n-   107,\n-   136,\n-   112,\n-   232,\n    95,\n-   108,\n-   96,\n-   99,\n-   170,\n-   231,\n-   152,\n-   247,\n-   44,\n-   137,\n-   6,\n-   203,\n-   226,\n-   167,\n-   171,\n-   123,\n-   93,\n-   114,\n    127,\n+   250,\n+   222,\n+   17,\n+   153,\n-   141,\n-   206,\n-   236,\n-   143,\n-   185,\n-   80,\n-   175,\n-   43,\n-   42,\n    187,\n+   124,\n    246,\n+   241,\n+   167,\n-   84,\n-   246,\n    33,\n+   39,\n+   74,\n-   100,\n-   15,\n-   142,\n    145,\n+   245,\n+   174,\n+   195,\n+   233,\n+   47,\n+   133,\n+   111,\n+   243,\n+   27,\n+   80,\n+   119,\n+   214,\n+   154,\n+   190,\n+   128,\n+   24,\n-   76,\n    71,\n+   254,\n+   245,\n+   6,\n+   86,\n+   166,\n+   126,\n+   154,\n+   121,\n+   207,\n+   156,\n+   104,\n+   176,\n+   44,\n+   126,\n+   198,\n+   186,\n+   151,\n+   38,\n+   247,\n+   7,\n+   233,\n+   196,\n+   254,\n+   88,\n+   8,\n+   245,\n+   162,\n+   166,\n+   178,\n+   107,\n+   79,\n+   101,\n+   31,\n+   69,\n+   246,\n    248,\n+   24,\n+   201,\n+   117,\n+   140,\n+   15,\n+   31,\n+   28,\n+   182,\n+   162,\n+   147,\n+   90,\n+   131,\n+   187,\n+   25,\n+   186,\n+   19,\n+   177,\n+   95,\n+   238,\n+   47,\n+   213,\n+   217,\n+   95,\n-   228,\n-   209,\n-   73,\n-   43,\n-   60,\n-   171,\n-   170,\n-   191,\n-   159,\n-   161,\n-   59,\n-   11,\n-   251,\n-   229,\n-   254,\n-   76,\n-   93,\n-   252,\n-   5,\n    80,\n    75,\n    3,\n    4,\n    20,\n...\n    0,\n+   86,\n+   122,\n+   82,\n+   41,\n+   234,\n-   87,\n-   90,\n-   20,\n-   172,\n-   224,\n    4,\n    0,\n    0,\n+   147,\n-   141,\n    13,\n    0,\n    0,\n    21,\n    0,\n...\n    129,\n+   181,\n-   171,\n    18,\n    0,\n    0,\n    80,\n    114,\n...\n    129,\n+   234,\n-   224,\n    18,\n    0,\n    0,\n    80,\n    114,\n...\n    129,\n+   96,\n-   86,\n    19,\n    0,\n    0,\n    115,\n    101,\n...\n    129,\n+   80,\n-   70,\n    20,\n    0,\n    0,\n    77,\n    69,\n...\n    129,\n+   144,\n-   134,\n    21,\n    0,\n    0,\n    67,\n    111,\n...\n    129,\n+   189,\n-   179,\n    23,\n    0,\n    0,\n    77,\n    69,\n...\n    129,\n+   249,\n-   239,\n    24,\n    0,\n    0,\n    77,\n    69,\n...\n    129,\n+   157,\n-   147,\n    25,\n    0,\n    0,\n    77,\n    69,\n...\n    0,\n+   215,\n-   205,\n    25,\n    0,\n    0,\n    0,\n    0\n"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-5",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/baseline-confirmed",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-7",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-9",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "Error: Attempted to use detached Frame '68C0811481F0832CE9CF19E384063C42'."
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-8",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "Error: Timeout save before close"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final-6",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa/final",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "AssertionError [ERR_ASSERTION]: false == true"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/lifecycle-final",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/final-4",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/final-3",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '50fac06a7992ce825f24704b33c8339a22382d1512a62331105231ff94636cde'\n- '91740e59ce1a32ecaf036c09cdd65fff02d69c390915503715b0667ece0dd6a6'\n"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/final-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "AssertionError [ERR_ASSERTION]: one object edit advances the revision once\n\n4 !== 3\n"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/final-5",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/baseline",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "Error: resize handles missing 0"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/startup-failure",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/baseline-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/final",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "Error: Timeout final close gate"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/renderer-crash",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa/javascript-failure",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/lifecycle-final",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/baseline-public-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-public",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-image-decode",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-public-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/pending-render",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/close-fence-final",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/baseline-public",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0,
+          "failure": "Error: {\"ok\":false,\"reason\":\"threw\",\"message\":\"Cannot read properties of undefined (reading 'bind')\"}"
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-file-read-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/renderer-crash-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/startup-failure",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/baseline-image-decode",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-cancel",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/javascript-failure-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-image-decode-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/startup-failure-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/baseline-cancel",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/close-fence-final-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/pending-render-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/renderer-crash",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/javascript-failure",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-cancel-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/lifecycle-final-2",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/baseline-file-read",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      },
+      {
+        "stage": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/final-file-read",
+        "lifecycle": {
+          "normalQuit": true,
+          "exitCode": 0
+        }
+      }
+    ],
+    "checkedPorts": [
+      49487,
+      49489,
+      49675,
+      49677,
+      49684,
+      49686,
+      49736,
+      49738,
+      49744,
+      49746,
+      49766,
+      49768,
+      49779,
+      49781,
+      49788,
+      49790,
+      49819,
+      49821,
+      49825,
+      49826,
+      49832,
+      49834,
+      49840,
+      49842,
+      49852,
+      49853,
+      49863,
+      49865,
+      49896,
+      49898,
+      49908,
+      49910,
+      50047,
+      50049,
+      50053,
+      50054,
+      50060,
+      50061,
+      50066,
+      50067,
+      50074,
+      50075,
+      50080,
+      50081,
+      50086,
+      50087,
+      50093,
+      50094,
+      50098,
+      50100,
+      50104,
+      50106,
+      56892,
+      56894,
+      57199,
+      57201,
+      57248,
+      57250,
+      57255,
+      57257,
+      57284,
+      57286,
+      57329,
+      57331,
+      57357,
+      57359,
+      57381,
+      57383,
+      57409,
+      57411,
+      57437,
+      57439,
+      57468,
+      57470,
+      57495,
+      57497,
+      57537,
+      57539,
+      57681,
+      57683,
+      57705,
+      57707,
+      57722,
+      57724,
+      58458,
+      58460,
+      58467,
+      58469,
+      58477,
+      58479,
+      58486,
+      58488,
+      58507,
+      58508,
+      58514,
+      58515,
+      58522,
+      58523
+    ],
+    "openOwnedPorts": []
+  },
+  "resources": {
+    "targetPeakBytes": 4690055168,
+    "currentQAPeakBytes": 84660224,
+    "priorQAPeakBytes": 92758016,
+    "minFreeBytes": 42645684224,
+    "currentFinalPreservation": {
+      "protected-before": {
+        "count": 73368,
+        "changed": [],
+        "missing": []
+      },
+      "source-before": {
+        "count": 1530,
+        "changed": [
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/preload.cjs",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/close-controller.cjs",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/main.cjs",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/web/baram.js",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/close.test.cjs",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/desktop/tests/new-document.test.cjs",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/main.ts",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/core/wasm-bridge.ts",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/recovery/autosave-manager.ts",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/document-agent/controller.ts",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/engine/input-handler.ts",
+          "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/rhwp-studio/src/engine/input-handler-picture.ts"
+        ],
+        "missing": []
+      },
+      "previousQA": {
+        "count": 3388,
+        "changed": [],
+        "missing": []
+      },
+      "originalCache": {
+        "count": 579,
+        "changedOrMissing": []
+      },
+      "HEAD": "d128670daa17d01c80643d2c836a38e4885b2b79",
+      "engineSHA256": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
+      "targetBytes": 4690055168,
+      "QABytes": 84643840,
+      "freeBytes": 42640830464,
+      "seconds": 16.82
+    }
+  },
+  "reusedUIAssets": {
+    "reused": 13,
+    "written": 3,
+    "writtenBytes": 2134007,
+    "out": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa/ui-current-3"
+  },
+  "sourceSHA256": {
+    "desktop/close-controller.cjs": "b17fd29233f4e1445e3fd3c429e7738561db2d2fdd7530b57a70ea52b52a68f4",
+    "desktop/main.cjs": "6f8845ee61b449a50d7ec83e16f96eaa51b83ea9e4ed4ae56a5b56fc41d47b92",
+    "desktop/preload.cjs": "b85220910bb09d3894bf928e1d14e5d5d82e8162f1d3e5cb803febc6d7b17fe8",
+    "desktop/tests/close.test.cjs": "8e1f0bb91e3eedff25e8c2f9f20315b8284c18cee4643a3b5d0a3b63c5ddd61c",
+    "desktop/tests/document-version.test.cjs": "12e3295113e7919cd811f52c105a1ed6f6a945e52c9c44003097a456679f2d88",
+    "desktop/tests/document-write-fence.test.cjs": "270d130592493e7977df2c7c0cf19ed61f73d385a8a44b284649710703360172",
+    "desktop/tests/new-document.test.cjs": "7b31782c940f26ae070fbcbe8ac23b9edc6f05833b75c5dc5e45d36feb8eccef",
+    "desktop/web/baram.js": "43326d90f25c11e9beaa8dd1cbb9c1442e27f90eb02b195f2e132fa92acabeda",
+    "rhwp-studio/src/core/document-write-fence.ts": "827acc49d18630b05c9a90ffa57f8fbaa3feb152f0c50e41ee6070c93b21aaf7",
+    "rhwp-studio/src/core/wasm-bridge.ts": "7ac178a38f87e991217eeeaaa24eca77e9248d5cc1405f79f6a589db6c8f9046",
+    "rhwp-studio/src/document-agent/controller.ts": "e41681fc6dbd4704a17e1ab3133e1523056e2e5dad2d42b3e96f8afdd082049b",
+    "rhwp-studio/src/engine/input-handler-picture.ts": "8c77428274a08964b0aa4806d3f903ccd5fe11e65c023006192a89ff28be3b26",
+    "rhwp-studio/src/engine/input-handler.ts": "73991827062aa1ce6e398b7362a83a5d5e7581bc3853c3215c5fbcd6c90eeaf0",
+    "rhwp-studio/src/main.ts": "fb248fa47f6af1f73d753c5c7b32652ca20ef538dcce1eebc88f6245e6ef0204",
+    "rhwp-studio/src/recovery/autosave-manager.ts": "7e20019d0cf78cfc2480ea9c277eddfeeb62f8480a8f4621ae37016ae2e34801",
+    "scripts/check-electron-close-fence.mjs": "416c8bd7ae142033cfb939eedb3e5271d982b947ff6fb09f693031366e8663a1",
+    "scripts/check-electron-document-lifecycle.mjs": "a863fa874d702a737df9ebe0cbdfe6731685c1628138b07b5006700e3be74910",
+    "scripts/check-electron-final-ack.mjs": "82b75d58d9bc28804b7cabdd04b7bc5f30513dd0d66330437345ba5890d604e0",
+    "scripts/check-electron-unavailable-close.mjs": "7d66f5220a121431c67bc7a1aae07f07b9a48f35a5d78e10925c572b7b132925",
+    "scripts/check-host-save.cjs": "35bf9e65cad5a49fabfe14b3215a1003e99b6e4699225d139c5edb5028a3895c",
+    "scripts/electron-document-lifecycle-bootstrap.cjs": "812b4dd81357d0ff21743aa175e872063b9ad588da8d150e76372c85ba161c90"
+  },
+  "packageBuilt": false,
+  "RustTargetBuilt": false,
+  "LinuxRun": false,
+  "branchPublication": {
+    "authorizedBranch": "dev/style-propagation",
+    "authorizedScope": [
+      "source",
+      "tests",
+      "verification documents"
+    ],
+    "mainChangedByThisTask": false,
+    "mergePerformedByThisTask": false,
+    "releasePerformedByThisTask": false
+  },
+  "readOnlyEvidenceRoots": [
+    "/Users/sw107/Documents/Codex/2026-10-06/task/electron-unsaved-qa",
+    "/Users/sw107/Documents/Codex/2026-10-06/task/electron-close-fence-qa",
+    "/Users/sw107/Documents/Codex/2026-10-06/task/electron-final-ack-qa"
+  ],
+  "historicalCommit": "bdd41f3412c047891bdf6f395fb7431205e9f4b5",
+  "finalAcknowledgement": {
+    "baselineCommit": "d128670daa17d01c80643d2c836a38e4885b2b79",
+    "injectionPoint": "after successful execution of window.baramFinalizeClose(), before its reply reaches main and the native window is destroyed",
+    "baseline": {
+      "public": {
+        "scenario": "public",
+        "baseline": true,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "public",
+            "errors": [],
+            "beforeSHA256": "9cdee892f0c370ae6f9f91b1ffc4bdb7229729f9ffc615114e6e58cfec355532",
+            "afterSHA256": "546f9f60e90e44b43f5bda31fabb4191a5b30ae7189dfacedb893d79e77ff759",
+            "state": {
+              "host": {
+                "dirty": true,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": false,
+              "error": ""
+            }
+          },
+          {
+            "name": "baseline loses post-finalize edits on normal close"
+          }
+        ]
+      },
+      "fileRead": {
+        "scenario": "file-read",
+        "baseline": true,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "file-read",
+            "errors": [],
+            "beforeSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "afterSHA256": "c4792ad109bb541d19945ca2832cafd02f8b04cd40f8487497926583df36cf73",
+            "state": {
+              "host": {
+                "dirty": true,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": false,
+              "error": ""
+            }
+          },
+          {
+            "name": "baseline loses post-finalize edits on normal close"
+          }
+        ]
+      },
+      "imageDecode": {
+        "scenario": "image-decode",
+        "baseline": true,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "image-decode",
+            "errors": [],
+            "beforeSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "afterSHA256": "c4792ad109bb541d19945ca2832cafd02f8b04cd40f8487497926583df36cf73",
+            "state": {
+              "host": {
+                "dirty": true,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": false,
+              "error": ""
+            }
+          },
+          {
+            "name": "baseline loses post-finalize edits on normal close"
+          }
+        ]
+      },
+      "cancel": {
+        "scenario": "cancel",
+        "baseline": true,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "prepare succeeded, finalize reply rejected, native warning cancelled",
+            "state": {
+              "host": {
+                "dirty": true,
+                "fileName": "새 문서.hwp"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": false,
+              "error": ""
+            },
+            "warning": {
+              "type": "warning",
+              "buttons": [
+                "취소",
+                "종료"
+              ],
+              "defaultId": 0,
+              "cancelId": 0,
+              "message": "편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.",
+              "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 기존 복구본은 삭제하지 않습니다."
+            }
+          },
+          {
+            "name": "baseline remains locked and recovery draft absent after edit"
+          }
+        ]
+      }
+    },
+    "final": {
+      "public": {
+        "scenario": "public",
+        "baseline": false,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "public",
+            "errors": [
+              "Error: 문서를 닫는 중에는 편집할 수 없습니다.",
+              "Error: 문서를 닫는 중에는 편집할 수 없습니다.",
+              "Error: 문서를 닫는 중에는 편집할 수 없습니다."
+            ],
+            "beforeSHA256": "9cdee892f0c370ae6f9f91b1ffc4bdb7229729f9ffc615114e6e58cfec355532",
+            "afterSHA256": "9cdee892f0c370ae6f9f91b1ffc4bdb7229729f9ffc615114e6e58cfec355532",
+            "state": {
+              "host": {
+                "dirty": false,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": true,
+              "error": ""
+            }
+          },
+          {
+            "name": "post-finalize writes blocked and exact saved document retained"
+          }
+        ]
+      },
+      "fileRead": {
+        "scenario": "file-read",
+        "baseline": false,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "file-read",
+            "errors": [],
+            "beforeSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "afterSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "state": {
+              "host": {
+                "dirty": false,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": true,
+              "error": ""
+            }
+          },
+          {
+            "name": "post-finalize writes blocked and exact saved document retained"
+          }
+        ]
+      },
+      "imageDecode": {
+        "scenario": "image-decode",
+        "baseline": false,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "edit attempt after successful finalize reply",
+            "scenario": "image-decode",
+            "errors": [],
+            "beforeSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "afterSHA256": "43e795a58b44b4fe8340431093acab015ba3bda5d635a39503f41e8237935ebd",
+            "state": {
+              "host": {
+                "dirty": false,
+                "fileName": "before-close.hwpx"
+              },
+              "busy": true,
+              "inert": true,
+              "childInert": true,
+              "locked": true,
+              "error": ""
+            }
+          },
+          {
+            "name": "post-finalize writes blocked and exact saved document retained"
+          }
+        ]
+      },
+      "cancel": {
+        "scenario": "cancel",
+        "baseline": false,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "prepare succeeded, finalize reply rejected, native warning cancelled",
+            "state": {
+              "host": {
+                "dirty": true,
+                "fileName": "새 문서.hwp"
+              },
+              "busy": false,
+              "inert": false,
+              "childInert": false,
+              "locked": false,
+              "error": ""
+            },
+            "warning": {
+              "type": "warning",
+              "buttons": [
+                "취소",
+                "종료"
+              ],
+              "defaultId": 0,
+              "cancelId": 0,
+              "message": "편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.",
+              "detail": "종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 복구본은 이미 정리됐을 수 있습니다."
+            }
+          },
+          {
+            "name": "cancel restores editing and actual IndexedDB recovery",
+            "draftSHA256": "f99e3e037d3d49fdb82b3fdf8427967e7aa2dbdeb77e1652f108578f146fdfe5"
+          },
+          {
+            "name": "close retry saves latest edits and quits normally"
+          }
+        ]
+      },
+      "pendingRender": {
+        "scenario": "pending-render",
+        "baseline": false,
+        "actualElectron": true,
+        "controlledNativeResponses": true,
+        "OSChooserVerified": false,
+        "physicalIMEVerified": false,
+        "rows": [
+          {
+            "name": "pending real document-agent transaction rejects final close and restores editing"
+          },
+          {
+            "name": "completed transaction saves exactly and normal close retry succeeds"
+          }
+        ]
+      }
+    },
+    "controlledImageFiles": "Real canvas-generated blue/red PNG File objects; actual production picture handler and native browser decoder; file-read or load callback completion delayed",
+    "supportedWriteScope": [
+      "InputHandler.executeOperation",
+      "InputHandler.executeDocumentAgentOperation with in-flight render tracking",
+      "WasmBridge mutations/document replacement/release",
+      "borrowed HwpDocument method calls including pre-captured bound writers",
+      "promptAssignPictureImage delayed file and image completions",
+      "findOrCreateFontId is a font-table write, not an allowed read"
+    ],
+    "cancelRestoration": "finalize actually freezes writes, its reply then rejects; native cancel calls renderer cancellation; locks/token reset, dirty edits and actual recovery draft containing them restored; save/close retry persists all bytes"
+  },
+  "knownLimits": [
+    "Supported editor/bridge/borrowed-handle writes are guarded; this is not a claim about arbitrary external JavaScript modifying the WASM implementation",
+    "Native chooser responses and timing are controlled; physical IME/mouse/clipboard and OS chooser interaction unverified",
+    "Renderer-unavailable cancellation cannot promise resumed editing or that an already-cleaned recovery draft still exists; warning no longer promises draft preservation",
+    "New installation package, Linux run and complete Hancom compatibility unverified; no merge or release",
+    "Full Rust lib suite blocked by three missing existing samples"
+  ]
+}

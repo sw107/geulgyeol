@@ -1,0 +1,499 @@
+{
+  "baselineCommit": "317087a814a340303370487294be7ec2564d3bf7",
+  "QAPath": "/Users/sw107/Documents/Codex/2026-10-06/task/table-merge-qa",
+  "candidateWASMSHA256": "10bee4f8edc18df7c581a9cc5cc4364fb4d4773aa82ce1831597b4739485135e",
+  "reproduction": {
+    "linkOwnersBefore": 1,
+    "linkOwnersAfter": 0,
+    "invalidNumericInputsPreviouslyAccepted": [
+      {
+        "name": "oversized-row",
+        "error": null,
+        "fields": 0
+      },
+      {
+        "name": "negative-fraction",
+        "error": null,
+        "fields": 0
+      },
+      {
+        "name": "nan",
+        "error": null,
+        "fields": 0
+      }
+    ]
+  },
+  "MacCurrentSource": {
+    "main": {
+      "checks": [
+        {
+          "label": "plain-row",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "plain-column",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "plain-block",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "link-row",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "link-column",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "link-block",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "clickhere-row",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "clickhere-column",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "clickhere-block",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "equations-row",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "equations-column",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "equations-block",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "nested-row",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "nested-column",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "nested-block",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "control-only-row",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "control-only-column",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "control-only-block",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "metadata-row",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "metadata-column",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "metadata-block",
+          "exactUndoRedoBytes": true
+        }
+      ],
+      "refusals": [
+        "numeric--1-0",
+        "numeric--1-1",
+        "numeric--1-2",
+        "numeric--1-3",
+        "numeric--1-4",
+        "numeric--1-5",
+        "numeric--1-6",
+        "numeric--0.5-0",
+        "numeric--0.5-1",
+        "numeric--0.5-2",
+        "numeric--0.5-3",
+        "numeric--0.5-4",
+        "numeric--0.5-5",
+        "numeric--0.5-6",
+        "numeric-0.5-0",
+        "numeric-0.5-1",
+        "numeric-0.5-2",
+        "numeric-0.5-3",
+        "numeric-0.5-4",
+        "numeric-0.5-5",
+        "numeric-0.5-6",
+        "numeric-NaN-0",
+        "numeric-NaN-1",
+        "numeric-NaN-2",
+        "numeric-NaN-3",
+        "numeric-NaN-4",
+        "numeric-NaN-5",
+        "numeric-NaN-6",
+        "numeric-Infinity-0",
+        "numeric-Infinity-1",
+        "numeric-Infinity-2",
+        "numeric-Infinity-3",
+        "numeric-Infinity-4",
+        "numeric-Infinity-5",
+        "numeric-Infinity-6",
+        "numeric-65536-0",
+        "numeric-65536-1",
+        "numeric-65536-2",
+        "numeric-65536-3",
+        "numeric-65536-4",
+        "numeric-65536-5",
+        "numeric-65536-6",
+        "numeric-4294967296-0",
+        "numeric-4294967296-1",
+        "numeric-4294967296-2",
+        "numeric-4294967296-3",
+        "numeric-4294967296-4",
+        "numeric-4294967296-5",
+        "numeric-4294967296-6",
+        "invalid-options-\"{\"",
+        "invalid-options-{}",
+        "invalid-options-{\"sectionIdx\":0,\"parentParaIdx\":1,\"controlIdx\":0,\"startRow\":-1,\"startCol\":0,\"endRow\":0,\"endCol\":1}",
+        "invalid-options-{\"sectionIdx\":0,\"parentParaIdx\":1,\"controlIdx\":0,\"startRow\":0,\"startCol\":0,\"endRow\":0,\"endCol\":65536}",
+        "invalid-options-{\"sectionIdx\":0,\"parentParaIdx\":1,\"controlIdx\":0,\"startRow\":0,\"startCol\":0.5,\"endRow\":0,\"endCol\":1}",
+        "invalid-options-{\"sectionIdx\":0,\"parentParaIdx\":1,\"controlIdx\":0,\"startRow\":0,\"startCol\":0,\"endRow\":0,\"endCol\":1,\"extra\":1}",
+        "partial-existing-merge"
+      ],
+      "undoRedoPairs": 84,
+      "savedReopens": 84,
+      "runtime": [
+        {
+          "url": "http://127.0.0.1:32168/studio/@fs/Users/sw107/Documents/Codex/2026-10-06/task/table-merge-qa/pkg/rhwp_bg.wasm",
+          "sha256": "10bee4f8edc18df7c581a9cc5cc4364fb4d4773aa82ce1831597b4739485135e"
+        }
+      ],
+      "errors": [],
+      "realDomCanvasCursorDispatcherInputHandler": true,
+      "headless": false,
+      "OSClipboardAccessed": false,
+      "physicalIMEVerified": false,
+      "nativeElectronVerified": false
+    },
+    "adjacent": {
+      "checks": [],
+      "adjacentChecks": [
+        {
+          "kind": "insertRow",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "kind": "deleteRow",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "kind": "insertColumn",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "kind": "deleteColumn",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "kind": "splitInto",
+          "exactUndoRedoBytes": true
+        }
+      ],
+      "refusals": [],
+      "undoRedoPairs": 20,
+      "savedReopens": 20,
+      "runtime": [
+        {
+          "url": "http://127.0.0.1:32168/studio/@fs/Users/sw107/Documents/Codex/2026-10-06/task/table-merge-qa/pkg/rhwp_bg.wasm",
+          "sha256": "10bee4f8edc18df7c581a9cc5cc4364fb4d4773aa82ce1831597b4739485135e"
+        }
+      ],
+      "errors": [],
+      "realDomCanvasCursorDispatcherInputHandler": true,
+      "headless": false,
+      "OSClipboardAccessed": false,
+      "physicalIMEVerified": false,
+      "nativeElectronVerified": false
+    },
+    "HWPInput": {
+      "checks": [
+        {
+          "label": "link-row-hwp-source",
+          "exactUndoRedoBytes": true
+        },
+        {
+          "label": "equations-block-hwp-source",
+          "exactUndoRedoBytes": true
+        }
+      ],
+      "adjacentChecks": [],
+      "refusals": [],
+      "undoRedoPairs": 8,
+      "savedReopens": 8,
+      "runtime": [
+        {
+          "url": "http://127.0.0.1:32168/studio/@fs/Users/sw107/Documents/Codex/2026-10-06/task/table-merge-qa/pkg/rhwp_bg.wasm",
+          "sha256": "10bee4f8edc18df7c581a9cc5cc4364fb4d4773aa82ce1831597b4739485135e"
+        }
+      ],
+      "errors": [],
+      "realDomCanvasCursorDispatcherInputHandler": true,
+      "headless": false,
+      "OSClipboardAccessed": false,
+      "physicalIMEVerified": false,
+      "nativeElectronVerified": false
+    },
+    "testedEditsExcludingSetup": 28,
+    "undoRedoPairs": 112,
+    "savedReopens": 112,
+    "negativeCases": 56
+  },
+  "Native": {
+    "synthetic": {
+      "adjacentCases": 5,
+      "adjacentPairs": 20,
+      "adjacentReopens": 20,
+      "atomicNativeRefusals": 147,
+      "cases": 21,
+      "savedReopens": 84,
+      "snapshotPairs": 84,
+      "wholeParagraphOwnersStylesAndSVGCompared": true
+    },
+    "GUIIndependentMain": {
+      "fullParagraphsControlsFieldOwnersBinDataAndSVG": true,
+      "independentSavedReopens": 84,
+      "nativeOperationReexecution": true,
+      "typedDocInfoCompared": true
+    },
+    "GUIIndependentAdjacent": {
+      "fullParagraphsControlsFieldOwnersBinDataAndSVG": true,
+      "independentSavedReopens": 20,
+      "nativeOperationReexecution": true,
+      "typedDocInfoCompared": true
+    },
+    "GUIIndependentHWP": {
+      "fullParagraphsControlsFieldOwnersBinDataAndSVG": true,
+      "independentSavedReopens": 8,
+      "nativeOperationReexecution": true,
+      "typedDocInfoCompared": true
+    }
+  },
+  "regressions": {
+    "cellLink": {
+      "candidateWasmSHA256": "10bee4f8edc18df7c581a9cc5cc4364fb4d4773aa82ce1831597b4739485135e",
+      "sourceSHA256": {
+        "command": "6803cdd3a59b95b0560dbc92d06cff47d561d402edd8c451ab170c9bd5095c57",
+        "history": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db",
+        "bridge": "b25d17768568dd860e6d31b6668c71007faac2184726b8dae55e86498246ca35",
+        "input": "2cbae805a696fa3f1b266861f6bad168723150ae6c8e3dd56b429417805e3d9c",
+        "dialog": "f839e1120e87d280f53cf2ac1e55790dd1d2d8687031c012bdf83777a0a029a0",
+        "link": "6b616cf47b051d345c4cad76ddbc69b3210a2852f72a787f8259538f45280eca",
+        "registry": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+        "dispatcher": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381",
+        "mutations": "de888749e9c853f28545539a8fc4b40c427dfe570a25b120f366c3b527afc077"
+      },
+      "positive": 84,
+      "reopens": 288,
+      "undos": 84,
+      "redos": 84,
+      "atomicRefusals": 444,
+      "layoutCases": 12,
+      "multipageCases": 12,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "cellLinkIndependentNative": {
+      "allSiblingCellBodyNoteReferences": true,
+      "fullCharParaStyleReferences": true,
+      "originalDefinitionsUnchanged": true,
+      "pairedFieldRanges": true,
+      "uiSavedFilesVerified": 264
+    },
+    "cellEquation": {
+      "atomic_rejections": 10,
+      "body_and_neighbor_preserved": true,
+      "cases": 72,
+      "hwp_hwpx_reopens": 288,
+      "native_GUI_verified": false,
+      "physical_IME_verified": false,
+      "precise_cell_layout_targets": true,
+      "snapshot_undo_redo_operations": 504
+    }
+  },
+  "checks": {
+    "TypeScript": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "rhwp-studio/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--project",
+        "../table-merge-qa/tsconfig.json"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 17195008,
+      "additionalPeakBytes": 17203200,
+      "additionalFinalBytes": 17203200,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4331233280,
+      "targetFinalBytes": 4331233280,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20602880000,
+      "diskFreeFinalBytes": 20602880000,
+      "stopReason": null,
+      "elapsedSeconds": 1.21
+    },
+    "Clippy": {
+      "command": [
+        "python3",
+        "../table-merge-qa/cargo-run.py",
+        "clippy",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--example",
+        "table_merge_preservation_check",
+        "--example",
+        "cell_hyperlink_check",
+        "--example",
+        "cell_equation_check",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 77193216,
+      "additionalPeakBytes": 77197312,
+      "additionalFinalBytes": 77197312,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4333670400,
+      "targetFinalBytes": 4333670400,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20480000000,
+      "diskFreeFinalBytes": 20480000000,
+      "stopReason": null,
+      "elapsedSeconds": 1.24
+    },
+    "WASMBuild": {
+      "command": [
+        "python3",
+        "../table-merge-qa/cargo-run.py",
+        "build",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--release"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 4288512,
+      "additionalPeakBytes": 4300800,
+      "additionalFinalBytes": 4300800,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4421865472,
+      "targetFinalBytes": 4331233280,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20439040000,
+      "diskFreeFinalBytes": 20643840000,
+      "stopReason": null,
+      "elapsedSeconds": 136.98
+    },
+    "NativeBuild": {
+      "command": [
+        "python3",
+        "../table-merge-qa/cargo-run.py",
+        "build",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--example",
+        "table_merge_preservation_check"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 79863808,
+      "additionalPeakBytes": 79921152,
+      "additionalFinalBytes": 75763712,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4335194112,
+      "targetFinalBytes": 4333670400,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20439040000,
+      "diskFreeFinalBytes": 20480000000,
+      "stopReason": null,
+      "elapsedSeconds": 2.96
+    }
+  },
+  "preservation": {
+    "protectedFiles": 23371,
+    "changed": [],
+    "missing": [],
+    "additionalQABytes": 77205504,
+    "sharedTargetBytes": 4333670400,
+    "actualDiskFreeBytes": 20480000000
+  },
+  "shutdown": {
+    "verifiedOwnedServerPID": 83646,
+    "signal": "SIGTERM",
+    "serverToolExitCode": 143,
+    "browsersClosedInFinally": true,
+    "ownedRemaining": [],
+    "localhostPort32168Closed": true
+  },
+  "budget": {
+    "additionalPeakBytes": 79921152,
+    "targetPeakBytes": 4421865472,
+    "minDiskFreeBytes": 20398080000
+  },
+  "sourceSHA256": {
+    "engine/src/model/table.rs": "9eba3dab4092e5435562d66751b8e08f1fd2c53db32bff2d27d9e52a43bcd856",
+    "engine/src/wasm_api.rs": "402acac3d5906f7517d512043c641c651e373a04691cc2066d70076dc232f334",
+    "engine/examples/table_merge_preservation_check.rs": "0c3e5560bad7d49fc754214ebcd9d5ec854b1260d145de01d90f9c593eb47115",
+    "scripts/check-table-merge.mjs": "ea4cd7c0aebeace76a6b2c814c4932eceb95a65baaedf56295e6e2f96c84008f"
+  },
+  "limitations": [
+    "root table commands and one-section synthetic fixtures; all complex/nested target operations not certified",
+    "unreferenced blank secondary paragraphs keep existing omission policy",
+    "physical IME, OS clipboard, mouse hit-testing, installed Electron/native save, Hancom and Linux unverified",
+    "full lib tests not run because three existing fixtures are absent",
+    "previous three Mac-source HWP undo line/caret metadata differences remain unchanged"
+  ],
+  "normalization": {
+    "strictParagraphMove": "layout caches/reflow record counts excluded; controls, field ranges, raw owners, metadata and scalar axes included",
+    "savedLiveComparison": "typed semantics; generated HWP raw/packed records and last-paragraph bits excluded; empty field name and duplicated Command parameter normalized",
+    "independentSameFormatNative": "full canonical paragraph IR, typed DocInfo, BinData/full SVG; explicit GUI save/reopen boundaries replayed; DocInfo raw/provenance cache excluded",
+    "namedCellFieldID": "computed locator may change; stored Field IDs and named-cell names/values preserved"
+  },
+  "evidenceSHA256": {
+    "baseline.mjs": "14bbd8131006bdbd8b92fa7095cced31194aaa848bf909527ab0cf53901a2248",
+    "baseline-proof.json": "4b38e1ce447757bbee144fabd647cb3f49eb25aa77378a02273d072618d72caa",
+    "baseline-input.hwpx": "bad4a1ce29bada009b2cdb26a1b0de2ae67c6d9ec60096147007cc2bc4356073",
+    "baseline-after.hwpx": "236255d0df47c4596957dee35d2f42598dcd1d6d7a66e38c8e60bf51c343de74",
+    "baseline-invalid-proof.json": "f0614da8e6742058044b0bb6423994b40f19d730d3fc6d57aa6a9c4673dbb3b6",
+    "browser-proof.json": "bae5cbb20d539690a21e7d9e20c0854ddbf606d970910bc570a2a386d74f5e37",
+    "adjacent-browser-proof.json": "a5b7c53d7235ce20a9a4c100cef252f56f0b7688a97047e5c04bd020eafcf00f",
+    "hwp-browser-proof.json": "261b84ae499a6450b57cf088c4640227bc263d705abac6d7095e4df263a9a30b",
+    "manifest.json": "7e27c2f592c2b427d71b0b4e7abc3ae3d16815aae9f00a33569218633244beec",
+    "adjacent-manifest.json": "5fe32562c0101cdeba02c38b3f28c91cfa125714cd4719e219b606feabadd3e9",
+    "hwp-manifest.json": "0bd27f66b65f79d2e2154bf766ad137bb81ed5e5f8bc4bac34f53eff9dd0a663",
+    "native-wasm-proof.json": "324aee50859d90d2862fcf3badaf35f5c78432c8ab8bb23e852f7389c2005230",
+    "native-adjacent-wasm-proof.json": "70a10f079b5b3b5e3353950870212ffdae463152093a20727f31726aef2a222f",
+    "native-hwp-wasm-proof.json": "b525e01e44ed07bb7ee4405f7cb47eb4ae466fa18178aedce842b1cfcb3c4c5d",
+    "native/native-proof.json": "5bce0df9f3eeef37103893128cf1a625a4a95d9c252397693092d977549506e8",
+    "serve.mjs": "6234894c7037c9640bf5acc15431370f1e091f5621538d0d0cd256886d867f78",
+    "prepare-hwp-inputs.mjs": "d65ec56aa11cc6966e4382f3aadc65523b54d090b0ced3ace47b155f8ba3c28d",
+    "shutdown-proof.json": "dc670804e154edeaddfb15cffbae0b59f7f034c64f7aede3ee5988f7cfbe7cff",
+    "final-integrity.json": "50dde8a92ba8bd85cb29a2c485252c3ae8cb021becd2bc96df522dab77aa2c40",
+    "adjacent-source-browser.png": "f285911fdc3b7abd813af84f32bac34d1e820052b1fd7fca7919c59a097a6d1d"
+  }
+}

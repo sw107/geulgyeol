@@ -238,6 +238,9 @@ pub struct ParaMeta {
     pub raw_header_extra: Vec<u8>,
     /// TAB 확장 데이터 — 문단 전체가 통째로 이동하므로 분할 없이 그대로 옮긴다.
     pub tab_extended: Vec<[u16; 7]>,
+    /// Explicit typing shape of a control-free empty paragraph, lost by merge.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub empty_char_shape_id: Option<u32>,
 }
 
 /// 문단 번호 시작 방식
@@ -573,7 +576,7 @@ impl Paragraph {
         }
     }
 
-    fn compute_control_mask_for(
+    pub(crate) fn compute_control_mask_for(
         text: &str,
         controls: &[Control],
         field_ranges: &[FieldRange],
@@ -978,7 +981,11 @@ impl Paragraph {
             if fr.start_char_idx > char_offset {
                 fr.start_char_idx += inserted_len;
             }
-            if fr.end_char_idx >= char_offset {
+            let memo = matches!(self.controls.get(fr.control_idx), Some(Control::Field(f)) if super::memo::is_memo(f));
+            // Body typing at a nonempty memo's end belongs outside that anchor.
+            // Extending both adjacent ranges creates crossing begin/end ownership.
+            if fr.end_char_idx > char_offset || (fr.end_char_idx == char_offset
+                && (!memo || fr.start_char_idx == fr.end_char_idx)) {
                 fr.end_char_idx += inserted_len;
             }
         }
@@ -1130,6 +1137,12 @@ impl Paragraph {
             numbering_restart: self.numbering_restart,
             raw_header_extra: self.raw_header_extra.clone(),
             tab_extended: self.tab_extended.clone(),
+            empty_char_shape_id: if self.text.is_empty()
+                && self.controls.is_empty()
+                && self.char_shapes.len() == 1
+                && self.char_shapes[0].start_pos == 0 {
+                Some(self.char_shapes[0].char_shape_id)
+            } else { None },
         }
     }
 
@@ -1142,6 +1155,12 @@ impl Paragraph {
         self.numbering_restart = meta.numbering_restart;
         self.raw_header_extra = meta.raw_header_extra;
         self.tab_extended = meta.tab_extended;
+        if self.text.is_empty() && self.controls.is_empty() {
+            if let Some(id) = meta.empty_char_shape_id {
+                self.char_shapes = vec![CharShapeRef { start_pos: 0, char_shape_id: id }];
+                self.invalidate_layout_inputs();
+            }
+        }
     }
 
     /// char_offset 위치에서 문단을 분할한다.
@@ -1682,7 +1701,12 @@ impl Paragraph {
 
         // 첫 문자 이전의 갭: 확장 컨트롤이 텍스트 시작 전에 있는 경우
         let gap_before = offsets[0] as usize;
-        let n_ctrls_before = gap_before / 8;
+        // FIELD_END has no controls[] owner. Counting it as a control moves the
+        // next footnote/equation/field onto the preceding field's end boundary.
+        let field_ends_at = |boundary| self.field_ranges.iter()
+            .filter(|fr| fr.end_char_idx == boundary).count()
+            + self.orphan_field_ends.iter().filter(|end| end.char_idx == boundary).count();
+        let n_ctrls_before = (gap_before / 8).saturating_sub(field_ends_at(0));
         for _ in 0..n_ctrls_before {
             if positions.len() >= total_controls {
                 break;
@@ -1729,7 +1753,7 @@ impl Paragraph {
             }
             if next_off > current_off + char_width {
                 let gap = next_off - current_off - char_width;
-                let n_ctrls = gap / 8;
+                let n_ctrls = (gap / 8).saturating_sub(field_ends_at(i + 1));
                 for _ in 0..n_ctrls {
                     if positions.len() >= total_controls {
                         break;

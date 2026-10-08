@@ -1,0 +1,111 @@
+{
+  "baselineCommit": "c0c7928540d73745364b46080c35ae892379f5cf",
+  "preSearchBaselineWasmSHA256": "c258e8478d9bcd5e0165abb4622297da748e42a82a0275d282d96bfc0158c71e",
+  "immediateBaselineWasmSHA256": "3b901425819a841df436f20f31e3b016d66f56fb320a8d94a85539ceaa7d21ff",
+  "negativeBaselineMatchingHistoryFailures": 6,
+  "negativeBaselineMatchingRenderTraces": 72,
+  "negativeBaselineStrictExit": 1,
+  "negativeNativeStrictExit": 101,
+  "baselineRealLayoutIssueCases": 6,
+  "baselineTypedPropertiesAndFormattingExportsPreserved": 82,
+  "fixedCell": {
+    "cases": 24,
+    "restores": 170,
+    "reopens": 82,
+    "rejections": 4,
+    "savedSVGEqualityRequired": true,
+    "issues": []
+  },
+  "fixedCellTypedPropertyAndFormatChecks": 82,
+  "fixedSearch": {
+    "cases": 408,
+    "actualUICases": 272,
+    "historyRestores": 640,
+    "noMatchUnchanged": 120,
+    "reopens": 2096,
+    "historySvgDifferences": []
+  },
+  "nativeWasmExportChecks": 2096,
+  "nativeSearch": {
+    "GUIVerified": false,
+    "cases": 170,
+    "historyRestores": 340,
+    "historySvgDifferences": [],
+    "regexSupported": false,
+    "reopens": 340,
+    "unchanged": 50
+  },
+  "nativeEquation": {
+    "GUIVerified": false,
+    "equationCases": 12,
+    "historyRestores": 24,
+    "regexSupported": false,
+    "reopens": 24,
+    "unsupportedAndEmptyNoChange": 4
+  },
+  "nativeCellRedoLoops": 12,
+  "desktop": {
+    "pass": 30,
+    "fail": 0,
+    "skip": 1,
+    "existingTodo": 1,
+    "serverTestExcluded": "existing sandbox listening socket restriction"
+  },
+  "frozenSpan": {
+    "total": 12,
+    "observedDefects": 0,
+    "controlPasses": 12
+  },
+  "nextStyleUI": {
+    "cases": 11,
+    "mockedDOM": true
+  },
+  "typescriptExit": 0,
+  "viteExit": 0,
+  "nativeClippyExit": 0,
+  "wasmClippyExit": 0,
+  "wasmReleaseExit": 0,
+  "engineSourceMatchesCompiledSource": true,
+  "wasmSHA256": "2f63c208dca6ac986a75ceb351cbfc3fbe292311d7a8c2244f6b9506d94f1947",
+  "jsSHA256": "aea707b0c51c8d7f0562811150f9ecba50e917afbdd0fc5c27361148d4f655ad",
+  "webBundleWasmSHA256": "2f63c208dca6ac986a75ceb351cbfc3fbe292311d7a8c2244f6b9506d94f1947",
+  "protectedAppAsars": {
+    "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+    "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b"
+  },
+  "targetLimitBytes": 3221225472,
+  "targetPeakBytes": 2623217664,
+  "missingLibraryFiles": 10,
+  "libraryCompileErrors": 28,
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "actualHancomVerified": false,
+  "LinuxExecuted": false,
+  "newAppPackaged": false,
+  "publicPushOrRelease": false,
+  "performanceRerun": false,
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/cell-redo-layout-qa",
+  "evidenceSHA256": {
+    "api-fixed/proof.json": "8f4f94f02b089a4b8aa4b73eaa19d9d04f96e2a76cd3eb7a5046fecf7b383602",
+    "api-baseline/proof.json": "18cc47644b696b81506f73658493bde75b93c5cddc20c7eccd61eff0adfad28a",
+    "api-fixed/export-manifest.json": "bde41357c2cae8be5299ace64c0c4da1886effdc58e643ec1bc7202688d75b09",
+    "behavior/api-fixed-model/proof.json": "bdc863884c82b27dc8f09f5adee0f384da71833f9d603ef9f7801c7d08820900",
+    "behavior/api-baseline-model/proof.json": "b95dace5502b644b78df2f5c13657c3ad3d2bff296134a367d1175e35c3afbf4",
+    "behavior/fixed-native/probe.json": "2f5cf90461e206414db1cbcb01b9e043474bebf99a4a76dab2e122a2a2320b16",
+    "behavior/negative-native/probe.json": "4d0df8e80db2b8db9f87f71f27d96ff9cfef22219b072b57d7f367cdd0de1b32",
+    "behavior/fixed-search-span/proof.json": "7b46b5a7a040bb620c8474753b5ad9acc8a37e66f3e52918ff55ffaa25a6349e",
+    "behavior/fixed-equations/proof.json": "49ec517d73fc2008db21d305e6d98d35808eebb618696fb8e995ee8f7fa2d5ef",
+    "search-span-fixed/proof.json": "6be25b4c1bbc677009a6c42078060f22660963e47743403785edb70658216f78",
+    "negative-current/proof.json": "c3ef9b211ef4e980ee3b894d587332b7410fbc74923e06620d134a03bb180e47",
+    "negative-pre-search/proof.json": "4714259948cf32dbedde838a628e8aea79d6723b98c4070a4de1cd65b691487f",
+    "native-clippy-build-proof.json": "b161197c3a464676fe5b96b3d34d98db23a4adc45ce00f6b3f997a21cd50b51c",
+    "wasm-clippy-build-proof.json": "6d95fcb239494e8e4090c09ace6e2da2249176035745668f5f566ad2fdd11408",
+    "wasm-release-build-proof.json": "e8b279acb43ed0ac96376d1a2a1c697499eea02e102d462226d1de9b60dcfcdf",
+    "web-check.json": "64b42e11f987668779dfac41aecdb8f8ac0980fbb745558b4b5e1a7489ff28ae",
+    "search-desktop-test-invocation.json": "af7d0d28361475e5f04d37bdfde19f94c944b922e386b219652f0ede1dee8178",
+    "search-desktop-tests.log": "b7663128213c12565694dd260ab25cc4442629f0f3d579cd2decd0c683f219e8",
+    "next-style-ui.log": "be94dcfbf50f4b67cb286875f281f654409cdfabc8d5575e6bd98071018f3ba3",
+    "search-span-native-exports.log": "46c860ce081145b073099468c1c402c0939793514cce461eb58eaaeef720f114",
+    "frozen-span/search-span-reproduction.json": "6c4c2e2abc7909955d8af2f2b5e9f7f14a45ed3c0c466ddf56f32deff5fc1e31"
+  }
+}

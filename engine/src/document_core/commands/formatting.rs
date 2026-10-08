@@ -177,13 +177,12 @@ impl DocumentCore {
         para_idx: usize,
     ) -> Result<String, HwpError> {
         use crate::model::control::Control;
-        use crate::model::style::HeadType;
         let section = self
             .document
             .sections
             .get(sec_idx)
             .ok_or_else(|| HwpError::RenderError(format!("구역 {} 범위 초과", sec_idx)))?;
-        let Some(para) = section.paragraphs.get(para_idx) else {
+        let Some(_) = section.paragraphs.get(para_idx) else {
             if let Some(src) = self.virtual_endnote_para_source(sec_idx, para_idx) {
                 return self.get_para_properties_in_footnote_native(
                     src.section_index,
@@ -197,32 +196,34 @@ impl DocumentCore {
                 para_idx
             )));
         };
+        Ok(self.build_numbered_para_properties_json(&section.paragraphs, para_idx, sec_idx))
+    }
+
+    pub(super) fn build_numbered_para_properties_json(
+        &self,
+        paragraphs: &[crate::model::paragraph::Paragraph],
+        para_idx: usize,
+        sec_idx: usize,
+    ) -> String {
+        use crate::model::style::HeadType;
+        let para = &paragraphs[para_idx];
         let mut json = self.build_para_properties_json(para.para_shape_id, sec_idx);
 
         // 번호 시작 방식 판별: numbering_id 패턴 기반
         let ps = self.styles.para_styles.get(para.para_shape_id as usize);
         let head_type = ps.map(|s| s.head_type).unwrap_or(HeadType::None);
-        if head_type != HeadType::None {
+        if matches!(head_type, HeadType::Number | HeadType::Outline) {
             let cur_nid = ps.map(|s| s.numbering_id).unwrap_or(0);
-            // NewNumber 컨트롤 체크
-            let new_number = para.controls.iter().find_map(|c| {
-                if let Control::NewNumber(nn) = c {
-                    Some(nn.number)
-                } else {
-                    None
-                }
-            });
-            let (mode, start_num) = if let Some(num) = new_number {
-                (2, num as u32) // 새 번호 목록 시작 (NewNumber 컨트롤)
-            } else {
+            // NewNumber 컨트롤은 쪽/주석/그림 등의 자동 번호이며 문단 목록 재시작이 아니다.
+            let (mode, start_num) = {
                 // 이전 번호 문단의 numbering_id를 역순 스캔
                 let mut prev_nid: Option<u16> = None;
                 let mut seen_before = false;
                 for pi in (0..para_idx).rev() {
-                    let pp = &section.paragraphs[pi];
+                    let pp = &paragraphs[pi];
                     let pps = self.styles.para_styles.get(pp.para_shape_id as usize);
                     let pht = pps.map(|s| s.head_type).unwrap_or(HeadType::None);
-                    if pht == HeadType::None {
+                    if !matches!(pht, HeadType::Number | HeadType::Outline) {
                         continue;
                     }
                     let pnid = pps.map(|s| s.numbering_id).unwrap_or(0);
@@ -237,7 +238,15 @@ impl DocumentCore {
                 match (prev_nid, seen_before) {
                     (Some(pid), _) if pid == cur_nid => (0, 1), // 앞 번호 이어
                     (_, true) => (1, 1),                        // 이전 번호 이어
-                    _ => (2, 1),                                // 새 번호 시작
+                    _ => {
+                        let level = ps.map(|s| s.para_level as usize).unwrap_or(0).min(6);
+                        let start = cur_nid
+                            .checked_sub(1)
+                            .and_then(|id| self.document.doc_info.numberings.get(id as usize))
+                            .map(|n| n.level_start_numbers[level])
+                            .unwrap_or(1);
+                        (2, start)
+                    } // 새 번호 시작
                 }
             };
             json.pop(); // 마지막 '}' 제거
@@ -247,7 +256,7 @@ impl DocumentCore {
             ));
         }
 
-        Ok(json)
+        json
     }
 
     fn virtual_endnote_para_source(
@@ -273,16 +282,15 @@ impl DocumentCore {
         cell_idx: usize,
         cell_para_idx: usize,
     ) -> Result<String, HwpError> {
-        let para = self
-            .get_cell_paragraph_ref(
-                sec_idx,
-                parent_para_idx,
-                control_idx,
-                cell_idx,
-                cell_para_idx,
-            )
-            .ok_or_else(|| HwpError::RenderError("셀 문단을 찾을 수 없음".to_string()))?;
-        Ok(self.build_para_properties_json(para.para_shape_id, sec_idx))
+        let table = self.resolve_table_by_path(
+            sec_idx, parent_para_idx, &[(control_idx, cell_idx, cell_para_idx)],
+        )?;
+        let cell = table.cells.get(cell_idx)
+            .ok_or_else(|| HwpError::RenderError("셀 범위 초과".to_string()))?;
+        if cell_para_idx >= cell.paragraphs.len() {
+            return Err(HwpError::RenderError("셀 문단 범위 초과".to_string()));
+        }
+        Ok(self.build_numbered_para_properties_json(&cell.paragraphs, cell_para_idx, sec_idx))
     }
 
     /// 글자 속성 JSON 생성 헬퍼
@@ -693,7 +701,7 @@ impl DocumentCore {
                     )
                 }).collect();
                 let (fill_type_str, fill_color, pat_color, pat_type) = match &bf.fill.solid {
-                    Some(sf) if bf.fill.fill_type == FillType::Solid => {
+                    Some(sf) if bf.fill.effective_type() == FillType::Solid => {
                         ("solid", color_ref_to_css(sf.background_color),
                          color_ref_to_css(sf.pattern_color), sf.pattern_type)
                     }
@@ -781,7 +789,7 @@ impl DocumentCore {
                     })
                     .collect();
                 let (fill_type_str, fill_color, pat_color, pat_type) = match &bf.fill.solid {
-                    Some(sf) if bf.fill.fill_type == FillType::Solid => (
+                    Some(sf) if bf.fill.effective_type() == FillType::Solid => (
                         "solid",
                         color_ref_to_css(sf.background_color),
                         color_ref_to_css(sf.pattern_color),
@@ -1082,7 +1090,7 @@ impl DocumentCore {
             )?;
             self.document.doc_info = staged.document.doc_info.clone();
             self.styles = staged.styles.clone();
-            self.event_log.extend(staged.event_log.drain(..));
+            self.event_log.append(&mut staged.event_log);
             self.commit_picture_band_edit(sec_idx, staged);
             return Ok(response);
         }
@@ -1530,7 +1538,7 @@ impl DocumentCore {
             let response = staged.apply_para_format_body_impl(sec_idx, para_idx, props_json, false)?;
             self.document.doc_info = staged.document.doc_info.clone();
             self.styles = staged.styles.clone();
-            self.event_log.extend(staged.event_log.drain(..));
+            self.event_log.append(&mut staged.event_log);
             self.commit_picture_band_edit(sec_idx, staged);
             return Ok(response);
         }
@@ -1677,19 +1685,38 @@ impl DocumentCore {
         cell_para_idx: usize,
         props_json: &str,
     ) -> Result<String, HwpError> {
+        self.apply_para_format_in_cell_by_path_native(
+            sec_idx,
+            parent_para_idx,
+            &[(control_idx, cell_idx, cell_para_idx)],
+            props_json,
+        )
+    }
+
+    fn para_format_cell_ref(
+        &self, sec: usize, parent: usize, path: &[(usize, usize, usize)],
+    ) -> Result<&crate::model::paragraph::Paragraph, HwpError> {
+        if let [entry] = path {
+            self.get_cell_paragraph_ref(sec, parent, entry.0, entry.1, entry.2)
+                .ok_or_else(|| HwpError::RenderError("셀 문단을 찾을 수 없음".into()))
+        } else {
+            self.resolve_paragraph_by_path(sec, parent, path)
+        }
+    }
+
+    pub fn apply_para_format_in_cell_by_path_native(
+        &mut self,
+        sec_idx: usize,
+        parent_para_idx: usize,
+        path: &[(usize, usize, usize)],
+        props_json: &str,
+    ) -> Result<String, HwpError> {
+        self.para_format_cell_ref(sec_idx, parent_para_idx, path)?;
         let mut mods = parse_para_shape_mods(props_json);
 
         // 탭 설정 변경 처리: TabDef 생성 → tab_def_id 세팅
         if json_has_tab_keys(props_json) {
-            let para = self
-                .get_cell_paragraph_ref(
-                    sec_idx,
-                    parent_para_idx,
-                    control_idx,
-                    cell_idx,
-                    cell_para_idx,
-                )
-                .ok_or_else(|| HwpError::RenderError("셀 문단을 찾을 수 없음".to_string()))?;
+            let para = self.para_format_cell_ref(sec_idx, parent_para_idx, path)?;
             let base_tab_def_id = self
                 .document
                 .doc_info
@@ -1717,25 +1744,15 @@ impl DocumentCore {
 
         let new_id;
         {
-            let para = self
-                .get_cell_paragraph_ref(
-                    sec_idx,
-                    parent_para_idx,
-                    control_idx,
-                    cell_idx,
-                    cell_para_idx,
-                )
-                .ok_or_else(|| HwpError::RenderError("셀 문단을 찾을 수 없음".to_string()))?;
+            let para = self.para_format_cell_ref(sec_idx, parent_para_idx, path)?;
             let base_id = para.para_shape_id;
             new_id = self.document.find_or_create_para_shape(base_id, &mods);
 
-            let cell_para = self.get_cell_paragraph_mut(
-                sec_idx,
-                parent_para_idx,
-                control_idx,
-                cell_idx,
-                cell_para_idx,
-            )?;
+            let cell_para = if let [entry] = path {
+                self.get_cell_paragraph_mut(sec_idx, parent_para_idx, entry.0, entry.1, entry.2)?
+            } else {
+                self.get_cell_paragraph_mut_by_path(sec_idx, parent_para_idx, path)?
+            };
             cell_para.para_shape_id = new_id;
         }
 
@@ -1749,17 +1766,15 @@ impl DocumentCore {
         // reflow_cell_paragraph 가 계산하는 사용 가능 폭·토큰 경계에 실제로 쓰인다.
         // para_shape_mods_affect_text_flow(:16 부근)로 판정을 통일한다.
         if para_shape_mods_affect_text_flow(&mods) {
-            self.reflow_cell_paragraph(
-                sec_idx,
-                parent_para_idx,
-                control_idx,
-                cell_idx,
-                cell_para_idx,
-            );
+            if let [entry] = path {
+                self.reflow_cell_paragraph(sec_idx, parent_para_idx, entry.0, entry.1, entry.2);
+            } else {
+                self.reflow_cell_paragraph_by_path(sec_idx, parent_para_idx, path, path.last().unwrap().2);
+            }
         }
 
         // 표 dirty 마킹 — measure_section_incremental이 셀 높이를 재계산하도록
-        self.mark_cell_control_dirty(sec_idx, parent_para_idx, control_idx);
+        self.mark_cell_control_dirty(sec_idx, parent_para_idx, path[0].0);
 
         self.document.sections[sec_idx].raw_stream = None;
         self.rebuild_section_deferred_in_batch(sec_idx);

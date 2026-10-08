@@ -8,6 +8,7 @@ mod chart;
 mod common;
 mod connector;
 mod equation;
+mod equation_cell;
 mod note;
 mod picture;
 mod shape;

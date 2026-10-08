@@ -1,0 +1,524 @@
+{
+  "sourceBasisCommit": "80a4c80eabe455a46459795654f762226ff11531",
+  "candidatePackage": "/Users/sw107/Documents/Codex/2026-10-06/task/body-rectangle-width-qa/pkg",
+  "wasmSHA256": "cd852d76c0ea4c2690afe728db34d717a00638dd51090b98cce913de456d8005",
+  "scope": "Horizontal root-body plain rectangle width/basis foundation; Para100% only; shared resolver unchanged",
+  "native": {
+    "GUIVerified": false,
+    "atomicRefusals": 17,
+    "bodyTextStyleNoteNeighborMemoPreserved": true,
+    "nativeReopens": 40,
+    "rows": [
+      {
+        "basis": "Absolute",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 160.0,
+          "x": 126.72,
+          "y": 132.26666666666668
+        },
+        "change": "margins"
+      },
+      {
+        "basis": "Absolute",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 160.0,
+          "x": 133.33333333333334,
+          "y": 132.26666666666668
+        },
+        "change": "page"
+      },
+      {
+        "basis": "Absolute",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 160.0,
+          "x": 133.33333333333334,
+          "y": 132.26666666666668
+        },
+        "change": "columns"
+      },
+      {
+        "basis": "Paper",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 793.7066666666667,
+          "x": 126.72,
+          "y": 132.26666666666668
+        },
+        "change": "margins"
+      },
+      {
+        "basis": "Paper",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 880.0,
+          "x": 133.33333333333334,
+          "y": 132.26666666666668
+        },
+        "change": "page"
+      },
+      {
+        "basis": "Paper",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 880.0,
+          "x": 133.33333333333334,
+          "y": 132.26666666666668
+        },
+        "change": "columns"
+      },
+      {
+        "basis": "Page",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 566.9333333333334,
+          "x": 126.72,
+          "y": 132.26666666666668
+        },
+        "change": "margins"
+      },
+      {
+        "basis": "Page",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 666.6666666666667,
+          "x": 133.33333333333334,
+          "y": 132.26666666666668
+        },
+        "change": "page"
+      },
+      {
+        "basis": "Page",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 666.6666666666667,
+          "x": 133.33333333333334,
+          "y": 132.26666666666668
+        },
+        "change": "columns"
+      },
+      {
+        "basis": "Column",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 566.9333333333334,
+          "x": 126.72,
+          "y": 132.26666666666668
+        },
+        "change": "margins"
+      },
+      {
+        "basis": "Column",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 666.6666666666667,
+          "x": 133.33333333333334,
+          "y": 132.26666666666668
+        },
+        "change": "page"
+      },
+      {
+        "basis": "Column",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 326.6666666666667,
+          "x": 133.33333333333334,
+          "y": 132.26666666666668
+        },
+        "change": "columns"
+      },
+      {
+        "basis": "Para",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 533.6,
+          "x": 126.72,
+          "y": 132.26666666666668
+        },
+        "change": "margins"
+      },
+      {
+        "basis": "Para",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 633.3333333333334,
+          "x": 133.33333333333334,
+          "y": 132.26666666666668
+        },
+        "change": "page"
+      },
+      {
+        "basis": "Para",
+        "bounds": {
+          "height": 3.7733333333333334,
+          "width": 293.33333333333337,
+          "x": 133.33333333333334,
+          "y": 132.26666666666668
+        },
+        "change": "columns"
+      }
+    ],
+    "snapshotUndoRedoPairs": 20
+  },
+  "wasm": {
+    "wasmSHA256": "cd852d76c0ea4c2690afe728db34d717a00638dd51090b98cce913de456d8005",
+    "oldWasmSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+    "actualBridgeAndSnapshotHistory": true,
+    "saves": 40,
+    "undoRedoPairs": 20,
+    "atomicRefusals": 20,
+    "nativeSavedGeometryCrossChecks": 40,
+    "legacyBasisSVGExactMatches": 32,
+    "legacyOtherShapes": [
+      "ellipse-Hwp",
+      "ellipse-Hwpx",
+      "rotated-Hwp",
+      "rotated-Hwpx",
+      "group-Hwp",
+      "group-Hwpx",
+      "picture-Hwp",
+      "picture-Hwpx",
+      "Para-picture-nodes-and-glyphs",
+      "cell-Para-hwp",
+      "cell-Para-hwpx"
+    ],
+    "boundaryRefusals": 6,
+    "bodyTextFieldsNotesAndGlyphsPreserved": true,
+    "rows": [
+      {
+        "basis": "Absolute",
+        "label": "basis",
+        "bounds": {
+          "x": 118.3,
+          "y": 132.3,
+          "w": 160,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Absolute",
+        "label": "margins",
+        "bounds": {
+          "x": 126.7,
+          "y": 132.3,
+          "w": 160,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Absolute",
+        "label": "page",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 160,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Absolute",
+        "label": "columns",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 160,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Paper",
+        "label": "basis",
+        "bounds": {
+          "x": 118.3,
+          "y": 132.3,
+          "w": 793.7,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Paper",
+        "label": "margins",
+        "bounds": {
+          "x": 126.7,
+          "y": 132.3,
+          "w": 793.7,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Paper",
+        "label": "page",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 880,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Paper",
+        "label": "columns",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 880,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Page",
+        "label": "basis",
+        "bounds": {
+          "x": 118.3,
+          "y": 132.3,
+          "w": 566.9,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Page",
+        "label": "margins",
+        "bounds": {
+          "x": 126.7,
+          "y": 132.3,
+          "w": 566.9,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Page",
+        "label": "page",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 666.7,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Page",
+        "label": "columns",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 666.7,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Column",
+        "label": "basis",
+        "bounds": {
+          "x": 118.3,
+          "y": 132.3,
+          "w": 566.9,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Column",
+        "label": "margins",
+        "bounds": {
+          "x": 126.7,
+          "y": 132.3,
+          "w": 566.9,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Column",
+        "label": "page",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 666.7,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Column",
+        "label": "columns",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 326.7,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Para",
+        "label": "basis",
+        "bounds": {
+          "x": 118.3,
+          "y": 132.3,
+          "w": 562.1,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Para",
+        "label": "margins",
+        "bounds": {
+          "x": 126.7,
+          "y": 132.3,
+          "w": 533.6,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Para",
+        "label": "page",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 633.3,
+          "h": 3.8
+        }
+      },
+      {
+        "basis": "Para",
+        "label": "columns",
+        "bounds": {
+          "x": 133.3,
+          "y": 132.3,
+          "w": 293.3,
+          "h": 3.8
+        }
+      }
+    ],
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "paragraphBandMenuComplete": false,
+    "sourceSHA256": {
+      "bridge": "a7085f3e8e5c75747676858f77e0583d9d677f68d3b3dd0feb6048aca67997e1",
+      "command": "6d6b72bfe8c0cabb02461406c971a9cfa8c9e3eff7cd9c7d52ea27179a8c8968",
+      "history": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db",
+      "mutations": "de888749e9c853f28545539a8fc4b40c427dfe570a25b120f366c3b527afc077"
+    }
+  },
+  "independentNative": {
+    "actualGeometryAndReferences": true,
+    "independentSavedReopens": 40,
+    "noteHeaderTrailingZeroPaddingCanonicalized": true,
+    "reexecutedWidthMarginsPageColumns": true
+  },
+  "regressions": {
+    "commentAuthoring": {
+      "wasmSHA256": "cd852d76c0ea4c2690afe728db34d717a00638dd51090b98cce913de456d8005",
+      "mutations": 14,
+      "saves": 64,
+      "refusals": 55,
+      "undos": 16,
+      "redos": 16,
+      "newAuthorEmptyCreationTimeAbsent": true,
+      "originalAuthorTimePreserved": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "commentAnchor": {
+      "wasmSHA256": "cd852d76c0ea4c2690afe728db34d717a00638dd51090b98cce913de456d8005",
+      "normal": 43,
+      "saves": 168,
+      "refusals": 36,
+      "undos": 43,
+      "redos": 43,
+      "actualBodyCommandHistory": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "cellHyperlink": {
+      "candidateWasmSHA256": "cd852d76c0ea4c2690afe728db34d717a00638dd51090b98cce913de456d8005",
+      "positive": 84,
+      "reopens": 288,
+      "undos": 84,
+      "redos": 84,
+      "atomicRefusals": 444,
+      "layoutCases": 12,
+      "multipageCases": 12,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "commentSavedNative": {
+      "allBodyMemoNoteFieldReferences": true,
+      "independentlyReopened": 64
+    },
+    "anchorSavedNative": {
+      "independentSavedReopens": 168,
+      "refsStylesMetadataAnchors": true
+    }
+  },
+  "menuDisabled": {
+    "feature": "일반 본문 문단의 문단 띠 삽입 메뉴",
+    "command": "insert:para-band",
+    "label": "문단 띠",
+    "candidateWasmSHA256": "cd852d76c0ea4c2690afe728db34d717a00638dd51090b98cce913de456d8005",
+    "seed": "/Users/sw107/Documents/Codex/2026-10-06/task/body-rectangle-width-qa/native/seed.hwpx",
+    "editableNormalDocument": true,
+    "hyperlinkEnabled": true,
+    "reviewCommentEnabled": true,
+    "paragraphBandEnabled": false,
+    "dispatchResult": {
+      "ok": false,
+      "reason": "disabled"
+    },
+    "actualMenuStateDisabled": true,
+    "packagedMenuDisabled": true,
+    "operationCalls": 0,
+    "commandEvents": 0,
+    "entireDocumentBytesAndStateUnchanged": true,
+    "paragraphBandExports": [],
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "widthFoundationPresent": true,
+    "paragraphBandCommandImplemented": false
+  },
+  "sourceSHA256": {
+    "engine/examples/body_rectangle_width_check.rs": "01df7ee4bf7cc324e29d13d82eca08fd59b2ac4f24412cf62ebc5d36e72b92aa",
+    "engine/src/document_core/commands/object_ops/shape.rs": "ada6b1806fa0f7ff3cdfd51c919beb1f399015435ee0f50e545fb1311ee8f746",
+    "engine/src/model/shape.rs": "b0c6347eb1f8d88702807faff77906c01b7faccd0cabf8ac6601e22439ed894a",
+    "engine/src/renderer/layout.rs": "8ef512786bed84e616184121cbd9e6d04c50db803cda18e882cc8be7e5c100f9",
+    "engine/src/renderer/layout/shape_layout.rs": "cc522c4c1e98ee4e6248798a4dc94dfd18eaa06dfae22c6d4f30f2511154eed6",
+    "engine/src/wasm_api.rs": "0f126aa1a8c995d53174c040da0b5e8c0ccd28c62c89ef347d5943e87c344deb",
+    "rhwp-studio/src/core/mutation-method-registry.ts": "de888749e9c853f28545539a8fc4b40c427dfe570a25b120f366c3b527afc077",
+    "rhwp-studio/src/core/wasm-bridge.ts": "a7085f3e8e5c75747676858f77e0583d9d677f68d3b3dd0feb6048aca67997e1",
+    "scripts/check-body-rectangle-width.mjs": "7a1d0b33d76d96ac0cfa35ed00566488b99ffd052f116b436dfcf3652f92567f"
+  },
+  "protection": {
+    "protectedPathsUnchanged": 17,
+    "dev10ArtifactsUnchanged": 314
+  },
+  "resources": {
+    "targetPeakBytes": 4176007168,
+    "targetFinalBytes": 4025339904,
+    "additionalPeakBytes": 26124288,
+    "diskFreeMinimumBytes": 23183360000,
+    "diskFreeFinalBytes": 23388160000,
+    "stopReasons": []
+  },
+  "finalValidationCommands": [
+    "wasm-source-final",
+    "wasm-bindgen-source-final",
+    "native-source-final",
+    "wasm-verified-final",
+    "width-cross-final",
+    "comment-source-final",
+    "anchor-source-final",
+    "cell-source-final",
+    "comment-cross-final",
+    "anchor-cross-final",
+    "menu-source-final",
+    "type-source-final",
+    "clippy-source-final"
+  ],
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxVerified": false,
+  "newAppPackaged": false,
+  "publicPushOrRelease": false,
+  "knownLimit": "Whole lib test fixtures3 missing; full corpus/physical GUI/Hancom app reopen not validated"
+}

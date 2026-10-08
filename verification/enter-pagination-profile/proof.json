@@ -1,0 +1,429 @@
+{
+  "baseCommit": "b8e14bf4d11da5d78e433da94db46212bae1763c",
+  "productionEngineUnchanged": true,
+  "WasmSHA256": "4ff4199b441ed47748be99ab035c47202a3bd16db49e3ba66b3ab005158dfdfc",
+  "existingNativePhaseTimersUsed": true,
+  "nativeDebugWarmupTrials": 1,
+  "nativeDebugMeasuredTrials": 2,
+  "nativePhaseSummary": [
+    {
+      "scope": "body",
+      "paragraphs": 32,
+      "total_ms": 7.239000000000001,
+      "normalize_ms": 0.0045000000000000005,
+      "measure_ms": 0.022,
+      "typeset_ms": 7.202,
+      "postprocess_ms": 0.008,
+      "typesetPercent": 99.48942973722467
+    },
+    {
+      "scope": "body",
+      "paragraphs": 512,
+      "total_ms": 130.676,
+      "normalize_ms": 0.038,
+      "measure_ms": 0.081,
+      "typeset_ms": 130.4665,
+      "postprocess_ms": 0.0795,
+      "typesetPercent": 99.83961328361099
+    },
+    {
+      "scope": "body",
+      "paragraphs": 8192,
+      "total_ms": 3674.1285,
+      "normalize_ms": 0.7444999999999999,
+      "measure_ms": 0.8945000000000001,
+      "typeset_ms": 3671.411,
+      "postprocess_ms": 0.9795,
+      "typesetPercent": 99.92602045022724
+    },
+    {
+      "scope": "cell",
+      "paragraphs": 32,
+      "total_ms": 6.8925,
+      "normalize_ms": 0.004,
+      "measure_ms": 0.0395,
+      "typeset_ms": 6.8385,
+      "postprocess_ms": 0.0075,
+      "typesetPercent": 99.21657150374952
+    },
+    {
+      "scope": "cell",
+      "paragraphs": 512,
+      "total_ms": 130.3395,
+      "normalize_ms": 0.0405,
+      "measure_ms": 0.123,
+      "typeset_ms": 130.0895,
+      "postprocess_ms": 0.072,
+      "typesetPercent": 99.80817567212418
+    },
+    {
+      "scope": "cell",
+      "paragraphs": 8192,
+      "total_ms": 5052.054,
+      "normalize_ms": 1.24,
+      "measure_ms": 1.3395,
+      "typeset_ms": 5048.104,
+      "postprocess_ms": 1.242,
+      "typesetPercent": 99.92059244340774
+    }
+  ],
+  "wasmCpuSamples": [
+    {
+      "file": "cell-8192-1.cpuprofile",
+      "intervalRequestedUs": 1000,
+      "samples": 351,
+      "sampledDurationMs": 528.943,
+      "selfTop": [
+        {
+          "name": "core::str::pattern::StrSearcher::new::h1512dbf10fd77ba7",
+          "ms": 113.325,
+          "percent": 21.42480380683741
+        },
+        {
+          "name": "rhwp::renderer::typeset::TypesetEngine::typeset_paragraph::hea6f620216167a5b",
+          "ms": 94.157,
+          "percent": 17.80097288365665
+        },
+        {
+          "name": "dlmalloc::dlmalloc::Dlmalloc<A>::malloc::h6191067b7cf290a7",
+          "ms": 29.949,
+          "percent": 5.662046761182207
+        },
+        {
+          "name": "dlmalloc::dlmalloc::Dlmalloc<A>::free::h257b4bd0759b4bfb",
+          "ms": 25.235,
+          "percent": 4.770835420829844
+        },
+        {
+          "name": "core::unicode::unicode_data::conversions::to_lower::hccb9665ffac73ad7",
+          "ms": 25.097,
+          "percent": 4.744745653123305
+        },
+        {
+          "name": "rhwp::renderer::font_metrics_data::find_metric_decision::hfd2ad4ea3d8fc2e7",
+          "ms": 22.58,
+          "percent": 4.268890976910556
+        },
+        {
+          "name": "alloc::str::<impl str>::to_lowercase::h8824faaebdf18b10",
+          "ms": 21.187,
+          "percent": 4.005535568104692
+        },
+        {
+          "name": "rhwp::renderer::composer::compose_paragraph::ha3fb444c0cd1f43e",
+          "ms": 19.547,
+          "percent": 3.695483256229877
+        },
+        {
+          "name": "core::str::pattern::TwoWaySearcher::next::h82f872eb913f8e20",
+          "ms": 19.518,
+          "percent": 3.6900006238857497
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::resolved_to_text_style::hb0d20ab5d143e8f3",
+          "ms": 17.614,
+          "percent": 3.330037452050599
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::measure_char_width_embedded_decision::h5521061cd165477d",
+          "ms": 15.048,
+          "percent": 2.8449190177391515
+        },
+        {
+          "name": "rhwp::renderer::composer::line_breaking::tokenize_paragraph_with_regenerated_space_metric::h0dd6609c6fafb1b8",
+          "ms": 10.523,
+          "percent": 1.9894393157674835
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::char_width_decision::h5ee5902dd0b7b01f",
+          "ms": 9.024,
+          "percent": 1.706043940462394
+        },
+        {
+          "name": "post",
+          "ms": 7.847,
+          "percent": 1.4835246898058958
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::estimate_text_width_unrounded::h54c9d15d0a0424dc",
+          "ms": 7.548,
+          "percent": 1.4269968597750609
+        }
+      ],
+      "embeddedDecisionInclusiveMs": 243.735,
+      "embeddedDecisionInclusivePercent": 46.07963428951702
+    },
+    {
+      "file": "body-8192-0.cpuprofile",
+      "intervalRequestedUs": 1000,
+      "samples": 339,
+      "sampledDurationMs": 518.093,
+      "selfTop": [
+        {
+          "name": "core::str::pattern::StrSearcher::new::h1512dbf10fd77ba7",
+          "ms": 119.966,
+          "percent": 23.15530223338281
+        },
+        {
+          "name": "rhwp::renderer::typeset::TypesetEngine::typeset_paragraph::hea6f620216167a5b",
+          "ms": 103.038,
+          "percent": 19.887935177661152
+        },
+        {
+          "name": "core::unicode::unicode_data::conversions::to_lower::hccb9665ffac73ad7",
+          "ms": 31.525,
+          "percent": 6.084814888446669
+        },
+        {
+          "name": "rhwp::renderer::font_metrics_data::find_metric_decision::hfd2ad4ea3d8fc2e7",
+          "ms": 27.088,
+          "percent": 5.22840493888163
+        },
+        {
+          "name": "alloc::str::<impl str>::to_lowercase::h8824faaebdf18b10",
+          "ms": 19.141,
+          "percent": 3.6945104450359296
+        },
+        {
+          "name": "dlmalloc::dlmalloc::Dlmalloc<A>::malloc::h6191067b7cf290a7",
+          "ms": 18.07,
+          "percent": 3.487790802037472
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::measure_char_width_embedded_decision::h5521061cd165477d",
+          "ms": 17.785,
+          "percent": 3.4327813732283587
+        },
+        {
+          "name": "post",
+          "ms": 14.32,
+          "percent": 2.763982528233348
+        },
+        {
+          "name": "<&str as core::str::pattern::Pattern>::is_contained_in::hb787c5c1eccdfc78",
+          "ms": 13.541,
+          "percent": 2.6136234228217714
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::estimate_text_width_unrounded::h54c9d15d0a0424dc",
+          "ms": 13.38,
+          "percent": 2.582547920933114
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::resolved_to_text_style::hb0d20ab5d143e8f3",
+          "ms": 13.13,
+          "percent": 2.5342940360128394
+        },
+        {
+          "name": "core::str::pattern::TwoWaySearcher::next::h82f872eb913f8e20",
+          "ms": 12.025,
+          "percent": 2.3210118646652242
+        },
+        {
+          "name": "rhwp::renderer::composer::compose_paragraph::ha3fb444c0cd1f43e",
+          "ms": 10.526,
+          "percent": 2.0316815706832556
+        },
+        {
+          "name": "rhwp::renderer::composer::split_runs_by_lang::h9792833d729146b9",
+          "ms": 8.658,
+          "percent": 1.6711285425589615
+        },
+        {
+          "name": "core::hash::BuildHasher::hash_one::h26f5ed80fe1f2605",
+          "ms": 7.522,
+          "percent": 1.4518628894812322
+        }
+      ],
+      "embeddedDecisionInclusiveMs": 262.089,
+      "embeddedDecisionInclusivePercent": 50.58724977947975
+    },
+    {
+      "file": "cell-8192-0.cpuprofile",
+      "intervalRequestedUs": 1000,
+      "samples": 357,
+      "sampledDurationMs": 529.244,
+      "selfTop": [
+        {
+          "name": "core::str::pattern::StrSearcher::new::h1512dbf10fd77ba7",
+          "ms": 101.93,
+          "percent": 19.259547581077914
+        },
+        {
+          "name": "rhwp::renderer::typeset::TypesetEngine::typeset_paragraph::hea6f620216167a5b",
+          "ms": 86.065,
+          "percent": 16.26187542985844
+        },
+        {
+          "name": "dlmalloc::dlmalloc::Dlmalloc<A>::malloc::h6191067b7cf290a7",
+          "ms": 37.803,
+          "percent": 7.142830150176478
+        },
+        {
+          "name": "alloc::str::<impl str>::to_lowercase::h8824faaebdf18b10",
+          "ms": 28.044,
+          "percent": 5.298879155928079
+        },
+        {
+          "name": "core::unicode::unicode_data::conversions::to_lower::hccb9665ffac73ad7",
+          "ms": 24.96,
+          "percent": 4.716161165738298
+        },
+        {
+          "name": "dlmalloc::dlmalloc::Dlmalloc<A>::free::h257b4bd0759b4bfb",
+          "ms": 22.416,
+          "percent": 4.235475508461126
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::resolved_to_text_style::hb0d20ab5d143e8f3",
+          "ms": 21.528,
+          "percent": 4.0676890054492825
+        },
+        {
+          "name": "core::str::pattern::TwoWaySearcher::next::h82f872eb913f8e20",
+          "ms": 18.873,
+          "percent": 3.566030035295629
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::measure_char_width_embedded_decision::h5521061cd165477d",
+          "ms": 17.593,
+          "percent": 3.324175616539819
+        },
+        {
+          "name": "rhwp::renderer::composer::compose_paragraph::ha3fb444c0cd1f43e",
+          "ms": 15.009,
+          "percent": 2.835932008676527
+        },
+        {
+          "name": "rhwp::renderer::composer::line_breaking::tokenize_paragraph_with_regenerated_space_metric::h0dd6609c6fafb1b8",
+          "ms": 13.021,
+          "percent": 2.4603018645464094
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::char_width_decision::h5ee5902dd0b7b01f",
+          "ms": 12.081,
+          "percent": 2.2826900257726117
+        },
+        {
+          "name": "rhwp::renderer::font_metrics_data::find_metric_decision::hfd2ad4ea3d8fc2e7",
+          "ms": 12.018,
+          "percent": 2.270786253599474
+        },
+        {
+          "name": "<core::hash::sip::Hasher<S> as core::hash::Hasher>::write::h07ab5dd978ed5772",
+          "ms": 10.162,
+          "percent": 1.9200973464035491
+        },
+        {
+          "name": "rhwp::renderer::composer::line_breaking::fill_one_interval::h1f280effaa67841e",
+          "ms": 9.01,
+          "percent": 1.70242836952332
+        }
+      ],
+      "embeddedDecisionInclusiveMs": 242.789,
+      "embeddedDecisionInclusivePercent": 45.87468162133156
+    },
+    {
+      "file": "body-8192-1.cpuprofile",
+      "intervalRequestedUs": 1000,
+      "samples": 351,
+      "sampledDurationMs": 525.713,
+      "selfTop": [
+        {
+          "name": "core::str::pattern::StrSearcher::new::h1512dbf10fd77ba7",
+          "ms": 108.506,
+          "percent": 20.639778738589307
+        },
+        {
+          "name": "rhwp::renderer::typeset::TypesetEngine::typeset_paragraph::hea6f620216167a5b",
+          "ms": 99.803,
+          "percent": 18.98431273337353
+        },
+        {
+          "name": "dlmalloc::dlmalloc::Dlmalloc<A>::malloc::h6191067b7cf290a7",
+          "ms": 22.488,
+          "percent": 4.277619157220765
+        },
+        {
+          "name": "alloc::str::<impl str>::to_lowercase::h8824faaebdf18b10",
+          "ms": 21.005,
+          "percent": 3.9955260760148597
+        },
+        {
+          "name": "rhwp::renderer::composer::compose_paragraph::ha3fb444c0cd1f43e",
+          "ms": 20.921,
+          "percent": 3.9795477760679305
+        },
+        {
+          "name": "core::unicode::unicode_data::conversions::to_lower::hccb9665ffac73ad7",
+          "ms": 20.913,
+          "percent": 3.978026033215842
+        },
+        {
+          "name": "rhwp::renderer::font_metrics_data::find_metric_decision::hfd2ad4ea3d8fc2e7",
+          "ms": 18.338,
+          "percent": 3.488215052699857
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::resolved_to_text_style::hb0d20ab5d143e8f3",
+          "ms": 17.743,
+          "percent": 3.3750354280757753
+        },
+        {
+          "name": "core::str::pattern::TwoWaySearcher::next::h82f872eb913f8e20",
+          "ms": 14.669,
+          "percent": 2.7903057371607702
+        },
+        {
+          "name": "dlmalloc::dlmalloc::Dlmalloc<A>::free::h257b4bd0759b4bfb",
+          "ms": 13.264,
+          "percent": 2.523049648762728
+        },
+        {
+          "name": "rhwp::renderer::composer::line_breaking::tokenize_paragraph_with_regenerated_space_metric::h0dd6609c6fafb1b8",
+          "ms": 13.128,
+          "percent": 2.4971800202772236
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::measure_char_width_embedded_decision::h5521061cd165477d",
+          "ms": 9.04,
+          "percent": 1.7195694228600016
+        },
+        {
+          "name": "alloc::vec::Vec<T,A>::extend_desugared::h00423cd43a2312dd",
+          "ms": 8.738,
+          "percent": 1.6621236301936608
+        },
+        {
+          "name": "rhwp::renderer::layout::text_measurement::char_width_decision::h5ee5902dd0b7b01f",
+          "ms": 8.288,
+          "percent": 1.576525594763683
+        },
+        {
+          "name": "post",
+          "ms": 7.567,
+          "percent": 1.439378520219207
+        }
+      ],
+      "embeddedDecisionInclusiveMs": 229.557,
+      "embeddedDecisionInclusivePercent": 43.66584048710989
+    }
+  ],
+  "CPUIntervalRequestedUs": 1000,
+  "CPUProfileTimingsAreDiagnosticNotBaselineLatency": true,
+  "cpuAndNativeDiagnosticRunsOverlapped": true,
+  "baselineUnprofiledLatencyEvidence": "../enter-performance/proof.json",
+  "mutationScope": "only newly opened synthetic in-memory documents; original inputs read-only",
+  "memoryLimits": {
+    "NodeHeapMiB": 192,
+    "WasmMiB": 512,
+    "RSSMiB": 768,
+    "CargoTargetGiB": 3
+  },
+  "largestCost": "Typeset text branch recomputes all body paragraph formatting after a single body/cell Enter; embedded glyph width repeatedly classifies identical KoPub family names",
+  "safeCandidate": "Bounded exact-name memo of immutable font-family classification, preserving original Unicode lowercase/substring rules and all widths; no pagination/dirty/cache semantics changes",
+  "GUIVerified": false,
+  "publicPushPerformed": false,
+  "releaseCreated": false,
+  "localOnlyPerLatestUserInstruction": true
+}

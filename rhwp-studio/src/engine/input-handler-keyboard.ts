@@ -1,7 +1,8 @@
+import { deleteEquationSelection } from './equation-target';
 /** input-handler keyboard methods — extracted from InputHandler class */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { InsertTextCommand, InsertLineBreakCommand, InsertTabCommand, SplitParagraphCommand, SplitParagraphInCellCommand, InsertTextInHeaderFooterCommand, SplitParagraphInHeaderFooterCommand, SplitParagraphInFootnoteCommand, DeleteTextInFootnoteCommand, MergeParagraphInFootnoteCommand, cellParaIndexOf } from './command';
+import { DeleteSelectionCommand, InsertTextCommand, InsertLineBreakCommand, InsertTabCommand, SplitParagraphCommand, SplitParagraphInCellCommand, InsertTextInHeaderFooterCommand, cellParaIndexOf } from './command';
 import { matchShortcut, defaultShortcuts } from '@/command/shortcut-map';
 import {
   resolveCellBlockCtrlShiftS,
@@ -234,7 +235,7 @@ function deleteSelectedObject(wasm: WasmBridge, ref: PictureDeleteRef): void {
       wasm.deletePictureControl(ref.sec, ref.ppi, ref.ci);
     }
   } else if (ref.type === 'equation') {
-    wasm.deleteEquationControl(ref.sec, ref.ppi, ref.ci);
+    deleteEquationSelection(wasm, ref);
   } else {
     wasm.deleteShapeControl(ref.sec, ref.ppi, ref.ci);
   }
@@ -389,13 +390,24 @@ function positionAfterPasteResult(pos: DocumentPosition, parsed: any): DocumentP
 }
 
 function pastePlainText(this: any, text: string, hasSelection: boolean): void {
-  const lines = text.split(/\r?\n/);
-  // A multiline body paste is one edit, including replacement of a selection.
+  if (!text) return;
+  // A body paste is one edit, including replacement of a selection.
   // Keep cell/note insertion on its existing submode path.
-  if (text && lines.length > 1 && !this.cursor.isInCell() && !this.cursor.isInFootnote()) {
+  if (!this.cursor.isInCell() && !this.cursor.isInFootnote()) {
+    const lines = text.replace(/\r\n?/g, '\n').split('\n');
+    if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f\ud800-\udfff\ufffe\uffff]/u.test(text)) {
+      throw new Error('붙여넣을 본문에 지원하지 않는 제어 문자나 잘못된 Unicode가 있습니다.');
+    }
+    const selection = hasSelection ? this.cursor.getSelectionOrdered() : null;
+    if (hasSelection && !selection) return;
     this.executeOperation({ kind: 'snapshot', operationType: 'pastePlainText', operation: (wasm: WasmBridge) => {
-      if (hasSelection) this.deleteSelection({ deferRecord: true });
       let position = this.cursor.getPosition();
+      if (selection) {
+        const deletion = new DeleteSelectionCommand(selection.start, selection.end, this.cursor.blockSelectionPhase());
+        try { position = deletion.execute(wasm); }
+        // The enclosing snapshot owns undo. Do not orphan a deletion fragment.
+        finally { deletion.discard(wasm); }
+      }
       for (let i = 0; i < lines.length; i++) {
         if (lines[i]) {
           new InsertTextCommand(position, lines[i]).execute(wasm);
@@ -415,8 +427,7 @@ function pastePlainText(this: any, text: string, hasSelection: boolean): void {
   if (hasSelection) {
     this.deleteSelection({ deferRecord: true });
   }
-  if (!text) return;
-
+  const lines = text.split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
     if (lines[i]) {
       this.executeOperation({ kind: 'command', command: new InsertTextCommand(this.cursor.getPosition(), lines[i]) });
@@ -492,6 +503,8 @@ export async function writeImageToClipboard(
 
 /** 코드 단축키 → 커맨드 ID 매핑 (Ctrl+K,? 형태) */
 const chordMapK: Record<string, string> = {
+  h: 'insert:hyperlink',
+  ㅗ: 'insert:hyperlink',
   b: 'insert:bookmark',
   ㅠ: 'insert:bookmark', // 한글 IME 상태
   n: 'format:para-num-shape',
@@ -942,9 +955,20 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
         };
         const paraIdx = this.cursor.hfParaIdx;
         const charOffset = this.cursor.hfCharOffset;
-        const result = JSON.parse(this.wasm.splitParagraphInHeaderFooter(target.sectionIdx, isHeader, target.applyTo, paraIdx, charOffset));
-        this.executeOperation({ kind: 'record', command: new SplitParagraphInHeaderFooterCommand(target, paraIdx, charOffset, result.hfParaIndex) });
-        this.cursor.setHfCursorPosition(result.hfParaIndex, 0);
+        const applyNextStyle = !e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey;
+        let nextParaIdx = paraIdx + 1;
+        const position = this.cursor.getPosition();
+        this.executeOperation({ kind: 'snapshot', operationType: 'splitParagraphInHeaderFooter',
+          editContext: { mode: 'headerFooter', ...target, paraIdx, charOffset },
+          editContextAfter: () => ({ mode: 'headerFooter', ...target, paraIdx: nextParaIdx, charOffset: 0 }),
+          operation: (wasm: WasmBridge) => {
+            const result = JSON.parse(wasm.splitParagraphInHeaderFooter(target.sectionIdx, isHeader, target.applyTo, paraIdx, charOffset, undefined, applyNextStyle));
+            if (!result.ok) throw new Error('Header/footer Enter failed');
+            nextParaIdx = result.hfParaIndex;
+            return position;
+          },
+        });
+        this.cursor.setHfCursorPosition(nextParaIdx, 0);
         this.afterEdit();
       } catch { /* ignore */ }
       return;
@@ -1008,9 +1032,20 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
         const target = { sectionIdx: this.cursor.fnSectionIdx, paraIdx: this.cursor.fnParaIdx, controlIdx: this.cursor.fnControlIdx, footnoteIndex: this.cursor.fnFootnoteIndex, pageNum: this.cursor.fnPageNum };
         const innerParaIdx = this.cursor.fnInnerParaIdx;
         const charOffset = this.cursor.fnCharOffset;
-        const result = this.wasm.splitParagraphInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx, charOffset);
-        this.executeOperation({ kind: 'record', command: new SplitParagraphInFootnoteCommand(target, innerParaIdx, charOffset, result.fnParaIndex) });
-        this.cursor.setFnCursorPosition(result.fnParaIndex, 0);
+        const applyNextStyle = !e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey;
+        let nextInnerParaIdx = innerParaIdx + 1;
+        const position = this.cursor.getPosition();
+        this.executeOperation({ kind: 'snapshot', operationType: 'splitParagraphInFootnote',
+          editContext: { mode: 'footnote', ...target, innerParaIdx, charOffset },
+          editContextAfter: () => ({ mode: 'footnote', ...target, innerParaIdx: nextInnerParaIdx, charOffset: 0 }),
+          operation: (wasm: WasmBridge) => {
+            const result = wasm.splitParagraphInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx, charOffset, undefined, applyNextStyle);
+            if (!result.ok) throw new Error('Footnote Enter failed');
+            nextInnerParaIdx = result.fnParaIndex;
+            return position;
+          },
+        });
+        this.cursor.setFnCursorPosition(nextInnerParaIdx, 0);
         this.afterEdit();
       } catch { /* ignore */ }
       return;
@@ -1022,36 +1057,36 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
       const target = { sectionIdx: this.cursor.fnSectionIdx, paraIdx: this.cursor.fnParaIdx, controlIdx: this.cursor.fnControlIdx, footnoteIndex: this.cursor.fnFootnoteIndex, pageNum: this.cursor.fnPageNum };
       const innerParaIdx = this.cursor.fnInnerParaIdx;
       const fnOff = this.cursor.fnCharOffset;
-      if (e.key === 'Backspace') {
-        if (fnOff > 0) {
-          try {
-            // [Task #2337] 삭제 텍스트를 반환에서 확보해 역연산 기록. Backspace → undo 후 커서 fnOff.
-            const res = this.wasm.deleteTextInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx, fnOff - 1, 1);
-            this.executeOperation({ kind: 'record', command: new DeleteTextInFootnoteCommand(target, innerParaIdx, fnOff - 1, res.deletedText ?? '', fnOff) });
-            this.cursor.setFnCursorPosition(innerParaIdx, fnOff - 1);
-            this.afterEdit();
-          } catch { /* ignore */ }
-        } else if (innerParaIdx > 0) {
-          // 문단 시작에서 Backspace → 이전 문단과 병합. 병합 전 커서 (innerParaIdx, 0).
-          try {
-            const result = this.wasm.mergeParagraphInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx);
-            this.executeOperation({ kind: 'record', command: new MergeParagraphInFootnoteCommand(target, innerParaIdx, result.fnParaIndex, result.charOffset, innerParaIdx, 0, result.removedParaMeta) });
-            this.cursor.setFnCursorPosition(result.fnParaIndex, result.charOffset);
-            this.afterEdit();
-          } catch { /* ignore */ }
-        }
-      } else {
-        // Delete(forward): 커서는 fnOff 유지 → undo 후에도 fnOff.
-        try {
-          const res = this.wasm.deleteTextInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx, fnOff, 1);
-          // 문단 끝(삭제 대상 없음)에서는 clamp 로 실삭제 0 → 유령 undo 엔트리를 만들지
-          // 않도록 실제로 삭제됐을 때만 기록한다(HF Delete 의 charCount 가드와 동형).
-          if (res.deletedText) {
-            this.executeOperation({ kind: 'record', command: new DeleteTextInFootnoteCommand(target, innerParaIdx, fnOff, res.deletedText, fnOff) });
-          }
-          this.afterEdit();
-        } catch { /* ignore */ }
-      }
+      const backward = e.key === 'Backspace';
+      const merge = backward && fnOff === 0 && innerParaIdx > 0;
+      const position = this.cursor.getPosition();
+      let afterPara = innerParaIdx;
+      let afterOffset = backward ? fnOff - 1 : fnOff;
+      try {
+        const textLength = Array.from(this.wasm.getFootnoteInfo(target.sectionIdx, target.paraIdx, target.controlIdx).texts[innerParaIdx] ?? '').length;
+        if (!merge && (backward ? fnOff === 0 : fnOff >= textLength)) return;
+        // Text inverses cannot restore mixed runs/definitions/layout exactly. Keep
+        // note deletion and paragraph merging in the same snapshot history as input.
+        this.executeOperation({ kind: 'snapshot', operationType: merge ? 'mergeParagraphInFootnote' : 'deleteTextInFootnote',
+          editContext: { mode: 'footnote', ...target, innerParaIdx, charOffset: fnOff },
+          editContextAfter: () => ({ mode: 'footnote', ...target, innerParaIdx: afterPara, charOffset: afterOffset }),
+          operation: (wasm: WasmBridge) => {
+            if (merge) {
+              const result = wasm.mergeParagraphInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx);
+              if (!result.ok) throw new Error('Footnote merge failed');
+              afterPara = result.fnParaIndex;
+              afterOffset = result.charOffset;
+            } else {
+              const result = wasm.deleteTextInFootnote(target.sectionIdx, target.paraIdx, target.controlIdx, innerParaIdx, backward ? fnOff - 1 : fnOff, 1);
+              if (!result.ok) throw new Error('Footnote deletion failed');
+              if (!result.deletedText) return null;
+            }
+            return position;
+          },
+        });
+        this.cursor.setFnCursorPosition(afterPara, afterOffset);
+        this.afterEdit();
+      } catch { /* ignore */ }
       return;
     }
 
@@ -1417,6 +1452,7 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
       e.preventDefault();
       if (this.isFormMode?.() && e.altKey) return;
       if (this.cursor.hasSelection()) {
+        if (this.tryEditPictureCaption?.('delete')) break;
         this.deleteSelection();
       } else if (e.altKey) {
         // Alt/Option+Backspace/Delete: 단어 삭제 (macOS standard)
@@ -1433,6 +1469,7 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
     case 'Enter': {
       e.preventDefault();
       if (this.isFormMode?.()) return;
+      if (this.tryEditPictureCaption?.(e.shiftKey ? 'break' : 'split')) break;
       if (this.cursor.hasSelection()) this.deleteSelection();
       if (e.shiftKey) {
         // Shift+Enter: 강제 줄바꿈 (문단 유지, 줄만 바꿈)
@@ -1442,14 +1479,14 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
           // [#4031] 성공한 split은 IMMEDIATE_TEXT_MUTATION_EFFECTS를 선언해
           // executeOperation의 effects 경로가 pending 해소·runner 취소·geometry
           // invalidation(완료 소유)을 수행한다.
-          this.executeOperation({ kind: 'command', command: new SplitParagraphInCellCommand(this.cursor.getPosition()) });
+          this.executeOperation({ kind: 'command', command: new SplitParagraphInCellCommand(this.cursor.getPosition(), !e.ctrlKey && !e.metaKey && !e.altKey) });
         } catch (err) {
           // [#4031] structural command 실패 — 기존 full-flush barrier로 fail-closed 복귀.
           if (committedCellEnterSplit) this.flushDeferredPaginationIfNeeded('cell-enter-split-fallback', false);
           throw err;
         }
       } else {
-        this.executeOperation({ kind: 'command', command: new SplitParagraphCommand(this.cursor.getPosition()) });
+        this.executeOperation({ kind: 'command', command: new SplitParagraphCommand(this.cursor.getPosition(), !e.ctrlKey && !e.metaKey && !e.altKey) });
       }
       break;
     }
@@ -1922,6 +1959,11 @@ export function onPaste(this: any, e: ClipboardEvent): void {
   const clipboardData = e.clipboardData;
   const html = clipboardData?.getData('text/html') || '';
   const text = clipboardData?.getData('text/plain') || '';
+  // A picture caption accepts plain text only; reject rich/internal payloads before deletion.
+  if (this.isPictureCaptionEditing?.()) {
+    if (!html && text) this.tryEditPictureCaption?.('replace', text);
+    return;
+  }
   // HF는 이번 이슈에서 rich clipboard round-trip을 만들지 않는다. 내부 marker/HTML이
   // 있어도 시스템 plain text를 코어의 원자 범위 primitive로 삽입·치환한다.
   if (this.cursor.isInHeaderFooter()) {

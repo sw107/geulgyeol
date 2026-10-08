@@ -1,3 +1,4 @@
+mod body_comment;
 mod bookmark_query;
 mod cursor_nav;
 mod cursor_rect;

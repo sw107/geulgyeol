@@ -1,0 +1,18 @@
+{
+  "README.md": "39d555e6a7d99a3cb8e85ba36207ea2a3e07463bfafee2c8e55ecc5ffe4aca54",
+  "DEV_CHANGES_KO.md": "38114f30c9e2cdb55eb04ef3ce0ddb8b73dac52178a563321dbad0521f9a8ced",
+  "desktop/main.cjs": "847588d6f98b89960b9f290ea9922202c8b5e5abd657a3fad128d60a558c4eef",
+  "desktop/package.json": "3f60051fab5d7d381bf1cc3fab8494b1539131a2ee097d65e2daacfe63171213",
+  "desktop/package-lock.json": "db996008a9199b8cc32a966428c93242f019a9d296d6d315ca99cf54f8c93453",
+  "desktop/web/index.html": "2213d407032fdb07ef38f0cae87e685e8505f7ce32b9c8da4825283c4d084491",
+  "desktop/tests/style-propagation.test.cjs": "e6e28c8f6a033bfaef9a08a97b0dc986539b3c7eb666527130b4c293efd8be08",
+  "desktop/tests/style-propagation-ui.test.cjs": "86864e3afc99e62551e7c2d8af1cf24e513eff224b289e5713c6ebbeaef17683",
+  "engine/examples/style_propagation_check.rs": "3ddb1d44b556138bfd592eeae94ba92ceaac9a41d34755a578b2d1127dcb8ffb",
+  "engine/src/document_core/commands/mod.rs": "69cbea8531adeb4b43a86fc448d65756637c98859c2aaab014b57bda8f3db2a4",
+  "engine/src/document_core/commands/style_shapes.rs": "cefe40ecf062b3010d16e62e33c2b7186c19a48d3d5697092eeb35df34ad786c",
+  "engine/src/document_core/commands/text_editing.rs": "0cf09b90f332a8670b6c36f9ade0c7a996436e6dac0d4cfc845ed8e43419fa0c",
+  "engine/src/wasm_api.rs": "109c3da61407f5f25de902bff1628a110d1b3e71b09676c5bf1a8e186c4d4e97",
+  "rhwp-studio/src/core/wasm-bridge.ts": "c3a21166df03027c6dc9a601ccb295257db4ba5cc2e54ce201db3bea21e76255",
+  "rhwp-studio/src/core/mutation-method-registry.ts": "12ad1f29b4cd6e13d874f77008cbcc583ec1b700bc0589cfe10859a8dc9babac",
+  "rhwp-studio/src/ui/style-edit-dialog.ts": "09faab897b332b1118a694da5190eb853973cc8c1fbb1ade7f89c2d7b4578f87"
+}

@@ -4,7 +4,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const {pathToFileURL}=require('node:url');
 test('Korean text survives HWP and HWPX export and reopen',async()=>{
- const root=path.resolve(__dirname,'../web/studio');
+ const root=process.env.GEULGYEOL_QA_ENGINE_DIR || path.resolve(__dirname,'../web/studio');
  const {initSync,HwpDocument}=await import(pathToFileURL(path.join(root,'rhwp.js')));
  initSync({module:fs.readFileSync(path.join(root,'rhwp_bg.wasm'))});
  const doc=HwpDocument.createEmpty();

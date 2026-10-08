@@ -1,0 +1,125 @@
+{
+  "upstream": "https://github.com/edwardkim/rhwp",
+  "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+  "files": [
+    {
+      "path": "samples/hml/formatting_table.hml",
+      "destination": "engine/samples/hml/formatting_table.hml",
+      "size": 29500,
+      "gitBlob": "0c327bccabd8e46028d912dca9357b854a3750d1",
+      "sha256": "177b93de7c79462bef7850e15b018dbc8138fbe713b9c7e045b6125cc7527d35",
+      "license": "Unlicense",
+      "sourceKind": "public-pinned-upstream"
+    },
+    {
+      "path": "samples/hml/osk_filter-UNLICENSE.txt",
+      "destination": "engine/samples/hml/osk_filter-UNLICENSE.txt",
+      "size": 1210,
+      "gitBlob": "cf1ab25da0349f84a3fdd40032f0ce99db813b8b",
+      "sha256": "88d9b4eb60579c191ec391ca04c16130572d7eedc4a86daa58bf28c6e14c9bcd",
+      "license": "Unlicense",
+      "sourceKind": "public-pinned-upstream"
+    },
+    {
+      "path": "samples/hwpx/ref/ref_empty.hwpx",
+      "destination": "engine/samples/hwpx/ref/ref_empty.hwpx",
+      "size": 12698,
+      "gitBlob": "4e25d9f916bc2d98c060569c9609148e64d60723",
+      "sha256": "c58144645069f7d1258e91404730618ad568bc4d47680ad5f891d3050aa308c7",
+      "license": "MIT",
+      "sourceKind": "public-pinned-upstream"
+    },
+    {
+      "path": "samples/render-p35-font-native-bitmap.hwpx",
+      "destination": "engine/samples/render-p35-font-native-bitmap.hwpx",
+      "size": 8579,
+      "gitBlob": "8a6f61e55ce83f79d6bb8760a2ab4a25dcdf197b",
+      "sha256": "1c902d41d47e532f42d2b24a44058efd370ee6496927c32e76e955029a0b9eec",
+      "license": "MIT",
+      "sourceKind": "public-pinned-upstream"
+    },
+    {
+      "path": "assets/logo/logo-32.png",
+      "destination": "engine/assets/logo/logo-32.png",
+      "size": 1621,
+      "gitBlob": "4b7ce19a66079080caa0db4f98c0e60bb129a967",
+      "sha256": "5b4c651a33a497996428de9180a906fbff36c95f9e9d01cca35ba620177ffbb7",
+      "license": "MIT",
+      "sourceKind": "public-pinned-upstream"
+    },
+    {
+      "path": "ttfs/opensource/NotoSansKR-Regular.ttf",
+      "destination": "engine/ttfs/opensource/NotoSansKR-Regular.ttf",
+      "size": 2519996,
+      "gitBlob": "e7c4d095ee331b05e428bee0befa17830b268045",
+      "sha256": "6e06a7fe5d696ca719894a23f36bb2b1be8c816a5937cd4ad0f23ca67780dd74",
+      "license": "SIL-OFL-1.1",
+      "sourceKind": "public-pinned-upstream"
+    },
+    {
+      "path": "ttfs/opensource/NotoSansKR-OFL.txt",
+      "destination": "engine/ttfs/opensource/NotoSansKR-OFL.txt",
+      "size": 4388,
+      "gitBlob": "1c9f43281b8f216c5461fe9ac729afbade7724e4",
+      "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+      "license": "SIL-OFL-1.1",
+      "sourceKind": "public-pinned-upstream"
+    },
+    {
+      "path": "tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf",
+      "destination": "engine/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf",
+      "size": 2044,
+      "gitBlob": "0d37e119ce66418e4143686445280d60c92d66cb",
+      "sha256": "ba3121428c49e4ce8d2bf06e9977e126ee08e51dc6b4a840701a1945df3b2e84",
+      "license": "MIT",
+      "sourceKind": "public-pinned-upstream"
+    },
+    {
+      "path": "tests/fixtures/fonts/RHWPExactFaceSmoke.ttc",
+      "destination": "engine/tests/fixtures/fonts/RHWPExactFaceSmoke.ttc",
+      "size": 1752,
+      "gitBlob": "b1ac275e8c5f018a3eb6f99b47e01e44ae68a3e5",
+      "sha256": "f58698f3e60e0aa6e182ecadf4f8239f309a0bac7be252538611e6c5cad723b5",
+      "license": "MIT",
+      "sourceKind": "public-pinned-upstream"
+    },
+    {
+      "path": "tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.LICENSE.md",
+      "destination": "engine/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.LICENSE.md",
+      "size": 277,
+      "gitBlob": "1e52565001d729fea8cd390eef7703c0d151b74e",
+      "sha256": "da249987e9dd4853af9b4a0dfd3c2394f30cdecb7c68f0d578bc61aa33965a81",
+      "license": "MIT",
+      "sourceKind": "public-pinned-upstream"
+    },
+    {
+      "path": "tests/fixtures/fonts/RHWPExactFaceSmoke.LICENSE.md",
+      "destination": "engine/tests/fixtures/fonts/RHWPExactFaceSmoke.LICENSE.md",
+      "size": 273,
+      "gitBlob": "f2704b733cde236f1c9aa8b5191a13436784acc2",
+      "sha256": "c1c91537f947cc2ad5e361969842844794d5b22d8a3eb91dbf0f9c052cb42cd5",
+      "license": "MIT",
+      "sourceKind": "public-pinned-upstream"
+    }
+  ],
+  "blockedOriginals": [
+    {
+      "path": "engine/samples/3-09월_교육_통합_2022.hwp",
+      "gitBlob": "9e83cccae3c7186c77aea448841c223922be639e",
+      "size": 5820416,
+      "reason": "Public tracked 2022 educational-exam corpus; original publisher/reuse grant and non-sensitive content not verified. The four p325 picture-band transaction tests depend on stored source geometry at paragraphs 325..332; a generic synthetic table/picture cannot establish that original-corpus regression."
+    },
+    {
+      "path": "engine/samples/hwp3-sample16-hwp5.hwp",
+      "gitBlob": "f952b7633732d6e510b49f8805116d0a65b93bb0",
+      "size": 3043328,
+      "reason": "Public tracked Hancom-2022 conversion of a 64-page HWP3 water-agency planning corpus; conversion provenance is documented, but original creator/reuse grant and non-sensitive content not verified. Replacing it with a native HWP5 blank would remove the HWP3-derived layout-profile assertion."
+    },
+    {
+      "path": "engine/samples/hwpx/aift.hwpx",
+      "gitBlob": "83eaf1947b35a004f80deb86e02b1d007aba3b80",
+      "size": 5056727,
+      "reason": "Public tracked 74-page real business-plan corpus, provided by upstream task requester; no file-specific author/reuse permission or non-sensitive classification found. The memo-header test expects preservation of that corpus header, including SOLID and #CBFF99. No invented aift stand-in restored."
+    }
+  ]
+}

@@ -1,0 +1,414 @@
+[
+  {
+    "params": {
+      "name": "InvalidNext",
+      "nextStyleId": 250
+    },
+    "before": 22,
+    "id": 22,
+    "created": {
+      "id": 22,
+      "name": "InvalidNext",
+      "englishName": "",
+      "type": 0,
+      "nextStyleId": 250,
+      "paraShapeId": 0,
+      "charShapeId": 0
+    },
+    "createdReopens": [
+      {
+        "format": "Hwp",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwp",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "InvalidNext",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 250,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      },
+      {
+        "format": "Hwpx",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwpx",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "InvalidNext",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 250,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      }
+    ],
+    "updated": true,
+    "afterUpdate": {
+      "id": 22,
+      "name": "RenamedBeforeRejection",
+      "englishName": "",
+      "type": 0,
+      "nextStyleId": 255,
+      "paraShapeId": 0,
+      "charShapeId": 0
+    },
+    "reopens": [
+      {
+        "format": "Hwp",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwp",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "RenamedBeforeRejection",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 255,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      },
+      {
+        "format": "Hwpx",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwpx",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "RenamedBeforeRejection",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 255,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      }
+    ]
+  },
+  {
+    "params": {
+      "name": "WrappedNext",
+      "nextStyleId": 256
+    },
+    "before": 22,
+    "id": 22,
+    "created": {
+      "id": 22,
+      "name": "WrappedNext",
+      "englishName": "",
+      "type": 0,
+      "nextStyleId": 0,
+      "paraShapeId": 0,
+      "charShapeId": 0
+    },
+    "createdReopens": [
+      {
+        "format": "Hwp",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwp",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "WrappedNext",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 0,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      },
+      {
+        "format": "Hwpx",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwpx",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "WrappedNext",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 0,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      }
+    ],
+    "updated": true,
+    "afterUpdate": {
+      "id": 22,
+      "name": "RenamedBeforeRejection",
+      "englishName": "",
+      "type": 0,
+      "nextStyleId": 255,
+      "paraShapeId": 0,
+      "charShapeId": 0
+    },
+    "reopens": [
+      {
+        "format": "Hwp",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwp",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "RenamedBeforeRejection",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 255,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      },
+      {
+        "format": "Hwpx",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwpx",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "RenamedBeforeRejection",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 255,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      }
+    ]
+  },
+  {
+    "params": {
+      "name": "InvalidType",
+      "type": 2
+    },
+    "before": 22,
+    "id": 22,
+    "created": {
+      "id": 22,
+      "name": "InvalidType",
+      "englishName": "",
+      "type": 2,
+      "nextStyleId": 0,
+      "paraShapeId": 0,
+      "charShapeId": 0
+    },
+    "createdReopens": [
+      {
+        "format": "Hwp",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwp",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "InvalidType",
+          "englishName": "",
+          "type": 2,
+          "nextStyleId": 0,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      },
+      {
+        "format": "Hwpx",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwpx",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "InvalidType",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 0,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      }
+    ],
+    "updated": true,
+    "afterUpdate": {
+      "id": 22,
+      "name": "RenamedBeforeRejection",
+      "englishName": "",
+      "type": 2,
+      "nextStyleId": 255,
+      "paraShapeId": 0,
+      "charShapeId": 0
+    },
+    "reopens": [
+      {
+        "format": "Hwp",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwp",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "RenamedBeforeRejection",
+          "englishName": "",
+          "type": 2,
+          "nextStyleId": 255,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      },
+      {
+        "format": "Hwpx",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwpx",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "RenamedBeforeRejection",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 255,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      }
+    ]
+  },
+  {
+    "params": {
+      "name": "InvalidBase",
+      "baseCharShapeId": 65536
+    },
+    "before": 22,
+    "id": 22,
+    "created": {
+      "id": 22,
+      "name": "InvalidBase",
+      "englishName": "",
+      "type": 0,
+      "nextStyleId": 0,
+      "paraShapeId": 0,
+      "charShapeId": 0
+    },
+    "createdReopens": [
+      {
+        "format": "Hwp",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwp",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "InvalidBase",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 0,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      },
+      {
+        "format": "Hwpx",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwpx",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "InvalidBase",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 0,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      }
+    ],
+    "updated": true,
+    "afterUpdate": {
+      "id": 22,
+      "name": "RenamedBeforeRejection",
+      "englishName": "",
+      "type": 0,
+      "nextStyleId": 255,
+      "paraShapeId": 0,
+      "charShapeId": 0
+    },
+    "reopens": [
+      {
+        "format": "Hwp",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwp",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "RenamedBeforeRejection",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 255,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      },
+      {
+        "format": "Hwpx",
+        "report": {
+          "schemaVersion": 1,
+          "outputFormat": "hwpx",
+          "count": 0,
+          "losses": []
+        },
+        "style": {
+          "id": 22,
+          "name": "RenamedBeforeRejection",
+          "englishName": "",
+          "type": 0,
+          "nextStyleId": 255,
+          "paraShapeId": 0,
+          "charShapeId": 0
+        }
+      }
+    ]
+  }
+]

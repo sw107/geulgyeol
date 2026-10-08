@@ -398,6 +398,19 @@ impl DocumentCore {
         char_offset: usize,
         restore_meta: Option<ParaMeta>,
     ) -> Result<String, HwpError> {
+        self.split_paragraph_in_header_footer_native_with_next_style(section_idx, is_header, apply_to, hf_para_idx, char_offset, restore_meta, false)
+    }
+
+    pub fn split_paragraph_in_header_footer_native_with_next_style(
+        &mut self,
+        section_idx: usize,
+        is_header: bool,
+        apply_to: u8,
+        hf_para_idx: usize,
+        char_offset: usize,
+        restore_meta: Option<ParaMeta>,
+        apply_next_style: bool,
+    ) -> Result<String, HwpError> {
         if section_idx >= self.document.sections.len() {
             return Err(HwpError::RenderError(format!(
                 "구역 인덱스 {} 범위 초과",
@@ -413,6 +426,7 @@ impl DocumentCore {
                 HwpError::RenderError(format!("{}이 존재하지 않습니다", kind))
             })?;
 
+        let info = &self.document.doc_info;
         // 문단 분할
         let new_para = {
             let ctrl = &mut self.document.sections[section_idx].paragraphs[pi].controls[ci];
@@ -427,10 +441,13 @@ impl DocumentCore {
                     hf_para_idx
                 )));
             }
+            let next_style = super::next_style::prepare(info, &paragraphs[hf_para_idx], char_offset,
+                apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
             let mut new_para = paragraphs[hf_para_idx].split_at(char_offset);
             if let Some(meta) = restore_meta {
                 new_para.apply_meta(meta);
             }
+            if let Some(plan) = next_style { plan.apply(&mut new_para); }
             new_para
         };
 
@@ -1477,6 +1494,7 @@ mod tests {
             paragraphs: vec![Paragraph::default()],
             raw_stream: None,
             raw_provenance: None,
+            memo_tail: None,
         };
         doc.sections.push(section);
         let mut core = DocumentCore::new_empty();
@@ -2052,6 +2070,7 @@ mod tests {
             paragraphs: vec![Paragraph::default()],
             raw_stream: None,
             raw_provenance: None,
+            memo_tail: None,
         };
         // text_width = 28504 - 4252 - 4252 = 20000 HWPUNIT (≈266.7px) — formatting.rs의
         // 셀 재현 테스트와 같은 축척.

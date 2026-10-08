@@ -1,0 +1,161 @@
+{
+  "base": "e8151593da32df222662664f9a02cfe6a9faf06d",
+  "candidateWasmSHA256": "be687504aee74e10d4e0278def36d291dcb82f739e49cfb5491f2204330b1eeb",
+  "scope": "depth-two body table, regular unmerged grid, insert above/below and owner-free row delete, no cell/text/object selection",
+  "nativeNestedRows": {
+    "atomicRefusals": 170,
+    "cases": 24,
+    "contentLossReports": 0,
+    "outsideTargetAndRetainedOwnersPreserved": true,
+    "savedReopens": 96,
+    "snapshotPairs": 96
+  },
+  "macNestedRows": {
+    "cases": 24,
+    "mutatingEdits": 28,
+    "undoRedoPairs": 112,
+    "savedReopens": 96,
+    "nestedDispatchRefusals": 368,
+    "directRefusals": 368,
+    "staleRefusals": 60,
+    "runtime": [
+      {
+        "url": "http://127.0.0.1:32171/studio/@fs/Users/sw107/Documents/Codex/2026-10-06/task/nested-table-row-qa/pkg/rhwp_bg.wasm",
+        "sha256": "be687504aee74e10d4e0278def36d291dcb82f739e49cfb5491f2204330b1eeb"
+      }
+    ],
+    "errors": [],
+    "headless": false,
+    "DEVPositionSetup": true,
+    "physicalPointerIMEVerified": false,
+    "installedHostVerified": false,
+    "OSClipboardAccessed": false
+  },
+  "independentNativeNested": {
+    "fullParagraphsControlsFieldOwnersBinDataAndSVG": true,
+    "independentSavedReopens": 96,
+    "nativeOperationReexecution": true,
+    "typedDocInfoCompared": true
+  },
+  "macGeneralTable": {
+    "cases": 24,
+    "mutatingEdits": 30,
+    "undoRedoPairs": 120,
+    "savedReopens": 96,
+    "invalidRefusals": 281,
+    "unchangedNoops": 3,
+    "runtime": [
+      {
+        "url": "http://127.0.0.1:32171/studio/@fs/Users/sw107/Documents/Codex/2026-10-06/task/nested-table-row-qa/pkg/rhwp_bg.wasm",
+        "sha256": "be687504aee74e10d4e0278def36d291dcb82f739e49cfb5491f2204330b1eeb"
+      }
+    ],
+    "errors": []
+  },
+  "nativeGeneralTable": {
+    "atomicNativeRefusals": 23,
+    "cases": 24,
+    "savedContentLosses": 0,
+    "savedReopens": 96,
+    "snapshotPairs": 96,
+    "unchangedValidNoops": 4,
+    "wholeParagraphOwnersStylesAndSVGCompared": true
+  },
+  "independentNativeGeneral": {
+    "fullParagraphsControlsFieldOwnersBinDataAndSVG": true,
+    "independentSavedReopens": 96,
+    "nativeOperationReexecution": true,
+    "typedDocInfoCompared": true
+  },
+  "macStaleRoot": {
+    "checks": 38,
+    "errors": []
+  },
+  "macCombined": {
+    "cases": 48,
+    "mutatingEdits": 58,
+    "undoRedoPairs": 232,
+    "savedReopens": 192,
+    "independentNativeSavedReopens": 192
+  },
+  "cellLinks": {
+    "candidateWasmSHA256": "be687504aee74e10d4e0278def36d291dcb82f739e49cfb5491f2204330b1eeb",
+    "positive": 84,
+    "reopens": 288,
+    "undos": 84,
+    "redos": 84,
+    "atomicRefusals": 444,
+    "layoutCases": 12,
+    "multipageCases": 12,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "externalOpens": 0
+  },
+  "independentNativeLinks": {
+    "allSiblingCellBodyNoteReferences": true,
+    "fullCharParaStyleReferences": true,
+    "originalDefinitionsUnchanged": true,
+    "pairedFieldRanges": true,
+    "uiSavedFilesVerified": 264
+  },
+  "equationsNative": {
+    "atomic_rejections": 10,
+    "body_and_neighbor_preserved": true,
+    "cases": 72,
+    "hwp_hwpx_reopens": 288,
+    "native_GUI_verified": false,
+    "physical_IME_verified": false,
+    "precise_cell_layout_targets": true,
+    "snapshot_undo_redo_operations": 504
+  },
+  "selfContainedFixtures": {
+    "positiveInputFiles": 4,
+    "positiveByteChanges": [],
+    "scopeInputFiles": 8,
+    "scopeByteChanges": [],
+    "priorFilesReadOnly": true
+  },
+  "integrity": {
+    "protectedFiles": 27691,
+    "changed": [],
+    "missing": [],
+    "additionalQABytes": 166256640,
+    "sharedTargetBytes": 4340092928,
+    "actualDiskFreeBytes": 18737672192
+  },
+  "shutdown": {
+    "ownedChromeProcesses": [],
+    "sourceServerPort": 32171,
+    "connectResult": 61,
+    "sourceServerClosed": true,
+    "ChromeTermination": "browser.close()",
+    "serverTermination": "SIGTERM, exit143"
+  },
+  "checks": {
+    "typeScript": "passed with candidate DTS",
+    "clippy": "lib + 3 examples, -D warnings passed",
+    "libraryTableUnitTests": "blocked at compile by three existing missing include_bytes fixtures",
+    "diffCheck": "passed"
+  },
+  "resources": {
+    "targetPeakBytes": 4444397568,
+    "qaPeakBytes": 166461440,
+    "minActualFreeBytes": 18507902976,
+    "stopReasons": [],
+    "targetLimitBytes": 4831838208,
+    "freeMinimumBytes": 16106127360,
+    "qaLimitBytes": 1073741824
+  },
+  "limitations": [
+    "physical pointer/IME",
+    "installed Electron IPC/native save dialogs",
+    "Hancom",
+    "Linux",
+    "header/footer/note/textbox tables",
+    "large real document corpus and performance",
+    "merged or independently resized nested grid; deeper paths; all other structural commands"
+  ],
+  "published": false,
+  "newAppZipTarget": false,
+  "diagnostics": "Initial native build type fixes, regenerated HWPX paragraph instance IDs, and Puppeteer non-finite argument transport correction are retained in the QA directory. Final matrix passes with the exact candidate hash."
+}

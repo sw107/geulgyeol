@@ -1,0 +1,182 @@
+{
+  "sourceCommit": "658b8b27f7409d9a76b6f3c28b8617d1618d422e",
+  "version": "0.4.4-dev.10",
+  "app": "/Users/sw107/Documents/Codex/2026-10-06/task/dev10-checkpoint-qa/GeulgyeolDev10.app",
+  "bundleId": "org.geulgyeol.dev.checkpoint10",
+  "wasmSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+  "asarSHA256": "c4b83977cd089650cfd6c51780ce3901d764f96205ec16e056a9b2eaede49b9e",
+  "asarHeaderSHA256": "c2ba4638be1c49b031416e3cd7f8743ac748c90dfa454efeb73dad5d359cd2bf",
+  "allEntryBlockIntegrity": true,
+  "freshBindingsStudioAssetsMatch": true,
+  "sourceMapsUnchanged": {
+    "sourceSHA256": {
+      "count": 293,
+      "mismatches": []
+    },
+    "engineSourceSHA256": {
+      "count": 1147,
+      "mismatches": []
+    }
+  },
+  "protected": {
+    "allUnchanged": true,
+    "baselineEntries": 17,
+    "uniqueProtectedPaths": 16,
+    "matched": {
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev8-checkpoint-qa/GeulgyeolDev8.app/Contents/Resources/app.asar": "66e9af062d45efaca508053e87a7a759489d7f98e0484798e7fd60b5d468a104",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/field-value-atomic-qa/pkg/rhwp_bg.wasm": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/named-cell-value-qa/pkg/rhwp_bg.wasm": "89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/body-hyperlink-qa/pkg/rhwp_bg.wasm": "47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/cell-hyperlink-qa/pkg/rhwp_bg.wasm": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app/Contents/Resources/app.asar": "12065a11b5217639bc145354dc12f53170702d922ad05cd1757e63568190db9b",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app/Contents/Info.plist": "a17724fe485bbf15c3cfb045ae1ecefed150dd3d986032860d5ceac7bc183a3f",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/style-propagation-qa/Geulgyeol-0.4.4-dev.4-mac-arm64-candidate.zip": "198bd47563ed58178b6b88beb0a43c8c5c22444bc023885487506457b790257f",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/memo-preservation-qa/pkg/rhwp_bg.wasm": "bcf54ce22f6bda180f8273f93e9cf30468c9116ac55148a4ffa387c6d16b93f5",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/comment-authoring-qa/pkg/rhwp_bg.wasm": "e3b9de44c9957597e47f0f622d43b5492eb59bf66feff9318fc737fd0f868315",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/comment-anchor-qa/pkg/rhwp_bg.wasm": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af"
+    },
+    "mismatches": []
+  },
+  "oneAppNoZip": true,
+  "strictAdhocSignatureBeforeAfter": true,
+  "developerIdSigned": false,
+  "notarized": false,
+  "commentAuthoring": {
+    "mutations": 14,
+    "saves": 64,
+    "refusals": 55,
+    "undos": 16,
+    "redos": 16,
+    "newAuthorEmptyCreationTimeAbsent": true,
+    "originalAuthorTimePreserved": true
+  },
+  "commentAnchor": {
+    "normal": 43,
+    "saves": 168,
+    "refusals": 36,
+    "undos": 43,
+    "redos": 43,
+    "actualBodyCommandHistory": true
+  },
+  "memoPreservation": {
+    "wasmSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+    "reopens": 4,
+    "refusals": 2,
+    "undo": 3,
+    "redo": 3,
+    "rows": [
+      {
+        "name": "known.hwp",
+        "formats": [
+          "Hwp",
+          "Hwpx"
+        ],
+        "inputSHA256": "8475c71a642ac8064376c77fccb6fc4305afaa8de8f059cb7f7095dd786af344",
+        "initialExportSHA256": "9ed357e8e58468f8f8e335f2339e85be18f29279f23f3bbe0b437e8566b0fa74",
+        "initialExportNormalization": true,
+        "originalAuthorTimePreserved": true,
+        "undoExactInitialHwpExport": true
+      },
+      {
+        "name": "control-time.hwp",
+        "formats": [
+          "Hwp"
+        ],
+        "inputSHA256": "e143382bfa8270bc828006ff334a710f2178df3b3fe2a51a3be6b451fe863bcf",
+        "initialExportSHA256": "0861aeb31e1f70bf0ff01f78acffc0bbe431b8d4cca9e07b7417363985e361dd",
+        "initialExportNormalization": true,
+        "originalAuthorTimePreserved": true,
+        "undoExactInitialHwpExport": true
+      },
+      {
+        "name": "typed-time.hwpx",
+        "formats": [
+          "Hwpx"
+        ],
+        "inputSHA256": "e1ef0819b73f24fba4630547a8a1d9b6e4d73efbe36be868f610904ad34450d9",
+        "initialExportSHA256": null,
+        "initialExportNormalization": false,
+        "originalAuthorTimePreserved": true,
+        "undoExactInitialHwpExport": false
+      }
+    ],
+    "GUIVerified": false,
+    "physicalIMEVerified": false
+  },
+  "independentNative": {
+    "authoring": {
+      "allBodyMemoNoteFieldReferences": true,
+      "independentlyReopened": 64
+    },
+    "anchor": {
+      "independentSavedReopens": 168,
+      "refsStylesMetadataAnchors": true
+    },
+    "memo": {
+      "independentlyReopened": 4,
+      "rangesMetadataMemoNotesAndRefs": true
+    },
+    "total": 236
+  },
+  "macLifecycle": {
+    "version": "0.4.4-dev.10",
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false,
+    "profileBase": "/Users/sw107/Documents/Codex/2026-10-06/task/dev10-checkpoint-qa/profile",
+    "userDocumentsOpened": 0,
+    "externalLinksExecuted": 0,
+    "pid": 94507,
+    "servedFreshAssetsSHA256": {
+      "theme-init.js": "5a3afcc0139187bfe509414cd60fde2a0dfea72fd72751c4e6e696cdc0f6c587",
+      "assets/studio-plugin-Cp8dJ3L_.js": "abdcbcab732aad8d91b551c97ff045bec6b140ae87d94c5fd44235d5515fb4e7",
+      "assets/rhwp_bg-BKm_gsNZ.wasm": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+      "assets/index-Du-pq_5z.js": "f557994b5d6c063525fc4afd2ba3bb4fbd27a87a73fa92f814611a0b615c26ea",
+      "assets/canvaskit-SCAxUyCS.wasm": "25ebed8e60158c5854f8dc807b936daca21354f8bfb6a2231266b0a93812f301",
+      "assets/index-EHujs-C0.css": "f0783ab4c24b02f241c1e3807f971396337209afc63c32146f59f65123cf963a",
+      "assets/canvaskit-renderer-Bdk_RtOV.js": "0a452d4d3404acbc184ad6d46651fdcb4810866d79997334508a13b7825701dd"
+    },
+    "basicProcessAndLocalServerPassed": true,
+    "htmlVersionMatched": true,
+    "servedEngineSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+    "processAlive": true,
+    "quitRequestExit": 0,
+    "quitStderr": "",
+    "normalQuit": true,
+    "finalProcessExit": 0
+  },
+  "cleanup": {
+    "command": [
+      "ps",
+      "-axo",
+      "pid,comm"
+    ],
+    "candidateName": "GeulgyeolDev10",
+    "remainingCandidateProcesses": [],
+    "candidateAndHelpersRemaining": 0
+  },
+  "budget": {
+    "additionalPeakBytes": 399892480,
+    "additionalFinalBytes": 399892480,
+    "additionalLimitBytes": 1073741824,
+    "targetPeakBytes": 3874619392,
+    "targetFinalBytes": 3874619392,
+    "targetLimitBytes": 4294967296,
+    "minDiskFreeBytes": 23511040000,
+    "stopReasons": [],
+    "diskFreeFinalBytes": 23511040000
+  },
+  "productImplementationChangedInPackaging": false,
+  "linuxRun": false,
+  "wholeLibTest": "Blocked at preceding source validation by three pre-existing missing include_bytes fixtures; no new whole-lib run, fixture substitute or test exclusion",
+  "initialProbeCorrections": [
+    "Memo undo byte equality compares initial engine export; raw input normalization occurs before editing. Initial failed raw-input assertion retained.",
+    "Memo independent oracle manifest paths made absolute; initial missing-path failure retained."
+  ],
+  "rawEvidenceDir": "/Users/sw107/Documents/Codex/2026-10-06/task/dev10-checkpoint-qa",
+  "nextProposal": "insert:para-band only; no implementation"
+}

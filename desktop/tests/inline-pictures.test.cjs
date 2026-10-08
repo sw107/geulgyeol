@@ -5,7 +5,7 @@ const path = require('node:path');
 const { pathToFileURL } = require('node:url');
 
 test('inline pictures share lines, wrap and paginate without loss or duplicate emission after both exports', async () => {
-  const root = path.resolve(process.env.BARAM_ENGINE_DIR || path.join(__dirname, '../web/studio'));
+  const root = path.resolve(process.env.GEULGYEOL_QA_ENGINE_DIR || process.env.BARAM_ENGINE_DIR || path.join(__dirname, '../web/studio'));
   const { initSync, HwpDocument } = await import(pathToFileURL(root + '/rhwp.js'));
   initSync({ module: fs.readFileSync(root + '/rhwp_bg.wasm') });
   const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jWZkAAAAASUVORK5CYII=', 'base64');

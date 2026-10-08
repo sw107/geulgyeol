@@ -1,7 +1,7 @@
 //! 텍스트 삽입/삭제/문단 분리·병합/범위 삭제/문단 쿼리 관련 native 메서드
 
 use super::super::helpers::get_textbox_from_shape;
-use super::super::queries::field_query::rebuild_char_offsets;
+use super::super::queries::field_query::{rebuild_char_offsets, rebuild_char_offsets_after_text_edit, validate_field_edit_axis};
 use super::super::queries::rendering::FocusedPageTreePatch;
 use crate::document_core::{
     ActiveFieldInfo, DeferredPaginationDescriptor, DeferredPaginationTargetStatus, DocumentCore,
@@ -23,7 +23,51 @@ use crate::renderer::style_resolver::{resolve_styles_for_document, ResolvedStyle
 
 pub(crate) type CellReflowMetrics = (i32, i16, i16);
 
-fn recalculate_cell_paragraph_vpos(
+// Deleting text across control gaps can collapse raw style boundaries differently
+// from scalar glyph boundaries. Keep surviving glyph styles on bookmark edits;
+// retain existing control-gap refs and add only the necessary glyph boundaries.
+fn bookmark_glyph_shapes(para: &Paragraph) -> Vec<Option<u32>> {
+    let mut shapes = para.char_shapes.iter().peekable();
+    let mut current = para.char_shapes.first().map(|s| s.char_shape_id);
+    para.char_offsets.iter().map(|offset| {
+        while shapes.peek().is_some_and(|s| s.start_pos <= *offset) {
+            current = shapes.next().map(|s| s.char_shape_id);
+        }
+        current
+    }).collect()
+}
+
+fn restore_bookmark_glyph_shapes(
+    para: &mut Paragraph, before: &[Option<u32>], start: usize, deleted: usize, inserted: usize,
+) {
+    let mut original = std::mem::take(&mut para.char_shapes).into_iter().peekable();
+    let mut current = original.peek().map(|s| s.char_shape_id);
+    let mut restored: Vec<crate::model::paragraph::CharShapeRef> = Vec::new();
+    for (i, &offset) in para.char_offsets.iter().enumerate() {
+        while original.peek().is_some_and(|s| s.start_pos <= offset) {
+            let shape = original.next().unwrap();
+            current = Some(shape.char_shape_id);
+            restored.push(shape);
+        }
+        let old = if i < start { Some(i) } else if i >= start + inserted {
+            Some(i - inserted + deleted)
+        } else { None };
+        if let Some(id) = old.and_then(|i| before.get(i)).copied().flatten() {
+            if current != Some(id) {
+                if let Some(last) = restored.last_mut().filter(|s| s.start_pos == offset) {
+                    last.char_shape_id = id;
+                } else {
+                    restored.push(crate::model::paragraph::CharShapeRef { start_pos: offset, char_shape_id: id });
+                }
+                current = Some(id);
+            }
+        }
+    }
+    restored.extend(original);
+    para.char_shapes = restored;
+}
+
+pub(super) fn recalculate_cell_paragraph_vpos(
     paragraphs: &mut [Paragraph],
     start_para: usize,
     ignore_reset_at: Option<usize>,
@@ -952,7 +996,8 @@ fn inactive_field_end_insertions(
         .iter()
         .filter_map(|fr| {
             match para.controls.get(fr.control_idx) {
-                Some(Control::Field(field)) if field.field_type == FieldType::ClickHere => {}
+                Some(Control::Field(field)) if matches!(field.field_type, FieldType::ClickHere | FieldType::Memo)
+                    || (cell_path.is_none() && field.field_type == FieldType::Hyperlink) => {}
                 _ => return None,
             }
             // 빈 누름틀은 active 상태가 아직 반영되기 전 첫 입력도 값으로 받아야 한다.
@@ -1138,11 +1183,13 @@ fn inactive_field_start_insertions(
         .iter()
         .filter_map(|fr| {
             match para.controls.get(fr.control_idx) {
-                Some(Control::Field(field)) if field.field_type == FieldType::ClickHere => {}
+                Some(Control::Field(field)) if matches!(field.field_type, FieldType::ClickHere | FieldType::Memo)
+                    || (cell_path.is_none() && field.field_type == FieldType::Hyperlink) => {}
                 _ => return None,
             }
             // 빈 누름틀은 시작/끝 경계가 없고 첫 입력이 필드 값이어야 한다.
-            if fr.start_char_idx == fr.end_char_idx || fr.start_char_idx != char_offset {
+            let memo = matches!(para.controls.get(fr.control_idx), Some(Control::Field(f)) if f.field_type == FieldType::Memo);
+            if (!memo && fr.start_char_idx == fr.end_char_idx) || fr.start_char_idx != char_offset {
                 return None;
             }
             if active_field_matches(
@@ -1205,12 +1252,237 @@ fn has_clickhere_field_range(para: &Paragraph) -> bool {
     para.field_ranges.iter().any(|fr| {
         matches!(
             para.controls.get(fr.control_idx),
-            Some(Control::Field(field)) if field.field_type == FieldType::ClickHere
+            Some(Control::Field(field)) if matches!(field.field_type, FieldType::ClickHere | FieldType::Memo)
         )
     })
 }
 
 impl DocumentCore {
+    fn stage_bookmark_body_split(
+        &self,
+        section: usize,
+        para: usize,
+        at: usize,
+    ) -> Result<Option<(Paragraph, Paragraph)>, HwpError> {
+        let original = &self.document.sections[section].paragraphs[para];
+        if !Self::validate_body_bookmark_text_axis(original)? {
+            return Ok(None);
+        }
+        if self.document.sections.len() != 1 || at > original.text.chars().count() {
+            return Err(HwpError::InvalidField(
+                "책갈피 분할은 한 구역 본문의 유효한 문자 위치에서만 지원합니다.".into(),
+            ));
+        }
+        Self::validate_bookmark_structure_paragraph(original)?;
+        if original
+            .field_ranges
+            .iter()
+            .any(|r| r.start_char_idx < at && at < r.end_char_idx)
+        {
+            return Err(HwpError::InvalidField(
+                "필드/주석 안의 책갈피 문단 분할은 지원하지 않습니다.".into(),
+            ));
+        }
+        let shapes = bookmark_glyph_shapes(original);
+        let positions = original.control_text_positions();
+        let mut left = original.clone();
+        // Split metadata and glyph runs on the scalar axis; distribute owned controls below.
+        left.controls.clear();
+        left.ctrl_data_records.clear();
+        left.field_ranges.clear();
+        let mut right = left.split_at(at);
+        let mut left_positions = Vec::new();
+        let mut right_positions = Vec::new();
+        for (ci, c) in original.controls.iter().enumerate() {
+            let field = original.field_ranges.iter().find(|r| r.control_idx == ci);
+            let moves = field.map_or_else(
+                || {
+                    !matches!(c, Control::SectionDef(_) | Control::ColumnDef(_))
+                        && positions[ci] >= at
+                },
+                |r| r.start_char_idx >= at,
+            );
+            let (target, anchors) = if moves {
+                (&mut right, &mut right_positions)
+            } else {
+                (&mut left, &mut left_positions)
+            };
+            let new_ci = target.controls.len();
+            target.controls.push(c.clone());
+            target
+                .ctrl_data_records
+                .push(original.ctrl_data_records.get(ci).cloned().flatten());
+            anchors.push(if moves {
+                positions[ci] - at
+            } else {
+                positions[ci]
+            });
+            if let Some(r) = field {
+                let mut r = r.clone();
+                r.control_idx = new_ci;
+                if moves {
+                    r.start_char_idx -= at;
+                    r.end_char_idx -= at;
+                }
+                target.field_ranges.push(r);
+            }
+        }
+        Self::rebuild_bookmark_structure_axis(&mut left, &left_positions)?;
+        Self::rebuild_bookmark_structure_axis(&mut right, &right_positions)?;
+        restore_bookmark_glyph_shapes(&mut left, &shapes[..at], 0, 0, 0);
+        restore_bookmark_glyph_shapes(&mut right, &shapes[at..], 0, 0, 0);
+        Ok(Some((left, right)))
+    }
+
+    fn stage_bookmark_body_merge(
+        &self,
+        section: usize,
+        para: usize,
+    ) -> Result<Option<(Paragraph, usize)>, HwpError> {
+        let left = &self.document.sections[section].paragraphs[para - 1];
+        let right = &self.document.sections[section].paragraphs[para];
+        let has_left = Self::validate_body_bookmark_text_axis(left)?;
+        let has_right = Self::validate_body_bookmark_text_axis(right)?;
+        if !has_left && !has_right {
+            return Ok(None);
+        }
+        if self.document.sections.len() != 1
+            || right.raw_break_type != 0
+            || right.column_type != crate::model::paragraph::ColumnBreakType::None
+            || right
+                .controls
+                .iter()
+                .any(|c| matches!(c, Control::SectionDef(_) | Control::ColumnDef(_)))
+        {
+            return Err(HwpError::InvalidField(
+                "책갈피 병합의 구역/단/쪽 경계는 보존할 수 없어 거절합니다.".into(),
+            ));
+        }
+        Self::validate_bookmark_structure_paragraph(left)?;
+        Self::validate_bookmark_structure_paragraph(right)?;
+        let mut shapes = bookmark_glyph_shapes(left);
+        shapes.extend(bookmark_glyph_shapes(right));
+        let len = left.text.chars().count();
+        let mut positions = left.control_text_positions();
+        positions.extend(right.control_text_positions().into_iter().map(|p| p + len));
+        let mut merged = left.clone();
+        merged.merge_from(right);
+        Self::rebuild_bookmark_structure_axis(&mut merged, &positions)?;
+        restore_bookmark_glyph_shapes(&mut merged, &shapes, 0, 0, 0);
+        Ok(Some((merged, len)))
+    }
+    /// Stage a scalar, half-open body selection before changing any owned data.
+    /// Point bookmarks in the removed span collapse to its start. Whole fields
+    /// and notes strictly outside the span survive; cutting a reference refuses.
+    fn stage_bookmark_body_range_delete(
+        &self,
+        section: usize,
+        start_para: usize,
+        start: usize,
+        end_para: usize,
+        end: usize,
+    ) -> Result<Option<Paragraph>, HwpError> {
+        let ps = &self.document.sections[section].paragraphs[start_para..=end_para];
+        if !ps
+            .iter()
+            .any(|p| p.controls.iter().any(|c| matches!(c, Control::Bookmark(_))))
+        {
+            return Ok(None);
+        }
+        if self.document.sections.len() != 1
+            || ps.iter().skip(1).any(|p| {
+                p.raw_break_type != 0
+                    || p.column_type != crate::model::paragraph::ColumnBreakType::None
+                    || p.page_break_synthesized
+                    || self
+                        .styles
+                        .para_styles
+                        .get(p.para_shape_id as usize)
+                        .is_some_and(|s| s.page_break_before)
+                    || p.controls
+                        .iter()
+                        .any(|c| matches!(c, Control::SectionDef(_) | Control::ColumnDef(_)))
+            })
+            || ps.windows(2).any(|pair| {
+                matches!((pair[0].line_segs.last(), pair[1].line_segs.first()),
+                (Some(a), Some(b)) if b.vertical_pos < a.vertical_pos)
+            })
+            || ps.iter().any(|p| {
+                p.line_segs
+                    .windows(2)
+                    .any(|pair| pair[1].vertical_pos < pair[0].vertical_pos)
+            })
+        {
+            return Err(HwpError::InvalidField(
+                "책갈피 선택 삭제의 구역/단/쪽 경계는 지원하지 않습니다.".into(),
+            ));
+        }
+        let refs: Vec<_> = ps.iter().collect();
+        crate::model::memo::validate_body_structure(&self.document, &refs, None)
+            .map_err(HwpError::InvalidField)?;
+        for p in ps {
+            Self::validate_bookmark_structure_paragraph(p)?;
+        }
+        let mut merged = ps[0].clone();
+        merged.controls.clear();
+        merged.ctrl_data_records.clear();
+        merged.field_ranges.clear();
+        merged.split_at(start);
+        let last = ps.last().unwrap();
+        let mut suffix = last.clone();
+        suffix.controls.clear();
+        suffix.ctrl_data_records.clear();
+        suffix.field_ranges.clear();
+        let suffix = suffix.split_at(end);
+        merged.merge_from(&suffix);
+        let mut shapes = bookmark_glyph_shapes(&ps[0])[..start].to_vec();
+        shapes.extend_from_slice(&bookmark_glyph_shapes(last)[end..]);
+        let mut anchors = Vec::new();
+        for (pi, p) in ps.iter().enumerate() {
+            for (ci, at) in p.control_text_positions().into_iter().enumerate() {
+                let c = &p.controls[ci];
+                let field = p.field_ranges.iter().find(|r| r.control_idx == ci);
+                let prefix = pi == 0
+                    && field.map_or(at < start, |r| {
+                        r.end_char_idx <= start && r.start_char_idx < start
+                    });
+                let suffix = pi == ps.len() - 1
+                    && field.map_or(at > end, |r| {
+                        r.start_char_idx >= end && r.end_char_idx > end
+                    });
+                let structural = matches!(c, Control::SectionDef(_) | Control::ColumnDef(_));
+                if !matches!(c, Control::Bookmark(_)) && !structural && !prefix && !suffix {
+                    return Err(HwpError::InvalidField("필드·주석·각주 참조를 포함하거나 자르는 책갈피 선택 삭제는 지원하지 않습니다.".into()));
+                }
+                let mapped = if structural || (pi == 0 && at < start) {
+                    at
+                } else if pi == ps.len() - 1 && at > end {
+                    start + at - end
+                } else {
+                    start
+                };
+                let new_ci = merged.controls.len();
+                merged.controls.push(c.clone());
+                merged
+                    .ctrl_data_records
+                    .push(p.ctrl_data_records.get(ci).cloned().flatten());
+                anchors.push(mapped);
+                if let Some(r) = field {
+                    let mut r = r.clone();
+                    r.control_idx = new_ci;
+                    if suffix {
+                        r.start_char_idx = start + r.start_char_idx - end;
+                        r.end_char_idx = start + r.end_char_idx - end;
+                    }
+                    merged.field_ranges.push(r);
+                }
+            }
+        }
+        Self::rebuild_bookmark_structure_axis(&mut merged, &anchors)?;
+        restore_bookmark_glyph_shapes(&mut merged, &shapes, 0, 0, 0);
+        Ok(Some(merged))
+    }
+
     pub fn replace_body_text_local_native(
         &mut self,
         section_idx: usize,
@@ -1244,6 +1516,15 @@ impl DocumentCore {
                 char_offset, delete_count, text_len,
             )));
         }
+        let bookmark_body = Self::validate_body_bookmark_text_axis(&section.paragraphs[para_idx])?;
+        let field_body = !section.paragraphs[para_idx].field_ranges.is_empty();
+        if field_body { validate_field_edit_axis(&section.paragraphs[para_idx])?; }
+        let memo_body = crate::model::memo::validate_body_anchors(&self.document, &[&self.document.sections[section_idx].paragraphs[para_idx]])
+            .map_err(HwpError::InvalidField)?;
+        if memo_body && text.chars().any(|c| matches!(c, '\r' | '\n')) {
+            return Err(HwpError::InvalidField("주석 본문에 줄바꿈 문자를 직접 삽입할 수 없습니다.".into()));
+        }
+        crate::model::memo::validate_body_deletion(&self.document, &section.paragraphs[para_idx], char_offset, delete_count).map_err(HwpError::InvalidField)?;
         let new_chars_count = text.chars().count();
         if delete_count > 8
             || new_chars_count > 8
@@ -1269,7 +1550,12 @@ impl DocumentCore {
         let active_field = self.active_field.clone();
         let mut deleted_count = 0;
         let mut apply_replace = |para: &mut Paragraph| {
+            let control_positions = para.control_text_positions();
+            let glyph_shapes = (bookmark_body || field_body).then(|| bookmark_glyph_shapes(para));
             if delete_count > 0 { deleted_count = para.delete_text_at(char_offset, delete_count); }
+            if let Some(shapes) = &glyph_shapes {
+                restore_bookmark_glyph_shapes(para, shapes, char_offset, deleted_count, 0);
+            }
             if new_chars_count > 0 {
                 let outside_insertions = inactive_field_end_insertions(
                     para, active_field.as_ref(), section_idx, para_idx, None, char_offset,
@@ -1280,7 +1566,11 @@ impl DocumentCore {
                 para.insert_text_at(char_offset, text);
                 keep_inactive_field_start_outside(para, &before_insertions, new_chars_count);
                 keep_inactive_field_end_outside(para, &outside_insertions, new_chars_count);
-                if has_clickhere_field_range(para) { rebuild_char_offsets(para); }
+                if !bookmark_body && has_clickhere_field_range(para) { rebuild_char_offsets_after_text_edit(para, &control_positions, char_offset, deleted_count, new_chars_count); }
+            }
+            if let Some(shapes) = &glyph_shapes {
+                rebuild_char_offsets_after_text_edit(para, &control_positions, char_offset, deleted_count, new_chars_count);
+                restore_bookmark_glyph_shapes(para, shapes, char_offset, deleted_count, new_chars_count);
             }
         };
         // Composition updates use this local replacement rather than the
@@ -1456,6 +1746,17 @@ impl DocumentCore {
             )));
         }
 
+        let bookmark_body = Self::validate_body_bookmark_text_axis(&section.paragraphs[para_idx])?;
+        if bookmark_body && char_offset > section.paragraphs[para_idx].text.chars().count() {
+            return Err(HwpError::InvalidField("책갈피 본문 입력 위치가 범위를 벗어났습니다.".into()));
+        }
+        let field_body = !section.paragraphs[para_idx].field_ranges.is_empty();
+        if field_body { validate_field_edit_axis(&section.paragraphs[para_idx])?; }
+        let memo_body = crate::model::memo::validate_body_anchors(&self.document, &[&self.document.sections[section_idx].paragraphs[para_idx]])
+            .map_err(HwpError::InvalidField)?;
+        if memo_body && text.chars().any(|c| matches!(c, '\r' | '\n')) {
+            return Err(HwpError::InvalidField("주석 본문에 줄바꿈 문자를 직접 삽입할 수 없습니다.".into()));
+        }
         // 텍스트 삽입
         let new_chars_count = text.chars().count();
         let active_field = self.active_field.clone();
@@ -1476,11 +1777,16 @@ impl DocumentCore {
             char_offset,
         );
         let apply_insert = |para: &mut Paragraph| {
+            let control_positions = para.control_text_positions();
+            let glyph_shapes = (bookmark_body || field_body).then(|| bookmark_glyph_shapes(para));
             para.insert_text_at(char_offset, text);
             keep_inactive_field_start_outside(para, &before_insertions, new_chars_count);
             keep_inactive_field_end_outside(para, &outside_insertions, new_chars_count);
-            if has_clickhere_field_range(para) {
-                rebuild_char_offsets(para);
+            if bookmark_body || field_body || has_clickhere_field_range(para) {
+                rebuild_char_offsets_after_text_edit(para, &control_positions, char_offset, 0, new_chars_count);
+            }
+            if let Some(shapes) = &glyph_shapes {
+                restore_bookmark_glyph_shapes(para, shapes, char_offset, 0, new_chars_count);
             }
         };
         let picture_band_applied =
@@ -1606,9 +1912,25 @@ impl DocumentCore {
             )));
         }
 
+        let bookmark_body = Self::validate_body_bookmark_text_axis(&section.paragraphs[para_idx])?;
+        let text_len = section.paragraphs[para_idx].text.chars().count();
+        let field_body = !section.paragraphs[para_idx].field_ranges.is_empty();
+        if field_body { validate_field_edit_axis(&section.paragraphs[para_idx])?; }
+        if bookmark_body && (char_offset > text_len || count > text_len.saturating_sub(char_offset)) {
+            return Err(HwpError::InvalidField("책갈피 본문 삭제 범위가 잘못됐습니다.".into()));
+        }
+        let _ = crate::model::memo::validate_body_anchors(&self.document, &[&self.document.sections[section_idx].paragraphs[para_idx]])
+            .map_err(HwpError::InvalidField)?;
+        crate::model::memo::validate_body_deletion(&self.document, &self.document.sections[section_idx].paragraphs[para_idx], char_offset, count).map_err(HwpError::InvalidField)?;
         // 텍스트 삭제
         let apply_delete = |para: &mut Paragraph| {
-            para.delete_text_at(char_offset, count);
+            let positions = para.control_text_positions();
+            let glyph_shapes = (bookmark_body || field_body).then(|| bookmark_glyph_shapes(para));
+            let deleted = para.delete_text_at(char_offset, count);
+            if let Some(shapes) = &glyph_shapes {
+                rebuild_char_offsets_after_text_edit(para, &positions, char_offset, deleted, 0);
+                restore_bookmark_glyph_shapes(para, shapes, char_offset, deleted, 0);
+            }
         };
         let picture_band_applied =
             self.apply_body_edit_through_picture_band(section_idx, para_idx, &apply_delete)?;
@@ -1897,6 +2219,7 @@ impl DocumentCore {
             );
         let units_fp_before =
             crate::renderer::layout::LayoutEngine::cell_paragraph_units_fingerprint(cell_para);
+        let control_positions = cell_para.control_text_positions();
         let deleted_count = if delete_count > 0 {
             cell_para.delete_text_at(char_offset, delete_count)
         } else {
@@ -1923,7 +2246,7 @@ impl DocumentCore {
             keep_inactive_field_start_outside(cell_para, &before_insertions, new_chars_count);
             keep_inactive_field_end_outside(cell_para, &outside_insertions, new_chars_count);
             if has_clickhere_field_range(cell_para) {
-                rebuild_char_offsets(cell_para);
+                rebuild_char_offsets_after_text_edit(cell_para, &control_positions, char_offset, deleted_count, new_chars_count);
             }
         }
         debug_assert_eq!(deleted_count, delete_count);
@@ -3269,6 +3592,28 @@ impl DocumentCore {
             }
         }
 
+        let mut bookmark_range = None;
+        if cell_ctx.is_none() {
+            let ps: Vec<_> = self.document.sections[section_idx].paragraphs[start_para..=end_para].iter().collect();
+            if start_offset > ps[0].text.chars().count() || end_offset > ps.last().unwrap().text.chars().count() {
+                return Err(HwpError::InvalidField("본문 선택 삭제 문자 위치가 범위를 벗어났습니다.".into()));
+            }
+            if start_para == end_para && start_offset == end_offset {
+                return Ok(super::super::helpers::json_ok_with(&format!("\"changed\":false,\"paraIdx\":{},\"charOffset\":{}", start_para, start_offset)));
+            }
+            if start_para == end_para && (Self::validate_body_bookmark_text_axis(ps[0])? || !ps[0].field_ranges.is_empty()) {
+                return self.delete_text_native(section_idx, start_para, start_offset, end_offset - start_offset);
+            }
+            if start_para != end_para {
+                bookmark_range = self.stage_bookmark_body_range_delete(section_idx, start_para, start_offset, end_para, end_offset)?;
+            }
+            if start_para == end_para {
+                crate::model::memo::validate_body_deletion(&self.document, ps[0], start_offset, end_offset - start_offset).map_err(HwpError::InvalidField)?;
+            }
+            if crate::model::memo::validate_body_anchors(&self.document, &ps).map_err(HwpError::InvalidField)? && start_para != end_para && bookmark_range.is_none() {
+                return Err(HwpError::InvalidField("주석이 있는 문단 간 선택 삭제는 지원하지 않습니다.".into()));
+            }
+        }
         // Section raw 스트림 무효화 (재직렬화 유도)
         self.document.sections[section_idx].raw_stream = None;
         // DocInfo raw_stream은 유지 (전체 재직렬화 시 FIX-4 문제 발생)
@@ -3356,6 +3701,23 @@ impl DocumentCore {
                     );
                 }
                 // 변경 문단만 재구성
+                self.recompose_paragraph(section_idx, start_para);
+            } else if let Some(staged) = bookmark_range {
+                self.document.sections[section_idx].paragraphs[start_para] = staged;
+                for pi in (start_para + 1..=end_para).rev() {
+                    self.document.sections[section_idx].paragraphs.remove(pi);
+                    self.remove_composed_paragraph(section_idx, pi);
+                }
+                let stored_end_for_reset = crate::renderer::composer::paragraph_flow_end(
+                    &self.document.sections[section_idx].paragraphs[start_para],
+                );
+                self.reflow_paragraph(section_idx, start_para);
+                let hwp3_layout = self.document.layout_profile().hwp3_layout();
+                crate::renderer::composer::recalculate_section_vpos(
+                    &mut self.document.sections[section_idx].paragraphs, start_para, None,
+                    stored_end_for_reset, &self.styles, self.dpi,
+                    hwp3_layout,
+                );
                 self.recompose_paragraph(section_idx, start_para);
             } else {
                 // 1) 마지막 문단 앞부분 삭제
@@ -3503,12 +3865,19 @@ impl DocumentCore {
         char_offset: usize,
         restore_meta: Option<ParaMeta>,
     ) -> Result<String, HwpError> {
-        self.split_paragraph_body_impl(section_idx, para_idx, char_offset, restore_meta, true)
+        self.split_paragraph_body_impl(section_idx, para_idx, char_offset, restore_meta, true, false)
+    }
+
+    pub fn split_paragraph_native_with_next_style(
+        &mut self, section_idx: usize, para_idx: usize, char_offset: usize,
+        restore_meta: Option<ParaMeta>, apply_next_style: bool,
+    ) -> Result<String, HwpError> {
+        self.split_paragraph_body_impl(section_idx, para_idx, char_offset, restore_meta, true, apply_next_style)
     }
 
     fn split_paragraph_body_impl(
         &mut self, section_idx: usize, para_idx: usize, char_offset: usize,
-        restore_meta: Option<ParaMeta>, stage_picture_edit: bool,
+        restore_meta: Option<ParaMeta>, stage_picture_edit: bool, apply_next_style: bool,
     ) -> Result<String, HwpError> {
         if section_idx >= self.document.sections.len() {
             return Err(HwpError::RenderError(format!(
@@ -3526,6 +3895,17 @@ impl DocumentCore {
             )));
         }
 
+        let bookmark_split = self.stage_bookmark_body_split(section_idx, para_idx, char_offset)?;
+        let staged_bookmark_split = bookmark_split.is_some();
+        crate::model::memo::validate_body_structure(&self.document,
+            &[&section.paragraphs[para_idx]], Some(char_offset)).map_err(HwpError::InvalidField)?;
+        // Bookmark staging uses scalar offsets, including paragraph-end Enter with notes.
+        let next_style_offset = if staged_bookmark_split && char_offset == section.paragraphs[para_idx].text.chars().count() {
+            char_offset + section.paragraphs[para_idx].controls.iter().filter(|c| c.is_logical_inline()).count()
+        } else { char_offset };
+        let next_style = super::next_style::prepare(&self.document.doc_info,
+            &section.paragraphs[para_idx], next_style_offset, apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
+
         if stage_picture_edit && self.final_picture_host_matches_frame(section_idx, para_idx) {
             let mut staged = self.picture_band_edit_shadow();
             let leading_picture_slots = {
@@ -3535,7 +3915,7 @@ impl DocumentCore {
                         && (matches!(control, Control::Picture(_) | Control::Equation(_))
                             || matches!(control, Control::Shape(shape) if matches!(shape.as_ref(), crate::model::shape::ShapeObject::Group(g) if crate::renderer::float_placement::supports_picture_group_exclusion(g))))).count()
             };
-            let response = staged.split_paragraph_body_impl(section_idx, para_idx, char_offset, restore_meta, false)?;
+            let response = staged.split_paragraph_body_impl(section_idx, para_idx, char_offset, restore_meta, false, apply_next_style)?;
             // split_at removes the structural prefix from the successor axis.
             // Moved leading picture slots still precede its first glyph and
             // must survive insert/delete and a later merge back to the host.
@@ -3544,7 +3924,7 @@ impl DocumentCore {
                     .reserve_leading_extended_control_slots(leading_picture_slots);
             }
             staged.publish_staged_final_picture_chain(section_idx)?;
-            self.event_log.extend(staged.event_log.drain(..));
+            self.event_log.append(&mut staged.event_log);
             self.commit_picture_band_edit(section_idx, staged);
             return Ok(response);
         }
@@ -3562,6 +3942,7 @@ impl DocumentCore {
             if let Some(meta) = restore_meta {
                 new_para.apply_meta(meta);
             }
+            if let Some(plan) = next_style { plan.apply(&mut new_para); }
             self.document.sections[section_idx]
                 .paragraphs
                 .insert(new_para_idx, new_para);
@@ -3643,7 +4024,11 @@ impl DocumentCore {
                     .styles
                     .para_styles
                     .get(anchor.para_shape_id as usize)
-                    .map(|style| (style.spacing_after, style.spacing_before))
+                    .map(|style| {
+                        let successor_id = next_style.map(|plan| plan.para_shape(anchor.para_shape_id)).unwrap_or(anchor.para_shape_id);
+                        let before = self.styles.para_styles.get(successor_id as usize).map(|s| s.spacing_before).unwrap_or(style.spacing_before);
+                        (style.spacing_after, before)
+                    })
                     .unwrap_or((0.0, 0.0));
                 let before = crate::renderer::hwp3_variant_flow_spacing_before(
                     before,
@@ -3668,6 +4053,7 @@ impl DocumentCore {
             if let Some(meta) = restore_meta {
                 new_para.apply_meta(meta);
             }
+            if let Some(plan) = next_style { plan.apply(&mut new_para); }
             self.document.sections[section_idx]
                 .paragraphs
                 .insert(new_para_idx, new_para);
@@ -3703,11 +4089,16 @@ impl DocumentCore {
         self.document.sections[section_idx].raw_stream = None;
 
         // 문단 분리
-        let mut new_para =
-            self.document.sections[section_idx].paragraphs[para_idx].split_at(char_offset);
+        let mut new_para = if let Some((left, right)) = bookmark_split {
+            self.document.sections[section_idx].paragraphs[para_idx] = left;
+            right
+        } else {
+            self.document.sections[section_idx].paragraphs[para_idx].split_at(char_offset)
+        };
         if let Some(meta) = restore_meta {
             new_para.apply_meta(meta);
         }
+        if let Some(plan) = next_style { plan.apply(&mut new_para); }
 
         // 새 문단을 현재 문단 뒤에 삽입
         let new_para_idx = para_idx + 1;
@@ -3715,7 +4106,7 @@ impl DocumentCore {
             .paragraphs
             .insert(new_para_idx, new_para);
         for i in para_idx..=new_para_idx {
-            if !self.document.sections[section_idx].paragraphs[i]
+            if !staged_bookmark_split && !self.document.sections[section_idx].paragraphs[i]
                 .field_ranges
                 .is_empty()
             {
@@ -4065,11 +4456,14 @@ impl DocumentCore {
             )));
         }
 
+        let bookmark_merge = self.stage_bookmark_body_merge(section_idx, para_idx)?;
+        crate::model::memo::validate_body_structure(&self.document,
+            &[&section.paragraphs[para_idx - 1], &section.paragraphs[para_idx]], None).map_err(HwpError::InvalidField)?;
         if stage_picture_edit && self.final_picture_host_matches_frame(section_idx, para_idx) {
             let mut staged = self.picture_band_edit_shadow();
             let response = staged.merge_paragraph_body_impl(section_idx, para_idx, false)?;
             staged.publish_staged_final_picture_chain(section_idx)?;
-            self.event_log.extend(staged.event_log.drain(..));
+            self.event_log.append(&mut staged.event_log);
             self.commit_picture_band_edit(section_idx, staged);
             return Ok(response);
         }
@@ -4091,8 +4485,18 @@ impl DocumentCore {
         let prev_idx = para_idx - 1;
         let removed_meta =
             super::super::helpers::removed_para_meta_field(&current_para.capture_meta());
-        let merge_point =
-            self.document.sections[section_idx].paragraphs[prev_idx].merge_from(&current_para);
+        let merge_point = if let Some((merged, at)) = bookmark_merge {
+            self.document.sections[section_idx].paragraphs[prev_idx] = merged;
+            at
+        } else {
+            self.document.sections[section_idx].paragraphs[prev_idx].merge_from(&current_para)
+        };
+        let merged = &mut self.document.sections[section_idx].paragraphs[prev_idx];
+        if merged.controls.iter().any(|c| matches!(c, Control::Field(f) if crate::model::memo::is_memo(f)))
+            && !merged.controls.iter().any(|c| matches!(c, Control::Bookmark(_))) {
+            rebuild_char_offsets(merged);
+        }
+
 
         if preserve_square_ole_wrap_line {
             let doc_hwp3_layout = self.document.layout_profile().hwp3_layout();
@@ -4416,6 +4820,30 @@ impl DocumentCore {
         char_offset: usize,
         restore_meta: Option<ParaMeta>,
     ) -> Result<String, HwpError> {
+        self.split_paragraph_in_cell_native_with_next_style(section_idx, parent_para_idx, control_idx, cell_idx, cell_para_idx, char_offset, restore_meta, false)
+    }
+
+    pub fn split_paragraph_in_cell_native_with_next_style(
+        &mut self,
+        section_idx: usize,
+        parent_para_idx: usize,
+        control_idx: usize,
+        cell_idx: usize,
+        cell_para_idx: usize,
+        char_offset: usize,
+        restore_meta: Option<ParaMeta>,
+        apply_next_style: bool,
+    ) -> Result<String, HwpError> {
+        let source = self.get_cell_paragraph_ref(section_idx, parent_para_idx, control_idx, cell_idx, cell_para_idx)
+            .ok_or_else(|| HwpError::RenderError("셀 문단 범위 초과".into()))?;
+        let next_style = super::next_style::prepare(&self.document.doc_info, source, char_offset,
+            apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
+        // Picture caption APIs expose visible scalar offsets. split_at also counts
+        // the automatic-number control slot; translate only this caption axis.
+        let split_offset = if matches!(self.document.sections[section_idx].paragraphs[parent_para_idx].controls.get(control_idx), Some(Control::Picture(_))) {
+            char_offset + source.controls.iter().zip(source.control_text_positions())
+                .filter(|(control, at)| Paragraph::is_split_movable_control(control) && *at < char_offset).count()
+        } else { char_offset };
         // 셀 문단 검증 및 분할
         let cell_para = self.get_cell_paragraph_mut(
             section_idx,
@@ -4425,10 +4853,11 @@ impl DocumentCore {
             cell_para_idx,
         )?;
         let original_vpos = cell_para.line_segs.first().map(|seg| seg.vertical_pos);
-        let mut new_para = cell_para.split_at(char_offset);
+        let mut new_para = cell_para.split_at(split_offset);
         if let Some(meta) = restore_meta {
             new_para.apply_meta(meta);
         }
+        if let Some(plan) = next_style { plan.apply(&mut new_para); }
 
         // 새 문단을 셀/글상자에 삽입
         let new_cell_para_idx = cell_para_idx + 1;
@@ -5704,11 +6133,12 @@ impl DocumentCore {
             Some(path),
             char_offset,
         );
+        let control_positions = cell_para.control_text_positions();
         cell_para.insert_text_at(char_offset, text);
         keep_inactive_field_start_outside(cell_para, &before_insertions, new_chars_count);
         keep_inactive_field_end_outside(cell_para, &outside_insertions, new_chars_count);
         if has_clickhere_field_range(cell_para) {
-            rebuild_char_offsets(cell_para);
+            rebuild_char_offsets_after_text_edit(cell_para, &control_positions, char_offset, 0, new_chars_count);
         }
 
         let inner_cell_para_idx = path.last().map(|entry| entry.2).unwrap_or(0);
@@ -5889,6 +6319,18 @@ impl DocumentCore {
         char_offset: usize,
         restore_meta: Option<ParaMeta>,
     ) -> Result<String, HwpError> {
+        self.split_paragraph_in_cell_by_path_with_next_style(section_idx, parent_para_idx, path, char_offset, restore_meta, false)
+    }
+
+    pub fn split_paragraph_in_cell_by_path_with_next_style(
+        &mut self,
+        section_idx: usize,
+        parent_para_idx: usize,
+        path: &[(usize, usize, usize)],
+        char_offset: usize,
+        restore_meta: Option<ParaMeta>,
+        apply_next_style: bool,
+    ) -> Result<String, HwpError> {
         // [#2755] 빈 경로는 패닉이 아니라 Err 로 거절한다. `parse_cell_path` 가 "[]" 에
         // Ok(Vec::new()) 를 반환하므로 빈 경로가 여기 도달할 수 있고, wasm 에서 Rust 패닉은
         // HwpDocument 인스턴스 전체를 무효화한다. get_cell_paragraph(s)_mut_by_path 형제와 동형.
@@ -5900,6 +6342,7 @@ impl DocumentCore {
         let mut split_origin_vpos: Option<i32> = None;
 
         // 셀에 접근하여 문단 분할
+        let info = &self.document.doc_info;
         let section = self
             .document
             .sections
@@ -5929,10 +6372,13 @@ impl DocumentCore {
                     .line_segs
                     .first()
                     .map(|seg| seg.vertical_pos);
+                let next_style = super::next_style::prepare(info, &cell.paragraphs[cell_para_idx], char_offset,
+                    apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
                 let mut new_para = cell.paragraphs[cell_para_idx].split_at(char_offset);
                 if let Some(meta) = restore_meta {
                     new_para.apply_meta(meta);
                 }
+                if let Some(plan) = next_style { plan.apply(&mut new_para); }
                 cell.paragraphs.insert(cell_para_idx + 1, new_para);
                 break;
             }

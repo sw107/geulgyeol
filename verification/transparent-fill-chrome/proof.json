@@ -1,0 +1,84 @@
+{
+  "baseHead": "7bc60ddaa73fdf7ad213caa13fa0c1f510618856",
+  "productSourceSHA256": "b6632c0a675dac5e761350831e9b83a17676866334f438b61fc1ab41143e1ed2",
+  "engineSHA256": "84a1052245d4541ff488b5338eac9ac752f00f6e694f0ec3e229306c09c55bc8",
+  "successfulChromeRun": "/Users/sw107/Documents/Codex/2026-10-06/task/transparent-fill-chrome-qa/run-1791411770003",
+  "originalChromeProofSHA256": "266b888ec3e9fda3ff8a5533ff0070acaf9b6ec0aa107e31c03df5f560951893",
+  "browserVersion": "Chrome/154.0.8037.98",
+  "headless": false,
+  "chromeCases": 9,
+  "undoRedoPairs": 54,
+  "savedFiles": 90,
+  "chromeReopens": 90,
+  "errors": [],
+  "sourceMatchesOriginalSuccessfulRun": true,
+  "originalTypeScriptNoEmitExitCode": 0,
+  "precisionCasesReplayed": 12,
+  "savedResultAudit": {
+    "savedFilesAudited": 90,
+    "sameRunReopenedSVGExact": true,
+    "bodyBoldAndTextBookmarkedPropertiesPreserved": true,
+    "shapeBorderWidth100PreservedInAllStages": true,
+    "tableSourceAggregateDimensionsPreservedAcrossUIStages": true,
+    "knownGetterDifferenceRecords": 99,
+    "unresolved": [
+      "Native/Chrome bare-document margin and page-size SVG difference (native-chrome exit 101)",
+      "HWPX aggregate tableWidth/tableHeight getter zero",
+      "No-pattern patternType 0/-1 representation"
+    ]
+  },
+  "protection": {
+    "protectedFiles": 44480,
+    "changed": [],
+    "missing": [],
+    "targetBytes": 4615041024,
+    "qaBytes": 365551616,
+    "actualFreeBytes": 19344179200,
+    "elapsedSeconds": 11.57,
+    "auditedAt": "2026-10-08T02:24:55.309055+00:00"
+  },
+  "processes": {
+    "originalLifecycle": {
+      "normalBrowserClose": true,
+      "browserExit": 0,
+      "normalServerClose": true,
+      "serverExit": 0,
+      "browserPid": 47167,
+      "serverPid": 47166,
+      "sourcePort": 32168
+    },
+    "ownChromeAndSourceServerRemaining": false,
+    "sourcePort32168Closed": true
+  },
+  "dev12StrictSignatureValid": true,
+  "driverArtifactChanges": {
+    "testedSHA256": "96c8e77f0bab97e4105764ffbb4f6acab1108a42c490903f6c971a4e50045095",
+    "finalSHA256": "e80aa961102a0b395a350bf8e6cdba88ffeccefad13edf0b4b118887ab9e668d",
+    "onlyChanges": [
+      "proof output path",
+      "server helper path",
+      "Vite cache path"
+    ],
+    "pathsNowInsideFreshRunDirectory": true,
+    "syntaxCheckPassed": true,
+    "GUIRepeatedForPathChanges": false
+  },
+  "nativeSameByteChromeComparison": {
+    "exitCode": 101,
+    "passed": false,
+    "firstFileSVGComparisonFailed": true,
+    "causeNotResolved": true,
+    "nativeResavesCompleted": 0
+  },
+  "scope": {
+    "physicalInputVerified": false,
+    "installedAppVerified": false,
+    "OSClipboardAccessed": false,
+    "OSDialogsInvoked": 0,
+    "userDocumentsUsed": false,
+    "newTargetOrAppOrZIP": false,
+    "buildsPerformedOnResume": false,
+    "pushReleaseOrPRChanges": false
+  },
+  "auditedAt": "2026-10-08T02:28:47.626965+00:00"
+}

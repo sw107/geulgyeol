@@ -1,0 +1,581 @@
+{
+  "baselineHead": "55a71f0ab7699b7f5fa3c2cd77e5eeb74154b917",
+  "sourceSHA256": {
+    "engine/src/document_core/commands/object_ops/picture.rs": "18f84e1a2c2440a5b9fa559fc2b6bf88d967926f1d1ed7f77df3b16750bebcae",
+    "engine/src/renderer/composer.rs": "a0c4c68954061d244825ce07c8a66843d7cc4f6dece1a72953450c86f564b830",
+    "engine/src/renderer/layout/picture_footnote.rs": "97c05fc17faf5acaba3f61c0f09871bdb86b63bee355e41aa5adad4e59b2a195",
+    "engine/examples/body_rectangle_width_check.rs": "9fa6d5f016a45c6b4a2d40e11210a6399fdef8fe840384b35562d7836cef4a4b",
+    "rhwp-studio/src/command/commands/insert.ts": "7e59c2869677100cd02648199281b204b24021d43ec76179ece91119491fd69f",
+    "scripts/check-caption-history.mjs": "bb59ef97f760533de3ac7bc7108416eee31871cae359effda75d087a813afa0c"
+  },
+  "candidateWasm": {
+    "path": "/Users/sw107/Documents/Codex/2026-10-06/task/caption-history-qa/pkg-layout/rhwp_bg.wasm",
+    "sha256": "b2a3010c21c145d87603ac91b3d9660e6a3a54163a5761bc83e886bfdd9af97f"
+  },
+  "ui": {
+    "wasmSHA256": "b2a3010c21c145d87603ac91b3d9660e6a3a54163a5761bc83e886bfdd9af97f",
+    "actualRegistryDispatcherInputHandlerBridgeHistory": true,
+    "actualPropertyDialogApplyAndPatchModel": true,
+    "DOMCursorRepaintAdapters": true,
+    "operations": 19,
+    "saves": 76,
+    "undoRedoPairs": 91,
+    "atomicRefusalsOrNoOps": 16,
+    "repeatedCaptionNavigationNoHistory": 9,
+    "bodyCommentsFieldsFormattingAndImagePreserved": true,
+    "savedCaptionReferencesAndRenderedGlyphStylesCompared": true,
+    "historyFullSVGExact": true,
+    "savedReopenedFullSVGExact": true,
+    "captionParagraphPropertiesNativeOnly": true,
+    "rows": [
+      {
+        "label": "comments-insert",
+        "type": "snapshot:insertCaption"
+      },
+      {
+        "label": "comments-text",
+        "type": "snapshot:captionText"
+      },
+      {
+        "label": "comments-properties",
+        "type": "snapshot:objectProps"
+      },
+      {
+        "label": "comments-caption-remove",
+        "type": "snapshot:objectProps"
+      },
+      {
+        "label": "comments-picture-delete",
+        "type": "snapshot:deleteObject"
+      },
+      {
+        "label": "fields-insert",
+        "type": "snapshot:insertCaption"
+      },
+      {
+        "label": "fields-text",
+        "type": "snapshot:captionText"
+      },
+      {
+        "label": "fields-properties",
+        "type": "snapshot:objectProps"
+      },
+      {
+        "label": "fields-caption-remove",
+        "type": "snapshot:objectProps"
+      },
+      {
+        "label": "fields-picture-delete",
+        "type": "snapshot:deleteObject"
+      },
+      {
+        "label": "existing-text",
+        "type": "snapshot:captionText"
+      },
+      {
+        "label": "existing-properties",
+        "type": "snapshot:objectProps"
+      },
+      {
+        "label": "existing-caption-remove",
+        "type": "snapshot:objectProps"
+      },
+      {
+        "label": "existing-picture-delete",
+        "type": "snapshot:deleteObject"
+      },
+      {
+        "label": "notes-insert",
+        "type": "snapshot:insertCaption"
+      },
+      {
+        "label": "notes-text",
+        "type": "snapshot:captionText"
+      },
+      {
+        "label": "notes-properties",
+        "type": "snapshot:objectProps"
+      },
+      {
+        "label": "notes-caption-remove",
+        "type": "snapshot:objectProps"
+      },
+      {
+        "label": "notes-picture-delete",
+        "type": "snapshot:deleteObject"
+      }
+    ],
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "sourceSHA256": {
+      "insert": "7e59c2869677100cd02648199281b204b24021d43ec76179ece91119491fd69f",
+      "objects": "1c89ac44f3b13e9406260013f37be17fcd16290c8742e19c722e3f6e17501343",
+      "bridge": "a7085f3e8e5c75747676858f77e0583d9d677f68d3b3dd0feb6048aca67997e1",
+      "input": "4833bb63a07c5238176c3487e4be18e2ccf8c1425d3863179dbee4fa53027495",
+      "command": "6d6b72bfe8c0cabb02461406c971a9cfa8c9e3eff7cd9c7d52ea27179a8c8968",
+      "history": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db",
+      "registry": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+      "dispatcher": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381",
+      "dialog": "ab48abbeaf165a111582fc7fb44fd302fff394295aa5c183af32ea8c710d4a59",
+      "model": "a070603383398a4b2b62a08680fb997c5de70f1d51004e639023a0f4f45e41f1"
+    }
+  },
+  "native": {
+    "fullSvgParagraphsStylesCaptionAndImageCompared": true,
+    "independentSavedReopens": 76,
+    "nativeCommandReexecution": true,
+    "noteHeaderTrailingZeroPaddingCanonicalized": true,
+    "snapshotPairs": 498
+  },
+  "regressions": {
+    "band-regression": {
+      "wasmSHA256": "b2a3010c21c145d87603ac91b3d9660e6a3a54163a5761bc83e886bfdd9af97f",
+      "actualBandModalRegistryDispatcherInputHandlerHistory": true,
+      "objectPropertiesAndDeleteConnected": true,
+      "saves": 132,
+      "undos": 33,
+      "redos": 33,
+      "refusals": 58,
+      "cancels": 18,
+      "noOpRepeatInsert": 6,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "newAppPackaged": false
+    },
+    "width-regression": {
+      "wasmSHA256": "b2a3010c21c145d87603ac91b3d9660e6a3a54163a5761bc83e886bfdd9af97f",
+      "oldWasmSHA256": "cd852d76c0ea4c2690afe728db34d717a00638dd51090b98cce913de456d8005",
+      "actualBridgeAndSnapshotHistory": true,
+      "saves": 40,
+      "undoRedoPairs": 20,
+      "atomicRefusals": 20,
+      "nativeSavedGeometryCrossChecks": 40,
+      "legacyBasisSVGExactMatches": 32,
+      "boundaryRefusals": 6,
+      "bodyTextFieldsNotesAndGlyphsPreserved": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "paragraphBandMenuComplete": false
+    },
+    "cell-regression": {
+      "candidateWasmSHA256": "b2a3010c21c145d87603ac91b3d9660e6a3a54163a5761bc83e886bfdd9af97f",
+      "positive": 84,
+      "reopens": 288,
+      "undos": 84,
+      "redos": 84,
+      "atomicRefusals": 444,
+      "layoutCases": 12,
+      "multipageCases": 12,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "cell-layout-regression": {
+      "cases": 24,
+      "restores": 170,
+      "reopens": 82,
+      "rejections": 4,
+      "savedSVGEqualityRequired": true,
+      "wasmSHA256": "b2a3010c21c145d87603ac91b3d9660e6a3a54163a5761bc83e886bfdd9af97f",
+      "findDialogSHA256": "fe95e003524f18893b07f83f142d0bc4c82e9e2a8f2efd7a94cad486cbe27ced",
+      "GUIVerified": false
+    },
+    "comment-regression-final": {
+      "wasmSHA256": "b2a3010c21c145d87603ac91b3d9660e6a3a54163a5761bc83e886bfdd9af97f",
+      "mutations": 14,
+      "saves": 64,
+      "refusals": 55,
+      "undos": 16,
+      "redos": 16,
+      "newAuthorEmptyCreationTimeAbsent": true,
+      "originalAuthorTimePreserved": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    },
+    "anchor-regression-complete": {
+      "wasmSHA256": "b2a3010c21c145d87603ac91b3d9660e6a3a54163a5761bc83e886bfdd9af97f",
+      "normal": 43,
+      "saves": 168,
+      "refusals": 36,
+      "undos": 43,
+      "redos": 43,
+      "actualBodyCommandHistory": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0
+    }
+  },
+  "finalChecks": {
+    "wasm-layout-build": {
+      "command": [
+        "python3",
+        "../caption-history-qa/cargo-run.py",
+        "build",
+        "--offline",
+        "--locked",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 57196544,
+      "additionalPeakBytes": 57208832,
+      "additionalFinalBytes": 57208832,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4118061056,
+      "targetFinalBytes": 4027469824,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22609920000,
+      "diskFreeFinalBytes": 22814720000,
+      "stopReason": null,
+      "elapsedSeconds": 132.24
+    },
+    "bindgen-layout": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/wasm-bindgen-0.2.127-aarch64-apple-darwin/wasm-bindgen",
+        "../style-lint-qa/target/wasm32-unknown-unknown/release/rhwp.wasm",
+        "--target",
+        "web",
+        "--out-dir",
+        "../caption-history-qa/pkg-layout"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 57217024,
+      "additionalPeakBytes": 70053888,
+      "additionalFinalBytes": 70053888,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4027469824,
+      "targetFinalBytes": 4027469824,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22814720000,
+      "diskFreeFinalBytes": 22814720000,
+      "stopReason": null,
+      "elapsedSeconds": 1.21
+    },
+    "ui-color-final": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-caption-history.mjs",
+        "../caption-history-qa/pkg-layout",
+        "../caption-history-qa/fixtures",
+        "../caption-history-qa/ui-color-final"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 92098560,
+      "additionalPeakBytes": 93298688,
+      "additionalFinalBytes": 93298688,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4027473920,
+      "targetFinalBytes": 4027473920,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22773760000,
+      "diskFreeFinalBytes": 22773760000,
+      "stopReason": null,
+      "elapsedSeconds": 1.23
+    },
+    "native-color-final": {
+      "command": [
+        "../style-lint-qa/target/debug/examples/body_rectangle_width_check",
+        "../caption-history-qa/ui-color-final",
+        "--verify-caption-history"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 93302784,
+      "additionalPeakBytes": 93306880,
+      "additionalFinalBytes": 93306880,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4027473920,
+      "targetFinalBytes": 4027473920,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22773760000,
+      "diskFreeFinalBytes": 22773760000,
+      "stopReason": null,
+      "elapsedSeconds": 3.07
+    },
+    "band-regression": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-paragraph-band-ui.mjs",
+        "../caption-history-qa/pkg-layout",
+        "../paragraph-band-ui-qa/fixtures",
+        "../caption-history-qa/band-regression"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 71208960,
+      "additionalPeakBytes": 76128256,
+      "additionalFinalBytes": 76156928,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4027469824,
+      "targetFinalBytes": 4027461632,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22773760000,
+      "diskFreeFinalBytes": 22773760000,
+      "stopReason": null,
+      "elapsedSeconds": 2.01
+    },
+    "width-regression": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-body-rectangle-width.mjs",
+        "../caption-history-qa/pkg-layout",
+        "../body-rectangle-width-qa/pkg",
+        "../paragraph-band-ui-qa/native",
+        "../caption-history-qa/width-regression"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 71208960,
+      "additionalPeakBytes": 74616832,
+      "additionalFinalBytes": 74616832,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4027469824,
+      "targetFinalBytes": 4027461632,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22814720000,
+      "diskFreeFinalBytes": 22773760000,
+      "stopReason": null,
+      "elapsedSeconds": 1.42
+    },
+    "cell-regression": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-cell-hyperlink.mjs",
+        "../caption-history-qa/pkg-layout",
+        "../cell-hyperlink-qa/native/manifest.json",
+        "../caption-history-qa/cell-regression"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 71208960,
+      "additionalPeakBytes": 78897152,
+      "additionalFinalBytes": 78897152,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4027469824,
+      "targetFinalBytes": 4027461632,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22773760000,
+      "diskFreeFinalBytes": 22773760000,
+      "stopReason": null,
+      "elapsedSeconds": 7.2
+    },
+    "cell-layout-regression": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-cell-layout-history.mjs",
+        "../caption-history-qa/pkg-layout",
+        "../caption-history-qa/cell-layout-regression"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 78901248,
+      "additionalPeakBytes": 83083264,
+      "additionalFinalBytes": 83083264,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4055375872,
+      "targetFinalBytes": 4055375872,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22773760000,
+      "diskFreeFinalBytes": 22773760000,
+      "stopReason": null,
+      "elapsedSeconds": 2.53
+    },
+    "comment-regression-final": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-body-comment.mjs",
+        "../caption-history-qa/pkg-layout",
+        "../caption-history-qa/authoring-fixtures/seed.hwpx",
+        "../memo-preservation-qa/native",
+        "../caption-history-qa/comment-regression-final"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 89718784,
+      "additionalPeakBytes": 92094464,
+      "additionalFinalBytes": 92094464,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4027473920,
+      "targetFinalBytes": 4027473920,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22773760000,
+      "diskFreeFinalBytes": 22773760000,
+      "stopReason": null,
+      "elapsedSeconds": 0.7
+    },
+    "anchor-regression-complete": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-body-comment-anchor.mjs",
+        "../caption-history-qa/pkg-layout",
+        "../caption-history-qa/anchor-fixtures/plain-comments.hwpx",
+        "../memo-preservation-qa/native",
+        "../caption-history-qa/anchor-regression-complete"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 84295680,
+      "additionalPeakBytes": 89690112,
+      "additionalFinalBytes": 89690112,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4027473920,
+      "targetFinalBytes": 4027473920,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22773760000,
+      "diskFreeFinalBytes": 22773760000,
+      "stopReason": null,
+      "elapsedSeconds": 1.31
+    },
+    "typecheck-final": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "rhwp-studio/node_modules/typescript/bin/tsc",
+        "--project",
+        "../caption-history-qa/tsconfig.layout.json",
+        "--pretty",
+        "false"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 78901248,
+      "additionalPeakBytes": 80560128,
+      "additionalFinalBytes": 80560128,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4055375872,
+      "targetFinalBytes": 4055375872,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22773760000,
+      "diskFreeFinalBytes": 22773760000,
+      "stopReason": null,
+      "elapsedSeconds": 1.41
+    },
+    "clippy-final": {
+      "command": [
+        "python3",
+        "../caption-history-qa/cargo-run.py",
+        "clippy",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib",
+        "--example",
+        "body_rectangle_width_check",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 84238336,
+      "additionalPeakBytes": 84242432,
+      "additionalFinalBytes": 84242432,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4027469824,
+      "targetFinalBytes": 4027473920,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22773760000,
+      "diskFreeFinalBytes": 22773760000,
+      "stopReason": null,
+      "elapsedSeconds": 20.14
+    },
+    "rustfmt-final-source": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/rustfmt",
+        "--edition",
+        "2021",
+        "--check",
+        "engine/examples/body_rectangle_width_check.rs",
+        "engine/src/document_core/commands/object_ops/picture.rs"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 93310976,
+      "additionalPeakBytes": 93310976,
+      "additionalFinalBytes": 93310976,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4027473920,
+      "targetFinalBytes": 4027473920,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 22773760000,
+      "diskFreeFinalBytes": 22773760000,
+      "stopReason": null,
+      "elapsedSeconds": 0.69
+    }
+  },
+  "resource": {
+    "targetPeakBytes": 4133003264,
+    "targetFinalBytes": 4027473920,
+    "minDiskFreeBytes": 22568960000,
+    "diskFreeFinalBytes": 22773760000,
+    "qaFinalBytes": 93843456,
+    "targetLimitBytes": 4294967296,
+    "minimumDiskFreeBytes": 10737418240,
+    "anyBudgetStop": false
+  },
+  "preservation": {
+    "protectedFiles": 20,
+    "previousArtifactFiles": 2779,
+    "totalChecked": 2799,
+    "allHashesUnchanged": true
+  },
+  "hwpxLayout": {
+    "previousBaselineDeltaPx": 1.0666666666666629,
+    "previousRichCaptionMaxTextXDeltaPx": 109.00000000000001,
+    "previousRichCaptionMaxBaselineDeltaPx": 36.26666666666665,
+    "finalFullSVGEqualityRequiredAndPassed": true,
+    "storedIRNotModifiedByLayoutProjection": true,
+    "syntheticLineSegWriterSuppressionPreserved": true,
+    "projectionScope": "Simple floating picture Top/Bottom captions without saved lines, text and AutoNumber controls only; same width/reflow as editing"
+  },
+  "limits": {
+    "newAppOrZip": false,
+    "publicPushOrRelease": false,
+    "deletedOrTrashedFiles": false,
+    "actualGUIVerified": false,
+    "physicalIMEVerified": false,
+    "HancomApplicationVerified": false,
+    "LinuxNativeVerified": false,
+    "fullLibTests": {
+      "literalIncludeBytesMissing": [
+        {
+          "source": "engine/src/document_core/commands/formatting.rs",
+          "line": 2459,
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/samples/hwp3-sample16-hwp5.hwp"
+        },
+        {
+          "source": "engine/src/document_core/commands/document.rs",
+          "line": 2808,
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/samples/3-09월_교육_통합_2022.hwp"
+        },
+        {
+          "source": "engine/src/serializer/hwpx/header.rs",
+          "line": 1495,
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/samples/hwpx/aift.hwpx"
+        }
+      ],
+      "fullLibTestsRun": false,
+      "replacementOrSkipAdded": false
+    },
+    "captionTypingUsesBridgeSetupRatherThanPhysicalInput": true,
+    "propertyDialogDOMAndCursorAreAdapters": true,
+    "captionParagraphPropertiesComparedIndependentlyInNative": true,
+    "unsupportedCaptionDirectionsObjectsAndComplexControlsNotNewlyCertified": true
+  },
+  "qaDirectory": "/Users/sw107/Documents/Codex/2026-10-06/task/caption-history-qa"
+}

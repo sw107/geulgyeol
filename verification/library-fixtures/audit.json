@@ -1,0 +1,609 @@
+{
+  "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+  "publicTreeSHA256": "ac0d02ab3e76b189fab0f472c740a05904bda9a3765da08f7eef76211115f0e2",
+  "uniqueCompileFixtures": 10,
+  "previousIncludeErrors": 28,
+  "currentIncludeErrors": 3,
+  "paths": [
+    {
+      "path": "engine/samples/3-09월_교육_통합_2022.hwp",
+      "upstreamPath": "samples/3-09월_교육_통합_2022.hwp",
+      "upstreamBlob": "9e83cccae3c7186c77aea448841c223922be639e",
+      "upstreamBytes": 5820416,
+      "sourceURL": "https://raw.githubusercontent.com/edwardkim/rhwp/f1f9c6ae58344ee9368996d3543f76b9345cf227/samples/3-09월_교육_통합_2022.hwp",
+      "restoredNow": false,
+      "includeDetails": [
+        {
+          "include": "engine/src/document_core/commands/document.rs:2808",
+          "consumerSymbol": "p325_picture_band_core",
+          "affectedTests": [
+            "on_demand_picture_band_discovers_stored_p325_host_from_missing_successor",
+            "on_demand_picture_band_publishes_the_complete_p325_transaction",
+            "on_demand_rejected_picture_band_leaves_host_and_later_body_rows_untouched",
+            "on_demand_rejected_tracked_picture_band_leaves_successor_source_geometry_untouched"
+          ]
+        }
+      ],
+      "directOriginalAndQAChecks": [
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/samples/3-09월_교육_통합_2022.hwp",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-build/engine/samples/3-09월_교육_통합_2022.hwp",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-engine/samples/3-09월_교육_통합_2022.hwp",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-upstream/samples/3-09월_교육_통합_2022.hwp",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/engine/samples/3-09월_교육_통합_2022.hwp",
+          "exists": false,
+          "bytes": null
+        }
+      ]
+    },
+    {
+      "path": "engine/samples/hml/formatting_table.hml",
+      "upstreamPath": "samples/hml/formatting_table.hml",
+      "upstreamBlob": "0c327bccabd8e46028d912dca9357b854a3750d1",
+      "upstreamBytes": 29500,
+      "sourceURL": "https://raw.githubusercontent.com/edwardkim/rhwp/f1f9c6ae58344ee9368996d3543f76b9345cf227/samples/hml/formatting_table.hml",
+      "restoredNow": true,
+      "includeDetails": [
+        {
+          "include": "engine/src/document_core/commands/document.rs:2834",
+          "consumerSymbol": "from_bytes_retains_hml_import_metadata_outside_document_ir",
+          "affectedTests": [
+            "from_bytes_retains_hml_import_metadata_outside_document_ir"
+          ]
+        },
+        {
+          "include": "engine/src/parser/mod.rs:2894",
+          "consumerSymbol": "test_parse_document_with_metadata_preserves_hml_import_diagnostics",
+          "affectedTests": [
+            "test_parse_document_with_metadata_preserves_hml_import_diagnostics"
+          ]
+        },
+        {
+          "include": "engine/src/wasm_api/tests.rs:24950",
+          "consumerSymbol": "test_hml_open_metadata_exposes_import_warnings",
+          "affectedTests": [
+            "test_hml_open_metadata_exposes_import_warnings"
+          ]
+        },
+        {
+          "include": "engine/src/wasm_api/tests.rs:24970",
+          "consumerSymbol": "test_hml_open_metadata_escapes_special_characters_as_valid_json",
+          "affectedTests": [
+            "test_hml_open_metadata_escapes_special_characters_as_valid_json"
+          ]
+        },
+        {
+          "include": "engine/src/wasm_api/tests.rs:24990",
+          "consumerSymbol": "test_export_hml_binding_preserves_edit_and_fragment",
+          "affectedTests": [
+            "test_export_hml_binding_preserves_edit_and_fragment"
+          ]
+        },
+        {
+          "include": "engine/src/wasm_api/tests.rs:25025",
+          "consumerSymbol": "test_export_hml_error_message_exposes_blocker_codes",
+          "affectedTests": [
+            "test_export_hml_error_message_exposes_blocker_codes"
+          ]
+        },
+        {
+          "include": "engine/src/wasm_api/tests.rs:25044",
+          "consumerSymbol": "test_hml_open_metadata_uses_shared_preflight_for_import_and_ir_loss",
+          "affectedTests": [
+            "test_hml_open_metadata_uses_shared_preflight_for_import_and_ir_loss"
+          ]
+        },
+        {
+          "include": "engine/src/wasm_api/tests.rs:25085",
+          "consumerSymbol": "test_hml_open_metadata_reports_mixed_import_and_ir_loss",
+          "affectedTests": [
+            "test_hml_open_metadata_reports_mixed_import_and_ir_loss"
+          ]
+        }
+      ],
+      "directOriginalAndQAChecks": [
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/samples/hml/formatting_table.hml",
+          "exists": true,
+          "bytes": 29500
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-build/engine/samples/hml/formatting_table.hml",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-engine/samples/hml/formatting_table.hml",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-upstream/samples/hml/formatting_table.hml",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/engine/samples/hml/formatting_table.hml",
+          "exists": false,
+          "bytes": null
+        }
+      ]
+    },
+    {
+      "path": "engine/samples/hwp3-sample16-hwp5.hwp",
+      "upstreamPath": "samples/hwp3-sample16-hwp5.hwp",
+      "upstreamBlob": "f952b7633732d6e510b49f8805116d0a65b93bb0",
+      "upstreamBytes": 3043328,
+      "sourceURL": "https://raw.githubusercontent.com/edwardkim/rhwp/f1f9c6ae58344ee9368996d3543f76b9345cf227/samples/hwp3-sample16-hwp5.hwp",
+      "restoredNow": false,
+      "includeDetails": [
+        {
+          "include": "engine/src/document_core/commands/formatting.rs:2444",
+          "consumerSymbol": "hwp3_converted_flow_formatting_uses_document_resolved_paragraph_box",
+          "affectedTests": [
+            "paint_only_char_shape_changes_do_not_require_text_reflow"
+          ]
+        }
+      ],
+      "directOriginalAndQAChecks": [
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/samples/hwp3-sample16-hwp5.hwp",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-build/engine/samples/hwp3-sample16-hwp5.hwp",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-engine/samples/hwp3-sample16-hwp5.hwp",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-upstream/samples/hwp3-sample16-hwp5.hwp",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/engine/samples/hwp3-sample16-hwp5.hwp",
+          "exists": false,
+          "bytes": null
+        }
+      ]
+    },
+    {
+      "path": "engine/samples/render-p35-font-native-bitmap.hwpx",
+      "upstreamPath": "samples/render-p35-font-native-bitmap.hwpx",
+      "upstreamBlob": "8a6f61e55ce83f79d6bb8760a2ab4a25dcdf197b",
+      "upstreamBytes": 8579,
+      "sourceURL": "https://raw.githubusercontent.com/edwardkim/rhwp/f1f9c6ae58344ee9368996d3543f76b9345cf227/samples/render-p35-font-native-bitmap.hwpx",
+      "restoredNow": true,
+      "includeDetails": [
+        {
+          "include": "engine/src/document_core/queries/rendering.rs:8409",
+          "consumerSymbol": "print_profile_suppresses_interactive_output_options_without_mutating_state",
+          "affectedTests": [
+            "print_profile_suppresses_interactive_output_options_without_mutating_state"
+          ]
+        },
+        {
+          "include": "engine/src/document_core/queries/rendering.rs:8693",
+          "consumerSymbol": "hwpx_font_native_fixture_reaches_public_layer_export",
+          "affectedTests": [
+            "hwpx_font_native_fixture_reaches_public_layer_export"
+          ]
+        }
+      ],
+      "directOriginalAndQAChecks": [
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/samples/render-p35-font-native-bitmap.hwpx",
+          "exists": true,
+          "bytes": 8579
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-build/engine/samples/render-p35-font-native-bitmap.hwpx",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-engine/samples/render-p35-font-native-bitmap.hwpx",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-upstream/samples/render-p35-font-native-bitmap.hwpx",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/engine/samples/render-p35-font-native-bitmap.hwpx",
+          "exists": false,
+          "bytes": null
+        }
+      ]
+    },
+    {
+      "path": "engine/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf",
+      "upstreamPath": "tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf",
+      "upstreamBlob": "0d37e119ce66418e4143686445280d60c92d66cb",
+      "upstreamBytes": 2044,
+      "sourceURL": "https://raw.githubusercontent.com/edwardkim/rhwp/f1f9c6ae58344ee9368996d3543f76b9345cf227/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf",
+      "restoredNow": true,
+      "includeDetails": [
+        {
+          "include": "engine/src/document_core/queries/rendering.rs:8619",
+          "consumerSymbol": "normal_page_layer_export_selects_verified_embedded_bitmap_glyph_sidecar",
+          "affectedTests": [
+            "normal_page_layer_export_selects_verified_embedded_bitmap_glyph_sidecar"
+          ]
+        },
+        {
+          "include": "engine/src/paint/builder.rs:381",
+          "consumerSymbol": "normal_builder_export_keeps_text_fallback_and_font_native_sidecar_resources",
+          "affectedTests": [
+            "normal_builder_export_keeps_text_fallback_and_font_native_sidecar_resources"
+          ]
+        },
+        {
+          "include": "engine/src/paint/font_glyph.rs:1004",
+          "consumerSymbol": "fixture_font",
+          "affectedTests": [
+            "bitmap_lowering_fails_closed_without_png_strike_or_deterministic_options",
+            "bitmap_lowering_rejects_oversized_png_header_before_decode",
+            "lowering_matches_char_shape_and_language_instead_of_css_family",
+            "lowers_font_native_png_strike_into_strict_bitmap_payload",
+            "lowers_font_native_static_svg_into_strict_vector_payload",
+            "normal_lowering_enforces_page_sidecar_budget",
+            "normal_lowering_keeps_text_fallback_for_unrepresented_run_styles",
+            "oversized_source_font_is_rejected_before_parsing_or_interning",
+            "png_dimensions_rejects_non_ihdr_and_reports_encoded_size",
+            "portable_glyph_lowering_prepares_each_embedded_face_once",
+            "portable_glyph_lowering_rejects_shaping_required_text",
+            "svg_lowering_rejects_malformed_static_markup",
+            "svg_lowering_rejects_shared_documents_until_glyph_selection_is_implemented",
+            "svg_lowering_rejects_unsafe_font_document_without_interning_it"
+          ]
+        }
+      ],
+      "directOriginalAndQAChecks": [
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf",
+          "exists": true,
+          "bytes": 2044
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-build/engine/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-engine/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-upstream/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf",
+          "exists": true,
+          "bytes": 2044
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/engine/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf",
+          "exists": false,
+          "bytes": null
+        }
+      ]
+    },
+    {
+      "path": "engine/tests/fixtures/fonts/RHWPExactFaceSmoke.ttc",
+      "upstreamPath": "tests/fixtures/fonts/RHWPExactFaceSmoke.ttc",
+      "upstreamBlob": "b1ac275e8c5f018a3eb6f99b47e01e44ae68a3e5",
+      "upstreamBytes": 1752,
+      "sourceURL": "https://raw.githubusercontent.com/edwardkim/rhwp/f1f9c6ae58344ee9368996d3543f76b9345cf227/tests/fixtures/fonts/RHWPExactFaceSmoke.ttc",
+      "restoredNow": true,
+      "includeDetails": [
+        {
+          "include": "engine/src/paint/font_glyph.rs:1013",
+          "consumerSymbol": "fixture_ttc",
+          "affectedTests": [
+            "collection_face_resolution_requires_one_exact_family_match",
+            "lowering_preserves_exact_nonzero_collection_face_identity"
+          ]
+        },
+        {
+          "include": "engine/src/paint/json.rs:3174",
+          "consumerSymbol": "FIXTURE_TTC",
+          "affectedTests": [
+            "serializes_strict_glyph_run_variant_when_font_resources_are_proven"
+          ]
+        },
+        {
+          "include": "engine/src/paint/text_v2.rs:840",
+          "consumerSymbol": "FIXTURE_TTC",
+          "affectedTests": [
+            "exact_collection_face_is_strict_only_when_the_face_exists",
+            "keeps_line_break_risk_report_only_when_strict_variant_exists",
+            "reports_p42_strict_shape_authority_as_pending",
+            "reports_strict_glyph_slot_without_validation_errors"
+          ]
+        },
+        {
+          "include": "engine/src/renderer/layer_renderer.rs:1066",
+          "consumerSymbol": "FIXTURE_PNG",
+          "affectedTests": [
+            "advanced_bitmap_and_svg_glyph_payloads_select_only_with_resources"
+          ]
+        }
+      ],
+      "directOriginalAndQAChecks": [
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/tests/fixtures/fonts/RHWPExactFaceSmoke.ttc",
+          "exists": true,
+          "bytes": 1752
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-build/engine/tests/fixtures/fonts/RHWPExactFaceSmoke.ttc",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-engine/tests/fixtures/fonts/RHWPExactFaceSmoke.ttc",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-upstream/tests/fixtures/fonts/RHWPExactFaceSmoke.ttc",
+          "exists": true,
+          "bytes": 1752
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/engine/tests/fixtures/fonts/RHWPExactFaceSmoke.ttc",
+          "exists": false,
+          "bytes": null
+        }
+      ]
+    },
+    {
+      "path": "engine/assets/logo/logo-32.png",
+      "upstreamPath": "assets/logo/logo-32.png",
+      "upstreamBlob": "4b7ce19a66079080caa0db4f98c0e60bb129a967",
+      "upstreamBytes": 1621,
+      "sourceURL": "https://raw.githubusercontent.com/edwardkim/rhwp/f1f9c6ae58344ee9368996d3543f76b9345cf227/assets/logo/logo-32.png",
+      "restoredNow": true,
+      "includeDetails": [
+        {
+          "include": "engine/src/renderer/canvaskit_policy.rs:2270",
+          "consumerSymbol": "fixture_png",
+          "affectedTests": [
+            "compat_mode_reports_simple_image_as_direct",
+            "default_mode_reports_simple_image_as_direct",
+            "image_replay_plan_reports_direct_geometry_payload",
+            "image_replay_plan_reports_external_path_with_embedded_data",
+            "image_replay_plan_reports_unimplemented_image_effects",
+            "image_replay_plan_treats_baked_watermark_payload_as_direct",
+            "replay_plan_items_expose_paint_replay_planes"
+          ]
+        },
+        {
+          "include": "engine/src/renderer/layer_renderer.rs:1065",
+          "consumerSymbol": "FIXTURE_PNG",
+          "affectedTests": [
+            "advanced_bitmap_and_svg_glyph_payloads_select_only_with_resources"
+          ]
+        }
+      ],
+      "directOriginalAndQAChecks": [
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/assets/logo/logo-32.png",
+          "exists": true,
+          "bytes": 1621
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-build/engine/assets/logo/logo-32.png",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-engine/assets/logo/logo-32.png",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-upstream/assets/logo/logo-32.png",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/engine/assets/logo/logo-32.png",
+          "exists": false,
+          "bytes": null
+        }
+      ]
+    },
+    {
+      "path": "engine/ttfs/opensource/NotoSansKR-Regular.ttf",
+      "upstreamPath": "ttfs/opensource/NotoSansKR-Regular.ttf",
+      "upstreamBlob": "e7c4d095ee331b05e428bee0befa17830b268045",
+      "upstreamBytes": 2519996,
+      "sourceURL": "https://raw.githubusercontent.com/edwardkim/rhwp/f1f9c6ae58344ee9368996d3543f76b9345cf227/ttfs/opensource/NotoSansKR-Regular.ttf",
+      "restoredNow": true,
+      "includeDetails": [
+        {
+          "include": "engine/src/renderer/font_metrics_data.rs:317",
+          "consumerSymbol": "NOTO_SANS_KR_REGULAR",
+          "affectedTests": [
+            "issue_4442_noto_sans_kr_ascii_advances_match_tracked_font"
+          ]
+        }
+      ],
+      "directOriginalAndQAChecks": [
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/ttfs/opensource/NotoSansKR-Regular.ttf",
+          "exists": true,
+          "bytes": 2519996
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-build/engine/ttfs/opensource/NotoSansKR-Regular.ttf",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-engine/ttfs/opensource/NotoSansKR-Regular.ttf",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-upstream/ttfs/opensource/NotoSansKR-Regular.ttf",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/engine/ttfs/opensource/NotoSansKR-Regular.ttf",
+          "exists": false,
+          "bytes": null
+        }
+      ]
+    },
+    {
+      "path": "engine/samples/hwpx/aift.hwpx",
+      "upstreamPath": "samples/hwpx/aift.hwpx",
+      "upstreamBlob": "83eaf1947b35a004f80deb86e02b1d007aba3b80",
+      "upstreamBytes": 5056727,
+      "sourceURL": "https://raw.githubusercontent.com/edwardkim/rhwp/f1f9c6ae58344ee9368996d3543f76b9345cf227/samples/hwpx/aift.hwpx",
+      "restoredNow": false,
+      "includeDetails": [
+        {
+          "include": "engine/src/serializer/hwpx/header.rs:1495",
+          "consumerSymbol": "write_header_preserves_memo_properties_roundtrip",
+          "affectedTests": [
+            "write_header_preserves_memo_properties_roundtrip"
+          ]
+        }
+      ],
+      "directOriginalAndQAChecks": [
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/samples/hwpx/aift.hwpx",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-build/engine/samples/hwpx/aift.hwpx",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-engine/samples/hwpx/aift.hwpx",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-upstream/samples/hwpx/aift.hwpx",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/engine/samples/hwpx/aift.hwpx",
+          "exists": false,
+          "bytes": null
+        }
+      ]
+    },
+    {
+      "path": "engine/samples/hwpx/ref/ref_empty.hwpx",
+      "upstreamPath": "samples/hwpx/ref/ref_empty.hwpx",
+      "upstreamBlob": "4e25d9f916bc2d98c060569c9609148e64d60723",
+      "upstreamBytes": 12698,
+      "sourceURL": "https://raw.githubusercontent.com/edwardkim/rhwp/f1f9c6ae58344ee9368996d3543f76b9345cf227/samples/hwpx/ref/ref_empty.hwpx",
+      "restoredNow": true,
+      "includeDetails": [
+        {
+          "include": "engine/src/serializer/hwpx/header.rs:1517",
+          "consumerSymbol": "write_header_preserves_char_shape_count",
+          "affectedTests": [
+            "write_header_preserves_char_shape_count"
+          ]
+        },
+        {
+          "include": "engine/src/serializer/hwpx/header.rs:1530",
+          "consumerSymbol": "write_header_splices_doc_settings_tail_verbatim",
+          "affectedTests": [
+            "write_header_splices_doc_settings_tail_verbatim"
+          ]
+        },
+        {
+          "include": "engine/src/serializer/hwpx/header.rs:1556",
+          "consumerSymbol": "write_header_falls_back_to_hardcoded_tail_when_absent",
+          "affectedTests": [
+            "write_header_falls_back_to_hardcoded_tail_when_absent"
+          ]
+        },
+        {
+          "include": "engine/src/serializer/hwpx/header.rs:1576",
+          "consumerSymbol": "write_header_emits_seven_fontfaces_when_populated",
+          "affectedTests": [
+            "write_header_emits_seven_fontfaces_when_populated"
+          ]
+        },
+        {
+          "include": "engine/src/serializer/hwpx/header.rs:1741",
+          "consumerSymbol": "canonical_attr_order_charpr",
+          "affectedTests": [
+            "canonical_attr_order_charpr"
+          ]
+        }
+      ],
+      "directOriginalAndQAChecks": [
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/engine/samples/hwpx/ref/ref_empty.hwpx",
+          "exists": true,
+          "bytes": 12698
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-build/engine/samples/hwpx/ref/ref_empty.hwpx",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-engine/samples/hwpx/ref/ref_empty.hwpx",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-upstream/samples/hwpx/ref/ref_empty.hwpx",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/engine/samples/hwpx/ref/ref_empty.hwpx",
+          "exists": false,
+          "bytes": null
+        }
+      ]
+    }
+  ],
+  "sameBasenameDecoy": {
+    "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rhwp-upstream/tools/oracle_public/fixtures/mini_repo/samples/3-09월_교육_통합_2022.hwp",
+    "bytes": 12,
+    "expectedOriginalBytes": 5820416,
+    "used": false
+  },
+  "noPersonalDocumentsUsed": true,
+  "noTestSkipsAdded": true
+}

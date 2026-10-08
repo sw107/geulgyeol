@@ -1,0 +1,108 @@
+{
+  "diagnostic": "../search-span-qa/unit-run.log",
+  "compileErrors": 28,
+  "uniqueMissingFiles": 10,
+  "externalProvenanceVerified": false,
+  "personalDocumentSubstitutions": false,
+  "uploads": false,
+  "paths": [
+    {
+      "path": "engine/samples/3-09월_교육_통합_2022.hwp",
+      "includeSites": [
+        "engine/src/document_core/commands/document.rs:2808"
+      ],
+      "presentInCheckout": false,
+      "presentInOriginalRoot": false
+    },
+    {
+      "path": "engine/samples/hml/formatting_table.hml",
+      "includeSites": [
+        "engine/src/document_core/commands/document.rs:2834",
+        "engine/src/parser/mod.rs:2894",
+        "engine/src/wasm_api/tests.rs:24950",
+        "engine/src/wasm_api/tests.rs:24970",
+        "engine/src/wasm_api/tests.rs:24990",
+        "engine/src/wasm_api/tests.rs:25025",
+        "engine/src/wasm_api/tests.rs:25044",
+        "engine/src/wasm_api/tests.rs:25085"
+      ],
+      "presentInCheckout": false,
+      "presentInOriginalRoot": false
+    },
+    {
+      "path": "engine/samples/hwp3-sample16-hwp5.hwp",
+      "includeSites": [
+        "engine/src/document_core/commands/formatting.rs:2444"
+      ],
+      "presentInCheckout": false,
+      "presentInOriginalRoot": false
+    },
+    {
+      "path": "engine/samples/render-p35-font-native-bitmap.hwpx",
+      "includeSites": [
+        "engine/src/document_core/queries/rendering.rs:8409",
+        "engine/src/document_core/queries/rendering.rs:8693"
+      ],
+      "presentInCheckout": false,
+      "presentInOriginalRoot": false
+    },
+    {
+      "path": "engine/tests/fixtures/fonts/RHWPBitmapSvgGlyphSmoke.ttf",
+      "includeSites": [
+        "engine/src/document_core/queries/rendering.rs:8619",
+        "engine/src/paint/builder.rs:381",
+        "engine/src/paint/font_glyph.rs:1004"
+      ],
+      "presentInCheckout": false,
+      "presentInOriginalRoot": false
+    },
+    {
+      "path": "engine/tests/fixtures/fonts/RHWPExactFaceSmoke.ttc",
+      "includeSites": [
+        "engine/src/paint/font_glyph.rs:1013",
+        "engine/src/paint/json.rs:3174",
+        "engine/src/paint/text_v2.rs:840",
+        "engine/src/renderer/layer_renderer.rs:1066"
+      ],
+      "presentInCheckout": false,
+      "presentInOriginalRoot": false
+    },
+    {
+      "path": "engine/assets/logo/logo-32.png",
+      "includeSites": [
+        "engine/src/renderer/canvaskit_policy.rs:2270",
+        "engine/src/renderer/layer_renderer.rs:1065"
+      ],
+      "presentInCheckout": false,
+      "presentInOriginalRoot": false
+    },
+    {
+      "path": "engine/ttfs/opensource/NotoSansKR-Regular.ttf",
+      "includeSites": [
+        "engine/src/renderer/font_metrics_data.rs:317"
+      ],
+      "presentInCheckout": false,
+      "presentInOriginalRoot": false
+    },
+    {
+      "path": "engine/samples/hwpx/aift.hwpx",
+      "includeSites": [
+        "engine/src/serializer/hwpx/header.rs:1495"
+      ],
+      "presentInCheckout": false,
+      "presentInOriginalRoot": false
+    },
+    {
+      "path": "engine/samples/hwpx/ref/ref_empty.hwpx",
+      "includeSites": [
+        "engine/src/serializer/hwpx/header.rs:1517",
+        "engine/src/serializer/hwpx/header.rs:1530",
+        "engine/src/serializer/hwpx/header.rs:1556",
+        "engine/src/serializer/hwpx/header.rs:1576",
+        "engine/src/serializer/hwpx/header.rs:1741"
+      ],
+      "presentInCheckout": false,
+      "presentInOriginalRoot": false
+    }
+  ]
+}

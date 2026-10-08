@@ -1,0 +1,53 @@
+{
+  "version": "0.4.4-dev.4",
+  "native": {
+    "atomic_rejections": 17,
+    "cases": 48,
+    "large_document_paragraphs": 600,
+    "large_document_update_ms": 34,
+    "native_GUI_verified": false,
+    "other_styles_and_direct_format_preserved": true,
+    "snapshot_undo_redo_operations": 96,
+    "two_format_reopens": 96
+  },
+  "macPackage": {
+    "appVersion": "0.4.4-dev.4",
+    "engineSHA256": "ccac2d483f32fdfeea8dc717bf8f3767b91e7301a1b0f63b3586d77261b3c1d8",
+    "asarSHA256": "b868b25abfbb27516714546ac5312abda9dfbc645513c54704c8f115d7ba43ac",
+    "appFiles": 86,
+    "devDependenciesExcluded": true,
+    "profileIsolated": true,
+    "strictAdHocSignatureVerified": true,
+    "nativeGUIVerified": false,
+    "GUIAttempt": "getApp transport closed; candidate process absent afterwards",
+    "physicalIMEVerified": false
+  },
+  "desktopTests": {
+    "pass": 31,
+    "fail": 0,
+    "skip": 1,
+    "todo": 1
+  },
+  "UIControllerTests": {
+    "pass": 6,
+    "fail": 0
+  },
+  "macPackagedEngine": {
+    "fixtureCases": 16,
+    "twoFormatReopens": 32,
+    "snapshotUndoRedo": 32,
+    "pass": true
+  },
+  "typescript": true,
+  "vite": true,
+  "zipCRC": true,
+  "zipSHA256": "198bd47563ed58178b6b88beb0a43c8c5c22444bc023885487506457b790257f",
+  "dev3SourcePreserved": true,
+  "GUIVerified": false,
+  "LinuxVerified": false,
+  "LinuxBlock": "automatic approval review rejected SCP: explicit destination/file transfer approval missing",
+  "strictClippy": "8 diagnostics in unchanged source files; baseline/adjusted checks paused for storage cleanup",
+  "buildsRunning": false,
+  "pausedForStorageCleanup": true,
+  "newPublicPushOrRelease": false
+}

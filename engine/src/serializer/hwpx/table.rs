@@ -320,10 +320,10 @@ fn write_sub_list<W: Write>(
             ("id", ""),
             (
                 "textDirection",
-                if cell.text_direction == 1 {
-                    "VERTICAL"
-                } else {
-                    "HORIZONTAL"
+                match cell.text_direction {
+                    1 => "VERTICAL",
+                    2 => "VERTICALALL",
+                    _ => "HORIZONTAL",
                 },
             ),
             // [#4898] 종전엔 상수 "BREAK" 였다 — 원본이 SQUEEZE 인 셀도 BREAK 로 굳어

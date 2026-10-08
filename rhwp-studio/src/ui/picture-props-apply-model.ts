@@ -300,7 +300,7 @@ function appendBorder(
   form: PicturePropsApplyForm['line'],
 ): void {
   if (form.color !== undefined) addChanged(patch, 'borderColor', hexToColorRef(form.color), props.borderColor ?? 0);
-  if (form.width !== undefined) addChanged(patch, 'borderWidth', mmToHwp(form.width), props.borderWidth ?? 0);
+  addChangedMm(patch, 'borderWidth', form.width, props.borderWidth ?? 0);
 }
 
 function appendShapeLine(
@@ -356,12 +356,19 @@ function shapeFillType(form: PicturePropsApplyForm['shapeFill']): string {
 function appendSolidFill(
   patch: PicturePropsPatch,
   form: PicturePropsApplyForm['shapeFill'],
+  props: ShapeProperties,
 ): void {
   if (!form.solidColors) return;
-  addAlways(patch, 'fillBgColor', hexToColorRef(form.solidColors.face));
-  addAlways(patch, 'fillPatColor', hexToColorRef(form.solidColors.pattern));
+  const activating = props.fillType !== 'solid';
+  // The color picker displays only RGB. Retain CLR_NONE/upper-byte data when
+  // its displayed value was not edited; selecting solid from none is explicit.
+  const face = hexToColorRef(form.solidColors.face);
+  const pattern = hexToColorRef(form.solidColors.pattern);
+  if (activating || props.fillBgColor === undefined || face !== (props.fillBgColor & 0xffffff)) addAlways(patch, 'fillBgColor', face);
+  if (activating || props.fillPatColor === undefined || pattern !== (props.fillPatColor & 0xffffff)) addAlways(patch, 'fillPatColor', pattern);
   if (form.patternType !== undefined) {
-    addAlways(patch, 'fillPatType', integerOr(form.patternType, -1));
+    const next = integerOr(form.patternType, -1);
+    if (activating || props.fillPatType === undefined || (next !== props.fillPatType && !(next <= 0 && props.fillPatType <= 0))) addAlways(patch, 'fillPatType', next);
   }
 }
 
@@ -383,7 +390,7 @@ function appendShapeFill(
 ): void {
   const fillType = shapeFillType(form);
   addChanged(patch, 'fillType', fillType, props.fillType ?? 'none');
-  if (fillType === 'solid') appendSolidFill(patch, form);
+  if (fillType === 'solid') appendSolidFill(patch, form, props);
   if (fillType === 'gradient') appendGradientFill(patch, form);
   if (form.transparency !== undefined && (fillType === 'solid' || fillType === 'gradient')) {
     addAlways(patch, 'fillAlpha', Math.round(integerOr(form.transparency, 0) * 255 / 100));

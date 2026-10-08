@@ -149,7 +149,7 @@ pub struct Cell {
     pub paragraphs: Vec<Paragraph>,
     /// LIST_HEADER의 텍스트 영역 폭 참조 (라운드트립 보존용)
     pub list_header_width_ref: u16,
-    /// 텍스트 방향 (0: 가로, 1: 세로)
+    /// 텍스트 방향 (0: 가로, 1: 세로 영문 눕힘, 2: 세로 영문 세움)
     pub text_direction: u8,
     /// [#4898] 줄바꿈 방식 — LIST_HEADER `list_attr` bit 19~20, OWPML `lineWrap`.
     ///
@@ -1873,7 +1873,9 @@ impl Table {
             .map(|r| raw_row_heights.get(r as usize).copied().unwrap_or(0))
             .sum();
 
-        // 비주 셀의 비어있지 않은 문단 수집 (모든 메타데이터 보존)
+        // Move whole paragraphs: fields and nested controls own their offsets and
+        // CTRL_DATA inside this paragraph. Rebuilding only text/shape fields loses
+        // those owners while leaving their visible text or control slots behind.
         let mut extra_paragraphs: Vec<Paragraph> = Vec::new();
         for cell in &self.cells {
             if cell.col == start_col && cell.row == start_row {
@@ -1885,22 +1887,15 @@ impl Table {
                 && cell.row <= end_row;
             if in_range {
                 for para in &cell.paragraphs {
-                    if !para.text.is_empty() {
-                        extra_paragraphs.push(Paragraph {
-                            text: para.text.clone(),
-                            char_count: para.char_count,
-                            char_count_msb: para.char_count_msb,
-                            control_mask: para.control_mask,
-                            char_offsets: para.char_offsets.clone(),
-                            char_shapes: para.char_shapes.clone(),
-                            line_segs: para.line_segs.clone(),
-                            range_tags: para.range_tags.clone(),
-                            para_shape_id: para.para_shape_id,
-                            style_id: para.style_id,
-                            raw_header_extra: para.raw_header_extra.clone(),
-                            has_para_text: para.has_para_text,
-                            ..Default::default()
-                        });
+                    if !para.text.is_empty()
+                        || !para.controls.is_empty()
+                        || !para.field_ranges.is_empty()
+                        || !para.orphan_field_ends.is_empty()
+                        || !para.range_tags.is_empty()
+                        || !para.title_marks.is_empty()
+                        || para.ctrl_data_records.iter().any(Option::is_some)
+                    {
+                        extra_paragraphs.push(para.clone());
                     }
                 }
             }
@@ -2078,6 +2073,57 @@ impl Table {
     /// 지정한 행/열 수로 분할한다. 테이블 그리드에 새 행/열이 추가되고,
     /// 인접 셀은 col_span/row_span이 확장되어 기존 형태를 유지한다.
     pub fn split_cell_into(
+        &mut self,
+        target_row: u16,
+        target_col: u16,
+        n_rows: u16,
+        m_cols: u16,
+        equal_row_height: bool,
+        merge_first: bool,
+    ) -> Result<(), String> {
+        if n_rows == 0 || m_cols == 0 {
+            return Err("분할 행/열 수는 1 이상이어야 합니다".into());
+        }
+        let cell = self
+            .cells
+            .iter()
+            .find(|c| c.row == target_row && c.col == target_col)
+            .ok_or_else(|| format!("셀 ({target_row},{target_col})을 찾을 수 없습니다"))?;
+        if checked_table_span_end(cell.row, cell.row_span, "행")? > self.row_count
+            || checked_table_span_end(cell.col, cell.col_span, "열")? > self.col_count
+        {
+            return Err("분할 대상 셀 범위가 표 크기를 벗어납니다".into());
+        }
+        if n_rows == 1 && m_cols == 1 {
+            return Ok(());
+        }
+        // merge_first can successfully unmerge before a later split fails.
+        // Stage that two-step edit once; ordinary preflighted splits need no clone.
+        if merge_first && (cell.row_span > 1 || cell.col_span > 1) {
+            let mut staged = self.clone();
+            staged.split_cell_into_in_place(
+                target_row,
+                target_col,
+                n_rows,
+                m_cols,
+                equal_row_height,
+                true,
+            )?;
+            *self = staged;
+            Ok(())
+        } else {
+            self.split_cell_into_in_place(
+                target_row,
+                target_col,
+                n_rows,
+                m_cols,
+                equal_row_height,
+                false,
+            )
+        }
+    }
+
+    fn split_cell_into_in_place(
         &mut self,
         target_row: u16,
         target_col: u16,
@@ -2313,10 +2359,59 @@ impl Table {
         if n_rows < 1 || m_cols < 1 {
             return Err("분할 행/열 수는 1 이상이어야 합니다".to_string());
         }
+
+        if start_row > end_row
+            || start_col > end_col
+            || end_row >= self.row_count
+            || end_col >= self.col_count
+        {
+            return Err("셀 분할 범위가 표 크기를 벗어나거나 역순입니다".into());
+        }
+        for cell in &self.cells {
+            let row_end = checked_table_span_end(cell.row, cell.row_span, "행")?;
+            let col_end = checked_table_span_end(cell.col, cell.col_span, "열")?;
+            let overlaps = cell.row <= end_row
+                && row_end > start_row
+                && cell.col <= end_col
+                && col_end > start_col;
+            if overlaps
+                && (cell.row < start_row
+                    || row_end > end_row + 1
+                    || cell.col < start_col
+                    || col_end > end_col + 1)
+            {
+                return Err("셀 분할 범위가 병합 셀의 일부만 포함합니다".into());
+            }
+        }
         if n_rows == 1 && m_cols == 1 {
             return Ok(());
         }
+        // Later cells may fail after earlier ones have changed the grid. Commit
+        // the complete range only after every split succeeds.
+        let mut staged = self.clone();
+        staged.split_cells_in_range_in_place(
+            start_row,
+            start_col,
+            end_row,
+            end_col,
+            n_rows,
+            m_cols,
+            equal_row_height,
+        )?;
+        *self = staged;
+        Ok(())
+    }
 
+    fn split_cells_in_range_in_place(
+        &mut self,
+        start_row: u16,
+        start_col: u16,
+        end_row: u16,
+        end_col: u16,
+        n_rows: u16,
+        m_cols: u16,
+        equal_row_height: bool,
+    ) -> Result<(), String> {
         // 열 우선 순서: 우측→좌측 열, 각 열 내에서 하단→상단
         // 같은 열 내 분할은 col을 시프트하지 않고 col_span만 확장하므로 안전.
         // 우측 열 처리 후 좌측 열의 셀 col은 아직 원래 값을 유지한다.
@@ -2326,7 +2421,7 @@ impl Table {
                 if !self.cells.iter().any(|cell| cell.col == c && cell.row == r) {
                     continue;
                 }
-                self.split_cell_into(r, c, n_rows, m_cols, equal_row_height, false)?;
+                self.split_cell_into_in_place(r, c, n_rows, m_cols, equal_row_height, false)?;
             }
         }
 

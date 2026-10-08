@@ -112,6 +112,18 @@ pub fn serialize_control(
         }
         Control::Equation(eq) => serialize_equation_control(eq, level, records),
         Control::Field(f) => {
+            if let Some(original) = &f.hwp_memo_control {
+                let base = original.records[0].level;
+                for r in &original.records {
+                    records.push(Record {
+                        tag_id: r.tag_id,
+                        level: level + (r.level - base),
+                        size: r.data.len() as u32,
+                        data: r.data.clone(),
+                    });
+                }
+                return;
+            }
             // 필드 컨트롤 직렬화 (표 154)
             // ctrl_id(4) + 속성(4) + 기타속성(1) + command_len(2) + command(가변) + id(4)
             //
@@ -278,6 +290,9 @@ pub fn serialize_control(
 /// 순수 판정 함수로 분리해 단위 테스트가 실제 stderr 를 가로채지 않고도 이 조건을
 /// 검증할 수 있게 한다. 호출부(`serialize_control`)가 실제 경고를 `eprintln!` 한다.
 fn field_parameter_loss_warning(field: &Field) -> Option<String> {
+    if field.field_type == FieldType::Memo && crate::model::memo::parameters_preserved(field) {
+        return None; // These explicit metadata values survive in Command and are reconstructed on load.
+    }
     let lost: Vec<String> = field
         .parameters
         .items
@@ -2721,7 +2736,7 @@ fn write_parsed_rendering_matrix(w: &mut ByteWriter, attr: &ShapeComponentAttr) 
 
 /// 도형 채우기 직렬화 (SHAPE_COMPONENT 내부 — parse_fill과 동일한 형식)
 fn serialize_shape_fill(w: &mut ByteWriter, fill: &Fill) {
-    let fill_type_val: u32 = match fill.fill_type {
+    let fill_type_val: u32 = match fill.hwp_storage_type() {
         FillType::None => 0,
         FillType::Solid => 1,
         FillType::Image => 2,

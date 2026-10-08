@@ -1,0 +1,255 @@
+{
+  "engineSourceCommit": "a6dee6a26e1d8b505acdf0a1624a9dfda10e1bf6",
+  "app": "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app",
+  "version": "0.4.4-dev.6",
+  "engineSHA256": "83e65b74de7e02134c33408a872b3832de2da38479eed04121f706a640bb3faa",
+  "runtime": {
+    "node": "24.20.0",
+    "electron": "44.3.0",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "package": {
+    "app": "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app",
+    "version": "0.4.4-dev.6",
+    "bundleId": "org.geulgyeol.dev.checkpoint6",
+    "helpers": [
+      {
+        "name": "GeulgyeolDev6 Helper (GPU)",
+        "bundleId": "org.geulgyeol.dev.checkpoint6.helper.GPU"
+      },
+      {
+        "name": "GeulgyeolDev6 Helper (Plugin)",
+        "bundleId": "org.geulgyeol.dev.checkpoint6.helper.Plugin"
+      },
+      {
+        "name": "GeulgyeolDev6 Helper (Renderer)",
+        "bundleId": "org.geulgyeol.dev.checkpoint6.helper.Renderer"
+      },
+      {
+        "name": "GeulgyeolDev6 Helper",
+        "bundleId": "org.geulgyeol.dev.checkpoint6.helper"
+      }
+    ],
+    "asarSHA256": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+    "asarHeaderSHA256": "5226c93cd95913cea91f554b6ec5e0803c2fc72a85afb8831ed27befe5d27db1",
+    "allEntryAndBlockIntegrityVerified": true,
+    "freshBindingsAndStudioAssetsMatch": true,
+    "engineSHA256": "83e65b74de7e02134c33408a872b3832de2da38479eed04121f706a640bb3faa",
+    "compiledUIMethods": [
+      "applyCellOwnPropertiesByPaths",
+      "applyFormatCopyInCell",
+      "getCellOwnPropertiesByPath",
+      "getCellParaPropertiesAtByPath"
+    ],
+    "profileIsolated": true,
+    "onlyBindingsExtracted": true,
+    "allSymlinksStayInsideCandidate": true,
+    "noTestsOrNodeModulesInApp": true,
+    "GUIVerified": false
+  },
+  "adHocDeepStrictSignaturePassed": true,
+  "lifecycle": {
+    "version": "0.4.4-dev.6",
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false,
+    "profileBase": "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/profile",
+    "pid": 15530,
+    "basicProcessAndLocalServerPassed": true,
+    "htmlVersionMatched": true,
+    "servedEngineSHA256": "83e65b74de7e02134c33408a872b3832de2da38479eed04121f706a640bb3faa",
+    "processAlive": true,
+    "quitRequestExit": 0,
+    "quitStderr": "",
+    "normalQuit": true,
+    "finalProcessExit": 0
+  },
+  "cleanup": {
+    "candidateApp": "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app",
+    "remainingCandidateProcesses": [],
+    "normalQuitVerified": true
+  },
+  "nestedFormatCopy": {
+    "cases": 30,
+    "restores": 180,
+    "reopens": 60,
+    "rejections": 44,
+    "repeated": 30,
+    "wasmSHA256": "83e65b74de7e02134c33408a872b3832de2da38479eed04121f706a640bb3faa",
+    "inputHandlerSHA256": "5ea704d47e2f54720cf145da8a57b670f0edecbc1d3e7bcb8fd24aec3bc3c90b",
+    "bridgeSHA256": "6ca342ec40f16cceea77d057b7e13a89c869c8fe874218c9e58f3c23d7b7143f",
+    "GUIVerified": false,
+    "DOMAndCursorMocked": true,
+    "operationDispatchAdapter": true,
+    "physicalIMEVerified": false
+  },
+  "search": {
+    "cases": 12,
+    "defects": 0,
+    "reopens": 24,
+    "undoRestores": 12,
+    "node": "v24.20.0"
+  },
+  "tableRedo": {
+    "cases": 24,
+    "restores": 170,
+    "reopens": 82,
+    "rejections": 4,
+    "savedSVGEqualityRequired": true,
+    "wasmSHA256": "83e65b74de7e02134c33408a872b3832de2da38479eed04121f706a640bb3faa",
+    "findDialogSHA256": "fe95e003524f18893b07f83f142d0bc4c82e9e2a8f2efd7a94cad486cbe27ced",
+    "GUIVerified": false
+  },
+  "desktop": {
+    "pass": 31,
+    "fail": 0,
+    "skip": 1,
+    "TODO": 1,
+    "serverTestIncluded": true
+  },
+  "nextGap": {
+    "candidate": "Nested-cell direct paragraph formatting",
+    "actualUIMethodsExecuted": true,
+    "flatControlCases": 4,
+    "nestedBlockedCases": 8,
+    "rows": [
+      {
+        "depth": 1,
+        "action": "align-center",
+        "operationCalls": 1,
+        "blocked": false,
+        "unchanged": false,
+        "displayedMarginLeft": 8,
+        "innermostMarginLeft": 8
+      },
+      {
+        "depth": 1,
+        "action": "line-spacing",
+        "operationCalls": 1,
+        "blocked": false,
+        "unchanged": false,
+        "displayedMarginLeft": 8,
+        "innermostMarginLeft": 8
+      },
+      {
+        "depth": 1,
+        "action": "dialog-indent",
+        "operationCalls": 1,
+        "blocked": false,
+        "unchanged": false,
+        "displayedMarginLeft": 8,
+        "innermostMarginLeft": 8
+      },
+      {
+        "depth": 1,
+        "action": "block-align",
+        "operationCalls": 1,
+        "blocked": false,
+        "unchanged": false,
+        "displayedMarginLeft": 8,
+        "innermostMarginLeft": 8
+      },
+      {
+        "depth": 2,
+        "action": "align-center",
+        "operationCalls": 0,
+        "blocked": true,
+        "unchanged": true,
+        "displayedMarginLeft": 0,
+        "innermostMarginLeft": 8
+      },
+      {
+        "depth": 2,
+        "action": "line-spacing",
+        "operationCalls": 0,
+        "blocked": true,
+        "unchanged": true,
+        "displayedMarginLeft": 0,
+        "innermostMarginLeft": 8
+      },
+      {
+        "depth": 2,
+        "action": "dialog-indent",
+        "operationCalls": 0,
+        "blocked": true,
+        "unchanged": true,
+        "displayedMarginLeft": 0,
+        "innermostMarginLeft": 8
+      },
+      {
+        "depth": 2,
+        "action": "block-align",
+        "operationCalls": 0,
+        "blocked": true,
+        "unchanged": true,
+        "displayedMarginLeft": 0,
+        "innermostMarginLeft": 8
+      },
+      {
+        "depth": 3,
+        "action": "align-center",
+        "operationCalls": 0,
+        "blocked": true,
+        "unchanged": true,
+        "displayedMarginLeft": 0,
+        "innermostMarginLeft": 8
+      },
+      {
+        "depth": 3,
+        "action": "line-spacing",
+        "operationCalls": 0,
+        "blocked": true,
+        "unchanged": true,
+        "displayedMarginLeft": 0,
+        "innermostMarginLeft": 8
+      },
+      {
+        "depth": 3,
+        "action": "dialog-indent",
+        "operationCalls": 0,
+        "blocked": true,
+        "unchanged": true,
+        "displayedMarginLeft": 0,
+        "innermostMarginLeft": 8
+      },
+      {
+        "depth": 3,
+        "action": "block-align",
+        "operationCalls": 0,
+        "blocked": true,
+        "unchanged": true,
+        "displayedMarginLeft": 0,
+        "innermostMarginLeft": 8
+      }
+    ],
+    "engineSHA256": "83e65b74de7e02134c33408a872b3832de2da38479eed04121f706a640bb3faa",
+    "inputHandlerSHA256": "5ea704d47e2f54720cf145da8a57b670f0edecbc1d3e7bcb8fd24aec3bc3c90b",
+    "nativePathFormatterPresent": true,
+    "standaloneWasmPathParagraphSetterPresent": false,
+    "DOMAndCursorMocked": true,
+    "operationDispatchAdapter": true,
+    "GUIVerified": false
+  },
+  "candidateCount": 1,
+  "newZipCreated": false,
+  "qaAllocatedBytes": 370511872,
+  "sharedCargoTargetBytes": 2657779712,
+  "cargoTargetAddedBytes": 0,
+  "diskAtStart": "27GiB available; APFS total460GiB",
+  "protectedAppSHA256": {
+    "dev5": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+    "beta": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b"
+  },
+  "GUIControlToolsAvailable": false,
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxRuntimeVerified": false,
+  "libraryMissingFixtures": 3,
+  "libraryTestsRetriedThisTurn": false,
+  "publicPushOrRelease": false,
+  "sourceSHA256": {
+    "scripts/package-local-mac-integration.py": "4aabfee4d76882190088367e3c0d498fa707f861338a4af1550e8b225db880f9",
+    "scripts/check-local-mac-checkpoint.py": "55ca354a45e7b27a757a598f5be45b49d1a585472b3131b9d193d0a0320f49c2",
+    "scripts/check-nested-paragraph-gap.mjs": "ba6fa4d5b164f1f8f86d97cb71bc5853001080da6f57883909ca8835171c9b7c"
+  }
+}

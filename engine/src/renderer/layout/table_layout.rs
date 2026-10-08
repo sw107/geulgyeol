@@ -4855,6 +4855,7 @@ impl LayoutEngine {
             })
         });
         self.cell_has_square_float.set(cell_square_float);
+        let numbering_counters = self.cell_numbering_counters(&cell.paragraphs, styles, outline_numbering_id);
         // 셀 내 문단 + 컨트롤 통합 레이아웃
         let mut para_y = text_y_start;
         let mut has_preceding_text = false;
@@ -5087,11 +5088,12 @@ impl LayoutEngine {
             if !has_block_table_ctrl {
                 let is_last_para = cp_idx + 1 == composed_paras.len();
                 let numbered_comp = if start_line == 0 && end_line > start_line {
-                    self.apply_paragraph_numbering(
+                    self.apply_cell_paragraph_numbering(
                         Some(composed),
                         para,
                         styles,
                         outline_numbering_id,
+                        numbering_counters[cp_idx],
                     )
                 } else {
                     None
@@ -6216,6 +6218,7 @@ impl LayoutEngine {
                                     control_index: Some(ctrl_idx),
                                     cell_index: Some(cell_idx),
                                     cell_para_index: Some(cp_idx),
+                                    cell_context: None,
                                     note_ref: None,
                                 }),
                                 BoundingBox::new(eq_x, eq_y, eq_w, eq_h),

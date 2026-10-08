@@ -42,7 +42,7 @@ pub fn serialize_section(section: &Section) -> Vec<u8> {
 
     let mut records = Vec::new();
     let memo_lists = collect_memo_lists(section);
-    let has_memo_tail = !memo_lists.is_empty();
+    let has_memo_tail = section.memo_tail.is_some() || !memo_lists.is_empty();
     let para_count = section.paragraphs.len();
     // [Issue #1915] IR 계약 폴백: 첫 문단에 Control::SectionDef 가 없는 IR(HWP3 파서
     // 산출물, 외부 생성 IR)은 secd/PAGE_DEF 계열 레코드가 통째로 누락되어 재로드 시
@@ -89,6 +89,13 @@ pub fn serialize_section(section: &Section) -> Vec<u8> {
         };
         serialize_paragraph_with_msb(para_ref, 0, is_last, &mut records);
     }
+    if let Some(tail) = &section.memo_tail {
+        // Original container includes opaque records and possible extension masters.
+        // Export validation checks its owner/source seals before reaching this writer.
+        let mut bytes = write_records(&records);
+        bytes.extend_from_slice(&tail.bytes);
+        return bytes;
+    }
     if has_memo_tail {
         serialize_memo_tail(section, &memo_lists, &mut records);
     }
@@ -126,6 +133,7 @@ fn collect_memo_lists(section: &Section) -> Vec<(u32, Vec<Paragraph>)> {
             if let Control::Field(field) = ctrl {
                 if field.field_type == crate::model::control::FieldType::Memo
                     && !field.memo_paragraphs.is_empty()
+                    && field.hwp_memo_control.is_none()
                 {
                     memo_lists.push((field.memo_index, field.memo_paragraphs.clone()));
                 }
@@ -201,7 +209,7 @@ fn serialize_memo_tail(
         let mut memo_paragraphs = paragraphs.clone();
         for para in &mut memo_paragraphs {
             if para.raw_header_extra.len() < 12 {
-                para.raw_header_extra = vec![0; 12];
+                para.raw_header_extra.resize(12, 0);
             }
             // Hancom writes memo body paragraphs under MEMO_LIST without
             // PARA_LINE_SEG records. HWPX subList parsing may synthesize a
@@ -1153,6 +1161,7 @@ fn serialize_para_char_shape(char_shapes: &[CharShapeRef]) -> Vec<u8> {
 struct FieldEndMarker {
     ctrl_id: u32,
     memo_index: u32,
+    original: Option<[u16; 8]>,
 }
 
 fn field_end_marker(ctrl: &Control) -> FieldEndMarker {
@@ -1164,11 +1173,13 @@ fn field_end_marker(ctrl: &Control) -> FieldEndMarker {
             FieldEndMarker {
                 ctrl_id: tags::FIELD_MEMO,
                 memo_index: memo_field_index(field),
+                original: field.hwp_memo_control.as_ref().and_then(|o| o.end),
             }
         }
         Control::Field(field) => FieldEndMarker {
             ctrl_id: field.ctrl_id,
             memo_index: 0,
+            original: field.hwp_memo_control.as_ref().and_then(|o| o.end),
         },
         _ => FieldEndMarker::default(),
     }
@@ -1186,6 +1197,10 @@ fn parse_memo_index_from_command(command: &str) -> Option<u32> {
 }
 
 fn push_field_end_ctrl(code_units: &mut Vec<u16>, marker: FieldEndMarker) {
+    if let Some(original) = marker.original {
+        code_units.extend_from_slice(&original);
+        return;
+    }
     if marker.ctrl_id == tags::FIELD_MEMO {
         // Hancom writes MEMO field end with a distinct 8-code-unit marker:
         //   04 00 65 6d 25 00 01 ff ff 00 01 00 00 00 04 00
@@ -1387,7 +1402,13 @@ fn control_char_code_and_id(ctrl: &Control) -> (u16, u32) {
         // 통째로 버린다(0자·1쪽). `CTRL_CHAR_OVERLAP` 상수는 이름과 달리 'tdut'(덧말)이다.
         Control::Ruby(_) => (0x0017, tags::CTRL_CHAR_OVERLAP),
         Control::CharOverlap(_) => (0x0017, tags::CTRL_TCPS),
-        Control::Field(f) => (0x0003, f.ctrl_id),
+        Control::Field(f) => (
+            0x0003,
+            f.hwp_memo_control
+                .as_ref()
+                .and_then(|o| o.begin)
+                .map_or(f.ctrl_id, |b| b[1] as u32 | ((b[2] as u32) << 16)),
+        ),
         Control::Equation(_) => (0x000B, tags::CTRL_EQUATION),
         Control::Form(_) => (0x000B, tags::CTRL_FORM),
         Control::Unknown(u) => (0x000B, u.ctrl_id),
@@ -2506,6 +2527,7 @@ mod tests {
             paragraphs: vec![para],
             raw_stream: None,
             raw_provenance: None,
+            memo_tail: None,
         };
 
         let bytes = serialize_section(&section);

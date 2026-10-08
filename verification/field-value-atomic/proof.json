@@ -1,0 +1,5916 @@
+{
+  "baseCommit": "d1bf5316717e55d1514f6d3cbb735da1408eba6a",
+  "scope": "set_field_text_at paired field value replacement only; virtual named cell fields unchanged",
+  "nativeBefore": {
+    "observe": true,
+    "unsupported": [
+      {
+        "accepted": true,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 10,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  ",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 3,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                4,
+                7
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 1,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂새🙂뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 10,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  ",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 3,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                3,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 1,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": true,
+        "error": null,
+        "eventsPreserved": true,
+        "kind": "inner-note",
+        "panicked": false,
+        "rawStreamPreserved": false
+      },
+      {
+        "accepted": true,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                0,
+                1,
+                2,
+                7
+              ],
+              "ranges": [
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂새🙂뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                0,
+                1,
+                2,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": true,
+        "error": null,
+        "eventsPreserved": true,
+        "kind": "unknown",
+        "panicked": false,
+        "rawStreamPreserved": false
+      },
+      {
+        "accepted": true,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                4
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂새🙂"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                5
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 10,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": true,
+        "error": null,
+        "eventsPreserved": true,
+        "kind": "bad-end",
+        "panicked": false,
+        "rawStreamPreserved": false
+      },
+      {
+        "accepted": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                2,
+                5,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 1,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                2,
+                5,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 1,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": false,
+        "error": null,
+        "eventsPreserved": true,
+        "kind": "reversed",
+        "panicked": true,
+        "rawStreamPreserved": true
+      },
+      {
+        "accepted": true,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                2,
+                2,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂새🙂뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                2,
+                8,
+                9
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": true,
+        "error": null,
+        "eventsPreserved": true,
+        "kind": "bad-axis",
+        "panicked": false,
+        "rawStreamPreserved": false
+      },
+      {
+        "accepted": true,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                2,
+                7
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                },
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂새🙂뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "char_count": 16,
+                      "char_count_msb": true,
+                      "char_offsets": [
+                        0,
+                        8,
+                        9,
+                        10,
+                        11,
+                        13,
+                        14
+                      ],
+                      "char_shapes": [
+                        {
+                          "char_shape_id": 0,
+                          "start_pos": 0
+                        }
+                      ],
+                      "column_type": "None",
+                      "control_mask": 262144,
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "ctrl_data_records": [],
+                      "field_ranges": [],
+                      "has_para_text": true,
+                      "hwpx_axis_shift": 0,
+                      "layout_only_fill_lines": 0,
+                      "line_segs": [
+                        {
+                          "baseline_distance": 850,
+                          "column_start": 0,
+                          "line_height": 1000,
+                          "line_spacing": 600,
+                          "segment_width": 42519,
+                          "tag": 393216,
+                          "text_height": 1000,
+                          "text_start": 0,
+                          "vertical_pos": 0
+                        }
+                      ],
+                      "numbering_restart": null,
+                      "orphan_field_ends": [],
+                      "page_break_synthesized": false,
+                      "para_shape_id": 0,
+                      "range_tags": [],
+                      "raw_break_type": 0,
+                      "raw_header_extra": [],
+                      "single_line_overflow_memo": 0,
+                      "style_id": 11,
+                      "tab_extended": [],
+                      "text": "  인용🙂각주",
+                      "title_marks": []
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                3,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                },
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 3,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 3
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": true,
+        "error": null,
+        "eventsPreserved": true,
+        "kind": "nested-field",
+        "panicked": false,
+        "rawStreamPreserved": false
+      }
+    ]
+  },
+  "nativeAfter": {
+    "observe": false,
+    "reopens": 10,
+    "snapshotUndoRedo": 10,
+    "supported": [
+      {
+        "adjacent": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                7
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂새🙂뒤가나끝"
+            }
+          ]
+        ],
+        "value": "새🙂"
+      },
+      {
+        "adjacent": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                5
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 2,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂뒤가나끝"
+            }
+          ]
+        ],
+        "value": ""
+      },
+      {
+        "adjacent": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                7
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "value": "𐐀값"
+      },
+      {
+        "adjacent": true,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                4,
+                7
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                },
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 4
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂새🙂뒤가나끝"
+            }
+          ]
+        ],
+        "value": "새🙂"
+      },
+      {
+        "adjacent": true,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                4,
+                7
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                },
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 4,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 4
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "value": "𐐀값"
+      }
+    ],
+    "unsupported": [
+      {
+        "accepted": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  "
+                    }
+                  ]
+                },
+                {
+                  "number": 3,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                3,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 1,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  "
+                    }
+                  ]
+                },
+                {
+                  "number": 3,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                3,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 1,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": false,
+        "error": "필드 오류: 누름틀 편집: 제어 토큰 위치를 정확히 보존할 수 없는 문단",
+        "eventsPreserved": true,
+        "kind": "inner-note",
+        "panicked": false,
+        "rawStreamPreserved": true
+      },
+      {
+        "accepted": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                0,
+                1,
+                2,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                0,
+                1,
+                2,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": false,
+        "error": "필드 오류: 누름틀 편집: 제어 토큰 위치를 정확히 보존할 수 없는 문단",
+        "eventsPreserved": true,
+        "kind": "unknown",
+        "panicked": false,
+        "rawStreamPreserved": true
+      },
+      {
+        "accepted": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                5
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 10,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                5
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 10,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": false,
+        "error": "필드 오류: 누름틀 편집: 제어 토큰 위치를 정확히 보존할 수 없는 문단",
+        "eventsPreserved": true,
+        "kind": "bad-end",
+        "panicked": false,
+        "rawStreamPreserved": true
+      },
+      {
+        "accepted": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                2,
+                5,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 1,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                2,
+                5,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 1,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": false,
+        "error": "필드 오류: 누름틀 편집: 제어 토큰 위치를 정확히 보존할 수 없는 문단",
+        "eventsPreserved": true,
+        "kind": "reversed",
+        "panicked": false,
+        "rawStreamPreserved": true
+      },
+      {
+        "accepted": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                2,
+                8,
+                9
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                2,
+                8,
+                9
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": false,
+        "error": "필드 오류: 누름틀 편집: 제어 토큰 위치를 정확히 보존할 수 없는 문단",
+        "eventsPreserved": true,
+        "kind": "bad-axis",
+        "panicked": false,
+        "rawStreamPreserved": true
+      },
+      {
+        "accepted": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                3,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                },
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 3,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 3
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                3,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                },
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 3,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 3
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": false,
+        "error": "필드 오류: 필드 값 교체: 내부 제어/필드 소유권을 보존할 수 없는 범위",
+        "eventsPreserved": true,
+        "kind": "nested-field",
+        "panicked": false,
+        "rawStreamPreserved": true
+      },
+      {
+        "accepted": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                5,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                },
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 5
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                5,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                },
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 5
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": false,
+        "error": "필드 오류: 필드 값 교체: 내부 제어/필드 소유권을 보존할 수 없는 범위",
+        "eventsPreserved": true,
+        "kind": "boundary-clear",
+        "panicked": false,
+        "rawStreamPreserved": true
+      },
+      {
+        "accepted": false,
+        "after": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                2,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                },
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 2,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "before": [
+          [
+            {
+              "chars": [
+                7,
+                0,
+                0,
+                0,
+                0,
+                8,
+                0,
+                0,
+                0
+              ],
+              "notes": [
+                {
+                  "number": 1,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 1,
+                            "format": 0,
+                            "number": 1,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                },
+                {
+                  "number": 2,
+                  "paragraphs": [
+                    {
+                      "chars": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "controls": [
+                        {
+                          "AutoNumber": {
+                            "assigned_number": 2,
+                            "format": 0,
+                            "number": 2,
+                            "number_type": "Footnote",
+                            "prefix_char": "\u0000",
+                            "suffix_char": ")",
+                            "superscript": false,
+                            "user_symbol": "\u0000"
+                          }
+                        }
+                      ],
+                      "para": 0,
+                      "style": 11,
+                      "text": "  인용🙂각주"
+                    }
+                  ]
+                }
+              ],
+              "para": 0,
+              "positions": [
+                0,
+                0,
+                1,
+                2,
+                2,
+                8
+              ],
+              "ranges": [
+                {
+                  "control_idx": 3,
+                  "end_char_idx": 5,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                },
+                {
+                  "control_idx": 4,
+                  "end_char_idx": 2,
+                  "end_field_id": 0,
+                  "inner_slot_count": 0,
+                  "start_char_idx": 2
+                }
+              ],
+              "style": 0,
+              "text": "앞🙂옛𐐀값뒤가나끝"
+            }
+          ]
+        ],
+        "changed": false,
+        "error": "필드 오류: 필드 값 교체: 내부 제어/필드 소유권을 보존할 수 없는 범위",
+        "eventsPreserved": true,
+        "kind": "begin-collision",
+        "panicked": false,
+        "rawStreamPreserved": true
+      }
+    ]
+  },
+  "nativeRejectedApiCalls": 16,
+  "nativeFullDocumentComparisonsIncludeRawStream": true,
+  "nativeHistoryExcludedOnlySingleLineOverflowMemo": true,
+  "wasmBefore": {
+    "wasmSha256": "f0abe21a6227a522c9137987f73b8dcadc863445d53cc00bdeb6f015ac087af8",
+    "unsupported": 18,
+    "supported": 12,
+    "acceptedUnsupported": 18
+  },
+  "wasmAfter": {
+    "wasmSha256": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+    "unsupported": 18,
+    "supported": 10,
+    "acceptedUnsupported": 0
+  },
+  "wasmRejectedByteEqualityBothFormats": true,
+  "wasmSupportedReopens": 20,
+  "wasmSupportedUndoRedoPairs": 10,
+  "fixtureNormalization": [
+    {
+      "input": "../field-value-atomic-qa/native-after/supported-false.hwp",
+      "differences": [
+        {
+          "key": "model.paragraphs.0.para.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.para.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.para.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.0.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.0.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.0.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.1.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.1.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.1.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.2.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.2.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.2.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.3.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.3.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.3.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.4.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.4.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.4.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.5.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.5.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.5.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.6.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.6.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.6.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.7.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.7.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.7.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.8.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.8.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.8.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.para.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.para.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.para.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.0.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.0.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.0.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.1.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.1.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.1.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.2.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.2.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.2.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.3.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.3.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.3.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.4.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.4.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.4.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.5.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.5.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.5.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.6.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.6.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.6.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.para.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.para.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.para.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.0.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.0.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.0.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.1.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.1.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.1.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.2.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.2.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.2.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.3.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.3.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.3.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.4.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.4.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.4.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.5.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.5.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.5.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.6.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.6.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.6.patternType",
+          "before": -1,
+          "after": 0
+        }
+      ]
+    },
+    {
+      "input": "../field-value-atomic-qa/native-after/supported-false.hwpx",
+      "differences": []
+    },
+    {
+      "input": "../field-value-atomic-qa/native-after/supported-true.hwp",
+      "differences": [
+        {
+          "key": "model.paragraphs.0.para.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.para.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.para.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.0.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.0.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.0.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.1.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.1.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.1.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.2.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.2.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.2.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.3.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.3.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.3.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.4.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.4.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.4.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.5.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.5.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.5.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.6.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.6.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.6.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.7.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.7.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.7.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.paragraphs.0.chars.8.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.paragraphs.0.chars.8.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.paragraphs.0.chars.8.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.para.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.para.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.para.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.0.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.0.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.0.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.1.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.1.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.1.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.2.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.2.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.2.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.3.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.3.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.3.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.4.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.4.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.4.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.5.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.5.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.5.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.6.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.6.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.0.paragraphs.0.chars.6.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.para.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.para.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.para.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.0.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.0.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.0.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.1.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.1.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.1.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.2.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.2.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.2.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.3.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.3.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.3.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.4.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.4.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.4.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.5.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.5.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.5.patternType",
+          "before": -1,
+          "after": 0
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.6.fillType",
+          "before": "solid",
+          "after": "none"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.6.patternColor",
+          "before": "#999999",
+          "after": "#000000"
+        },
+        {
+          "key": "model.notes.1.paragraphs.0.chars.6.patternType",
+          "before": -1,
+          "after": 0
+        }
+      ]
+    },
+    {
+      "input": "../field-value-atomic-qa/native-after/supported-true.hwpx",
+      "differences": []
+    }
+  ],
+  "preservationRegression": {
+    "nativeReopens": 66,
+    "wasmCounts": {
+      "reopens": 54,
+      "undos": 24,
+      "redos": 24,
+      "rejections": 14,
+      "cellRegressions": 6
+    },
+    "additionalKnownCasesReopens": 4
+  },
+  "budget": {
+    "targetBytes": 3331448832,
+    "targetLimitBytes": 4294967296,
+    "diskFreeBytes": 25108480000,
+    "minimumFreeBytes": 10737418240
+  },
+  "builds": {
+    "native-test-final-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "field_value_atomic_check",
+        "--",
+        "../field-value-atomic-qa/native-after"
+      ],
+      "targetBeforeBytes": 3331448832,
+      "targetPeakBytes": 3332820992,
+      "targetFinalBytes": 3331448832,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25067520000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 4.18
+    },
+    "wasm-candidate-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib"
+      ],
+      "targetBeforeBytes": 3331358720,
+      "targetPeakBytes": 3331383296,
+      "targetFinalBytes": 3331383296,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25026560000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 129.24
+    },
+    "native-preservation-regression-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "clickhere_preservation_check",
+        "--",
+        "../field-value-atomic-qa/native-preservation-regression"
+      ],
+      "targetBeforeBytes": 3331342336,
+      "targetPeakBytes": 3331358720,
+      "targetFinalBytes": 3331358720,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25149440000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 4.17
+    },
+    "native-before-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "field_value_atomic_check",
+        "--",
+        "../field-value-atomic-qa/native-before",
+        "--observe"
+      ],
+      "targetBeforeBytes": 3259719680,
+      "targetPeakBytes": 3324358656,
+      "targetFinalBytes": 3324358656,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25149440000,
+      "stoppedReason": null,
+      "exitCode": 101,
+      "elapsedSeconds": 4.17
+    },
+    "native-after-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "field_value_atomic_check",
+        "--",
+        "../field-value-atomic-qa/native-after"
+      ],
+      "targetBeforeBytes": 3324358656,
+      "targetPeakBytes": 3416506368,
+      "targetFinalBytes": 3292037120,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25067520000,
+      "stoppedReason": null,
+      "exitCode": 101,
+      "elapsedSeconds": 24.68
+    },
+    "native-observe-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "field_value_atomic_check",
+        "--",
+        "../field-value-atomic-qa/native-before",
+        "--observe"
+      ],
+      "targetBeforeBytes": 3324358656,
+      "targetPeakBytes": 3324358656,
+      "targetFinalBytes": 3324358656,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25149440000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 4.19
+    },
+    "native-preservation-final-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "clickhere_preservation_check",
+        "--",
+        "../field-value-atomic-qa/native-preservation-regression"
+      ],
+      "targetBeforeBytes": 3331448832,
+      "targetPeakBytes": 3331448832,
+      "targetFinalBytes": 3331440640,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25108480000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 2.1
+    },
+    "native-boundary-final-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "field_value_atomic_check",
+        "--",
+        "../field-value-atomic-qa/native-after"
+      ],
+      "targetBeforeBytes": 3331383296,
+      "targetPeakBytes": 3428339712,
+      "targetFinalBytes": 3331448832,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25026560000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 26.75
+    },
+    "native-fixed-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "field_value_atomic_check",
+        "--",
+        "../field-value-atomic-qa/native-after"
+      ],
+      "targetBeforeBytes": 3292037120,
+      "targetPeakBytes": 3331407872,
+      "targetFinalBytes": 3331407872,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25149440000,
+      "stoppedReason": null,
+      "exitCode": 101,
+      "elapsedSeconds": 2.12
+    },
+    "native-final-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "field_value_atomic_check",
+        "--",
+        "../field-value-atomic-qa/native-after"
+      ],
+      "targetBeforeBytes": 3331407872,
+      "targetPeakBytes": 3426238464,
+      "targetFinalBytes": 3331342336,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25067520000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 26.75
+    },
+    "wasm-final-build-proof": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib"
+      ],
+      "targetBeforeBytes": 3331440640,
+      "targetPeakBytes": 3331448832,
+      "targetFinalBytes": 3331448832,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 25067520000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 131.29
+    }
+  },
+  "preservation": {
+    "protectedApps": [
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar",
+        "sha256": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar",
+        "sha256": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar",
+        "sha256": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar",
+        "sha256": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129"
+      }
+    ],
+    "officialPkgWasmSha256": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "previousCandidateWasmSha256": "f0abe21a6227a522c9137987f73b8dcadc863445d53cc00bdeb6f015ac087af8",
+    "candidateWasmPath": "/Users/sw107/Documents/Codex/2026-10-06/task/field-value-atomic-qa/pkg/rhwp_bg.wasm",
+    "candidateWasmSha256": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+    "changedProductionFiles": [
+      "engine/src/document_core/queries/field_query.rs"
+    ],
+    "productionSourceSha256": "ca5ed628ebb8fc880a3d52aeb222070ae1eb5517854dac5e1d64753b428e4f16",
+    "cacheFilesDeleted": 0,
+    "newPackaging": false,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "LinuxVerified": false,
+    "publicPushOrRelease": false
+  },
+  "evidence": {
+    "native-before/proof.json": {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/field-value-atomic-qa/native-before/proof.json",
+      "sha256": "175ecdba1c82a9a501e8d39bb4a4f4e2825acb776401a2138feac152a920abdb"
+    },
+    "native-after/proof.json": {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/field-value-atomic-qa/native-after/proof.json",
+      "sha256": "c91236dd773ef8d67de783b9f4adc7046b0341147cfe1235db97dda0bfa262f9"
+    },
+    "wasm-before-final/proof.json": {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/field-value-atomic-qa/wasm-before-final/proof.json",
+      "sha256": "1a621522a447f38395ced6418a2cf69a8f3957da12792db846319c5947de7540"
+    },
+    "wasm-final/proof.json": {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/field-value-atomic-qa/wasm-final/proof.json",
+      "sha256": "68bd67b9832beb014438c93dbb52d39edf94e3e5ce4887095c77bcc7be577585"
+    },
+    "boundary-before/proof.json": {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/field-value-atomic-qa/boundary-before/proof.json",
+      "sha256": "a6b454a5a57bf2261c4f594b32bde7c7494ccf30caea480b2ee3f488a7eb161a"
+    },
+    "wasm-preservation-final/proof.json": {
+      "path": "/Users/sw107/Documents/Codex/2026-10-06/task/field-value-atomic-qa/wasm-preservation-final/proof.json",
+      "sha256": "95d6701a105a4f8c1261c5a88b13bcda0a95a093c80fd4d2653500cf4d443123"
+    }
+  },
+  "limitations": [
+    "Unsupported field boundaries that would collide on clearing reject before mutation; serializer ownership fix deferred",
+    "Unknown control format conversion is not certified by identical before/after export bytes",
+    "Malformed IR cases Native only where file parsers canonicalize the malformed ranges",
+    "Library test fixtures remain missing; not re-run or bypassed",
+    "Actual Mac GUI/physical IME/Linux/app integration not run"
+  ],
+  "testSourceSha256": {
+    "engine/examples/field_value_atomic_check.rs": "5181799bcd4f31315ebda31d8503a3b3454c4e09b5a584ce911a4fdb69e028f0",
+    "scripts/check-field-value-atomic.mjs": "dd92ac58884368be95484764f92476cf9fb7ed513bec2c424e58932a670a8354"
+  }
+}

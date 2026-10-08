@@ -31,7 +31,7 @@ export const MUTATING_METHODS: readonly string[] = [
   'splitParagraphInCell', 'mergeParagraphInCell', 'splitParagraphInCellByPath',
   'mergeParagraphInCellByPath',
   // 표 구조/속성
-  'createTable', 'createTableEx', 'deleteTableControl', 'insertTableRow', 'splitTable', 'mergeTableWithNext',
+  'createTable', 'createTableEx', 'deleteTableControl', 'insertTableRow', 'editNestedTableRow', 'splitTable', 'mergeTableWithNext',
   'insertTableColumn', 'deleteTableRow', 'deleteTableColumn', 'mergeTableCells',
   'splitTableCell', 'splitTableCellInto', 'splitTableCellsInRange', 'resizeTableCells',
   'moveTableOffset', 'setTableProperties', 'setCellProperties', 'setCellZoneProperties',
@@ -42,9 +42,10 @@ export const MUTATING_METHODS: readonly string[] = [
   'insertPicture', 'assignPictureImage', 'setPictureProperties',
   'setHeaderFooterPictureProperties', 'setCellPicturePropertiesByPath',
   'setCellShapePropertiesByPath', 'deletePictureControl', 'deleteCellPictureControlByPath',
-  'createShapeControl', 'setShapeProperties', 'deleteShapeControl', 'changeShapeZOrder',
+  'createShapeControl', 'setShapeProperties', 'setBodyRectangleWidth', 'deleteShapeControl', 'changeShapeZOrder',
   'applyShapeZOrderPairs', // [#5769 후속] z 절대 대입 — SetZOrderCommand 의 undo/redo 경로
   'groupShapes', 'ungroupShape', 'moveLineEndpoint', 'updateConnectorsInSection',
+  'insertEquationInCell', 'setEquationPropertiesInCell', 'deleteEquationControlInCell',
   'insertEquation', 'setEquationProperties', 'setNoteEquationProperties', 'deleteEquationControl',
   // 차트 데이터 (#4694) — bin_data_content 슬롯 바이트 변이 (IR 무변경이지만 직렬화 결과가 바뀐다)
   'setChartData', 'setChartDataByIndex',
@@ -60,7 +61,7 @@ export const MUTATING_METHODS: readonly string[] = [
   'setCharShapeIdInCell', 'setCharShapeIdInCellByPath',
   'applyParaFormat', 'setParaShapeId', 'applyParaFormatInCell', 'setCellParaShapeId',
   // 스타일/번호 정의 (DocInfo 변이 포함)
-  'updateStyle', 'updateStyleShapes', 'createStyle', 'deleteStyle', 'applyStyle',
+  'updateStyle', 'updateStyleShapes', 'updateStyleShapesPreservingOverrides', 'createStyle', 'deleteStyle', 'deleteStylePreservingFormat', 'applyStyle',
   'applyCellStyle', 'createNumbering', 'ensureDefaultNumbering', 'ensureDefaultBullet',
   'findOrCreateFontId', 'findOrCreateFontIdForLang',
   // 머리말/꼬리말
@@ -70,6 +71,9 @@ export const MUTATING_METHODS: readonly string[] = [
   'applyCharFormatInHeaderFooter', 'applyParaFormatInHf', 'insertFieldInHf', 'applyHfTemplate',
   // 필드/양식/찾아바꾸기/책갈피
   'setFieldValue', 'setFieldValueByName', 'removeFieldAt', 'insertClickHereField',
+  'insertBodyHyperlink', 'updateBodyHyperlink', 'removeBodyHyperlink',
+  'insertBodyComment', 'updateBodyComment', 'removeBodyComment',
+  'insertCellHyperlinkByPath', 'updateCellHyperlinkByPath', 'removeCellHyperlinkByPath',
   'updateClickHereProps', 'setFormValue', 'setFormValueInCell',
   'replaceText', 'replaceOne', 'replaceAll',
   'addBookmark', 'deleteBookmark', 'renameBookmark',

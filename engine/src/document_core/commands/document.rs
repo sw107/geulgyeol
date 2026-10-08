@@ -3,7 +3,7 @@
 use crate::document_core::validation::{
     CellPath, ValidationReport, ValidationWarning, WarningKind,
 };
-use crate::document_core::{DocumentCore, DEFAULT_FALLBACK_FONT};
+use crate::document_core::{DocumentCore, DocumentSnapshot, SnapshotComposition, DEFAULT_FALLBACK_FONT};
 use crate::error::HwpError;
 use crate::model::control::Control;
 use crate::model::document::Document;
@@ -2324,9 +2324,85 @@ impl DocumentCore {
     /// 현재 Document를 클론하여 스냅샷 저장소에 보관한다.
     /// 반환값: 스냅샷 ID (u32)
     pub fn save_snapshot_native(&mut self) -> u32 {
+        self.save_snapshot_impl(None)
+    }
+
+    /// Opt-in Enter history: retain the exact document plus bounded plain composition.
+    /// Complex shaping/projection falls back to the normal snapshot restore.
+    pub fn save_snapshot_with_composition_native(&mut self) -> u32 {
+        const ENTRY_LIMIT: usize = 16 * 1024 * 1024;
+        const STORE_LIMIT: usize = 32 * 1024 * 1024;
+        let composition = self.capture_plain_snapshot_composition(ENTRY_LIMIT);
+        if let Some(ref cache) = composition {
+            let mut used: usize = self.snapshot_store.iter()
+                .filter_map(|(_, s)| s.composition.as_ref().map(|c| c.bytes)).sum();
+            for (_, snapshot) in &mut self.snapshot_store {
+                if used.saturating_add(cache.bytes) <= STORE_LIMIT { break; }
+                if let Some(old) = snapshot.composition.take() { used -= old.bytes; }
+            }
+        }
+        self.save_snapshot_impl(composition)
+    }
+
+    /// Native diagnostics for the bounded optional cache; not a WASM export.
+    #[doc(hidden)]
+    pub fn snapshot_composition_cache_bytes_native(&self) -> usize {
+        self.snapshot_store.iter().filter_map(|(_, s)| s.composition.as_ref().map(|c| c.bytes)).sum()
+    }
+
+    fn capture_plain_snapshot_composition(&self, limit: usize) -> Option<SnapshotComposition> {
+        if self.batch_mode || self.dirty_sections.iter().any(|dirty| *dirty)
+            || self.composed.len() != self.document.sections.len()
+            || self.measured_sections.len() != self.document.sections.len()
+            || self.render_normalization.sections.iter().any(Option::is_some)
+            || self.styles.horizontal_shaping_context.is_some()
+            || self.document.doc_info.font_faces.iter().flatten().any(|f|
+                f.is_embedded || f.subst_font.as_ref().is_some_and(|f| f.is_embedded)) {
+            return None;
+        }
+        use crate::renderer::composer::{ComposedLine, ComposedTextRun, InlineControl};
+        use std::mem::size_of;
+        let mut bytes = self.composed.len().saturating_mul(size_of::<Vec<crate::renderer::composer::ComposedParagraph>>());
+        for (section, model) in self.composed.iter().zip(&self.document.sections) {
+            if section.len() != model.paragraphs.len() { return None; }
+            for p in section {
+                if p.horizontal_shaping.is_some() || p.picture_chain_projection.is_some()
+                    || p.numbering_text.is_some() || !p.footnote_positions.is_empty() { return None; }
+                bytes = bytes.saturating_add(size_of::<crate::renderer::composer::ComposedParagraph>())
+                    .saturating_add(p.lines.len().saturating_mul(size_of::<ComposedLine>()))
+                    .saturating_add(p.inline_controls.len().saturating_mul(size_of::<InlineControl>()))
+                    .saturating_add(p.tac_controls.len().saturating_mul(size_of::<(usize,i32,usize)>()))
+                    .saturating_add(p.tab_extended.len().saturating_mul(size_of::<[u16;7]>()));
+                for line in &p.lines {
+                    bytes = bytes.saturating_add(line.runs.len().saturating_mul(size_of::<ComposedTextRun>()));
+                    for run in &line.runs {
+                        if run.char_overlap.is_some() || run.footnote_marker.is_some() { return None; }
+                        bytes = bytes.saturating_add(run.text.len()).saturating_add(run.display_text.as_ref().map_or(0, |t| t.len()));
+                    }
+                }
+                if bytes > limit { return None; }
+            }
+        }
+        use crate::renderer::height_measurer::MeasuredParagraph;
+        bytes = bytes.saturating_add(self.measured_sections.len().saturating_mul(size_of::<Vec<MeasuredParagraph>>()));
+        for (section, model) in self.measured_sections.iter().zip(&self.document.sections) {
+            if section.fallback_paragraphs.len() != model.paragraphs.len() { return None; }
+            bytes = bytes.saturating_add(section.fallback_paragraphs.len().saturating_mul(size_of::<MeasuredParagraph>()));
+            for p in &section.fallback_paragraphs {
+                bytes = bytes.saturating_add(p.line_heights.len().saturating_mul(size_of::<f64>()))
+                    .saturating_add(p.line_spacings.len().saturating_mul(size_of::<f64>()));
+                if bytes > limit { return None; }
+            }
+        }
+        Some(SnapshotComposition { dpi: self.dpi, hangul2024_compat: self.hangul2024_compat,
+            bytes, paragraphs: self.composed.clone(),
+            measured_paragraphs: self.measured_sections.iter().map(|s| s.fallback_paragraphs.clone()).collect() })
+    }
+
+    fn save_snapshot_impl(&mut self, composition: Option<SnapshotComposition>) -> u32 {
         let id = self.next_snapshot_id;
         self.next_snapshot_id += 1;
-        self.snapshot_store.push((id, self.document.clone()));
+        self.snapshot_store.push((id, DocumentSnapshot { document: self.document.clone(), composition }));
         // 최대 100개 제한 — 초과 시 가장 오래된 스냅샷 제거.
         // [Task #2328] studio 히스토리(rhwp-studio/src/engine/history.ts 의
         // WASM_MAX_SNAPSHOTS)와 양방향 결합. 이 값을 studio 예산(MAX-2)보다 낮추면
@@ -2366,11 +2442,18 @@ impl DocumentCore {
             .iter()
             .position(|(sid, _)| *sid == id)
             .ok_or_else(|| HwpError::RenderError(format!("스냅샷 {} 없음", id)))?;
-        let (_, doc) = self.snapshot_store[idx].clone();
-        self.document = doc;
+        let (_, snapshot) = self.snapshot_store[idx].clone();
+        self.document = snapshot.document;
         self.bump_bin_data_epoch();
-        // 문서를 통째로 갈아끼웠으므로 파생 상태는 전부 새 원본에서 다시 만든다.
-        self.rebuild_derived_state();
+        if let Some(cache) = snapshot.composition.filter(|c|
+            c.dpi == self.dpi && c.hangul2024_compat == self.hangul2024_compat) {
+            self.rebuild_resolved_styles();
+            self.rebuild_embedded_exact_font_sources();
+            self.composed = cache.paragraphs;
+            self.finish_derived_state_rebuild_with_measurements(Some(cache.measured_paragraphs));
+        } else {
+            self.rebuild_derived_state();
+        }
         Ok(super::super::helpers::json_ok())
     }
 

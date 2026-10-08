@@ -1438,6 +1438,9 @@ pub struct EquationNode {
     pub cell_index: Option<usize>,
     /// 표 셀 내 수식인 경우: 셀 내 문단 인덱스
     pub cell_para_index: Option<usize>,
+    /// 셀 수식의 전체 주소. control_index는 해당 셀 문단의 수식 인덱스다.
+    #[serde(default)]
+    pub cell_context: Option<crate::renderer::layout::CellContext>,
     /// 각주/미주 내부 수식인 경우 원본 위치
     pub note_ref: Option<NoteControlRef>,
 }

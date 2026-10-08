@@ -776,6 +776,12 @@ impl DocumentCore {
         table
             .split_cell_into(row, col, n_rows, m_cols, equal_row_height, merge_first)
             .map_err(|e| HwpError::RenderError(e))?;
+        if n_rows == 1 && m_cols == 1 {
+            return Ok(super::super::helpers::json_ok_with(&format!(
+                "\"cellCount\":{}",
+                table.cells.len()
+            )));
+        }
         table.dirty = true;
         let cell_count = table.cells.len();
 
@@ -886,6 +892,12 @@ impl DocumentCore {
                 equal_row_height,
             )
             .map_err(|e| HwpError::RenderError(e))?;
+        if n_rows == 1 && m_cols == 1 {
+            return Ok(super::super::helpers::json_ok_with(&format!(
+                "\"cellCount\":{}",
+                table.cells.len()
+            )));
+        }
         table.dirty = true;
         let cell_count = table.cells.len();
 
@@ -1188,7 +1200,7 @@ impl DocumentCore {
                     )
                 }).collect();
                 let (fill_type_str, fill_color, pat_color, pat_type) = match &bf.fill.solid {
-                    Some(sf) if bf.fill.fill_type == FillType::Solid => {
+                    Some(sf) if bf.fill.effective_type() == FillType::Solid => {
                         ("solid", color_ref_to_css(sf.background_color),
                          color_ref_to_css(sf.pattern_color), sf.pattern_type)
                     }
@@ -1319,6 +1331,15 @@ impl DocumentCore {
             }
         };
 
+        self.build_cell_properties_json(table, cell_idx, use_effective_border_fill)
+    }
+
+    pub(crate) fn build_cell_properties_json(
+        &self,
+        table: &crate::model::table::Table,
+        cell_idx: usize,
+        use_effective_border_fill: bool,
+    ) -> Result<String, HwpError> {
         let cell = table
             .cells
             .get(cell_idx)
@@ -1715,7 +1736,7 @@ impl DocumentCore {
             .and_then(|v| v.as_u64())
             .map(|v| v as u16)
             .unwrap_or(0);
-        if incoming_bf_id == 0 {
+        if incoming_bf_id == 0 && obj.contains_key("borderFillId") {
             return json.to_string();
         }
 
@@ -1734,6 +1755,17 @@ impl DocumentCore {
         let Some(cell) = table.cells.get(cell_idx) else {
             return json.to_string();
         };
+        if incoming_bf_id == 0 {
+            // A fill-only patch must inherit the cell's existing borders and
+            // diagonals rather than the new BorderFill's default solid lines.
+            obj.insert("borderFillId".to_string(), serde_json::Value::from(cell.border_fill_id));
+            if cell.border_fill_id == 0 {
+                for key in ["borderLeft", "borderRight", "borderTop", "borderBottom"] {
+                    obj.entry(key).or_insert_with(|| serde_json::json!({"type":0,"width":0,"color":"#000000"}));
+                }
+            }
+            return serde_json::to_string(&value).unwrap_or_else(|_| json.to_string());
+        }
         if cell.border_fill_id == incoming_bf_id
             || !Self::cell_is_covered_by_zone_border_fill(table, cell, incoming_bf_id)
         {
@@ -1761,7 +1793,7 @@ impl DocumentCore {
         serde_json::to_string(&value).unwrap_or_else(|_| json.to_string())
     }
 
-    fn cell_is_covered_by_zone_border_fill(
+    pub(crate) fn cell_is_covered_by_zone_border_fill(
         table: &crate::model::table::Table,
         cell: &crate::model::table::Cell,
         border_fill_id: u16,
@@ -2817,18 +2849,20 @@ impl DocumentCore {
 
         let bf_json = self.build_border_fill_json_by_id(table.border_fill_id);
 
-        // raw_ctrl_data에서 표 크기 & 바깥 여백 추출 (parse_common_obj_attr 정합)
+        // HWP retains raw size fields; HWPX has no raw header and stores the
+        // declared size in common. Do not infer sizes from cells: zero may
+        // intentionally represent an unspecified/automatic dimension.
         // [0..4]=flags, [4..8]=v_offset, [8..12]=h_offset, [12..16]=width, [16..20]=height
         let rd = &table.raw_ctrl_data;
         let table_width = if rd.len() >= common_obj_offsets::WIDTH.end {
             u32::from_le_bytes(rd[common_obj_offsets::WIDTH].try_into().unwrap())
         } else {
-            0
+            table.common.width
         };
         let table_height = if rd.len() >= common_obj_offsets::HEIGHT.end {
             u32::from_le_bytes(rd[common_obj_offsets::HEIGHT].try_into().unwrap())
         } else {
-            0
+            table.common.height
         };
         // outer_margin: [24..32] (parse_common_obj_attr 정합)
         // [20..24]=z_order, [24..26]=left, [26..28]=right, [28..30]=top, [30..32]=bottom
@@ -3278,7 +3312,19 @@ impl DocumentCore {
             || json.contains("\"diagonalColor\"")
             || json.contains("\"centerLine\"");
         if has_border_fill_change {
-            let new_bf_id = self.create_border_fill_from_json(json);
+            // Preserve unspecified attributes in partial table fill edits.
+            let mut border_json = serde_json::from_str::<serde_json::Value>(json)
+                .unwrap_or(serde_json::Value::Null);
+            if let Some(obj) = border_json.as_object_mut() {
+                obj.entry("borderFillId").or_insert_with(|| serde_json::Value::from(table.border_fill_id));
+                if table.border_fill_id == 0 && !json.contains("\"borderFillId\"") {
+                    for key in ["borderLeft", "borderRight", "borderTop", "borderBottom"] {
+                        obj.entry(key).or_insert_with(|| serde_json::json!({"type":0,"width":0,"color":"#000000"}));
+                    }
+                }
+            }
+            let border_json = serde_json::to_string(&border_json).unwrap_or_else(|_| json.to_string());
+            let new_bf_id = self.create_border_fill_from_json(&border_json);
             let table = self.get_table_mut(section_idx, parent_para_idx, control_idx)?;
             table.border_fill_id = new_bf_id;
             for cell in &mut table.cells {

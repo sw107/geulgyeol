@@ -1,3 +1,4 @@
+import { deleteEquationSelection, getEquationSelectionProperties, setEquationSelectionProperties } from './equation-target';
 /** input-handler picture/shape methods — extracted from InputHandler class */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -165,10 +166,12 @@ export function promptAssignPictureImage(this: any, ref: PictureObjectRef): void
   input.accept = 'image/png,image/jpeg,image/gif,image/bmp,image/webp';
   input.onchange = async () => {
     const file = input.files?.[0];
-    if (!file) return;
+    if (!file || this.wasm.documentWritesLocked) return;
+    const generation = this.wasm.documentGeneration;
     let objectUrl = '';
     try {
       const data = new Uint8Array(await file.arrayBuffer());
+      if (this.wasm.documentWritesLocked || this.wasm.documentGeneration !== generation) return;
       const ext = file.name.split('.').pop()?.toLowerCase() || 'png';
       const img = new Image();
       objectUrl = URL.createObjectURL(file);
@@ -184,6 +187,7 @@ export function promptAssignPictureImage(this: any, ref: PictureObjectRef): void
         img.src = objectUrl;
       });
       const cellPathJson = hasCellPath(ref) ? JSON.stringify(ref.cellPath) : '';
+      if (this.wasm.documentWritesLocked || this.wasm.documentGeneration !== generation) return;
       // 지정 후에는 실그림이므로 placeholder 선택 상태를 먼저 해제한다
       // (스냅샷 실행의 full refresh 가 stale 선택 표시를 남기지 않도록).
       this.cursor.exitPictureObjectSelection();
@@ -538,6 +542,7 @@ export function isShapeBorderClick(this: any,
 
 /** 개체 속성을 타입에 따라 조회한다. */
 export function getObjectProperties(this: any, ref: PictureObjectRef): any {
+  if (ref.type === 'equation') return getEquationSelectionProperties(this.wasm, ref);
   if (ref.type === 'shape' || ref.type === 'line' || ref.type === 'group' || ref.type === 'ole') {
     if (hasCellPath(ref)) {
       return this.wasm.getCellShapePropertiesByPath(ref.sec, ref.ppi, ref.cellPath, ref.ci);
@@ -561,6 +566,7 @@ export function getObjectProperties(this: any, ref: PictureObjectRef): any {
 
 /** 개체 속성을 타입에 따라 변경한다. */
 export function setObjectProperties(this: any, ref: PictureObjectRef, props: Record<string, unknown>): void {
+  if (ref.type === 'equation') { setEquationSelectionProperties(this.wasm, ref, props); return; }
   if (ref.type === 'shape' || ref.type === 'line' || ref.type === 'group' || ref.type === 'ole') {
     if (hasCellPath(ref)) {
       this.wasm.setCellShapePropertiesByPath(ref.sec, ref.ppi, ref.cellPath, ref.ci, props);
@@ -603,7 +609,7 @@ export function deleteObjectControl(this: any, ref: PictureObjectRef): void {
   if (ref.type === 'shape' || ref.type === 'group' || ref.type === 'line' || ref.type === 'ole') {
     this.wasm.deleteShapeControl(ref.sec, ref.ppi, ref.ci);
   } else if (ref.type === 'equation') {
-    this.wasm.deleteEquationControl(ref.sec, ref.ppi, ref.ci);
+    deleteEquationSelection(this.wasm, ref);
   } else {
     if (hasCellPath(ref)) {
       this.wasm.deleteCellPictureControlByPath(ref.sec, ref.ppi, ref.cellPath, ref.ci);

@@ -1,3 +1,4 @@
+import type { EquationCellTarget } from '@/engine/equation-target';
 import type { WasmBridge } from '@/core/wasm-bridge';
 import type { EventBus } from '@/core/event-bus';
 import type { EquationProperties, NoteControlRef } from '@/core/types';
@@ -248,6 +249,7 @@ export class EquationEditorDialog {
   private cellIdx?: number;
   private cellParaIdx?: number;
   private noteRef?: NoteControlRef;
+  private cellTarget?: EquationCellTarget;
 
   // 원본 속성 (비교용)
   private origProps: EquationProperties | null = null;
@@ -265,7 +267,7 @@ export class EquationEditorDialog {
   }
 
   /** 대화상자 열기 */
-  open(sec: number, para: number, ci: number, cellIdx?: number, cellParaIdx?: number, noteRef?: NoteControlRef): void {
+  open(sec: number, para: number, ci: number, cellIdx?: number, cellParaIdx?: number, noteRef?: NoteControlRef, cellTarget?: EquationCellTarget): void {
     this.build();
     this.sec = sec;
     this.para = para;
@@ -273,10 +275,12 @@ export class EquationEditorDialog {
     this.cellIdx = cellIdx;
     this.cellParaIdx = cellParaIdx;
     this.noteRef = noteRef;
+    this.cellTarget = cellTarget;
 
     try {
       this.origProps = noteRef
         ? this.wasm.getNoteEquationProperties(noteRef)
+        : cellTarget ? this.wasm.getEquationPropertiesInCell(sec, para, cellTarget)
         : this.wasm.getEquationProperties(sec, para, ci, cellIdx, cellParaIdx);
     } catch (err) {
       console.warn('[EquationEditor] 수식 속성 가져오기 실패:', err);
@@ -738,6 +742,8 @@ export class EquationEditorDialog {
       const applyProps = () => {
         if (this.noteRef) {
           this.wasm.setNoteEquationProperties(this.noteRef, updated);
+        } else if (this.cellTarget) {
+          this.wasm.setEquationPropertiesInCell(this.sec, this.para, this.cellTarget, updated);
         } else {
           this.wasm.setEquationProperties(
             this.sec,

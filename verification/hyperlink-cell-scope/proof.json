@@ -1,0 +1,89 @@
+{
+  "sourceCommit": "d0e542ef9bb8d6851f22eef613bcd62bbcbfb90a",
+  "wasmSHA256": "47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4",
+  "actualModulesSHA256": {
+    "rhwp-studio/src/engine/input-handler.ts": "6bfded4dc5ef962f7a340ded88f94362b831766c7f1014b2098d1b99b3ac6a81",
+    "rhwp-studio/src/command/commands/hyperlink.ts": "a29f2834fb93f0c788d05353a14cbeaac4893cb9a9b197970d89ca6017a6af89",
+    "rhwp-studio/src/command/registry.ts": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+    "rhwp-studio/src/command/dispatcher.ts": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381",
+    "rhwp-studio/src/core/wasm-bridge.ts": "ebf85e4a27bd84f4fef419158f392f643316c9c62b36c589dc42fe6b4f697d2d"
+  },
+  "hyperlinkExports": [
+    "getBodyHyperlinkAt",
+    "insertBodyHyperlink",
+    "removeBodyHyperlink",
+    "updateBodyHyperlink"
+  ],
+  "fixtures": 6,
+  "depths": [
+    1,
+    2,
+    3
+  ],
+  "mergedVariants": [
+    false,
+    true
+  ],
+  "disabledDispatches": 6,
+  "directCommandRefusals": 6,
+  "bodyApiCellOwnerRefusals": 12,
+  "importedCellLinkReopens": 12,
+  "operations": 0,
+  "dialogs": 0,
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "newEngineBuild": false,
+  "newPackaging": false,
+  "externalUrlOpened": false,
+  "guiAvailability": {
+    "dedicatedLocalGuiToolExposed": false,
+    "nativeBinariesPresent": [
+      "/usr/bin/osascript",
+      "/usr/sbin/screencapture",
+      "/opt/homebrew/bin/cliclick"
+    ],
+    "screenCaptureObserved": "could not create image from display",
+    "screenImageProduced": false,
+    "inputCapabilityObserved": "WARNING: Accessibility privileges not enabled. Many actions may fail.\n         Enable the checkbox for the containing app in:\n         System Preferences → Security & Privacy → Accessibility\n0,0",
+    "usableActualGuiVerification": false,
+    "permissionsChanged": false,
+    "newAppStarted": false
+  },
+  "resources": {
+    "targetBeforeBytes": 3504779264,
+    "targetAfterBytes": 3504779264,
+    "targetLimitBytes": 4294967296,
+    "diskFreeBeforeBytes": 24535040000,
+    "diskFreeAfterBytes": 23592960000,
+    "stopThresholdDiskFreeBytes": 10737418240,
+    "newCargoBuild": false
+  },
+  "productionSourceSHA256": {
+    "engine/src/document_core/queries/field_query.rs": "ed702d238b0df6fff00bb53d6a88443a31226178d34e0735d4a5c53a3eac554d",
+    "engine/src/wasm_api.rs": "c3014e3395b4a7eb3c0fb11cd3bae52c7ede86c12bdda50114038b671a426924",
+    "rhwp-studio/index.html": "0a36397e8397a6d25bbd46afe101b76791974c4fd1c1d53608ba0cf858ec338d",
+    "rhwp-studio/src/command/commands/insert.ts": "08a348efdf5d7b135eb5ea67fa8589d608ee21eb4e3e67ff2d0c264df2a2fcff",
+    "rhwp-studio/src/command/commands/hyperlink.ts": "a29f2834fb93f0c788d05353a14cbeaac4893cb9a9b197970d89ca6017a6af89",
+    "rhwp-studio/src/ui/hyperlink-dialog.ts": "f839e1120e87d280f53cf2ac1e55790dd1d2d8687031c012bdf83777a0a029a0",
+    "rhwp-studio/src/core/mutation-method-registry.ts": "3159877f07d505d4ee6b55c86a1765ccce09bf2f9cc5e765ce7031b1aa058242",
+    "rhwp-studio/src/core/wasm-bridge.ts": "ebf85e4a27bd84f4fef419158f392f643316c9c62b36c589dc42fe6b4f697d2d",
+    "rhwp-studio/src/engine/input-handler-keyboard.ts": "2dbb7df0882b9ce98826af3070129dc339d2934232c3eee227c4c6389015b3be",
+    "rhwp-studio/src/engine/input-handler.ts": "6bfded4dc5ef962f7a340ded88f94362b831766c7f1014b2098d1b99b3ac6a81"
+  },
+  "protectedSHA256": {
+    "dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+    "dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+    "app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+    "geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+    "geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "dev8-checkpoint-qa/GeulgyeolDev8.app/Contents/Resources/app.asar": "66e9af062d45efaca508053e87a7a759489d7f98e0484798e7fd60b5d468a104",
+    "field-value-atomic-qa/pkg/rhwp_bg.wasm": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+    "named-cell-value-qa/pkg/rhwp_bg.wasm": "89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf"
+  },
+  "originalFixtureHashesPreserved": true,
+  "probeSHA256": {
+    "probe.mjs": "bff1c45da9959c760931aa1a3bdfee780f2c5686f75da5a38ac76c8aa34c47bc",
+    "make_fixtures.py": "3662e38015f09805695836289adc60209dd8d9d799fba3522424a68c89b2298d"
+  },
+  "nextScope": "Single paragraph in one existing table cell via full cellPath (depth1 and nested), same wrap/display+URL/URL-edit/text-preserving-unlink operations, existing http/https policy and snapshot history; no new authoring in notes/header/footer/textboxes or multi-cell selections."
+}

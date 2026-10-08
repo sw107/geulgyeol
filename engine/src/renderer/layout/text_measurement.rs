@@ -888,13 +888,41 @@ fn quantize_hwp_px(px: f64) -> f64 {
     hwp as f64 / 75.0
 }
 
-fn kopub_char_width(primary_name: &str, c: char, font_size: f64) -> Option<f64> {
+fn kopub_family_uncached(primary_name: &str) -> Option<bool> {
     let lower = primary_name.to_lowercase();
     let is_dotum = primary_name.contains("KoPub돋움체") || lower.contains("kopub dotum");
     let is_batang = primary_name.contains("KoPub바탕체") || lower.contains("kopub batang");
-    if !is_dotum && !is_batang {
-        return None;
+    (is_dotum || is_batang).then_some(is_dotum)
+}
+
+std::thread_local! {
+    // Only immutable name classification is retained, never widths or document data.
+    static KOPUB_FAMILY_CACHE: std::cell::RefCell<Vec<(String, Option<bool>)>> =
+        const { std::cell::RefCell::new(Vec::new()) };
+}
+
+fn kopub_family(primary_name: &str) -> Option<bool> {
+    const MAX_NAMES: usize = 8;
+    const MAX_NAME_BYTES: usize = 256;
+    if primary_name.len() > MAX_NAME_BYTES {
+        return kopub_family_uncached(primary_name);
     }
+    KOPUB_FAMILY_CACHE.with(|cache| {
+        let mut cache = cache.borrow_mut();
+        if let Some((_, family)) = cache.iter().find(|(name, _)| name == primary_name) {
+            return *family;
+        }
+        let family = kopub_family_uncached(primary_name);
+        if cache.len() == MAX_NAMES {
+            cache.remove(0);
+        }
+        cache.push((primary_name.to_owned(), family));
+        family
+    })
+}
+
+fn kopub_char_width(primary_name: &str, c: char, font_size: f64) -> Option<f64> {
+    let is_dotum = kopub_family(primary_name)?;
 
     if c == ' ' {
         return Some(quantize_hwp_px(font_size * 0.5));

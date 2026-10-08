@@ -4,7 +4,7 @@
  * 책갈피 추가/이동/삭제/이름 바꾸기를 수행한다.
  */
 import type { CommandServices } from '@/command/types';
-import type { BookmarkInfo } from '@/core/types';
+import type { BookmarkInfo, DocumentPosition } from '@/core/types';
 import { enableDialogDrag } from './dialog-drag';
 
 type SortMode = 'name' | 'position';
@@ -26,6 +26,7 @@ export class BookmarkDialog {
   private sortMode: SortMode = 'position';
   private bookmarks: BookmarkInfo[] = [];
   private selectedIdx = -1;
+  private documentGeneration = -1;
   private captureHandler: ((e: KeyboardEvent) => void) | null = null;
 
   constructor(services: CommandServices) {
@@ -223,6 +224,7 @@ export class BookmarkDialog {
 
   private refreshList(): void {
     this.bookmarks = this.services.wasm.getBookmarks();
+    this.documentGeneration = this.services.wasm.documentGeneration;
     if (this.sortMode === 'name') {
       this.bookmarks.sort((a, b) => a.name.localeCompare(b.name));
     }
@@ -248,7 +250,7 @@ export class BookmarkDialog {
       nameSpan.textContent = bm.name || '(이름 없음)';
       const typeSpan = document.createElement('span');
       typeSpan.className = 'bm-item-type';
-      typeSpan.textContent = '위치';
+      typeSpan.textContent = bm.editable ? '위치' : '하위 문단 (이동만)';
       row.appendChild(nameSpan);
       row.appendChild(typeSpan);
       row.addEventListener('click', () => this.selectItem(i));
@@ -279,43 +281,65 @@ export class BookmarkDialog {
 
   // ── 동작 ──
 
+  private mutationTarget(bookmark?: BookmarkInfo) {
+    try {
+      const ctx = this.services.getContext();
+      if (!this._open || !ctx.hasDocument || !ctx.isEditable || ctx.isFormMode
+        || this.documentGeneration !== this.services.wasm.documentGeneration) {
+        throw new Error('현재 문서/편집 모드에서는 책갈피를 변경할 수 없습니다.');
+      }
+      if (bookmark && (!bookmark.editable || !this.services.wasm.getBookmarks().some(b =>
+        b.editable && b.sec === bookmark.sec && b.para === bookmark.para
+          && b.ctrlIdx === bookmark.ctrlIdx && b.name === bookmark.name && b.charPos === bookmark.charPos))) {
+        throw new Error('책갈피 위치가 바뀌었거나 지원하지 않는 하위 문단입니다. 목록을 다시 여세요.');
+      }
+      const ih = this.services.getInputHandler();
+      if (!ih) throw new Error('편집기를 찾을 수 없습니다.');
+      return {ih, pos: ih.getBodyBookmarkTarget()};
+    } catch (error) {
+      this.statusLabel.style.color = '#c00';
+      this.statusLabel.textContent = String(error);
+      return null;
+    }
+  }
+
+  private applyMutation(operationType: string,
+    operation: (wasm: CommandServices['wasm'], pos: DocumentPosition) => {ok: boolean; changed?: boolean; error?: string},
+    bookmark?: BookmarkInfo): boolean {
+    const target = this.mutationTarget(bookmark);
+    if (!target) return false;
+    let ok = false;
+    try {
+      target.ih.executeOperation({kind: 'snapshot', operationType, operation: wasm => {
+        const result = operation(wasm, target.pos);
+        // Throw on failure so SnapshotCommand rolls back even a partially failed Bridge call.
+        if (!result.ok) throw new Error(result.error ?? '책갈피 변경 실패');
+        ok = true;
+        return result.changed === false ? null : target.pos;
+      }});
+      return ok;
+    } catch (error) {
+      this.statusLabel.style.color = '#c00';
+      this.statusLabel.textContent = String(error);
+      return false;
+    }
+  }
+
   private doAdd(): void {
-    const name = this.nameInput.value.trim();
+    const rawName = this.nameInput.value;
+    const name = rawName.trim();
     if (!name) {
       this.statusLabel.textContent = '책갈피 이름을 입력하세요.';
       this.statusLabel.style.color = '#c00';
       return;
     }
-    if (name.length > MAX_BOOKMARK_NAME_LEN) {
+    if (rawName.length > MAX_BOOKMARK_NAME_LEN) {
       this.statusLabel.textContent = `책갈피 이름은 ${MAX_BOOKMARK_NAME_LEN}자를 넘을 수 없습니다.`;
       this.statusLabel.style.color = '#c00';
       return;
     }
-
-    const ih = this.services.getInputHandler();
-    if (!ih) return;
-    const pos = ih.getCursorPosition();
-
-    // [책갈피 이관] 추가를 snapshot 으로 라우팅해 undo 가능(기존 emit-only → 되돌릴 수 없었음).
-    let ok = false;
-    let errMsg: string | undefined;
-    ih.executeOperation({
-      kind: 'snapshot',
-      operationType: 'addBookmark',
-      operation: (wasm) => {
-        const r = wasm.addBookmark(pos.sectionIndex, pos.paragraphIndex, pos.charOffset, name);
-        ok = r.ok;
-        errMsg = r.error;
-        return pos;
-      },
-    });
-
-    if (ok) {
-      this.hide();
-    } else {
-      this.statusLabel.style.color = '#c00';
-      this.statusLabel.textContent = errMsg ?? '책갈피 추가 실패';
-    }
+    if (this.applyMutation('addBookmark', (wasm, pos) =>
+      wasm.addBookmark(pos.sectionIndex, pos.paragraphIndex, pos.charOffset, rawName))) this.hide();
   }
 
   private doMove(): void {
@@ -342,21 +366,10 @@ export class BookmarkDialog {
     if (this.selectedIdx < 0 || this.selectedIdx >= this.bookmarks.length) return;
     const bm = this.bookmarks[this.selectedIdx];
 
+    if (!this.mutationTarget(bm)) return;
     if (!confirm(`선택한 책갈피 '${bm.name}'를 지울까요?`)) return;
 
-    const ih = this.services.getInputHandler();
-    if (!ih) return;
-    // [책갈피 이관] 삭제를 snapshot 으로 라우팅.
-    let ok = false;
-    ih.executeOperation({
-      kind: 'snapshot',
-      operationType: 'deleteBookmark',
-      operation: (wasm) => {
-        ok = wasm.deleteBookmark(bm.sec, bm.para, bm.ctrlIdx).ok;
-        return ih.getCursorPosition();
-      },
-    });
-    if (ok) {
+    if (this.applyMutation('deleteBookmark', wasm => wasm.deleteBookmark(bm.sec, bm.para, bm.ctrlIdx), bm)) {
       this.refreshList();
       this.statusLabel.textContent = '';
     }
@@ -365,33 +378,16 @@ export class BookmarkDialog {
   private doRename(): void {
     if (this.selectedIdx < 0 || this.selectedIdx >= this.bookmarks.length) return;
     const bm = this.bookmarks[this.selectedIdx];
+    if (!this.mutationTarget(bm)) return;
     const newName = prompt('새 책갈피 이름:', bm.name);
-    if (!newName || newName.trim() === '' || newName === bm.name) return;
+    if (!newName || newName.trim() === '' || newName.trim() === bm.name) return;
     if (newName.trim().length > MAX_BOOKMARK_NAME_LEN) {
       alert(`책갈피 이름은 ${MAX_BOOKMARK_NAME_LEN}자를 넘을 수 없습니다.`);
       return;
     }
 
-    const ih = this.services.getInputHandler();
-    if (!ih) return;
-    // [책갈피 이관] 이름 변경을 snapshot 으로 라우팅.
-    let ok = false;
-    let errMsg: string | undefined;
-    ih.executeOperation({
-      kind: 'snapshot',
-      operationType: 'renameBookmark',
-      operation: (wasm) => {
-        const r = wasm.renameBookmark(bm.sec, bm.para, bm.ctrlIdx, newName.trim());
-        ok = r.ok;
-        errMsg = r.error;
-        return ih.getCursorPosition();
-      },
-    });
-    if (ok) {
+    if (this.applyMutation('renameBookmark', wasm => wasm.renameBookmark(bm.sec, bm.para, bm.ctrlIdx, newName), bm)) {
       this.refreshList();
-    } else {
-      this.statusLabel.style.color = '#c00';
-      this.statusLabel.textContent = errMsg ?? '이름 변경 실패';
     }
   }
 }

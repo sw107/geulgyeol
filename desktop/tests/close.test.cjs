@@ -11,3 +11,17 @@ test('discard waits for cleanup and cleanup failure permits retry',async()=>{
  w.close();await tick();w.close();assert.equal(calls,2);assert.equal(w.dead,false);
  finish();await tick();assert.equal(w.dead,true);
 });
+test('authoritative renderer close overrides stale clean cache and deduplicates requests',async()=>{
+ const w=window();let finish,calls=0;
+ installCloseController(w,{isDirty:()=>false,beforeClose:()=>{calls++;return new Promise(r=>finish=r);}});
+ w.close();w.close();await tick();assert.equal(calls,1);assert.equal(w.dead,false);
+ finish(false);await tick();assert.equal(w.dead,false);
+ w.close();await tick();assert.equal(calls,2);finish(true);await tick();assert.equal(w.dead,true);
+});
+test('failed or busy authoritative close preserves window and permits retry',async()=>{
+ const w=window();let calls=0;const errors=[];
+ installCloseController(w,{beforeClose:async()=>{calls++;if(calls===1)throw Error('save failure');return calls===3;},onError:e=>errors.push(e.message)});
+ w.close();await tick();assert.equal(w.dead,false);assert.deepEqual(errors,['save failure']);
+ w.close();await tick();assert.equal(w.dead,false);
+ w.close();await tick();assert.equal(w.dead,true);
+});

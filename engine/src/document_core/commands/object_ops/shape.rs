@@ -333,6 +333,122 @@ impl DocumentCore {
             )),
         }
     }
+    fn body_rectangle_width_target(
+        &self,
+        sec: usize,
+        para: usize,
+        ci: usize,
+    ) -> Result<&ShapeObject, HwpError> {
+        let section = self
+            .document
+            .sections
+            .get(sec)
+            .ok_or_else(|| HwpError::RenderError("본문 구역 범위 초과".into()))?;
+        if section.section_def.text_direction != 0 || para >= section.paragraphs.len() {
+            return Err(HwpError::RenderError("가로 본문 문단만 지원합니다".into()));
+        }
+        let p = &section.paragraphs[para];
+        let info = &self.document.doc_info;
+        if p.para_shape_id as usize >= info.para_shapes.len()
+            || p.style_id as usize >= info.styles.len()
+            || p.char_shapes
+                .iter()
+                .any(|c| c.char_shape_id as usize >= info.char_shapes.len())
+        {
+            return Err(HwpError::RenderError(
+                "본문 사각형 문단의 서식 참조 범위 초과".into(),
+            ));
+        }
+        let shape = self.resolve_shape_control_ref(sec, para, ci)?;
+        if !shape.supports_body_rectangle_width() {
+            return Err(HwpError::RenderError(
+                "변환/흐름/글상자/캡션 없는 본문 사각형만 지원합니다".into(),
+            ));
+        }
+        Ok(shape)
+    }
+
+    /// Width and basis form one atomic value; relative widths use 1/100 percent.
+    pub fn get_body_rectangle_width_native(
+        &self,
+        sec: usize,
+        para: usize,
+        ci: usize,
+    ) -> Result<String, HwpError> {
+        let c = self.body_rectangle_width_target(sec, para, ci)?.common();
+        Ok(
+            serde_json::json!({"width":c.width,"widthCriterion":format!("{:?}",c.width_criterion)})
+                .to_string(),
+        )
+    }
+
+    /// Explicit width units, without extending the generic shape/cell setters.
+    pub fn set_body_rectangle_width_native(
+        &mut self,
+        sec: usize,
+        para: usize,
+        ci: usize,
+        props: &str,
+    ) -> Result<String, HwpError> {
+        use crate::model::shape::SizeCriterion;
+        let error = |s: &str| HwpError::RenderError(s.into());
+        let v: serde_json::Value =
+            serde_json::from_str(props).map_err(|_| error("잘못된 사각형 너비 JSON"))?;
+        let fields = v
+            .as_object()
+            .ok_or_else(|| error("사각형 너비 객체가 필요합니다"))?;
+        if fields.len() != 2
+            || !fields.contains_key("width")
+            || !fields.contains_key("widthCriterion")
+        {
+            return Err(error("width와 widthCriterion만 함께 지정해야 합니다"));
+        }
+        let basis = match v["widthCriterion"].as_str() {
+            Some("Absolute") => SizeCriterion::Absolute,
+            Some("Paper") => SizeCriterion::Paper,
+            Some("Page") => SizeCriterion::Page,
+            Some("Column") => SizeCriterion::Column,
+            Some("Para") => SizeCriterion::Para,
+            _ => return Err(error("지원하지 않는 너비 기준")),
+        };
+        let width = v["width"]
+            .as_u64()
+            .filter(|w| *w >= u64::from(MIN_SHAPE_SIZE) && *w <= i32::MAX as u64)
+            .ok_or_else(|| error("사각형 너비 범위 초과"))? as u32;
+        if basis != SizeCriterion::Absolute && width > 10000
+            || basis == SizeCriterion::Para && width != 10000
+        {
+            return Err(error(
+                "문단 너비는100%, 다른 상대 너비는2~100%만 지원합니다",
+            ));
+        }
+        self.body_rectangle_width_target(sec, para, ci)?;
+        let Control::Shape(shape) = &mut self.document.sections[sec].paragraphs[para].controls[ci]
+        else {
+            unreachable!()
+        };
+        let ShapeObject::Rectangle(r) = shape.as_mut() else {
+            unreachable!()
+        };
+        r.common.width = width;
+        r.common.width_criterion = basis;
+        Self::sync_common_obj_attr_known_bits(&mut r.common);
+        r.drawing.shape_attr.original_width = width;
+        r.drawing.shape_attr.current_width = width;
+        r.drawing.shape_attr.rotation_center.x = (width / 2) as i32;
+        r.x_coords = [0, width as i32, width as i32, 0];
+        self.document.sections[sec].raw_stream = None;
+        self.recompose_section(sec);
+        self.paginate_if_needed();
+        self.invalidate_page_tree_cache();
+        self.event_log.push(DocumentEvent::PictureResized {
+            section: sec,
+            para,
+            ctrl: ci,
+        });
+        Ok("{\"ok\":true}".into())
+    }
+
     /// 글상자(Shape) 속성 조회 (네이티브).
     pub fn get_shape_properties_native(
         &self,
@@ -365,7 +481,7 @@ impl DocumentCore {
         let extra_json = if let Some(d) = drawing {
             let sa = &d.shape_attr;
             let fill = &d.fill;
-            let fill_type = match fill.fill_type {
+            let fill_type = match fill.effective_type() {
                 crate::model::style::FillType::None => "none",
                 crate::model::style::FillType::Solid => "solid",
                 crate::model::style::FillType::Gradient => "gradient",
@@ -638,6 +754,11 @@ impl DocumentCore {
                 let grad = d.fill.gradient.get_or_insert_with(Default::default);
                 grad.blur = v as i16;
             }
+            // An explicit "none" wins over dormant/stale brush controls.
+            // Otherwise the drawing renderer still paints the retained solid.
+            if json_str(props_json, "fillType").as_deref() == Some("none") {
+                d.fill = crate::model::style::Fill::default();
+            }
 
             // 그림자
             if let Some(v) = crate::document_core::helpers::json_u32(props_json, "shadowType") {
@@ -869,7 +990,7 @@ impl DocumentCore {
         let extra_json = if let Some(d) = drawing {
             let sa = &d.shape_attr;
             let fill = &d.fill;
-            let fill_type = match fill.fill_type {
+            let fill_type = match fill.effective_type() {
                 crate::model::style::FillType::None => "none",
                 crate::model::style::FillType::Solid => "solid",
                 crate::model::style::FillType::Gradient => "gradient",
@@ -1108,6 +1229,11 @@ impl DocumentCore {
                 let grad = d.fill.gradient.get_or_insert_with(Default::default);
                 grad.blur = v as i16;
             }
+            // An explicit "none" wins over dormant/stale brush controls.
+            // Otherwise the drawing renderer still paints the retained solid.
+            if json_str(props_json, "fillType").as_deref() == Some("none") {
+                d.fill = crate::model::style::Fill::default();
+            }
             if let Some(v) = crate::document_core::helpers::json_u32(props_json, "shadowType") {
                 d.shadow_type = v;
             }
@@ -1217,49 +1343,65 @@ impl DocumentCore {
             ));
         }
 
-        // char_offsets 조정 (delete_picture_control_native와 동일)
-        let text_chars: Vec<char> = para.text.chars().collect();
-        let mut ci = 0usize;
-        let mut prev_end: u32 = 0;
-        let mut gap_start: Option<u32> = None;
-        'outer: for i in 0..text_chars.len() {
-            let offset = if i < para.char_offsets.len() {
-                para.char_offsets[i]
-            } else {
-                prev_end
-            };
-            while prev_end + 8 <= offset && ci < para.controls.len() {
-                if ci == control_idx {
-                    gap_start = Some(prev_end);
-                    break 'outer;
-                }
-                ci += 1;
-                prev_end += 8;
-            }
-            let char_size: u32 = if text_chars[i] == '\t' {
-                8
-            } else if text_chars[i].len_utf16() == 2 {
-                2
-            } else {
-                1
-            };
-            prev_end = offset + char_size;
+        // A trailing Para100 rectangle has no following visible characters to shift.
+        // FIELD_END slots have no controls[] owner; the legacy gap walk counts them
+        // and can otherwise move the last text characters under a preceding style run.
+        let plain_para_rectangle = matches!(&para.controls[control_idx], Control::Shape(s)
+            if s.supports_body_rectangle_width()
+                && s.common().width_criterion == crate::model::shape::SizeCriterion::Para
+                && s.common().width == 10000);
+        let at_end = control_idx + 1 == para.controls.len()
+            && para.control_text_positions().get(control_idx).copied()
+                == Some(para.text.chars().count());
+        if plain_para_rectangle && !at_end {
+            return Err(HwpError::RenderError("문단 끝의 마지막 단순 문단 띠만 제거할 수 있습니다".into()));
         }
-        if gap_start.is_none() {
-            while ci < para.controls.len() {
-                if ci == control_idx {
-                    gap_start = Some(prev_end);
-                    break;
+        let trailing_para_rectangle = plain_para_rectangle && at_end;
+        if !trailing_para_rectangle {
+            // char_offsets 조정 (delete_picture_control_native와 동일)
+            let text_chars: Vec<char> = para.text.chars().collect();
+            let mut ci = 0usize;
+            let mut prev_end: u32 = 0;
+            let mut gap_start: Option<u32> = None;
+            'outer: for i in 0..text_chars.len() {
+                let offset = if i < para.char_offsets.len() {
+                    para.char_offsets[i]
+                } else {
+                    prev_end
+                };
+                while prev_end + 8 <= offset && ci < para.controls.len() {
+                    if ci == control_idx {
+                        gap_start = Some(prev_end);
+                        break 'outer;
+                    }
+                    ci += 1;
+                    prev_end += 8;
                 }
-                ci += 1;
-                prev_end += 8;
+                let char_size: u32 = if text_chars[i] == '\t' {
+                    8
+                } else if text_chars[i].len_utf16() == 2 {
+                    2
+                } else {
+                    1
+                };
+                prev_end = offset + char_size;
             }
-        }
-        if let Some(gs) = gap_start {
-            let threshold = gs + 8;
-            for offset in para.char_offsets.iter_mut() {
-                if *offset >= threshold {
-                    *offset -= 8;
+            if gap_start.is_none() {
+                while ci < para.controls.len() {
+                    if ci == control_idx {
+                        gap_start = Some(prev_end);
+                        break;
+                    }
+                    ci += 1;
+                    prev_end += 8;
+                }
+            }
+            if let Some(gs) = gap_start {
+                let threshold = gs + 8;
+                for offset in para.char_offsets.iter_mut() {
+                    if *offset >= threshold {
+                        *offset -= 8;
+                    }
                 }
             }
         }
@@ -2553,14 +2695,71 @@ impl DocumentCore {
                 || sa.render_sy < 0.0
                 || matches!(shape, ShapeObject::Group(g) if g.children.iter().any(has_oriented_child))
         }
-        // A generated single-level picture group can be decomposed without
-        // discarding its composed affine geometry. Keep the common AABB as
-        // the flow frame, the current size as pixels, and the extended-control
-        // slots in sync. Imported stored-row hosts retain the guard below.
+        // Stored hosts need an exact, unambiguous mapping of every extended
+        // control slot. Do not infer starts from malformed/partial offset gaps.
+        fn stored_control_starts(para: &crate::model::paragraph::Paragraph) -> Option<Vec<u32>> {
+            if para.char_offsets.len() != para.text.chars().count()
+                || para.controls.iter().any(|c| !c.occupies_ctrl_char_slot()) {
+                return None;
+            }
+            let mut starts = Vec::with_capacity(para.controls.len());
+            let mut end = 0u32;
+            for (ch, &offset) in para.text.chars().zip(&para.char_offsets) {
+                let gap = offset.checked_sub(end)?;
+                if gap % 8 != 0 || (gap / 8) as usize > para.controls.len() - starts.len() {
+                    return None;
+                }
+                for _ in 0..gap / 8 {
+                    starts.push(end);
+                    end = end.checked_add(8)?;
+                }
+                end = offset.checked_add(ch.len_utf16() as u32)?;
+            }
+            while starts.len() < para.controls.len() {
+                starts.push(end);
+                end = end.checked_add(8)?;
+            }
+            (end.checked_add(1)? == para.char_count).then_some(starts)
+        }
+        let stored_starts = stored_control_starts(para);
+        // A single authentic row starting at zero owns the entire paragraph,
+        // including its floating controls and visible text. Expanding one
+        // extended-control slot changes stream positions, not that partition
+        // or the saved physical row. Other stored partitions remain guarded.
+        let stored_body_host = para.line_segs.len() == 1
+            && para.line_segs[0].text_start == 0
+            && para.line_segs[0].line_height > 0
+            && para.line_segs[0].text_height > 0
+            && para.line_segs[0].baseline_distance >= 0
+            && para.line_segs[0].baseline_distance <= para.line_segs[0].line_height
+            && para.line_segs[0].segment_width > 0
+            && para.line_segs[0].tag & crate::model::paragraph::LineSeg::TAG_IMPLEMENTATION_PROPERTY == 0
+            && para.layout_only_fill_lines == 0
+            && !para.stored_text_partition_is_dirty()
+            && para.char_offsets.len() == para.text.chars().count()
+            && !para.text.chars().any(|ch| ch.is_control() || ch == '\u{fffc}')
+            && para.field_ranges.is_empty()
+            && para.orphan_field_ends.is_empty()
+            && para.title_marks.is_empty()
+            // Generic range tags are not represented by the HWPX writer yet.
+            // Keep these imported hosts guarded instead of widening a path
+            // whose two-format preservation cannot be demonstrated.
+            && para.range_tags.is_empty()
+            && para.ctrl_data_records.get(control_idx).map_or(true, Option::is_none)
+            && stored_starts.is_some()
+            && para.controls.iter().enumerate().all(|(index, control)| {
+                index == control_idx || match control {
+                    Control::SectionDef(_) | Control::ColumnDef(_) => true,
+                    Control::Picture(p) => !p.common.treat_as_char && p.caption.is_none(),
+                    _ => false,
+                }
+            });
+        // Keep the common AABB as the flow frame, the current size as pixels,
+        // and all stream-indexed metadata in sync without dropping saved rows.
         let oriented_picture_group = match &para.controls[control_idx] {
             Control::Shape(shape) => match shape.as_ref() {
                 ShapeObject::Group(g) if has_oriented_child(shape)
-                    && para.line_segs.is_empty()
+                    && (para.line_segs.is_empty() || stored_body_host)
                     && crate::renderer::float_placement::supports_picture_group_exclusion(g)
                     => Some(g.clone()),
                 _ => None,
@@ -2633,15 +2832,47 @@ impl DocumentCore {
                 }
                 pictures.push(Control::Picture(pic));
             }
-            let positions = crate::document_core::helpers::find_control_text_positions(para);
-            let scalar = positions.get(control_idx).copied().unwrap_or(para.text.chars().count());
+            let positions = if stored_body_host {
+                stored_starts.unwrap()
+            } else {
+                para.control_utf16_positions()
+            };
+            let group_start = positions[control_idx];
+            let insertion = group_start.checked_add(8).ok_or_else(||
+                HwpError::RenderError("묶음의 문자 위치가 범위를 벗어났습니다.".to_string()))?;
             let count = pictures.len();
-            let delta = ((count-1)*8) as u32;
+            let delta = u32::try_from(count - 1).ok().and_then(|n| n.checked_mul(8))
+                .ok_or_else(|| HwpError::RenderError("묶음의 개체 수가 범위를 벗어났습니다.".to_string()))?;
+            // Reject ambiguous or overflowing source coordinates before any
+            // mutation. A style boundary inside the original control cannot
+            // be assigned to the expanded children without inventing meaning.
+            if para.char_shapes.iter().any(|cs| cs.start_pos > group_start && cs.start_pos < insertion)
+                || para.range_tags.iter().any(|tag| [tag.start, tag.end].iter()
+                    .any(|&pos| pos > group_start && pos < insertion))
+                || para.char_count.checked_add(delta).is_none()
+                || para.char_offsets.iter().any(|offset| offset.checked_add(delta).is_none())
+                || para.char_shapes.iter().any(|cs| cs.start_pos.checked_add(delta).is_none())
+                || para.range_tags.iter().any(|tag| tag.start.checked_add(delta).is_none()
+                    || tag.end.checked_add(delta).is_none()) {
+                return Err(HwpError::RenderError("묶음의 본문 범위를 안전하게 유지할 수 없습니다.".to_string()));
+            }
             para.align_ctrl_data_records();
             para.controls.splice(control_idx..control_idx+1,pictures);
             para.ctrl_data_records.splice(control_idx..control_idx+1,(0..count).map(|_|None));
-            para.char_count = para.char_count.saturating_add(delta);
-            for offset in para.char_offsets.iter_mut().skip(scalar) { *offset += delta; }
+            para.char_count += delta;
+            for offset in &mut para.char_offsets {
+                if *offset >= insertion { *offset += delta; }
+            }
+            for style in &mut para.char_shapes {
+                if style.start_pos >= insertion { style.start_pos += delta; }
+            }
+            for tag in &mut para.range_tags {
+                if tag.start >= insertion { tag.start += delta; }
+                if tag.end >= insertion { tag.end += delta; }
+            }
+            // No visible text or style assignment changed: preserve the valid
+            // stored partition and clear only the derived width memo.
+            para.invalidate_single_line_overflow_memo();
             para.control_mask |= 0x00000800;
             para.has_para_text = true;
             self.document.sections[section_idx].raw_stream = None;
@@ -3191,6 +3422,7 @@ mod resize_clamp_tests {
             paragraphs: vec![Paragraph::default()],
             raw_stream: None,
             raw_provenance: None,
+            memo_tail: None,
         });
         let mut core = DocumentCore::new_empty();
         // set_document이 composed/styles/pagination 벡터를 일관되게 초기화한다.

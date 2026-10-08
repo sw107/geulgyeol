@@ -1,0 +1,369 @@
+{
+  "baseCommit": "4c587f8a356a257b1d922aeb25ed4ca3e4d1716e",
+  "scope": "read-only resource inventory and existing-WASM isolated metric investigation; documentation only",
+  "adapterImplemented": false,
+  "productionIntegrated": false,
+  "paginationFixed": false,
+  "newCargoBuilds": 0,
+  "filesCleanedOrDeleted": 0,
+  "GUIVerified": false,
+  "nativeMetricInvestigationRun": false,
+  "LinuxVerified": false,
+  "publicPushOrRelease": false,
+  "newPackaging": false,
+  "resources": {
+    "filesystem": "/dev/disk3s5",
+    "dfAvailableKiB": 25760000,
+    "dfAvailableBytes": 26378240000,
+    "dfAvailableGiB": 24.567,
+    "targetBytes": 3188535296,
+    "targetBudgetBytes": 3221225472,
+    "targetBudgetRemainingBytes": 32690176,
+    "targetBudgetRemainingMiB": 31.176,
+    "targetBytesUnchanged": true,
+    "directoryBytes": {
+      "debug": 2467688448,
+      "debug/deps": 841773056,
+      "debug/examples": 1586040832,
+      "debug/build": 30949376,
+      "debug/.fingerprint": 8925184,
+      "wasm32-unknown-unknown/release": 529461248,
+      "wasm32-unknown-unknown/debug": 113504256,
+      "release": 77869056
+    },
+    "candidateAppBytes": {
+      "../dev7-checkpoint-qa/GeulgyeolDev7.app": 351064064,
+      "../dev6-checkpoint-qa/GeulgyeolDev6.app": 351019008,
+      "../app-integration-qa/GeulgyeolDevEnter.app": 350916608,
+      "dist/GeulgyeolBetaNext.app": 350818304
+    },
+    "sameHashExamplePairs": 23,
+    "separateDuplicateExampleAllocatedBytes": 792121344,
+    "nativeDependencyArtifacts": 655,
+    "wasmReleaseDependencyArtifacts": 258,
+    "inventoryFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/resources.json"
+  },
+  "metricInvestigation": {
+    "engineSHA256": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "fontSHA256": "6e06a7fe5d696ca719894a23f36bb2b1be8c816a5937cd4ad0f23ca67780dd74",
+    "fontBytes": 2519996,
+    "syntheticCases": 12,
+    "positiveSingleParagraphCases": 2,
+    "positiveGlyphLeaves": 6,
+    "negativeGatedCases": 10,
+    "caseSummary": [
+      {
+        "id": "cjk-a",
+        "format": "hwp",
+        "paragraphs": 1,
+        "sourceScalars": 3,
+        "expectedVerticalGlyphRuns": 3,
+        "observedVerticalGlyphRuns": 3,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-cjk-a.hwp",
+        "sourceSHA256": "cedb07c7c340955e4c7e6646bf52d44089f97cdd10afdb174b1902acfe6f24d5",
+        "charProps": {
+          "charShapeId": 0,
+          "bold": false,
+          "borderFillId": 0,
+          "fontSize": 1000
+        }
+      },
+      {
+        "id": "cjk-b",
+        "format": "hwp",
+        "paragraphs": 1,
+        "sourceScalars": 3,
+        "expectedVerticalGlyphRuns": 3,
+        "observedVerticalGlyphRuns": 3,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-cjk-b.hwp",
+        "sourceSHA256": "caaf57ce316af1b64bfe33c9d965bc0d7c32857b9882ab5cfad861dfa65c2250",
+        "charProps": {
+          "charShapeId": 0,
+          "bold": false,
+          "borderFillId": 0,
+          "fontSize": 1000
+        }
+      },
+      {
+        "id": "multi-two",
+        "format": "hwp",
+        "paragraphs": 2,
+        "sourceScalars": 6,
+        "expectedVerticalGlyphRuns": 0,
+        "observedVerticalGlyphRuns": 0,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-multi-two.hwp",
+        "sourceSHA256": "545f1382e56d7879f5f235617833d7bf7dd52b8cf00a560ce48d8a80958c6e3a",
+        "charProps": {
+          "charShapeId": 0,
+          "bold": false,
+          "borderFillId": 0,
+          "fontSize": 1000
+        }
+      },
+      {
+        "id": "multi-empty",
+        "format": "hwp",
+        "paragraphs": 3,
+        "sourceScalars": 4,
+        "expectedVerticalGlyphRuns": 0,
+        "observedVerticalGlyphRuns": 0,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-multi-empty.hwp",
+        "sourceSHA256": "29fbc9801345c7a038dd652c4de328433f800c82f4fd16130f3ccc6c594c177f",
+        "charProps": {
+          "charShapeId": 0,
+          "bold": false,
+          "borderFillId": 0,
+          "fontSize": 1000
+        }
+      },
+      {
+        "id": "long-multi-column",
+        "format": "hwp",
+        "paragraphs": 1,
+        "sourceScalars": 120,
+        "expectedVerticalGlyphRuns": 0,
+        "observedVerticalGlyphRuns": 0,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-long-multi-column.hwp",
+        "sourceSHA256": "8e7ab2676928249dca3817053b0f8216a5937287556d65161a1118bd1305cdae",
+        "charProps": {
+          "charShapeId": 0,
+          "bold": false,
+          "borderFillId": 0,
+          "fontSize": 1000
+        }
+      },
+      {
+        "id": "direction-one",
+        "format": "hwp",
+        "paragraphs": 1,
+        "sourceScalars": 3,
+        "expectedVerticalGlyphRuns": 0,
+        "observedVerticalGlyphRuns": 0,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-direction-one.hwp",
+        "sourceSHA256": "28966c337069651a4d2ac73c10ca7e63f8846efc5ab1cbc1665b092377f00b85",
+        "charProps": {
+          "charShapeId": 0,
+          "bold": false,
+          "borderFillId": 0,
+          "fontSize": 1000
+        }
+      },
+      {
+        "id": "mixed-latin",
+        "format": "hwp",
+        "paragraphs": 1,
+        "sourceScalars": 3,
+        "expectedVerticalGlyphRuns": 0,
+        "observedVerticalGlyphRuns": 0,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-mixed-latin.hwp",
+        "sourceSHA256": "c86f8f34d9180b22c2a110f01104e464ae38804e635469856b94d20796f927e4",
+        "charProps": {
+          "charShapeId": 0,
+          "bold": false,
+          "borderFillId": 0,
+          "fontSize": 1000
+        }
+      },
+      {
+        "id": "combining-emoji",
+        "format": "hwp",
+        "paragraphs": 1,
+        "sourceScalars": 8,
+        "expectedVerticalGlyphRuns": 0,
+        "observedVerticalGlyphRuns": 0,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-combining-emoji.hwp",
+        "sourceSHA256": "f02ff844edcf52b52df3a6c2ead6dc67f98e36e0ed64d1a8bf279ab69b9196b0",
+        "charProps": {
+          "charShapeId": 0,
+          "bold": false,
+          "borderFillId": 0,
+          "fontSize": 1000
+        }
+      },
+      {
+        "id": "bold",
+        "format": "hwp",
+        "paragraphs": 1,
+        "sourceScalars": 3,
+        "expectedVerticalGlyphRuns": 0,
+        "observedVerticalGlyphRuns": 0,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-bold.hwp",
+        "sourceSHA256": "eec800cf61b6b4f7d4ef1c1c42c76f92e527de22bfec8d4205d606101e5fa394",
+        "charProps": {
+          "charShapeId": 7,
+          "bold": true,
+          "borderFillId": 0,
+          "fontSize": 1000
+        }
+      },
+      {
+        "id": "hwpx",
+        "format": "hwpx",
+        "paragraphs": 1,
+        "sourceScalars": 3,
+        "expectedVerticalGlyphRuns": 0,
+        "observedVerticalGlyphRuns": 0,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-hwpx.hwpx",
+        "sourceSHA256": "31217528f5771ee9d5665967f415f4b650e46aa53b239a35e1271ef76a1998c6",
+        "charProps": {
+          "charShapeId": 0,
+          "bold": false,
+          "borderFillId": 0,
+          "fontSize": 1000
+        }
+      },
+      {
+        "id": "no-exact-font",
+        "format": "hwp",
+        "paragraphs": 1,
+        "sourceScalars": 3,
+        "expectedVerticalGlyphRuns": 0,
+        "observedVerticalGlyphRuns": 0,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-no-exact-font.hwp",
+        "sourceSHA256": "cedb07c7c340955e4c7e6646bf52d44089f97cdd10afdb174b1902acfe6f24d5",
+        "charProps": {
+          "charShapeId": 0,
+          "bold": false,
+          "borderFillId": 0,
+          "fontSize": 1000
+        }
+      },
+      {
+        "id": "default-char-border",
+        "format": "hwp",
+        "paragraphs": 1,
+        "sourceScalars": 3,
+        "expectedVerticalGlyphRuns": 0,
+        "observedVerticalGlyphRuns": 0,
+        "modelStableDuringFontRegistrationAndReads": true,
+        "sourceFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-default-char-border.hwp",
+        "sourceSHA256": "03b05782db34126116a2f241fa0c3d59b466dd167cc4c8c2b2d383bfc0a97a0b",
+        "charProps": {
+          "charShapeId": 0,
+          "bold": false,
+          "borderFillId": 2,
+          "fontSize": 1000
+        }
+      }
+    ],
+    "nominalFontAdvanceExamples": [
+      {
+        "case": "cjk-a",
+        "glyphIndexInParagraph": 0,
+        "glyphId": 644,
+        "unitsPerEm": 1000,
+        "nominalVerticalAdvanceUnits": 1000,
+        "nominalVerticalAdvancePx": 13.333333,
+        "publishedNextOriginDelta": {
+          "dx": 0,
+          "dy": 13.333333
+        },
+        "isLastGlyph": false,
+        "sourceMetricClaim": "nominal vmtx table advance, not a complete shaped-advance certificate"
+      },
+      {
+        "case": "cjk-a",
+        "glyphIndexInParagraph": 1,
+        "glyphId": 1820,
+        "unitsPerEm": 1000,
+        "nominalVerticalAdvanceUnits": 1000,
+        "nominalVerticalAdvancePx": 13.333333,
+        "publishedNextOriginDelta": {
+          "dx": 0,
+          "dy": 13.333333
+        },
+        "isLastGlyph": false,
+        "sourceMetricClaim": "nominal vmtx table advance, not a complete shaped-advance certificate"
+      },
+      {
+        "case": "cjk-a",
+        "glyphIndexInParagraph": 2,
+        "glyphId": 2408,
+        "unitsPerEm": 1000,
+        "nominalVerticalAdvanceUnits": 1000,
+        "nominalVerticalAdvancePx": 13.333333,
+        "publishedNextOriginDelta": {
+          "dx": 6.133333,
+          "dy": 1.6
+        },
+        "isLastGlyph": true,
+        "sourceMetricClaim": "nominal vmtx table advance, not a complete shaped-advance certificate"
+      },
+      {
+        "case": "cjk-b",
+        "glyphIndexInParagraph": 0,
+        "glyphId": 3584,
+        "unitsPerEm": 1000,
+        "nominalVerticalAdvanceUnits": 1000,
+        "nominalVerticalAdvancePx": 13.333333,
+        "publishedNextOriginDelta": {
+          "dx": 0,
+          "dy": 13.333333
+        },
+        "isLastGlyph": false,
+        "sourceMetricClaim": "nominal vmtx table advance, not a complete shaped-advance certificate"
+      },
+      {
+        "case": "cjk-b",
+        "glyphIndexInParagraph": 1,
+        "glyphId": 4172,
+        "unitsPerEm": 1000,
+        "nominalVerticalAdvanceUnits": 1000,
+        "nominalVerticalAdvancePx": 13.333333,
+        "publishedNextOriginDelta": {
+          "dx": 0,
+          "dy": 13.333333
+        },
+        "isLastGlyph": false,
+        "sourceMetricClaim": "nominal vmtx table advance, not a complete shaped-advance certificate"
+      },
+      {
+        "case": "cjk-b",
+        "glyphIndexInParagraph": 2,
+        "glyphId": 4760,
+        "unitsPerEm": 1000,
+        "nominalVerticalAdvanceUnits": 1000,
+        "nominalVerticalAdvancePx": 13.333333,
+        "publishedNextOriginDelta": {
+          "dx": 6.133333,
+          "dy": 1.6
+        },
+        "isLastGlyph": true,
+        "sourceMetricClaim": "nominal vmtx table advance, not a complete shaped-advance certificate"
+      }
+    ],
+    "publicAdvanceSemantics": "next glyph origin delta; final leaf is next_inline_origin minus glyph origin, not raw shaped advance",
+    "fullProofFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/metric-matrix-proof.json",
+    "fontTableProofFile": "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/font-metric-table-proof.json",
+    "syntheticCharBorderNormalization": true
+  },
+  "preservation": {
+    "productionSourceHashesUnchanged": 1423,
+    "priorSyntheticFilesUnchanged": 8,
+    "newSyntheticModelReadsStable": 12,
+    "appASARHashesUnchanged": {
+      "../dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+      "../app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+      "dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+      "../dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129"
+    }
+  },
+  "nextIndependentProposal": "Body ClickHere field guide/memo/name/editable plus anchor/style/reference roundtrip and snapshot preservation, using existing WASM only; not implemented or verified this turn",
+  "researchScripts": {
+    "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/geulgyeol-probe-vertical-metrics.mjs": "9f1d2adcab856ef6fd457d74f13727ce27243bbc3a4948649fed0691056a36ca",
+    "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/geulgyeol-positive-vertical-metric.mjs": "38ddab2364c9b982a883cfb4083248e4921852fde7c86b0db1df2ad7915875ce",
+    "/Users/sw107/Documents/Codex/2026-10-06/task/vertical-cell-resource-metric-qa/geulgyeol-vertical-metric-matrix.mjs": "c6b4cef465841653870ff2b32b2dbb76e85f55c5a060a6d239163b1267d98ef0"
+  },
+  "qaDirectoryAllocatedBytes": 872448
+}

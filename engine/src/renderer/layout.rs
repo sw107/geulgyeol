@@ -2029,10 +2029,8 @@ impl NumberingState {
                 // 이전에 사용한 id → 히스토리에서 복원
                 self.counters = saved;
             } else {
-                // 처음 등장하는 id → 상위 레벨 카운터 상속, 현재 레벨 이하 리셋
-                let prev = self.counters;
+                // 새 정의는 독립 목록이다. 다른 목록의 상위 수준을 상속하지 않는다.
                 self.counters = [0; 7];
-                self.counters[..level].copy_from_slice(&prev[..level]);
             }
             self.current_id = Some(numbering_id);
         }
@@ -4032,6 +4030,7 @@ impl LayoutEngine {
                             bin_data_content,
                             &std::collections::HashMap::new(),
                             is_header,
+                            false,
                         );
                     }
                 }
@@ -4781,6 +4780,7 @@ impl LayoutEngine {
                                         Alignment::Left,
                                         bin_data_content,
                                         &std::collections::HashMap::new(),
+                                        false,
                                         false,
                                     );
                                 }
@@ -13144,6 +13144,7 @@ impl LayoutEngine {
                     bin_data_content,
                     &overflow_map,
                     false,
+                    true,
                 );
                 insert_before_para_text(
                     col_node,
@@ -13172,6 +13173,7 @@ impl LayoutEngine {
                     bin_data_content,
                     &overflow_map,
                     false,
+                    true,
                 );
                 if let Some(layer) = ctrl.and_then(|ctrl| match ctrl {
                     Control::Shape(shape) => Some(Self::render_layer_from_common(
@@ -13212,6 +13214,7 @@ impl LayoutEngine {
                     bin_data_content,
                     &overflow_map,
                     false,
+                    true,
                 );
             }
             // [Task #525] 비-TAC Picture/Shape Square wrap 의 어울림 문단 렌더링은

@@ -1,0 +1,938 @@
+{
+  "sourceCommit": "573556d1e3ce24481d217061021441ec89ed53a0",
+  "app": "/Users/sw107/Documents/Codex/2026-10-06/task/dev11-checkpoint-qa/GeulgyeolDev11.app",
+  "version": "0.4.4-dev.11",
+  "bundleId": "org.geulgyeol.dev.checkpoint11",
+  "wasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+  "asarSHA256": "cc93b8d25713cca6f354739d3db542b4c5027cc897eccda1d9b576e6a515aa6f",
+  "asarHeaderSHA256": "6c954692144369f9897b9ec9f901fc0ef9ca6891e38f685d3112a11101327c4c",
+  "engineRebuilt": false,
+  "sourceMapsUnchanged": {
+    "sourceSHA256": {
+      "count": 295,
+      "mismatches": []
+    },
+    "engineSourceSHA256": {
+      "count": 1147,
+      "mismatches": []
+    }
+  },
+  "allEntryBlockIntegrity": true,
+  "freshBindingsStudioAssetsMatch": true,
+  "compiledUIMethods": [
+    "applyCellOwnPropertiesByPaths",
+    "applyFormatCopyInCell",
+    "getCellOwnPropertiesByPath",
+    "getCellParaPropertiesAtByPath",
+    "getBodyRectangleWidth",
+    "setBodyRectangleWidth",
+    "getBodyParagraphBandTarget",
+    "insert:para-band",
+    "getBodyCommentAt",
+    "deleteShapeControl"
+  ],
+  "engineInitializedAndExercisedInCandidateNode": true,
+  "rendererEditingNotVerified": true,
+  "oneAppNoZip": true,
+  "strictAdhocSignatureBeforeAfter": true,
+  "developerIdSigned": false,
+  "notarized": false,
+  "paragraphBand": {
+    "wasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+    "actualBandModalRegistryDispatcherInputHandlerHistory": true,
+    "objectPropertiesAndDeleteConnected": true,
+    "saves": 132,
+    "undos": 33,
+    "redos": 33,
+    "refusals": 58,
+    "cancels": 18,
+    "noOpRepeatInsert": 6,
+    "GUIVerified": false,
+    "physicalIMEVerified": false
+  },
+  "independentNative": {
+    "fullSvgGeometryAndReferences": true,
+    "independentSavedReopens": 132,
+    "nativeCommandReexecution": true,
+    "noteHeaderTrailingZeroPaddingCanonicalized": true
+  },
+  "rectangleWidth": {
+    "wasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+    "oldWasmSHA256": "cd852d76c0ea4c2690afe728db34d717a00638dd51090b98cce913de456d8005",
+    "actualBridgeAndSnapshotHistory": true,
+    "saves": 40,
+    "undoRedoPairs": 20,
+    "atomicRefusals": 20,
+    "nativeSavedGeometryCrossChecks": 40,
+    "legacyBasisSVGExactMatches": 32,
+    "legacyOtherShapes": [
+      "ellipse-Hwp",
+      "ellipse-Hwpx",
+      "rotated-Hwp",
+      "rotated-Hwpx",
+      "group-Hwp",
+      "group-Hwpx",
+      "picture-Hwp",
+      "picture-Hwpx",
+      "Para-picture-nodes-and-glyphs",
+      "cell-Para-hwp",
+      "cell-Para-hwpx"
+    ],
+    "boundaryRefusals": 6,
+    "bodyTextFieldsNotesAndGlyphsPreserved": true,
+    "GUIVerified": false,
+    "physicalIMEVerified": false
+  },
+  "launch": {
+    "version": "0.4.4-dev.11",
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false,
+    "profileBase": "/Users/sw107/Documents/Codex/2026-10-06/task/dev11-checkpoint-qa/profile",
+    "userDocumentsOpened": 0,
+    "externalLinksExecuted": 0,
+    "pid": 88677,
+    "servedFreshAssetsSHA256": {
+      "theme-init.js": "5a3afcc0139187bfe509414cd60fde2a0dfea72fd72751c4e6e696cdc0f6c587",
+      "assets/rhwp_bg-C8-HgegO.wasm": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+      "assets/studio-plugin-Cp8dJ3L_.js": "abdcbcab732aad8d91b551c97ff045bec6b140ae87d94c5fd44235d5515fb4e7",
+      "assets/index-BzAkagpg.js": "d0504278f065e54dab824719698ce6c85f1f95278ccba2b8d55c47d5555e3adf",
+      "assets/canvaskit-renderer-DbnZpzVa.js": "cee89ff42ca7c5dca9beb36bc776bc5933dc3279660f8580adaa9435e4f868fe",
+      "assets/canvaskit-SCAxUyCS.wasm": "25ebed8e60158c5854f8dc807b936daca21354f8bfb6a2231266b0a93812f301",
+      "assets/index-EHujs-C0.css": "f0783ab4c24b02f241c1e3807f971396337209afc63c32146f59f65123cf963a"
+    },
+    "basicProcessAndLocalServerPassed": true,
+    "htmlVersionMatched": true,
+    "servedEngineSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+    "processAlive": true,
+    "quitRequestExit": 0,
+    "quitStderr": "",
+    "normalQuit": true,
+    "finalProcessExit": 0
+  },
+  "processCleanup": {
+    "candidateMatchingProcessRows": [],
+    "candidateRemaining": 0,
+    "normalQuit": true
+  },
+  "nextGap": {
+    "feature": "그림 캡션 넣기의 실행 취소 누락",
+    "command": "insert:caption-toggle",
+    "sourceCommit": "573556d1e3ce24481d217061021441ec89ed53a0",
+    "wasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+    "actualRegistryDispatcherObjectRouterBridgeAndCommandHistory": true,
+    "actualInputHandlerInlineEntryAndUndo": true,
+    "selectionCursorAdapters": true,
+    "normalBodySelectedPicture": true,
+    "commandEnabled": true,
+    "captionInserted": true,
+    "bothFormatsSavedReopened": true,
+    "inputOperationCalls": 0,
+    "captionInlineEditingEntered": true,
+    "undoEntryAbsent": true,
+    "undoDidNotRemoveCaption": true,
+    "sourceSHA256": {
+      "insert": "0fb51d4e09417703ee4631c829eb2aa8016abd90dfd4c93d2cf8196a92486206",
+      "objects": "1c89ac44f3b13e9406260013f37be17fcd16290c8742e19c722e3f6e17501343",
+      "bridge": "a7085f3e8e5c75747676858f77e0583d9d677f68d3b3dd0feb6048aca67997e1",
+      "history": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db",
+      "input": "4833bb63a07c5238176c3487e4be18e2ccf8c1425d3863179dbee4fa53027495",
+      "command": "6d6b72bfe8c0cabb02461406c971a9cfa8c9e3eff7cd9c7d52ea27179a8c8968",
+      "registry": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+      "dispatcher": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381"
+    },
+    "GUIVerified": false,
+    "implementationChanged": false,
+    "proposal": "일반 본문 단일 그림의 기존 캡션 넣기를 snapshot/CommandHistory에 연결해 캡션 추가가 한 번의 undo로 제거되고 redo로 복원되게 한다. 자동 번호·그림/필드·직접 서식·인접 참조와 HWP/HWPX 재열기 및 비지원 대상 거절을 검증한다. 메뉴 방향 확장이나 표/셀·그룹·각주 저작은 분리한다. 이번에는 구현하지 않았다."
+  },
+  "exploratoryCaptionMenu": {
+    "feature": "그림 아래 캡션 삽입",
+    "command": "insert:caption-bottom",
+    "sourceCommit": "573556d1e3ce24481d217061021441ec89ed53a0",
+    "wasmSHA256": "cdb8171fbfbd20751c353d854b1cd6960bee345bdd8b0629e0021c0ccff39a99",
+    "selectedPictureCreatedWithPackagedEngine": true,
+    "target": {
+      "ok": true,
+      "paraIdx": 1,
+      "controlIdx": 0,
+      "logicalOffset": 1
+    },
+    "editableDocument": true,
+    "commandEnabled": false,
+    "dispatchResult": {
+      "ok": false,
+      "reason": "disabled"
+    },
+    "actualMenuDisabled": true,
+    "packagedMenuDisabled": true,
+    "operationCalls": 0,
+    "commandEvents": 0,
+    "wholeDocumentStateAndBothFormatBytesUnchanged": true,
+    "sourceSHA256": {
+      "insert": "0fb51d4e09417703ee4631c829eb2aa8016abd90dfd4c93d2cf8196a92486206",
+      "registry": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+      "dispatcher": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381",
+      "menu": "4299cf7a1b5c057da0a80a10b6525e00d46a96d997a61fc7cd0f71657069a77b"
+    },
+    "GUIVerified": false,
+    "implementationChanged": false,
+    "proposal": "일반 본문의 단일 그림 아래 캡션 추가·텍스트 편집·제거를 기존 캡션 저장 표현 확인 뒤 연결한다. 직접 서식·그림/필드 참조·번호/저장·undo를 검증하며 표/셀·그룹·회전·복합 경로의 계약은 별도로 정한다. 이번에는 구현하지 않았다."
+  },
+  "protected": {
+    "pathsUnchanged": 19,
+    "artifactManifestsUnchanged": {
+      "dev10-checkpoint-qa": 314,
+      "body-rectangle-width-qa": 771,
+      "paragraph-band-ui-qa": 940
+    }
+  },
+  "resources": {
+    "additionalPeakBytes": 396881920,
+    "additionalFinalBytes": 396881920,
+    "targetPeakBytes": 4025421824,
+    "targetFinalBytes": 4025421824,
+    "minDiskFreeBytes": 22896640000,
+    "diskFreeBytes": 22937600000,
+    "stopReasons": []
+  },
+  "diskInventory": {
+    "scope": [
+      "/Users/sw107/Documents/Codex/2026-10-06/task",
+      "/Users/sw107/Documents/Codex/2026-09-08/new-chat",
+      "/Users/sw107/Documents/Codex/2026-10-05/task-2"
+    ],
+    "measurement": "du allocated bytes; APFS shared clone extents are not deduplicated; apps pruned so nested Helpers are not counted again",
+    "apps": [
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev10-checkpoint-qa/GeulgyeolDev10.app",
+        "allocatedBytes": 352628736,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev6-checkpoint-qa/GeulgyeolDev6.app",
+        "allocatedBytes": 351019008,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev8-checkpoint-qa/GeulgyeolDev8.app",
+        "allocatedBytes": 352129024,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app",
+        "allocatedBytes": 350818304,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolDevPropagation.app",
+        "allocatedBytes": 339054592,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app",
+        "allocatedBytes": 352231424,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev7-checkpoint-qa/GeulgyeolDev7.app",
+        "allocatedBytes": 351064064,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/dev11-checkpoint-qa/GeulgyeolDev11.app",
+        "allocatedBytes": 352657408,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app",
+        "allocatedBytes": 350916608,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/Baram.app",
+        "allocatedBytes": 81920,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupBoundsQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352661504,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramOverlayQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339259392,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramBodyPictureQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339447808,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramMixedFontQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339324928,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureChainMac/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 353198080,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramBeta043/BaramBeta-darwin-arm64/BaramBeta.app",
+        "allocatedBytes": 345956352,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/GeulgyeolBeta043Final/GeulgyeolBeta-darwin-arm64/GeulgyeolBeta.app",
+        "allocatedBytes": 339013632,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramFontIMETraceQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352854016,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureParagraphQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339468288,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramObjectEditingQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339263488,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramArcQuarterNormalQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 346324992,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPagedQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339206144,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPathArrowTangentQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 346324992,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureEditQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339447808,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramIMEInternalQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 354648064,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupOrientationReservationQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352657408,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramAxisQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339222528,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramTableOriginVerifiedQA/BaramOriginVerified-darwin-arm64/BaramOriginVerified.app",
+        "allocatedBytes": 353275904,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramScalarQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339247104,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramInlineQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339189760,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramConnectorFillBridgeQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339832832,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupResizeQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339394560,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramConnectorArrowQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339832832,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureSpacingQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339181568,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramSpearArrowValidatedQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339832832,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupFlowPagesQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339185664,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramArcFlagsCanvasKitVerifiedQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 346324992,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramIMETraceQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339222528,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramArcQuarterVerifiedQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 360026112,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramFontFlowQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339349504,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramMixedPicturesMac/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339701760,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupFlowQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339185664,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureTransparencyMac/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339828736,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramOrientedUngroupFollowupQA/BaramUngroupFollowup-darwin-arm64/BaramUngroupFollowup.app",
+        "allocatedBytes": 353280000,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureMarginsQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339181568,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureOutsideQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339832832,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramFilledArrowShortQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339832832,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramTableSaveFlagsQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 353304576,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramShortcutQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339210240,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramSaveQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339312640,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupOrientationQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352657408,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramOrientedPicturesMac/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339804160,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramMixedFlowQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352636928,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureIMEQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339456000,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramCanvasKitPathQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339832832,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramSpearArrowQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339836928,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureControlSlotQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352624640,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPageFlowQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352641024,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramUngroupQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339382272,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramMultipleHostsQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339181568,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramSwapQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339316736,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramIMEPasteQA/BaramIMEPaste-darwin-arm64/BaramIMEPaste.app",
+        "allocatedBytes": 353280000,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramDialogQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339296256,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupCropQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339382272,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPrecisionQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339296256,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramOrientedUngroupQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339451904,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramMenuQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339218432,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureIndentQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352624640,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramNavigationTraceQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 368238592,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPicturePagesQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339181568,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramNavigationQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339238912,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupRepairQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339189760,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramIMEStabilityQA/BaramIMEStability-darwin-arm64/BaramIMEStability.app",
+        "allocatedBytes": 353280000,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupTargetsQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339361792,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramFormatRunsQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339341312,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureRoundCapQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339808256,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureBordersMac/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339812352,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramTableSaveTraceQA/BaramSaveTrace-darwin-arm64/BaramSaveTrace.app",
+        "allocatedBytes": 353308672,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramShortPictureQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339402752,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGeometryQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339271680,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramConnectorExplicitRenderQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339832832,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramArcFlagsValidatedQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 346324992,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramCloseQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339156992,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramParaBackgroundQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352624640,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureChainQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339177472,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramArcGeneralVerifiedQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 353304576,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupFlowMac/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 366866432,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramCropQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339288064,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupOrientationGUIQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352657408,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramArcQuarterCanvasKitQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 360026112,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureScaleQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339255296,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPositionQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339304448,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramNewQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339165184,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramHistoryQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339148800,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureContourQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339832832,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureRepairMac/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339787776,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramFontSearchQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339357696,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPaintOrderQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352649216,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramDimensionQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339300352,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramFontIMEQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352854016,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramResizeQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339189760,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramNoteQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339304448,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupMatrixQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339369984,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramUnicodeQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339279872,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureAlphaQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339804160,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramLineAttributesMac/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339820544,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramGroupTransformsMac/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339771392,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramRotatedClipQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 352661504,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramLineStyleMaskQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339451904,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/GeulgyeolBeta043/GeulgyeolBeta-darwin-arm64/GeulgyeolBeta.app",
+        "allocatedBytes": 345960448,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureBorderCodeQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339451904,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramFontQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339193856,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramFilledArrowGeometryQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339832832,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramArcFlagsCanvasKitQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 346324992,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramPictureDashScaleQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339828736,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramLoadingQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339169280,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramRecoveryQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 339173376,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramArcGeneralNormalQA/Baram-darwin-arm64/Baram.app",
+        "allocatedBytes": 353304576,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramTableOriginQA/BaramTableOrigin-darwin-arm64/BaramTableOrigin.app",
+        "allocatedBytes": 364978176,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/geulgyeol-dev-styles/dist/GeulgyeolDev-darwin-arm64/GeulgyeolDev.app",
+        "allocatedBytes": 339017728,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-05/task-2"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/mac-launch-fix-20261005/beta2/build/GeulgyeolBeta-darwin-arm64/GeulgyeolBeta.app",
+        "allocatedBytes": 339034112,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-05/task-2"
+      }
+    ],
+    "archives": [
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/beta1-release-qa/Geulgyeol-0.4.4-beta.1-mac-arm64.zip",
+        "allocatedBytes": 154443776,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/beta1-release-qa/download-verified/Geulgyeol-0.4.4-beta.1-mac-arm64.zip",
+        "allocatedBytes": 154443776,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-06/task/style-propagation-qa/Geulgyeol-0.4.4-dev.4-mac-arm64-candidate.zip",
+        "allocatedBytes": 150450176,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-06/task"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/Baram-0.4.1-macOS-arm64.zip",
+        "allocatedBytes": 152436736,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramEditor-0.1.zip",
+        "allocatedBytes": 16384,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/Baram-0.4-macOS-arm64.zip",
+        "allocatedBytes": 152461312,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramEditor-0.2-source.zip",
+        "allocatedBytes": 20480,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/Baram-0.4.2-macOS-arm64.zip",
+        "allocatedBytes": 152711168,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/Baram-macOS-0.2.zip",
+        "allocatedBytes": 12288,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/Baram-macOS-0.3.zip",
+        "allocatedBytes": 16384,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/BaramEditor-0.3-source.zip",
+        "allocatedBytes": 20480,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-09-08/new-chat/outputs/GeulgyeolBeta043Final/release/Geulgyeol-0.4.3-beta.1-mac-arm64.zip",
+        "allocatedBytes": 150065152,
+        "scope": "/Users/sw107/Documents/Codex/2026-09-08/new-chat"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/stored-row-body-next-qa/Geulgyeol-0.4.4-dev.1-mac-arm64-candidate.zip",
+        "allocatedBytes": 150392832,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-05/task-2"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/style-deletion-next-qa/Geulgyeol-0.4.4-dev.3-mac-arm64-candidate.zip",
+        "allocatedBytes": 150405120,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-05/task-2"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/table-equation-next-qa/Geulgyeol-0.4.4-dev.2-mac-arm64-candidate.zip",
+        "allocatedBytes": 150401024,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-05/task-2"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/mac-launch-fix-20261005/Geulgyeol-0.4.3-beta.1-mac-arm64-bundle-signed-candidate.zip",
+        "allocatedBytes": 150405120,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-05/task-2"
+      },
+      {
+        "path": "/Users/sw107/Documents/Codex/2026-10-05/task-2/mac-launch-fix-20261005/beta2/release/Geulgyeol-0.4.3-beta.2-mac-arm64.zip",
+        "allocatedBytes": 150401024,
+        "scope": "/Users/sw107/Documents/Codex/2026-10-05/task-2"
+      }
+    ],
+    "appCount": 121,
+    "archiveCount": 17,
+    "appAllocatedBytes": 41310642176,
+    "archiveAllocatedBytes": 1819103232,
+    "cumulativeCandidateAllocatedBytes": 43129745408,
+    "workspaceAllocatedBytes": 9447514112,
+    "currentQaAllocatedBytes": 396746752,
+    "targetAllocatedBytes": 4025421824,
+    "diskTotalBytes": 494384795648,
+    "diskUsedBytes": 471447195648,
+    "diskFreeBytes": 22937600000,
+    "newArchiveCreated": false
+  },
+  "passedChecks": [
+    "web-build",
+    "package-build",
+    "package-check",
+    "signature",
+    "paragraph-band",
+    "native-band",
+    "width-regression",
+    "next-gap",
+    "next-gap-undo",
+    "next-gap-undo-final",
+    "typecheck",
+    "mac-launch-final",
+    "signature-final",
+    "disk-inventory"
+  ],
+  "initialFailuresRetained": [
+    "basic-launch-sandbox-proof.json: native sandbox exit -6",
+    "basic-launch-wrong-quit-target-proof.json: QA quit bundle id was dev10; corrected to validated dev11 app path; fallback terminated with exit0; final native quit succeeded"
+  ],
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxVerified": false,
+  "HancomVerified": false,
+  "productionSourceChanged": false,
+  "publicPushOrRelease": false,
+  "wholeLibUnitTests": "Not rerun; existing missing include_bytes fixtures3 remain. No fixture substitution/exclusion."
+}

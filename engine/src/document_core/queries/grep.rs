@@ -246,7 +246,6 @@ impl DocumentCore {
         }
         let page_index = self.build_paragraph_page_index();
         let table_row_pages = self.build_table_row_page_index();
-        let qlen = query.chars().count();
         let mut out: Vec<GrepMatch> = Vec::new();
 
         for (sec_idx, section) in self.document.sections.iter().enumerate() {
@@ -256,7 +255,7 @@ impl DocumentCore {
                 let make_at =
                     |page: Option<u32>,
                      text: &str,
-                     offset: usize,
+                     offset: super::search_query::MatchSpan,
                      cell: Option<CellRef>,
                      textbox: Option<TextBoxRef>,
                      equation: Option<EquationRef>,
@@ -265,10 +264,10 @@ impl DocumentCore {
                         section: sec_idx,
                         paragraph: para_idx,
                         page,
-                        char_offset: offset,
-                        length: qlen,
+                        char_offset: offset.start,
+                        length: offset.length(),
                         text: text.to_string(),
-                        context: make_context(text, offset, qlen),
+                        context: make_context(text, offset.start, offset.length()),
                         cell,
                         textbox,
                         equation,
@@ -285,7 +284,7 @@ impl DocumentCore {
                     None => (None, None),
                 };
                 let make = |text: &str,
-                            offset: usize,
+                            offset: super::search_query::MatchSpan,
                             cell: Option<CellRef>,
                             textbox: Option<TextBoxRef>,
                             equation: Option<EquationRef>| {

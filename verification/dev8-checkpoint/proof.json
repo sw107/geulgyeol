@@ -1,0 +1,187 @@
+{
+  "engineSourceCommit": "a59a13ca5482f83f652e9c98e0231ff3e1bf037f",
+  "version": "0.4.4-dev.8",
+  "app": "/Users/sw107/Documents/Codex/2026-10-06/task/dev8-checkpoint-qa/GeulgyeolDev8.app",
+  "candidateWasmSHA256": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+  "engineSourceFilesMatchedPriorBuild": 1141,
+  "sourceFreezeFiles": 1478,
+  "protectedSHA256": {
+    "dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+    "dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+    "app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+    "geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+    "geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7"
+  },
+  "desktopRuntimeAssetsMatchedCurrentSource": {
+    "LICENSE": "1c3a7d5643b163a3ead4965e1bea33b832caee5bfca265efe42afcd7bc696b5b",
+    "THIRD_PARTY_NOTICES.md": "2a5ee13df4559d5badd786cff82696ba02c00ee2dac4261c9643f752e8946ed7",
+    "close-controller.cjs": "420c4b38b89bebed71471c957010de236d701944b5e9b983becdb0eb58a4d0fc",
+    "document-shortcuts.cjs": "9b9b24841bf1a8872bcf35c77963a1f422de8f646efd9bc94afd101955026575",
+    "preload.cjs": "dbba4b8fe29573a8caf256adcaa2bdf868ef0368d679839a682be6ce8216748d",
+    "server.cjs": "3edd1d5c0d245d1e9c9eb503befd5f1a173c7d02269f90b8290d9d5d643d7791",
+    "storage.cjs": "cbf0bc95d1b9156ff7254eddd5c8f9ece8996ef08f1c0d3c5be32a0a469a3ab2",
+    "web/baram.css": "87e1523c1bf6d47132405f75fb731f776a6d4062559e698b447d7cdff5d9d3cd",
+    "web/baram.js": "d86c38472cd5dbabc8042e1ab1d8fc66eae383f7069389f88bbb85c3b6c38df5",
+    "web/edit-history.js": "7f024e8aa4c3e557451fbfbf2bba0e3b4c47871dd11d3013f532b94c0ae4cfbe",
+    "web/licenses/INDEX.txt": "c2a9ae8e927685fd37f0473f131ad2e51e12d4f2a798a5eb1aa6e02839f78b58",
+    "web/licenses/Pretendard-LICENSE.txt": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+    "web/licenses/RHWP-MIT.txt": "1c3a7d5643b163a3ead4965e1bea33b832caee5bfca265efe42afcd7bc696b5b",
+    "web/licenses/RHWP-THIRD-PARTY.md": "25baf4e05f26ab6009522d47843ac7247c1be64ae45658400227497106fda79b",
+    "web/licenses/SourceHanSerifK-OFL.txt": "9ff5bb567e1b92c801fc1069e5fbf992ff8efccacb9db94e5959a5b3ba9bb903",
+    "web/licenses/gowunbatang-OFL.txt": "49a57cc769fa9affd6eefb9070a61e3d3f6b757c97cafb15848bc6d1c81acc78",
+    "web/licenses/gowundodum-OFL.txt": "a7c73f9521cd646bbdfb6684c99a62311bbd7bce11898dc11ef0b3c69eda1aca",
+    "web/licenses/nanumgothic-OFL.txt": "eeacf16032901d0ed0456876ec77b8f0fda6b3fecec7d972f8543eb602e6c30f",
+    "web/licenses/nanumgothiccoding-OFL.txt": "eeacf16032901d0ed0456876ec77b8f0fda6b3fecec7d972f8543eb602e6c30f",
+    "web/licenses/nanummyeongjo-OFL.txt": "8eb1c1019fe7fe6d0b6e7d7bbbba1d9cbdd969d8c5f26455708f6cfb8a77284c",
+    "web/licenses/notosanskr-OFL.txt": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+    "web/licenses/notoserifkr-OFL.txt": "5e0da210fb04058a8c0087985d2d456b931c2579811a49655721d3cf0c36b6d6",
+    "web/sdk/README.md": "7c190bc8954cc71b17edb684bfd0279c78d39099930a2c2dec9d7a79e911a876",
+    "web/sdk/document-agent-contract.js": "9319ec9ddaec5c0a33cc45d24ff03122b1c9191b127dda2086621ac86b9655f1",
+    "web/sdk/index.d.ts": "6b8a88ff8c43c0df024e0c9013f87520d8831890393be9ced890363742514471",
+    "web/sdk/index.js": "c9fab3743e713c46fd72c20f798333a4e70021ed7fcc7bdc56f0e144dd7b9431",
+    "web/sdk/package.json": "84cff6da5eccdcfcdde6f0867143b3820e2e69b8790b300f7b42901b8506c1f2",
+    "web/sdk/transport.js": "2ee9f915e70b9621b90fd9f578c269a085757da85565ee649877832e312c7877"
+  },
+  "runtime": {
+    "node": "v24.20.0",
+    "electron": "44.3.0",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "packaging": {
+    "app": "/Users/sw107/Documents/Codex/2026-10-06/task/dev8-checkpoint-qa/GeulgyeolDev8.app",
+    "version": "0.4.4-dev.8",
+    "bundleId": "org.geulgyeol.dev.checkpoint8",
+    "helpers": [
+      {
+        "name": "GeulgyeolDev8 Helper (GPU)",
+        "bundleId": "org.geulgyeol.dev.checkpoint8.helper.GPU"
+      },
+      {
+        "name": "GeulgyeolDev8 Helper (Plugin)",
+        "bundleId": "org.geulgyeol.dev.checkpoint8.helper.Plugin"
+      },
+      {
+        "name": "GeulgyeolDev8 Helper (Renderer)",
+        "bundleId": "org.geulgyeol.dev.checkpoint8.helper.Renderer"
+      },
+      {
+        "name": "GeulgyeolDev8 Helper",
+        "bundleId": "org.geulgyeol.dev.checkpoint8.helper"
+      }
+    ],
+    "asarSHA256": "66e9af062d45efaca508053e87a7a759489d7f98e0484798e7fd60b5d468a104",
+    "asarHeaderSHA256": "4c9b424242f58cda4827d10be2cd56887e999a74abdb3ad5773bf67ad9a85435",
+    "allEntryAndBlockIntegrityVerified": true,
+    "freshBindingsAndStudioAssetsMatch": true,
+    "engineSHA256": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+    "compiledUIMethods": [
+      "applyCellOwnPropertiesByPaths",
+      "applyFormatCopyInCell",
+      "getCellOwnPropertiesByPath",
+      "getCellParaPropertiesAtByPath",
+      "insertClickHereField",
+      "setFieldValueByName"
+    ],
+    "profileIsolated": true,
+    "onlyBindingsExtracted": true,
+    "allSymlinksStayInsideCandidate": true,
+    "noTestsOrNodeModulesInApp": true,
+    "GUIVerified": false,
+    "sourceFreezeProof": "/Users/sw107/Documents/Codex/2026-10-06/task/dev8-checkpoint-qa/source-freeze.json"
+  },
+  "checks": {
+    "clickhere": {
+      "reopens": 54,
+      "undos": 24,
+      "redos": 24,
+      "rejections": 14,
+      "cellRegressions": 6
+    },
+    "clickhereAdditionalKnownReopens": 4,
+    "atomic": {
+      "supported": 10,
+      "unsupported": 18,
+      "acceptedUnsupported": 0
+    },
+    "atomicUndoRedoPairs": 10,
+    "atomicReopens": 20,
+    "bodyNumbering": {
+      "cases": 20,
+      "reopens": 44,
+      "undos": 52,
+      "redos": 51,
+      "rejections": 85,
+      "noOps": 5,
+      "rollbacks": 1
+    },
+    "cellNumbering": {
+      "cases": 78,
+      "reopens": 156,
+      "undos": 210,
+      "redos": 204,
+      "rejections": 258,
+      "noOps": 18,
+      "rollbacks": 6
+    }
+  },
+  "lifecycle": {
+    "version": "0.4.4-dev.8",
+    "nativeGUIVerified": false,
+    "physicalIMEVerified": false,
+    "profileBase": "/Users/sw107/Documents/Codex/2026-10-06/task/dev8-checkpoint-qa/profile",
+    "pid": 12279,
+    "servedFreshAssetsSHA256": {
+      "theme-init.js": "5a3afcc0139187bfe509414cd60fde2a0dfea72fd72751c4e6e696cdc0f6c587",
+      "assets/rhwp_bg-C6hai9i_.wasm": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+      "assets/canvaskit-renderer-DGYAEoEs.js": "527759da8cd52920b6d179abb047c9df9bc74f14bf2ddd7a1f2810d0409c1fe7",
+      "assets/studio-plugin-Cp8dJ3L_.js": "abdcbcab732aad8d91b551c97ff045bec6b140ae87d94c5fd44235d5515fb4e7",
+      "assets/index-DsU8kxDK.js": "83b2665cb9e5f97bbb31e90c99bdfc89252495d5c6b4e065f629927f9b16978c",
+      "assets/canvaskit-SCAxUyCS.wasm": "25ebed8e60158c5854f8dc807b936daca21354f8bfb6a2231266b0a93812f301"
+    },
+    "basicProcessAndLocalServerPassed": true,
+    "htmlVersionMatched": true,
+    "servedEngineSHA256": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+    "processAlive": true,
+    "quitRequestExit": 0,
+    "quitStderr": "",
+    "normalQuit": true,
+    "finalProcessExit": 0
+  },
+  "cleanup": {
+    "candidateProcessesRemaining": [],
+    "normalShutdownComplete": true
+  },
+  "signature": "ad-hoc codesign --verify --deep --strict passed",
+  "sandboxLifecycleAttempt": {
+    "exit": -6,
+    "retriedCandidateOnlyWithApprovedEscalation": true
+  },
+  "budget": {
+    "additionalAllocatedBytes": 401887232,
+    "additionalLimitBytes": 1073741824,
+    "targetAllocatedBytes": 3331448832,
+    "targetLimitBytes": 4294967296,
+    "availableBytes": 24739840000,
+    "minimumAvailableBytes": 10737418240
+  },
+  "limitations": [
+    "DOM/geometry adapters for current UI commands; actual GUI and physical IME unverified",
+    "Adjacent empty-boundary clearing remains rejected without mutation",
+    "Vertical cell pagination remains unsupported",
+    "No Linux rerun during Mac integration",
+    "Library unit test suite remains blocked by three existing missing include_bytes fixtures"
+  ],
+  "nextProposedGap": {
+    "implemented": false,
+    "kind": "virtual named cell replacement changes inner ClickHere ownership/value",
+    "beforeInnerValue": "",
+    "afterInnerValue": "새값🙂",
+    "reproducedInHwpAndHwpx": true,
+    "reopenLossReportsCount": 0
+  },
+  "newAppCount": 1,
+  "newZipCount": 0,
+  "cacheDeletion": false,
+  "publicOperations": false
+}

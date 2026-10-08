@@ -254,17 +254,19 @@ export const formatCommands: CommandDef[] = [
       if (!ih) return;
       const charProps = ih.getCharProperties();
       // 대화상자 열기 전 선택 범위를 저장 (대화상자 조작 중 선택이 풀릴 수 있음)
-      const savedSel = ih.getSelection();
-      if (!savedSel) return;
+      const savedFootnote = ih.getFootnoteParaFormatSelection();
+      const savedSel = savedFootnote ? null : ih.getSelection();
+      if (!savedFootnote && !savedSel) return;
       const dialog = new CharShapeDialog(services.wasm, services.eventBus);
       dialog.onApply = (mods) => {
         // fontName → fontId 변환 (WASM parse_char_shape_mods는 fontId만 인식)
-        if (mods.fontName) {
+        if (mods.fontName && !savedFootnote) {
           const fontId = services.wasm.findOrCreateFontId(mods.fontName);
           if (fontId >= 0) mods.fontId = fontId;
           delete mods.fontName;
         }
-        ih.applyCharPropsToRange(savedSel.start, savedSel.end, mods);
+        if (savedFootnote) ih.applyCharPropsToFootnoteSelection(savedFootnote, mods);
+        else if (savedSel) ih.applyCharPropsToRange(savedSel.start, savedSel.end, mods);
       };
       dialog.onClose = () => ih.focus();
       dialog.show(charProps);
@@ -281,12 +283,14 @@ export const formatCommands: CommandDef[] = [
       const ih = services.getInputHandler();
       if (!ih) return;
       const paraProps = ih.getParaProperties();
-      const sel = ih.getSelection();
+      const savedFootnote = ih.getFootnoteParaFormatSelection();
+      const sel = savedFootnote ? null : ih.getSelection();
       const curPos = ih.getCursorPosition();
       const range = sel ?? { start: curPos, end: curPos };
       const dialog = new ParaShapeDialog(services.wasm, services.eventBus);
       dialog.onApply = (mods) => {
-        ih.applyParaPropsToRange(range.start, range.end, mods);
+        if (savedFootnote) ih.applyParaPropsToFootnoteSelection(savedFootnote, mods);
+        else ih.applyParaPropsToRange(range.start, range.end, mods);
       };
       dialog.onClose = () => ih.focus();
       dialog.show(paraProps);
@@ -343,6 +347,14 @@ export const formatCommands: CommandDef[] = [
       dialog.currentHeadType = props.headType ?? 'None';
       dialog.currentNumberingId = props.numberingId ?? 0;
       dialog.currentRestartMode = (props as any).numberingRestartMode ?? 0;
+      dialog.currentStartNumber = (props as any).numberingStartNum ?? 1;
+      const bodyNumbering = ih.captureBodyNumbering() ?? ih.captureCellNumbering();
+      if (bodyNumbering) {
+        dialog.previousLists = bodyNumbering.lists;
+        dialog.previousNumberingId = bodyNumbering.preferredId;
+        dialog.onApplyDefinition = bodyNumbering.apply;
+        if (ih.getCursorPosition().parentParaIndex !== undefined) dialog.continuationHint = '이어쓰기는 각 셀 안의 이전 목록에 적용됩니다. 여러 셀을 선택하면 각 셀의 목록과 수준을 유지합니다. 새 목록은 위 번호 형식으로 시작합니다.';
+      }
       // Bullet일 때 현재 bullet 문자 전달
       if (props.headType === 'Bullet' && props.numberingId && props.numberingId > 0) {
         try {

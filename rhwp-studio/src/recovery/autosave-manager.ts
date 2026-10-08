@@ -253,15 +253,18 @@ export class AutosaveManager {
   }
 
   /** Native close barrier: stop writers, await their completion, then delete only this draft. */
-  async prepareDiscardClose(): Promise<void> {
+  async prepareDiscardClose(assertCurrent: () => void = () => {}): Promise<void> {
+    assertCurrent();
     this.closing = true;
     this.cancelTimers();
     this.pendingReason = null;
     try {
       await this.saveCompletion;
+      assertCurrent();
       const id = this.current?.draftId;
       // Unlike routine background cleanup, failure must reach the close controller.
       if (id) await this.store.deleteDraft(id);
+      assertCurrent();
     } catch (error) {
       this.closing = false;
       this.schedule('close-cleanup-retry');
@@ -272,6 +275,12 @@ export class AutosaveManager {
   dispose(): void {
     this.cancelTimers();
     this.pendingReason = null;
+  }
+
+  /** The host rejected final close approval; keep recovery available. */
+  cancelDiscardClose(): void {
+    this.closing = false;
+    this.schedule('close-approval-cancelled');
   }
 
   private cancelIdleTimer(): void {

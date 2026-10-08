@@ -1,0 +1,401 @@
+{
+  "baselineCommit": "07a3b913a93c6a6c3cc9d83e8d11366e343d0177",
+  "QAPath": "/Users/sw107/Documents/Codex/2026-10-06/task/caption-text-qa",
+  "WASMSHA256": "957050561c598258d785f0dff07b952a2ae9e8650d1406f1b060578be9c5c9d0",
+  "actualMacCurrentSourceBrowser": {
+    "checks": [
+      {
+        "label": "existing-delete",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "existing-backspace",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "existing-delete-emoji",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "existing-backspace-astral",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "existing-replace",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "existing-selection-delete",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "existing-Enter",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "existing-selection-Enter",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "existing-ShiftEnter",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "existing-multiline-paste",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "comments-delete",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "comments-backspace",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "comments-delete-emoji",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "comments-backspace-astral",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "comments-replace",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "comments-selection-delete",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "comments-Enter",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "comments-selection-Enter",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "comments-ShiftEnter",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "comments-multiline-paste",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "notes-delete",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "notes-backspace",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "notes-delete-emoji",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "notes-backspace-astral",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "notes-replace",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "notes-selection-delete",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "notes-Enter",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "notes-selection-Enter",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "notes-ShiftEnter",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "notes-multiline-paste",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "multi-backspace-merge",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "multi-delete-merge",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "multi-cross-delete",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "multi-cross-replace",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "composition-caret",
+        "hwpUndoBinaryExact": true
+      },
+      {
+        "label": "composition-selected",
+        "hwpUndoBinaryExact": true
+      }
+    ],
+    "refusals": [
+      "composition-cancel",
+      "caption-body-cross-container",
+      "number-selection",
+      "number-Enter",
+      "caption-start-backspace",
+      "unsupported-{\"hasCaption\":true,\"captionDirection\":\"Left\"}",
+      "unsupported-{\"rotationAngle\":30}",
+      "unsupported-{\"treatAsChar\":true}",
+      "empty-paste",
+      "invalid-surrogate",
+      "rich-paste",
+      "insertion-failure-keeps-redo"
+    ],
+    "undoRedoPairs": 144,
+    "savedReopens": 144,
+    "errors": [],
+    "runtime": [
+      {
+        "url": "http://127.0.0.1:32167/studio/@fs/Users/sw107/Documents/Codex/2026-10-06/task/caption-text-qa/pkg/rhwp_bg.wasm",
+        "sha256": "957050561c598258d785f0dff07b952a2ae9e8650d1406f1b060578be9c5c9d0"
+      }
+    ],
+    "realDomCanvasCursorInputHandler": true,
+    "headless": false,
+    "OSClipboardAccessed": false,
+    "physicalImeVerified": false,
+    "nativeElectronVerified": false
+  },
+  "nativeCaption": {
+    "captionScopeReadonlyRefusals": 14,
+    "fullSvgParagraphsStylesCaptionAndImageCompared": true,
+    "independentSavedReopens": 144,
+    "nativeCommandReexecution": true,
+    "noteHeaderTrailingZeroPaddingCanonicalized": true,
+    "snapshotPairs": 264
+  },
+  "priorRegressions": {
+    "paste": {
+      "passed": true,
+      "WASMReopens": 76,
+      "undoRedoPairs": 78,
+      "nativeIndependentReopens": 76,
+      "proofSHA256": "7bd16297243c9dc4ea9658515b79413e035987941bb118a1c259f91b2cf655e5",
+      "nativeProofSHA256": "19792eafe349696dbf5db370ec406ee7e8c05ce29747ccbd0d7981bfb3881aa6",
+      "actualHeadedGUI": false
+    },
+    "range": {
+      "passed": true,
+      "WASMReopens": 68,
+      "undoRedoPairs": 68,
+      "nativeIndependentReopens": 68,
+      "proofSHA256": "2ec91d71f7b5ef78f07bde58b888a6f7809599c61b6418f238fb65a3f87e19b2",
+      "nativeProofSHA256": "4bc28a8f82d41b546dcf8a63a100977fb7412e5eb8629256913082817f5e239e",
+      "actualHeadedGUI": false
+    },
+    "structure": {
+      "passed": true,
+      "WASMReopens": 888,
+      "undoRedoPairs": 1068,
+      "nativeIndependentReopens": 888,
+      "proofSHA256": "ea70295a3b2e628d841f241d1f66c5e4b9ecda085417cf5df039ac97a934a034",
+      "nativeProofSHA256": "492b9b718afc4b71fb297d966b272437a88836dd787afea31945b65f8e3b65e6",
+      "actualHeadedGUI": false
+    },
+    "bookmark": {
+      "passed": true,
+      "WASMReopens": 236,
+      "undoRedoPairs": 261,
+      "nativeIndependentReopens": 236,
+      "proofSHA256": "33e7bb666b1b5fc70a8ed9779557825895268f718682f73176e9dcd3b830ebe9",
+      "nativeProofSHA256": "b60e99c5b107623080a6eead96ff331b5fe08d7863053d8621c617175affbd82",
+      "actualHeadedGUI": false
+    },
+    "caption": {
+      "passed": true,
+      "WASMReopens": 76,
+      "undoRedoPairs": 91,
+      "nativeIndependentReopens": 76,
+      "proofSHA256": "3ba27adf1ee8feb8925af84f473dbea5d1cc85432d3e2eba026764e67a99819b",
+      "nativeProofSHA256": "87cacb2c0119e97193b885eafac7e87f1fd5fef5edb924b2c04cd641873e7a4c",
+      "actualHeadedGUI": false
+    }
+  },
+  "priorWASMReopens": 1344,
+  "priorNativeReopens": 1344,
+  "checks": {
+    "TypeScript": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "rhwp-studio/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--project",
+        "../caption-text-qa/tsconfig.json"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 180985856,
+      "additionalPeakBytes": 180989952,
+      "additionalFinalBytes": 180989952,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252794880,
+      "targetFinalBytes": 4252794880,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20725760000,
+      "diskFreeFinalBytes": 20725760000,
+      "stopReason": null,
+      "elapsedSeconds": 0.7
+    },
+    "Clippy": {
+      "command": [
+        "python3",
+        "../caption-text-qa/cargo-run.py",
+        "clippy",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--example",
+        "body_rectangle_width_check",
+        "--example",
+        "bookmark_preservation_check",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 160571392,
+      "additionalPeakBytes": 160575488,
+      "additionalFinalBytes": 160575488,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4213772288,
+      "targetFinalBytes": 4213747712,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20766720000,
+      "diskFreeFinalBytes": 20766720000,
+      "stopReason": null,
+      "elapsedSeconds": 1.23
+    },
+    "WASMBuild": {
+      "command": [
+        "python3",
+        "../caption-text-qa/cargo-run.py",
+        "build",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--release"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 83480576,
+      "additionalPeakBytes": 83484672,
+      "additionalFinalBytes": 83484672,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252786688,
+      "targetFinalBytes": 4252786688,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20766720000,
+      "diskFreeFinalBytes": 20889600000,
+      "stopReason": null,
+      "elapsedSeconds": 132.06
+    },
+    "NativeCaption": {
+      "command": [
+        "../style-lint-qa/target/debug/examples/body_rectangle_width_check",
+        "../caption-text-qa",
+        "--verify-caption-text"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 180977664,
+      "additionalPeakBytes": 180981760,
+      "additionalFinalBytes": 180981760,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252794880,
+      "targetFinalBytes": 4252794880,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20725760000,
+      "diskFreeFinalBytes": 20725760000,
+      "stopReason": null,
+      "elapsedSeconds": 4.11
+    }
+  },
+  "preservation": {
+    "protectedFiles": 20677,
+    "changed": [],
+    "missing": [],
+    "additionalQABytes": 274083840,
+    "sharedTargetBytes": 4252794880,
+    "actualDiskFreeBytes": 20684800000
+  },
+  "shutdown": {
+    "ownedRemaining": [],
+    "localhostPort32167Closed": true,
+    "serverToolExitCode": 143,
+    "SIGTERMSentToVerifiedOwnedPID": 38531,
+    "browsersClosedInFinally": true
+  },
+  "budget": {
+    "additionalPeakBytes": 274092032,
+    "targetPeakBytes": 4370980864,
+    "minDiskFreeBytes": 20643840000
+  },
+  "evidenceSHA256": {
+    "browser-proof.json": "3c15d169776e900adda9dc6f171397853179a03f14267fc9a532fa7f416bed91",
+    "native-caption-proof.json": "2cb6c9c3bed254d8a649620ccf707c1f9a4061f51394400d9e4d4df5ec1d5f50",
+    "regression-proof.json": "bb30ac0996e37e6634ac5e2d05742fd565e68293f1007b10f0cf4faa825661cf",
+    "final-integrity.json": "eba9079ab0c7538825b6b5f1d2660051aa457c9252c2c97b0b6d1930497172ef",
+    "shutdown-proof.json": "5ffec66a550735d908fef2a9adaeaedf04022afd41850c7cfffca169a4c6e96d",
+    "owned-screen-capture.json": "fbfef3b0f83f05b5909288db9c4776efbaf2922ac76798539228ece60541cc36",
+    "full-browser.mjs": "f37c9be7bee1f8e7ac025b3115048f7665dafb83d4708a289d7ff3e94e45a2e3",
+    "prepare-fixtures.mjs": "80a150df89b1c53582a746105fff9d5953f97ff811d2af151cd3fb8ef6e4ea48",
+    "run-regressions.py": "8d1c33c0e525fd8dbe2b7237f5838523b58fc4007455cfad384ad342a11cbe31",
+    "serve.mjs": "96a5cb374077c79cd6b81c8527c7bed1d9e0eb6c57a0f4e984013929790f8d03",
+    "baseline-delete-projection.json": "e2fba4f66f26cae642cd8614eb56ac79be1f8a519585710f9f9a2f25b1ea27cd",
+    "baseline-replace-projection.json": "9f95b1d10a745ae9d4cc3a278c6f66054af859da8e8a26f084ab68f765850236",
+    "baseline-error-details.log": "44850339bafbc6f9afaa7919e3d0f06b56501397cf71d39a55c8bcdc3d7ea149",
+    "first-browser-failure.json": "aae09b58a736af9619fb023f134499f45f66791be74ce0d3bdf08339353268a2",
+    "first-browser.log": "b706d8a53866b0113e3ce6a30367f47e73e974d282326919b9fe480dd4883c08",
+    "mixed-caption-current-source-mac-window.png": "98f5577ee0bcb20b6365f7a2f5aa7214808c4ecabb9bd279409516a2ab8d8024"
+  },
+  "limitations": [
+    "physical macOS IME, mouse hit-testing, OS clipboard and native file dialogs unverified",
+    "installed Electron host integration, Hancom and Linux unverified",
+    "no new app/ZIP/target or public release",
+    "baseline full lib tests have three absent fixtures",
+    "previous Mac-source validation HWP undo metadata differences in three cases remain separately documented"
+  ],
+  "typedDocInfoCompared": true,
+  "canonicalization": [
+    "DocInfo raw stream/provenance caches excluded; all typed fields included",
+    "known note header trailing zero padding normalized"
+  ],
+  "productSourceSHA256": {
+    "engine/src/document_core/commands/caption_text.rs": "0fd0aa23c3b80d2f738cce2e11e4622baa7fb214aad4e04f2099ab945430f4b7",
+    "engine/src/document_core/commands/text_editing.rs": "2a972353a33c350bee49e2bbb464df0257013ae9f9b4367024b9afbfa8bc4fdd",
+    "engine/src/wasm_api.rs": "79036cba20c3812296d54fa622278af20e014076291646a8b0d17ab4c5e51640",
+    "rhwp-studio/src/core/wasm-bridge.ts": "b25d17768568dd860e6d31b6668c71007faac2184726b8dae55e86498246ca35",
+    "rhwp-studio/src/engine/input-handler-caption.ts": "908efef5e74372241f45ba74a49f763af1370fe0074a98f9b807dce3abeb77ea",
+    "rhwp-studio/src/engine/input-handler-connector.ts": "b9b42fb38a9ff940d1457fef8ec372ec73a8b3f316ba3ec3db0646601848f51c",
+    "rhwp-studio/src/engine/input-handler-keyboard.ts": "00069d0aaf6a6f9977d89ea6db494fd091ff1035087ad617598d3cdc8520c9a5",
+    "rhwp-studio/src/engine/input-handler-mouse.ts": "5325e4011622b14e28d7dccb1f447bf6d70091daee7c334be6e8a9c414182cf5",
+    "rhwp-studio/src/engine/input-handler-picture.ts": "b17241806bf110a21dd09b6ff1c0ec365eb11c7cace8a73858bda3e3b778dc15",
+    "rhwp-studio/src/engine/input-handler-table.ts": "b20ce48e33f874f759fa3aa8fe6a357f9f43e7c667771d8ffda5937d347330d9",
+    "rhwp-studio/src/engine/input-handler-text.ts": "dc0d88cffa1d448d97ae7ffb0a210c5d01576d2535bce61cc28fe31c8711f470",
+    "rhwp-studio/src/engine/input-handler.ts": "2cbae805a696fa3f1b266861f6bad168723150ae6c8e3dd56b429417805e3d9c",
+    "rhwp-studio/src/engine/cursor.ts": "adaee11dc4b81c426104a6b6be1788511aeee71d7ad6608fcca66bfd2092fa14"
+  }
+}

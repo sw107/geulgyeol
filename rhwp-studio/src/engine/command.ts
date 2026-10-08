@@ -103,7 +103,18 @@ export type HeaderFooterSelectionSnapshot = {
   readonly previewPage: number;
 };
 
-export type EditSelectionSnapshot = BodySelectionSnapshot | HeaderFooterSelectionSnapshot;
+export type FootnoteSelectionSnapshot = {
+  readonly mode: 'footnote';
+  readonly sectionIdx: number;
+  readonly parentParaIdx: number;
+  readonly controlIdx: number;
+  readonly start: { fnParaIdx: number; charOffset: number };
+  readonly end: { fnParaIdx: number; charOffset: number };
+  readonly pageNum: number;
+  readonly footnoteIndex: number;
+};
+
+export type EditSelectionSnapshot = BodySelectionSnapshot | HeaderFooterSelectionSnapshot | FootnoteSelectionSnapshot;
 
 /** text mutation의 document pagination/flow 경계와 immediate 완료를 함께 전달한다. */
 export interface FocusedCellCursorGeometry {
@@ -630,7 +641,8 @@ export class InsertTextCommand implements EditCommand {
   execute(wasm: WasmBridge): DocumentPosition {
     this.lastMutationEffects = NO_TEXT_MUTATION_EFFECTS;
     this.lastMutationEffects = insertTextWithMutationEffects(wasm, this.position, this.text);
-    const after = { ...this.position, charOffset: this.position.charOffset + this.text.length };
+    // Body/cell offsets and formatting ranges use Unicode scalar counts.
+    const after = { ...this.position, charOffset: this.position.charOffset + charCount(this.text) };
     if (this.charFormat) {
       applyCharShapeModsToRange(wasm, this.position, this.position.charOffset, after.charOffset, this.charFormat);
     }
@@ -668,7 +680,7 @@ export class InsertTextCommand implements EditCommand {
       if (other.position.cellParaIndex !== this.position.cellParaIndex) return null;
     }
     // 연속 위치 확인
-    const expectedOffset = this.position.charOffset + this.text.length;
+    const expectedOffset = this.position.charOffset + charCount(this.text);
     if (other.position.charOffset !== expectedOffset) return null;
     // 300ms 이내
     if (other.timestamp - this.timestamp > 300) return null;
@@ -815,18 +827,38 @@ export class SplitParagraphCommand implements EditCommand {
   readonly type = 'splitParagraph';
   readonly timestamp = Date.now();
 
-  constructor(private position: DocumentPosition) {}
+  private enterSnapshot: SnapshotCommand | null = null;
+  constructor(private position: DocumentPosition, private applyNextStyle = false) {}
+
+  discard(wasm: WasmBridge): void { this.enterSnapshot?.discard(wasm); }
+  snapshotResourceCount(): number { return this.enterSnapshot?.snapshotResourceCount() ?? 0; }
+  isNoOp(): boolean { return this.enterSnapshot?.isNoOp() ?? false; }
 
   execute(wasm: WasmBridge): DocumentPosition {
+    if (this.applyNextStyle) {
+      this.enterSnapshot ??= new SnapshotCommand(this.type, this.position, this.position,
+        (bridge) => this.executeSplit(bridge), true);
+      const result = this.enterSnapshot.execute(wasm);
+      return result;
+    }
+    return this.executeSplit(wasm);
+  }
+
+  private executeSplit(wasm: WasmBridge): DocumentPosition {
     const { sectionIndex: sec, paragraphIndex: para, charOffset } = this.position;
-    const result = JSON.parse(wasm.splitParagraph(sec, para, charOffset));
+    const result = JSON.parse(wasm.splitParagraph(sec, para, charOffset, undefined, this.applyNextStyle));
     if (result.ok) {
       return { sectionIndex: sec, paragraphIndex: result.paraIdx, charOffset: 0 };
     }
+    if (this.applyNextStyle) throw new Error("Enter paragraph split failed");
     return this.position;
   }
 
   undo(wasm: WasmBridge): DocumentPosition {
+    if (this.enterSnapshot) {
+      const result = this.enterSnapshot.undo(wasm);
+      return result;
+    }
     const { sectionIndex: sec, paragraphIndex: para } = this.position;
     wasm.mergeParagraph(sec, para + 1);
     return { ...this.position };
@@ -897,6 +929,7 @@ export class FragmentDeleteCommand implements EditCommand {
 
   execute(wasm: WasmBridge): DocumentPosition {
     // 지역 변수로 받는다 — catch 에서 프로퍼티 좁히기가 풀려 TS2345 가 난다(CI 실측).
+    this.noOp = false;
     const fragmentId = wasm.captureDeleteRange(this.sectionIdx, this.startPara, this.endPara);
     this.fragmentId = fragmentId;
     try {
@@ -971,6 +1004,9 @@ export class DeleteSelectionCommand implements EditCommand {
   };
 
   constructor(start: DocumentPosition, end: DocumentPosition, blockPhase: number | null = null) {
+    if (!isCell(start) && (isCell(end) || start.sectionIndex !== end.sectionIndex)) {
+      throw new Error('본문 선택 삭제는 같은 구역의 본문 범위만 지원합니다.');
+    }
     this.selection = { start: { ...start }, end: { ...end }, blockPhase };
 
     if (isCell(start)) {
@@ -994,10 +1030,11 @@ export class DeleteSelectionCommand implements EditCommand {
         start.paragraphIndex,
         end.paragraphIndex,
         (wasm) => {
-          wasm.deleteRange(
+          const result = wasm.deleteRange(
             start.sectionIndex, start.paragraphIndex, start.charOffset,
             end.paragraphIndex, end.charOffset,
           );
+          if (result.changed === false) return null;
           return { ...start };
         },
       );
@@ -1182,7 +1219,7 @@ export class ApplyCharFormatCommand implements EditCommand {
 
 export type ParaFormatTarget =
   | { kind: 'body'; sec: number; para: number }
-  | { kind: 'cell'; sec: number; parentPara: number; controlIdx: number; cellIdx: number; cellParaIdx: number };
+  | { kind: 'cell'; sec: number; parentPara: number; controlIdx: number; cellIdx: number; cellParaIdx: number; cellPath?: CellPathEntry[] };
 
 interface ParaShapeHistoryEntry {
   target: ParaFormatTarget;
@@ -1242,14 +1279,39 @@ export class ApplyParaFormatCommand implements EditCommand {
   readonly timestamp = Date.now();
 
   private entries: ParaShapeHistoryEntry[] = [];
+  private readonly snapshot: SnapshotCommand | null;
 
   constructor(
     private targets: ParaFormatTarget[],
     private props: Partial<ParaProperties>,
     private cursorBefore: DocumentPosition,
-  ) {}
+  ) {
+    this.snapshot = null;
+    if (targets.some(t => t.kind === 'cell' && (t.cellPath?.length ?? 0) > 1)) {
+      const first = targets[0];
+      if (first.kind !== 'cell' || !first.cellPath || targets.some(t => t.kind !== 'cell' || (t.cellPath?.length ?? 0) < 2 || t.sec !== first.sec || t.parentPara !== first.parentPara)) {
+        throw new Error('중첩 문단 모양 대상은 같은 본문 문단의 셀 경로여야 합니다');
+      }
+      const paths = targets.map(t => (t as Extract<ParaFormatTarget, { kind: 'cell' }>).cellPath!.map(p => ({ ...p })));
+      this.snapshot = new SnapshotCommand('applyNestedParaFormat', cursorBefore, cursorBefore, (wasm) => {
+        wasm.runInBatch(() => wasm.applyParaFormatInCellsByPaths(first.sec, first.parentPara, paths, props));
+        return { ...cursorBefore };
+      });
+    } else if (targets.length > 0 && targets.every(t => t.kind === 'cell')) {
+      // Preserve stored line segments as well as formats on flat-cell undo.
+      // Restoring only the format ID reflows imported lines and changes their SVG.
+      const cells = targets.map(t => ({ ...t } as Extract<ParaFormatTarget, { kind: 'cell' }>));
+      this.snapshot = new SnapshotCommand('applyCellParaFormat', cursorBefore, cursorBefore, (wasm) => {
+        wasm.runInBatch(() => {
+          for (const t of cells) wasm.applyParaFormatInCell(t.sec, t.parentPara, t.controlIdx, t.cellIdx, t.cellParaIdx, JSON.stringify(props));
+        });
+        return { ...cursorBefore };
+      });
+    }
+  }
 
   execute(wasm: WasmBridge): DocumentPosition {
+    if (this.snapshot) return this.snapshot.execute(wasm);
     if (this.entries.length > 0 && this.entries.every(entry => entry.afterParaShapeId !== undefined)) {
       for (const entry of this.entries) {
         restoreParaShapeId(wasm, entry.target, entry.afterParaShapeId!);
@@ -1278,11 +1340,18 @@ export class ApplyParaFormatCommand implements EditCommand {
   }
 
   undo(wasm: WasmBridge): DocumentPosition {
+    if (this.snapshot) return this.snapshot.undo(wasm);
     for (const entry of this.entries) {
       restoreParaShapeId(wasm, entry.target, entry.beforeParaShapeId);
     }
     return { ...this.cursorBefore };
   }
+
+  discard(wasm: WasmBridge): void { this.snapshot?.discard(wasm); }
+
+  snapshotResourceCount(): number { return this.snapshot?.snapshotResourceCount() ?? 0; }
+
+  isNoOp(): boolean { return this.snapshot?.isNoOp() ?? false; }
 
   mergeWith(): null { return null; }
 }
@@ -1693,18 +1762,34 @@ export class SplitParagraphInCellCommand implements EditCommand {
   readonly timestamp = Date.now();
   private lastMutationEffects: TextMutationEffects = NO_TEXT_MUTATION_EFFECTS;
 
-  constructor(private position: DocumentPosition) {}
+  private enterSnapshot: SnapshotCommand | null = null;
+  constructor(private position: DocumentPosition, private applyNextStyle = false) {}
+
+  discard(wasm: WasmBridge): void { this.enterSnapshot?.discard(wasm); }
+  snapshotResourceCount(): number { return this.enterSnapshot?.snapshotResourceCount() ?? 0; }
+  isNoOp(): boolean { return this.enterSnapshot?.isNoOp() ?? false; }
 
   execute(wasm: WasmBridge): DocumentPosition {
+    if (this.applyNextStyle) {
+      this.enterSnapshot ??= new SnapshotCommand(this.type, this.position, this.position,
+        (bridge) => this.executeSplit(bridge), true);
+      const result = this.enterSnapshot.execute(wasm);
+      this.lastMutationEffects = IMMEDIATE_TEXT_MUTATION_EFFECTS;
+      return result;
+    }
+    return this.executeSplit(wasm);
+  }
+
+  private executeSplit(wasm: WasmBridge): DocumentPosition {
     this.lastMutationEffects = NO_TEXT_MUTATION_EFFECTS;
     const pos = this.position;
     const sec = pos.sectionIndex;
     const ppi = pos.parentParaIndex!;
     const cpi = cellParaIndexOf(pos);
     if (isNestedCell(pos)) {
-      wasm.splitParagraphInCellByPath(sec, ppi, cellPathJson(pos), pos.charOffset);
+      wasm.splitParagraphInCellByPath(sec, ppi, cellPathJson(pos), pos.charOffset, undefined, this.applyNextStyle);
     } else {
-      wasm.splitParagraphInCell(sec, ppi, pos.controlIndex!, pos.cellIndex!, cpi, pos.charOffset);
+      wasm.splitParagraphInCell(sec, ppi, pos.controlIndex!, pos.cellIndex!, cpi, pos.charOffset, undefined, this.applyNextStyle);
     }
     // [#4031] 네이티브 split은 paginate_if_needed()로 최신 revision을 동기 계산한다.
     // 이 선언이 pending deferred 상태를 해소해 직후 before-full-edit flush가 no-op이 된다.
@@ -1719,6 +1804,11 @@ export class SplitParagraphInCellCommand implements EditCommand {
   }
 
   undo(wasm: WasmBridge): DocumentPosition {
+    if (this.enterSnapshot) {
+      const result = this.enterSnapshot.undo(wasm);
+      this.lastMutationEffects = IMMEDIATE_TEXT_MUTATION_EFFECTS;
+      return result;
+    }
     const pos = this.position;
     const sec = pos.sectionIndex;
     const ppi = pos.parentParaIndex!;
@@ -2811,6 +2901,7 @@ export class SnapshotCommand implements EditCommand {
     private cursorBefore: DocumentPosition,
     private cursorAfter: DocumentPosition,
     private operation: ((wasm: WasmBridge) => DocumentPosition | null) | null,
+    private cacheComposition = false,
   ) {
     this.type = `snapshot:${operationType}`;
   }
@@ -2835,7 +2926,7 @@ export class SnapshotCommand implements EditCommand {
 
     // 최초 실행: before 저장 → 작업 수행 (after 는 undo 시점에 잡는다)
     this.executed = true;
-    this.beforeId = wasm.saveSnapshot();
+    this.beforeId = this.cacheComposition ? wasm.saveSnapshotWithComposition() : wasm.saveSnapshot();
     // [Task #2328] operation 이 throw 하면 커맨드가 히스토리에 등록되지 못해 discard
     // 주체가 사라진다 → 스냅샷 영구 누수(orphan → WASM 무통보 축출 재발). 아래 catch 가
     // before 를 대칭적으로 해제한다.
@@ -2887,7 +2978,7 @@ export class SnapshotCommand implements EditCommand {
     // "현재 문서 == 이 명령 실행 직후 상태" 라는 뜻이므로 실행 시점에 찍은 것과 값이 같다.
     if (this.afterId === null && !this.redoUnavailable) {
       try {
-        this.afterId = wasm.saveSnapshot();
+        this.afterId = this.cacheComposition ? wasm.saveSnapshotWithComposition() : wasm.saveSnapshot();
       } catch {
         // 저장 실패로 **되돌리기 자체를 막지 않는다.** undo 는 수행하고 redo 만 포기한다 —
         // 여기서 던지면 사용자의 Ctrl+Z 가 아무 일도 못 하고 히스토리 엔트리까지 잃는다.

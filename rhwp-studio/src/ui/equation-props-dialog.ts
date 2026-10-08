@@ -1,3 +1,4 @@
+import type { EquationCellTarget } from '@/engine/equation-target';
 import type { WasmBridge } from '@/core/wasm-bridge';
 import type { EventBus } from '@/core/event-bus';
 import type { EquationProperties, NoteControlRef } from '@/core/types';
@@ -47,6 +48,7 @@ export class EquationPropertiesDialog {
   private cellIdx?: number;
   private cellParaIdx?: number;
   private noteRef?: NoteControlRef;
+  private cellTarget?: EquationCellTarget;
   private props: EquationProperties | null = null;
 
   private widthInput!: HTMLInputElement;
@@ -73,7 +75,7 @@ export class EquationPropertiesDialog {
     private services?: CommandServices,
   ) {}
 
-  open(sec: number, para: number, ci: number, cellIdx?: number, cellParaIdx?: number, noteRef?: NoteControlRef): void {
+  open(sec: number, para: number, ci: number, cellIdx?: number, cellParaIdx?: number, noteRef?: NoteControlRef, cellTarget?: EquationCellTarget): void {
     this.build();
     this.sec = sec;
     this.para = para;
@@ -81,10 +83,12 @@ export class EquationPropertiesDialog {
     this.cellIdx = cellIdx;
     this.cellParaIdx = cellParaIdx;
     this.noteRef = noteRef;
+    this.cellTarget = cellTarget;
 
     try {
       this.props = noteRef
         ? this.wasm.getNoteEquationProperties(noteRef)
+        : cellTarget ? this.wasm.getEquationPropertiesInCell(sec, para, cellTarget)
         : this.wasm.getEquationProperties(sec, para, ci, cellIdx, cellParaIdx);
     } catch (err) {
       console.warn('[EquationProperties] 수식 속성 가져오기 실패:', err);
@@ -344,6 +348,8 @@ export class EquationPropertiesDialog {
       const applyProps = () => {
         if (this.noteRef) {
           this.wasm.setNoteEquationProperties(this.noteRef, updated);
+        } else if (this.cellTarget) {
+          this.wasm.setEquationPropertiesInCell(this.sec, this.para, this.cellTarget, updated);
         } else {
           this.wasm.setEquationProperties(this.sec, this.para, this.ci, this.cellIdx, this.cellParaIdx, updated);
         }
@@ -377,7 +383,7 @@ export class EquationPropertiesDialog {
   private openEditor(): void {
     this.hide();
     const editor = new EquationEditorDialog(this.wasm, this.eventBus, this.services);
-    editor.open(this.sec, this.para, this.ci, this.cellIdx, this.cellParaIdx, this.noteRef);
+    editor.open(this.sec, this.para, this.ci, this.cellIdx, this.cellParaIdx, this.noteRef, this.cellTarget);
   }
 
   private captionPositionLabel(): string {

@@ -1,0 +1,40 @@
+{
+  "feature": "선택 텍스트에 검토 주석/메모 삽입",
+  "command": "insert:comment",
+  "label": "주석",
+  "sourceCommit": "87e1e074d039a9fc6da9bb431afaa3a383ad46b7",
+  "candidateWasmSHA256": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198",
+  "seed": "../cell-hyperlink-qa/body-native/seed.hwpx",
+  "editableNormalDocument": true,
+  "hyperlinkEnabled": true,
+  "commentEnabled": false,
+  "dispatchResult": {
+    "ok": false,
+    "reason": "disabled"
+  },
+  "actualMenuStateDisabled": true,
+  "packagedMenuDisabled": true,
+  "operationCalls": 0,
+  "commandEvents": 0,
+  "entireDocumentBytesAndStateUnchanged": true,
+  "memoOrCommentExports": [],
+  "sourceSHA256": {
+    "insert": "08a348efdf5d7b135eb5ea67fa8589d608ee21eb4e3e67ff2d0c264df2a2fcff",
+    "hyperlink": "6b616cf47b051d345c4cad76ddbc69b3210a2852f72a787f8259538f45280eca",
+    "registry": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+    "dispatcher": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381",
+    "menu": "4299cf7a1b5c057da0a80a10b6525e00d46a96d997a61fc7cd0f71657069a77b"
+  },
+  "before": {
+    "hwp": "b49fb165a746a88f01b46c5c3518875966a9fba013ee9e38156319bcd718ee8e",
+    "hwpx": "ed77fc7b97c256dbbde8d2493dbf397c8ca3a564addd1063dc8f6d909303a108",
+    "text": "\"앞&#128578;한글&#66560;링크뒤참조끝\\r\\n다른스타일&#128578;보존\"",
+    "fields": "[]",
+    "info": "{\"version\":\"5.1.0.0\",\"sectionCount\":1,\"pageCount\":1,\"encrypted\":false,\"hwp3Variant\":false,\"fallbackFont\":\"/usr/share/fonts/truetype/nanum/NanumGothic.ttf\",\"fontsUsed\":[\"함초롬돋움\",\"함초롬바탕\"],\"fontSubstitutions\":[]}",
+    "events": "{\"ok\":true,\"events\":[]}"
+  },
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "implementationChanged": false,
+  "proposal": "먼저 일반 본문의 단일 문단 선택에 검토 메모를 추가·수정·삭제하고 기존 MEMO 필드/본문 참조와 undo/redo·HWP/HWPX 재열기를 보존하는 범위를 제안한다. 다른 문맥과 복합 선택은 편집 전 거절한다."
+}

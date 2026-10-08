@@ -1,9 +1,12 @@
 //! 책갈피 조회/조작 기능
 
+use super::field_query::{rebuild_char_offsets_at_positions, validate_field_edit_axis};
 use crate::document_core::helpers::find_control_text_positions;
 use crate::document_core::DocumentCore;
 use crate::error::HwpError;
 use crate::model::control::{Bookmark, Control};
+use crate::model::paragraph::Paragraph;
+use serde_json::json;
 
 /// 책갈피 정보
 #[derive(Debug, Clone)]
@@ -14,32 +17,29 @@ struct BookmarkInfo {
     ctrl_idx: usize,
     /// 텍스트 내 위치 (정렬용)
     char_pos: usize,
+    nested: bool,
 }
 
 impl DocumentCore {
     /// 문서 내 모든 책갈피 목록을 JSON으로 반환
     pub fn get_bookmarks_native(&self) -> Result<String, HwpError> {
         let bookmarks = self.collect_bookmarks();
-        let items: Vec<String> = bookmarks
-            .iter()
-            .map(|b| {
-                format!(
-                    "{{\"name\":{},\"sec\":{},\"para\":{},\"ctrlIdx\":{},\"charPos\":{}}}",
-                    json_escape(&b.name),
-                    b.sec,
-                    b.para,
-                    b.ctrl_idx,
-                    b.char_pos
-                )
-            })
-            .collect();
-        Ok(format!("[{}]", items.join(",")))
+        Ok(serde_json::to_string(
+            &bookmarks
+                .iter()
+                .map(|b| {
+                    json!({
+                        "name":b.name,"sec":b.sec,"para":b.para,"ctrlIdx":b.ctrl_idx,
+                        "charPos":b.char_pos,"editable":!b.nested
+                    })
+                })
+                .collect::<Vec<_>>(),
+        )
+        .unwrap())
     }
 
-    /// 책갈피 추가
-    ///
-    /// 지정 위치에 Bookmark 컨트롤을 삽입한다.
-    /// 중복 이름은 거부한다.
+    /// Insert a bookmark at a visible Unicode scalar boundary in ordinary body text.
+    /// Capture control anchors before mutation; char_offsets index TEXT, not controls.
     pub fn add_bookmark_native(
         &mut self,
         sec: usize,
@@ -47,109 +47,89 @@ impl DocumentCore {
         char_offset: usize,
         name: &str,
     ) -> Result<String, HwpError> {
-        if name.trim().is_empty() {
-            return Ok(r#"{"ok":false,"error":"책갈피 이름을 입력하세요."}"#.to_string());
-        }
-
-        // 중복 검사
-        let existing = self.collect_bookmarks();
-        if existing.iter().any(|b| b.name == name) {
+        let name = bookmark_name(name)?;
+        if self.collect_bookmarks().iter().any(|b| b.name == name) {
             return Ok(
-                r#"{"ok":false,"error":"같은 이름의 책갈피가 이미 등록되어 있습니다."}"#
-                    .to_string(),
+                r#"{"ok":false,"error":"같은 이름의 책갈피가 이미 등록되어 있습니다."}"#.into(),
             );
         }
-
-        let section = self
-            .document
-            .sections
-            .get_mut(sec)
-            .ok_or_else(|| HwpError::RenderError("구역 범위 초과".into()))?;
-        let paragraph = section
-            .paragraphs
-            .get_mut(para)
-            .ok_or_else(|| HwpError::RenderError("문단 범위 초과".into()))?;
-
-        // char_offset에 해당하는 컨트롤 삽입 위치 결정
-        let insert_idx = find_control_insert_index(paragraph, char_offset);
-
-        paragraph.controls.insert(
-            insert_idx,
-            Control::Bookmark(Bookmark {
-                name: name.to_string(),
-            }),
-        );
-
-        // CTRL_DATA 레코드 생성 (ParameterSet: 책갈피 이름)
-        let ctrl_data = build_bookmark_ctrl_data(name);
-        if paragraph.ctrl_data_records.len() >= insert_idx {
-            paragraph
-                .ctrl_data_records
-                .insert(insert_idx, Some(ctrl_data));
+        let original = self.bookmark_body_paragraph(sec, para)?;
+        validate_field_edit_axis(original)?;
+        if char_offset > original.text.chars().count() {
+            return Err(HwpError::InvalidField(
+                "책갈피 위치가 문단 범위를 벗어났습니다.".into(),
+            ));
         }
-
-        // char_offsets에 컨트롤 위치 정보 추가
-        if !paragraph.char_offsets.is_empty() {
-            let raw_offset = char_offset_to_raw(paragraph, char_offset, insert_idx);
-            paragraph.char_offsets.insert(insert_idx, raw_offset);
+        if original
+            .field_ranges
+            .iter()
+            .any(|r| r.start_char_idx <= char_offset && char_offset <= r.end_char_idx)
+            || !original.range_tags.is_empty()
+        {
+            return Err(HwpError::InvalidField(
+                "필드/주석 경계 또는 범위 참조 안의 책갈피 추가는 지원하지 않습니다.".into(),
+            ));
         }
-
-        // 원본 스트림 무효화 — serialize_section 은 raw_stream 이 있으면 IR 을 무시하고
-        // 원본 바이트를 그대로 반환하므로(serializer/body_text.rs), 비우지 않으면 방금
-        // 삽입한 책갈피 컨트롤이 저장 시 통째로 사라진다. recompose_section 은 화면(구성)만
-        // 갱신할 뿐 raw_stream 을 건드리지 않는다. 누름틀·양식 쪽과 동일한 불변식이다.
-        if let Some(s) = self.document.sections.get_mut(sec) {
-            s.raw_stream = None;
+        let mut staged = original.clone();
+        let mut positions = staged.control_text_positions();
+        let ci = positions
+            .iter()
+            .position(|&at| at > char_offset)
+            .unwrap_or(positions.len());
+        staged.align_ctrl_data_records();
+        staged
+            .controls
+            .insert(ci, Control::Bookmark(Bookmark { name: name.into() }));
+        staged
+            .ctrl_data_records
+            .insert(ci, Some(build_bookmark_ctrl_data(name)));
+        for r in &mut staged.field_ranges {
+            if r.control_idx >= ci {
+                r.control_idx += 1;
+            }
         }
-        self.recompose_section(sec);
-
-        Ok(r#"{"ok":true}"#.to_string())
+        positions.insert(ci, char_offset);
+        rebuild_char_offsets_at_positions(&mut staged, &positions);
+        staged.control_mask |= 1u32 << 0x0016;
+        validate_field_edit_axis(&staged)?;
+        self.commit_bookmark_paragraph(sec, para, staged);
+        Ok(r#"{"ok":true,"changed":true}"#.into())
     }
 
-    /// 책갈피 삭제
     pub fn delete_bookmark_native(
         &mut self,
         sec: usize,
         para: usize,
         ctrl_idx: usize,
     ) -> Result<String, HwpError> {
-        let section = self
-            .document
-            .sections
-            .get_mut(sec)
-            .ok_or_else(|| HwpError::RenderError("구역 범위 초과".into()))?;
-        let paragraph = section
-            .paragraphs
-            .get_mut(para)
-            .ok_or_else(|| HwpError::RenderError("문단 범위 초과".into()))?;
-
-        if ctrl_idx >= paragraph.controls.len() {
-            return Ok(r#"{"ok":false,"error":"컨트롤 인덱스 범위 초과"}"#.to_string());
+        let original = self.bookmark_body_paragraph(sec, para)?;
+        validate_bookmark_owner(original, ctrl_idx)?;
+        validate_field_edit_axis(original)?;
+        let mut staged = original.clone();
+        let mut positions = staged.control_text_positions();
+        staged.controls.remove(ctrl_idx);
+        if ctrl_idx < staged.ctrl_data_records.len() {
+            staged.ctrl_data_records.remove(ctrl_idx);
         }
-
-        // Bookmark인지 확인
-        if !matches!(&paragraph.controls[ctrl_idx], Control::Bookmark(_)) {
-            return Ok(r#"{"ok":false,"error":"해당 컨트롤이 책갈피가 아닙니다."}"#.to_string());
+        for r in &mut staged.field_ranges {
+            if r.control_idx > ctrl_idx {
+                r.control_idx -= 1;
+            }
         }
-
-        paragraph.controls.remove(ctrl_idx);
-        if ctrl_idx < paragraph.ctrl_data_records.len() {
-            paragraph.ctrl_data_records.remove(ctrl_idx);
+        positions.remove(ctrl_idx);
+        rebuild_char_offsets_at_positions(&mut staged, &positions);
+        if !staged
+            .controls
+            .iter()
+            .any(|c| matches!(c, Control::Bookmark(_) | Control::IndexMark(_)))
+        {
+            staged.control_mask &= !(1u32 << 0x0016);
         }
-        if ctrl_idx < paragraph.char_offsets.len() {
-            paragraph.char_offsets.remove(ctrl_idx);
-        }
-
-        // 원본 스트림 무효화 — 비우지 않으면 삭제한 책갈피가 저장 시 원본 바이트로 되살아난다.
-        if let Some(s) = self.document.sections.get_mut(sec) {
-            s.raw_stream = None;
-        }
-        self.recompose_section(sec);
-
-        Ok(r#"{"ok":true}"#.to_string())
+        validate_field_edit_axis(&staged)?;
+        self.commit_bookmark_paragraph(sec, para, staged);
+        Ok(r#"{"ok":true,"changed":true}"#.into())
     }
 
-    /// 책갈피 이름 변경
     pub fn rename_bookmark_native(
         &mut self,
         sec: usize,
@@ -157,52 +137,116 @@ impl DocumentCore {
         ctrl_idx: usize,
         new_name: &str,
     ) -> Result<String, HwpError> {
-        if new_name.trim().is_empty() {
-            return Ok(r#"{"ok":false,"error":"책갈피 이름을 입력하세요."}"#.to_string());
+        let name = bookmark_name(new_name)?;
+        let original = self.bookmark_body_paragraph(sec, para)?;
+        let old_name = validate_bookmark_owner(original, ctrl_idx)?;
+        if name == old_name {
+            return Ok(r#"{"ok":true,"changed":false}"#.into());
         }
-
-        // 중복 검사 (자기 자신 제외)
-        let existing = self.collect_bookmarks();
-        if existing.iter().any(|b| {
-            b.name == new_name && !(b.sec == sec && b.para == para && b.ctrl_idx == ctrl_idx)
+        if self.collect_bookmarks().iter().any(|b| {
+            b.name == name && (b.nested || b.sec != sec || b.para != para || b.ctrl_idx != ctrl_idx)
         }) {
             return Ok(
-                r#"{"ok":false,"error":"같은 이름의 책갈피가 이미 등록되어 있습니다."}"#
-                    .to_string(),
+                r#"{"ok":false,"error":"같은 이름의 책갈피가 이미 등록되어 있습니다."}"#.into(),
             );
         }
+        validate_field_edit_axis(original)?;
+        let mut staged = original.clone();
+        let Control::Bookmark(bm) = &mut staged.controls[ctrl_idx] else {
+            unreachable!()
+        };
+        bm.name = name.into();
+        staged.align_ctrl_data_records();
+        staged.ctrl_data_records[ctrl_idx] = Some(build_bookmark_ctrl_data(name));
+        self.commit_bookmark_paragraph(sec, para, staged);
+        Ok(r#"{"ok":true,"changed":true}"#.into())
+    }
 
-        let section = self
-            .document
+    /// Text edits in bookmark paragraphs need the same complete, owned coordinate axis.
+    pub(crate) fn validate_body_bookmark_text_axis(para: &Paragraph) -> Result<bool, HwpError> {
+        let bookmarks = para
+            .controls
+            .iter()
+            .enumerate()
+            .filter(|(_, c)| matches!(c, Control::Bookmark(_)));
+        let mut found = false;
+        for (ci, _) in bookmarks {
+            found = true;
+            validate_bookmark_owner(para, ci)?;
+        }
+        if found {
+            validate_field_edit_axis(para)?;
+        }
+        Ok(found)
+    }
+
+    pub(crate) fn validate_bookmark_structure_paragraph(para: &Paragraph) -> Result<(), HwpError> {
+        Self::validate_body_bookmark_text_axis(para)?;
+        validate_field_edit_axis(para)?;
+        if para.ctrl_data_records.len() > para.controls.len()
+            || !para.range_tags.is_empty()
+            || !para.tab_extended.is_empty()
+            || para.raw_header_extra.len() > 12
+            || para.raw_header_extra.len() == 11
+            || para
+                .raw_header_extra
+                .get(10..)
+                .is_some_and(|tail| tail.iter().any(|&byte| byte != 0))
+            || para.text.contains(['\t', '\n', '\r'])
+            || para
+                .controls
+                .iter()
+                .zip(para.control_text_positions())
+                .any(|(c, at)| match c {
+                    Control::Bookmark(_) | Control::Footnote(_) | Control::Endnote(_) => false,
+                    Control::SectionDef(_) | Control::ColumnDef(_) => at != 0,
+                    Control::Field(f) => !matches!(
+                        f.field_type,
+                        crate::model::control::FieldType::ClickHere
+                            | crate::model::control::FieldType::Hyperlink
+                            | crate::model::control::FieldType::Memo
+                    ),
+                    _ => true,
+                })
+            || para.field_ranges.iter().enumerate().any(|(i, a)| {
+                para.field_ranges
+                    .iter()
+                    .skip(i + 1)
+                    .any(|b| a.start_char_idx < b.end_char_idx && b.start_char_idx < a.end_char_idx)
+            })
+        {
+            return Err(HwpError::InvalidField(
+                "책갈피 문단의 복합 개체·범위·저장 참조는 구조 편집하지 않습니다.".into(),
+            ));
+        }
+        Ok(())
+    }
+
+    pub(crate) fn rebuild_bookmark_structure_axis(
+        para: &mut Paragraph,
+        positions: &[usize],
+    ) -> Result<(), HwpError> {
+        rebuild_char_offsets_at_positions(para, positions);
+        para.control_mask =
+            Paragraph::compute_control_mask_for(&para.text, &para.controls, &para.field_ranges);
+        para.has_para_text = !para.text.is_empty() || !para.controls.is_empty();
+        validate_field_edit_axis(para)
+    }
+
+    fn bookmark_body_paragraph(&self, sec: usize, para: usize) -> Result<&Paragraph, HwpError> {
+        self.document
             .sections
-            .get_mut(sec)
-            .ok_or_else(|| HwpError::RenderError("구역 범위 초과".into()))?;
-        let paragraph = section
-            .paragraphs
-            .get_mut(para)
-            .ok_or_else(|| HwpError::RenderError("문단 범위 초과".into()))?;
+            .get(sec)
+            .and_then(|s| s.paragraphs.get(para))
+            .ok_or_else(|| HwpError::InvalidField("책갈피 본문 문단을 찾을 수 없습니다.".into()))
+    }
 
-        if ctrl_idx >= paragraph.controls.len() {
-            return Ok(r#"{"ok":false,"error":"컨트롤 인덱스 범위 초과"}"#.to_string());
-        }
-
-        if let Control::Bookmark(ref mut bm) = paragraph.controls[ctrl_idx] {
-            bm.name = new_name.to_string();
-            // CTRL_DATA도 갱신
-            if ctrl_idx < paragraph.ctrl_data_records.len() {
-                paragraph.ctrl_data_records[ctrl_idx] = Some(build_bookmark_ctrl_data(new_name));
-            }
-            // 원본 스트림 무효화 — 비우지 않으면 이름 변경이 저장 시 옛 이름으로 되돌아간다.
-            // add/delete 와 달리 이 함수는 recompose_section 도 호출하지 않았다 — 무효화와
-            // 함께 추가한다(다른 뮤테이터와 동일하게 편집 후 구성/커서를 갱신).
-            if let Some(s) = self.document.sections.get_mut(sec) {
-                s.raw_stream = None;
-            }
-            self.recompose_section(sec);
-            Ok(r#"{"ok":true}"#.to_string())
-        } else {
-            Ok(r#"{"ok":false,"error":"해당 컨트롤이 책갈피가 아닙니다."}"#.to_string())
-        }
+    fn commit_bookmark_paragraph(&mut self, sec: usize, para: usize, staged: Paragraph) {
+        self.document.sections[sec].paragraphs[para] = staged;
+        self.document.sections[sec].raw_stream = None;
+        self.recompose_section(sec);
+        // Control indices also own paginated footnotes. Rebuild their references now.
+        self.paginate_if_needed();
     }
 
     /// 내부: 모든 책갈피 수집 (중첩 구조 포함)
@@ -210,6 +254,14 @@ impl DocumentCore {
         let mut result = vec![];
         for (sec_idx, section) in self.document.sections.iter().enumerate() {
             collect_bookmarks_from_paragraphs(&section.paragraphs, sec_idx, None, &mut result);
+            for master in &section.section_def.master_pages {
+                collect_bookmarks_from_paragraphs(
+                    &master.paragraphs,
+                    sec_idx,
+                    Some(0),
+                    &mut result,
+                );
+            }
         }
         result
     }
@@ -243,6 +295,7 @@ fn collect_bookmarks_from_paragraphs(
                         para: effective_para,
                         ctrl_idx,
                         char_pos,
+                        nested: host_para.is_some(),
                     });
                 }
                 Control::Table(t) => {
@@ -254,7 +307,34 @@ fn collect_bookmarks_from_paragraphs(
                             result,
                         );
                     }
+                    if let Some(c) = &t.caption {
+                        collect_bookmarks_from_paragraphs(
+                            &c.paragraphs,
+                            sec,
+                            Some(effective_para),
+                            result,
+                        );
+                    }
                 }
+                Control::Shape(shape) => {
+                    collect_bookmarks_from_shape(shape, sec, effective_para, result)
+                }
+                Control::Picture(p) => {
+                    if let Some(c) = &p.caption {
+                        collect_bookmarks_from_paragraphs(
+                            &c.paragraphs,
+                            sec,
+                            Some(effective_para),
+                            result,
+                        );
+                    }
+                }
+                Control::Field(f) => collect_bookmarks_from_paragraphs(
+                    &f.memo_paragraphs,
+                    sec,
+                    Some(effective_para),
+                    result,
+                ),
                 Control::Header(h) => {
                     collect_bookmarks_from_paragraphs(
                         &h.paragraphs,
@@ -301,43 +381,65 @@ fn collect_bookmarks_from_paragraphs(
     }
 }
 
-/// 문단 내 char_offset에 해당하는 컨트롤 삽입 위치를 결정
-fn find_control_insert_index(
-    para: &crate::model::paragraph::Paragraph,
-    char_offset: usize,
-) -> usize {
-    let positions = find_control_text_positions(para);
-    // char_offset보다 큰 위치를 가진 첫 번째 컨트롤의 인덱스
-    for (i, &pos) in positions.iter().enumerate() {
-        if pos > char_offset {
-            return i;
+fn collect_bookmarks_from_shape(
+    shape: &crate::model::shape::ShapeObject,
+    sec: usize,
+    host: usize,
+    result: &mut Vec<BookmarkInfo>,
+) {
+    if let Some(drawing) = shape.drawing() {
+        if let Some(textbox) = &drawing.text_box {
+            collect_bookmarks_from_paragraphs(&textbox.paragraphs, sec, Some(host), result);
         }
     }
-    para.controls.len()
+    if let Some(caption) = crate::document_core::helpers::get_caption_from_shape(shape) {
+        collect_bookmarks_from_paragraphs(&caption.paragraphs, sec, Some(host), result);
+    }
+    if let crate::model::shape::ShapeObject::Group(group) = shape {
+        for child in &group.children {
+            collect_bookmarks_from_shape(child, sec, host, result);
+        }
+    }
 }
 
-/// char_offset을 raw char_offset (파서 원본 기준)으로 변환
-fn char_offset_to_raw(
-    para: &crate::model::paragraph::Paragraph,
-    char_offset: usize,
-    insert_idx: usize,
-) -> u32 {
-    // 기존 char_offsets에서 삽입 위치 주변의 raw offset을 참조
-    if insert_idx > 0 && insert_idx <= para.char_offsets.len() {
-        // 이전 컨트롤의 raw offset + 8 (컨트롤 문자 크기)
-        para.char_offsets[insert_idx - 1] + 8
-    } else if !para.char_offsets.is_empty() {
-        // 첫 위치에 삽입: 기존 첫 번째보다 작은 값
-        let first = para.char_offsets[0];
-        if first >= 8 {
-            first - 8
-        } else {
-            0
-        }
-    } else {
-        // char_offsets가 비어있으면 char_offset * 2 (UTF-16 추정)
-        (char_offset * 2) as u32
+fn bookmark_name(name: &str) -> Result<&str, HwpError> {
+    if name.encode_utf16().count() > 250 || name.chars().any(char::is_control) {
+        return Err(HwpError::InvalidField(
+            "책갈피 이름은 제어 문자 없는 최대250 UTF-16자로 입력하세요.".into(),
+        ));
     }
+    let name = name.trim();
+    if name.is_empty()
+        || name.encode_utf16().count() > 250
+        || name
+            .chars()
+            .any(|c| c.is_control() || matches!(c, '\u{fffe}' | '\u{ffff}'))
+    {
+        return Err(HwpError::InvalidField(
+            "책갈피 이름은 제어 문자 없는 1~250 UTF-16자로 입력하세요.".into(),
+        ));
+    }
+    Ok(name)
+}
+
+fn validate_bookmark_owner(para: &Paragraph, ci: usize) -> Result<&str, HwpError> {
+    let Some(Control::Bookmark(bm)) = para.controls.get(ci) else {
+        return Err(HwpError::InvalidField(
+            "지정한 본문 컨트롤이 책갈피가 아닙니다.".into(),
+        ));
+    };
+    // Unrecognized CTRL_DATA is retained rather than silently overwritten/dropped.
+    if para
+        .ctrl_data_records
+        .get(ci)
+        .and_then(Option::as_ref)
+        .is_some_and(|data| *data != build_bookmark_ctrl_data(&bm.name))
+    {
+        return Err(HwpError::InvalidField(
+            "알 수 없는 책갈피 참조 데이터는 편집하지 않습니다.".into(),
+        ));
+    }
+    Ok(&bm.name)
 }
 
 /// 책갈피 CTRL_DATA 바이너리 생성 (ParameterSet 형식)
@@ -356,27 +458,6 @@ fn build_bookmark_ctrl_data(name: &str) -> Vec<u8> {
         data.extend_from_slice(&ch.to_le_bytes());
     }
     data
-}
-
-/// JSON 문자열 이스케이프
-fn json_escape(s: &str) -> String {
-    let mut out = String::with_capacity(s.len() + 2);
-    out.push('"');
-    for ch in s.chars() {
-        match ch {
-            '"' => out.push_str("\\\""),
-            '\\' => out.push_str("\\\\"),
-            '\n' => out.push_str("\\n"),
-            '\r' => out.push_str("\\r"),
-            '\t' => out.push_str("\\t"),
-            c if (c as u32) < 0x20 => {
-                out.push_str(&format!("\\u{:04x}", c as u32));
-            }
-            c => out.push(c),
-        }
-    }
-    out.push('"');
-    out
 }
 
 #[cfg(test)]
@@ -423,7 +504,7 @@ mod tests {
         let mut p = Paragraph {
             text: text.to_string(),
             char_offsets: (0..text.chars().count() as u32).collect(),
-            char_count: text.chars().count() as u32,
+            char_count: text.encode_utf16().count() as u32 + 1,
             ..Default::default()
         };
         p.has_para_text = true;
@@ -432,6 +513,7 @@ mod tests {
 
     fn para_with_bookmark(name: &str) -> Paragraph {
         let mut p = Paragraph::default();
+        p.char_count = 9; // one extended bookmark slot and paragraph terminator
         p.controls.push(Control::Bookmark(Bookmark {
             name: name.to_string(),
         }));

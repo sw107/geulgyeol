@@ -1,0 +1,172 @@
+{
+  "sourceBaseCommit": "068ee51c7b66f90f6f3a2986cce333ce677c409d",
+  "productionAndCheckSHA256": {
+    "engine/src/document_core/queries/search_query.rs": "ff7cb35424ca56d3d70382a32111af82d57ec1d3183c5931dd3f53a733043618",
+    "engine/src/document_core/queries/grep.rs": "9eb81309b5f047d8abadf842b48246e5e8050180dd730ff3792101a71dc66e90",
+    "rhwp-studio/src/core/wasm-bridge.ts": "0c4a377dcc4776d17e58b7281c7e376e0eaebf71e995f8d7a9d75d94c388b352",
+    "engine/examples/search_span_check.rs": "b13a4bee1218f28d881e934a0640894183c960b46e02d1df42584f33aede7017",
+    "engine/examples/search_span_boundaries_check.rs": "5298e2289b5fd8ad7c8944af6e8079856b6c69d03826ce0271bb6725685a0a0b",
+    "scripts/check-search-span-wasm.mjs": "13ec82fd1fbb5c85d8363e4b26bcbd68b9ec9f681c29b5da8053300c9bdb3001",
+    "scripts/repro-search-casefold-span.mjs": "7f3a2f90725a089cf5c0d8288f1746cbb33fb8d3e1e45e38f34f43974c2936f1"
+  },
+  "wasmSHA256": "3b901425819a841df436f20f31e3b016d66f56fb320a8d94a85539ceaa7d21ff",
+  "bindingsSHA256": "aea707b0c51c8d7f0562811150f9ecba50e917afbdd0fc5c27361148d4f655ad",
+  "bundledWasm": "/Users/sw107/Documents/Codex/2026-10-06/task/search-span-qa/web/studio/assets/rhwp_bg-DmwdwqJZ.wasm",
+  "bundledWasmSHA256": "3b901425819a841df436f20f31e3b016d66f56fb320a8d94a85539ceaa7d21ff",
+  "engineSourcesUnchangedDuringAndSinceReleaseBuild": true,
+  "frozenReproduction": {
+    "baselineExitCode": 1,
+    "baselineDefects": 9,
+    "baselineControls": 3,
+    "fixedExitCode": 0,
+    "fixedCases": 12,
+    "fixedDefects": 0
+  },
+  "native": {
+    "GUIVerified": false,
+    "cases": 170,
+    "historyRestores": 340,
+    "historySvgDifferences": 24,
+    "regexSupported": false,
+    "reopens": 340,
+    "unchanged": 50
+  },
+  "equationAndBoundaries": {
+    "GUIVerified": false,
+    "equationCases": 12,
+    "historyRestores": 24,
+    "regexSupported": false,
+    "reopens": 24,
+    "unsupportedAndEmptyNoChange": 4
+  },
+  "wasmAndActualUI": {
+    "cases": 408,
+    "deferredCellCalls": 22,
+    "fullCellFallbackDeletes": 26,
+    "sourceSHA256": {
+      "rhwp-studio/src/core/wasm-bridge.ts": "0c4a377dcc4776d17e58b7281c7e376e0eaebf71e995f8d7a9d75d94c388b352",
+      "rhwp-studio/src/ui/find-dialog.ts": "98a38fb526fd9c8bac620691a4912d2600ca3206463aa5a4f27bfc7b56ad7a1f",
+      "rhwp-studio/src/engine/command.ts": "80c4f8830049cc2e9f838a0e6717454618d3b7c0a3f3e23c7f75ed16d29fa7cb"
+    },
+    "historySvgDifferences": 70,
+    "renderTrace": 1048,
+    "actualUICases": 272,
+    "historyRestores": 640,
+    "noMatchUnchanged": 120,
+    "reopens": 2096,
+    "engineSHA256": "3b901425819a841df436f20f31e3b016d66f56fb320a8d94a85539ceaa7d21ff",
+    "node": "v24.20.0",
+    "GUIVerified": false,
+    "regexSupported": false
+  },
+  "nativeVerifiedWasmExports": 2096,
+  "layoutBaselineComparison": {
+    "sameAsciiStageSVGs": 72,
+    "baselineRedoDifferences": [
+      {
+        "id": "k1-c3-a0-r0",
+        "mode": "ui-one",
+        "stage": "redo"
+      },
+      {
+        "id": "k1-c3-a0-r0",
+        "mode": "ui-all",
+        "stage": "redo"
+      },
+      {
+        "id": "k1-c3-a0-r1",
+        "mode": "ui-all",
+        "stage": "redo"
+      },
+      {
+        "id": "k1-c3-a0-r2",
+        "mode": "ui-one",
+        "stage": "redo"
+      },
+      {
+        "id": "k1-c3-a0-r2",
+        "mode": "ui-all",
+        "stage": "redo"
+      },
+      {
+        "id": "k1-c3-a0-r3",
+        "mode": "ui-all",
+        "stage": "redo"
+      }
+    ],
+    "candidateRedoDifferences": [
+      {
+        "id": "k1-c3-a0-r0",
+        "mode": "ui-one",
+        "stage": "redo"
+      },
+      {
+        "id": "k1-c3-a0-r0",
+        "mode": "ui-all",
+        "stage": "redo"
+      },
+      {
+        "id": "k1-c3-a0-r1",
+        "mode": "ui-all",
+        "stage": "redo"
+      },
+      {
+        "id": "k1-c3-a0-r2",
+        "mode": "ui-one",
+        "stage": "redo"
+      },
+      {
+        "id": "k1-c3-a0-r2",
+        "mode": "ui-all",
+        "stage": "redo"
+      },
+      {
+        "id": "k1-c3-a0-r3",
+        "mode": "ui-all",
+        "stage": "redo"
+      }
+    ],
+    "regressionIntroducedBySpanFix": false,
+    "baselineWasmSHA256": "c258e8478d9bcd5e0165abb4622297da748e42a82a0275d282d96bfc0158c71e",
+    "candidateWasmSHA256": "3b901425819a841df436f20f31e3b016d66f56fb320a8d94a85539ceaa7d21ff",
+    "scope": "ASCII fixtures only; Unicode affected cases cannot be compared as equal before bug fix"
+  },
+  "checks": {
+    "nativeStrictClippy": 0,
+    "wasmStrictClippy": 0,
+    "typescript": 0,
+    "vite": 0,
+    "nextStyleUICases": 11,
+    "desktop": {
+      "pass": 30,
+      "fail": 0,
+      "skip": 1,
+      "todo": 1,
+      "excluded": "server.test.cjs: sandbox socket permission"
+    },
+    "libraryUnitTest": {
+      "exitCode": 101,
+      "blocked": "28 include_bytes compile errors from absent sample/font/image assets; no unit success claimed"
+    }
+  },
+  "targetLimitBytes": 3221225472,
+  "targetPeakBytes": 2459586560,
+  "preservedApps": {
+    "/Users/sw107/Documents/Codex/2026-10-06/task/app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": {
+      "sha256": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+      "unchanged": true
+    },
+    "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": {
+      "sha256": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+      "unchanged": true
+    }
+  },
+  "originalDocumentsEdited": false,
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxExecuted": false,
+  "regexCapturesSupported": false,
+  "publicPushOrRelease": false,
+  "newAppBundleOrZIP": false,
+  "qaRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/search-span-qa"
+}

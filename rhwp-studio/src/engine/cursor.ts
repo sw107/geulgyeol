@@ -73,9 +73,21 @@ export class CursorState {
   /** 각주 컨트롤 인덱스 */
   private _fnControlIdx = 0;
   /** 각주 내 문단 인덱스 */
-  private _fnInnerParaIdx = 0;
+  private _fnFormatRevision = 0;
+  get fnFormatRevision(): number { return this._fnFormatRevision; }
+  private _fnInnerParaValue = 0;
+  private get _fnInnerParaIdx(): number { return this._fnInnerParaValue; }
+  private set _fnInnerParaIdx(value: number) {
+    if (value !== this._fnInnerParaValue) this._fnFormatRevision++;
+    this._fnInnerParaValue = value;
+  }
   /** 각주 내 문자 오프셋 */
-  private _fnCharOffset = 0;
+  private _fnCharOffsetValue = 0;
+  private get _fnCharOffset(): number { return this._fnCharOffsetValue; }
+  private set _fnCharOffset(value: number) {
+    if (value !== this._fnCharOffsetValue) this._fnFormatRevision++;
+    this._fnCharOffsetValue = value;
+  }
   /** 각주가 표시된 페이지 */
   private _fnPageNum = 0;
   /** footnotes 배열 내 인덱스 */
@@ -107,6 +119,7 @@ export class CursorState {
 
   /** Drop references to the previous document without querying its replaced engine. */
   resetForDocumentSwap(): void {
+    this._fnFormatRevision++;
     this._headerFooterMode = 'none';
     this._footnoteMode = false;
     this._savedBodyPosition = null;
@@ -213,6 +226,7 @@ export class CursorState {
   /** 현재 각주/미주 내부 위치를 anchor로 설정한다. */
   setFnAnchor(): void {
     if (!this.fnAnchor) {
+      this._fnFormatRevision++;
       this.fnAnchor = {
         fnParaIdx: this._fnInnerParaIdx,
         charOffset: this._fnCharOffset,
@@ -237,6 +251,25 @@ export class CursorState {
    * target과 양 끝의 문단/오프셋을 모두 확인한 뒤에만 상태를 바꾼다. 조회 실패나 stale
    * 범위는 false로 거절하며, 호출부가 history jump 직후 해제된 상태를 그대로 유지하게 한다.
    */
+  selectFootnoteRange(
+    start: { fnParaIdx: number; charOffset: number },
+    end: { fnParaIdx: number; charOffset: number },
+  ): boolean {
+    if (!this.isInFootnote()) return false;
+    try {
+      const info = this.wasm.getFootnoteInfo(this.fnSectionIdx, this.fnParaIdx, this.fnControlIdx);
+      const valid = (p: typeof start): boolean => Number.isInteger(p.fnParaIdx) && p.fnParaIdx >= 0 &&
+        p.fnParaIdx < info.texts.length && Number.isInteger(p.charOffset) && p.charOffset >= 0 &&
+        p.charOffset <= Array.from(info.texts[p.fnParaIdx]).length;
+      if (!valid(start) || !valid(end)) return false;
+    } catch { return false; }
+    this._fnFormatRevision++;
+    this.fnAnchor = { ...start };
+    this._fnInnerParaIdx = end.fnParaIdx;
+    this._fnCharOffset = end.charOffset;
+    return true;
+  }
+
   selectHeaderFooterRange(
     start: HeaderFooterTextPosition,
     end: HeaderFooterTextPosition,
@@ -311,6 +344,24 @@ export class CursorState {
     return true;
   }
 
+  /** Caption-only restoration; ordinary selectRange keeps its verified body contract. */
+  selectPictureCaptionRange(start: DocumentPosition, end: DocumentPosition): boolean {
+    if (start.sectionIndex !== end.sectionIndex || start.parentParaIndex === undefined
+      || start.parentParaIndex !== end.parentParaIndex || start.controlIndex !== end.controlIndex
+      || start.cellIndex !== 0 || end.cellIndex !== 0 || start.cellPath?.length || end.cellPath?.length) return false;
+    try {
+      const info = this.wasm.getPictureCaptionEditInfo(start.sectionIndex, start.parentParaIndex, start.controlIndex!);
+      for (const p of [start, end]) {
+        const paragraph = info.paragraphs[p.cellParaIndex ?? 0];
+        if (!paragraph || !Number.isInteger(p.charOffset) || p.charOffset < paragraph.editFrom || p.charOffset > [...paragraph.text].length) return false;
+      }
+      if (CursorState.comparePositions(start, end) > 0) return false;
+      this.anchor = { ...start }; this.position = { ...end };
+      this._blockSelectionMode = false; this._expandPhase = 0;
+      this.updateRect(); return true;
+    } catch { return false; }
+  }
+
   /**
    * 지금이 F3 블록 선택이면 그 확장 단계, 아니면 `null` (Task #3416).
    *
@@ -345,6 +396,7 @@ export class CursorState {
   /** 선택을 해제한다 */
   clearSelection(): void {
     this.anchor = null;
+    if (this.fnAnchor) this._fnFormatRevision++;
     this.fnAnchor = null;
     this.hfAnchor = null;
   }
@@ -1944,6 +1996,7 @@ export class CursorState {
 
   /** 머리말/꼬리말 편집 모드에 진입한다. */
   enterHeaderFooterMode(isHeader: boolean, sectionIdx: number, applyTo: number, sourcePage = -1): void {
+    this._fnFormatRevision++;
     // 현재 본문 커서 위치 저장
     this._savedBodyPosition = { ...this.position };
 
@@ -1966,6 +2019,7 @@ export class CursorState {
 
   /** 머리말/꼬리말 편집 모드에서 탈출한다. */
   exitHeaderFooterMode(): void {
+    this._fnFormatRevision++;
     if (this._headerFooterMode === 'none') return;
 
     this._headerFooterMode = 'none';
@@ -2275,6 +2329,7 @@ export class CursorState {
     sectionIdx: number, paraIdx: number, controlIdx: number,
     footnoteIndex: number, pageNum: number,
   ): void {
+    this._fnFormatRevision++;
     this._savedBodyPosition = { ...this.position };
     this._footnoteMode = true;
     this._fnSectionIdx = sectionIdx;
@@ -2290,6 +2345,7 @@ export class CursorState {
 
   /** 각주 편집 모드에서 탈출한다. */
   exitFootnoteMode(): void {
+    this._fnFormatRevision++;
     if (!this._footnoteMode) return;
     this._footnoteMode = false;
     if (this._savedBodyPosition) {

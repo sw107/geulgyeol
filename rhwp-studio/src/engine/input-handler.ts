@@ -1,3 +1,5 @@
+import * as _captionText from './input-handler-caption';
+import { deleteEquationSelection } from './equation-target';
 import { WasmBridge } from '@/core/wasm-bridge';
 import type { DeferredFocusedPagePatch } from '@/core/wasm-bridge';
 import { EventBus } from '@/core/event-bus';
@@ -6,7 +8,7 @@ import { CaretRenderer } from './caret-renderer';
 import { FieldMarkerRenderer } from './field-marker-renderer';
 import { SelectionRenderer } from './selection-renderer';
 import { CommandHistory } from './history';
-import { DeleteSelectionCommand, ApplyCharFormatCommand, ApplyParaFormatCommand, SnapshotCommand, SubmodeSnapshotCommand, SubmodeSelectionSnapshotCommand, SetFormValueCommand, TextMutationEffectAccumulator, IMMEDIATE_TEXT_MUTATION_EFFECTS, applyCharShapeModsToRange, cellAxisPath, cellParaIndexOf } from './command';
+import { type FootnoteSelectionSnapshot, DeleteSelectionCommand, ApplyCharFormatCommand, ApplyParaFormatCommand, SnapshotCommand, SubmodeSnapshotCommand, SubmodeSelectionSnapshotCommand, SetFormValueCommand, TextMutationEffectAccumulator, IMMEDIATE_TEXT_MUTATION_EFFECTS, applyCharShapeModsToRange, cellAxisPath, cellParaIndexOf } from './command';
 import type { OperationDescriptor, ParaFormatTarget, RefreshPolicy, TextMutationEffects, EditCommand, EditContext, HeaderFooterSelectionSnapshot, FormValueTarget } from './command';
 import { selectCellIndicesInRange, paraFormatTargetsForCellBlock, withCellPathTarget } from './cell-block-format';
 import type { SelectedCellBlock } from './cell-block-format';
@@ -325,6 +327,11 @@ export class InputHandler {
   private pendingCharShape: Partial<CharProperties> | null = null;
   /** pendingCharShape 를 예약·연장한 캐럿 위치. 여기서 벗어나면(진짜 이동) 예약을 버린다. */
   private pendingCharShapeAnchor: DocumentPosition | null = null;
+  /** 각주 예약은 본문 예약과 분리하고 이동/선택/문서 교체 시 만료한다. */
+  private pendingFootnoteCharShape: { target: FootnoteSelectionSnapshot; props: Partial<CharProperties>; revision: number; generation: number } | null = null;
+  /** 조합 중 임시 변경을 취소하고 최종 입력을 하나의 기존 snapshot 명령으로 기록한다. */
+  private pendingFootnoteComposition: { beforeId: number; target: FootnoteSelectionSnapshot; props: Partial<CharProperties>; text: string; revision: number; generation: number } | null = null;
+  private pendingFootnoteCompositionCanceled = false;
   private dispatcher: CommandDispatcher | null = null;
   private contextMenu: ContextMenu | null = null;
   private commandPalette: CommandPalette | null = null;
@@ -624,6 +631,7 @@ export class InputHandler {
     this.onCompositionStartBound = this.onCompositionStart.bind(this);
     this.onCompositionEndBound = this.onCompositionEnd.bind(this);
     this.onInputBlurBound = () => {
+      if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition()) this.onCompositionEnd();
       this.flushDeferredPaginationIfNeeded('input-blur', false);
     };
     this.onCopyBound = this.onCopy.bind(this);
@@ -1991,16 +1999,20 @@ export class InputHandler {
   private applyCharFormat(props: Partial<CharProperties>): void {
     // [#4271 리뷰] cursor.getPosition() 은 머리말/꼬리말·각주 모드 진입 전 본문 위치에
     // 고정돼(Cursor 편집 위치는 hfCharOffset/fnCharOffset 로 별도 추적) 예약 앵커로 쓸 수
-    // 없고, 전용 삽입 분기(insertTextInHeaderFooter/insertTextInFootnote)도 예약을 소비하지
-    // 않는다 — 그대로 두면 이 모드에서 고른 서식이 모드를 나온 뒤 본문으로 샌다. 아직 지원
-    // HF는 Stage 1의 전용 범위 API로 선택된 기존 텍스트만 바꾼다. 선택 없는 다음 입력
-    // 서식 예약은 이번 이슈 범위 밖이라 그대로 no-op이다.
+    // 없다. 각주 예약은 note 주소·커서 revision·문서 세대로 별도 추적한다.
+    // HF는 전용 범위 API로 선택된 기존 텍스트만 바꾸며, 선택 없는 예약은 no-op이다.
     if (this.cursor.isInHeaderFooter()) {
       this.applyCharFormatInHeaderFooterSelection(props);
       return;
     }
-    // 각주는 아직 전용 범위 API가 없어 예약 자체를 차단한다.
-    if (this.cursor.isInFootnote()) return;
+    if (this.cursor.isInFootnote()) {
+      const selection = this.getFootnoteCharFormatSelection();
+      if (selection) {
+        this.clearPendingFootnoteCharShape();
+        this.applyCharPropsToFootnoteSelection(selection, props);
+      } else this.stagePendingFootnoteCharShape(props);
+      return;
+    }
     const block = this.getSelectedCellBlock();
     if (block) {
       // F5 블록에서 Ctrl+클릭으로 모든 셀을 제외한 경우다. 빈 블록을 일반 텍스트
@@ -2019,6 +2031,36 @@ export class InputHandler {
     }
     const cmd = new ApplyCharFormatCommand(sel.start, sel.end, props);
     this.executeOperation({ kind: 'command', command: cmd });
+  }
+
+  getFootnoteCharFormatSelection(): FootnoteSelectionSnapshot | null {
+    if (!this.cursor.isInFootnote()) return null;
+    const s = this.cursor.getFootnoteSelectionOrdered();
+    if (!s || (s.start.fnParaIdx === s.end.fnParaIdx && s.start.charOffset === s.end.charOffset)) return null;
+    return { mode: 'footnote', sectionIdx: this.cursor.fnSectionIdx, parentParaIdx: this.cursor.fnParaIdx,
+      controlIdx: this.cursor.fnControlIdx, start: { ...s.start }, end: { ...s.end },
+      pageNum: s.pageNum, footnoteIndex: s.footnoteIndex };
+  }
+
+  applyCharPropsToFootnoteSelection(selection: FootnoteSelectionSnapshot, props: Partial<CharProperties>): void {
+    const c = this.cursor;
+    if (!c.isInFootnote() || c.fnSectionIdx !== selection.sectionIdx || c.fnParaIdx !== selection.parentParaIdx || c.fnControlIdx !== selection.controlIdx) return;
+    if (selection.start.fnParaIdx === selection.end.fnParaIdx && selection.start.charOffset === selection.end.charOffset) {
+      if (c.fnInnerParaIdx === selection.start.fnParaIdx && c.fnCharOffset === selection.start.charOffset) this.stagePendingFootnoteCharShape(props);
+      return;
+    }
+    const saved = { ...selection, start: { ...selection.start }, end: { ...selection.end } };
+    const context: EditContext = { mode: 'footnote', sectionIdx: saved.sectionIdx, paraIdx: saved.parentParaIdx,
+      controlIdx: saved.controlIdx, innerParaIdx: c.fnInnerParaIdx, charOffset: c.fnCharOffset,
+      pageNum: saved.pageNum, footnoteIndex: saved.footnoteIndex };
+    const before = c.getPosition();
+    this.executeOperation({ kind: 'snapshot', operationType: 'applyCharFormatInFootnote',
+      editContext: context, editContextAfter: context, selectionBefore: saved, selectionAfter: saved,
+      operation: wasm => {
+        const result = wasm.applyCharFormatInFootnote(saved.sectionIdx, saved.parentParaIdx, saved.controlIdx,
+          saved.start.fnParaIdx, saved.start.charOffset, saved.end.fnParaIdx, saved.end.charOffset, props);
+        return result.changed ? { ...before } : null;
+      } });
   }
 
   private applyCharFormatInHeaderFooterSelection(props: Partial<CharProperties>): boolean {
@@ -2057,6 +2099,144 @@ export class InputHandler {
       },
     });
     return true;
+  }
+
+  clearPendingFootnoteCharShape(): void { this.pendingFootnoteCharShape = null; }
+
+  getPendingFootnoteCharShape(): Partial<CharProperties> | undefined {
+    const p = this.pendingFootnoteCharShape, c = this.cursor;
+    if (!p) return undefined;
+    if (p.generation !== this.wasm.documentGeneration || !this.wasm.hasLoadedDocument() ||
+        !this.sameFootnoteSelectionTarget(p.target) || c.isInHeaderFooter() ||
+        c.fnFormatRevision !== p.revision || this.getFootnoteCharFormatSelection() ||
+        c.fnInnerParaIdx !== p.target.start.fnParaIdx || c.fnCharOffset !== p.target.start.charOffset) {
+      this.clearPendingFootnoteCharShape();
+      return undefined;
+    }
+    return p.props;
+  }
+
+  private stagePendingFootnoteCharShape(props: Partial<CharProperties>): void {
+    if (this.pendingFootnoteComposition) this.onCompositionEnd();
+    const old = this.getPendingFootnoteCharShape();
+    const target = this.getFootnoteParaFormatSelection();
+    if (!target || this.getFootnoteCharFormatSelection()) return;
+    const next = JSON.parse(JSON.stringify({ ...old, ...props })) as Partial<CharProperties>;
+    if (props.fontName !== undefined) { delete next.fontId; delete next.fontIds; }
+    else if (props.fontId !== undefined) { delete next.fontName; delete next.fontIds; }
+    else if (props.fontIds !== undefined) { delete next.fontName; delete next.fontId; }
+    // Empty range validates fields/references without allocating definitions or changing text.
+    this.wasm.applyCharFormatInFootnote(target.sectionIdx, target.parentParaIdx, target.controlIdx,
+      target.start.fnParaIdx, target.start.charOffset, target.end.fnParaIdx, target.end.charOffset, next);
+    this.pendingFootnoteCharShape = { target, props: next, revision: this.cursor.fnFormatRevision, generation: this.wasm.documentGeneration };
+  }
+
+  private continuePendingFootnoteCharShape(target: FootnoteSelectionSnapshot, props: Partial<CharProperties>, count: number): void {
+    const point = { fnParaIdx: target.start.fnParaIdx, charOffset: target.start.charOffset + count };
+    this.pendingFootnoteCharShape = { target: { ...target, start: { ...point }, end: { ...point } },
+      props, revision: this.cursor.fnFormatRevision, generation: this.wasm.documentGeneration };
+  }
+
+  private insertFootnoteTextWithProps(target: FootnoteSelectionSnapshot, text: string, props: Partial<CharProperties>): void {
+    if (!text) return;
+    const { fnParaIdx, charOffset } = target.start;
+    const after = charOffset + Array.from(text).length;
+    const context: EditContext = { mode: 'footnote', sectionIdx: target.sectionIdx, paraIdx: target.parentParaIdx,
+      controlIdx: target.controlIdx, innerParaIdx: fnParaIdx, charOffset, pageNum: target.pageNum, footnoteIndex: target.footnoteIndex };
+    const bodyPosition = this.cursor.getPosition();
+    this.executeOperation({ kind: 'snapshot', operationType: 'insertFormattedTextInFootnote', editContext: context,
+      editContextAfter: { ...context, charOffset: after }, operation: wasm => {
+        wasm.applyCharFormatInFootnote(target.sectionIdx, target.parentParaIdx, target.controlIdx, fnParaIdx, charOffset, fnParaIdx, charOffset, props);
+        wasm.insertTextInFootnote(target.sectionIdx, target.parentParaIdx, target.controlIdx, fnParaIdx, charOffset, text);
+        wasm.applyCharFormatInFootnote(target.sectionIdx, target.parentParaIdx, target.controlIdx, fnParaIdx, charOffset, fnParaIdx, after, props);
+        return bodyPosition;
+      } });
+    this.continuePendingFootnoteCharShape(target, props, Array.from(text).length);
+  }
+
+  insertPendingFootnoteText(text: string): boolean {
+    const props = this.getPendingFootnoteCharShape();
+    const target = this.getFootnoteParaFormatSelection();
+    if (!props || !target) return false;
+    this.insertFootnoteTextWithProps(target, text, props);
+    return true;
+  }
+
+  beginPendingFootnoteComposition(): boolean {
+    this.pendingFootnoteCompositionCanceled = false;
+    const props = this.getPendingFootnoteCharShape();
+    const target = this.getFootnoteParaFormatSelection();
+    if (!props || !target) return false;
+    this.pendingFootnoteComposition = { beforeId: this.wasm.saveSnapshot(), target, props: { ...props }, text: '', revision: this.cursor.fnFormatRevision, generation: this.wasm.documentGeneration };
+    return true;
+  }
+
+  updatePendingFootnoteComposition(text: string): boolean {
+    if (this.pendingFootnoteCompositionCanceled) return true;
+    const state = this.pendingFootnoteComposition;
+    if (!state) return false;
+    if (state.generation !== this.wasm.documentGeneration || !this.wasm.hasLoadedDocument() ||
+        !this.sameFootnoteSelectionTarget(state.target) || this.cursor.fnFormatRevision !== state.revision) {
+      this.cancelPendingFootnoteComposition();
+      this.clearPendingFootnoteCharShape();
+      return true;
+    }
+    const backup = this.wasm.saveSnapshot();
+    try {
+      this.wasm.restoreSnapshot(state.beforeId);
+      const t = state.target, p = t.start;
+      if (text) {
+        this.wasm.insertTextInFootnote(t.sectionIdx, t.parentParaIdx, t.controlIdx, p.fnParaIdx, p.charOffset, text);
+        this.wasm.applyCharFormatInFootnote(t.sectionIdx, t.parentParaIdx, t.controlIdx, p.fnParaIdx, p.charOffset, p.fnParaIdx, p.charOffset + Array.from(text).length, state.props);
+      }
+      state.text = text;
+      this.compositionLength = Array.from(text).length;
+      this._lastCompositionText = text;
+      this.cursor.setFnCursorPosition(p.fnParaIdx, p.charOffset + this.compositionLength);
+      state.revision = this.cursor.fnFormatRevision;
+      this.continuePendingFootnoteCharShape(t, state.props, this.compositionLength);
+      this.afterEdit();
+    } catch (error) {
+      this.wasm.restoreSnapshot(backup);
+      throw error;
+    } finally { this.wasm.discardSnapshot(backup); }
+    return true;
+  }
+
+  finishPendingFootnoteComposition(): boolean {
+    if (this.pendingFootnoteCompositionCanceled) {
+      this.pendingFootnoteCompositionCanceled = false;
+      return true;
+    }
+    const state = this.pendingFootnoteComposition;
+    if (!state) return false;
+    const sameDocument = state.generation === this.wasm.documentGeneration && this.wasm.hasLoadedDocument();
+    const valid = sameDocument && this.sameFootnoteSelectionTarget(state.target) && this.cursor.fnFormatRevision === state.revision;
+    this.pendingFootnoteComposition = null;
+    // Loading a document frees the former handle and its snapshots before deactivate.
+    if (sameDocument) {
+      try { this.wasm.restoreSnapshot(state.beforeId); }
+      finally { this.wasm.discardSnapshot(state.beforeId); }
+    }
+    if (valid) {
+      this.cursor.setFnCursorPosition(state.target.start.fnParaIdx, state.target.start.charOffset);
+      if (state.text) this.insertFootnoteTextWithProps(state.target, state.text, state.props);
+      else this.continuePendingFootnoteCharShape(state.target, state.props, 0);
+    } else this.clearPendingFootnoteCharShape();
+    return true;
+  }
+
+  cancelPendingFootnoteComposition(): void {
+    const state = this.pendingFootnoteComposition;
+    this.pendingFootnoteComposition = null;
+    if (!state) return;
+    this.pendingFootnoteCompositionCanceled = true;
+    this.compositionLength = 0;
+    this._lastCompositionText = '';
+    if (state.generation === this.wasm.documentGeneration && this.wasm.hasLoadedDocument()) {
+      try { this.wasm.restoreSnapshot(state.beforeId); }
+      finally { this.wasm.discardSnapshot(state.beforeId); }
+    }
   }
 
   /** [#4162][#4271 리뷰] 선택 없이 지정한 글자 서식을 다음 삽입 런에 적용하도록 예약한다.
@@ -2260,6 +2440,16 @@ export class InputHandler {
         charOffset,
       );
     }
+    if (this.cursor.isInFootnote()) {
+      const selected = this.getFootnoteCharFormatSelection();
+      const para = selected?.start.fnParaIdx ?? this.cursor.fnInnerParaIdx;
+      const offset = selected?.start.charOffset ?? Math.max(0, this.cursor.fnCharOffset - 1);
+      const actual = this.wasm.getCharPropertiesInFootnote(this.cursor.fnSectionIdx, this.cursor.fnParaIdx, this.cursor.fnControlIdx, para, offset);
+      const pending = selected ? undefined : this.getPendingFootnoteCharShape();
+      const result = { ...actual, ...pending };
+      if (pending?.fontName) { result.fontFamily = pending.fontName; result.fontFamilies = Array(7).fill(pending.fontName); }
+      return result;
+    }
     const sel = this.getNonEmptySelection();
     const pos = sel ? sel.start : this.cursor.getPosition();
     // 선택 시작 offset 은 그 자리 글자가 곧 선택 첫 글자다(offset-1 이면 선택 밖을 읽는다).
@@ -2295,21 +2485,42 @@ export class InputHandler {
     }
   }
 
-  /**
-   * 머리말/꼬리말·각주 문단에 문단 서식을 적용한다. 해당 문맥이 아니면 false.
-   *
-   * 코어에는 `applyParaFormatInHf` / `applyParaFormatInFootnote` 가 이미 있는데 호출하는
-   * 곳이 없었다 — `getParaFormatTargetsForRange` 가 두 문맥에서 빈 배열을 반환해 정렬·줄
-   * 간격이 아무 반응 없이 끝났다. 조회 쪽(`getParaProperties`)은 두 문맥을 정확히 분기하고
-   * 있어 툴바 표시만 맞고 적용은 안 되는 상태였다.
-   *
-   * `ApplyParaFormatCommand` 의 되돌리기는 문단 모양 ID 를 `setParaShapeId` /
-   * `setCellParaShapeId` 로 복원하는데 이 두 문맥용 setter 가 코어에 없다. 되돌리기를
-   * 포기하지 않으려고 표 구조 변경과 같은 스냅샷 경로를 쓴다.
-   * 근본 해결: 코어에 `setParaShapeIdInHf` / `setParaShapeIdInFootnote` 를 추가하고
-   * `ParaFormatTarget` 에 두 갈래를 넣어 네 문맥(본문/셀/머리말/각주)을 한 커맨드로 통일한다.
-   */
+  /** Saved paragraph-dialog target, including a caret with no text selection. */
+  getFootnoteParaFormatSelection(): FootnoteSelectionSnapshot | null {
+    const c = this.cursor;
+    if (!c.isInFootnote()) return null;
+    const selected = this.getFootnoteCharFormatSelection();
+    if (selected) return selected;
+    const point = { fnParaIdx: c.fnInnerParaIdx, charOffset: c.fnCharOffset };
+    return { mode: 'footnote', sectionIdx: c.fnSectionIdx, parentParaIdx: c.fnParaIdx,
+      controlIdx: c.fnControlIdx, start: { ...point }, end: { ...point },
+      pageNum: c.fnPageNum, footnoteIndex: c.fnFootnoteIndex };
+  }
+
+  applyParaPropsToFootnoteSelection(selection: FootnoteSelectionSnapshot, props: Partial<ParaProperties>): void {
+    if (!this.sameFootnoteSelectionTarget(selection)) return;
+    const saved = { ...selection, start: { ...selection.start }, end: { ...selection.end } };
+    const context: EditContext = { mode: 'footnote', sectionIdx: saved.sectionIdx, paraIdx: saved.parentParaIdx,
+      controlIdx: saved.controlIdx, innerParaIdx: saved.end.fnParaIdx, charOffset: saved.end.charOffset,
+      pageNum: saved.pageNum, footnoteIndex: saved.footnoteIndex };
+    const selected = saved.start.fnParaIdx !== saved.end.fnParaIdx || saved.start.charOffset !== saved.end.charOffset;
+    const before = this.cursor.getPosition();
+    this.executeOperation({ kind: 'snapshot', operationType: 'applyParaFormatInFootnoteRange',
+      editContext: context, editContextAfter: context, selectionBefore: selected ? saved : undefined,
+      selectionAfter: selected ? saved : undefined, operation: wasm => {
+        const result = wasm.applyParaFormatInFootnoteRange(saved.sectionIdx, saved.parentParaIdx, saved.controlIdx,
+          saved.start.fnParaIdx, saved.start.charOffset, saved.end.fnParaIdx, saved.end.charOffset, props);
+        return result.changed ? { ...before } : null;
+      } });
+  }
+
+  /** 머리말/꼬리말 및 각주 캐럿의 기존 문단 서식 경로. 각주 선택은 범위 API를 쓴다. */
   private applyParaFormatInNoteOrHeader(props: Record<string, unknown>): boolean {
+    const selectedNote = this.getFootnoteCharFormatSelection();
+    if (selectedNote) {
+      this.applyParaPropsToFootnoteSelection(selectedNote, props);
+      return true;
+    }
     const cur = this.cursor;
     const propsJson = JSON.stringify(props);
     const cursorBefore = cur.getPosition();
@@ -2391,7 +2602,7 @@ export class InputHandler {
    * 된다 — 여러 칸을 골라도 첫 칸만 바뀌는 증상.
    *
    * 셀 산출 축은 같은 블록을 대상으로 하는 applyCopiedCellPropsToSelection 과 같게 맞춘다
-   * (getCellTableContext + getSelectedCellRange + getExcludedCells, 중첩 표 제외).
+   * (getCellTableContext + getSelectedCellRange + getExcludedCells).
    */
   private getSelectedCellBlock(): SelectedCellBlock | null {
     if (!this.cursor.isInCellSelectionMode()) return null;
@@ -2433,8 +2644,19 @@ export class InputHandler {
 
   /** 셀 블록 안 모든 셀의 모든 문단을 문단 서식 대상으로 만든다 */
   private getParaFormatTargetsForCellBlock(block: SelectedCellBlock): ParaFormatTarget[] {
-    // 중첩 표 문단 서식은 목표 밖(getParaFormatTargetsForRange 도 동일 하계)이다.
-    if (block.cellPath) return [];
+    if (block.cellPath) {
+      const targets: ParaFormatTarget[] = [];
+      for (const cellIdx of block.cellIndices) {
+        const path = withCellPathTarget(block.cellPath, cellIdx, 0);
+        const count = this.wasm.getCellParagraphCountByPath(block.sec, block.ppi, JSON.stringify(path));
+        for (let p = 0; p < count; p++) {
+          targets.push({ kind: 'cell', sec: block.sec, parentPara: block.ppi,
+            controlIdx: block.ci, cellIdx, cellParaIdx: p,
+            cellPath: withCellPathTarget(path, cellIdx, p) });
+        }
+      }
+      return targets;
+    }
     return paraFormatTargetsForCellBlock(
       block,
       (cellIdx) => this.wasm.getCellParagraphCount(block.sec, block.ppi, block.ci, cellIdx),
@@ -2444,14 +2666,28 @@ export class InputHandler {
   private getParaFormatTargetsForRange(start: DocumentPosition, end: DocumentPosition): ParaFormatTarget[] {
     if (this.cursor.isInHeaderFooter() || this.cursor.isInFootnote()) return [];
     if (start.isTextBox || end.isTextBox) return [];
-    if ((start.cellPath?.length ?? 0) > 1 || (end.cellPath?.length ?? 0) > 1) return [];
-
     const startInCell = start.parentParaIndex !== undefined;
     const endInCell = end.parentParaIndex !== undefined;
     if (startInCell || endInCell) {
       if (!startInCell || !endInCell) return [];
       if (start.sectionIndex !== end.sectionIndex) return [];
       if (start.parentParaIndex !== end.parentParaIndex) return [];
+      if ((start.cellPath?.length ?? 0) > 1 || (end.cellPath?.length ?? 0) > 1) {
+        const a = start.cellPath, b = end.cellPath;
+        if (!a || !b || a.length !== b.length || a.length < 2 ||
+            JSON.stringify(a.slice(0, -1)) !== JSON.stringify(b.slice(0, -1)) ||
+            a[a.length - 1].controlIndex !== b[b.length - 1].controlIndex ||
+            a[a.length - 1].cellIndex !== b[b.length - 1].cellIndex) return [];
+        const last = a[a.length - 1];
+        const targets: ParaFormatTarget[] = [];
+        for (let p = Math.min(last.cellParaIndex, b[b.length - 1].cellParaIndex);
+             p <= Math.max(last.cellParaIndex, b[b.length - 1].cellParaIndex); p++) {
+          targets.push({ kind: 'cell', sec: start.sectionIndex, parentPara: start.parentParaIndex!,
+            controlIdx: a[0].controlIndex, cellIdx: last.cellIndex, cellParaIdx: p,
+            cellPath: withCellPathTarget(a, last.cellIndex, p) });
+        }
+        return targets;
+      }
       const startPath = start.cellPath?.[0];
       const endPath = end.cellPath?.[0];
       const startControl = startPath?.controlIndex ?? start.controlIndex;
@@ -2506,14 +2742,26 @@ export class InputHandler {
     }
 
     const pos = this.cursor.getPosition();
-    if (pos.isTextBox || (pos.cellPath?.length ?? 0) > 1) {
-      console.info('[InputHandler] Shift+Tab hanging indent: unsupported nested/textbox context');
+    if (pos.isTextBox) {
+      console.info('[InputHandler] Shift+Tab hanging indent: unsupported textbox context');
       return false;
     }
 
     try {
       let cursorRect: CursorRect | null = this.cursor.getRect();
       let firstLineStartRect: CursorRect;
+
+      if (pos.parentParaIndex !== undefined && (pos.cellPath?.length ?? 0) > 1) {
+        const pathJson = JSON.stringify(pos.cellPath);
+        firstLineStartRect = this.wasm.getCursorRectByPath(pos.sectionIndex, pos.parentParaIndex, pathJson, 0);
+        cursorRect ??= this.wasm.getCursorRectByPath(pos.sectionIndex, pos.parentParaIndex, pathJson, pos.charOffset);
+        const last = pos.cellPath!.at(-1)!;
+        return this.executeParaFormatCommand([{
+          kind: 'cell', sec: pos.sectionIndex, parentPara: pos.parentParaIndex,
+          controlIdx: last.controlIndex, cellIdx: last.cellIndex, cellParaIdx: last.cellParaIndex,
+          cellPath: pos.cellPath!.map(entry => ({ ...entry })),
+        }], { indent: -pxToRaw2x(computeHangingIndentPx(cursorRect.x, firstLineStartRect.x)) });
+      }
 
       if (pos.parentParaIndex !== undefined) {
         const pathEntry = pos.cellPath?.[0];
@@ -2831,29 +3079,41 @@ export class InputHandler {
     const sel = this.cursor.getSelectionOrdered();
     if (!sel) return;
     if (!this.canDeleteSelectionInFormMode()) return;
+    if (sel.start.parentParaIndex === undefined && sel.end.parentParaIndex === undefined
+      && sel.start.sectionIndex === sel.end.sectionIndex
+      && sel.start.paragraphIndex === sel.end.paragraphIndex
+      && sel.start.charOffset === sel.end.charOffset) return;
 
     // [Task #3416] F3 블록이면 확장 단계도 함께 기록한다 — 한컴은 undo 뒤 단계까지 되돌린다.
-    const cmd = new DeleteSelectionCommand(sel.start, sel.end, this.cursor.blockSelectionPhase());
+    const blockPhase = this.cursor.blockSelectionPhase();
+    const cmd = new DeleteSelectionCommand(sel.start, sel.end, blockPhase);
     this.cursor.clearSelection();
-    if (options?.deferRecord) {
-      // 붙여넣기 등 스냅샷 콜백에서 호출될 때 — 히스토리 기록 없이 직접 실행만.
-      // 호출자의 SnapshotCommand 가 before-snapshot 으로 전체 undo 를 커버한다.
-      //
-      // 반환값을 반드시 소비해 JS 커서를 옮긴다 — getPosition() 은 내부 캐시
-      // (`{ ...this.position }`)라 WASM 캐럿이 움직여도 갱신되지 않는다. 놓치면
-      // 이어지는 붙여넣기가 삭제 **전** 좌표(선택 끝)에 삽입된다(실측:
-      // "AAAABBBBCCCC" 에서 BBBB 선택+붙여넣기 → XYZ 가 끝에 붙는다).
-      // executeOperation('command') 의 moveTo·resetPreferredX 에 해당하는 최소 배선.
-      const newPos = cmd.execute(this.wasm);
-      this.cursor.moveTo(newPos);
-      this.cursor.resetPreferredX();
-    } else {
-      this.executeOperation({ kind: 'command', command: cmd });
+    try {
+      if (options?.deferRecord) {
+        // 붙여넣기 등 스냅샷 콜백에서 호출될 때 — 히스토리 기록 없이 직접 실행만.
+        // 호출자의 SnapshotCommand 가 before-snapshot 으로 전체 undo 를 커버한다.
+        //
+        // 반환값을 반드시 소비해 JS 커서를 옮긴다 — getPosition() 은 내부 캐시
+        // (`{ ...this.position }`)라 WASM 캐럿이 움직여도 갱신되지 않는다. 놓치면
+        // 이어지는 붙여넣기가 삭제 **전** 좌표(선택 끝)에 삽입된다(실측:
+        // "AAAABBBBCCCC" 에서 BBBB 선택+붙여넣기 → XYZ 가 끝에 붙는다).
+        // executeOperation('command') 의 moveTo·resetPreferredX 에 해당하는 최소 배선.
+        const newPos = cmd.execute(this.wasm);
+        this.cursor.moveTo(newPos);
+        this.cursor.resetPreferredX();
+      } else {
+        this.executeOperation({ kind: 'command', command: cmd });
+      }
+    } catch (error) {
+      this.cursor.selectRange(sel.start, sel.end, blockPhase);
+      throw error;
     }
   }
 
   /** Undo 처리 */
   private handleUndo(): void {
+    if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
+    this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-undo', false);
     const newPos = this.history.undo(this.wasm);
     if (newPos) {
@@ -2872,6 +3132,9 @@ export class InputHandler {
 
   /** Redo 처리 */
   private handleRedo(): void {
+    if (this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
+    if (this.pendingFootnoteComposition) this.onCompositionEnd();
+    this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-redo', false);
     const newPos = this.history.redo(this.wasm);
     if (newPos) {
@@ -3018,6 +3281,8 @@ export class InputHandler {
     if ('mode' in range) {
       if (range.mode === 'headerFooter') {
         this.cursor.selectHeaderFooterRange(range.start, range.end, range.previewPage);
+      } else if (range.mode === 'footnote' && this.sameFootnoteSelectionTarget(range)) {
+        this.cursor.selectFootnoteRange(range.start, range.end);
       }
       return;
     }
@@ -3028,6 +3293,7 @@ export class InputHandler {
     // 차단은 anchor/focus 소유자의 계약이다). 거절되면 해제된 상태 그대로 둔다.
     // 블록 단계는 범위와 같은 호출로 세운다 — `resetDerivedStateAfterHistoryJump` 의
     // `exitBlockSelectionMode()` 가 방금 0 으로 되돌린 것을 여기서 되살린다.
+    if (range.start.parentParaIndex !== undefined && this.cursor.selectPictureCaptionRange(range.start, range.end)) return;
     this.cursor.selectRange(range.start, range.end, range.blockPhase);
   }
 
@@ -3037,7 +3303,14 @@ export class InputHandler {
     if (!range) return;
     if ('mode' in range && range.mode === 'headerFooter') {
       this.cursor.selectHeaderFooterRange(range.start, range.end, range.previewPage);
+    } else if (range && 'mode' in range && range.mode === 'footnote' && this.sameFootnoteSelectionTarget(range)) {
+      this.cursor.selectFootnoteRange(range.start, range.end);
     }
+  }
+
+  private sameFootnoteSelectionTarget(range: FootnoteSelectionSnapshot): boolean {
+    return this.cursor.isInFootnote() && this.cursor.fnSectionIdx === range.sectionIdx &&
+      this.cursor.fnParaIdx === range.parentParaIdx && this.cursor.fnControlIdx === range.controlIdx;
   }
 
   /**
@@ -3061,6 +3334,8 @@ export class InputHandler {
   }
 
   executeOperation(desc: OperationDescriptor): void {
+    this.wasm.assertDocumentWritable();
+    if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
     if (!this.isOperationAllowedInEditMode(desc)) return;
     switch (desc.kind) {
       case 'command': {
@@ -3071,7 +3346,25 @@ export class InputHandler {
         if (keepFieldStartOutside) {
           this.wasm.clearActiveField();
         }
-        const newPos = this.history.execute(desc.command, this.wasm);
+        // Inverse typing/merge cannot reconstruct contracted anchors or mixed formatting.
+        // Preserve exact states for body commands touching review comments or bookmarks.
+        const body = !this.cursor.isInFootnote() && !this.cursor.isInHeaderFooter()
+          && beforePos.parentParaIndex === undefined && !beforePos.cellPath?.length;
+        const type = desc.command.type;
+        const paragraphs = type === 'mergeParagraph' ? [beforePos.paragraphIndex - 1, beforePos.paragraphIndex]
+          : type === 'mergeNextParagraph' ? [beforePos.paragraphIndex, beforePos.paragraphIndex + 1]
+          : [beforePos.paragraphIndex];
+        const anchoredBodyEdit = body && this.editMode === 'normal'
+          && ['insertText', 'deleteText', 'insertTab', 'splitParagraph', 'mergeParagraph', 'mergeNextParagraph'].includes(type)
+          && (this.wasm.getFieldList().some((f: any) => f.fieldType === 'memo'
+            && f.location?.sectionIndex === beforePos.sectionIndex && !f.location?.path?.length
+            && paragraphs.includes(f.location?.paraIndex))
+            || this.wasm.getBookmarks().some(b => b.editable && b.sec === beforePos.sectionIndex && paragraphs.includes(b.para)));
+        const command = anchoredBodyEdit ? new SnapshotCommand(type, beforePos, beforePos, bridge => {
+          try { return desc.command.execute(bridge); }
+          finally { desc.command.discard?.(bridge); }
+        }) : desc.command;
+        const newPos = this.history.execute(command, this.wasm);
         const boundaryHandled = this.prepareTextMutationBeforeCursor(
           this.history.consumeLastExecutionEffects(),
         );
@@ -3088,7 +3381,7 @@ export class InputHandler {
           this.markCurrentFieldStartOutside();
         }
         this.refreshAfterOperation(desc.meta?.refresh, 'auto', desc.command.type, beforePos, newPos, {
-          ...desc.command.getPageLocalTextEditOptions?.(),
+          ...(anchoredBodyEdit ? undefined : desc.command.getPageLocalTextEditOptions?.()),
           beforePageIndex,
           afterPageIndex: this.cursor.getRect()?.pageIndex,
         }, boundaryHandled);
@@ -3161,7 +3454,21 @@ export class InputHandler {
    * exact command는 host 응답 전에 실제 visible page render가 성공해야 하므로, snapshot을
    * history에 올린 뒤 strict render를 먼저 기다리고 성공할 때만 mutation event를 commit한다.
    */
+  private pendingDocumentAgentOperations = 0;
+
+  hasPendingDocumentAgentOperation(): boolean { return this.pendingDocumentAgentOperations > 0; }
+
   async executeDocumentAgentOperation(
+    desc: Extract<OperationDescriptor, { kind: 'snapshot' }>,
+    render: () => Promise<void>,
+  ): Promise<void> {
+    this.wasm.assertDocumentWritable();
+    this.pendingDocumentAgentOperations += 1;
+    try { await this.performDocumentAgentOperation(desc, render); }
+    finally { this.pendingDocumentAgentOperations -= 1; }
+  }
+
+  private async performDocumentAgentOperation(
     desc: Extract<OperationDescriptor, { kind: 'snapshot' }>,
     render: () => Promise<void>,
   ): Promise<void> {
@@ -3290,7 +3597,7 @@ export class InputHandler {
     // undo/redo 경로가 이미 같은 이유로 이 루틴을 부른다.
     this.clearTableResizeRuntimeCache();
     this.eventBus.emit('document-mutated', 'input-handler-edit');
-    this.eventBus.emit('document-changed');
+    this.eventBus.emit('document-changed', 'input-handler-edit');
     this.updateCaret();
   }
 
@@ -3311,7 +3618,7 @@ export class InputHandler {
         ...(focusedPagePatch?.pageIndex === pageIndex ? { focusedPagePatch } : {}),
       });
     } else {
-      this.eventBus.emit('document-changed');
+      this.eventBus.emit('document-changed', 'input-handler-edit');
     }
     if (this.deferredPaginationPending) {
       this.scheduleDeferredPaginationFlush();
@@ -4187,6 +4494,9 @@ export class InputHandler {
   }
 
   deactivate(): void {
+    _captionText.cancelComposition.call(this);
+    this.cancelPendingFootnoteComposition();
+    this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-deactivate', false);
     this.active = false;
     // 문서 교체와 mutation renderer 선택이 경합해 layout 완료 이벤트가 생략돼도
@@ -4235,6 +4545,9 @@ export class InputHandler {
   }
 
   dispose(): void {
+    _captionText.cancelComposition.call(this);
+    this.cancelPendingFootnoteComposition();
+    this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-dispose', false);
     if (this.isResizeDragging) {
       this.cleanupResizeDrag();
@@ -4573,6 +4886,13 @@ export class InputHandler {
     this.afterEdit();
   }
 
+  tryEditPictureCaption(action: 'replace' | 'delete' | 'backspace' | 'forward' | 'split' | 'break', text = ''): boolean { return _captionText.tryEdit.call(this, action, text); }
+  isPictureCaptionEditing(): boolean { return _captionText.isEditing.call(this); }
+  beginPictureCaptionComposition(): boolean { return _captionText.beginComposition.call(this); }
+  updatePictureCaptionComposition(text: string): boolean { return _captionText.updateComposition.call(this, text); }
+  finishPictureCaptionComposition(): boolean { return _captionText.finishComposition.call(this); }
+  hasPictureCaptionComposition(): boolean { return _captionText.hasComposition.call(this); }
+
   /** 글상자 내부 텍스트 편집 모드 진입 */
   private enterTextboxEditing(sec: number, ppi: number, ci: number): void {
     this.enterInlineEditing(sec, ppi, ci, 0);
@@ -4580,6 +4900,7 @@ export class InputHandler {
 
   /** 캡션/글상자 내부 텍스트 편집 모드 진입 (charOffset 지정 가능) */
   enterInlineEditing(sec: number, ppi: number, ci: number, charOffset = 0): void {
+    try { charOffset = Math.max(charOffset, this.wasm.getPictureCaptionEditInfo(sec, ppi, ci).paragraphs[0].editFrom); } catch { /* Other inline editors retain their position. */ }
     this.cursor.clearSelection();
     this.cursor.moveTo({
       sectionIndex: sec,
@@ -5185,6 +5506,11 @@ export class InputHandler {
   /** 커서가 표 셀 내부인가? */
   isInTable(): boolean { return this.cursor.isInCell(); }
 
+  /** 경로 기반 표 구조 명령의 첫 지원 범위: 본문 셀만 허용한다. */
+  isInBodyTableCell(): boolean {
+    return this.cursor.isInCell() && !this.cursor.isInHeaderFooter() && !this.cursor.isInFootnote();
+  }
+
   /** 셀 선택 모드인가? */
   isInCellSelectionMode(): boolean { return this.cursor.isInCellSelectionMode(); }
 
@@ -5315,7 +5641,7 @@ export class InputHandler {
           } else if (ref.type === 'image') {
             wasm.deletePictureControl(ref.sec, ref.ppi, ref.ci);
           } else if (ref.type === 'equation') {
-            wasm.deleteEquationControl(ref.sec, ref.ppi, ref.ci);
+            deleteEquationSelection(wasm, ref);
           } else {
             wasm.deleteShapeControl(ref.sec, ref.ppi, ref.ci);
           }
@@ -5412,6 +5738,21 @@ export class InputHandler {
     if (!sel) return false;
 
     const { charProps, paraProps } = this.formatCopyState;
+    if ((sel.start.cellPath?.length ?? 0) > 1 || (sel.end.cellPath?.length ?? 0) > 1) {
+      try {
+        this.executeOperation({ kind: 'snapshot', operationType: 'formatCopyNestedText', operation: (wasm) => {
+          wasm.runInBatch(() => wasm.applyFormatCopyInCell(sel.start, sel.end, charProps, paraProps));
+          return this.cursor.getPosition();
+        }});
+      } catch (error) {
+        console.info('[InputHandler] 모양복사 선택 거절:', error);
+        this.focusTextarea();
+        return false;
+      }
+      this.formatCopyState = null;
+      this.focusTextarea();
+      return true;
+    }
     if (Object.keys(charProps).length > 0) {
       this.applyCharPropsToRange(sel.start, sel.end, charProps);
     }
@@ -5425,6 +5766,12 @@ export class InputHandler {
   }
 
   private copyFormatAtCursor(): void {
+    const pos = this.cursor.getPosition();
+    const ownCellProps = pos.parentParaIndex !== undefined
+      ? (pos.cellPath?.length
+        ? this.wasm.getCellOwnPropertiesByPath(pos.sectionIndex, pos.parentParaIndex, JSON.stringify(pos.cellPath))
+        : this.wasm.getCellOwnProperties(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex!, pos.cellIndex!))
+      : undefined;
     const currentCharProps = this.getCharProperties();
     const charProps = pickDefined(currentCharProps, FORMAT_COPY_CHAR_KEYS) as Partial<CharProperties>;
     if (charProps.fontIds === undefined && charProps.fontId === undefined) {
@@ -5435,15 +5782,11 @@ export class InputHandler {
       }
     }
     const paraProps = normalizeFormatCopyParaProps(
-      pickDefined(this.getParaProperties(), FORMAT_COPY_PARA_KEYS) as Partial<ParaProperties>,
+      pickDefined(pos.parentParaIndex !== undefined && (pos.cellPath?.length ?? 0) > 1
+        ? this.wasm.getCellParaPropertiesAtByPath(pos.sectionIndex, pos.parentParaIndex, JSON.stringify(pos.cellPath))
+        : this.getParaProperties(), FORMAT_COPY_PARA_KEYS) as Partial<ParaProperties>,
     );
-    const pos = this.cursor.getPosition();
-    const cellProps = pos.parentParaIndex !== undefined
-      ? pickDefined(
-          this.wasm.getCellOwnProperties(pos.sectionIndex, pos.parentParaIndex, pos.controlIndex!, pos.cellIndex!),
-          FORMAT_COPY_CELL_KEYS,
-        ) as Partial<CellProperties>
-      : undefined;
+    const cellProps = ownCellProps ? pickDefined(ownCellProps, FORMAT_COPY_CELL_KEYS) as Partial<CellProperties> : undefined;
     this.formatCopyState = {
       charProps: JSON.parse(JSON.stringify(charProps)),
       paraProps: JSON.parse(JSON.stringify(paraProps)),
@@ -5459,13 +5802,24 @@ export class InputHandler {
       this.focusTextarea();
       return false;
     }
-    if (ctx.cellPath && ctx.cellPath.length > 1) {
-      console.info('[InputHandler] 중첩 표 셀 모양복사는 아직 지원하지 않습니다');
-      this.focusTextarea();
-      return false;
-    }
-
     const props = JSON.parse(JSON.stringify(cellProps)) as Partial<CellProperties>;
+    if (ctx.cellPath && ctx.cellPath.length > 1) {
+      try {
+        const block = this.getSelectedCellBlock();
+        if (!block?.cellPath || block.cellIndices.length === 0) return false;
+        const paths = block.cellIndices.map((index) => withCellPathTarget(block.cellPath!, index, 0));
+        this.executeOperation({ kind: 'snapshot', operationType: 'formatCopyCellProps', operation: (wasm) => {
+          wasm.runInBatch(() => wasm.applyCellOwnPropertiesByPaths(block.sec, block.ppi, paths, props));
+          return this.cursor.getPosition();
+        }});
+      } catch (error) {
+        console.info('[InputHandler] 모양복사 셀 경로 거절:', error);
+        this.focusTextarea();
+        return false;
+      }
+      this.focusTextarea();
+      return true;
+    }
     this.executeOperation({
       kind: 'snapshot',
       operationType: 'formatCopyCellProps',
@@ -5533,7 +5887,8 @@ export class InputHandler {
   applyStyle(styleId: number): void {
     try {
       const targets = this.getParaFormatTargetsAtCursor();
-      if (targets.length === 0) return;
+      // Nested style assignment retains its existing unsupported boundary.
+      if (targets.length === 0 || targets.some(t => t.kind === 'cell' && (t.cellPath?.length ?? 0) > 1)) return;
       const cursorBefore = this.cursor.getPosition();
       const operation = (wasm: WasmBridge): DocumentPosition => {
         for (const target of targets) {
@@ -5651,6 +6006,152 @@ export class InputHandler {
     }
   }
 
+  /** 본문 번호 대화상자의 대상을 고정하고, 앞선 목록을 명시적으로 선택한다. */
+  captureBodyNumbering(): {
+    lists: { id: number; label: string }[];
+    preferredId: number;
+    apply: (definition: string | null, mode: number, start: number, previousId: number) => boolean;
+  } | null {
+    const targets = this.getParaFormatTargetsAtCursor();
+    if (!targets.length || targets.some(t => t.kind !== 'body')) return null;
+    const bodies = targets as Extract<ParaFormatTarget, { kind: 'body' }>[];
+    const first = bodies[0];
+    if (bodies.some(t => t.sec !== first.sec)) return null;
+    const generation = this.wasm.documentGeneration;
+    const count = this.wasm.getParagraphCount(first.sec);
+    if (bodies.some(t => t.para < 0 || t.para >= count)) return null;
+    const before = bodies.map(t => this.wasm.getParaPropertiesAt(t.sec, t.para));
+    const textAt = (t: typeof first) => this.wasm.getTextRange(t.sec, t.para, 0, this.wasm.getParagraphLength(t.sec, t.para));
+    const targetTexts = bodies.map(textAt);
+    const priorProps = Array.from({ length: first.para }, (_, p) => this.wasm.getParaPropertiesAt(first.sec, p));
+    const definitions = this.wasm.getNumberingList();
+    const validIds = new Set(definitions.map(n => n.id));
+    const lists: { id: number; label: string }[] = [];
+    for (let p = first.para - 1; p >= 0; p--) {
+      const props = priorProps[p];
+      if ((props.headType === 'Number' || props.headType === 'Outline') &&
+          props.numberingId && validIds.has(props.numberingId) &&
+          !lists.some(n => n.id === props.numberingId)) {
+        const text = this.wasm.getTextRange(first.sec, p, 0, Math.min(32, this.wasm.getParagraphLength(first.sec, p)));
+        lists.push({ id: props.numberingId, label: `${p + 1}번째 문단 · ${text}` });
+      }
+    }
+    const currentId = before[0].numberingId;
+    const preferredId = lists.find(n => n.id === currentId)?.id ?? lists[0]?.id ?? 0;
+    const cursorBefore = { ...this.cursor.getPosition() };
+    return { lists, preferredId, apply: (definition, mode, start, previousId) => {
+      if (this.wasm.documentGeneration !== generation ||
+          this.wasm.getParagraphCount(first.sec) !== count ||
+          bodies.some((t, i) => textAt(t) !== targetTexts[i]) ||
+          priorProps.some((props, p) => JSON.stringify(this.wasm.getParaPropertiesAt(first.sec, p)) !== JSON.stringify(props)) ||
+          bodies.some((t, i) => JSON.stringify(this.wasm.getParaPropertiesAt(t.sec, t.para)) !== JSON.stringify(before[i])) ||
+          !Number.isInteger(mode) || mode < 0 || mode > 2 ||
+          !Number.isInteger(start) || start < 1 || start > 999 ||
+          (mode === 1 && previousId !== 0 && !lists.some(n => n.id === previousId))) return false;
+      const continuationId = mode === 0 ? lists[0]?.id ?? 0 : mode === 1 ? previousId || preferredId : 0;
+      // 대화상자를 연 뒤 목록 정의가 바뀌었으면 재조회가 필요하다.
+      if (JSON.stringify(this.wasm.getNumberingList()) !== JSON.stringify(definitions)) return false;
+      this.executeOperation({ kind: 'snapshot', operationType: 'bodyNumbering', operation: wasm => {
+        if (definition === null) {
+          if (before.every(p => p.headType === 'None' && p.numberingId === 0)) return null;
+          wasm.runInBatch(() => bodies.forEach(t => wasm.applyParaFormat(t.sec, t.para, JSON.stringify({ headType: 'None', numberingId: 0 }))));
+          return cursorBefore;
+        }
+        if (continuationId && bodies.every((_, i) => before[i].headType === 'Number' && before[i].numberingId === continuationId)) return null;
+        // 정의 생성도 명령 안에서 수행하여 undo/실패 rollback으로 회수한다.
+        const level = before[0].headType === 'Number' || before[0].headType === 'Outline' ? before[0].paraLevel ?? 0 : 0;
+        const nid = continuationId || wasm.createNumbering(JSON.stringify({ ...JSON.parse(definition), startNumber: start, startLevel: level }));
+        if (!nid) throw new Error('문단 번호 정의 생성 실패');
+        wasm.runInBatch(() => bodies.forEach((t, i) => {
+          const paraLevel = before[i].headType === 'Number' || before[i].headType === 'Outline' ? before[i].paraLevel ?? 0 : 0;
+          wasm.applyParaFormat(t.sec, t.para, JSON.stringify({ headType: 'Number', numberingId: nid, paraLevel }));
+        }));
+        return cursorBefore;
+      } });
+      this.focusTextarea();
+      return true;
+    } };
+  }
+
+  /** 번호 정의는 공유할 수 있지만 이어쓰기 대상은 각 셀 안의 문단이다. */
+  captureCellNumbering(): ReturnType<InputHandler['captureBodyNumbering']> {
+    const targets = this.getParaFormatTargetsAtCursor();
+    if (!targets.length || targets.some(t => t.kind !== 'cell')) return null;
+    const cells = targets as Extract<ParaFormatTarget, { kind: 'cell' }>[];
+    const sec = cells[0].sec, parent = cells[0].parentPara;
+    if (cells.some(t => t.sec !== sec || t.parentPara !== parent)) return null;
+    const paths = cells.map(t => t.cellPath?.map(p => ({ ...p })) ?? [{ controlIndex: t.controlIdx, cellIndex: t.cellIdx, cellParaIndex: t.cellParaIdx }]);
+    // Empty formatting is a read-only preflight of every path and existing reference.
+    this.wasm.applyParaFormatInCellsByPaths(sec, parent, paths, {});
+    const generation = this.wasm.documentGeneration;
+    const definitions = this.wasm.getNumberingList(), valid = new Set(definitions.map(n => n.id));
+    const groups = new Map<string, { base: typeof paths[number]; targets: typeof paths; before: { props: ParaProperties; text: string }[]; prior: { id: number; label: string }[]; preferred: number }>();
+    const view = (base: typeof paths[number]) => {
+      const count = this.wasm.getCellParagraphCountByPath(sec, parent, JSON.stringify(base));
+      return Array.from({ length: count }, (_, p) => {
+        const path = withCellPathTarget(base, base[base.length - 1].cellIndex, p), json = JSON.stringify(path);
+        return { props: this.wasm.getCellParaPropertiesAtByPath(sec, parent, json), text: this.wasm.getTextInCellByPath(sec, parent, json, 0, this.wasm.getCellParagraphLengthByPath(sec, parent, json)) };
+      });
+    };
+    for (const path of paths) {
+      const base = withCellPathTarget(path, path[path.length - 1].cellIndex, 0), key = JSON.stringify(base);
+      let group = groups.get(key);
+      if (!group) { group = { base, targets: [], before: view(base), prior: [], preferred: 0 }; groups.set(key, group); }
+      group.targets.push(path);
+    }
+    for (const group of groups.values()) {
+      group.targets.sort((a, b) => a[a.length - 1].cellParaIndex - b[b.length - 1].cellParaIndex);
+      const first = group.targets[0][group.targets[0].length - 1].cellParaIndex;
+      for (let p = first - 1; p >= 0; p--) {
+        const { props, text } = group.before[p];
+        if ((props.headType === 'Number' || props.headType === 'Outline') && props.numberingId && valid.has(props.numberingId) && !group.prior.some(n => n.id === props.numberingId)) {
+          group.prior.push({ id: props.numberingId, label: `${p + 1}번째 셀 문단 · ${Array.from(text).slice(0, 32).join('')}` });
+        }
+      }
+      const current = group.before[first].props;
+      const currentId = (current.headType === 'Number' || current.headType === 'Outline') && current.numberingId && valid.has(current.numberingId) ? current.numberingId : 0;
+      group.preferred = group.prior.find(n => n.id === currentId)?.id ?? group.prior[0]?.id ?? currentId;
+    }
+    const single = groups.size === 1 ? [...groups.values()][0] : null;
+    const cursorBefore = { ...this.cursor.getPosition() };
+    return { lists: single?.prior ?? [], preferredId: single?.prior.length ? single.preferred : 0, apply: (definition, mode, start, previousId) => {
+      if (generation !== this.wasm.documentGeneration || !Number.isInteger(mode) || mode < 0 || mode > 2 || !Number.isInteger(start) || start < 1 || start > 999 ||
+          (mode === 1 && previousId !== 0 && (!single || !single.prior.some(n => n.id === previousId)))) return false;
+      try {
+        if (JSON.stringify(this.wasm.getNumberingList()) !== JSON.stringify(definitions) || [...groups.values()].some(g => JSON.stringify(view(g.base)) !== JSON.stringify(g.before))) return false;
+        this.wasm.applyParaFormatInCellsByPaths(sec, parent, paths, {});
+      } catch { return false; }
+      this.executeOperation({ kind: 'snapshot', operationType: 'cellNumbering', operation: wasm => {
+        const newIds = new Map<number, number>();
+        let changed = false;
+        wasm.runInBatch(() => {
+          for (const group of groups.values()) {
+            let nid = definition === null ? 0 : mode === 2 ? 0 : mode === 0 ? group.prior[0]?.id ?? group.preferred : previousId || group.preferred;
+            if (definition !== null && !nid) {
+              const first = group.targets[0][group.targets[0].length - 1].cellParaIndex, props = group.before[first].props;
+              const level = props.headType === 'Number' || props.headType === 'Outline' ? props.paraLevel ?? 0 : 0;
+              nid = newIds.get(level) ?? wasm.createNumbering(JSON.stringify({ ...JSON.parse(definition), startNumber: start, startLevel: level }));
+              if (!nid) throw new Error('셀 번호 정의 생성 실패');
+              newIds.set(level, nid);
+            }
+            for (const path of group.targets) {
+              const before = group.before[path[path.length - 1].cellParaIndex].props;
+              const headType = definition === null ? 'None' : 'Number';
+              if (before.headType === headType && before.numberingId === nid) continue;
+              const props: Partial<ParaProperties> = { headType, numberingId: nid };
+              if (definition !== null) props.paraLevel = before.headType === 'Number' || before.headType === 'Outline' ? before.paraLevel ?? 0 : 0;
+              wasm.applyParaFormatInCellsByPaths(sec, parent, [path], props);
+              changed = true;
+            }
+          }
+        });
+        return changed ? cursorBefore : null;
+      } });
+      this.focusTextarea();
+      return true;
+    } };
+  }
+
   /** 문단 번호 모양 적용 (대화상자에서 선택한 numberingId) */
   applyNumbering(numberingId: number): void {
     try {
@@ -5684,11 +6185,14 @@ export class InputHandler {
         this.cursor.fnSectionIdx,
         this.cursor.fnParaIdx,
         this.cursor.fnControlIdx,
-        this.cursor.fnInnerParaIdx,
+        this.getFootnoteParaFormatSelection()!.start.fnParaIdx,
       );
     }
     const pos = this.cursor.getPosition();
     if (pos.parentParaIndex !== undefined) {
+      if ((pos.cellPath?.length ?? 0) > 1) {
+        return this.wasm.getCellParaPropertiesAtByPath(pos.sectionIndex, pos.parentParaIndex, JSON.stringify(pos.cellPath));
+      }
       return this.wasm.getCellParaPropertiesAt(
         pos.sectionIndex, pos.parentParaIndex, pos.controlIndex!,
         pos.cellIndex!, pos.cellParaIndex!,
@@ -5718,12 +6222,87 @@ export class InputHandler {
     return this.cursor.getSelectionOrdered();
   }
 
+  /** One body paragraph or one table-cell paragraph; full path is the owner. */
+  getHyperlinkTarget(): {position: DocumentPosition; selection: {start: DocumentPosition; end: DocumentPosition} | null; cellPath: Array<{controlIndex: number; cellIndex: number; cellParaIndex: number}> | null} {
+    const position = this.getCursorPosition(), selection = this.getSelection();
+    const integer = (n: number | undefined) => n !== undefined && Number.isInteger(n) && n >= 0 && n <= 0xffffffff;
+    const owner = (p: DocumentPosition) => {
+      if (p.isTextBox || !integer(p.sectionIndex) || !integer(p.charOffset)) throw new Error('하이퍼링크 대상 좌표가 잘못됐습니다.');
+      if (p.parentParaIndex === undefined) {
+        if (p.cellPath?.length || !integer(p.paragraphIndex)) throw new Error('하이퍼링크 대상 경로가 잘못됐습니다.');
+        return {key: JSON.stringify([p.sectionIndex, p.paragraphIndex]), path: null};
+      }
+      const path = p.cellPath?.length ? p.cellPath.map(e => ({controlIndex: e.controlIndex, cellIndex: e.cellIndex, cellParaIndex: e.cellParaIndex})) :
+        [{controlIndex: p.controlIndex!, cellIndex: p.cellIndex!, cellParaIndex: p.cellParaIndex!}];
+      if (!integer(p.parentParaIndex) || path.length > 64 || path.some(e => !integer(e.controlIndex) || !integer(e.cellIndex) || !integer(e.cellParaIndex))) {
+        throw new Error('하이퍼링크 셀 경로가 잘못됐습니다.');
+      }
+      return {key: JSON.stringify([p.sectionIndex, p.parentParaIndex, path]), path};
+    };
+    if (this.editMode === 'form' || this.cursor.isInFootnote() || this.cursor.isInHeaderFooter()
+      || this.cursor.isInCellSelectionMode?.() || this.cursor.isInPictureObjectSelection() || this.cursor.isInTableObjectSelection()) {
+      throw new Error('하이퍼링크는 본문 또는 단일 표 셀의 한 문단에서만 지원합니다.');
+    }
+    const current = owner(position), selected = selection ? owner(selection.start) : current;
+    if (selection && (selected.key !== owner(selection.end).key || selected.key !== current.key)) {
+      throw new Error('하이퍼링크는 같은 셀/같은 문단 안에서 선택하세요.');
+    }
+    return {position: {...position}, selection: selection ? {start: {...selection.start}, end: {...selection.end}} : null, cellPath: selected.path};
+  }
+
+  /** Bookmark authoring uses visible body coordinates; nested locations need a path API. */
+  getBodyBookmarkTarget(): DocumentPosition {
+    const target = this.getHyperlinkTarget();
+    if (target.cellPath) throw new Error('책갈피 변경은 일반 본문 문단에서만 지원합니다.');
+    return target.position;
+  }
+
+  /** Ordinary body paragraph, with a single root shape selection allowed for band editing. */
+  getBodyParagraphBandTarget(): {position: DocumentPosition; selection: {start: DocumentPosition; end: DocumentPosition} | null} {
+    try {
+      if (this.editMode === 'form' || this.cursor.isInFootnote() || this.cursor.isInHeaderFooter()
+        || this.cursor.isInCellSelectionMode?.() || this.cursor.isInTableObjectSelection() || this.isMultiPictureSelection()) throw new Error('mode');
+      const ref = this.getSelectedPictureRef();
+      if (ref) {
+        if (ref.type !== 'shape' || ref.cellPath?.length || ref.cellIdx !== undefined || ref.cellParaIdx !== undefined || ref.outerTableControlIdx !== undefined || ref.headerFooter || ref.noteRef) throw new Error('object');
+        return {position: {sectionIndex: ref.sec, paragraphIndex: ref.ppi, charOffset: this.wasm.getParagraphLength(ref.sec, ref.ppi)}, selection: null};
+      }
+      const target = this.getHyperlinkTarget();
+      if (target.cellPath) throw new Error('cell');
+      return {position: target.position, selection: target.selection};
+    } catch { throw new Error('문단 띠는 일반 본문 한 문단 또는 단순 문단 띠 개체 하나를 선택하세요.'); }
+  }
+
+  getBodyCommentTarget(): {position: DocumentPosition; selection: {start: DocumentPosition; end: DocumentPosition} | null} {
+    try {
+      const target = this.getHyperlinkTarget();
+      if (target.cellPath) throw new Error('cell');
+      return {position: target.position, selection: target.selection};
+    } catch {
+      throw new Error('검토 주석은 일반 본문 한 문단에서만 지원합니다.');
+    }
+  }
+
+  /** Hyperlink authoring deliberately supports only the main body, one paragraph. */
+  getBodyHyperlinkTarget(): {position: DocumentPosition; selection: {start: DocumentPosition; end: DocumentPosition} | null} {
+    const position = this.getCursorPosition();
+    const selection = this.getSelection();
+    const inBody = (p: DocumentPosition) => p.parentParaIndex === undefined && !p.cellPath?.length && !p.isTextBox;
+    if (this.editMode === 'form' || this.cursor.isInFootnote() || this.cursor.isInHeaderFooter() || !inBody(position)
+      || (selection && (!inBody(selection.start) || !inBody(selection.end)
+        || selection.start.sectionIndex !== selection.end.sectionIndex || selection.start.paragraphIndex !== selection.end.paragraphIndex))) {
+      throw new Error('하이퍼링크는 일반 본문 한 문단에서만 지원합니다.');
+    }
+    return {position: {...position}, selection};
+  }
+
   /** 지정된 선택 범위에 글자 서식을 적용한다 (커맨드 시스템용) */
   applyCharPropsToRange(
     start: DocumentPosition,
     end: DocumentPosition,
     props: Partial<CharProperties>,
   ): void {
+    if (this.cursor.isInFootnote()) return;
     const cmd = new ApplyCharFormatCommand(start, end, props);
     this.executeOperation({ kind: 'command', command: cmd });
   }

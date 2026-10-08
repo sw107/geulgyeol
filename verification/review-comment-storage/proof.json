@@ -1,0 +1,420 @@
+{
+  "baseCommit": "7670a158df75e07c69fcb2ba2df23b33d44b92f4",
+  "verdict": "GAP_REPRODUCED_DESIGN_ONLY",
+  "commentAuthoringImplemented": false,
+  "commentUndoRedoVerified": false,
+  "productEngineUISourceChanged": false,
+  "packagingPerformed": false,
+  "WasmRebuilt": false,
+  "wasmProvenance": {
+    "reusedWasmSourceCommit": "87e1e074d039a9fc6da9bb431afaa3a383ad46b7",
+    "matchedExistingEngineFiles": 887,
+    "newWasmBuild": false,
+    "reason": "Product engine source unchanged; reproduce with frozen dev9 WASM copied into separate QA."
+  },
+  "wasmSHA256": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198",
+  "NativeStorageProbe": {
+    "memoCounts": [
+      1,
+      2
+    ],
+    "memoParagraphCounts": [
+      2,
+      4
+    ],
+    "hwpxContentsAndAnchorRefsPreserved": true,
+    "hwpMemoContentRead": false,
+    "rawTailCountBeforeBodyEdit": [
+      1,
+      2
+    ],
+    "tailCountAfterBodyEdit": [
+      0,
+      0
+    ],
+    "hwpToHwpxContentsEmpty": true,
+    "genericIRSnapshots": true
+  },
+  "wasmSavedFilesIndependentlyRead": 4,
+  "actualUI": {
+    "disabledDispatchCases": 192,
+    "operations": 0,
+    "selectionReads": 0,
+    "emittedEvents": 0,
+    "memoOrCommentExports": [],
+    "scopeGuardImplemented": false
+  },
+  "genericWasmSnapshots": [
+    {
+      "file": "memo-1.hwpx",
+      "genericDocumentSnapshotRestore": true,
+      "commentUndoRedoTested": false
+    },
+    {
+      "file": "memo-2.hwpx",
+      "genericDocumentSnapshotRestore": true,
+      "commentUndoRedoTested": false
+    },
+    {
+      "file": "memo-1.hwp",
+      "genericDocumentSnapshotRestore": true,
+      "commentUndoRedoTested": false
+    },
+    {
+      "file": "memo-2.hwp",
+      "genericDocumentSnapshotRestore": true,
+      "commentUndoRedoTested": false
+    }
+  ],
+  "bodyLinkRegression": {
+    "positive": 6,
+    "reopens": 22,
+    "undos": 6,
+    "redos": 6,
+    "refusals": 36,
+    "externalOpens": 0
+  },
+  "cellLinkRegression": {
+    "positive": 84,
+    "reopens": 288,
+    "undos": 84,
+    "redos": 84,
+    "atomicRefusals": 444,
+    "layoutCases": 12,
+    "multipageCases": 12,
+    "externalOpens": 0
+  },
+  "nativeBodyUIFiles": {
+    "footnoteTree": true,
+    "fullCharParaStyleReferences": true,
+    "originalDefinitionsUnchanged": true,
+    "pairedFieldRanges": true,
+    "uiSavedFilesVerified": 22
+  },
+  "nativeCellUIFiles": {
+    "allSiblingCellBodyNoteReferences": true,
+    "fullCharParaStyleReferences": true,
+    "originalDefinitionsUnchanged": true,
+    "pairedFieldRanges": true,
+    "uiSavedFilesVerified": 264
+  },
+  "checks": {
+    "typescriptNoEmit": "passed",
+    "clippyWarningsDenied": "passed",
+    "RustLibraryTests": "blocked at compilation by 3 existing missing include_bytes fixtures; no replacement, bypass or skip",
+    "diffCheck": "passed"
+  },
+  "resource": {
+    "targetPeakBytes": 3648233472,
+    "targetFinalBytes": 3648233472,
+    "targetLimitBytes": 4294967296,
+    "minDiskFreeBytes": 24166400000,
+    "currentDiskFreeBytes": 24166400000,
+    "qaBytes": 17670144
+  },
+  "protection": {
+    "previousCheckpointBaselinesMatched": {
+      "dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+      "dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+      "app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+      "geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+      "geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+      "dev8-checkpoint-qa/GeulgyeolDev8.app/Contents/Resources/app.asar": "66e9af062d45efaca508053e87a7a759489d7f98e0484798e7fd60b5d468a104",
+      "field-value-atomic-qa/pkg/rhwp_bg.wasm": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+      "named-cell-value-qa/pkg/rhwp_bg.wasm": "89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf",
+      "body-hyperlink-qa/pkg/rhwp_bg.wasm": "47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4",
+      "cell-hyperlink-qa/pkg/rhwp_bg.wasm": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198"
+    },
+    "thisTaskBaselinesMatched": {
+      "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app/Contents/Resources/app.asar": "12065a11b5217639bc145354dc12f53170702d922ad05cd1757e63568190db9b",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/dev9-checkpoint-qa/GeulgyeolDev9.app/Contents/Info.plist": "a17724fe485bbf15c3cfb045ae1ecefed150dd3d986032860d5ceac7bc183a3f",
+      "/Users/sw107/Documents/Codex/2026-10-06/task/style-propagation-qa/Geulgyeol-0.4.4-dev.4-mac-arm64-candidate.zip": "198bd47563ed58178b6b88beb0a43c8c5c22444bc023885487506457b790257f"
+    },
+    "allUnchanged": true
+  },
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "LinuxThisTask": false,
+  "publicPushRelease": false,
+  "securityAccountCertificateRemotePermissionChanges": false,
+  "sourceSHA256": {
+    "engine/examples/review_comment_storage_probe.rs": "7a4ae854ba5d2714e88ae59e824ad037111329735e5b6340e05660eae19f4246",
+    "scripts/check-review-comment-storage.mjs": "00dd48c4a69b81366fb4ff901b9d204b9060595d3288a61c3dfcdf4f367ec608",
+    "verification/review-comment-storage/DESIGN_KO.md": "e0ac89b00af1adcdb0d5ce569178a490fd6de62ee8d8a69e4f8ee811f94bfaf8"
+  },
+  "evidenceSHA256": {
+    "review-comment-qa/native/native-proof.json": "835cf8997c3abfcb4f8f144d4b771f9ff3f8119de46568b8b8ed3cfa2413d941",
+    "review-comment-qa/native/native-wasm-reopen.json": "d6ad6b052d6ada2eca11f83b7aefbbfae0b4513ded58d4d42628025703d47a92",
+    "review-comment-qa/wasm-ui/proof.json": "2d43c855e525e2dd8cf732daf5a3d84f8f4b9c4c63484e1aff5e3c28b4caf922",
+    "review-comment-qa/tsc.log": "08deaa2b405ecb797aa8791d36b859a5fc7a4d6a624933a4f84f778f30dfbca9",
+    "review-comment-qa/clippy-final.log": "7d8140f3248699073f6aac8c456e2cbd333344319a8cf594c7164f3c910b8d25",
+    "review-comment-qa/library-tests-test-compile.log": "3fc2b5c8cc5986568bbecca21a02a33e23764fbc151202ce9f71f3653c1cf256",
+    "review-comment-qa/body-regression/proof.json": "143e1d041dd3d7c44e137cf518fe97cb4bd775ed5b0b319ae9a162ea07a4ee7b",
+    "review-comment-qa/cell-regression/proof.json": "6328cf5ccc743cb916addddd74cf66e37dd99147aedfd27b5fed296001de57e5",
+    "review-comment-qa/native-ui-reopen-proof.json": "c2b49b01a46fa10a9e7a1b806f88f723af4e60acbf96f58261554d0113c7a33e",
+    "review-comment-qa/native-cell-ui-reopen-proof.json": "f075248feb207be6469875d6ee0babab874c3f60a6f7a39fb67917666fa5ce93"
+  },
+  "buildHistory": {
+    "native-storage-final-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "review_comment_storage_probe",
+        "--",
+        "../review-comment-qa/native"
+      ],
+      "targetBeforeBytes": 3648233472,
+      "targetPeakBytes": 3648233472,
+      "targetFinalBytes": 3648233472,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24166400000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 4.24
+    },
+    "library-tests-test-compile-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib",
+        "--no-run"
+      ],
+      "targetBeforeBytes": 3648233472,
+      "targetPeakBytes": 3648233472,
+      "targetFinalBytes": 3648233472,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24166400000,
+      "stoppedReason": null,
+      "exitCode": 101,
+      "elapsedSeconds": 20.58
+    },
+    "clippy-final-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib",
+        "--example",
+        "review_comment_storage_probe",
+        "--example",
+        "body_hyperlink_check",
+        "--example",
+        "cell_hyperlink_check",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "targetBeforeBytes": 3648233472,
+      "targetPeakBytes": 3648233472,
+      "targetFinalBytes": 3648233472,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24166400000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 2.12
+    },
+    "native-cell-regression-verified-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "cell_hyperlink_check",
+        "--",
+        "--verify-ui",
+        "../review-comment-qa/cell-regression/manifest.json",
+        "../review-comment-qa/native-cell-ui-reopen-proof.json"
+      ],
+      "targetBeforeBytes": 3648233472,
+      "targetPeakBytes": 3648233472,
+      "targetFinalBytes": 3648233472,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24166400000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 8.25
+    },
+    "native-cell-regression-final-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "cell_hyperlink_check",
+        "--",
+        "--verify-ui",
+        "../review-comment-qa/cell-regression/manifest.json",
+        "../review-comment-qa/cell-regression"
+      ],
+      "targetBeforeBytes": 3648233472,
+      "targetPeakBytes": 3648233472,
+      "targetFinalBytes": 3648233472,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24166400000,
+      "stoppedReason": null,
+      "exitCode": 101,
+      "elapsedSeconds": 8.28
+    },
+    "native-wasm-reopen-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "review_comment_storage_probe",
+        "--",
+        "../review-comment-qa/native",
+        "--verify-wasm"
+      ],
+      "targetBeforeBytes": 3648233472,
+      "targetPeakBytes": 3648233472,
+      "targetFinalBytes": 3648233472,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24166400000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 2.1
+    },
+    "native-cell-regression-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "cell_hyperlink_check",
+        "--",
+        "--verify-ui",
+        "../cell-hyperlink-qa/native/manifest.json",
+        "../review-comment-qa/cell-regression"
+      ],
+      "targetBeforeBytes": 3648233472,
+      "targetPeakBytes": 3648233472,
+      "targetFinalBytes": 3648233472,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24166400000,
+      "stoppedReason": null,
+      "exitCode": 101,
+      "elapsedSeconds": 2.11
+    },
+    "clippy-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib",
+        "--example",
+        "review_comment_storage_probe",
+        "--example",
+        "body_hyperlink_check",
+        "--example",
+        "cell_hyperlink_check",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "targetBeforeBytes": 3648212992,
+      "targetPeakBytes": 3648233472,
+      "targetFinalBytes": 3648233472,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24166400000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 2.13
+    },
+    "native-body-regression-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "body_hyperlink_check",
+        "--",
+        "--verify-ui",
+        "../cell-hyperlink-qa/body-native/seed.hwpx",
+        "../review-comment-qa/body-regression"
+      ],
+      "targetBeforeBytes": 3648233472,
+      "targetPeakBytes": 3648233472,
+      "targetFinalBytes": 3648233472,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24166400000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 2.12
+    },
+    "native-storage-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "review_comment_storage_probe",
+        "--",
+        "../review-comment-qa/native"
+      ],
+      "targetBeforeBytes": 3648204800,
+      "targetPeakBytes": 3648212992,
+      "targetFinalBytes": 3648212992,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24166400000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 4.16
+    }
+  },
+  "correctedHarnessInvocations": "Initial cell Native verification used source fixture manifest instead of saved-file manifest, then used a directory instead of proof file; final verified invocation passes. Logs retained."
+}

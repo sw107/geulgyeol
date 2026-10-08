@@ -1,0 +1,299 @@
+{
+  "baseCommit": "243a1e194c48c5c976d81f62f48e215194a9c2c4",
+  "candidateWasmSHA256": "3a9e736e1025bf3c9c72bda67e1d9ca4a1665bfb3e2f06b5ab172932bc7f1a86",
+  "finalSourceRebuildAndAllBindgenOutputsIdentical": true,
+  "baselineInvalidJSMutations": [
+    {
+      "label": "null-section",
+      "accepted": true,
+      "changed": true,
+      "before": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "after": {
+        "rowCount": 3,
+        "colCount": 2,
+        "cellCount": 6
+      }
+    },
+    {
+      "label": "false-section",
+      "accepted": true,
+      "changed": true,
+      "before": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "after": {
+        "rowCount": 3,
+        "colCount": 2,
+        "cellCount": 6
+      }
+    },
+    {
+      "label": "string-section",
+      "accepted": true,
+      "changed": true,
+      "before": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "after": {
+        "rowCount": 3,
+        "colCount": 2,
+        "cellCount": 6
+      }
+    },
+    {
+      "label": "array-section",
+      "accepted": true,
+      "changed": true,
+      "before": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "after": {
+        "rowCount": 3,
+        "colCount": 2,
+        "cellCount": 6
+      }
+    },
+    {
+      "label": "object-section",
+      "accepted": true,
+      "changed": true,
+      "before": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "after": {
+        "rowCount": 3,
+        "colCount": 2,
+        "cellCount": 6
+      }
+    },
+    {
+      "label": "string-parent",
+      "accepted": true,
+      "changed": true,
+      "before": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "after": {
+        "rowCount": 3,
+        "colCount": 2,
+        "cellCount": 6
+      }
+    },
+    {
+      "label": "boolean-parent",
+      "accepted": true,
+      "changed": true,
+      "before": {
+        "rowCount": 2,
+        "colCount": 2,
+        "cellCount": 4
+      },
+      "after": {
+        "rowCount": 3,
+        "colCount": 2,
+        "cellCount": 6
+      }
+    }
+  ],
+  "boundaryNative": {
+    "atomicRefusals": 6,
+    "cases": 20,
+    "manualSurvivorCoordinateMapping": true,
+    "outsideDataStylesAndFieldOwnersPreserved": true,
+    "referenceScopeEvidence": [
+      {
+        "fixture": "three-unicode-hwp",
+        "namedBindingAfter": false,
+        "namedBindingBefore": true,
+        "outsideCrossRef": [
+          {
+            "command": "boundary-row-owner",
+            "id": 900001,
+            "instanceId": null
+          }
+        ],
+        "outsideParagraphsUnchanged": true,
+        "privateModelDropOnly": true,
+        "supportedAPIDeleteRefusedUnchanged": true
+      },
+      {
+        "fixture": "three-unicode-hwpx",
+        "namedBindingAfter": false,
+        "namedBindingBefore": true,
+        "outsideCrossRef": [
+          {
+            "command": "boundary-row-owner",
+            "id": 900001,
+            "instanceId": 700001
+          }
+        ],
+        "outsideParagraphsUnchanged": true,
+        "privateModelDropOnly": true,
+        "supportedAPIDeleteRefusedUnchanged": true
+      }
+    ],
+    "savedReopens": 80,
+    "snapshotPairs": 80
+  },
+  "boundaryMac": {
+    "cases": 20,
+    "undoRedoPairs": 80,
+    "savedReopens": 80,
+    "atomicRefusals": 456,
+    "staleRefusals": 24,
+    "headless": false,
+    "DEVPositionSetup": true,
+    "physicalPointerIMEVerified": false,
+    "installedHostVerified": false,
+    "OSClipboardAccessed": false,
+    "errors": [],
+    "invalidTypeMethodAxisFixtureCases": 240,
+    "invalidPathCases": 200,
+    "refusedOwnerOrLastRowDispatchAndDirectPairs": 16,
+    "pendingRedoPreserved": true,
+    "exactUnicodeMultiParagraphCursorHistory": true,
+    "allCellsVisibleAndContainedByAncestor": true
+  },
+  "rowRegressionNative": {
+    "atomicRefusals": 170,
+    "cases": 24,
+    "contentLossReports": 0,
+    "outsideTargetAndRetainedOwnersPreserved": true,
+    "savedReopens": 96,
+    "snapshotPairs": 96
+  },
+  "rowRegressionMac": {
+    "cases": 24,
+    "mutatingEdits": 28,
+    "undoRedoPairs": 112,
+    "savedReopens": 96,
+    "nestedDispatchRefusals": 368,
+    "directRefusals": 368,
+    "staleRefusals": 60,
+    "headless": false,
+    "DEVPositionSetup": true,
+    "physicalPointerIMEVerified": false,
+    "installedHostVerified": false,
+    "OSClipboardAccessed": false,
+    "errors": []
+  },
+  "generalTableNative": {
+    "atomicNativeRefusals": 23,
+    "cases": 24,
+    "savedContentLosses": 0,
+    "savedReopens": 96,
+    "snapshotPairs": 96,
+    "unchangedValidNoops": 4,
+    "wholeParagraphOwnersStylesAndSVGCompared": true
+  },
+  "generalTableMac": {
+    "undoRedoPairs": 120,
+    "caseUndoRedoCycles": 96,
+    "savedReopens": 96,
+    "realDomCanvasCursorDispatcherInputHandler": true,
+    "headless": false,
+    "OSClipboardAccessed": false,
+    "physicalIMEVerified": false,
+    "nativeElectronVerified": false,
+    "cases": 24,
+    "mutatingEdits": 30,
+    "atomicRefusals": 281,
+    "validNoops": 3,
+    "errors": []
+  },
+  "combinedMac": {
+    "cases": 68,
+    "mutatingEdits": 78,
+    "undoRedoPairs": 312,
+    "savedReopens": 272
+  },
+  "independentNativeSavedReopens": 272,
+  "linkWasmUIAdapter": {
+    "candidateWasmSHA256": "3a9e736e1025bf3c9c72bda67e1d9ca4a1665bfb3e2f06b5ab172932bc7f1a86",
+    "positive": 84,
+    "reopens": 288,
+    "undos": 84,
+    "redos": 84,
+    "atomicRefusals": 444,
+    "layoutCases": 12,
+    "multipageCases": 12,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "externalOpens": 0
+  },
+  "independentLinkNative": {
+    "allSiblingCellBodyNoteReferences": true,
+    "fullCharParaStyleReferences": true,
+    "originalDefinitionsUnchanged": true,
+    "pairedFieldRanges": true,
+    "uiSavedFilesVerified": 264
+  },
+  "equationNative": {
+    "atomic_rejections": 10,
+    "body_and_neighbor_preserved": true,
+    "cases": 72,
+    "hwp_hwpx_reopens": 288,
+    "native_GUI_verified": false,
+    "physical_IME_verified": false,
+    "precise_cell_layout_targets": true,
+    "snapshot_undo_redo_operations": 504
+  },
+  "typescript": true,
+  "clippyLibraryAndThreeExamplesDenyWarnings": true,
+  "libraryUnitTests": {
+    "passed": false,
+    "compileBlockedByMissingIncludeBytes": [
+      "engine/samples/3-09월_교육_통합_2022.hwp",
+      "engine/samples/hwp3-sample16-hwp5.hwp",
+      "engine/samples/hwpx/aift.hwpx"
+    ],
+    "fixturesReplacedOrTestsExcluded": false
+  },
+  "protectedFiles": 29328,
+  "protectedChanged": 0,
+  "protectedMissing": 0,
+  "budgets": {
+    "targetPeakBytes": 4444729344,
+    "targetLimitBytes": 4831838208,
+    "additionalPeakBytes": 165187584,
+    "additionalLimitBytes": 1073741824,
+    "minActualDiskFreeBytes": 17661968384,
+    "requiredMinFreeBytes": 16106127360,
+    "thresholdStoppedRuns": 0,
+    "finalTargetBytes": 4340318208,
+    "finalActualFreeBytes": 17985142784
+  },
+  "shutdown": {
+    "ownedChrome": [],
+    "ownedServer": [],
+    "port32172Open": false,
+    "serverExitCode": 143,
+    "browserFinallyClose": true
+  },
+  "limits": {
+    "installedAppIntegratedOrVerified": false,
+    "physicalPointerOrIMEVerified": false,
+    "nativeFileDialogsVerified": false,
+    "LinuxVerified": false,
+    "HancomVerified": false,
+    "OSClipboardAccessed": false,
+    "newTargetAppZipOrReleaseCreated": false,
+    "cleanupOrDeletionPerformed": false,
+    "permissionsAccountsCertificatesChanged": false
+  },
+  "referenceOwningRowDeletionStillRefused": true
+}

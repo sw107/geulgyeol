@@ -156,6 +156,12 @@ export class NumberingDialog extends ModalDialog {
   private radioButtons: HTMLInputElement[] = [];
 
   onApply?: (numberingId: number, restartMode: number, startNumber: number) => void;
+  /** 본문은 정의 생성과 적용을 한 이력 명령에 포함한다. */
+  onApplyDefinition?: (definition: string | null, mode: number, start: number, previousId: number) => boolean;
+  previousLists: { id: number; label: string }[] = [];
+  previousNumberingId = 0;
+  currentStartNumber = 1;
+  continuationHint = '';
   /** 글머리표 적용 콜백 */
   onApplyBullet?: (bulletChar: string) => void;
   onClose?: () => void;
@@ -289,6 +295,7 @@ export class NumberingDialog extends ModalDialog {
     const initialPreset = (this.currentHeadType === 'None' || this.currentNumberingId === 0) ? 0 : 1;
     this.selectedPreset = initialPreset;
     this.restartMode = this.currentRestartMode;
+    this.startNumber = this.currentStartNumber;
 
     for (let i = 0; i < PRESETS.length; i++) {
       const preset = PRESETS[i];
@@ -339,12 +346,34 @@ export class NumberingDialog extends ModalDialog {
       radio.addEventListener('change', () => {
         this.restartMode = parseInt(radio.value);
         startInput.disabled = this.restartMode !== 2;
+        previousSelect.disabled = this.restartMode !== 1;
+        this.updatePreview();
       });
       lbl.appendChild(radio);
       lbl.appendChild(document.createTextNode(` ${mode.label}`));
       restartRadioGroup.appendChild(lbl);
     }
     restartSection.appendChild(restartRadioGroup);
+    const previousSelect = document.createElement('select');
+    if (this.onApplyDefinition) {
+      const label = document.createElement('label');
+      label.textContent = '이전 목록 선택 ';
+      previousSelect.setAttribute('aria-label', '이어 쓸 이전 번호 목록');
+      previousSelect.disabled = this.restartMode !== 1;
+      for (const list of this.previousLists) {
+        const option = document.createElement('option');
+        option.value = String(list.id);
+        option.textContent = list.label;
+        option.selected = list.id === this.previousNumberingId;
+        previousSelect.appendChild(option);
+      }
+      previousSelect.addEventListener('change', () => { this.previousNumberingId = Number(previousSelect.value); });
+      label.appendChild(previousSelect);
+      restartSection.appendChild(label);
+      const hint = document.createElement('p');
+      hint.textContent = this.continuationHint || '이어쓰기는 선택한 목록의 번호 모양과 문단 수준을 유지합니다. 새 목록은 위 번호 형식으로 시작합니다.';
+      restartSection.appendChild(hint);
+    }
     panel.appendChild(restartSection);
 
     // 하단: 시작 번호 + 미리보기
@@ -360,7 +389,7 @@ export class NumberingDialog extends ModalDialog {
     const startInput = document.createElement('input');
     startInput.type = 'number';
     startInput.className = 'dialog-input';
-    startInput.value = '1';
+    startInput.value = String(this.startNumber);
     startInput.min = '1';
     startInput.max = '999';
     startInput.style.width = '60px';
@@ -394,6 +423,10 @@ export class NumberingDialog extends ModalDialog {
 
   private updatePreview(): void {
     if (!this.previewEl) return;
+    if (this.onApplyDefinition && this.restartMode !== 2 && this.selectedPreset !== 0) {
+      this.previewEl.textContent = '선택한 이전 목록의 번호 모양을 이어 씁니다.';
+      return;
+    }
     const preset = PRESETS[this.selectedPreset];
     this.previewEl.textContent = generatePreview(preset, this.startNumber);
   }
@@ -403,7 +436,8 @@ export class NumberingDialog extends ModalDialog {
       // 글머리표 탭
       if (this.selectedBulletIdx < 0) {
         // "(없음)": 글머리표 해제
-        this.onApply?.(0, 0, 1);
+        if (this.onApplyDefinition) this.onApplyDefinition(null, 0, 1, 0);
+        else this.onApply?.(0, 0, 1);
       } else {
         
         const preset = BULLET_PRESETS[this.selectedBulletIdx];
@@ -414,7 +448,8 @@ export class NumberingDialog extends ModalDialog {
     // 문단 번호 탭
     if (this.selectedPreset === 0) {
       // "(없음)" 선택: 번호 해제
-      this.onApply?.(0, 0, 1);
+      if (this.onApplyDefinition) this.onApplyDefinition(null, 0, 1, 0);
+      else this.onApply?.(0, 0, 1);
       return;
     }
     const preset = PRESETS[this.selectedPreset];
@@ -423,6 +458,10 @@ export class NumberingDialog extends ModalDialog {
       numberFormats: preset.numberFormats,
       startNumber: this.startNumber,
     });
+    if (this.onApplyDefinition) {
+      this.onApplyDefinition(json, this.restartMode, this.startNumber, this.previousNumberingId);
+      return;
+    }
     const nid = this.wasm.createNumbering(json);
     if (nid > 0) {
       this.onApply?.(nid, this.restartMode, this.startNumber);

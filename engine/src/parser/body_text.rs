@@ -72,16 +72,22 @@ pub fn parse_body_text_section(data: &[u8]) -> Result<Section, BodyTextError> {
     let records = Record::read_all(data).map_err(|e| BodyTextError::RecordError(e.to_string()))?;
 
     let mut section = Section::default();
+    let body_end = if let Some((end, tail)) = super::memo::tail(&records, data) {
+        section.memo_tail = Some(tail);
+        end
+    } else {
+        records.len()
+    };
     let mut idx = 0;
 
-    while idx < records.len() {
+    while idx < body_end {
         if records[idx].tag_id == tags::HWPTAG_PARA_HEADER {
             let base_level = records[idx].level;
             let start = idx;
             idx += 1;
 
             // 자식 레코드 수집 (level > base_level)
-            while idx < records.len() && records[idx].level > base_level {
+            while idx < body_end && records[idx].level > base_level {
                 idx += 1;
             }
 
@@ -324,6 +330,7 @@ pub fn parse_paragraph(records: &[Record]) -> Result<Paragraph, BodyTextError> {
         i += 1;
     }
 
+    super::memo::finish_paragraph(&mut para, records);
     Ok(para)
 }
 
@@ -618,7 +625,7 @@ fn parse_para_text(data: &[u8]) -> ParaTextParts {
 /// HWP 5.0 제어 문자 분류 (표 6):
 ///   extended: 1-3, 11-12, 14-18, 21-23
 ///   inline: 4-9, 19-20
-fn is_extended_only_ctrl_char(ch: u16) -> bool {
+pub(super) fn is_extended_only_ctrl_char(ch: u16) -> bool {
     matches!(ch, 1..=3 | 11..=12 | 14..=18 | 21..=23)
 }
 
@@ -630,7 +637,7 @@ fn is_extended_only_ctrl_char(ch: u16) -> bool {
 ///   extended (8 code unit = 16바이트): 1-3, 11-12, 14-18, 21-23
 ///
 /// 탭(9), 줄 끝(10), 문단 끝(13)은 호출 전에 별도 처리된다.
-fn is_extended_ctrl_char(ch: u16) -> bool {
+pub(super) fn is_extended_ctrl_char(ch: u16) -> bool {
     matches!(ch, 1..=8 | 11..=12 | 14..=23)
 }
 
@@ -756,7 +763,7 @@ fn parse_ctrl_header(records: &[Record]) -> Control {
     let ctrl_data = &data[4..];
     let child_records = &records[1..];
 
-    match ctrl_id {
+    let mut control = match ctrl_id {
         tags::CTRL_SECTION_DEF => {
             let section_def = parse_section_def(ctrl_data, child_records, records[0].level);
             Control::SectionDef(Box::new(section_def))
@@ -769,7 +776,9 @@ fn parse_ctrl_header(records: &[Record]) -> Control {
             // 표, 도형, 그림, 머리말/꼬리말 등은 control.rs에서 처리
             super::control::parse_control(ctrl_id, ctrl_data, child_records)
         }
-    }
+    };
+    super::memo::control(&mut control, records, false);
+    control
 }
 
 /// SectionDef가 문단 control 슬롯으로 소유할 CTRL_DATA의 자식 배열 인덱스.

@@ -1,0 +1,42 @@
+{
+  "feature": "일반 본문 문단의 문단 띠 삽입 메뉴",
+  "command": "insert:para-band",
+  "label": "문단 띠",
+  "sourceCommit": "658b8b27f7409d9a76b6f3c28b8617d1618d422e",
+  "candidateWasmSHA256": "15b705d0d79f74415fbbfb5e2ab616d5514f8f08101506c76d29e4c32d3c67af",
+  "seed": "../dev10-checkpoint-qa/authoring-native/seed.hwpx",
+  "editableNormalDocument": true,
+  "hyperlinkEnabled": true,
+  "reviewCommentEnabled": true,
+  "paragraphBandEnabled": false,
+  "dispatchResult": {
+    "ok": false,
+    "reason": "disabled"
+  },
+  "actualMenuStateDisabled": true,
+  "packagedMenuDisabled": true,
+  "operationCalls": 0,
+  "commandEvents": 0,
+  "entireDocumentBytesAndStateUnchanged": true,
+  "paragraphBandExports": [],
+  "sourceSHA256": {
+    "insert": "5030ee990e066078ac284e0780f500d2e097950c45f88cc3b2616d28cb9d4a31",
+    "hyperlink": "6b616cf47b051d345c4cad76ddbc69b3210a2852f72a787f8259538f45280eca",
+    "comment": "011f47aaa791d251f6bc44bed033ebf72ce1114e628a566347f26e1c7e6dd695",
+    "registry": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+    "dispatcher": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381",
+    "menu": "4299cf7a1b5c057da0a80a10b6525e00d46a96d997a61fc7cd0f71657069a77b"
+  },
+  "before": {
+    "hwp": "b49fb165a746a88f01b46c5c3518875966a9fba013ee9e38156319bcd718ee8e",
+    "hwpx": "ed77fc7b97c256dbbde8d2493dbf397c8ca3a564addd1063dc8f6d909303a108",
+    "text": "\"앞&#128578;한글&#66560;링크뒤참조끝\\r\\n다른스타일&#128578;보존\"",
+    "fields": "[]",
+    "info": "{\"version\":\"5.1.0.0\",\"sectionCount\":1,\"pageCount\":1,\"encrypted\":false,\"hwp3Variant\":false,\"fallbackFont\":\"/usr/share/fonts/truetype/nanum/NanumGothic.ttf\",\"fontsUsed\":[\"함초롬돋움\",\"함초롬바탕\"],\"fontSubstitutions\":[]}",
+    "events": "{\"ok\":true,\"events\":[]}"
+  },
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "implementationChanged": false,
+  "proposal": "먼저 일반 본문 한 문단의 문단 띠 적용/제거 범위를 정하고 기존 문단 테두리/배경 또는 개체 저장 표현을 확인한다. 본문·스타일·직접 서식·필드/주석·각주 참조와 undo/redo·HWP/HWPX 재열기를 보존하며 복합 경로는 편집 전에 거절하는 작은 후속 범위를 제안한다. 이번에는 구현하지 않았다."
+}

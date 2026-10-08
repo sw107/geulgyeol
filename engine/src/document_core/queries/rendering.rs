@@ -3082,7 +3082,7 @@ impl DocumentCore {
                     .collect::<Vec<_>>()
                     .join(",");
                 let (fill_type, fill_color, pattern_color, pattern_type) =
-                    match (&bf.fill.fill_type, &bf.fill.solid) {
+                    match (bf.fill.effective_type(), &bf.fill.solid) {
                         (FillType::Solid, Some(solid)) => (
                             "solid",
                             color_ref_to_css(solid.background_color),
@@ -3622,12 +3622,14 @@ impl DocumentCore {
                         }
                         _ => String::new(),
                     };
-                    let cell_coords = match (eq_node.cell_index, eq_node.cell_para_index) {
+                    let cell_coords = if let Some(ctx) = &eq_node.cell_context {
+                        DocumentCore::ole_layout_context_json(Some(ctx))
+                    } else { match (eq_node.cell_index, eq_node.cell_para_index) {
                         (Some(ci), Some(cpi)) => {
                             format!(",\"cellIdx\":{},\"cellParaIdx\":{}", ci, cpi)
                         }
                         _ => String::new(),
-                    };
+                    } };
                     let note_ref = eq_node.note_ref.as_ref().map_or_else(String::new, |r| {
                         format!(
                             ",\"noteRef\":{{\"kind\":\"{}\",\"sectionIdx\":{},\"paraIdx\":{},\"controlIdx\":{},\"noteParaIdx\":{},\"innerControlIdx\":{}}}",
@@ -4186,6 +4188,17 @@ impl DocumentCore {
         self.rebuild_resolved_styles();
         self.rebuild_embedded_exact_font_sources();
         self.recompose_all_with_horizontal_shaping();
+        self.finish_derived_state_rebuild();
+    }
+
+    pub(crate) fn finish_derived_state_rebuild(&mut self) {
+        self.finish_derived_state_rebuild_with_measurements(None);
+    }
+
+    pub(crate) fn finish_derived_state_rebuild_with_measurements(
+        &mut self,
+        cached: Option<Vec<Vec<crate::renderer::height_measurer::MeasuredParagraph>>>,
+    ) {
         self.mark_all_sections_dirty();
         self.measured_tables.clear();
         self.measured_sections.clear();
@@ -4193,6 +4206,12 @@ impl DocumentCore {
         self.para_column_map.clear();
         self.invalidate_page_tree_cache();
         self.overflow_links_cache.borrow_mut().clear();
+        if let Some(sections) = cached {
+            // Only matching plain paragraph heights are reused. Tables are remeasured.
+            self.dirty_paragraphs = sections.iter().map(|s| Some(vec![false; s.len()])).collect();
+            self.measured_sections = sections.into_iter().map(|fallback_paragraphs|
+                MeasuredSection { fallback_paragraphs, tables: Vec::new() }).collect();
+        }
         self.paginate();
     }
 
@@ -8644,6 +8663,7 @@ mod tests {
             }],
             raw_stream: None,
             raw_provenance: None,
+            memo_tail: None,
         });
 
         let mut core = DocumentCore::new_empty();
@@ -8810,6 +8830,7 @@ mod tests {
                 paragraphs: vec![Paragraph::default()],
                 raw_stream: None,
                 raw_provenance: None,
+                memo_tail: None,
             }
         }
 
@@ -8881,6 +8902,7 @@ mod tests {
                 paragraphs: vec![Paragraph::default()],
                 raw_stream: None,
                 raw_provenance: None,
+                memo_tail: None,
             }
         }
 
@@ -8945,6 +8967,7 @@ mod tests {
                 paragraphs: vec![Paragraph::default()],
                 raw_stream: None,
                 raw_provenance: None,
+                memo_tail: None,
             }
         }
 
@@ -9003,6 +9026,7 @@ mod tests {
             paragraphs: vec![Paragraph::default()],
             raw_stream: None,
             raw_provenance: None,
+            memo_tail: None,
         });
         core.set_document(document);
         core.paginate();

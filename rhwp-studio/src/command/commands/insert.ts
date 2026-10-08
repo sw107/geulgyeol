@@ -1,3 +1,7 @@
+import { equationCellTarget, deleteEquationSelection, type EquationCellTarget } from '@/engine/equation-target';
+import { bodyHyperlinkCommand } from './hyperlink';
+import { bodyCommentCommand } from './comment';
+import { bodyParagraphBandCommand, openParagraphBandObjectProperties, validateParagraphBandObjectDeletion } from './paragraph-band';
 import type { CommandDef } from '../types';
 import { PicturePropsDialog } from '@/ui/picture-props-dialog';
 import { ChartDataDialog } from '@/ui/chart-data-dialog';
@@ -177,32 +181,38 @@ export const insertCommands: CommandDef[] = [
     opensDialog: true,
     label: '수식',
     shortcutLabel: 'Ctrl+M,M',
-    canExecute: (ctx) => ctx.hasDocument && !ctx.inTable,
+    canExecute: (ctx) => ctx.hasDocument,
     execute(services) {
       const ih = services.getInputHandler();
       if (!ih) return;
-      const pos = ih.getPosition();
-      // 본문 전용 — 표 셀 내부에서는 실행하지 않음
-      if ((pos as any).cellIndex !== undefined && (pos as any).cellIndex >= 0) return;
-      const defaultFontSize = 1000; // 10pt → HWPUNIT
-      const defaultColor = 0x00000000; // 검정
-      // [Task #3207] 수식 삽입도 본문 문자 수를 바꾸므로 snapshot 으로 기록한다(각주/미주와 동형).
-      let result: { ok: boolean; paraIdx: number; controlIdx: number } | undefined;
-      ih.executeOperation({
-        kind: 'snapshot',
-        operationType: 'insertEquation',
-        operation: (wasm) => {
-          result = wasm.insertEquation(
-            pos.sectionIndex, pos.paragraphIndex, pos.charOffset,
-            '', defaultFontSize, defaultColor,
-          );
-          if (!result.ok) throw new Error('[insert:equation] 삽입 실패');
-          return pos;
-        },
-      });
-      if (!result) return;
-      equationEditorDialog ??= new EquationEditorDialog(services.wasm, services.eventBus, services);
-      equationEditorDialog.open(pos.sectionIndex, result.paraIdx, result.controlIdx);
+      const pos = ih.getCursorPosition();
+      try {
+        let cell: EquationCellTarget | undefined;
+        const inCell = pos.parentParaIndex !== undefined || !!pos.cellPath?.length;
+        if (inCell) {
+          if (pos.isTextBox || (pos.cellPath?.length ?? 0) > 1) throw new Error('수식 삽입은 일반 표 셀에서만 지원합니다.');
+          cell = equationCellTarget({sec: pos.sectionIndex, ppi: pos.parentParaIndex!, ci: 0, cellPath: pos.cellPath,
+            cellIdx: pos.cellIndex, cellParaIdx: pos.cellParaIndex, outerTableControlIdx: pos.controlIndex});
+          if (!cell || pos.parentParaIndex === undefined) throw new Error('대상 셀의 위치를 확인할 수 없습니다.');
+        }
+        let result: {ok: boolean; controlIdx: number; paraIdx?: number; charOffset?: number} | undefined;
+        ih.executeOperation({
+          kind: 'snapshot', operationType: 'insertEquation',
+          operation: (wasm) => {
+            result = cell
+              ? wasm.insertEquationInCell(pos.sectionIndex, pos.parentParaIndex!, cell.tableControlIdx, cell.cellIdx, cell.cellParaIdx, pos.charOffset, '', 1000, 0)
+              : wasm.insertEquation(pos.sectionIndex, pos.paragraphIndex, pos.charOffset, '', 1000, 0);
+            if (!result.ok) throw new Error('수식 삽입 실패');
+            return cell ? {...pos, charOffset: result.charOffset!} : pos;
+          },
+        });
+        if (!result) return;
+        equationEditorDialog ??= new EquationEditorDialog(services.wasm, services.eventBus, services);
+        if (cell) equationEditorDialog.open(pos.sectionIndex, pos.parentParaIndex!, result.controlIdx, undefined, undefined, undefined, {...cell, controlIdx: result.controlIdx});
+        else equationEditorDialog.open(pos.sectionIndex, result.paraIdx!, result.controlIdx);
+      } catch (error) {
+        showToast({message: String(error), durationMs: 7000});
+      }
     },
   },
   {
@@ -255,8 +265,8 @@ export const insertCommands: CommandDef[] = [
   stub('insert:caption-rb', '캡션 - 오른쪽 아래'),
   stub('insert:caption-bottom', '캡션 - 아래'),
   stub('insert:caption-none', '캡션 없음'),
-  stub('insert:para-band', '문단 띠'),
-  stub('insert:comment', '주석', 'icon-comment'),
+  bodyParagraphBandCommand,
+  bodyCommentCommand,
   {
     id: 'insert:footnote',
     label: '각주',
@@ -318,7 +328,7 @@ export const insertCommands: CommandDef[] = [
       symbolsDialog.show();
     },
   },
-  stub('insert:hyperlink', '하이퍼링크', 'icon-hyperlink', 'Ctrl+K+H'),
+  bodyHyperlinkCommand,
   {
     id: 'insert:bookmark',
     opensDialog: true,
@@ -342,11 +352,14 @@ export const insertCommands: CommandDef[] = [
       if (!ih) return;
       const ref = ih.getSelectedPictureRef();
       if (!ref) return;
+      if (openParagraphBandObjectProperties(services, ref)) return;
       if (ref.type === 'equation') {
         if (!equationPropsDialog) {
           equationPropsDialog = new EquationPropertiesDialog(services.wasm, services.eventBus, services);
         }
-        equationPropsDialog.open(ref.sec, ref.ppi, ref.ci, ref.cellIdx, ref.cellParaIdx, ref.noteRef);
+        try {
+          equationPropsDialog.open(ref.sec, ref.ppi, ref.ci, ref.cellIdx, ref.cellParaIdx, ref.noteRef, equationCellTarget(ref));
+        } catch (error) { showToast({message: String(error), durationMs: 7000}); }
         return;
       }
       if (!picturePropsDialog) {
@@ -424,16 +437,20 @@ export const insertCommands: CommandDef[] = [
       if (!equationEditorDialog) {
         equationEditorDialog = new EquationEditorDialog(services.wasm, services.eventBus, services);
       }
-      equationEditorDialog.open(ref.sec, ref.ppi, ref.ci, ref.cellIdx, ref.cellParaIdx, ref.noteRef);
+      try {
+        equationEditorDialog.open(ref.sec, ref.ppi, ref.ci, ref.cellIdx, ref.cellParaIdx, ref.noteRef, equationCellTarget(ref));
+      } catch (error) { showToast({message: String(error), durationMs: 7000}); }
     },
   },
   {
     id: 'insert:caption-toggle',
     label: '캡션 넣기',
-    canExecute: (ctx) => ctx.inPictureObjectSelection,
+    canExecute: (ctx) => ctx.hasDocument && ctx.isEditable && !ctx.isFormMode && ctx.inPictureObjectSelection,
     execute(services) {
+      const ctx = services.getContext();
+      if (!ctx.hasDocument || !ctx.isEditable || ctx.isFormMode || !ctx.inPictureObjectSelection) return;
       const ih = services.getInputHandler();
-      if (!ih) return;
+      if (!ih || ih.isMultiPictureSelection()) return;
       const ref = ih.getSelectedPictureRef();
       if (!ref || ref.type === 'equation' || ref.type === 'group') return;
       // 현재 캡션 상태 조회
@@ -453,14 +470,23 @@ export const insertCommands: CommandDef[] = [
           captionSpacing: Math.round(3 * 283.46),
           captionIncludeMargin: false,
         };
-        let result: any;
-        // [Task #3230] `setProps` 래퍼가 사라져 공유 라우팅을 직접 부른다. 이 경로는 종전부터
-        // 라우터를 거치지 않고 직접 적용하고 `document-changed` 를 스스로 emit 한다 —
-        // 회전/대칭과 달리 이번 변경 대상이 아니라 종전 동작 그대로 둔다.
-        result = setObjectProps(services.wasm, ref, captionProps);
-        // "그림 N " 끝 위치를 Rust가 반환
-        charOffset = result?.captionCharOffset ?? 4;
-        services.eventBus.emit('document-changed');
+        let inserted = false;
+        const position = ih.getPosition();
+        // 캡션 문단·자동 번호·원본 참조를 역속성으로 재구성하지 않고 함께 복원한다.
+        ih.executeOperation({
+          kind: 'snapshot',
+          operationType: 'insertCaption',
+          operation: (wasm) => {
+            const result: any = setObjectProps(wasm, ref, captionProps);
+            if (result?.ok === false) throw new Error('[insert:caption-toggle] 캡션 삽입 실패');
+            // 기존 엔진의 "그림 N " 끝 위치와 자동 번호 규칙을 유지한다.
+            charOffset = result?.captionCharOffset ?? 4;
+            inserted = true;
+            return position;
+          },
+        });
+        // 편집 모드 게이트가 snapshot을 거절하면 캡션 편집 모드로도 진입하지 않는다.
+        if (!inserted) return;
       } else {
         // 이미 캡션이 있으면 캡션 텍스트 끝에 캐럿
         try {
@@ -530,11 +556,13 @@ export const insertCommands: CommandDef[] = [
       if (!ih) return;
       const ref = ih.getSelectedPictureRef();
       if (!ref) return;
+      try { validateParagraphBandObjectDeletion(services, ref); }
+      catch (error) { showToast({message: String(error), durationMs: 7000}); return; }
       recordObjectMutation(ih, 'deleteObject', (wasm) => {
         if (ref.type === 'shape' || ref.type === 'line' || ref.type === 'group') {
           wasm.deleteShapeControl(ref.sec, ref.ppi, ref.ci);
         } else if (ref.type === 'equation') {
-          wasm.deleteEquationControl(ref.sec, ref.ppi, ref.ci);
+          deleteEquationSelection(wasm, ref);
         } else if (ref.cellPath && ref.cellPath.length > 0) {
           wasm.deleteCellPictureControlByPath(ref.sec, ref.ppi, ref.cellPath, ref.ci);
         } else {

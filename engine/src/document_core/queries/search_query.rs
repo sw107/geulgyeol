@@ -73,16 +73,23 @@ fn replace_char_range(text: &mut String, offset: usize, length: usize, replaceme
     *text = chars.into_iter().collect();
 }
 
-/// 문단 텍스트에서 query를 검색하여 모든 매치 오프셋을 반환한다.
-///
-/// [#3283] `grep`(주소를 가진 검색)이 같은 매칭 규칙을 쓰도록 크레이트에 공개한다 —
-/// 검색과 치환이 다른 규칙을 쓰면 "찾았는데 못 바꾸는" 어긋남이 생긴다.
-pub(crate) fn find_matches(text: &str, query: &str, case_sensitive: bool) -> Vec<usize> {
-    find_in_text(text, query, case_sensitive)
+/// Original text range in Unicode scalar indices, with an exclusive end.
+/// Lowercasing can expand a character, so neither the folded nor query length
+/// is the length to delete in the original paragraph.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) struct MatchSpan {
+    pub start: usize,
+    pub end: usize,
 }
 
-/// 문단 텍스트에서 query를 검색하여 모든 매치 오프셋을 반환
-fn find_in_text(text: &str, query: &str, case_sensitive: bool) -> Vec<usize> {
+impl MatchSpan {
+    pub fn length(self) -> usize {
+        self.end - self.start
+    }
+}
+
+/// Shared literal matching policy for search, replacement and addressed grep.
+pub(crate) fn find_matches(text: &str, query: &str, case_sensitive: bool) -> Vec<MatchSpan> {
     if query.is_empty() || text.is_empty() {
         return vec![];
     }
@@ -96,7 +103,10 @@ fn find_in_text(text: &str, query: &str, case_sensitive: bool) -> Vec<usize> {
         }
         for i in 0..=chars.len() - qlen {
             if chars[i..i + qlen] == qchars[..] {
-                results.push(i);
+                results.push(MatchSpan {
+                    start: i,
+                    end: i + qlen,
+                });
             }
         }
     } else {
@@ -123,7 +133,10 @@ fn find_in_text(text: &str, query: &str, case_sensitive: bool) -> Vec<usize> {
                 .map(|(c, _)| *c)
                 .eq(qchars.iter().copied())
             {
-                results.push(chars[i].1);
+                results.push(MatchSpan {
+                    start: chars[i].1,
+                    end: chars[i + qlen - 1].1 + 1,
+                });
             }
         }
     }
@@ -132,15 +145,14 @@ fn find_in_text(text: &str, query: &str, case_sensitive: bool) -> Vec<usize> {
 
 /// 문서 본문에서 query의 첫 번째 매치만 반환 (표/글상자 내부 제외, early-exit)
 fn search_first_body(doc: &DocumentCore, query: &str, case_sensitive: bool) -> Option<SearchHit> {
-    let qlen = query.chars().count();
     for (sec_idx, section) in doc.document.sections.iter().enumerate() {
         for (para_idx, para) in section.paragraphs.iter().enumerate() {
-            if let Some(&offset) = find_in_text(&para.text, query, case_sensitive).first() {
+            if let Some(&span) = find_matches(&para.text, query, case_sensitive).first() {
                 return Some(SearchHit {
                     sec: sec_idx,
                     para: para_idx,
-                    char_offset: offset,
-                    length: qlen,
+                    char_offset: span.start,
+                    length: span.length(),
                     cell_context: None,
                     is_text_box: false,
                     equation_control: None,
@@ -166,13 +178,12 @@ fn push_container_hits(
     case_sensitive: bool,
     results: &mut Vec<SearchHit>,
 ) {
-    let qlen = query.chars().count();
-    for offset in find_in_text(&container.text, query, case_sensitive) {
+    for span in find_matches(&container.text, query, case_sensitive) {
         results.push(SearchHit {
             sec: sec_idx,
             para: para_idx,
-            char_offset: offset,
-            length: qlen,
+            char_offset: span.start,
+            length: span.length(),
             cell_context: cell.cloned(),
             is_text_box,
             equation_control: None,
@@ -183,12 +194,12 @@ fn push_container_hits(
     // 별도 equation_control 로 표시해 커서 이동 대상에서는 제외한다.
     for (equation_index, control) in container.controls.iter().enumerate() {
         if let Control::Equation(equation) = control {
-            for offset in find_in_text(&equation.script, query, case_sensitive) {
+            for span in find_matches(&equation.script, query, case_sensitive) {
                 results.push(SearchHit {
                     sec: sec_idx,
                     para: para_idx,
-                    char_offset: offset,
-                    length: qlen,
+                    char_offset: span.start,
+                    length: span.length(),
                     cell_context: cell.cloned(),
                     is_text_box,
                     equation_control: Some(equation_index),
@@ -564,6 +575,7 @@ impl DocumentCore {
 
         let mut count = 0usize;
         let mut affected_sections: Vec<usize> = Vec::new();
+        let mut affected_cell_controls = std::collections::BTreeSet::new();
         let mut affected_body_paragraphs: Vec<(usize, usize)> = Vec::new();
         // (구역, 부모 문단, 경로) — 경로의 마지막 엔트리가 곧 대상 셀 문단이다.
         let mut affected_cell_paragraphs: Vec<(usize, usize, Vec<(usize, usize, usize)>)> =
@@ -572,6 +584,9 @@ impl DocumentCore {
 
         for hit in &all_hits {
             if let Some(cell) = hit.cell_context.as_ref() {
+                if let Some(&(control_idx, _, _)) = cell.path.first() {
+                    affected_cell_controls.insert((hit.sec, cell.parent_para, control_idx));
+                }
                 // 표 셀 내부 치환
                 let section = self
                     .document
@@ -651,6 +666,12 @@ impl DocumentCore {
 
         // 변경된 섹션들 recompose
         if count > 0 {
+            // Recomposition alone does not invalidate MeasuredTable. Mark each
+            // owning control once so incremental pagination measures edited rows
+            // exactly as a fresh rebuild or snapshot restore does.
+            for (section_idx, parent_para, control_idx) in affected_cell_controls {
+                self.mark_cell_control_dirty(section_idx, parent_para, control_idx);
+            }
             affected_body_paragraphs.sort_unstable();
             affected_body_paragraphs.dedup();
             for (section_idx, para_idx) in affected_body_paragraphs {
@@ -886,6 +907,13 @@ mod tests {
         core
     }
 
+    fn find_in_text(text: &str, query: &str, case_sensitive: bool) -> Vec<usize> {
+        find_matches(text, query, case_sensitive)
+            .into_iter()
+            .map(|s| s.start)
+            .collect()
+    }
+
     #[test]
     fn find_in_text_case_sensitive() {
         assert_eq!(find_in_text("hello world", "world", true), vec![6]);
@@ -904,7 +932,30 @@ mod tests {
     #[test]
     fn ignore_case_returns_original_char_offset_after_unicode_lowercase_expansion() {
         // `İ`가 두 lower-case 문자로 확장돼도 `stan`의 시작은 원문 2번째 문자다.
-        assert_eq!(find_matches("Aİstanbul", "stan", false), vec![2]);
+        assert_eq!(find_in_text("Aİstanbul", "stan", false), vec![2]);
+    }
+
+    #[test]
+    fn ignore_case_ranges_cover_the_original_scalars() {
+        for (text, query, start, end) in [
+            ("İAB", "i\u{307}a", 0, 2),
+            ("İA😀TAIL", "i\u{307}a", 0, 2),
+            ("i\u{307}AB", "İA", 0, 3),
+            ("😀İA끝", "i\u{307}a", 1, 3),
+            ("İ", "i", 0, 1),
+            ("İ", "\u{307}", 0, 1),
+        ] {
+            assert_eq!(
+                find_matches(text, query, false),
+                vec![MatchSpan { start, end }]
+            );
+        }
+        assert!(find_matches("ß", "SS", false).is_empty());
+        assert!(find_matches("é", "e\u{301}", false).is_empty());
+        assert_eq!(
+            find_matches("ẞ", "ß", false),
+            vec![MatchSpan { start: 0, end: 1 }]
+        );
     }
 
     #[test]

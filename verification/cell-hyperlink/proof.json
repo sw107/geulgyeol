@@ -1,0 +1,302 @@
+{
+  "baseCommit": "0e68e38fdcfd372fe41b7afe3267bf84e4fac2f6",
+  "candidateSHA256": {
+    "rhwp_bg.wasm": "b065061056644c753ad475fb16b330fef96108a8438dab2d6481482865ab7198",
+    "rhwp.js": "c63617b45a76e4d14b2408d1da63e557d001f040334b7746cf8f495dc5102b47",
+    "rhwp.d.ts": "ee1c7b912f484abf2eb98ff7a3e3abfd79bc193eda237dcb9a4fe188d4c5b8c8"
+  },
+  "productionSourceSHA256": {
+    "engine/src/document_core/queries/field_query.rs": "86a16ca0fa1456f1dc5fe63868cd746d9147e87222a5897f8302f80b6b65c5b6",
+    "engine/src/wasm_api.rs": "246f7854e69b7440b1b763cd5e02367b9bd7e1280f5d447dde28ac5dff5cf02c",
+    "rhwp-studio/src/command/commands/hyperlink.ts": "6b616cf47b051d345c4cad76ddbc69b3210a2852f72a787f8259538f45280eca",
+    "rhwp-studio/src/core/mutation-method-registry.ts": "c13deae622f6c3d1e6cb1191bdbee61a017919f7ce11e0556890320968e96bda",
+    "rhwp-studio/src/core/wasm-bridge.ts": "f173b036d6caf212ca76c5ec4ea399a2a505125b0418fc792c9307dc063f8567",
+    "rhwp-studio/src/engine/input-handler.ts": "c0d856940daa541898c1110f5059610a2675a71efb72fe983732b27cabb00166",
+    "rhwp-studio/src/ui/hyperlink-dialog.ts": "f839e1120e87d280f53cf2ac1e55790dd1d2d8687031c012bdf83777a0a029a0",
+    "rhwp-studio/index.html": "0a36397e8397a6d25bbd46afe101b76791974c4fd1c1d53608ba0cf858ec338d",
+    "rhwp-studio/src/command/commands/insert.ts": "08a348efdf5d7b135eb5ea67fa8589d608ee21eb4e3e67ff2d0c264df2a2fcff"
+  },
+  "testSourceSHA256": {
+    "engine/examples/cell_hyperlink_check.rs": "89a6bbc4b87559c5a50f27dfb2d8635fdc08de62e5387fa6389edea198cbff5d",
+    "scripts/check-cell-hyperlink.mjs": "c5015cea35e2301d02cb39cfe4ffa46c2e6a97f6fcdd0fbdf0322d5bb163aef7",
+    "scripts/check-body-hyperlink.mjs": "7e8c411bcf093fe0185b89bda0dd8544f3d925d5c9455362fca15a7e45460b27"
+  },
+  "native": {
+    "positive": 36,
+    "reopens": 84,
+    "snapshotUndoRedoPairs": 36,
+    "atomicRefusals": 96
+  },
+  "actualWasmUI": {
+    "positive": 84,
+    "reopens": 288,
+    "undos": 84,
+    "redos": 84,
+    "atomicRefusals": 444,
+    "layoutCases": 12,
+    "multipageCases": 12,
+    "externalOpens": 0,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "sourceSHA256": {
+      "command": "6d6b72bfe8c0cabb02461406c971a9cfa8c9e3eff7cd9c7d52ea27179a8c8968",
+      "history": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db",
+      "bridge": "f173b036d6caf212ca76c5ec4ea399a2a505125b0418fc792c9307dc063f8567",
+      "input": "c0d856940daa541898c1110f5059610a2675a71efb72fe983732b27cabb00166",
+      "dialog": "f839e1120e87d280f53cf2ac1e55790dd1d2d8687031c012bdf83777a0a029a0",
+      "link": "6b616cf47b051d345c4cad76ddbc69b3210a2852f72a787f8259538f45280eca",
+      "registry": "b32ee8b4b49d205752dacc39369718b034dd4f0bd79927d7dbb5c54e120a9f0f",
+      "dispatcher": "dc79b9439b17a15b301c0da1a3be75d26ece1726080ffef9d75ae084c4206381",
+      "mutations": "c13deae622f6c3d1e6cb1191bdbee61a017919f7ce11e0556890320968e96bda"
+    }
+  },
+  "nativeCrossRead": {
+    "allSiblingCellBodyNoteReferences": true,
+    "fullCharParaStyleReferences": true,
+    "originalDefinitionsUnchanged": true,
+    "pairedFieldRanges": true,
+    "uiSavedFilesVerified": 264
+  },
+  "regressions": {
+    "bodyNative": {
+      "positive": 5,
+      "reopens": 12,
+      "atomicRefusals": 21,
+      "uiSavedFilesIndependentlyVerified": 22
+    },
+    "bodyWasmUI": {
+      "positive": 6,
+      "reopens": 22,
+      "undos": 6,
+      "redos": 6,
+      "refusals": 36,
+      "externalOpens": 0
+    },
+    "clickHere": {
+      "reopens": 54,
+      "undos": 24,
+      "redos": 24,
+      "rejections": 14,
+      "cellRegressions": 6
+    },
+    "namedCell": {
+      "accepted": 48,
+      "rejected": 188,
+      "reopens": 96,
+      "undos": 72,
+      "redos": 72,
+      "collisions": 20
+    },
+    "fieldValueAtomic": {
+      "supported": 10,
+      "unsupported": 18,
+      "acceptedUnsupported": 0
+    }
+  },
+  "checks": {
+    "nativeCompile": true,
+    "wasmReleaseBuild": true,
+    "typescriptWithCandidateDeclarations": true,
+    "clippyLibAndBothExamplesDenyWarnings": true,
+    "mutationRegistryThreeWritesAndOneRead": true
+  },
+  "protectedSHA256": {
+    "dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+    "dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+    "app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+    "geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+    "geulgyeol-dev-propagation/pkg/rhwp_bg.wasm": "015e64b941e60f85fb10a86810aaef0909cd4a0f8de3992246b49c13d2a262c7",
+    "dev8-checkpoint-qa/GeulgyeolDev8.app/Contents/Resources/app.asar": "66e9af062d45efaca508053e87a7a759489d7f98e0484798e7fd60b5d468a104",
+    "field-value-atomic-qa/pkg/rhwp_bg.wasm": "592806b2b8f8c3e0f3736512bc17d72e8c919bdb03c71135490957f5f84b4fe1",
+    "named-cell-value-qa/pkg/rhwp_bg.wasm": "89bd3c1b3bb7160e24c977c996460203740cffd36f4b2b8120f1fa02588cddaf"
+  },
+  "previousBodyCandidateSHA256": "47ac09b97f1ce74df713e25453a6219e297b225d84e68f1c77986230f94744f4",
+  "resources": {
+    "targetLimitBytes": 4294967296,
+    "targetPeakBytes": 3670700032,
+    "targetFinalBytes": 3577487360,
+    "minDiskFreeBytes": 23470080000,
+    "diskFreeFinalBytes": 24657920000,
+    "budgetStopped": false
+  },
+  "successfulBuilds": {
+    "native-fixtures-complex": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "cell_hyperlink_check",
+        "--",
+        "../cell-hyperlink-qa/native"
+      ],
+      "targetBeforeBytes": 3540959232,
+      "targetPeakBytes": 3624235008,
+      "targetFinalBytes": 3576909824,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24657920000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 28.79
+    },
+    "wasm-candidate": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib"
+      ],
+      "targetBeforeBytes": 3576909824,
+      "targetPeakBytes": 3577253888,
+      "targetFinalBytes": 3577253888,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24698880000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 131.43
+    },
+    "native-clippy-final": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--lib",
+        "--example",
+        "cell_hyperlink_check",
+        "--example",
+        "body_hyperlink_check",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "targetBeforeBytes": 3577454592,
+      "targetPeakBytes": 3577454592,
+      "targetFinalBytes": 3577454592,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24657920000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 20.56
+    },
+    "body-native-regression": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "body_hyperlink_check",
+        "--",
+        "../cell-hyperlink-qa/body-native"
+      ],
+      "targetBeforeBytes": 3577298944,
+      "targetPeakBytes": 3666857984,
+      "targetFinalBytes": 3577298944,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24616960000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 26.71
+    },
+    "cell-native-ui-reopen-final": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "cell_hyperlink_check",
+        "--",
+        "--verify-ui",
+        "../cell-hyperlink-qa/wasm-ui/manifest.json",
+        "../cell-hyperlink-qa/native-ui-reopen-proof.json"
+      ],
+      "targetBeforeBytes": 3577454592,
+      "targetPeakBytes": 3665969152,
+      "targetFinalBytes": 3577487360,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24576000000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 32.86
+    },
+    "body-native-ui-reopen": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "-p",
+        "rhwp",
+        "--example",
+        "body_hyperlink_check",
+        "--",
+        "--verify-ui",
+        "../cell-hyperlink-qa/body-native/seed.hwpx",
+        "../cell-hyperlink-qa/body-wasm-ui"
+      ],
+      "targetBeforeBytes": 3577487360,
+      "targetPeakBytes": 3577487360,
+      "targetFinalBytes": 3577487360,
+      "targetLimitBytes": 4294967296,
+      "minDiskFreeBytes": 24657920000,
+      "stoppedReason": null,
+      "exitCode": 0,
+      "elapsedSeconds": 2.12
+    }
+  },
+  "rawEvidenceSHA256": {
+    "../cell-hyperlink-qa/native/proof.json": "5d2f870b0a565d9dc59feb3960cd42817f74e1bb3f60b9049d9a9f2dc738c2eb",
+    "../cell-hyperlink-qa/native/manifest.json": "4cadbc2f94bbebd55f7adb92aa65a8a0c281fb8f7a988be97ed5de0506596248",
+    "../cell-hyperlink-qa/wasm-ui/proof.json": "6328cf5ccc743cb916addddd74cf66e37dd99147aedfd27b5fed296001de57e5",
+    "../cell-hyperlink-qa/wasm-ui/manifest.json": "547f76411f3e53015ff29491394f69c031ba2299b86a21861bb3040b169f4fff",
+    "../cell-hyperlink-qa/native-ui-reopen-proof.json": "0f18b8be45150b0944eda53085a03c3f241d93c53f4103c8c26d0348b9d58060",
+    "../cell-hyperlink-qa/body-native-ui-reopen-proof.json": "c2b49b01a46fa10a9e7a1b806f88f723af4e60acbf96f58261554d0113c7a33e",
+    "../cell-hyperlink-qa/body-wasm-ui/proof.json": "143e1d041dd3d7c44e137cf518fe97cb4bd775ed5b0b319ae9a162ea07a4ee7b",
+    "../cell-hyperlink-qa/clickhere-regression/proof.json": "4c7c039ab7c264530355faef4629cac205580c0a2121dca40fc1806a8770b348",
+    "../cell-hyperlink-qa/named-cell-regression/proof.json": "a3a9079ad1464f9ca3dbb70c9ffa8550880c01cad19dd8646749592fa1af68ef",
+    "../cell-hyperlink-qa/value-atomic-regression/proof.json": "51cf853ba452d5d43bceab7b0f8a471035417a06ea28a853068bbd8167ce00fc"
+  },
+  "limitations": {
+    "realMacGUI": false,
+    "physicalIME": false,
+    "newAppPackaging": false,
+    "linuxThisTask": false,
+    "fullRustLibraryTests": "blocked by three existing missing include_bytes fixtures; not bypassed",
+    "missingFixtures": [
+      "engine/samples/3-09월_교육_통합_2022.hwp",
+      "engine/samples/hwp3-sample16-hwp5.hwp",
+      "engine/samples/hwpx/aift.hwpx"
+    ],
+    "corpusCertification": false
+  },
+  "fixtureNormalization": "Synthetic seeds canonicalized to HWPX before edits for the existing BorderFill defaults. View normalizes absent/empty field names only. Full IDs, field ranges and note/reference trees compared exactly."
+}

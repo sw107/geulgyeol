@@ -1,0 +1,724 @@
+{
+  "baseCommit": "b9c9896f5261671484b714170f2648c59e0b9907",
+  "branch": "dev/style-propagation",
+  "wasmSHA256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+  "ui": {
+    "wasmSHA256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+    "actualDeleteSelectionFragmentBridgeInputHandlerHistory": true,
+    "mutations": 17,
+    "savedReopens": 68,
+    "undoRedoPairs": 68,
+    "atomicRefusals": 49,
+    "emptyNoops": 2,
+    "bodyGlyphStylesNotesAndFieldOwnershipPreserved": true,
+    "fullSvgSavedAndHistoryExact": true,
+    "scalarHalfOpenSelection": true,
+    "pointBookmarksInDeletedRangeCollapseToStart": true,
+    "GUIVerified": false,
+    "physicalIMEVerified": false,
+    "rows": [
+      {
+        "label": "partial-3-paragraph-emoji",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "only-first-has-bookmarks",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "only-middle-has-bookmarks",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "only-last-has-bookmarks",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "whole-body-keeps-empty",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "paragraph-break-only",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "middle-with-prefix-tail",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "whole-first-text",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "whole-suffix",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "empty-paragraph-breaks",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "prefix-comments-link",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "suffix-comments-link",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "prefix-notes",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "suffix-notes",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "reopened-hwp-partial",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "reopened-hwpx-partial",
+        "type": "deleteSelection"
+      },
+      {
+        "label": "pending-redo-seed",
+        "type": "deleteSelection"
+      }
+    ],
+    "sourceSHA256": {
+      "bridge": "4b013295ae990a17beda77384e22f1aa7148a38d62612774c1926ce43e82da05",
+      "input": "c521dfbcb262f312aa3f358df9c09e70918012a864dfc00495f9984764aee4f3",
+      "command": "6803cdd3a59b95b0560dbc92d06cff47d561d402edd8c451ab170c9bd5095c57",
+      "history": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db"
+    }
+  },
+  "native": {
+    "atomicNativeRefusals": 11,
+    "atomicNativeStructuralRefusals": 36,
+    "duplicateNameRefusalsAcrossNestedScopes": 28,
+    "fullSvgParagraphsStylesAndBinDataCompared": true,
+    "independentSavedReopens": 68,
+    "nativeOperationReexecution": true,
+    "noteHeaderTrailingZeroPaddingCanonicalized": true,
+    "readOnlyNestedNameScopes": 14,
+    "selectionFragmentPairs": 102,
+    "snapshotPairs": 102
+  },
+  "regressions": {
+    "structure": {
+      "wasmSHA256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+      "actualSplitMergeBackspaceDeleteCommandsAndInputHandlerHistory": true,
+      "mutations": 222,
+      "savedReopens": 888,
+      "undoRedoPairs": 1068,
+      "atomicRefusals": 144,
+      "bodyGlyphStylesNotesAndFieldOwnershipPreserved": true,
+      "fullSvgSavedAndHistoryExact": true,
+      "bookmarkSplitAffinity": "anchor at Enter moves to successor offset 0",
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "evidencePath": "../bookmark-range-qa/reg-structure/proof.json"
+    },
+    "bookmark": {
+      "wasmSHA256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+      "actualBookmarkDialogBridgeInputHandlerSnapshotHistory": true,
+      "mutations": 59,
+      "savedReopens": 236,
+      "undoRedoPairs": 261,
+      "atomicRefusalsCancelAndNoOps": 341,
+      "fullSvgAndTextStyleFieldReferencesExact": true,
+      "actualTypingCommandsAndLocalReplacement": true,
+      "nestedBookmarkMutationRefused": true,
+      "partialBridgeFailureRollback": true,
+      "bookmarkAffinity": "insertion at anchor stays before new text; deleted anchors collapse to deletion start",
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "evidencePath": "../bookmark-range-qa/reg-bookmark/proof.json"
+    },
+    "caption": {
+      "wasmSHA256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+      "actualRegistryDispatcherInputHandlerBridgeHistory": true,
+      "actualPropertyDialogApplyAndPatchModel": true,
+      "DOMCursorRepaintAdapters": true,
+      "operations": 19,
+      "saves": 76,
+      "undoRedoPairs": 91,
+      "atomicRefusalsOrNoOps": 16,
+      "repeatedCaptionNavigationNoHistory": 9,
+      "bodyCommentsFieldsFormattingAndImagePreserved": true,
+      "savedCaptionReferencesAndRenderedGlyphStylesCompared": true,
+      "historyFullSVGExact": true,
+      "savedReopenedFullSVGExact": true,
+      "captionParagraphPropertiesNativeOnly": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "evidencePath": "../bookmark-range-qa/reg-caption/proof.json"
+    },
+    "comment": {
+      "wasmSHA256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+      "mutations": 14,
+      "saves": 64,
+      "refusals": 55,
+      "undos": 16,
+      "redos": 16,
+      "newAuthorEmptyCreationTimeAbsent": true,
+      "originalAuthorTimePreserved": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0,
+      "evidencePath": "../bookmark-range-qa/reg-comment-isolated-final/proof.json"
+    },
+    "anchor": {
+      "wasmSHA256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+      "normal": 43,
+      "saves": 168,
+      "refusals": 36,
+      "undos": 43,
+      "redos": 43,
+      "actualBodyCommandHistory": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0,
+      "evidencePath": "../bookmark-range-qa/reg-anchor-isolated-final/proof.json"
+    },
+    "bodyLink": {
+      "wasmSha256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0,
+      "positive": 6,
+      "reopens": 22,
+      "undos": 6,
+      "redos": 6,
+      "refusals": 36,
+      "evidencePath": "../bookmark-range-qa/reg-body-link/proof.json"
+    },
+    "cellLink": {
+      "candidateWasmSHA256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+      "positive": 84,
+      "reopens": 288,
+      "undos": 84,
+      "redos": 84,
+      "atomicRefusals": 444,
+      "layoutCases": 12,
+      "multipageCases": 12,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "externalOpens": 0,
+      "evidencePath": "../bookmark-range-qa/reg-cell-link/proof.json"
+    },
+    "band": {
+      "wasmSHA256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+      "actualBandModalRegistryDispatcherInputHandlerHistory": true,
+      "objectPropertiesAndDeleteConnected": true,
+      "saves": 132,
+      "undos": 33,
+      "redos": 33,
+      "refusals": 58,
+      "cancels": 18,
+      "noOpRepeatInsert": 6,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "newAppPackaged": false,
+      "evidencePath": "../bookmark-range-qa/reg-band/proof.json"
+    },
+    "width": {
+      "wasmSHA256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+      "oldWasmSHA256": "cd852d76c0ea4c2690afe728db34d717a00638dd51090b98cce913de456d8005",
+      "actualBridgeAndSnapshotHistory": true,
+      "saves": 40,
+      "undoRedoPairs": 20,
+      "atomicRefusals": 20,
+      "nativeSavedGeometryCrossChecks": 40,
+      "legacyBasisSVGExactMatches": 32,
+      "boundaryRefusals": 6,
+      "bodyTextFieldsNotesAndGlyphsPreserved": true,
+      "GUIVerified": false,
+      "physicalIMEVerified": false,
+      "paragraphBandMenuComplete": false,
+      "evidencePath": "../bookmark-range-qa/reg-width/proof.json"
+    },
+    "cellLayout": {
+      "cases": 24,
+      "restores": 170,
+      "reopens": 82,
+      "rejections": 4,
+      "savedSVGEqualityRequired": true,
+      "wasmSHA256": "614ac6f48199e3cac3c15b1e203a21800b18fcef1aecdf1f1b011cc612b1e4f2",
+      "findDialogSHA256": "fe95e003524f18893b07f83f142d0bc4c82e9e2a8f2efd7a94cad486cbe27ced",
+      "GUIVerified": false,
+      "evidencePath": "../bookmark-range-qa/reg-cell-layout/proof.json"
+    },
+    "nativeStructure": {
+      "atomicNativeRefusals": 11,
+      "atomicNativeStructuralRefusals": 36,
+      "duplicateNameRefusalsAcrossNestedScopes": 28,
+      "fullSvgParagraphsStylesAndBinDataCompared": true,
+      "independentSavedReopens": 888,
+      "nativeOperationReexecution": true,
+      "noteHeaderTrailingZeroPaddingCanonicalized": true,
+      "readOnlyNestedNameScopes": 14,
+      "selectionFragmentPairs": 0,
+      "snapshotPairs": 8544,
+      "evidencePath": "../bookmark-range-qa/reg-structure/native-proof.json"
+    },
+    "nativeBookmark": {
+      "atomicNativeRefusals": 11,
+      "atomicNativeStructuralRefusals": 36,
+      "duplicateNameRefusalsAcrossNestedScopes": 28,
+      "fullSvgParagraphsStylesAndBinDataCompared": true,
+      "independentSavedReopens": 236,
+      "nativeOperationReexecution": true,
+      "noteHeaderTrailingZeroPaddingCanonicalized": true,
+      "readOnlyNestedNameScopes": 14,
+      "selectionFragmentPairs": 0,
+      "snapshotPairs": 2214,
+      "evidencePath": "../bookmark-range-qa/reg-bookmark/native-proof.json"
+    },
+    "nativeCaption": {
+      "fullSvgParagraphsStylesCaptionAndImageCompared": true,
+      "independentSavedReopens": 76,
+      "nativeCommandReexecution": true,
+      "noteHeaderTrailingZeroPaddingCanonicalized": true,
+      "snapshotPairs": 498,
+      "evidencePath": "../bookmark-range-qa/reg-caption/native-caption-proof.json"
+    }
+  },
+  "finalChecks": {
+    "final-example-build": {
+      "command": [
+        "python3",
+        "../bookmark-range-qa/cargo-run.py",
+        "build",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--example",
+        "bookmark_preservation_check"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 15740928,
+      "additionalPeakBytes": 15745024,
+      "additionalFinalBytes": 15745024,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252299264,
+      "targetFinalBytes": 4252299264,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20971520000,
+      "diskFreeFinalBytes": 20971520000,
+      "stopReason": null,
+      "elapsedSeconds": 2.36
+    },
+    "final-wasm-build": {
+      "command": [
+        "python3",
+        "../bookmark-range-qa/cargo-run.py",
+        "build",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--release"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 15835136,
+      "additionalPeakBytes": 15855616,
+      "additionalFinalBytes": 15855616,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4342984704,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20766720000,
+      "diskFreeFinalBytes": 20971520000,
+      "stopReason": null,
+      "elapsedSeconds": 155.43
+    },
+    "final-reg-anchor-isolated": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-body-comment-anchor.mjs",
+        "../bookmark-range-qa/pkg-final",
+        "../bookmark-range-qa/anchor-fixtures/plain-comments.hwpx",
+        "../memo-preservation-qa/native",
+        "../bookmark-range-qa/reg-anchor-isolated"
+      ],
+      "exitCode": 1,
+      "additionalBeforeBytes": 59207680,
+      "additionalPeakBytes": 60379136,
+      "additionalFinalBytes": 60379136,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252311552,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20930560000,
+      "diskFreeFinalBytes": 20930560000,
+      "stopReason": null,
+      "elapsedSeconds": 1.32
+    },
+    "final-native-build": {
+      "command": [
+        "python3",
+        "../bookmark-range-qa/cargo-run.py",
+        "build",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--example",
+        "bookmark_preservation_check",
+        "--example",
+        "body_rectangle_width_check"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 15695872,
+      "additionalPeakBytes": 15699968,
+      "additionalFinalBytes": 15699968,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4460134400,
+      "targetFinalBytes": 4252299264,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20766720000,
+      "diskFreeFinalBytes": 21012480000,
+      "stopReason": null,
+      "elapsedSeconds": 26.75
+    },
+    "final-reg-comment-isolated-complete": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-body-comment.mjs",
+        "../bookmark-range-qa/pkg-final",
+        "../bookmark-range-qa/authoring-fixtures/seed.hwpx",
+        "../memo-preservation-qa/native",
+        "../bookmark-range-qa/reg-comment-isolated-final"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 60448768,
+      "additionalPeakBytes": 67686400,
+      "additionalFinalBytes": 67686400,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252311552,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20930560000,
+      "diskFreeFinalBytes": 20930560000,
+      "stopReason": null,
+      "elapsedSeconds": 1.36
+    },
+    "final-typescript": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "rhwp-studio/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "../bookmark-range-qa/tsconfig.final.json"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 28721152,
+      "additionalPeakBytes": 30760960,
+      "additionalFinalBytes": 30760960,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252311552,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20971520000,
+      "diskFreeFinalBytes": 20971520000,
+      "stopReason": null,
+      "elapsedSeconds": 2.04
+    },
+    "final-native-bookmark": {
+      "command": [
+        "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+        "verify",
+        "../bookmark-range-qa/reg-bookmark"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 59056128,
+      "additionalPeakBytes": 59084800,
+      "additionalFinalBytes": 59084800,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252311552,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20930560000,
+      "diskFreeFinalBytes": 20930560000,
+      "stopReason": null,
+      "elapsedSeconds": 6.87
+    },
+    "final-native-range": {
+      "command": [
+        "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+        "verify",
+        "../bookmark-range-qa/ui-final"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 59056128,
+      "additionalPeakBytes": 59064320,
+      "additionalFinalBytes": 59064320,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252311552,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20930560000,
+      "diskFreeFinalBytes": 20930560000,
+      "stopReason": null,
+      "elapsedSeconds": 2.83
+    },
+    "final-reg-anchor-isolated-complete": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-body-comment-anchor.mjs",
+        "../bookmark-range-qa/pkg-final",
+        "../bookmark-range-qa/anchor-fixtures/plain-comments.hwpx",
+        "../memo-preservation-qa/native",
+        "../bookmark-range-qa/reg-anchor-isolated-final"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 60448768,
+      "additionalPeakBytes": 67686400,
+      "additionalFinalBytes": 67686400,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252311552,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20930560000,
+      "diskFreeFinalBytes": 20930560000,
+      "stopReason": null,
+      "elapsedSeconds": 1.36
+    },
+    "final-clippy": {
+      "command": [
+        "python3",
+        "../bookmark-range-qa/cargo-run.py",
+        "clippy",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--example",
+        "bookmark_preservation_check",
+        "--example",
+        "body_rectangle_width_check",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 15843328,
+      "additionalPeakBytes": 15847424,
+      "additionalFinalBytes": 15847424,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4137046016,
+      "targetFinalBytes": 4137058304,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20971520000,
+      "diskFreeFinalBytes": 20971520000,
+      "stopReason": null,
+      "elapsedSeconds": 24.32
+    },
+    "final-native-structure": {
+      "command": [
+        "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+        "verify",
+        "../bookmark-range-qa/reg-structure"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 59056128,
+      "additionalPeakBytes": 59097088,
+      "additionalFinalBytes": 59097088,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252311552,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20930560000,
+      "diskFreeFinalBytes": 20930560000,
+      "stopReason": null,
+      "elapsedSeconds": 25.34
+    },
+    "final-native-caption": {
+      "command": [
+        "../style-lint-qa/target/debug/examples/body_rectangle_width_check",
+        "../bookmark-range-qa/reg-caption",
+        "--verify-caption-history"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 59056128,
+      "additionalPeakBytes": 59072512,
+      "additionalFinalBytes": 59072512,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252311552,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20930560000,
+      "diskFreeFinalBytes": 20930560000,
+      "stopReason": null,
+      "elapsedSeconds": 3.96
+    },
+    "final-regressions": {
+      "command": [
+        "python3",
+        "../bookmark-range-qa/run-regressions.py"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 28721152,
+      "additionalPeakBytes": 59052032,
+      "additionalFinalBytes": 59052032,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252311552,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20930560000,
+      "diskFreeFinalBytes": 20930560000,
+      "stopReason": null,
+      "elapsedSeconds": 21.79
+    },
+    "final-ui": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-bookmark-range.mjs",
+        "../bookmark-range-qa/pkg-final",
+        "../bookmark-range-qa/fixtures-final",
+        "../bookmark-range-qa/ui-final"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 28721152,
+      "additionalPeakBytes": 30760960,
+      "additionalFinalBytes": 30769152,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252311552,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20971520000,
+      "diskFreeFinalBytes": 20971520000,
+      "stopReason": null,
+      "elapsedSeconds": 2.04
+    },
+    "final-fixtures": {
+      "command": [
+        "../style-lint-qa/target/debug/examples/bookmark_preservation_check",
+        "prepare-range",
+        "../bookmark-range-qa/fixtures-final",
+        "../bookmark-structure-qa/fixtures"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 15749120,
+      "additionalPeakBytes": 15831040,
+      "additionalFinalBytes": 15831040,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252299264,
+      "targetFinalBytes": 4252299264,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20971520000,
+      "diskFreeFinalBytes": 20971520000,
+      "stopReason": null,
+      "elapsedSeconds": 1.26
+    },
+    "final-formatted-native-build": {
+      "command": [
+        "python3",
+        "../bookmark-range-qa/cargo-run.py",
+        "build",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--example",
+        "bookmark_preservation_check",
+        "--example",
+        "body_rectangle_width_check"
+      ],
+      "exitCode": 0,
+      "additionalBeforeBytes": 15720448,
+      "additionalPeakBytes": 15724544,
+      "additionalFinalBytes": 15724544,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4359168000,
+      "targetFinalBytes": 4252299264,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20889600000,
+      "diskFreeFinalBytes": 20971520000,
+      "stopReason": null,
+      "elapsedSeconds": 28.94
+    },
+    "final-reg-comment-isolated": {
+      "command": [
+        "env",
+        "ELECTRON_RUN_AS_NODE=1",
+        "../dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/MacOS/GeulgyeolDev11",
+        "scripts/check-body-comment.mjs",
+        "../bookmark-range-qa/pkg-final",
+        "../bookmark-range-qa/authoring-fixtures/seed.hwpx",
+        "../memo-preservation-qa/native",
+        "../bookmark-range-qa/reg-comment-isolated"
+      ],
+      "exitCode": 1,
+      "additionalBeforeBytes": 59207680,
+      "additionalPeakBytes": 60379136,
+      "additionalFinalBytes": 60379136,
+      "additionalLimitBytes": 1073741824,
+      "targetPeakBytes": 4252311552,
+      "targetFinalBytes": 4252311552,
+      "targetLimitBytes": 4831838208,
+      "minDiskFreeBytes": 20930560000,
+      "diskFreeFinalBytes": 20930560000,
+      "stopReason": null,
+      "elapsedSeconds": 1.32
+    }
+  },
+  "sourceSHA256": {
+    "engine/src/document_core/commands/text_editing.rs": "a5b60a1c4338608d37212eaf83fbd45f0006296dde1aea3a54597e1a782ec16b",
+    "engine/src/document_core/queries/bookmark_query.rs": "0d6cac0c86db33ed940f04c95c668600fc69aaf1320bca4cf2363cd83fecb651",
+    "engine/src/wasm_api.rs": "34721b5c190a1da953ca8ee865278956577d5aa0e65d1e00cf1d735c2a1a0648",
+    "engine/examples/bookmark_preservation_check.rs": "d4e8ca5bb21fd6d7871020df360c78704cb2db143211ecfee45fa417dfa8817b",
+    "rhwp-studio/src/core/wasm-bridge.ts": "4b013295ae990a17beda77384e22f1aa7148a38d62612774c1926ce43e82da05",
+    "rhwp-studio/src/engine/command.ts": "6803cdd3a59b95b0560dbc92d06cff47d561d402edd8c451ab170c9bd5095c57",
+    "rhwp-studio/src/engine/input-handler.ts": "c521dfbcb262f312aa3f358df9c09e70918012a864dfc00495f9984764aee4f3",
+    "scripts/check-bookmark-structure.mjs": "3d17125a5e5ecbdd1321553a8057705cff050db515d469d0b28175e937f5d02a",
+    "scripts/check-bookmark-range.mjs": "0fd89b40a9c08909de188086e9619f569bd2880af05689645bd66458b7672c28"
+  },
+  "protected": {
+    "uniqueFiles": 10764,
+    "changed": [],
+    "checkedAtUTC": "2026-10-07T10:39:56.543685+00:00",
+    "temporarilyRewrittenQaManifestsRestoredExactly": 2
+  },
+  "resourceBudget": {
+    "targetLimitBytes": 4831838208,
+    "minimumFreeBytes": 16106127360,
+    "targetPeakBytes": 4460134400,
+    "minDiskFreeBytes": 20766720000,
+    "currentTargetBytes": 4252311552,
+    "additionalQaBytes": 70397952,
+    "currentFreeBytes": 20930560000
+  },
+  "intermediateHarnessCorrections": [
+    "Cursor adapter exitBlockSelectionMode now clears selection as real cursor does",
+    "Prefix note positive case starts after all notes at scalar11, rather than selecting a real note",
+    "Synthetic default core has no ParaShape, so boundary fixture uses first().cloned().unwrap_or_default()",
+    "Two regression manifests temporarily overwritten in old QA were exactly restored to baseline SHA256; final memo/anchor checks use tiny isolated input fixtures; missing companion inputs supplied before successful final reruns"
+  ],
+  "GUIVerified": false,
+  "physicalIMEVerified": false,
+  "HancomVerified": false,
+  "LinuxVerified": false,
+  "appPackagingRun": false,
+  "newAppOrZipCreated": false,
+  "newTargetCreated": false,
+  "publicPushOrRelease": false,
+  "deletedOrCleaned": false,
+  "permissionsChanged": false,
+  "fullLibUnitTestsRun": false,
+  "missingIncludeBytes": [
+    "engine/samples/hwp3-sample16-hwp5.hwp",
+    "engine/samples/3-09월_교육_통합_2022.hwp",
+    "engine/samples/hwpx/aift.hwpx"
+  ],
+  "generatedAtUTC": "2026-10-07T10:41:34.962603+00:00",
+  "noBuildOrValidationProcessRemaining": true,
+  "guiWindowsOpened": false
+}
