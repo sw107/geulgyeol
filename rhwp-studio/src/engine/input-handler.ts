@@ -3582,7 +3582,7 @@ export class InputHandler {
     // undo/redo 경로가 이미 같은 이유로 이 루틴을 부른다.
     this.clearTableResizeRuntimeCache();
     this.eventBus.emit('document-mutated', 'input-handler-edit');
-    this.eventBus.emit('document-changed');
+    this.eventBus.emit('document-changed', 'input-handler-edit');
     this.updateCaret();
   }
 
@@ -3603,7 +3603,7 @@ export class InputHandler {
         ...(focusedPagePatch?.pageIndex === pageIndex ? { focusedPagePatch } : {}),
       });
     } else {
-      this.eventBus.emit('document-changed');
+      this.eventBus.emit('document-changed', 'input-handler-edit');
     }
     if (this.deferredPaginationPending) {
       this.scheduleDeferredPaginationFlush();

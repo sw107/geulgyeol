@@ -332,6 +332,16 @@ export class DocumentAgentController {
       this.syncGeneration();
       this.changeSeq += 1;
     });
+    const offChanged = deps.eventBus.on('document-changed', reason => {
+      // Legacy object edits only publish document-changed. Paired render
+      // notifications already counted by document-mutated must not count twice.
+      if (reason === 'input-handler-edit' || reason === 'document-agent-rendered'
+          || reason === 'cell-overflow-pagination' || reason === 'deferred-pagination-complete') return;
+      this.syncGeneration();
+      this.changeSeq += 1;
+    });
+    const offMutated = this.offMutation;
+    this.offMutation = () => { offMutated(); offChanged(); };
   }
 
   dispose(): void {

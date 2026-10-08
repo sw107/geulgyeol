@@ -6,7 +6,7 @@ const {startServer}=require('./server.cjs');
 const {validateDocumentBytes,atomicWrite,MAX_BYTES}=require('./storage.cjs');
 const {installCloseController}=require('./close-controller.cjs');
 const {installDocumentShortcuts}=require('./document-shortcuts.cjs');
-let win,origin,server,dirty=false,saving=false;
+let win,origin,server,dirty=false,saving=false,rendererFailed=false;
 function trusted(event){return win&&!win.isDestroyed()&&event.sender===win.webContents&&event.senderFrame===win.webContents.mainFrame&&event.senderFrame.url===origin+'/';}
 function action(name){if(win&&!win.isDestroyed())win.webContents.send('baram:action',name);}
 if(!app.requestSingleInstanceLock()){app.quit();}else{
@@ -29,12 +29,21 @@ app.whenReady().then(async()=>{
   installDocumentShortcuts(win.webContents,action);
   win.webContents.setWindowOpenHandler(()=>({action:'deny'}));
   win.webContents.on('will-navigate',(e,url)=>{if(url!==origin+'/')e.preventDefault();});
+  win.webContents.on('render-process-gone',()=>{rendererFailed=true;});
+  async function confirmUnavailableClose(){
+    const result=await dialog.showMessageBox(win,{type:'warning',buttons:['취소','종료'],defaultId:0,cancelId:0,
+      message:'편집 상태를 확인할 수 없어 저장을 완료할 수 없습니다.',detail:'종료하면 저장하지 않은 변경 사항이 사라질 수 있습니다. 기존 복구본은 삭제하지 않습니다.'});
+    return result.response===1;
+  }
   installCloseController(win,{
-    isDirty:()=>dirty,
-    beforeDiscard:()=>win.webContents.executeJavaScript('window.baramPrepareDiscard()'),
-    confirmDiscard:async()=>{
-      const result=await dialog.showMessageBox(win,{type:'question',buttons:['편집 계속','저장하지 않고 닫기'],defaultId:0,cancelId:0,message:'저장하지 않은 변경 사항이 있습니다.'});
-      return result.response===1;
+    beforeClose:async()=>{
+      if(rendererFailed)return confirmUnavailableClose();
+      try{
+        const approved=await win.webContents.executeJavaScript('window.baramPrepareClose()');
+        if(approved==='startup-failed')return confirmUnavailableClose();
+        if(approved!==true)return false;
+        return await win.webContents.executeJavaScript('window.baramFinalizeClose()');
+      }catch{return confirmUnavailableClose();}
     },
     onError:error=>dialog.showErrorBox('종료 확인 실패',String(error.message||error))
   });
@@ -49,6 +58,12 @@ app.whenReady().then(async()=>{
   app.setAboutPanelOptions({applicationName:'글결 문서 편집기',applicationVersion:app.getVersion(),copyright:'문서 엔진: RHWP © Edward Kim · MIT License'});
   ipcMain.handle('baram:info',event=>{if(!trusted(event))throw new Error('허용되지 않은 요청');return {version:app.getVersion(),platform:process.platform};});
   ipcMain.on('baram:dirty',(event,value)=>{if(trusted(event)){dirty=Boolean(value);win.setDocumentEdited(dirty);}});
+  ipcMain.handle('baram:confirm-unsaved',async(event,action)=>{
+    if(!trusted(event)||!['new','open','close'].includes(action))throw new Error('허용되지 않은 요청');
+    const result=await dialog.showMessageBox(win,{type:'question',buttons:['저장','저장하지 않기','취소'],defaultId:0,cancelId:2,
+      message:'저장하지 않은 변경 사항이 있습니다.',detail:'계속하기 전에 현재 문서를 저장할까요?'});
+    return ['save','discard','cancel'][result.response]||'cancel';
+  });
   ipcMain.handle('baram:open',async event=>{
     if(!trusted(event))throw new Error('허용되지 않은 요청');
     const chosen=await dialog.showOpenDialog(win,{properties:['openFile'],filters:[{name:'한글 문서',extensions:['hwp','hwpx']}]});

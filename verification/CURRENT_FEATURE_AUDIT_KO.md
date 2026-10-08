@@ -1,5 +1,7 @@
 # 현재 개발 checkout 기능 대조
 
+2026-10-08 현재 소스 후보는 미저장 새 문서 교체·저장 완료 경쟁과 검토에서 확인한 도형 변경 번호 누락·종료 승인 뒤 잠금 해제를 보완했다. 별도 공식 Electron에서 저장/전환/복구29개·도형/종료 승인7개·시작/JavaScript/renderer 장애 각3개, 자동 회귀43개·skip1 및 현재 엔진 TypeScript를 통과했다. 모든 검증 창은 정상 종료했고 기존 보호 파일·캐시가 불변이다. 새 설치 앱에는 미통합이며 OS 선택창·물리 IME·Linux·전체 한컴 호환은 미검증이다. [현재 결과·고정 기능군·다음 합격 기준](electron-document-lifecycle/RESULT_KO.md), [실행·보존 증거](electron-document-lifecycle/proof.json). 전체 완성률은 항목 수나 테스트 수로 계산하지 않는다. 아래 내용은 각 단계 당시의 역사 기록이다.
+
 현재 host 소스 후보는 네이티브 저장의 중복 요청에 의한 이전 내용 덮어쓰기, 쓰기/close 실패 시 원래 오류와 임시 파일 정리 누락, EEXIST 기존 임시 파일 삭제를 보완했다. 공식 등록 IPC/실제 FS·host UI 어댑터19검사군 및 지속 회귀4개·기존 회귀10개·최종 Native11건을 통과했다. dev.12는 보존했고 수정은 앱에 미통합이다. OS 대화상자·실제 renderer 저장 IPC·물리 디스크 오류는 미검증이며 빈 합성 HWPX의 Native ID 참조 제약도 기록했다. [host 저장 결과](host-save/RESULT_KO.md), [증거·한계](host-save/proof.json).
 
 직전 통합 제품 소스 `30601b1`을 독립 Mac 개발 후보 **GeulgyeolDev12.app / 0.4.4-dev.12** 하나에 통합했다. 검증된 WASM/Native와 dev11 runtime을 재사용하고 웹 자산을 새로 빌드했다. 실제 Electron renderer에서 캡션·책갈피·일반 붙여넣기·셀 병합/분할·깊이2 행 편집11사례/44이력쌍/44재열기를 통과했다. Native44건을 독립 대조했으며, 책갈피/붙여넣기 HWP5건의 저장 캐럿·관련 digest 차이는 별도 제한 비교로 명시한다. 일반 실행/정상 종료·실행 후 strict ad-hoc·TS·기존 보호37,113개 및 소스1,470개 불변 확인. 물리 IME/클립보드·OS 저장 대화상자·한컴은 미검증이다. 직접 사용자 요청으로 제품 `30601b1`을 푸시했고, 그 이후 통합 검증 기록은 로컬 커밋만 했다. [통합 결과·한계](dev12-integration/RESULT_KO.md), [해시·증거](dev12-integration/proof.json).
