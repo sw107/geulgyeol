@@ -28,10 +28,11 @@ def main():
         parser.add_argument('--' + name, type=Path, required=True)
     parser.add_argument('--expected-engine-sha256', required=True)
     parser.add_argument('--bundle-id', required=True)
+    parser.add_argument('--refresh-owned-output', action='store_true')
     args = parser.parse_args()
     root = Path(__file__).resolve().parent.parent
     output, runtime = args.output_app.resolve(), args.runtime_app.resolve()
-    if output.exists() or output.is_relative_to(runtime):
+    if output.is_relative_to(runtime) or (output.exists() and not args.refresh_owned_output):
         raise ValueError('Use a separate nonexistent output app')
     if subprocess.check_output(['git', 'status', '--porcelain'], cwd=root).strip():
         raise ValueError('Commit the source before packaging')
@@ -52,7 +53,7 @@ def main():
     # Current tracked desktop code, SDK and licenses; old Studio is excluded.
     tracked = subprocess.check_output(['git', 'ls-files', '-z', 'desktop'], cwd=root).split(b'\0')
     required = {'main.cjs', 'preload.cjs', 'close-controller.cjs',
-                'document-shortcuts.cjs', 'server.cjs', 'storage.cjs',
+                'document-shortcuts.cjs', 'server.cjs', 'profile-server.cjs', 'storage.cjs',
                 'package.json', 'LICENSE', 'THIRD_PARTY_NOTICES.md'}
     for raw in tracked:
         if not raw:
@@ -98,8 +99,13 @@ def main():
     padding = b'\0' * (-len(raw_header) % 4)
     pickle = struct.pack('<II', 4 + len(raw_header) + len(padding), len(raw_header)) + raw_header + padding
     # Copy bytes, never hardlink a runtime that will be resigned. Preserve source.
-    shutil.copytree(runtime, output, symlinks=True,
-                    ignore=shutil.ignore_patterns('default_app.asar', '_CodeSignature'))
+    if args.refresh_owned_output:
+        existing = plistlib.loads((output / 'Contents/Info.plist').read_bytes())
+        if existing['CFBundleIdentifier'] != args.bundle_id or existing['CFBundleExecutable'] != product:
+            raise ValueError('Only the current task-owned candidate may be refreshed')
+    else:
+        shutil.copytree(runtime, output, symlinks=True,
+                        ignore=shutil.ignore_patterns('default_app.asar', '_CodeSignature'))
     archive = output / 'Contents/Resources/app.asar'
     with archive.open('wb') as file:
         file.write(struct.pack('<II', 4, len(pickle)))

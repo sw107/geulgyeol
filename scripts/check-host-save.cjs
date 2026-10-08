@@ -31,7 +31,7 @@ async function bootHost(mainFile,storage,choose){
  const source=sync.readFileSync(mainFile,'utf8');
  vm.runInNewContext(source,{require:name=>{
   if(name==='electron')return electron;
-  if(name==='./server.cjs')return {startServer:async()=>({origin,server:{close(){}}})};
+  if(name==='./profile-server.cjs')return {startProfileServer:async()=>({origin,server:{close(){}}})};
   if(name==='./storage.cjs')return storage;
   if(name.startsWith('./'))return require(path.join(root,'desktop',name));
   return require(name);

@@ -2,7 +2,7 @@ const {app,BrowserWindow,dialog,ipcMain,Menu,session}=require('electron');
 const path=require('node:path');
 const fs=require('node:fs/promises');
 app.setPath('userData',path.join(process.env?.GEULGYEOL_PROFILE_ROOT||app.getPath('appData'),'GeulgyeolBeta2'));
-const {startServer}=require('./server.cjs');
+const {startProfileServer}=require('./profile-server.cjs');
 const {validateDocumentBytes,atomicWrite,MAX_BYTES}=require('./storage.cjs');
 const {installCloseController}=require('./close-controller.cjs');
 const {installDocumentShortcuts}=require('./document-shortcuts.cjs');
@@ -12,7 +12,7 @@ function action(name){if(win&&!win.isDestroyed())win.webContents.send('baram:act
 if(!app.requestSingleInstanceLock()){app.quit();}else{
 app.on('second-instance',()=>{if(win){if(win.isMinimized())win.restore();win.show();win.focus();}});
 app.whenReady().then(async()=>{
-  ({server,origin}=await startServer(path.join(__dirname,'web'),0));
+  ({server,origin}=await startProfileServer(path.join(__dirname,'web'),app.getPath('userData')));
   // No document is exposed by the asset server. Block all remote resources.
   session.defaultSession.webRequest.onBeforeRequest((details,callback)=>{
     const allowed=details.url.startsWith(origin+'/')||details.url.startsWith('blob:'+origin+'/')||details.url.startsWith('data:')||details.url==='about:blank';

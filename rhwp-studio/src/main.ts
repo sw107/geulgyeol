@@ -840,9 +840,12 @@ async function initialize(): Promise<void> {
     // 먼저 갖고, 아무도 열지 않았을 때만 빈 문서를 연다.
     startupDocumentPromise = (async () => {
       await loadFromUrlParam();
-      // embed 프로파일: 자동저장 복구 다이얼로그의 드래프트 복원도 호스트가 감지할 수
-      // 없는 문서 교체 경로이므로 띄우지 않는다 (드래프트 기록 자체는 유지).
-      if (chromeMode !== 'embed') await offerAutosaveRecoveryIfIdle();
+      // Desktop explicitly waits for startupDocumentPromise before enabling
+      // file actions and reads the restored dirty state. Other embeds retain
+      // their existing policy of leaving recovery to the host.
+      if (chromeMode !== 'embed' || new URLSearchParams(location.search).get('desktopRecovery') === '1') {
+        await offerAutosaveRecoveryIfIdle();
+      }
       await openBlankDocumentIfIdle();
     })();
     // embed 프로파일: PWA launch queue로 문서를 넘겨받는 진입도 문서 교체 경로이므로
