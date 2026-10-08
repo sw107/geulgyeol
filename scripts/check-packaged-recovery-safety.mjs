@@ -5,7 +5,7 @@ import {launchPackaged} from './packaged-electron-qa.mjs';
 import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';
 import {pathToFileURL} from 'node:url';import {createHash} from 'node:crypto';
 const q=path.resolve(process.argv[2]),executable=path.resolve(process.argv[3]),scenario=process.argv[4],baseline=process.argv[5]==='baseline';
-assert(['crash-again','delete-failure','later','clear-failure','select-many','replacement-failure','replacement-success'].includes(scenario));
+assert(['crash-again','delete-failure','later','clear-failure','select-many','replacement-failure','replacement-abort','replacement-success'].includes(scenario));
 const engine=path.resolve(process.env.GEULGYEOL_QA_ENGINE_DIR),M=await import(pathToFileURL(path.join(engine,'rhwp.js')));
 M.initSync({module:fs.readFileSync(path.join(engine,'rhwp_bg.wasm'))});
 const text=data=>{const d=new M.HwpDocument(new Uint8Array(data));try{return JSON.parse(d.getTextFileText());}finally{d.free();}};
@@ -32,7 +32,7 @@ const fixtures=[fixture('qa-recovery-A','보존 복구 A 한글🙂',3000),fixtu
 const fingerprints=rows=>Object.fromEntries(rows.map(row=>[row.id,sha(row.data)]));
 try{
   await attach('seed');await ready();
-  const seeded=scenario==='replacement-failure'?[fixtures[0],...Array.from({length:12},(_,i)=>fixture('qa-extra-'+i,'기존 복구 '+i,100+i*50))]:scenario==='select-many'||scenario==='clear-failure'?fixtures:[fixtures[0]];
+  const seeded=(scenario==='replacement-failure'||scenario==='replacement-abort')?[fixtures[0],...Array.from({length:12},(_,i)=>fixture('qa-extra-'+i,'기존 복구 '+i,100+i*50))]:scenario==='select-many'||scenario==='clear-failure'?fixtures:[fixtures[0]];
   await frame.evaluate(rows=>new Promise((resolve,reject)=>{const req=indexedDB.open('rhwpStudioAutosave');req.onerror=()=>reject(req.error);req.onsuccess=()=>{const db=req.result,tx=db.transaction('drafts','readwrite');for(const row of rows)tx.objectStore('drafts').put({...row,data:new Uint8Array(row.data).buffer});tx.oncomplete=()=>{db.close();resolve();};tx.onabort=()=>{db.close();reject(tx.error);};};}),seeded);
   assert.deepEqual(fingerprints(await drafts()),fingerprints(seeded));await quit('seed-close');
   await attach('offer');await dialog();
@@ -50,7 +50,7 @@ try{
     assert.deepEqual(fingerprints(await drafts()),fingerprints(seeded));add('failed delete-all retains every draft and next startup offers them again');
     await frame.evaluate(()=>[...document.querySelectorAll('.recovery-dialog button')].find(e=>e.textContent==='삭제').click());await ready();assert.equal((await drafts()).length,0);await quit('clear-retry-close');await attach('after-clear-retry');await ready();assert.equal(await frame.$('.recovery-dialog'),null);add('successful delete-all retry clears only the private profile drafts');
   }else{
-    if(scenario==='select-many'||scenario==='replacement-failure'){
+    if(scenario==='select-many'||(scenario==='replacement-failure'||scenario==='replacement-abort')){
       await frame.evaluate(scenario=>{const input=document.querySelector('.recovery-dialog input[value="'+(scenario==='select-many'?'qa-recovery-B':'qa-recovery-A')+'"]');input.checked=true;input.dispatchEvent(new Event('change',{bubbles:true}));},scenario);
     }
     if(scenario==='delete-failure')await frame.evaluate(()=>{window.qaDeleteOriginal=IDBObjectStore.prototype.delete;window.qaDeleteAttempts=[];IDBObjectStore.prototype.delete=function(id,...args){window.qaDeleteAttempts.push(id);if(this.name==='drafts'&&id==='qa-recovery-A')throw Error('QA controlled recovered draft deletion failure');return window.qaDeleteOriginal.call(this,id,...args);};});
@@ -67,12 +67,12 @@ try{
         assert(Date.now()-restoreStarted<10000,'Second crash must precede the default idle autosave');crash.after=Date.now();await crash('second-crash');await attach('after-second-crash');await dialog();assert.deepEqual(fingerprints(await drafts()),fingerprints(seeded));await restore();await ready();assert.equal(text(await bytes()),text(selected.data));assert((await state()).dirty);add('second crash before debounce survives restart and restores the same persisted document');
       }
       let expectedText=text(selected.data);
-      if(scenario==='replacement-failure'){
-        await frame.evaluate(()=>{window.qaPutOriginal=IDBObjectStore.prototype.put;window.qaPutFailed=false;IDBObjectStore.prototype.put=function(row,...args){if(this.name==='drafts'&&row.id==='qa-recovery-A'){window.qaPutFailed=true;throw Error('QA controlled replacement put failure');}return window.qaPutOriginal.call(this,row,...args);};});
+      if(scenario==='replacement-failure'||scenario==='replacement-abort'){
+        await frame.evaluate(scenario=>{window.qaPutOriginal=IDBObjectStore.prototype.put;window.qaPutFailed=false;IDBObjectStore.prototype.put=function(row,...args){if(this.name==='drafts'&&row.id==='qa-recovery-A'){window.qaPutFailed=true;if(scenario==='replacement-abort'){const request=window.qaPutOriginal.call(this,row,...args);this.transaction.abort();return request;}throw Error('QA controlled replacement put failure');}return window.qaPutOriginal.call(this,row,...args);};},scenario);
         await until(()=>frame.evaluate(()=>window.qaPutFailed),'real idle autosave put failure');
         assert.deepEqual(fingerprints(await drafts()),fingerprints(seeded));assert((await state()).dirty);
         await frame.evaluate(()=>IDBObjectStore.prototype.put=window.qaPutOriginal);
-        add('failed replacement of oldest recovered draft preserves all thirteen durable rows before pruning');
+        add('failed replacement of oldest recovered draft preserves all thirteen durable rows before pruning',{fault:scenario==='replacement-abort'?'real IDB transaction aborted after put':'controlled put API rejection'});
       }
       if(scenario==='replacement-success'){
         await frame.evaluate(()=>window.rhwpStudio.plugins.load('hwpctrl'));
@@ -88,6 +88,6 @@ try{
       const remaining=seeded.filter(row=>row.id!==selected.id);assert.deepEqual(fingerprints(await drafts()),fingerprints(remaining));add('real save persists recovered text then deletes only its adopted draft',{selectedID:selected.id,remainingIDs:remaining.map(row=>row.id)});
     }
   }
-  await quit('finished');write('proof.json',{scenario,baseline,actualPackagedApp:true,syntheticFixturesInRealIndexedDB:true,controlledNativeResponses:true,controlledRendererCrash:scenario==='crash-again',controlledIDBFault:scenario==='delete-failure'||scenario==='clear-failure',OSChooserVerified:false,physicalIMEVerified:false,manualGUIVerified:false,clipboardAccessed:false,rows,normalExitCodes:processes.map(v=>v.exitCode)});
+  await quit('finished');write('proof.json',{scenario,baseline,actualPackagedApp:true,syntheticFixturesInRealIndexedDB:true,controlledNativeResponses:true,controlledRendererCrash:scenario==='crash-again',controlledIDBFault:['delete-failure','clear-failure','replacement-failure','replacement-abort'].includes(scenario),OSChooserVerified:false,physicalIMEVerified:false,manualGUIVerified:false,clipboardAccessed:false,rows,normalExitCodes:processes.map(v=>v.exitCode)});
 }catch(error){failure=String(error);console.error(error);write('failure.json',{failure,stack:error.stack,rows});process.exitCode=1;}
 finally{if(p?.exitCode===null){await quit('finally').catch(error=>{failure=String(error);process.exitCode=1;});}b?.disconnect();write('lifecycle.json',{failure,exitCodes:processes.map(v=>v.exitCode)});}

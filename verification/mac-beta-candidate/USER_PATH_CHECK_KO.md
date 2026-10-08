@@ -1,4 +1,4 @@
-# 실제 사용자 경로의 현재 검증 가능 여부
+# 복구 수정 전 실제 사용자 경로의 검증 가능 여부
 
 후보를 추가로 만들거나 소스를 변경하지 않고 현재 도구·화면 제어 권한·실행 상태를 읽기 전용으로 확인했다. 이 확인의 시작 소스는 `c8dd431abc72796cafa85fedabdb497a1d07da6d`이다.
 
@@ -15,6 +15,6 @@
 
 이 확인에서는 새 테스트 문서를 OS 선택창으로 저장하거나 한컴에서 열지 않았다. 기존 자동 검증은 실제 후보의 IPC·파일 저장·재열기·렌더러·복구를 확인했지만, 선택창 응답은 제어했고 화면 조작은 CDP였다. 그 자동 검증을 실제 OS 선택창이나 물리 입력 성공으로 바꾸어 표기하지 않는다.
 
-후보 ASAR와 ZIP SHA256은 [기존 결과](RESULT_KO.md)의 값과 일치한다. 새 앱·ZIP·프로필을 만들거나 후보를 실행하지 않았고 다른 창에 개입하지 않았다. 읽기 전용 결과는 산출물 폴더의 `user-path-readonly/{capability-preflight,proof}.json`과 [proof.json](proof.json)의 `userPathReadOnlyInspection`에 보존했다.
+이 확인 당시 ASAR SHA256은 `e5818ffe34b92779ec788388a5faa3146f68dfc1e57ac174ebe5dbf3255e2e25`, ZIP SHA256은 `fa2989926cb4850ca7d1fd76ebf13b2b27c253c266417cb6c1126fedcfe6dc9c`였다. 이후 복구 P1/P2 수정으로 후보가 갱신됐으며 현재 해시는 [현재 결과](RESULT_KO.md)에 있다. 새 앱·ZIP·프로필을 만들거나 후보를 실행하지 않았고 다른 창에 개입하지 않았다. 읽기 전용 결과는 산출물 폴더의 `user-path-readonly/{capability-preflight,proof}.json`과 [proof.json](proof.json)의 `previousUserPathReadOnlyInspection`에 보존했다.
 
 남은 확인은 화면 제어가 가능한 기존 권한의 환경에서 후보와 새 합성 문서만 사용하여 OS 저장/열기 선택창, 실제 키와 한글 IME 조합·수정·저장·재열기, 한컴 독립 대조를 수행하는 것이다. 현재 환경의 부족을 해결하기 위해 보안/접근성 권한을 변경하지 않았다.

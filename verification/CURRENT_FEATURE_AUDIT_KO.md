@@ -1,6 +1,6 @@
 # 현재 개발 checkout 기능 대조
 
-병합 `35fdcd0` 기반의 최신 Mac 후보는 **GeulgyeolBeta2.app / 0.4.4-beta.2**, 포함된 제품 소스 `ef82f16`이다. 현재 소스·production UI·검증된 최신 엔진으로 새 ASAR를 만들었다. 실제 패키지의 문서 수명 주기29개·종료 최종 응답11개·재실행 복구6개를 통과했고, 별도 일반 기동/AppleScript 정상 종료·strict deep ad-hoc·ZIP 파일/모드/해시 대조를 확인했다. 실행마다 origin이 바뀌어 복구본을 찾지 못하는 문제와 embed 시작 복구 안내 누락도 보완했다. OS 선택창·물리 IME/클립보드·수동 GUI·한컴·Linux 런타임은 미검증이다. 공개 태그/릴리스는 만들지 않았으며 원본·기존 후보·이전 QA를 보존했다. [현재 후보·결과·한계](mac-beta-candidate/RESULT_KO.md), [패키지·실행 증거](mac-beta-candidate/proof.json). 전체 완성률을 테스트 수로 추정하지 않는다. 아래 단락은 각 단계 당시의 역사 기록이다.
+병합 `35fdcd0` 기반 최신 Mac 후보는 **GeulgyeolBeta2.app / 0.4.4-beta.2**, 포함 제품 소스 `7b250eb`이다. 독립 검토에서 복구 직후 영속 draft 삭제와 삭제 실패 시 clean 상태가 발견되어 공개를 보류하고 실제 이전 패키지에서 재현·수정했다. 현재는 복구 ID를 이어 쓰고 로드 직후 dirty를 표시하며 replacement commit 전에 pruning하지 않는다. 실제 패키지 복구 안전성20개와 기존 수명 주기29개·재실행 복구6개·최종 응답11개를 합쳐66개, 회귀46개·skip1, TypeScript·Vite·strict ad-hoc·새 ZIP 대조를 통과했다. 수정 후 검증30회가 정상 종료했고 기존 후보 바이트와 QA를 보존했다. OS 선택창·물리 IME/클립보드·수동 GUI·한컴·Linux 런타임은 미검증이며 공개 태그/릴리스는 만들지 않았다. [현재 수정·후보·결과·한계](mac-beta-candidate/RESULT_KO.md), [패키지·재현·검증 증거](mac-beta-candidate/proof.json). 전체 완성률을 테스트 수로 추정하지 않는다. 아래 단락은 각 단계 당시의 역사 기록이다.
 
 2026-10-08 현재 소스 후보는 미저장 저장/교체 경쟁·도형 변경 번호 누락에 더해 최종 승인 응답 뒤의 쓰기 경합과 finalize 실패 취소의 잠금/복구 저장 누락을 실제 재현하고 보완했다. 기존 `d128670`은 prepare 뒤 편집만 검사했으며 finalize 응답 이후까지 보호한다는 근거가 없었다. 현재는 지원 편집 라우터·WASM 브리지·빌린 문서 핸들의 쓰기를 동결하고 진행 중 트랜잭션은 종료를 거절한다. 별도 공식 Electron에서 저장/전환/복구29개·도형/종료 준비7개·최종 응답 추가11개·시작/JavaScript/renderer 장애 각3개, 자동 회귀45개·skip1 및 현재 엔진 TypeScript를 통과했다. 검증 창은 정상 종료했고 기존 보호 파일·캐시·이전 QA 증거가 불변이다. 새 설치 앱에는 미통합이며 OS 선택창·물리 IME·Linux·전체 한컴 호환은 미검증이다. [현재 결과·고정 기능군·다음 합격 기준](electron-document-lifecycle/RESULT_KO.md), [실행·보존 증거](electron-document-lifecycle/proof.json). 전체 완성률은 항목 수나 테스트 수로 계산하지 않는다. 아래 내용은 각 단계 당시의 역사 기록이다.
 
@@ -28,7 +28,7 @@ dev11에서 재현한 그림 캡션 삽입 undo 누락을 후속 **소스 후보
 
 | 대상 | 포함 범위 |
 |---|---|
-| 최신 Mac 후보 `GeulgyeolBeta2.app` | 0.4.4-beta.2·제품 ef82f16·현재 production UI와 최신 WASM. 실제 패키지46시나리오·일반 기동/정상 종료·strict ad-hoc·최종 ZIP 대조. OS 선택창/물리 IME·수동 GUI·한컴 미검증. [현재 결과](mac-beta-candidate/RESULT_KO.md) |
+| 최신 Mac 후보 `GeulgyeolBeta2.app` | 0.4.4-beta.2·제품 7b250eb·복구 영속본/dirty 보존 수정. 실제 패키지66항목·정상 종료·strict ad-hoc·갱신한 ZIP 대조. OS 선택창/물리 IME·수동 GUI·한컴 미검증. [현재 결과](mac-beta-candidate/RESULT_KO.md) |
 | 보존된 이전 통합 앱 `GeulgyeolDev12.app` | 제품30601b1·개발버전0.4.4-dev.12, 실제 Electron 대표 편집11/44쌍/44재열기·Native44 대조(HWP 캐럿5건 예외 명시), 일반 실행/정상 종료·strict ad-hoc. IME/실제 클립보드·OS 저장/한컴 미검증. [통합·한계](dev12-integration/RESULT_KO.md) |
 | 최신 엔진 `table-size-qa/pkg` | SHA256 e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45. 현재 beta.2에 bundled/loose WASM 모두 동일하게 포함. [패키지 증거](mac-beta-candidate/proof.json) |
 | 보존된 당시 엔진 `nested-row-boundary-qa/pkg` | 중첩 행 두 API의 실제 JS Number 검사. 빈/Unicode 다문단·오른쪽 열·첫/마지막 행 경계와 당시 후보 전체 Mac68/312쌍/272재열기·Native독립272. 참조 행 삭제 거절 유지, 현재 dev.12에 그대로 통합. [검증·한계](nested-row-boundary/RESULT_KO.md) |
