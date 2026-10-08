@@ -1,0 +1,101 @@
+{
+  "baseHead": "01f9f61c7c8ab801e9baec77bbb3c7eddfc027e6",
+  "hashes": {
+    "exampleSHA256": "ea8d3e34b9876854caee1a4eb2a7cac8a9a1c643d20baf3dab9f3ecc221d0520",
+    "driverSHA256": "ec379f78418b56c3c9cfa96b42340511b3e28926d4a053d9620ca448f1f6b82a",
+    "wasmSHA256": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
+    "nativeSHA256": "eeef59157a6572cfb58aee61b9106ca98379c0919d830c8d6b684edcdbc0cdc0",
+    "chromeDialogSourceSHA256": "14358dd0746f2306cabc9df3afac12f0a2870ae21bc57d30d802cdef3f49cda6"
+  },
+  "wasm": {
+    "cases": 6,
+    "files": 24,
+    "reopens": 72,
+    "snapshotUndoRedo": 6,
+    "legacySameBytesSVGExact": 12
+  },
+  "chrome": {
+    "cases": 6,
+    "undoRedoPairs": 12,
+    "savedReopens": 24,
+    "readOnlyDeclaredOrAutomaticSize": true,
+    "noOpCancelAndExplicitResize": true,
+    "headedMacChrome": true,
+    "physicalInputVerified": false,
+    "installedAppVerified": false,
+    "OSClipboardAccessed": false,
+    "OSDialogsInvoked": 0,
+    "boundedOuterMarginGetterDifferences": 48,
+    "sourceAndRuntimeVerified": true
+  },
+  "native": {
+    "declaredAndAutomaticSizesPreserved": true,
+    "nativeExplicitResizeUndoRedo": true,
+    "nativeTwoFormatResaves": 336,
+    "queryAndSaveNoMutation": true,
+    "sameByteWasmNativeFiles": 168
+  },
+  "regression": {
+    "transparentWasmCases": 8,
+    "transparentWasmReopens": 240,
+    "transparentNativeFiles": 48,
+    "transparentNativeResaves": 96,
+    "transparentChromeCases": 9,
+    "transparentChromePairs": 54,
+    "transparentChromeReopens": 90,
+    "desktopPass": 36,
+    "desktopFail": 0,
+    "desktopSkip": 1,
+    "desktopTodo": 0,
+    "styleFixtureCases": 16,
+    "styleTwoFormatReopens": 32,
+    "hostSaveGroups": 19
+  },
+  "sameRuntimeClipSetting": {
+    "tableChromeFullSVGExact": 24,
+    "previousTransparentChromeFullSVGExact": 90,
+    "currentTransparentChromeFullSVGExact": 90,
+    "clipEnabled": false,
+    "SVGNormalized": false
+  },
+  "checks": {
+    "typescript": true,
+    "strictClippyLibAndTableExample": true,
+    "diffCheck": true,
+    "portsClosed": [
+      32168,
+      32169
+    ],
+    "dev12SignatureUnchangedValid": true
+  },
+  "preservation": {
+    "backupsVerified": 579,
+    "protectedFiles": 44512,
+    "changed": [],
+    "missing": [],
+    "restoredExistingCacheFiles": 6,
+    "targetBytes": 4691111936,
+    "qaBytes": 496914432,
+    "diskFreeBytes": 19007508480,
+    "elapsedSeconds": 13.06
+  },
+  "budget": {
+    "targetPeakBytes": 4795867136,
+    "targetLimitBytes": 4831838208,
+    "minDiskFreeBytes": 18862546944,
+    "minFreeLimitBytes": 16106127360,
+    "qaPeakBytes": 497061888,
+    "qaLimitBytes": 1073741824
+  },
+  "limitations": [
+    "Existing HWPX outer-margin raw-only getter reports zero while XML retains 283",
+    "No-pattern 0/-1 representation difference retained",
+    "Missing default lib sample fixtures: 3; optional MCP help includes also absent on main",
+    "No latest installed app GUI, OS input/dialog/clipboard, or Linux verification"
+  ],
+  "qaRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/table-size-qa",
+  "productHashesUnchangedSinceRecovery": {
+    "engine/src/document_core/commands/table_ops.rs": true,
+    "rhwp-studio/src/ui/table-cell-props-dialog.ts": true
+  }
+}

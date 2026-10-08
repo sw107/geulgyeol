@@ -2849,18 +2849,20 @@ impl DocumentCore {
 
         let bf_json = self.build_border_fill_json_by_id(table.border_fill_id);
 
-        // raw_ctrl_data에서 표 크기 & 바깥 여백 추출 (parse_common_obj_attr 정합)
+        // HWP retains raw size fields; HWPX has no raw header and stores the
+        // declared size in common. Do not infer sizes from cells: zero may
+        // intentionally represent an unspecified/automatic dimension.
         // [0..4]=flags, [4..8]=v_offset, [8..12]=h_offset, [12..16]=width, [16..20]=height
         let rd = &table.raw_ctrl_data;
         let table_width = if rd.len() >= common_obj_offsets::WIDTH.end {
             u32::from_le_bytes(rd[common_obj_offsets::WIDTH].try_into().unwrap())
         } else {
-            0
+            table.common.width
         };
         let table_height = if rd.len() >= common_obj_offsets::HEIGHT.end {
             u32::from_le_bytes(rd[common_obj_offsets::HEIGHT].try_into().unwrap())
         } else {
-            0
+            table.common.height
         };
         // outer_margin: [24..32] (parse_common_obj_attr 정합)
         // [20..24]=z_order, [24..26]=left, [26..28]=right, [28..30]=top, [30..32]=bottom

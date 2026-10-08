@@ -473,7 +473,7 @@ export class TableCellPropsDialog extends ModalDialog {
     sizeSection.appendChild(sizeRow);
     const sizeNote = document.createElement('div');
     sizeNote.className = 'tcp-note';
-    sizeNote.textContent = '※ 표 크기는 읽기 전용입니다 (셀 크기의 합)';
+    sizeNote.textContent = '※ 표 크기는 읽기 전용입니다. 0은 자동 또는 미지정 크기입니다.';
     sizeSection.appendChild(sizeNote);
     frag.appendChild(sizeSection);
 
@@ -1451,9 +1451,31 @@ export class TableCellPropsDialog extends ModalDialog {
       }
     }
 
+    // Preserve mixed cell borders/fills when the table's own values were not
+    // edited. Border/fill setters require their trigger fields, so prune each
+    // group together rather than dropping individual unchanged fields.
+    const pruneUnchanged = (next: Record<string, unknown>, current: Record<string, unknown>) => {
+      const groups = [
+        ['borderLeft', 'borderRight', 'borderTop', 'borderBottom'],
+        ['fillType', 'fillColor', 'patternColor', 'patternType'],
+      ];
+      const grouped = new Set(groups.flat());
+      const same = (key: string) => JSON.stringify(next[key]) === JSON.stringify(current[key]);
+      for (const keys of groups) {
+        if (keys.every(key => !(key in next) || same(key))) {
+          for (const key of keys) delete next[key];
+        }
+      }
+      for (const key of Object.keys(next)) {
+        if (!grouped.has(key) && same(key)) delete next[key];
+      }
+    };
+    pruneUnchanged(newCellProps, this.cellProps as unknown as Record<string, unknown>);
+    pruneUnchanged(newTableProps, this.tableProps as unknown as Record<string, unknown>);
+    if (!Object.keys(newCellProps).length && !Object.keys(newTableProps).length) return;
     const applyProps = () => {
-      this.wasm.setCellProperties(sec, ppi, ci, this.cellIdx, newCellProps as Partial<CellProperties>);
-      this.wasm.setTableProperties(sec, ppi, ci, newTableProps as Partial<TableProperties>);
+      if (Object.keys(newCellProps).length) this.wasm.setCellProperties(sec, ppi, ci, this.cellIdx, newCellProps as Partial<CellProperties>);
+      if (Object.keys(newTableProps).length) this.wasm.setTableProperties(sec, ppi, ci, newTableProps as Partial<TableProperties>);
     };
     // 표/셀 속성 변경도 undo 대상이다 — 편집 라우터를 통과시켜 스냅샷으로
     // 기록한다 (#1320 계약, picture-props-dialog(#2027)와 동일 패턴).
