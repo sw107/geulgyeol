@@ -1,0 +1,55 @@
+{
+  "baseHead": "bf1f7dbde6ce0cfea3151fb5163e4abfb09a1f3f",
+  "formalHelperSHA256": "20c748c0ed82833defeef806224fd630bd5a2e3c11b1a8d3d2735250abfd507d",
+  "formalScriptPath": "scripts/check-clickhere-preservation.mjs",
+  "currentFieldFreeModelDifferences": [],
+  "counts": {
+    "reopens": 54,
+    "undos": 24,
+    "redos": 24,
+    "rejections": 14,
+    "cellRegressions": 0
+  },
+  "allExistingLossAndOwnerChecksRetained": true,
+  "comparisonFieldsRemoved": [],
+  "newComparisonTolerance": null,
+  "newlyAllowedDifferences": 0,
+  "originalHelperExecuted": true,
+  "strictNegativeFaults": [
+    {
+      "fault": "fill-drift",
+      "exitCode": 1,
+      "rejectedByExactFieldFreeModelAssertion": true
+    },
+    {
+      "fault": "text-loss",
+      "exitCode": 1,
+      "rejectedByExactFieldFreeModelAssertion": true
+    },
+    {
+      "fault": "control-owner-drift",
+      "exitCode": 1,
+      "rejectedByExactFieldFreeModelAssertion": true
+    }
+  ],
+  "integrationSuitePass": 24,
+  "integrationSuiteFail": 0,
+  "desktop": {
+    "pass": 36,
+    "fail": 0,
+    "skip": 1,
+    "todo": 0
+  },
+  "typescript": true,
+  "syntaxAndDiffCheck": true,
+  "productSource": {
+    "comparedProductSourceFiles": 1191,
+    "productChangesSinceVerifiedBf1f7db": [],
+    "candidateWasmSHA256": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
+    "formalHelperSHA256": "20c748c0ed82833defeef806224fd630bd5a2e3c11b1a8d3d2735250abfd507d"
+  },
+  "appsCreated": false,
+  "targetCreated": false,
+  "pushMergeReleasePerformed": false,
+  "qaRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/table-size-qa/merge-final-qa"
+}

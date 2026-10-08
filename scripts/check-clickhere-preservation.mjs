@@ -269,12 +269,12 @@ const make = ()=>{
             });
         };
         diff(initial, normalized, 'model');
-        assert(differences.length > 0);
+        assert.equal(differences.length, 0, 'field-free model/getters must survive the HWPX roundtrip exactly');
         assert(differences.every((x)=>/\.(fillType|patternColor|patternType)$/.test(x.key)));
         fixtureNormalization = {
             fieldCount: initial.fields.length,
             differences,
-            reason: 'Field-free default blank BorderFill metadata differs on HWPX roundtrip; normalize once before field comparisons'
+            reason: 'Field-free model/getters preserved exactly; no normalization differences accepted'
         };
     }
     const wasm = new BridgeProbe(d), history = new CommandHistory(), ih = new HandlerProbe();
