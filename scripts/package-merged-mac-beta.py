@@ -13,6 +13,9 @@ import plistlib
 import shutil
 import struct
 import subprocess
+import sys
+
+sys.dont_write_bytecode = True
 
 
 def sha(data):
