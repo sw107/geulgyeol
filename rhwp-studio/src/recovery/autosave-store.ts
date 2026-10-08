@@ -83,9 +83,10 @@ async function withDb<T>(fn: (db: IDBDatabase) => Promise<T>, fallback: () => Pr
   }
 }
 
-async function trimMemoryDrafts(): Promise<void> {
+async function trimMemoryDrafts(protectedId: string): Promise<void> {
   if (memory.size <= MAX_DRAFTS) return;
   const remove = [...memory.values()]
+    .filter((draft) => draft.id !== protectedId)
     .sort((a, b) => a.savedAt - b.savedAt)
     .slice(0, memory.size - MAX_DRAFTS);
   for (const draft of remove) {
@@ -93,28 +94,38 @@ async function trimMemoryDrafts(): Promise<void> {
   }
 }
 
-async function trimDbDrafts(db: IDBDatabase): Promise<void> {
+async function trimDbDrafts(db: IDBDatabase, protectedId: string): Promise<void> {
   const rows: DraftRow[] = await new Promise((resolve, reject) => {
     const tx = db.transaction(DRAFTS, 'readonly');
+    let snapshot: DraftRow[] = [];
+    tx.oncomplete = () => resolve(snapshot);
+    tx.onerror = () => reject(tx.error);
     tx.onabort = () => reject(tx.error ?? new DOMException('Autosave transaction aborted', 'AbortError'));
     const req = tx.objectStore(DRAFTS).getAll();
-    req.onsuccess = () => resolve((req.result as DraftRow[]) ?? []);
+    req.onsuccess = () => { snapshot = (req.result as DraftRow[]) ?? []; };
     req.onerror = () => reject(req.error);
   });
   if (rows.length <= MAX_DRAFTS) return;
 
   const remove = rows
+    // Clock rollback or future timestamps must not evict the committed ID.
+    .filter((draft) => draft.id !== protectedId)
     .sort((a, b) => a.savedAt - b.savedAt)
     .slice(0, rows.length - MAX_DRAFTS);
-  for (const draft of remove) {
-    await new Promise<void>((resolve, reject) => {
-      const tx = db.transaction(DRAFTS, 'readwrite');
-      tx.objectStore(DRAFTS).delete(draft.id);
-      tx.oncomplete = () => resolve();
-      tx.onerror = () => reject(tx.error);
-      tx.onabort = () => reject(tx.error ?? new DOMException('Autosave transaction aborted', 'AbortError'));
-    });
-  }
+  await new Promise<void>((resolve, reject) => {
+    const tx = db.transaction(DRAFTS, 'readwrite');
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+    tx.onabort = () => reject(tx.error ?? new DOMException('Autosave transaction aborted', 'AbortError'));
+    try {
+      const store = tx.objectStore(DRAFTS);
+      for (const draft of remove) store.delete(draft.id);
+    } catch (error) {
+      // Roll back queued removals too if issuing a later delete fails.
+      try { tx.abort(); } catch { /* Preserve the primary failure. */ }
+      reject(error);
+    }
+  });
 }
 
 export function createAutosaveDraftId(): string {
@@ -138,11 +149,11 @@ export async function saveAutosaveDraft(draft: AutosaveDraft): Promise<void> {
       });
       // The selected recovered ID can be the oldest row. Commit its replacement
       // before pruning, so a failed put cannot remove the only durable copy.
-      await trimDbDrafts(db);
+      await trimDbDrafts(db, normalized.id);
     },
     async () => {
       memory.set(normalized.id, normalized);
-      await trimMemoryDrafts();
+      await trimMemoryDrafts(normalized.id);
     },
   );
 }
