@@ -23,7 +23,7 @@ try{
  const env={...process.env,GEULGYEOL_DEV_PROFILE_ROOT:path.join(out,'profile')};delete env.ELECTRON_RUN_AS_NODE;
  child=spawn(exe,['--remote-debugging-port=0','--remote-debugging-address=127.0.0.1'],{env});let launch='';
  const log=fs.createWriteStream(path.join(out,'launch.log'));for(const stream of [child.stdout,child.stderr])stream.on('data',b=>{launch+=b;log.write(b);});let endpoint;
- for(let n=0;n<100;n++){endpoint=launch.match(/DevTools listening on (ws:\/\/\S+)/)?.[1];if(endpoint)break;assert.equal(child.exitCode,null);await pause(200);}assert(endpoint);browser=await puppeteer.connect({browserWSEndpoint:endpoint});
+ for(let n=0;n<100;n++){endpoint=launch.match(/DevTools listening on (ws:\/\/\S+)/)?.[1];if(endpoint)break;assert.equal(child.exitCode,null);await pause(200);}assert(endpoint);browser=await puppeteer.connect({browserWSEndpoint:endpoint,defaultViewport:null});
  for(let n=0;n<100;n++){page=(await browser.pages()).find(p=>/^http:\/\/127\.0\.0\.1:\d+\/$/.test(p.url()));if(page)break;await pause(200);}assert(page);page.on('pageerror',e=>errors.push(String(e)));
  for(let n=0;n<150;n++){frame=page.frames().find(f=>f.url().includes('/studio/'));if(frame&&await frame.evaluate(()=>Boolean(window.__inputHandler?.active)).catch(()=>false))break;await pause(200);}assert(frame);await frame.waitForFunction(()=>window.__inputHandler?.active);
  if(await frame.$('.dialog-close'))await frame.click('.dialog-close');

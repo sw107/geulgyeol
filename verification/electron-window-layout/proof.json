@@ -1,0 +1,610 @@
+{
+  "baseProductSHA": "5179b34689060c8c814ce23708f7b06db7a43987",
+  "actualElectron": true,
+  "sourceScope": "Electron verification connections and window-size regression only; engine/UI/host unchanged",
+  "baseline": {
+    "native": {
+      "kind": "native-resize",
+      "at": 1791453435227,
+      "plan": "baseline",
+      "requested": [
+        1280,
+        860
+      ],
+      "contentSize": [
+        1280,
+        860
+      ],
+      "bounds": {
+        "x": 320,
+        "y": 192,
+        "width": 1280,
+        "height": 892
+      }
+    },
+    "metrics": {
+      "inner": [
+        800,
+        600
+      ],
+      "screen": [
+        1920,
+        1243
+      ],
+      "dpr": 1,
+      "body": {
+        "x": 0,
+        "y": 0,
+        "width": 800,
+        "height": 600,
+        "right": 800,
+        "bottom": 600
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 800,
+        "height": 76,
+        "right": 800,
+        "bottom": 76
+      },
+      "main": {
+        "x": 0,
+        "y": 107,
+        "width": 800,
+        "height": 493,
+        "right": 800,
+        "bottom": 600
+      },
+      "iframe": {
+        "x": 0,
+        "y": 107,
+        "width": 800,
+        "height": 493,
+        "right": 800,
+        "bottom": 600
+      },
+      "nav": {
+        "x": 354.46875,
+        "y": 20.25,
+        "width": 433.53125,
+        "height": 34.5,
+        "right": 788,
+        "bottom": 54.75
+      },
+      "scrollWidth": 800,
+      "scrollHeight": 600
+    }
+  },
+  "resizeCases": [
+    {
+      "native": {
+        "kind": "native-resize",
+        "at": 1791453435531,
+        "plan": "native-900x620-0",
+        "requested": [
+          900,
+          620
+        ],
+        "contentSize": [
+          900,
+          620
+        ],
+        "bounds": {
+          "x": 320,
+          "y": 192,
+          "width": 900,
+          "height": 652
+        }
+      },
+      "metrics": {
+        "inner": [
+          900,
+          620
+        ],
+        "screen": [
+          1920,
+          1243
+        ],
+        "dpr": 2,
+        "body": {
+          "x": 0,
+          "y": 0,
+          "width": 900,
+          "height": 620,
+          "right": 900,
+          "bottom": 620
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 900,
+          "height": 76,
+          "right": 900,
+          "bottom": 76
+        },
+        "main": {
+          "x": 0,
+          "y": 107,
+          "width": 900,
+          "height": 513,
+          "right": 900,
+          "bottom": 620
+        },
+        "iframe": {
+          "x": 0,
+          "y": 107,
+          "width": 900,
+          "height": 513,
+          "right": 900,
+          "bottom": 620
+        },
+        "nav": {
+          "x": 454.46875,
+          "y": 20.25,
+          "width": 433.53125,
+          "height": 34.5,
+          "right": 888,
+          "bottom": 54.75
+        },
+        "scrollWidth": 900,
+        "scrollHeight": 620
+      },
+      "documentUnchanged": true,
+      "zoom": "96%",
+      "scroll": {
+        "tested": true,
+        "after": 50,
+        "clientHeight": 351,
+        "scrollHeight": 1094
+      }
+    },
+    {
+      "native": {
+        "kind": "native-resize",
+        "at": 1791453435836,
+        "plan": "native-1024x720-1",
+        "requested": [
+          1024,
+          720
+        ],
+        "contentSize": [
+          1024,
+          720
+        ],
+        "bounds": {
+          "x": 320,
+          "y": 192,
+          "width": 1024,
+          "height": 752
+        }
+      },
+      "metrics": {
+        "inner": [
+          1024,
+          720
+        ],
+        "screen": [
+          1920,
+          1243
+        ],
+        "dpr": 2,
+        "body": {
+          "x": 0,
+          "y": 0,
+          "width": 1024,
+          "height": 720,
+          "right": 1024,
+          "bottom": 720
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 1024,
+          "height": 76,
+          "right": 1024,
+          "bottom": 76
+        },
+        "main": {
+          "x": 0,
+          "y": 107,
+          "width": 1024,
+          "height": 613,
+          "right": 1024,
+          "bottom": 720
+        },
+        "iframe": {
+          "x": 0,
+          "y": 107,
+          "width": 1024,
+          "height": 613,
+          "right": 1024,
+          "bottom": 720
+        },
+        "nav": {
+          "x": 578.46875,
+          "y": 20.25,
+          "width": 433.53125,
+          "height": 34.5,
+          "right": 1012,
+          "bottom": 54.75
+        },
+        "scrollWidth": 1024,
+        "scrollHeight": 720
+      },
+      "documentUnchanged": true,
+      "zoom": "96%",
+      "scroll": {
+        "tested": true,
+        "after": 50,
+        "clientHeight": 451,
+        "scrollHeight": 1094
+      }
+    },
+    {
+      "native": {
+        "kind": "native-resize",
+        "at": 1791453436142,
+        "plan": "native-1280x860-2",
+        "requested": [
+          1280,
+          860
+        ],
+        "contentSize": [
+          1280,
+          860
+        ],
+        "bounds": {
+          "x": 320,
+          "y": 192,
+          "width": 1280,
+          "height": 892
+        }
+      },
+      "metrics": {
+        "inner": [
+          1280,
+          860
+        ],
+        "screen": [
+          1920,
+          1243
+        ],
+        "dpr": 2,
+        "body": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 860,
+          "right": 1280,
+          "bottom": 860
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 76,
+          "right": 1280,
+          "bottom": 76
+        },
+        "main": {
+          "x": 0,
+          "y": 107,
+          "width": 1280,
+          "height": 753,
+          "right": 1280,
+          "bottom": 860
+        },
+        "iframe": {
+          "x": 0,
+          "y": 107,
+          "width": 1280,
+          "height": 753,
+          "right": 1280,
+          "bottom": 860
+        },
+        "nav": {
+          "x": 764.46875,
+          "y": 19.25,
+          "width": 491.53125,
+          "height": 36.5,
+          "right": 1256,
+          "bottom": 55.75
+        },
+        "scrollWidth": 1280,
+        "scrollHeight": 860
+      },
+      "documentUnchanged": true,
+      "zoom": "96%",
+      "scroll": {
+        "tested": true,
+        "after": 50,
+        "clientHeight": 591,
+        "scrollHeight": 1094
+      }
+    },
+    {
+      "native": {
+        "kind": "native-resize",
+        "at": 1791453436447,
+        "plan": "native-1440x900-3",
+        "requested": [
+          1440,
+          900
+        ],
+        "contentSize": [
+          1440,
+          900
+        ],
+        "bounds": {
+          "x": 320,
+          "y": 192,
+          "width": 1440,
+          "height": 932
+        }
+      },
+      "metrics": {
+        "inner": [
+          1440,
+          900
+        ],
+        "screen": [
+          1920,
+          1243
+        ],
+        "dpr": 2,
+        "body": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "right": 1440,
+          "bottom": 900
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 76,
+          "right": 1440,
+          "bottom": 76
+        },
+        "main": {
+          "x": 0,
+          "y": 107,
+          "width": 1440,
+          "height": 793,
+          "right": 1440,
+          "bottom": 900
+        },
+        "iframe": {
+          "x": 0,
+          "y": 107,
+          "width": 1440,
+          "height": 793,
+          "right": 1440,
+          "bottom": 900
+        },
+        "nav": {
+          "x": 924.46875,
+          "y": 19.25,
+          "width": 491.53125,
+          "height": 36.5,
+          "right": 1416,
+          "bottom": 55.75
+        },
+        "scrollWidth": 1440,
+        "scrollHeight": 900
+      },
+      "documentUnchanged": true,
+      "zoom": "96%",
+      "scroll": {
+        "tested": true,
+        "after": 50,
+        "clientHeight": 631,
+        "scrollHeight": 1094
+      }
+    },
+    {
+      "native": {
+        "kind": "native-resize",
+        "at": 1791453436750,
+        "plan": "native-900x620-4",
+        "requested": [
+          900,
+          620
+        ],
+        "contentSize": [
+          900,
+          620
+        ],
+        "bounds": {
+          "x": 320,
+          "y": 192,
+          "width": 900,
+          "height": 652
+        }
+      },
+      "metrics": {
+        "inner": [
+          900,
+          620
+        ],
+        "screen": [
+          1920,
+          1243
+        ],
+        "dpr": 2,
+        "body": {
+          "x": 0,
+          "y": 0,
+          "width": 900,
+          "height": 620,
+          "right": 900,
+          "bottom": 620
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 900,
+          "height": 76,
+          "right": 900,
+          "bottom": 76
+        },
+        "main": {
+          "x": 0,
+          "y": 107,
+          "width": 900,
+          "height": 513,
+          "right": 900,
+          "bottom": 620
+        },
+        "iframe": {
+          "x": 0,
+          "y": 107,
+          "width": 900,
+          "height": 513,
+          "right": 900,
+          "bottom": 620
+        },
+        "nav": {
+          "x": 454.46875,
+          "y": 20.25,
+          "width": 433.53125,
+          "height": 34.5,
+          "right": 888,
+          "bottom": 54.75
+        },
+        "scrollWidth": 900,
+        "scrollHeight": 620
+      },
+      "documentUnchanged": true,
+      "zoom": "96%",
+      "scroll": {
+        "tested": true,
+        "after": 50,
+        "clientHeight": 351,
+        "scrollHeight": 1094
+      }
+    },
+    {
+      "native": {
+        "kind": "native-resize",
+        "at": 1791453437056,
+        "plan": "native-1280x860-5",
+        "requested": [
+          1280,
+          860
+        ],
+        "contentSize": [
+          1280,
+          860
+        ],
+        "bounds": {
+          "x": 320,
+          "y": 192,
+          "width": 1280,
+          "height": 892
+        }
+      },
+      "metrics": {
+        "inner": [
+          1280,
+          860
+        ],
+        "screen": [
+          1920,
+          1243
+        ],
+        "dpr": 2,
+        "body": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 860,
+          "right": 1280,
+          "bottom": 860
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 76,
+          "right": 1280,
+          "bottom": 76
+        },
+        "main": {
+          "x": 0,
+          "y": 107,
+          "width": 1280,
+          "height": 753,
+          "right": 1280,
+          "bottom": 860
+        },
+        "iframe": {
+          "x": 0,
+          "y": 107,
+          "width": 1280,
+          "height": 753,
+          "right": 1280,
+          "bottom": 860
+        },
+        "nav": {
+          "x": 764.46875,
+          "y": 19.25,
+          "width": 491.53125,
+          "height": 36.5,
+          "right": 1256,
+          "bottom": 55.75
+        },
+        "scrollWidth": 1280,
+        "scrollHeight": 860
+      },
+      "documentUnchanged": true,
+      "zoom": "96%",
+      "scroll": {
+        "tested": true,
+        "after": 50,
+        "clientHeight": 591,
+        "scrollHeight": 1094
+      }
+    }
+  ],
+  "rendererErrors": [],
+  "layoutNormalQuit": true,
+  "saveVerification": {
+    "caseCount": 28,
+    "saveCases": 17,
+    "actualElectronReopens": 11,
+    "auxiliaryWasmReopens": 22,
+    "savedFiles": 11,
+    "errors": [],
+    "dialogResultsControlled": true,
+    "hostButtonsViaDOM": true,
+    "editDuringSaveViaAppPlugin": true,
+    "normalQuit": true
+  },
+  "loadedWasmSHA256": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
+  "originalAttachmentLocallyReadable": false,
+  "attachmentClockMatchesQAWindow": true,
+  "nativeChooserVerified": false,
+  "physicalIMEVerified": false,
+  "clipboardAccessed": false,
+  "latestPackagedAppVerified": false,
+  "publicPushMergeReleasePerformed": false,
+  "runtimeFiles": {
+    "main.cjs": "40f93f1a8320d24d9cf1eb983169849571dfe83b6d7e17fca7817c4e7fa79058",
+    "preload.cjs": "dbba4b8fe29573a8caf256adcaa2bdf868ef0368d679839a682be6ce8216748d",
+    "storage.cjs": "d212624214bbae40863f09159ff17a1db6ade8c051785ec4a7c4060400edebab",
+    "server.cjs": "3edd1d5c0d245d1e9c9eb503befd5f1a173c7d02269f90b8290d9d5d643d7791",
+    "close-controller.cjs": "420c4b38b89bebed71471c957010de236d701944b5e9b983becdb0eb58a4d0fc",
+    "document-shortcuts.cjs": "9b9b24841bf1a8872bcf35c77963a1f422de8f646efd9bc94afd101955026575",
+    "package.json": "18c56cea1692a3be15217280492ee90ad740018a8228279a2ce26259711c96cd",
+    "web/index.html": "97f58ab55d0fcbe4655b5a9f004506081b657e165f2be6a1a829bc45fb7d1e82",
+    "web/baram.js": "d86c38472cd5dbabc8042e1ab1d8fc66eae383f7069389f88bbb85c3b6c38df5",
+    "web/baram.css": "87e1523c1bf6d47132405f75fb731f776a6d4062559e698b447d7cdff5d9d3cd",
+    "web/edit-history.js": "7f024e8aa4c3e557451fbfbf2bba0e3b4c47871dd11d3013f532b94c0ae4cfbe"
+  },
+  "qaRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/electron-host-save-qa",
+  "atUTC": "2026-10-08T10:11:23.974006+00:00"
+}
