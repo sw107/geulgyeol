@@ -300,7 +300,7 @@ function appendBorder(
   form: PicturePropsApplyForm['line'],
 ): void {
   if (form.color !== undefined) addChanged(patch, 'borderColor', hexToColorRef(form.color), props.borderColor ?? 0);
-  if (form.width !== undefined) addChanged(patch, 'borderWidth', mmToHwp(form.width), props.borderWidth ?? 0);
+  addChangedMm(patch, 'borderWidth', form.width, props.borderWidth ?? 0);
 }
 
 function appendShapeLine(
