@@ -43,14 +43,15 @@ try{
   add('cold restart uses the same origin and presents the persisted draft in the actual recovery dialog',{origin:reopenedOrigin});
   await frame.evaluate(()=>document.querySelector('.recovery-dialog .dialog-btn-primary').click());await ready();
   const restored=await bytes();assert.match(text(restored),/재실행 복구 한글/);assert(await frame.evaluate(()=>window.baramHost.state().dirty));
-  assert(!(await drafts()).some(row=>row.id===recovery.id));
-  add('restore action loads the draft, leaves it dirty and completes startup without replacing it with blank');
+  assert((await drafts()).some(row=>row.id===recovery.id&&sha(Buffer.from(row.data))===sha(Buffer.from(recovery.data))));
+  add('restore action loads the draft, leaves it dirty and preserves its durable copy until save');
   await frame.evaluate(()=>window.rhwpStudio.plugins.load('hwpctrl'));
   await frame.evaluate(()=>window.rhwpStudio.plugins.invoke('hwpctrl','invoke',['SetTextFile',[' 복구 뒤 추가 편집🙂','TEXT','insertfile']]));
   const expected=text(await bytes());
   control({id:'save-recovered',file:'recovered.hwpx'});await page.evaluate(()=>document.querySelector('#save').click());
   await until(async()=>!(await frame.evaluate(()=>window.baramHost.state().dirty)),'successful recovered save');
   assert.equal(text(fs.readFileSync(path.join(q,'files/recovered.hwpx'))),expected);
+  await until(async()=>!(await drafts()).some(row=>row.id===recovery.id),'recovered draft cleanup after real save');
   await quit({id:'quit-clean',quit:true});
   add('restored and further edited document saves through real IPC and quits normally');
   assert.equal(await attach('reopen-saved'),originalOrigin);await ready();

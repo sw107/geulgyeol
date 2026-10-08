@@ -129,7 +129,6 @@ export async function saveAutosaveDraft(draft: AutosaveDraft): Promise<void> {
 
   await withDb(
     async (db) => {
-      await trimDbDrafts(db);
       await new Promise<void>((resolve, reject) => {
         const tx = db.transaction(DRAFTS, 'readwrite');
         tx.objectStore(DRAFTS).put(draftToRow(normalized));
@@ -137,6 +136,9 @@ export async function saveAutosaveDraft(draft: AutosaveDraft): Promise<void> {
         tx.onerror = () => reject(tx.error);
       tx.onabort = () => reject(tx.error ?? new DOMException('Autosave transaction aborted', 'AbortError'));
       });
+      // The selected recovered ID can be the oldest row. Commit its replacement
+      // before pruning, so a failed put cannot remove the only durable copy.
+      await trimDbDrafts(db);
     },
     async () => {
       memory.set(normalized.id, normalized);

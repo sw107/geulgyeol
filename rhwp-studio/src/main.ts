@@ -70,7 +70,7 @@ import {
 } from '@/core/local-fonts';
 import { userSettings } from '@/core/user-settings';
 import { AutosaveManager, type AutosaveScheduleSettings, type AutosaveStatus } from '@/recovery/autosave-manager';
-import { clearAutosaveDrafts, deleteAutosaveDraft, listAutosaveDrafts, type AutosaveDraft } from '@/recovery/autosave-store';
+import { clearAutosaveDrafts, listAutosaveDrafts, type AutosaveDraft } from '@/recovery/autosave-store';
 import { recoveryFileName } from '@/recovery/recovery-format';
 import { showAutosaveRecoveryDialog } from '@/recovery/recovery-ui';
 import { CellSelectionRenderer } from '@/engine/cell-selection-renderer';
@@ -1772,8 +1772,12 @@ async function offerAutosaveRecoveryIfIdle(): Promise<void> {
     const choice = await showAutosaveRecoveryDialog(drafts);
     if (choice.action === 'later') return;
     if (choice.action === 'delete-all') {
-      await clearAutosaveDrafts();
-      showToast({ message: '복구 후보를 삭제했습니다.', durationMs: 2200 });
+      try {
+        await clearAutosaveDrafts();
+        showToast({ message: '복구 후보를 삭제했습니다.', durationMs: 2200 });
+      } catch (error) {
+        showToast({ message: `복구 후보를 삭제하지 못했습니다.\n${String(error)}`, durationMs: 0, confirmLabel: '확인' });
+      }
       return;
     }
 
@@ -1792,8 +1796,17 @@ async function offerAutosaveRecoveryIfIdle(): Promise<void> {
 async function restoreAutosaveDraft(draft: AutosaveDraft): Promise<void> {
   const fileName = recoveryFileName(draft.fileName);
   await loadBytes(new Uint8Array(draft.data), fileName, null, performance.now(), { skipRecent: true });
-  await deleteAutosaveDraft(draft.id);
+  // Loading succeeded: do not depend on recovery cleanup to mark it unsaved.
   documentState.markDirty('autosave-recovered');
+  // Adopt the durable draft instead of deleting it and waiting for the next
+  // idle save. A successful atomic put replaces this same ID; a real save or
+  // an explicitly approved discard removes it through the normal lifecycle.
+  await autosaveManager.beginDocument({
+    draftId: draft.id,
+    fileName: wasm.fileName,
+    sourceFormat: wasm.getSourceFormat(),
+  });
+  autosaveManager.schedule('autosave-recovered');
   showToast({
     message: `"${fileName}" 복구본을 열었습니다.\n원본 파일은 자동으로 덮어쓰지 않습니다.`,
     durationMs: 5000,
