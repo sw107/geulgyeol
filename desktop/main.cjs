@@ -1,7 +1,7 @@
 const {app,BrowserWindow,dialog,ipcMain,Menu,session}=require('electron');
 const path=require('node:path');
 const fs=require('node:fs/promises');
-app.setPath('userData',path.join(process.env.GEULGYEOL_PROFILE_ROOT||app.getPath('appData'),'GeulgyeolBeta2'));
+app.setPath('userData',path.join(process.env?.GEULGYEOL_PROFILE_ROOT||app.getPath('appData'),'GeulgyeolBeta2'));
 const {startServer}=require('./server.cjs');
 const {validateDocumentBytes,atomicWrite,MAX_BYTES}=require('./storage.cjs');
 const {installCloseController}=require('./close-controller.cjs');

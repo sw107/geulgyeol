@@ -54,7 +54,9 @@ def rename_runtime(app, old_executable, new_executable, bundle_id):
         name = helper.stem.replace(old_executable, new_executable, 1)
         path = helper / "Contents/Info.plist"
         info = plistlib.loads(path.read_bytes())
-        old_helper_exe = info["CFBundleExecutable"]
+        # Official Electron helpers omit CFBundleExecutable; their filename
+        # agrees with CFBundleName. Previously packaged helpers specify both.
+        old_helper_exe = info.get("CFBundleExecutable", info["CFBundleName"])
         new_helper_exe = old_helper_exe.replace(old_executable, new_executable, 1)
         helper_exe = helper / "Contents/MacOS" / old_helper_exe
         helper_exe.rename(helper_exe.with_name(new_helper_exe))
