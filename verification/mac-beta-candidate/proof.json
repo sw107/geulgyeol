@@ -1,0 +1,160 @@
+{
+  "version": "0.4.4-beta.2",
+  "mergedBaseCommit": "35fdcd0b6c0f9c648c534da8300eacb2494d9623",
+  "packagedSourceCommit": "ef82f168bf2637f8b5682617436d9e6914dfa183",
+  "app": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa/GeulgyeolBeta2.app",
+  "zip": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa/Geulgyeol-0.4.4-beta.2-mac-arm64.zip",
+  "architecture": "darwin-arm64",
+  "bundleId": "org.geulgyeol.beta.0442",
+  "profileName": "GeulgyeolBeta2",
+  "asarSHA256": "e5818ffe34b92779ec788388a5faa3146f68dfc1e57ac174ebe5dbf3255e2e25",
+  "asarHeaderSHA256": "a1f300565cf2eedd3bad54ee361c7b1a1f649e3f0ab94ce07643476c1e90aa95",
+  "engineSHA256": {
+    "web/studio/assets/rhwp_bg-BQCeZs0j.wasm": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
+    "web/studio/rhwp_bg.wasm": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45"
+  },
+  "zipSHA256": "fa2989926cb4850ca7d1fd76ebf13b2b27c253c266417cb6c1126fedcfe6dc9c",
+  "zipBytes": 154411022,
+  "bundleTreeSHA256": "0aef4307b80acbf1cd947470f12700e81fdde01420d6ce8ab546bbb940072216",
+  "bundleFileBytes": 350960544,
+  "bundleFiles": 279,
+  "asarFiles": 80,
+  "allASAREntryAndBlockHashesValid": true,
+  "allBundledSourcesMatchCurrentSourceAndVerifiedAssets": true,
+  "zipFilesAndModesMatchSignedBundle": true,
+  "strictDeepSignatureVerified": true,
+  "signatureType": "ad-hoc",
+  "developerIDSigned": false,
+  "notarized": false,
+  "actualPackagedAppChecks": {
+    "documentLifecycle": 29,
+    "recoveryRestart": 6,
+    "finalAcknowledgement": {
+      "final-ack-cancel": 3,
+      "final-ack-file-read": 2,
+      "final-ack-image-decode": 2,
+      "final-ack-pending-render": 2,
+      "final-ack-public": 2
+    },
+    "total": 46
+  },
+  "normalApplicationExitCodes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "OSChooserVerified": false,
+  "physicalIMEVerified": false,
+  "clipboardAccessed": false,
+  "controls": "Node inspector injects native-response adapters before packaged main; public plugin edits and CDP DOM clicks; app ASAR remains unchanged.",
+  "linuxPreparation": {
+    "runtimeCaches": {
+      "electron-v44.3.0-linux-x64.zip": {
+        "sha256": "8b49b9efdd73c0f467edc3c1cd5678392c384ccf224f34ff54179f736e2f384b",
+        "ELFMachine": 62,
+        "readOnlyCacheInspection": true
+      },
+      "electron-v44.3.0-linux-arm64.zip": {
+        "sha256": "c11fde221c08e9bffdb3336579f09bd934a009862f509af5033616876741be24",
+        "ELFMachine": 183,
+        "readOnlyCacheInspection": true
+      }
+    },
+    "sharedASARReady": true,
+    "runtimeExecutedOnLinux": false,
+    "linuxCandidateCreated": false,
+    "engineRebuilt": false
+  },
+  "knownLimits": [
+    "OS chooser and physical Korean IME remain manual checks.",
+    "Ad-hoc signing only; no Developer ID or notarization.",
+    "No migration of recovery drafts from earlier BetaNext profiles or ephemeral origins.",
+    "If a persisted local port is occupied, startup refuses rather than hiding drafts under a new origin."
+  ],
+  "actualMacRendererVerified": true,
+  "manualGUIVerified": false,
+  "lifecycleBeforeSharedRunnerRefactor": {
+    "normalQuit": true,
+    "exitCode": 0
+  },
+  "ordinaryLaunch": {
+    "actualPackagedApp": true,
+    "mainInspectorUsed": false,
+    "nativeResponseAdapter": false,
+    "rendererCDPReadOnly": true,
+    "version": "0.4.4-beta.2",
+    "profileRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa/ordinary-profile",
+    "engineSHA256": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
+    "normalQuitMethod": "AppleScript application quit",
+    "exitCode": 0,
+    "OSChooserVerified": false,
+    "physicalIMEVerified": false
+  },
+  "sourceChecks": {
+    "desktopTests": {
+      "tests": 47,
+      "pass": 46,
+      "skip": 1,
+      "fail": 0,
+      "engineDir": "../table-size-qa/pkg"
+    },
+    "currentEngineTypeScript": true,
+    "productionUIBuild": {
+      "reused": 13,
+      "written": 3,
+      "writtenBytes": 2134076,
+      "out": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa/ui-current-recovery"
+    },
+    "gitDiffCheck": true
+  },
+  "preservation": {
+    "originals": {
+      "count": 73368,
+      "changed": [],
+      "missing": []
+    },
+    "previousQA": {
+      "count": 6548,
+      "changed": [],
+      "missing": []
+    },
+    "originalCache": {
+      "count": 579,
+      "changedOrMissing": []
+    },
+    "targetBytes": 4690055168,
+    "targetLimitBytes": 4831838208,
+    "newPackagingQAFolderBytes": 977457152,
+    "newPackagingQALimitBytes": 2147483648,
+    "freeBytes": 41742278656,
+    "minimumFreeBytes": 16106127360,
+    "ownedPortsChecked": 34,
+    "openOwnedPorts": [],
+    "ownedQAProcesses": [],
+    "oldCandidatesPreserved": true,
+    "publicReleaseCreated": false,
+    "publicTagCreated": false,
+    "seconds": 16.87,
+    "protectedFilesPermanentlyDeleted": false
+  },
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa",
+  "evidence": {
+    "lifecycle": "lifecycle-final/proof.json",
+    "finalAck": "final-ack-{public,file-read,image-decode,cancel,pending-render}/proof.json",
+    "recovery": "recovery/proof.json",
+    "ordinaryLaunch": "ordinary-launch-proof.json",
+    "bundleFiles": "bundle-files.json",
+    "packageProvenance": "package-proof-recovery.json",
+    "signing": "signature-final.log",
+    "preservation": "preservation-final.json",
+    "desktopTests": "desktop-tests-recovery.log",
+    "typescript": "typescript.log"
+  }
+}

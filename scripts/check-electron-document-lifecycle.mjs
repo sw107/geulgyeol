@@ -5,6 +5,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
+import {launchPackaged} from './packaged-electron-qa.mjs';
+const packaged=process.env.GEULGYEOL_QA_PACKAGED_APP;
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 const root=path.resolve(import.meta.dirname,'..'),q=path.resolve(process.argv[2]);
@@ -37,12 +39,15 @@ async function preserve(label,plan,action){
 }
 async function waitPlanPrompt(id){await until(()=>audit().some(e=>e.kind==='close-confirmation'&&e.plan===id),'confirmation '+id);}
 try{
- for(const rel of ['main.cjs','preload.cjs','close-controller.cjs','web/baram.js'])assert.deepEqual(fs.readFileSync(path.join(q,'runtime',rel)),fs.readFileSync(path.join(root,'desktop',rel)));
- control({id:'start',canceled:true});const env={...process.env,GEULGYEOL_ELECTRON_MODULE:'electron',GEULGYEOL_QA_DIR:q};delete env.ELECTRON_RUN_AS_NODE;
+ if(!packaged)for(const rel of ['main.cjs','preload.cjs','close-controller.cjs','web/baram.js'])assert.deepEqual(fs.readFileSync(path.join(q,'runtime',rel)),fs.readFileSync(path.join(root,'desktop',rel)));
+ control({id:'start',canceled:true});let endpoint;
+ if(packaged){const launch=await launchPackaged(path.resolve(packaged),q);p=launch.p;endpoint=launch.endpoint;}else{
+ const env={...process.env,GEULGYEOL_ELECTRON_MODULE:'electron',GEULGYEOL_QA_DIR:q};delete env.ELECTRON_RUN_AS_NODE;
  p=spawn(path.join(root,'desktop/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron'),[path.join(q,'bootstrap.cjs'),'--remote-debugging-port=0','--remote-debugging-address=127.0.0.1'],{env});
- let output='',endpoint;const log=fs.createWriteStream(path.join(q,'launch.log'));
+ let output='';const log=fs.createWriteStream(path.join(q,'launch.log'));
  for(const stream of [p.stdout,p.stderr])stream.on('data',d=>{output+=d;log.write(d);});
  await until(()=>{endpoint=output.match(/DevTools listening on (ws:\/\/\S+)/)?.[1];if(p.exitCode!==null)throw Error('app exit '+p.exitCode);return endpoint;},'endpoint');
+ }
  b=await puppeteer.connect({browserWSEndpoint:endpoint,defaultViewport:null,protocolTimeout:30000});
  await until(async()=>{page=(await b.pages()).find(p=>/^http:\/\/127\.0\.0\.1:\d+\/$/.test(p.url()));return page;},'app window');
  page.on('pageerror',e=>pageErrors.push(String(e)));
@@ -176,7 +181,7 @@ try{
  if(p.exitCode===null){const current=await state().catch(()=>null);if(current)assert.equal(current.errorOpen,false,JSON.stringify(current));}
  await until(()=>p.exitCode!==null,'save before close');normalQuit=p.exitCode===0;assert(normalQuit);assert.equal(text(fs.readFileSync(path.join(q,'files/before-close.hwpx'))),closingText);add('save before close persists all edits then normal quit');
  assert.deepEqual(pageErrors,[]);
- write('proof.json',{actualElectron:true,defaultViewport:null,controlledNativeResponses:true,OSChooserVerified:false,programmaticPublicPluginEdits:true,physicalIMEVerified:false,clipboardAccessed:false,rows,pageErrors,engineSHA256:sha(fs.readFileSync(path.join(engine,'rhwp_bg.wasm')))});
+ write('proof.json',{actualElectron:true,actualPackagedApp:Boolean(packaged),executable:packaged,defaultViewport:null,controlledNativeResponses:true,OSChooserVerified:false,programmaticPublicPluginEdits:true,physicalIMEVerified:false,clipboardAccessed:false,rows,pageErrors,engineSHA256:sha(fs.readFileSync(path.join(engine,'rhwp_bg.wasm')))});
 }catch(e){failure=String(e);write('failure.json',{failure,stack:e.stack,rows,pageErrors,state:page&&p?.exitCode===null?await state().catch(e=>String(e)):null});console.error(e);process.exitCode=1;}
 finally{
  if(p&&p.exitCode===null){for(const gate of ['release-save','release-prompt','release-open','release-close-save','release-epoch'])if(!fs.existsSync(path.join(q,gate)))fs.writeFileSync(path.join(q,gate),'finally release');control({id:'quit',quit:true,choice:'discard'});try{await until(()=>p.exitCode!==null,'normal close');normalQuit=p.exitCode===0;}catch(e){failure=failure||String(e);}}
