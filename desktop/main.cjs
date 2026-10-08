@@ -1,7 +1,7 @@
 const {app,BrowserWindow,dialog,ipcMain,Menu,session}=require('electron');
 const path=require('node:path');
 const fs=require('node:fs/promises');
-app.setPath('userData',path.join(app.getPath('appData'),'GeulgyeolBetaNext'));
+app.setPath('userData',path.join(process.env.GEULGYEOL_PROFILE_ROOT||app.getPath('appData'),'GeulgyeolBeta2'));
 const {startServer}=require('./server.cjs');
 const {validateDocumentBytes,atomicWrite,MAX_BYTES}=require('./storage.cjs');
 const {installCloseController}=require('./close-controller.cjs');
@@ -24,7 +24,7 @@ app.whenReady().then(async()=>{
   };
   session.defaultSession.setPermissionRequestHandler((wc,permission,callback,details)=>callback(allowFonts(wc,permission,details.requestingUrl)));
   session.defaultSession.setPermissionCheckHandler((wc,permission,requestingOrigin)=>allowFonts(wc,permission,requestingOrigin));
-  win=new BrowserWindow({width:1280,height:860,minWidth:900,minHeight:620,title:'글결 베타 0.4.4-beta.1',show:false,
+  win=new BrowserWindow({width:1280,height:860,minWidth:900,minHeight:620,title:'글결 베타 0.4.4-beta.2',show:false,
     webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
   installDocumentShortcuts(win.webContents,action);
   win.webContents.setWindowOpenHandler(()=>({action:'deny'}));
