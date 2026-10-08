@@ -1,0 +1,860 @@
+{
+  "version": "0.4.4-beta.2",
+  "mergedBaseCommit": "35fdcd0b6c0f9c648c534da8300eacb2494d9623",
+  "packagedSourceCommit": "af87bf3764b0e524f459425e161ed154017fc5b3",
+  "app": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa/GeulgyeolBeta2.app",
+  "zip": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa/Geulgyeol-0.4.4-beta.2-mac-arm64.zip",
+  "architecture": "darwin-arm64",
+  "bundleId": "org.geulgyeol.beta.0442",
+  "profileName": "GeulgyeolBeta2",
+  "asarSHA256": "2ab3e7ca8ce041f593b2d5687cd4e7ffe7331c9607ca0295ccf95fd59491f3b4",
+  "asarHeaderSHA256": "8d8e5dbde058ca7ca11bdb83578267c73e7bc53e2755e920d4cd30f42550fc55",
+  "engineSHA256": {
+    "web/studio/assets/rhwp_bg-BQCeZs0j.wasm": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
+    "web/studio/rhwp_bg.wasm": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45"
+  },
+  "zipSHA256": "ea2a23eedf1fc1149ba70cc664046634714b598e051802261c163553056af0b4",
+  "zipBytes": 154411069,
+  "bundleTreeSHA256": "b20a052c48e64b6c9a8ea825e7a033fa0d0152ec4d2fc421ba000f01670824ca",
+  "bundleFileBytes": 350960932,
+  "bundleFiles": 279,
+  "asarFiles": 80,
+  "allASAREntryAndBlockHashesValid": true,
+  "allBundledSourcesMatchCurrentSourceAndVerifiedAssets": true,
+  "zipFilesAndModesMatchSignedBundle": true,
+  "strictDeepSignatureVerified": true,
+  "signatureType": "ad-hoc",
+  "developerIDSigned": false,
+  "notarized": false,
+  "actualPackagedAppChecks": {
+    "documentLifecycle": 29,
+    "recoveryRestart": 6,
+    "finalAcknowledgement": {
+      "ack-cancel": 3,
+      "ack-file-read": 2,
+      "ack-image-decode": 2,
+      "ack-pending-render": 2,
+      "ack-public": 2
+    },
+    "total": 81,
+    "recoverySafety": 20,
+    "pruningSafety": 15
+  },
+  "normalApplicationExitCodes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "OSChooserVerified": false,
+  "physicalIMEVerified": false,
+  "clipboardAccessed": false,
+  "controls": "Scenario tests inject native-response adapters before packaged main, use public plugin edits and CDP DOM clicks, and control renderer crashes and IndexedDB faults. Ordinary startup has no main inspector or native-response adapter, uses read-only renderer CDP, and quits only the owned live PID via NSRunningApplication.terminate. App ASAR remains unchanged during all tests.",
+  "linuxPreparation": {
+    "runtimeCaches": {
+      "electron-v44.3.0-linux-x64.zip": {
+        "sha256": "8b49b9efdd73c0f467edc3c1cd5678392c384ccf224f34ff54179f736e2f384b",
+        "ELFMachine": 62,
+        "readOnlyCacheInspection": true
+      },
+      "electron-v44.3.0-linux-arm64.zip": {
+        "sha256": "c11fde221c08e9bffdb3336579f09bd934a009862f509af5033616876741be24",
+        "ELFMachine": 183,
+        "readOnlyCacheInspection": true
+      }
+    },
+    "sharedASARReady": true,
+    "runtimeExecutedOnLinux": false,
+    "linuxCandidateCreated": false,
+    "engineRebuilt": false
+  },
+  "knownLimits": [
+    "OS chooser, physical Korean IME, manual GUI, clipboard, Hancom comparison and Linux runtime remain unverified.",
+    "Ad-hoc signing only; no Developer ID or notarization.",
+    "No migration of earlier BetaNext or ephemeral-origin recovery drafts.",
+    "Busy persisted local port refuses startup instead of changing recovery origin."
+  ],
+  "actualMacRendererVerified": true,
+  "manualGUIVerified": false,
+  "ordinaryLaunch": {
+    "actualPackagedApp": true,
+    "executable": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa/GeulgyeolBeta2.app/Contents/MacOS/GeulgyeolBeta2",
+    "ownedPID": 11532,
+    "mainInspectorUsed": false,
+    "nativeResponseAdapter": false,
+    "rendererCDPReadOnly": true,
+    "version": "0.4.4-beta.2",
+    "engineSHA256": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
+    "normalQuitMethod": "NSRunningApplication.terminate on owned live PID",
+    "forceTerminateUsed": false,
+    "exitCode": 0,
+    "OSChooserVerified": false,
+    "physicalIMEVerified": false,
+    "manualGUIVerified": false,
+    "clipboardAccessed": false
+  },
+  "ordinaryLaunchRepeatedAfterRepair": true,
+  "recoverySafety": {
+    "clear-failure": {
+      "scenario": "clear-failure",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "syntheticFixturesInRealIndexedDB": true,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": false,
+      "controlledIDBFault": true,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "failed delete-all retains every draft and next startup offers them again"
+        },
+        {
+          "name": "successful delete-all retry clears only the private profile drafts"
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "evidence": "recovery-clear-failure/proof.json"
+    },
+    "crash-again": {
+      "scenario": "crash-again",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "syntheticFixturesInRealIndexedDB": true,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": true,
+      "controlledIDBFault": false,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "restored document is dirty and all original durable draft bytes remain",
+          "scenario": "crash-again",
+          "state": {
+            "dirty": true,
+            "fileName": "qa-recovery-A 복구본.hwp"
+          }
+        },
+        {
+          "name": "second crash before debounce survives restart and restores the same persisted document"
+        },
+        {
+          "name": "real save persists recovered text then deletes only its adopted draft",
+          "selectedID": "qa-recovery-A",
+          "remainingIDs": []
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "evidence": "recovery-crash-again/proof.json"
+    },
+    "delete-failure": {
+      "scenario": "delete-failure",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "syntheticFixturesInRealIndexedDB": true,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": false,
+      "controlledIDBFault": true,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "restored document is dirty and all original durable draft bytes remain",
+          "scenario": "delete-failure",
+          "state": {
+            "dirty": true,
+            "fileName": "qa-recovery-A 복구본.hwp"
+          }
+        },
+        {
+          "name": "restoration does not call the failing selected-draft deletion API"
+        },
+        {
+          "name": "real save persists recovered text then deletes only its adopted draft",
+          "selectedID": "qa-recovery-A",
+          "remainingIDs": []
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0
+      ],
+      "evidence": "recovery-delete-failure/proof.json"
+    },
+    "later": {
+      "scenario": "later",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "syntheticFixturesInRealIndexedDB": true,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": false,
+      "controlledIDBFault": false,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "later leaves all draft bytes intact across clean close and restart"
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "evidence": "recovery-later/proof.json"
+    },
+    "replacement-abort": {
+      "scenario": "replacement-abort",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "syntheticFixturesInRealIndexedDB": true,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": false,
+      "controlledIDBFault": true,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "restored document is dirty and all original durable draft bytes remain",
+          "scenario": "replacement-abort",
+          "state": {
+            "dirty": true,
+            "fileName": "qa-recovery-A 복구본.hwp"
+          }
+        },
+        {
+          "name": "failed replacement of oldest recovered draft preserves all thirteen durable rows before pruning",
+          "fault": "real IDB transaction aborted after put"
+        },
+        {
+          "name": "real save persists recovered text then deletes only its adopted draft",
+          "selectedID": "qa-recovery-A",
+          "remainingIDs": [
+            "qa-extra-0",
+            "qa-extra-1",
+            "qa-extra-2",
+            "qa-extra-3",
+            "qa-extra-4",
+            "qa-extra-5",
+            "qa-extra-6",
+            "qa-extra-7",
+            "qa-extra-8",
+            "qa-extra-9",
+            "qa-extra-10",
+            "qa-extra-11"
+          ]
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0
+      ],
+      "evidence": "recovery-replacement-abort/proof.json"
+    },
+    "replacement-failure": {
+      "scenario": "replacement-failure",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "syntheticFixturesInRealIndexedDB": true,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": false,
+      "controlledIDBFault": true,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "restored document is dirty and all original durable draft bytes remain",
+          "scenario": "replacement-failure",
+          "state": {
+            "dirty": true,
+            "fileName": "qa-recovery-A 복구본.hwp"
+          }
+        },
+        {
+          "name": "failed replacement of oldest recovered draft preserves all thirteen durable rows before pruning",
+          "fault": "controlled put API rejection"
+        },
+        {
+          "name": "real save persists recovered text then deletes only its adopted draft",
+          "selectedID": "qa-recovery-A",
+          "remainingIDs": [
+            "qa-extra-0",
+            "qa-extra-1",
+            "qa-extra-2",
+            "qa-extra-3",
+            "qa-extra-4",
+            "qa-extra-5",
+            "qa-extra-6",
+            "qa-extra-7",
+            "qa-extra-8",
+            "qa-extra-9",
+            "qa-extra-10",
+            "qa-extra-11"
+          ]
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0
+      ],
+      "evidence": "recovery-replacement-failure/proof.json"
+    },
+    "replacement-success": {
+      "scenario": "replacement-success",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "syntheticFixturesInRealIndexedDB": true,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": false,
+      "controlledIDBFault": false,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "restored document is dirty and all original durable draft bytes remain",
+          "scenario": "replacement-success",
+          "state": {
+            "dirty": true,
+            "fileName": "qa-recovery-A 복구본.hwp"
+          }
+        },
+        {
+          "name": "committed replacement keeps the same draft ID and survives crash with the latest edits"
+        },
+        {
+          "name": "real save persists recovered text then deletes only its adopted draft",
+          "selectedID": "qa-recovery-A",
+          "remainingIDs": []
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "evidence": "recovery-replacement-success/proof.json"
+    },
+    "select-many": {
+      "scenario": "select-many",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "syntheticFixturesInRealIndexedDB": true,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": false,
+      "controlledIDBFault": false,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "restored document is dirty and all original durable draft bytes remain",
+          "scenario": "select-many",
+          "state": {
+            "dirty": true,
+            "fileName": "qa-recovery-B 복구본.hwp"
+          }
+        },
+        {
+          "name": "real save persists recovered text then deletes only its adopted draft",
+          "selectedID": "qa-recovery-B",
+          "remainingIDs": [
+            "qa-recovery-A",
+            "qa-recovery-C"
+          ]
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0
+      ],
+      "evidence": "recovery-select-many/proof.json"
+    }
+  },
+  "pruningSafety": {
+    "delete-abort": {
+      "scenario": "delete-abort",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "futureTimestampRows": 13,
+      "OSClockChanged": false,
+      "realReplacementPutCommitted": true,
+      "queryAbortAfterRequestSuccess": false,
+      "deleteAbortAfterRequestSuccess": true,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": true,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "replacement remains durable and active ID is never a pruning target",
+          "scenario": "delete-abort",
+          "rows": 14,
+          "protectedID": "qa-active",
+          "fault": "delete-abort"
+        },
+        {
+          "name": "crash and restart recover the committed latest active document despite future timestamps or pruning failure"
+        },
+        {
+          "name": "real native save persists latest text and cleans only the recovered active ID"
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "evidence": "fixed-delete-abort/proof.json"
+    },
+    "delete-failure": {
+      "scenario": "delete-failure",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "futureTimestampRows": 13,
+      "OSClockChanged": false,
+      "realReplacementPutCommitted": true,
+      "queryAbortAfterRequestSuccess": false,
+      "deleteAbortAfterRequestSuccess": false,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": true,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "replacement remains durable and active ID is never a pruning target",
+          "scenario": "delete-failure",
+          "rows": 14,
+          "protectedID": "qa-active",
+          "fault": "delete-failure"
+        },
+        {
+          "name": "crash and restart recover the committed latest active document despite future timestamps or pruning failure"
+        },
+        {
+          "name": "real native save persists latest text and cleans only the recovered active ID"
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "evidence": "fixed-delete-failure/proof.json"
+    },
+    "future-timestamps": {
+      "scenario": "future-timestamps",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "futureTimestampRows": 12,
+      "OSClockChanged": false,
+      "realReplacementPutCommitted": true,
+      "queryAbortAfterRequestSuccess": false,
+      "deleteAbortAfterRequestSuccess": false,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": true,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "replacement remains durable and active ID is never a pruning target",
+          "scenario": "future-timestamps",
+          "rows": 12,
+          "protectedID": "qa-active",
+          "fault": null
+        },
+        {
+          "name": "crash and restart recover the committed latest active document despite future timestamps or pruning failure"
+        },
+        {
+          "name": "real native save persists latest text and cleans only the recovered active ID"
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "evidence": "fixed-future-timestamps/proof.json"
+    },
+    "query-abort": {
+      "scenario": "query-abort",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "futureTimestampRows": 12,
+      "OSClockChanged": false,
+      "realReplacementPutCommitted": true,
+      "queryAbortAfterRequestSuccess": true,
+      "deleteAbortAfterRequestSuccess": false,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": true,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "replacement remains durable and active ID is never a pruning target",
+          "scenario": "query-abort",
+          "rows": 13,
+          "protectedID": "qa-active",
+          "fault": "query-abort"
+        },
+        {
+          "name": "crash and restart recover the committed latest active document despite future timestamps or pruning failure"
+        },
+        {
+          "name": "real native save persists latest text and cleans only the recovered active ID"
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "evidence": "fixed-query-abort/proof.json"
+    },
+    "query-failure": {
+      "scenario": "query-failure",
+      "baseline": false,
+      "actualPackagedApp": true,
+      "futureTimestampRows": 12,
+      "OSClockChanged": false,
+      "realReplacementPutCommitted": true,
+      "queryAbortAfterRequestSuccess": false,
+      "deleteAbortAfterRequestSuccess": false,
+      "controlledNativeResponses": true,
+      "controlledRendererCrash": true,
+      "OSChooserVerified": false,
+      "physicalIMEVerified": false,
+      "manualGUIVerified": false,
+      "clipboardAccessed": false,
+      "rows": [
+        {
+          "name": "replacement remains durable and active ID is never a pruning target",
+          "scenario": "query-failure",
+          "rows": 13,
+          "protectedID": "qa-active",
+          "fault": "query-failure"
+        },
+        {
+          "name": "crash and restart recover the committed latest active document despite future timestamps or pruning failure"
+        },
+        {
+          "name": "real native save persists latest text and cleans only the recovered active ID"
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "evidence": "fixed-query-failure/proof.json"
+    }
+  },
+  "ordinaryLaunchCheckCountedInScenarioTotal": false,
+  "baselinePruningReproduction": {
+    "scenario": "future-timestamps",
+    "baseline": true,
+    "actualPackagedApp": true,
+    "futureTimestampRows": 12,
+    "OSClockChanged": false,
+    "realReplacementPutCommitted": true,
+    "queryAbortAfterRequestSuccess": false,
+    "deleteAbortAfterRequestSuccess": false,
+    "controlledNativeResponses": true,
+    "controlledRendererCrash": true,
+    "OSChooserVerified": false,
+    "physicalIMEVerified": false,
+    "manualGUIVerified": false,
+    "clipboardAccessed": false,
+    "rows": [
+      {
+        "name": "baseline prunes the newly committed active ID when twelve other timestamps are future",
+        "activeID": "qa-active",
+        "futureRows": 12
+      },
+      {
+        "name": "baseline restart has only future drafts and loses the latest active replacement"
+      }
+    ],
+    "normalExitCodes": [
+      0,
+      0,
+      0
+    ],
+    "evidence": "baseline-future/proof.json"
+  },
+  "previousRecoveryBaselineReproductions": {
+    "historicalEvidenceRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa/recovery-safety",
+    "cases": {
+      "crash-again": {
+        "rows": [
+          {
+            "name": "baseline deletes the only durable draft immediately after restore",
+            "dirty": true,
+            "rows": 0
+          },
+          {
+            "name": "baseline second crash before debounce permanently loses recovered document"
+          }
+        ],
+        "normalExitCodes": [
+          0,
+          0,
+          0
+        ],
+        "evidence": "baseline-crash-again/proof.json"
+      },
+      "delete-failure": {
+        "rows": [
+          {
+            "name": "baseline deletion failure leaves successfully loaded recovery document clean",
+            "state": {
+              "dirty": false,
+              "fileName": "qa-recovery-A 복구본.hwp"
+            }
+          }
+        ],
+        "normalExitCodes": [
+          0,
+          0
+        ],
+        "evidence": "baseline-delete-failure/proof.json"
+      }
+    }
+  },
+  "previousOrdinaryLaunchEvidence": {
+    "actualPackagedApp": true,
+    "mainInspectorUsed": false,
+    "nativeResponseAdapter": false,
+    "rendererCDPReadOnly": true,
+    "version": "0.4.4-beta.2",
+    "profileRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa/ordinary-profile",
+    "engineSHA256": "e37d8f0a855b4458f42207be06595b14342901cbca687517960e487d616fbe45",
+    "normalQuitMethod": "AppleScript application quit",
+    "exitCode": 0,
+    "OSChooserVerified": false,
+    "physicalIMEVerified": false
+  },
+  "previousUserPathReadOnlyInspection": {
+    "checkedAtUTC": "2026-10-08T16:51:34.179679+00:00",
+    "sourceBefore": "c8dd431abc72796cafa85fedabdb497a1d07da6d",
+    "capabilityPreflight": {
+      "accessibilityTrusted": false,
+      "screenCapturePreflight": true,
+      "GUIControlToolAvailable": false,
+      "candidateRunning": false,
+      "candidateFrontmost": false,
+      "permissionPromptRequested": false,
+      "hancomViewer": {
+        "path": "/Applications/Hancom Office HWP Viewer.app",
+        "bundleId": "com.haansoft.HancomOfficeViewer.Mac",
+        "version": "12.31.8",
+        "executable": "Hancom Office HWP Viewer",
+        "alreadyRunningPIDs": [
+          73481
+        ],
+        "supportedExtensions": [
+          "doc",
+          "docx",
+          "hml",
+          "hwp",
+          "hwpx",
+          "hwt",
+          "hwtx",
+          "odt",
+          "owpml"
+        ]
+      }
+    },
+    "accessibilityProbeMeaning": "AXIsProcessTrusted returned false in this execution process; no assertion that the user explicitly rejected a prompt.",
+    "candidateRunningPIDs": [],
+    "OSFileChooserTestPerformed": false,
+    "actualKeyEventsSent": false,
+    "physicalIMECompositionTestPerformed": false,
+    "completedStringPluginInputWasIME": false,
+    "hancomComparisonPerformed": false,
+    "hancomViewerActivatedOrOpenedOrClosed": false,
+    "blockers": [
+      "No Mac desktop mouse/keyboard control tool is exposed.",
+      "Current execution process is not trusted for Accessibility automation.",
+      "Screen-capture preflight is true, but captures do not provide OS dialog or IME control.",
+      "Existing Hancom Viewer process is not confirmed task-owned; it was left untouched."
+    ],
+    "newCandidateCreated": false,
+    "newZipCreated": false,
+    "candidateLaunchedForThisCheck": false,
+    "otherWindowsActivatedOrClosed": false,
+    "desktopScreenshotTaken": false,
+    "clipboardAccessed": false,
+    "permissionPromptRequested": false,
+    "securitySettingsChanged": false,
+    "publicReleaseCreated": false,
+    "zipSHA256": "fa2989926cb4850ca7d1fd76ebf13b2b27c253c266417cb6c1126fedcfe6dc9c",
+    "asarSHA256": "e5818ffe34b92779ec788388a5faa3146f68dfc1e57ac174ebe5dbf3255e2e25",
+    "candidateAndZipUnchanged": true
+  },
+  "capabilityPreflight": {
+    "accessibilityTrusted": false,
+    "screenCapturePreflight": true,
+    "permissionPromptRequested": false,
+    "settingsChanged": false
+  },
+  "preservation": {
+    "originals": {
+      "count": 73368,
+      "changed": [],
+      "missing": []
+    },
+    "previousQA": {
+      "count": 6548,
+      "changed": [],
+      "missing": []
+    },
+    "originalCache": {
+      "count": 579,
+      "changedOrMissing": []
+    },
+    "targetBytes": 4690055168,
+    "targetLimitBytes": 4831838208,
+    "newPackagingQAFolderBytes": 1510821888,
+    "newPackagingQALimitBytes": 2147483648,
+    "freeBytes": 41183907840,
+    "minimumFreeBytes": 16106127360,
+    "ownedPortsChecked": 239,
+    "openOwnedPorts": [],
+    "ownedQAProcesses": [],
+    "oldCandidatesPreserved": true,
+    "publicReleaseCreated": false,
+    "publicTagCreated": false,
+    "protectedFilesPermanentlyDeleted": false,
+    "seconds": 17.56
+  },
+  "previousCandidateEvidencePreservation": {
+    "previousCandidateEvidenceFiles": 2895,
+    "oldCandidateFilesBackedByPreviousZIP": 266,
+    "changedOutsideAuthorizedCandidate": [],
+    "missingOutsideAuthorizedCandidate": [],
+    "previousASARBackedUp": "be2838d42b51a4d1c171456ce2cdf8ab2ce9a86812d0e934708ea4f296922091",
+    "previousZIPBackedUp": "240d87a7e68f000e006bb06e6508e5c719303e2747fbbc269b060c681d593348"
+  },
+  "sourceChecks": {
+    "desktopTests": {
+      "tests": 48,
+      "pass": 47,
+      "skip": 1,
+      "fail": 0,
+      "engineDir": "../table-size-qa/pkg"
+    },
+    "currentEngineTypeScript": true,
+    "productionUIBuild": {
+      "reused": 13,
+      "written": 3,
+      "writtenBytes": 2134464,
+      "out": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa/pruning-safety/ui-current-prune"
+    },
+    "gitDiffCheck": true
+  },
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/mac-beta2-candidate-qa/pruning-safety",
+  "evidence": {
+    "lifecycle": "lifecycle/proof.json",
+    "finalAck": "ack-{public,file-read,image-decode,cancel,pending-render}/proof.json",
+    "recovery": "recovery-base/proof.json",
+    "recoverySafety": "recovery-*/proof.json",
+    "pruningSafety": "fixed-*/proof.json",
+    "baselinePruning": "baseline-future/proof.json",
+    "ordinaryLaunch": "ordinary/proof.json",
+    "ordinaryNormalQuitRequest": "ordinary/normal-quit-request.json",
+    "bundleFiles": "bundle-files.json",
+    "packageProvenance": "package-proof.json",
+    "signing": "signature-after-tests.log",
+    "preservation": "preservation.json",
+    "previousCandidateEvidencePreservation": "previous-evidence-preservation.json",
+    "desktopTests": "desktop-tests.log",
+    "typescript": "typescript.log",
+    "previousCandidateBackup": "pre-fix-package/previous-final-zip.backup"
+  },
+  "HancomComparisonVerified": false,
+  "LinuxRuntimeVerified": false,
+  "publicTagCreated": false,
+  "publicReleaseCreated": false,
+  "pruningRepair": {
+    "protectedID": "just-committed draft ID excluded before timestamp ordering",
+    "querySnapshotAcceptedOnlyAfterTransactionComplete": true,
+    "allPruningDeletesInOneTransaction": true,
+    "laterDeleteIssuanceFailureAbortsEarlierQueuedDeletes": true,
+    "OSClockChanged": false
+  }
+}

@@ -111,7 +111,7 @@ window.addEventListener('message',event=>{
 });
 window.baram?.onAction(action=>{if(action==='open')open();if(action==='save')save();if(action==='about')$('about-dialog').showModal();if(action==='undo'||action==='redo')routeHistory(action,{document,editor,busy}).catch(error);});
 try{
-  editor=await createStudio('#editor',{studioUrl:new URL('./studio/',location.href).href,renderer:'canvas2d',requestTimeoutMs:60000});
+  editor=await createStudio('#editor',{studioUrl:new URL('./studio/?desktopRecovery=1',location.href).href,renderer:'canvas2d',requestTimeoutMs:60000});
   // Startup may still be initializing its first blank document after SDK ready.
   // Keep file actions disabled until that initialization can no longer clear edits.
   await host()?.ready?.();

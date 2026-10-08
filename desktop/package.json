@@ -1,6 +1,6 @@
 {
   "name": "geulgyeol-beta",
-  "version": "0.4.4-beta.1",
+  "version": "0.4.4-beta.2",
   "private": true,
   "type": "module",
   "description": "Local HWP/HWPX desktop editor powered by RHWP",
@@ -9,12 +9,13 @@
   "scripts": {
     "start": "electron .",
     "test": "node --test tests/*.test.cjs",
-    "package:mac": "electron-packager . GeulgyeolBetaNext --platform=darwin --arch=arm64 --electron-version=44.3.0 --out=../dist --app-bundle-id=org.geulgyeol.beta.next --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false && ../scripts/sign-mac-bundle.sh ../dist/GeulgyeolBetaNext-darwin-arm64/GeulgyeolBetaNext.app org.geulgyeol.beta.next",
-    "package:linux": "electron-packager . GeulgyeolBetaNext --platform=linux --arch=x64 --electron-version=44.3.0 --out=../dist --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false"
+    "package:mac": "electron-packager . GeulgyeolBeta2 --platform=darwin --arch=arm64 --electron-version=44.3.0 --out=../dist --app-bundle-id=org.geulgyeol.beta.0442 --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false && ../scripts/sign-mac-bundle.sh ../dist/GeulgyeolBeta2-darwin-arm64/GeulgyeolBeta2.app org.geulgyeol.beta.0442",
+    "package:linux": "electron-packager . GeulgyeolBeta2 --platform=linux --arch=x64 --electron-version=44.3.0 --out=../dist --asar '--ignore=^/(tests|node_modules)(/|$)' --prune=false"
   },
   "devDependencies": {
     "electron": "44.3.0",
     "@electron/packager": "20.3.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "productName": "GeulgyeolBeta2"
 }

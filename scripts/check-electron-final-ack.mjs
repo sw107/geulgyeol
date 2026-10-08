@@ -2,11 +2,14 @@
 // or reject that reply after it executed, without changing document operations.
 import puppeteer from '../rhwp-studio/node_modules/puppeteer-core/lib/puppeteer/puppeteer-core.js';
 import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';
+import {launchPackaged} from './packaged-electron-qa.mjs';
+const packaged=process.env.GEULGYEOL_QA_PACKAGED_APP;
 import {spawn} from 'node:child_process';import {pathToFileURL} from 'node:url';import {createHash} from 'node:crypto';
 const root=path.resolve(import.meta.dirname,'..'),q=path.resolve(process.argv[2]),scenario=process.argv[3],baseline=process.argv[4]==='baseline';
 assert(['public','file-read','image-decode','cancel','pending-render'].includes(scenario));
 assert(!fs.existsSync(path.join(q,'audit.jsonl'))&&!fs.existsSync(path.join(q,'app-data')),'Fresh dedicated QA directory required');
-if(!baseline)for(const n of ['main.cjs','preload.cjs','close-controller.cjs','web/baram.js'])assert.deepEqual(fs.readFileSync(path.join(q,'runtime',n)),fs.readFileSync(path.join(root,'desktop',n)));
+assert(!packaged||!baseline,'Packaged QA only tests the current candidate');
+if(!baseline&&!packaged)for(const n of ['main.cjs','preload.cjs','close-controller.cjs','web/baram.js'])assert.deepEqual(fs.readFileSync(path.join(q,'runtime',n)),fs.readFileSync(path.join(root,'desktop',n)));
 const sha=b=>createHash('sha256').update(b).digest('hex'),pause=ms=>new Promise(r=>setTimeout(r,ms));
 const write=(n,v)=>fs.writeFileSync(path.join(q,n),JSON.stringify(v,null,2)),control=v=>write('control.json',v);
 const audit=()=>fs.existsSync(path.join(q,'audit.jsonl'))?fs.readFileSync(path.join(q,'audit.jsonl'),'utf8').trim().split('\n').filter(Boolean).map(JSON.parse):[];
@@ -18,9 +21,12 @@ const state=()=>page.evaluate(()=>{const h=document.querySelector('#editor ifram
 const edit=text=>frame.evaluate(text=>window.rhwpStudio.plugins.invoke('hwpctrl','invoke',['SetTextFile',[text,'TEXT','insertfile']]),text);
 const drafts=()=>frame.evaluate(()=>new Promise((resolve,reject)=>{const r=indexedDB.open('rhwpStudioAutosave');r.onerror=()=>reject(r.error);r.onsuccess=()=>{const db=r.result,get=db.transaction('drafts','readonly').objectStore('drafts').getAll();get.onerror=()=>{db.close();reject(get.error);};get.onsuccess=()=>{db.close();resolve(get.result.map(d=>({id:d.id,data:Array.from(new Uint8Array(d.data))})));};};}));
 try{
- control({id:'start'});const env={...process.env,GEULGYEOL_ELECTRON_MODULE:'electron',GEULGYEOL_QA_DIR:q};delete env.ELECTRON_RUN_AS_NODE;
- p=spawn(path.join(root,'desktop/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron'),[path.join(q,'bootstrap.cjs'),'--remote-debugging-port=0','--remote-debugging-address=127.0.0.1'],{env});let log='',endpoint;
+ control({id:'start'});let endpoint;
+ if(packaged){const launch=await launchPackaged(path.resolve(packaged),q);p=launch.p;endpoint=launch.endpoint;}else{
+ const env={...process.env,GEULGYEOL_ELECTRON_MODULE:'electron',GEULGYEOL_QA_DIR:q};delete env.ELECTRON_RUN_AS_NODE;
+ p=spawn(path.join(root,'desktop/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron'),[path.join(q,'bootstrap.cjs'),'--remote-debugging-port=0','--remote-debugging-address=127.0.0.1'],{env});let log='';
  for(const s of [p.stdout,p.stderr])s.on('data',d=>{log+=d;fs.appendFileSync(path.join(q,'launch.log'),d);});await until(()=>endpoint=log.match(/DevTools listening on (ws:\/\/\S+)/)?.[1],'endpoint');
+ }
  b=await puppeteer.connect({browserWSEndpoint:endpoint,defaultViewport:null,protocolTimeout:30000});await until(async()=>{page=(await b.pages()).find(p=>/^http:\/\/127\.0\.0\.1:\d+\/$/.test(p.url()));return page;},'window');
  await page.waitForFunction(()=>!document.querySelector('#save').disabled,{polling:100,timeout:60000});frame=page.frames().find(f=>f.url().includes('/studio/'));
  await page.evaluate(()=>document.querySelector('#new').click());await until(async()=>!await page.$eval('#save',e=>e.disabled),'new');await frame.evaluate(()=>window.rhwpStudio.plugins.load('hwpctrl'));await edit('최종 응답 경합 합성 문서🙂');
@@ -66,7 +72,7 @@ try{
   if(baseline)assert.notEqual(sha(afterLate),sha(beforeLate));else{assert.deepEqual(afterLate,beforeLate);assert((await state()).locked);if(scenario==='public')assert.equal(errors.length,3);}
   fs.writeFileSync(path.join(q,'release-final-ack'),'released');await until(()=>p.exitCode!==null,'final close');assert.equal(p.exitCode,0);assert.deepEqual(fs.readFileSync(path.join(q,'files/before-close.hwpx')),beforeLate);rows.push({name:baseline?'baseline loses post-finalize edits on normal close':'post-finalize writes blocked and exact saved document retained'});
  }
- write('proof.json',{scenario,baseline,actualElectron:true,controlledNativeResponses:true,OSChooserVerified:false,physicalIMEVerified:false,rows});console.log(JSON.stringify(rows));
+ write('proof.json',{scenario,baseline,actualElectron:true,actualPackagedApp:Boolean(packaged),executable:packaged,controlledNativeResponses:true,OSChooserVerified:false,physicalIMEVerified:false,rows});console.log(JSON.stringify(rows));
 }catch(e){failure=String(e);write('failure.json',{failure,stack:e.stack,rows,state:p?.exitCode===null&&page?await state().catch(String):null});console.error(e);process.exitCode=1;}
 finally{
  if(p?.exitCode===null){if(scenario==='pending-render')await frame.evaluate(()=>window.qaReleaseRender?.()).catch(()=>{});fs.writeFileSync(path.join(q,'release-final-ack'),'finally');if(baseline&&scenario==='cancel')await page.evaluate(()=>{window.baramPrepareClose=()=>{throw Error('QA owned baseline exit');};}).catch(()=>{});control({id:'quit',quit:true,choice:'discard',unavailableChoice:'exit'});try{await until(()=>p.exitCode!==null,'normal cleanup');}catch(e){failure=failure||String(e);}}
