@@ -156,5 +156,63 @@
     "preservation": "preservation-final.json",
     "desktopTests": "desktop-tests-recovery.log",
     "typescript": "typescript.log"
+  },
+  "userPathReadOnlyInspection": {
+    "checkedAtUTC": "2026-10-08T16:51:34.179679+00:00",
+    "sourceBefore": "c8dd431abc72796cafa85fedabdb497a1d07da6d",
+    "capabilityPreflight": {
+      "accessibilityTrusted": false,
+      "screenCapturePreflight": true,
+      "GUIControlToolAvailable": false,
+      "candidateRunning": false,
+      "candidateFrontmost": false,
+      "permissionPromptRequested": false,
+      "hancomViewer": {
+        "path": "/Applications/Hancom Office HWP Viewer.app",
+        "bundleId": "com.haansoft.HancomOfficeViewer.Mac",
+        "version": "12.31.8",
+        "executable": "Hancom Office HWP Viewer",
+        "alreadyRunningPIDs": [
+          73481
+        ],
+        "supportedExtensions": [
+          "doc",
+          "docx",
+          "hml",
+          "hwp",
+          "hwpx",
+          "hwt",
+          "hwtx",
+          "odt",
+          "owpml"
+        ]
+      }
+    },
+    "accessibilityProbeMeaning": "AXIsProcessTrusted returned false in this execution process; no assertion that the user explicitly rejected a prompt.",
+    "candidateRunningPIDs": [],
+    "OSFileChooserTestPerformed": false,
+    "actualKeyEventsSent": false,
+    "physicalIMECompositionTestPerformed": false,
+    "completedStringPluginInputWasIME": false,
+    "hancomComparisonPerformed": false,
+    "hancomViewerActivatedOrOpenedOrClosed": false,
+    "blockers": [
+      "No Mac desktop mouse/keyboard control tool is exposed.",
+      "Current execution process is not trusted for Accessibility automation.",
+      "Screen-capture preflight is true, but captures do not provide OS dialog or IME control.",
+      "Existing Hancom Viewer process is not confirmed task-owned; it was left untouched."
+    ],
+    "newCandidateCreated": false,
+    "newZipCreated": false,
+    "candidateLaunchedForThisCheck": false,
+    "otherWindowsActivatedOrClosed": false,
+    "desktopScreenshotTaken": false,
+    "clipboardAccessed": false,
+    "permissionPromptRequested": false,
+    "securitySettingsChanged": false,
+    "publicReleaseCreated": false,
+    "zipSHA256": "fa2989926cb4850ca7d1fd76ebf13b2b27c253c266417cb6c1126fedcfe6dc9c",
+    "asarSHA256": "e5818ffe34b92779ec788388a5faa3146f68dfc1e57ac174ebe5dbf3255e2e25",
+    "candidateAndZipUnchanged": true
   }
 }
