@@ -299,14 +299,13 @@ pub(crate) fn page_top_rowbreak_has_trailing_host(
         && para.control_text_positions().get(control_index) == Some(&0)
 }
 
-/// A large single-column plain block owned by one full-span horizontal cell.
+/// A large plain block owned by full-span horizontal cells.
 /// There is no independent per-row text owner; pagination and source-preserving
 /// text history must therefore use the same whole-cell unit contract.
 pub(crate) fn whole_span_plain_owner_block(table: &Table, start: usize, end: usize) -> bool {
     let size = end.saturating_sub(start);
     size > crate::renderer::height_measurer::BLOCK_UNIT_MAX_ROWS
         && end <= table.row_count as usize
-        && table.col_count == 1
         && !table.common.treat_as_char
         && matches!(table.page_break, TablePageBreak::RowBreak)
         && matches!(table.common.text_wrap, TextWrap::TopAndBottom)
