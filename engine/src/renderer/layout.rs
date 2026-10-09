@@ -9497,6 +9497,24 @@ impl LayoutEngine {
                     false,
                     false,
                 );
+                // This path leaves the flow cursor at the reserved outer-bottom
+                // band. For a separately emitted Page/Top host, record the
+                // painted frame before moving its nodes to the page layer.
+                // Captions and other anchor contracts retain the existing path.
+                if t.caption.is_none()
+                    && self.pre_emitted_host_paras.borrow().contains(&para_index)
+                    && page_top_rowbreak_has_trailing_host(para, control_index, t)
+                {
+                    if let Some(node) = tmp_node.children.iter().rev().find(|node| {
+                        matches!(&node.node_type, RenderNodeType::Table(meta)
+                            if meta.section_index == Some(page_content.section_index)
+                                && meta.para_index == Some(para_index)
+                                && meta.control_index == Some(control_index)
+                                && meta.cell_context.is_none())
+                    }) {
+                        table_y_end = node.bbox.y + node.bbox.height;
+                    }
+                }
                 let layer = Self::render_layer_from_common(&t.common, para_index, control_index);
                 Self::push_layered_paper_children(paper_images, &mut tmp_node, layer);
             } else {
