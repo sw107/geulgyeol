@@ -1415,10 +1415,10 @@ export class TableCellPropsDialog extends ModalDialog {
       paddingBottom: mmToHwp16(parseFloat(this.tablePaddingInputs['bottom'].value) || 0),
       cellSpacing: this.borderCellSpacingInput ? mmToHwp16(parseFloat(this.borderCellSpacingInput.value) || 0) : this.tableProps.cellSpacing,
       // 바깥 여백
-      outerLeft: mmToHwp16(parseFloat(this.marginOuterInputs['left'].value) || 0),
-      outerRight: mmToHwp16(parseFloat(this.marginOuterInputs['right'].value) || 0),
-      outerTop: mmToHwp16(parseFloat(this.marginOuterInputs['top'].value) || 0),
-      outerBottom: mmToHwp16(parseFloat(this.marginOuterInputs['bottom'].value) || 0),
+      outerLeft: this.readOuterMargin('left', 'outerLeft'),
+      outerRight: this.readOuterMargin('right', 'outerRight'),
+      outerTop: this.readOuterMargin('top', 'outerTop'),
+      outerBottom: this.readOuterMargin('bottom', 'outerBottom'),
     };
 
     // 캡션 속성 (가운데 = 캡션 없음)
@@ -1497,6 +1497,16 @@ export class TableCellPropsDialog extends ModalDialog {
   }
 
   // ─── "모두(A)" 일괄 여백 스피너 ─────────────────────
+
+  private readOuterMargin(side: string, property: 'outerLeft' | 'outerRight' | 'outerTop' | 'outerBottom'): number {
+    const original = this.tableProps[property] ?? 0;
+    const displayed = this.marginOuterInputs[side].value;
+    // Display is rounded to 0.1mm. Confirming an unchanged display must retain
+    // the precise signed HWPUNIT, including zero and values between UI steps.
+    return displayed === hwp16ToMm(original).toFixed(1)
+      ? original
+      : mmToHwp16(parseFloat(displayed) || 0);
+  }
 
   /** 4방향 여백 입력을 일괄 조정하는 "모두(A)" 스피너 생성 */
   private buildAllSpinner(inputs: Record<string, HTMLInputElement>): HTMLElement {
