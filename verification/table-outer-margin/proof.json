@@ -1,0 +1,415 @@
+{
+  "date": "2026-10-09",
+  "baselineCommit": "2660485315ff34c652e66438c29212ed6162db78",
+  "branch": "dev/table-outer-margins",
+  "localEvidenceRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/table-outer-margin-qa",
+  "engineSHA256": "dde052924460b0ebaad2defc022202642cdf5de5ae835845aa50314435dacd79",
+  "actualMacElectron": {
+    "cases": 14,
+    "undoRedoPairs": 28,
+    "savedReopens": 56,
+    "errors": [],
+    "runtimeVersion": "44.3.0",
+    "receivedEngineSHA256": "dde052924460b0ebaad2defc022202642cdf5de5ae835845aa50314435dacd79",
+    "normalQuit": {
+      "exitCode": 0,
+      "normalQuit": true
+    },
+    "rows": [
+      {
+        "name": "normal-declared-input.hwpx",
+        "label": "normal-declared",
+        "ext": "hwpx",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 0,
+        "margins": [
+          850,
+          283,
+          283,
+          283
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "normal-declared-input.hwp",
+        "label": "normal-declared",
+        "ext": "hwp",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 0,
+        "margins": [
+          850,
+          283,
+          283,
+          283
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "merged-declared-input.hwpx",
+        "label": "merged-declared",
+        "ext": "hwpx",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 1,
+        "margins": [
+          283,
+          850,
+          283,
+          283
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "merged-declared-input.hwp",
+        "label": "merged-declared",
+        "ext": "hwp",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 1,
+        "margins": [
+          283,
+          850,
+          283,
+          283
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "normal-auto-width-input.hwpx",
+        "label": "normal-auto-width",
+        "ext": "hwpx",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 2,
+        "margins": [
+          283,
+          283,
+          850,
+          283
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "normal-auto-width-input.hwp",
+        "label": "normal-auto-width",
+        "ext": "hwp",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 2,
+        "margins": [
+          283,
+          283,
+          850,
+          283
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "normal-auto-height-input.hwpx",
+        "label": "normal-auto-height",
+        "ext": "hwpx",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 3,
+        "margins": [
+          283,
+          283,
+          283,
+          850
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "normal-auto-height-input.hwp",
+        "label": "normal-auto-height",
+        "ext": "hwp",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 3,
+        "margins": [
+          283,
+          283,
+          283,
+          850
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "merged-auto-both-input.hwpx",
+        "label": "merged-auto-both",
+        "ext": "hwpx",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 0,
+        "margins": [
+          850,
+          283,
+          283,
+          283
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "merged-auto-both-input.hwp",
+        "label": "merged-auto-both",
+        "ext": "hwp",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 0,
+        "margins": [
+          850,
+          283,
+          283,
+          283
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "normal-mixed-declared-input.hwpx",
+        "label": "normal-mixed-declared",
+        "ext": "hwpx",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 1,
+        "margins": [
+          283,
+          850,
+          283,
+          283
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "normal-mixed-declared-input.hwp",
+        "label": "normal-mixed-declared",
+        "ext": "hwp",
+        "expectedMargins": [
+          283,
+          283,
+          283,
+          283
+        ],
+        "side": 1,
+        "margins": [
+          283,
+          850,
+          283,
+          283
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "precision-signed-zero-input.hwpx",
+        "label": "precision-signed-zero",
+        "ext": "hwpx",
+        "expectedMargins": [
+          13,
+          0,
+          -283,
+          32767
+        ],
+        "side": 2,
+        "margins": [
+          13,
+          0,
+          850,
+          32767
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      },
+      {
+        "name": "precision-signed-zero-input.hwp",
+        "label": "precision-signed-zero",
+        "ext": "hwp",
+        "expectedMargins": [
+          13,
+          0,
+          -283,
+          32767
+        ],
+        "side": 2,
+        "margins": [
+          13,
+          0,
+          850,
+          32767
+        ],
+        "queryNoopCancel": true,
+        "cellAndStylePreservation": true,
+        "undoRedoPairs": 2
+      }
+    ],
+    "QAReadExposuresForSelection": true,
+    "nativeResponsesControlled": true,
+    "QAWindowBackgroundThrottlingDisabled": true
+  },
+  "native": {
+    "cases": 48,
+    "pairs": 48,
+    "savedReopens": 96,
+    "rawChecks": 40
+  },
+  "sameByteNativeOracle": {
+    "getterAndFullSVGExact": true,
+    "sameBytesFiles": 56
+  },
+  "desktopTests": {
+    "tests": 49,
+    "passed": 48,
+    "skipped": 1,
+    "failed": 0
+  },
+  "checks": {
+    "currentEngineTypeScript": true,
+    "clippyLibAndExampleWarningsDenied": true,
+    "wasmReleaseBuild": true,
+    "productionViteBuild": true,
+    "productionQAGlobalsAbsent": true,
+    "syntaxChecks": true,
+    "wholeRustLibTests": "blocked by existing three missing include_bytes fixtures; not counted as passing"
+  },
+  "preservation": {
+    "originals": {
+      "count": 73368,
+      "changed": [],
+      "missing": []
+    },
+    "previousQA": {
+      "count": 6548,
+      "changed": [],
+      "missing": []
+    },
+    "originalCache": {
+      "count": 579,
+      "changedOrMissing": []
+    },
+    "targetBytes": 4690169856,
+    "targetLimitBytes": 4831838208,
+    "newPackagingQAFolderBytes": 283373568,
+    "newPackagingQALimitBytes": 1073741824,
+    "freeBytes": 37448835072,
+    "minimumFreeBytes": 16106127360,
+    "ownedPortsChecked": 14,
+    "openOwnedPorts": [],
+    "ownedQAProcesses": [],
+    "oldCandidatesPreserved": true,
+    "publicReleaseCreated": false,
+    "publicTagCreated": false,
+    "protectedFilesPermanentlyDeleted": false,
+    "seconds": 17.23
+  },
+  "restoredExistingCacheFiles": 11,
+  "wasmBuildOnlyBudget": {
+    "targetPeakBytes": 4690366464,
+    "QAPeakBytes": 118038528,
+    "minimumFreeBytes": 37771923456,
+    "targetLimitBytes": 4831838208,
+    "QALimitBytes": 1073741824,
+    "minimumFreeLimitBytes": 16106127360
+  },
+  "publicBeta2ZIPSHA256": "ea2a23eedf1fc1149ba70cc664046634714b598e051802261c163553056af0b4",
+  "publicBeta2ASARSHA256": "2ab3e7ca8ce041f593b2d5687cd4e7ffe7331c9607ca0295ccf95fd59491f3b4",
+  "limitations": {
+    "newPackagedApp": false,
+    "manualGUI": false,
+    "OSChooser": false,
+    "physicalIME": false,
+    "clipboardAccessed": false,
+    "HancomRoundtrip": false,
+    "LinuxRuntime": false
+  },
+  "sourceFileSHA256": {
+    "engine/src/document_core/commands/table_ops.rs": "eea2eec466b3302fc26992b2e0771440b0970f208a27a0109a52665fe71c9332",
+    "rhwp-studio/src/ui/table-cell-props-dialog.ts": "64e50c8f12e4f97fdffbad25a741e197db7484c0c3feae3b2b06c1101e12d460",
+    "engine/examples/table_margin_check.rs": "7cab013f1ec9f973ccdf568dda84f8bf406fcdf12daf42f07156b6bd88b84db5",
+    "scripts/check-electron-table-margins.mjs": "36da0b7c9b4d402720facd96e91d5d9274efdf4fa17a667c25cc30af27feabe7",
+    "scripts/build-electron-table-margin-qa.mjs": "3c502b23543bb637cc44fcf59e34834ba790aad1a10476b17c08c4b12593a866",
+    "desktop/tests/table-margins.test.cjs": "6ea0721588bfe99af984a5b5f3e1cdbc6dbcebc032c225566915a3eaf4764a3d"
+  },
+  "evidence": {
+    "baseline-engine-proof.json": "e0cf2bbb8ca703421e47cfcbe762933818d9c297032c7674a1f5990cece4eb24",
+    "baseline-2/proof.json": "da6f7676bbba9557ab35940c5baa51011b09e4277d1c471f05f307307d3a3165",
+    "fixed-6/proof.json": "9892f2802939f6b40a5bd480958f730677f217ef984537695901ace217f5dd62",
+    "fixed-6/manifest.json": "a3edc260ca01c1481a85a9496e04c6f13f00c2eb483941c90a3bf8616d6780ff",
+    "native-oracle/proof.json": "30fbfbc55109e8f37c43f423a95b990dfaca9fb7fb28533318974cb533cb286a",
+    "native-oracle/electron-oracle.json": "e3cc470504a490ed4ffbb79fee69d06fff5ff47268f8e2a9b01b59528eab4664",
+    "desktop-tests.log": "24d12867b8a58da61cbeefb9e280854d6a7731d9c68121bbd4b84b7f630de49d",
+    "typescript-current.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "clippy-final.log": "6e0d19993854a5d961869987189e5ee481761b6cd6b955de95073f5dfd8307da",
+    "production-build.log": "b5bc611a633a4b4221b8b3301829a85597ba6be4f8949d61230a71febc2d2ace",
+    "wasm-build.log": "9e6b4b058b816c2fc672217dc805e9b41d90c11cb48635b62046a2fd11486156",
+    "preservation.json": "568c57b38882cb882339b2e525f4df6f8268ebe0570bfbc9aa7df470e8f9bfe1"
+  }
+}

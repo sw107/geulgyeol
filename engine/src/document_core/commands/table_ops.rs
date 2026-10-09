@@ -2864,27 +2864,30 @@ impl DocumentCore {
         } else {
             table.common.height
         };
+        // HWP raw fields retain their per-field precedence (including zero and
+        // signed values). HWPX has no raw header: use the typed outMargin values
+        // that its parser and serializer share, without synthesizing raw bytes.
         // outer_margin: [24..32] (parse_common_obj_attr 정합)
         // [20..24]=z_order, [24..26]=left, [26..28]=right, [28..30]=top, [30..32]=bottom
         let outer_left = if rd.len() >= common_obj_offsets::MARGIN_LEFT.end {
             i16::from_le_bytes(rd[common_obj_offsets::MARGIN_LEFT].try_into().unwrap())
         } else {
-            0
+            table.outer_margin_left
         };
         let outer_right = if rd.len() >= common_obj_offsets::MARGIN_RIGHT.end {
             i16::from_le_bytes(rd[common_obj_offsets::MARGIN_RIGHT].try_into().unwrap())
         } else {
-            0
+            table.outer_margin_right
         };
         let outer_top = if rd.len() >= common_obj_offsets::MARGIN_TOP.end {
             i16::from_le_bytes(rd[common_obj_offsets::MARGIN_TOP].try_into().unwrap())
         } else {
-            0
+            table.outer_margin_top
         };
         let outer_bottom = if rd.len() >= common_obj_offsets::MARGIN_BOTTOM.end {
             i16::from_le_bytes(rd[common_obj_offsets::MARGIN_BOTTOM].try_into().unwrap())
         } else {
-            0
+            table.outer_margin_bottom
         };
 
         // 캡션 정보
@@ -2989,7 +2992,41 @@ impl DocumentCore {
         control_idx: usize,
         json: &str,
     ) -> Result<String, HwpError> {
-        use super::super::helpers::{json_bool, json_i16, json_i32, json_str, json_u32, json_u8};
+        use super::super::helpers::{json_bool, json_i32, json_str, json_u32, json_u8};
+
+        // Validate every supplied signed field before borrowing/mutating the
+        // table, DocInfo or raw header. Unchecked i16 casts otherwise wrap.
+        let patch: serde_json::Value = serde_json::from_str(json)
+            .map_err(|e| HwpError::InvalidField(format!("invalid table properties: {e}")))?;
+        let fields = patch.as_object().ok_or_else(|| {
+            HwpError::InvalidField("table properties must be an object".into())
+        })?;
+        for key in [
+            "cellSpacing",
+            "paddingLeft",
+            "paddingRight",
+            "paddingTop",
+            "paddingBottom",
+            "outerLeft",
+            "outerRight",
+            "outerTop",
+            "outerBottom",
+            "captionSpacing",
+        ] {
+            if let Some(value) = fields.get(key) {
+                if value.as_i64().and_then(|v| i16::try_from(v).ok()).is_none() {
+                    return Err(HwpError::InvalidField(format!(
+                        "{key} must be an integer in -32768..32767"
+                    )));
+                }
+            }
+        }
+        let signed = |key| {
+            fields
+                .get(key)
+                .and_then(serde_json::Value::as_i64)
+                .map(|v| v as i16)
+        };
 
         let caption_style = self
             .document
@@ -3004,19 +3041,19 @@ impl DocumentCore {
 
         let table = self.get_table_mut(section_idx, parent_para_idx, control_idx)?;
 
-        if let Some(v) = json_i16(json, "cellSpacing") {
+        if let Some(v) = signed("cellSpacing") {
             table.cell_spacing = v;
         }
-        if let Some(v) = json_i16(json, "paddingLeft") {
+        if let Some(v) = signed("paddingLeft") {
             table.padding.left = v;
         }
-        if let Some(v) = json_i16(json, "paddingRight") {
+        if let Some(v) = signed("paddingRight") {
             table.padding.right = v;
         }
-        if let Some(v) = json_i16(json, "paddingTop") {
+        if let Some(v) = signed("paddingTop") {
             table.padding.top = v;
         }
-        if let Some(v) = json_i16(json, "paddingBottom") {
+        if let Some(v) = signed("paddingBottom") {
             table.padding.bottom = v;
         }
         if let Some(v) = json_u8(json, "pageBreak") {
@@ -3121,7 +3158,17 @@ impl DocumentCore {
                 _ => crate::model::shape::HorzAlign::Left,
             };
         }
-        table.common.attr = table.attr;
+        // HWPX may retain a richer common attr than Table.attr. A partial
+        // margin/size/fill patch must not overwrite unrelated placement bits.
+        let changes_common_flags = ["treatAsChar", "restrictInPage", "allowOverlap"]
+            .iter()
+            .any(|key| json_bool(json, key).is_some())
+            || ["textWrap", "vertRelTo", "vertAlign", "horzRelTo", "horzAlign"]
+                .iter()
+                .any(|key| json_str(json, key).is_some());
+        if changes_common_flags {
+            table.common.attr = table.attr;
+        }
         // 위치 오프셋: CommonObjAttr [0..4]=flags, [4..8]=v_offset, [8..12]=h_offset
         // [#6388] raw 를 0 확장하지 않는다 — `common` 이 합성 원천이고 raw 는 길이가
         // 허락할 때만 덧쓴다.
@@ -3171,11 +3218,13 @@ impl DocumentCore {
         // 원본 attr 를 그대로 다시 쓰는 항등 연산이라 무해).
         // [#6388] raw 가 빌 수 있으므로(HWPX 파스본) 가드를 거친다. 종전에는 바로 위
         // 위치 오프셋 블록의 0 확장이 길이 4 를 보장해 무조건 색인해도 됐다.
-        patch_raw_ctrl_field(
-            &mut table.raw_ctrl_data,
-            common_obj_offsets::FLAGS,
-            &table.attr.to_le_bytes(),
-        );
+        if changes_common_flags {
+            patch_raw_ctrl_field(
+                &mut table.raw_ctrl_data,
+                common_obj_offsets::FLAGS,
+                &table.attr.to_le_bytes(),
+            );
+        }
         // keepWithAnchor → prevent_page_break
         // CommonObjAttr::PREVENT_PAGE_BREAK (parse_common_obj_attr 정합)
         if let Some(v) = json_bool(json, "keepWithAnchor") {
@@ -3189,27 +3238,44 @@ impl DocumentCore {
         }
 
         // 바깥 여백 (CommonObjAttr margin ranges, parse_common_obj_attr 정합)
-        if table.raw_ctrl_data.len() >= common_obj_offsets::MARGIN_BOTTOM.end {
-            if let Some(v) = json_i16(json, "outerLeft") {
-                table.raw_ctrl_data[common_obj_offsets::MARGIN_LEFT]
-                    .copy_from_slice(&v.to_le_bytes());
-                table.common.margin.left = v;
-            }
-            if let Some(v) = json_i16(json, "outerRight") {
-                table.raw_ctrl_data[common_obj_offsets::MARGIN_RIGHT]
-                    .copy_from_slice(&v.to_le_bytes());
-                table.common.margin.right = v;
-            }
-            if let Some(v) = json_i16(json, "outerTop") {
-                table.raw_ctrl_data[common_obj_offsets::MARGIN_TOP]
-                    .copy_from_slice(&v.to_le_bytes());
-                table.common.margin.top = v;
-            }
-            if let Some(v) = json_i16(json, "outerBottom") {
-                table.raw_ctrl_data[common_obj_offsets::MARGIN_BOTTOM]
-                    .copy_from_slice(&v.to_le_bytes());
-                table.common.margin.bottom = v;
-            }
+        // HWPX serializes Table.outer_margin_*, while HWP/raw synthesis and
+        // layout use common.margin. An explicit edit must update both owners;
+        // patch each available raw field independently, never grow the header.
+        if let Some(v) = signed("outerLeft") {
+            table.outer_margin_left = v;
+            table.common.margin.left = v;
+            patch_raw_ctrl_field(
+                &mut table.raw_ctrl_data,
+                common_obj_offsets::MARGIN_LEFT,
+                &v.to_le_bytes(),
+            );
+        }
+        if let Some(v) = signed("outerRight") {
+            table.outer_margin_right = v;
+            table.common.margin.right = v;
+            patch_raw_ctrl_field(
+                &mut table.raw_ctrl_data,
+                common_obj_offsets::MARGIN_RIGHT,
+                &v.to_le_bytes(),
+            );
+        }
+        if let Some(v) = signed("outerTop") {
+            table.outer_margin_top = v;
+            table.common.margin.top = v;
+            patch_raw_ctrl_field(
+                &mut table.raw_ctrl_data,
+                common_obj_offsets::MARGIN_TOP,
+                &v.to_le_bytes(),
+            );
+        }
+        if let Some(v) = signed("outerBottom") {
+            table.outer_margin_bottom = v;
+            table.common.margin.bottom = v;
+            patch_raw_ctrl_field(
+                &mut table.raw_ctrl_data,
+                common_obj_offsets::MARGIN_BOTTOM,
+                &v.to_le_bytes(),
+            );
         }
 
         // 캡션 생성/수정
@@ -3280,7 +3346,7 @@ impl DocumentCore {
                 };
                 caption_changed = true;
             }
-            if let Some(v) = json_i16(json, "captionSpacing") {
+            if let Some(v) = signed("captionSpacing") {
                 cap.spacing = v;
                 caption_changed = true;
             }

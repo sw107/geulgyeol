@@ -1,0 +1,972 @@
+{
+  "baselineCommit": "0db4b7d3b81c433089aa4bef0115639bbcab708b",
+  "localEvidenceRoot": "/Users/sw107/Documents/Codex/2026-10-06/task/table-margin-range-qa",
+  "engineSHA256": "14c6978c7712faf84846c65619adc137bd923b17c3d47fd715544dc76fd1ec99",
+  "baselineAPI": [
+    {
+      "requested": 32768,
+      "actual": {
+        "cellSpacing": 13,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0,
+        "pageBreak": 2,
+        "repeatHeader": false,
+        "borderFillId": 3,
+        "borderLeft": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "borderRight": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "borderTop": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "borderBottom": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "fillType": "none",
+        "fillColor": "#ffffff",
+        "patternColor": "#000000",
+        "patternType": 0,
+        "diagonalLine": 1,
+        "diagonalSlash": 0,
+        "diagonalBackSlash": 0,
+        "diagonalWidth": 0,
+        "diagonalColor": "#000000",
+        "centerLine": "NONE",
+        "tableWidth": 32400,
+        "tableHeight": 9000,
+        "outerLeft": -32768,
+        "outerRight": 850,
+        "outerTop": 283,
+        "outerBottom": 283,
+        "hasCaption": false,
+        "treatAsChar": true,
+        "textWrap": "TopAndBottom",
+        "vertRelTo": "Page",
+        "vertAlign": "Top",
+        "horzRelTo": "Para",
+        "horzAlign": "Left",
+        "vertOffset": 0,
+        "horzOffset": 0,
+        "restrictInPage": false,
+        "allowOverlap": false,
+        "keepWithAnchor": false
+      }
+    },
+    {
+      "requested": -32769,
+      "actual": {
+        "cellSpacing": 13,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0,
+        "pageBreak": 2,
+        "repeatHeader": false,
+        "borderFillId": 3,
+        "borderLeft": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "borderRight": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "borderTop": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "borderBottom": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "fillType": "none",
+        "fillColor": "#ffffff",
+        "patternColor": "#000000",
+        "patternType": 0,
+        "diagonalLine": 1,
+        "diagonalSlash": 0,
+        "diagonalBackSlash": 0,
+        "diagonalWidth": 0,
+        "diagonalColor": "#000000",
+        "centerLine": "NONE",
+        "tableWidth": 32400,
+        "tableHeight": 9000,
+        "outerLeft": 32767,
+        "outerRight": 850,
+        "outerTop": 283,
+        "outerBottom": 283,
+        "hasCaption": false,
+        "treatAsChar": true,
+        "textWrap": "TopAndBottom",
+        "vertRelTo": "Page",
+        "vertAlign": "Top",
+        "horzRelTo": "Para",
+        "horzAlign": "Left",
+        "vertOffset": 0,
+        "horzOffset": 0,
+        "restrictInPage": false,
+        "allowOverlap": false,
+        "keepWithAnchor": false
+      }
+    },
+    {
+      "requested": 34016,
+      "actual": {
+        "cellSpacing": 13,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0,
+        "pageBreak": 2,
+        "repeatHeader": false,
+        "borderFillId": 3,
+        "borderLeft": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "borderRight": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "borderTop": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "borderBottom": {
+          "type": 1,
+          "width": 1,
+          "color": "#000000"
+        },
+        "fillType": "none",
+        "fillColor": "#ffffff",
+        "patternColor": "#000000",
+        "patternType": 0,
+        "diagonalLine": 1,
+        "diagonalSlash": 0,
+        "diagonalBackSlash": 0,
+        "diagonalWidth": 0,
+        "diagonalColor": "#000000",
+        "centerLine": "NONE",
+        "tableWidth": 32400,
+        "tableHeight": 9000,
+        "outerLeft": -31520,
+        "outerRight": 850,
+        "outerTop": 283,
+        "outerBottom": 283,
+        "hasCaption": false,
+        "treatAsChar": true,
+        "textWrap": "TopAndBottom",
+        "vertRelTo": "Page",
+        "vertAlign": "Top",
+        "horzRelTo": "Para",
+        "horzAlign": "Left",
+        "vertOffset": 0,
+        "horzOffset": 0,
+        "restrictInPage": false,
+        "allowOverlap": false,
+        "keepWithAnchor": false
+      }
+    }
+  ],
+  "baselineElectron": {
+    "requestedMm": 120,
+    "requestedHWPUNIT": 34016,
+    "actual": -31520,
+    "before": {
+      "cellSpacing": 0,
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 0,
+      "paddingBottom": 0,
+      "pageBreak": 2,
+      "repeatHeader": false,
+      "borderFillId": 3,
+      "borderLeft": {
+        "type": 1,
+        "width": 1,
+        "color": "#000000"
+      },
+      "borderRight": {
+        "type": 1,
+        "width": 1,
+        "color": "#000000"
+      },
+      "borderTop": {
+        "type": 1,
+        "width": 1,
+        "color": "#000000"
+      },
+      "borderBottom": {
+        "type": 1,
+        "width": 1,
+        "color": "#000000"
+      },
+      "fillType": "none",
+      "fillColor": "#ffffff",
+      "patternColor": "#000000",
+      "patternType": 0,
+      "diagonalLine": 1,
+      "diagonalSlash": 0,
+      "diagonalBackSlash": 0,
+      "diagonalWidth": 0,
+      "diagonalColor": "#000000",
+      "centerLine": "NONE",
+      "tableWidth": 32400,
+      "tableHeight": 9000,
+      "outerLeft": 283,
+      "outerRight": 283,
+      "outerTop": 283,
+      "outerBottom": 283,
+      "hasCaption": false,
+      "treatAsChar": true,
+      "textWrap": "TopAndBottom",
+      "vertRelTo": "Page",
+      "vertAlign": "Top",
+      "horzRelTo": "Para",
+      "horzAlign": "Left",
+      "vertOffset": 0,
+      "horzOffset": 0,
+      "restrictInPage": false,
+      "allowOverlap": false,
+      "keepWithAnchor": false
+    },
+    "after": {
+      "cellSpacing": 0,
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 0,
+      "paddingBottom": 0,
+      "pageBreak": 2,
+      "repeatHeader": false,
+      "borderFillId": 3,
+      "borderLeft": {
+        "type": 1,
+        "width": 1,
+        "color": "#000000"
+      },
+      "borderRight": {
+        "type": 1,
+        "width": 1,
+        "color": "#000000"
+      },
+      "borderTop": {
+        "type": 1,
+        "width": 1,
+        "color": "#000000"
+      },
+      "borderBottom": {
+        "type": 1,
+        "width": 1,
+        "color": "#000000"
+      },
+      "fillType": "none",
+      "fillColor": "#ffffff",
+      "patternColor": "#000000",
+      "patternType": 0,
+      "diagonalLine": 1,
+      "diagonalSlash": 0,
+      "diagonalBackSlash": 0,
+      "diagonalWidth": 0,
+      "diagonalColor": "#000000",
+      "centerLine": "NONE",
+      "tableWidth": 32400,
+      "tableHeight": 9000,
+      "outerLeft": -31520,
+      "outerRight": 283,
+      "outerTop": 283,
+      "outerBottom": 283,
+      "hasCaption": false,
+      "treatAsChar": true,
+      "textWrap": "TopAndBottom",
+      "vertRelTo": "Page",
+      "vertAlign": "Top",
+      "horzRelTo": "Para",
+      "horzAlign": "Left",
+      "vertOffset": 0,
+      "horzOffset": 0,
+      "restrictInPage": false,
+      "allowOverlap": false,
+      "keepWithAnchor": false
+    },
+    "historyBefore": {
+      "u": 0,
+      "r": 0
+    },
+    "historyAfter": {
+      "u": 1,
+      "r": 0
+    }
+  },
+  "nativeRange": {
+    "atomicRejections": 160,
+    "savedReopens": 80,
+    "validBoundaries": 40,
+    "wholeDocumentRawSVGAndBytesUnchanged": true
+  },
+  "electronRange": {
+    "APIAtomicRejections": 162,
+    "UIAtomicRejections": 16,
+    "undoRedoPairs": 2,
+    "savedReopens": 4,
+    "rows": [
+      {
+        "name": "range-input.hwpx",
+        "side": 0,
+        "requestedMm": "120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwpx",
+        "side": 0,
+        "requestedMm": "-120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "-115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwpx",
+        "side": 1,
+        "requestedMm": "120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwpx",
+        "side": 1,
+        "requestedMm": "-120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "-115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwpx",
+        "side": 2,
+        "requestedMm": "120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwpx",
+        "side": 2,
+        "requestedMm": "-120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "-115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwpx",
+        "side": 3,
+        "requestedMm": "120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwpx",
+        "side": 3,
+        "requestedMm": "-120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "-115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwp",
+        "side": 0,
+        "requestedMm": "120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwp",
+        "side": 0,
+        "requestedMm": "-120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "-115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwp",
+        "side": 1,
+        "requestedMm": "120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwp",
+        "side": 1,
+        "requestedMm": "-120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "-115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwp",
+        "side": 2,
+        "requestedMm": "120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwp",
+        "side": 2,
+        "requestedMm": "-120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "-115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwp",
+        "side": 3,
+        "requestedMm": "120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          }
+        ]
+      },
+      {
+        "name": "range-input.hwp",
+        "side": 3,
+        "requestedMm": "-120.0",
+        "UIRejected": true,
+        "validity": [
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "1.0",
+            "message": ""
+          },
+          {
+            "min": "-115.6",
+            "max": "115.6",
+            "value": "-115.6",
+            "message": "바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다."
+          }
+        ]
+      }
+    ],
+    "normalQuit": {
+      "exitCode": 0,
+      "normalQuit": true
+    }
+  },
+  "electronRegression": {
+    "cases": 14,
+    "undoRedoPairs": 28,
+    "savedReopens": 56,
+    "normalQuit": {
+      "exitCode": 0,
+      "normalQuit": true
+    },
+    "errors": []
+  },
+  "nativeRegression": {
+    "cases": 48,
+    "pairs": 48,
+    "savedReopens": 96,
+    "rawChecks": 40
+  },
+  "sameByteNativeOracle": {
+    "getterAndFullSVGExact": true,
+    "sameBytesFiles": 56
+  },
+  "checks": {
+    "desktop": {
+      "tests": 50,
+      "pass": 49,
+      "skip": 1,
+      "fail": 0
+    },
+    "currentEngineTypeScript": true,
+    "clippyLibAndBothExamplesWarningsDenied": true,
+    "wasmReleaseBuild": true,
+    "productionViteBuild": true,
+    "productionQAGlobalsAbsent": true
+  },
+  "preservation": {
+    "originals": {
+      "count": 73368,
+      "changed": [],
+      "missing": []
+    },
+    "previousQA": {
+      "count": 6548,
+      "changed": [],
+      "missing": []
+    },
+    "originalCache": {
+      "count": 579,
+      "changedOrMissing": []
+    },
+    "targetBytes": 4690210816,
+    "targetLimitBytes": 4831838208,
+    "newPackagingQAFolderBytes": 319754240,
+    "newPackagingQALimitBytes": 1073741824,
+    "freeBytes": 37191249920,
+    "minimumFreeBytes": 16106127360,
+    "ownedPortsChecked": 6,
+    "openOwnedPorts": [],
+    "ownedQAProcesses": [],
+    "oldCandidatesPreserved": true,
+    "publicReleaseCreated": false,
+    "publicTagCreated": false,
+    "protectedFilesPermanentlyDeleted": false,
+    "seconds": 16.82
+  },
+  "previousMarginEvidence": {
+    "baseline-engine-proof.json": true,
+    "baseline-2/proof.json": true,
+    "fixed-6/proof.json": true,
+    "fixed-6/manifest.json": true,
+    "native-oracle/proof.json": true,
+    "native-oracle/electron-oracle.json": true,
+    "desktop-tests.log": true,
+    "typescript-current.log": true,
+    "clippy-final.log": true,
+    "production-build.log": true,
+    "wasm-build.log": true,
+    "preservation.json": true
+  },
+  "resourceBudget": {
+    "monitor": {
+      "targetPeakBytes": 4856729600,
+      "QAPeakBytes": 154386432,
+      "minimumFreeBytes": 37171007488,
+      "targetLimitBytes": 4831838208,
+      "QALimitBytes": 1073741824,
+      "minimumFreeLimitBytes": 16106127360
+    },
+    "peakTargetPassed": false,
+    "finalTargetPassed": true,
+    "correctiveAction": "retain owned Native outputs separately and restore original 579-cache manifest; no original deletion"
+  },
+  "limitations": {
+    "newPackagedApp": false,
+    "manualGUI": false,
+    "OSChooser": false,
+    "physicalIME": false,
+    "clipboardAccessed": false,
+    "Hancom": false,
+    "Linux": false,
+    "wholeRustLibTests": "existing missing include_bytes fixtures"
+  },
+  "evidence": {
+    "baseline-api.json": "970e60dd9ff3e78f4b5401082cfade4bd544b625ae8a1921c5a1953dc43e013b",
+    "baseline/range-baseline.json": "3f3ec000e3907e423da58f697750e547d79466b223dca6249d0fb4933a771a50",
+    "fixed/proof.json": "573e5bd44b7a6f88e5c661c36733a59ac772619d3813aeedd2bc10716a2512fc",
+    "fixed/manifest.json": "a9621c0ff0acc5d3d3dc09873a67a375284438bcc9437619ff83a53f16204d3c",
+    "native-final/proof.json": "4b0ce6b98307e5fe89251c9e06c1a4f02e7b2ddae3ed55aaec49d9085552c938",
+    "margin-regression-electron/proof.json": "fb829410b1e76a88f837a4f0e1fc1587c6be5b59d6564c17e9274e4c1df9bf99",
+    "native-final-regression/proof.json": "30fbfbc55109e8f37c43f423a95b990dfaca9fb7fb28533318974cb533cb286a",
+    "native-final-regression/electron-oracle.json": "e3cc470504a490ed4ffbb79fee69d06fff5ff47268f8e2a9b01b59528eab4664",
+    "desktop-tests.log": "a1f6fcea6800dddbc3d33d5b8a542c0b86c5f39b84cb2c19fc4f153752f3d805",
+    "typescript-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "clippy.log": "fb066d1e6cc64b8d3daa07328de338d62a126a2637945b4f3a0a1a44a516b744",
+    "wasm-build.log": "afc8a4983be93f37e7650208df9ea803544d90fbe97530644b360a48d0a1fe84",
+    "production-build.log": "1b90540752d0f29da39113665568e2eb9d8de0495ef46b5c4053524716db45cb",
+    "preservation.json": "1fe0c56a831bc03c29540ed98649292cfdc281ffcb651399e8f4b20ba64466e4"
+  },
+  "sourceSHA256": {
+    "engine/src/document_core/commands/table_ops.rs": "baf3cc42eff51109fdece42503b8f5b77f6b404440f28b3f892d0c8dcecb9e25",
+    "rhwp-studio/src/ui/table-cell-props-dialog.ts": "60b9341be56bfb6f602398f74efe565c3a1d7298950263165f9e34f5c1c6bb9c",
+    "engine/examples/table_margin_range_check.rs": "004d90f231e5b1938aae154b61f7eb39df9e12ea7619a538b360390d360006fe",
+    "desktop/tests/table-margins.test.cjs": "ab8e70ad58cbb32571a281ed56c7eea6ba3a6cf7ba9ca9ea09ebf7e3bf22a947",
+    "scripts/check-electron-table-margin-range.mjs": "4d1d857c1ba9de6e3ace890e68f3bcda433817c7b77f0174ebe268ac439646ed"
+  }
+}
