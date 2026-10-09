@@ -1,0 +1,4383 @@
+{
+  "basis": {
+    "preservedPR12SHA": "b36479267b53440112af6364e3ba082936d98ced",
+    "PR": "https://github.com/sw107/geulgyeol/pull/12",
+    "syntheticOnly": true
+  },
+  "fix": "A fully consumed mixed owner cut advances the row cursor and keeps split_end_limit zero; the existing 0.1px capacity epsilon is unchanged. Diagnostics require explicit environment variables.",
+  "engineSHA256": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+  "nativeSHA256": "369fa9dc076cb2826c443f8e8902f24bb44d771391d295eea0181711dfe8eade",
+  "sourceFilesSHA256": {
+    "engine/src/renderer/typeset.rs": "174612c3e3582c243ef5eca02df62a325130f703e7b2574468aa8d575525eb11",
+    "engine/src/renderer/layout/table_layout.rs": "5a72094c549ebf6db570e4f1da06422f50ca825a1c7a341afe6bcb2931e87c7e",
+    "scripts/check-electron-stored-merged-fragments.mjs": "18a7e242db2204d6079be75aeab02442cb8b18dc7d5cc43871327aa30b6745c9",
+    "scripts/run-electron-table-qa.py": "de45558259318f3da47e0c8c78304f32947034dad470a643b53e9d69dc92470f",
+    "scripts/shard-electron-table-manifest.py": "8a5625072fbaf4022805ff6051e98fcf266434fdf33df0123c33c2f06b9bd979",
+    "scripts/prepare-mixed-owner-completion.mjs": "98fcd1f707e2533185ebe5edb0481b83a1436ff188b08869af1371fb6273f96e",
+    "scripts/check-mixed-owner-completion.py": "9d9f7ff3362d8346962c28c6ec9bec6c1698ac6ba45c1528fc89399740fce312",
+    "engine/examples/horizontal_table_saved_check.rs": "add99172086480f8c7c07eb1f7a9d444398424cf0f0540a159a6c88da5fc6f89"
+  },
+  "nativeBoundary": {
+    "cases": 18,
+    "sourceSeedsSHA256": "9561d25dc513722dd165dd432de4bfc3d57e3c3cfda2769f4bcd4ac9bcd70c01",
+    "newNativeSHA256": "53939e9712c08b5896c4857f4c14a4292c2b05ae0a61e1e782034ea581b2d6b5",
+    "oldNativeSHA256": "c7b37d93662345b953f9bc82821b4839863ebe5e7c1123eb6cd8290f961e74ac",
+    "rows": [
+      {
+        "label": "completion-under-10",
+        "format": "hwp",
+        "sourceSHA256": "d62b0c9abf8daf6072a5e3a6e705ad3c74154c28731bffe6c7b027cb66ede20f",
+        "expectedDifferencePx": -0.13333333333333333,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "105443739507356a7418eb79735e893639e516f9fee5f7fed3d0da370b590836",
+            "ownershipProofSHA256": "3a5e6a45b346047cca16eea6a128df16ac448135f5aa708792686cb2b71187a6",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "1a6720e11211cea3c37118ddfb53c6762159caea1b3d5345a663b6dcfb21a8d2",
+            "ownershipProofSHA256": "0d2c2202fef1070ad44ce53081854573523c0c035d5018c8b1d5a8c13e3c7a0c",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.893333333,
+                "difference": -0.13333333299999595
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-under-10",
+        "format": "hwpx",
+        "sourceSHA256": "bb1fd55802370bcc6b042e950250f0177a656d156a60eb34249a1c9d6bef638b",
+        "expectedDifferencePx": -0.13333333333333333,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "105443739507356a7418eb79735e893639e516f9fee5f7fed3d0da370b590836",
+            "ownershipProofSHA256": "3a5e6a45b346047cca16eea6a128df16ac448135f5aa708792686cb2b71187a6",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "1a6720e11211cea3c37118ddfb53c6762159caea1b3d5345a663b6dcfb21a8d2",
+            "ownershipProofSHA256": "0d2c2202fef1070ad44ce53081854573523c0c035d5018c8b1d5a8c13e3c7a0c",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.893333333,
+                "difference": -0.13333333299999595
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-under-8",
+        "format": "hwp",
+        "sourceSHA256": "f7e8c43eed33dcd8c7b9c9e854040e33f555a47751144b36820c3556eda4af4d",
+        "expectedDifferencePx": -0.10666666666666667,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "5595af71067b198c840e3390c3532cf6f01815d5695ebf7511a6e80d1dbf2f6b",
+            "ownershipProofSHA256": "90e9d2ae1e9d43eae4e2d310cbe68931cc2e1f1cf7b1edc8f9df1021217949ab",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "8757696ae97472b81578aeb812d7b4fa0b63362125f65f9135562aca4a0f9fea",
+            "ownershipProofSHA256": "aad7f001bc9b0e7297e69c51d0c2d243a554f7afa19ea47758d4a44156b574ca",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.866666667,
+                "difference": -0.10666666700001315
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-under-8",
+        "format": "hwpx",
+        "sourceSHA256": "b6a23d745df67c8af253960287197f3db0d4075c1004fc7ea42ac9e1fe642dc5",
+        "expectedDifferencePx": -0.10666666666666667,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "5595af71067b198c840e3390c3532cf6f01815d5695ebf7511a6e80d1dbf2f6b",
+            "ownershipProofSHA256": "90e9d2ae1e9d43eae4e2d310cbe68931cc2e1f1cf7b1edc8f9df1021217949ab",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "8757696ae97472b81578aeb812d7b4fa0b63362125f65f9135562aca4a0f9fea",
+            "ownershipProofSHA256": "aad7f001bc9b0e7297e69c51d0c2d243a554f7afa19ea47758d4a44156b574ca",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.866666667,
+                "difference": -0.10666666700001315
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-under-7",
+        "format": "hwp",
+        "sourceSHA256": "dfe3591569071de021c140f4553db78d8e84e005b87e6b64605f8453820df97c",
+        "expectedDifferencePx": -0.09333333333333334,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "3919e2d910e04528b4a8bfb36e9685634a376506de0df4596413ce7476e7adbf",
+            "ownershipProofSHA256": "3947dddf9567649add6563981ab659ac50e113e60f784ac4c22835d4ab1e01b8",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "4318530a51543fd67cf15b8f3c26b373b5575918967f530d0a8acc9e7bff25db",
+            "ownershipProofSHA256": "4fe5ed6a6934a9d611ace422076d311b286ffb6ae57037d6d8847c73d01c9492",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.853333333,
+                "difference": -0.09333333300003233
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-under-7",
+        "format": "hwpx",
+        "sourceSHA256": "49e31e6927e525a5a9e6358ac3418647a575b6d72abd11db12fd6e539f3d8021",
+        "expectedDifferencePx": -0.09333333333333334,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "3919e2d910e04528b4a8bfb36e9685634a376506de0df4596413ce7476e7adbf",
+            "ownershipProofSHA256": "3947dddf9567649add6563981ab659ac50e113e60f784ac4c22835d4ab1e01b8",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "e460d00034a99250ac3ce71ef6a0b7e2bf0125e75353ac9733188c1c32391389",
+            "cutLogSHA256": "4318530a51543fd67cf15b8f3c26b373b5575918967f530d0a8acc9e7bff25db",
+            "ownershipProofSHA256": "4fe5ed6a6934a9d611ace422076d311b286ffb6ae57037d6d8847c73d01c9492",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.853333333,
+                "difference": -0.09333333300003233
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-under-1",
+        "format": "hwp",
+        "sourceSHA256": "993b3504a696c53f1a3efa5d2c20f754a28ed570e9c048120dd3fd36d844a911",
+        "expectedDifferencePx": -0.013333333333333334,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "d4469e8855a93faf43cd1fb1010c8fe193ed43690ec8f359e55bae0a441d7370",
+            "cutLogSHA256": "974fef7f145c8bc208965e92b73603f8c4101d92ef6a8d3352148afc096236b1",
+            "ownershipProofSHA256": "1cc15c33870793b3de1a527ca7b9f76a541f13c1ac4c179172e5e38445d9d08c",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "d4469e8855a93faf43cd1fb1010c8fe193ed43690ec8f359e55bae0a441d7370",
+            "cutLogSHA256": "fa4e497a213b4631050d8cb5ade31ce21ab1f738ed94e8580ef574538195bb98",
+            "ownershipProofSHA256": "df67017af43f9835f97fb6f313327fa8a9c4de805da7f8cb8f3a710ce0c1ab17",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.773333333,
+                "difference": -0.013333332999991399
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-under-1",
+        "format": "hwpx",
+        "sourceSHA256": "4aabcb8adfdbf427e4fb8482b832966d978ed6308115401296d4dc839f500f66",
+        "expectedDifferencePx": -0.013333333333333334,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "d4469e8855a93faf43cd1fb1010c8fe193ed43690ec8f359e55bae0a441d7370",
+            "cutLogSHA256": "974fef7f145c8bc208965e92b73603f8c4101d92ef6a8d3352148afc096236b1",
+            "ownershipProofSHA256": "1cc15c33870793b3de1a527ca7b9f76a541f13c1ac4c179172e5e38445d9d08c",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "d4469e8855a93faf43cd1fb1010c8fe193ed43690ec8f359e55bae0a441d7370",
+            "cutLogSHA256": "fa4e497a213b4631050d8cb5ade31ce21ab1f738ed94e8580ef574538195bb98",
+            "ownershipProofSHA256": "df67017af43f9835f97fb6f313327fa8a9c4de805da7f8cb8f3a710ce0c1ab17",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.773333333,
+                "difference": -0.013333332999991399
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-exact-0",
+        "format": "hwp",
+        "sourceSHA256": "ed06bffdb752b053a7ea6f59cce1d3b9fc76a8ef7b1cd6ad955ac4fadde3ab04",
+        "expectedDifferencePx": 0,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "d4469e8855a93faf43cd1fb1010c8fe193ed43690ec8f359e55bae0a441d7370",
+            "cutLogSHA256": "4338fc3bb823288555e10388a9f2b5281824df51dd48a748bf8a898b2fad02e2",
+            "ownershipProofSHA256": "9e644db55b17ea9264ac3858d7a2e79fbeff4d9eaf9a2dee16149940feeada46",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "d4469e8855a93faf43cd1fb1010c8fe193ed43690ec8f359e55bae0a441d7370",
+            "cutLogSHA256": "b58444c03b1b427e86b49166ceb607b286102e30f8fa331890d3d3842c2eaaa7",
+            "ownershipProofSHA256": "306439d6b619fa66a062657df4b31b8a094cee42450ccd63ba1c262b36941eae",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.76,
+                "difference": 0.0
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-exact-0",
+        "format": "hwpx",
+        "sourceSHA256": "4476b65d9e5b698656d798413764f3797830635a6436e5e844bf359c5c2232ca",
+        "expectedDifferencePx": 0,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "d4469e8855a93faf43cd1fb1010c8fe193ed43690ec8f359e55bae0a441d7370",
+            "cutLogSHA256": "4338fc3bb823288555e10388a9f2b5281824df51dd48a748bf8a898b2fad02e2",
+            "ownershipProofSHA256": "9e644db55b17ea9264ac3858d7a2e79fbeff4d9eaf9a2dee16149940feeada46",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "d4469e8855a93faf43cd1fb1010c8fe193ed43690ec8f359e55bae0a441d7370",
+            "cutLogSHA256": "b58444c03b1b427e86b49166ceb607b286102e30f8fa331890d3d3842c2eaaa7",
+            "ownershipProofSHA256": "306439d6b619fa66a062657df4b31b8a094cee42450ccd63ba1c262b36941eae",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.76,
+                "difference": 0.0
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-over-1",
+        "format": "hwp",
+        "sourceSHA256": "95e5e1a2074e99a6bd28ca0c60b94661b222feb20fe950986ad2ae2c5f278c04",
+        "expectedDifferencePx": 0.013333333333333334,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [
+              10
+            ],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 298.0
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "24e632cb70aa9cfade08fa671dfd8bc1b4b9b5e82fe1555b3404a4c476adf54b",
+            "cutLogSHA256": "60c17346d1d54943f7be6925c3df8b9eabace60addf5a7125d35dbcafd1739b2",
+            "ownershipProofSHA256": "bdacc5c098035c1bd394ba27dc6f1680d52f2686c1b29fce16c22dfe7cb95464",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "d4469e8855a93faf43cd1fb1010c8fe193ed43690ec8f359e55bae0a441d7370",
+            "cutLogSHA256": "9689cc125f26e77fe528ae7f90849ad8a3548fcae780c4f6666a0f8d657c47e4",
+            "ownershipProofSHA256": "99c8d60bb6d2a2509ce6aff7a9040c655e7f7c2472a933735ca38744835221e4",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.746666667,
+                "difference": 0.013333332999991399
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-over-1",
+        "format": "hwpx",
+        "sourceSHA256": "7f83be4428fae7b345762f2c64296c8d64426f1ed42d229c697442676f4510ad",
+        "expectedDifferencePx": 0.013333333333333334,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [
+              10
+            ],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 298.0
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "24e632cb70aa9cfade08fa671dfd8bc1b4b9b5e82fe1555b3404a4c476adf54b",
+            "cutLogSHA256": "60c17346d1d54943f7be6925c3df8b9eabace60addf5a7125d35dbcafd1739b2",
+            "ownershipProofSHA256": "bdacc5c098035c1bd394ba27dc6f1680d52f2686c1b29fce16c22dfe7cb95464",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "d4469e8855a93faf43cd1fb1010c8fe193ed43690ec8f359e55bae0a441d7370",
+            "cutLogSHA256": "9689cc125f26e77fe528ae7f90849ad8a3548fcae780c4f6666a0f8d657c47e4",
+            "ownershipProofSHA256": "99c8d60bb6d2a2509ce6aff7a9040c655e7f7c2472a933735ca38744835221e4",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.746666667,
+                "difference": 0.013333332999991399
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-over-7",
+        "format": "hwp",
+        "sourceSHA256": "4807f99d215c5be369b17d765bd1c18027501d4d068c2e016c623a54181b8912",
+        "expectedDifferencePx": 0.09333333333333334,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [
+              10
+            ],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 298.0
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "c0dcaff72a32aeea63ed58a35773fa2a8f6a7f265537b18a499b64391cf45619",
+            "cutLogSHA256": "b41ed89faa8436be81ddc9999352d2155cae9953af62726e023fb8e323a66776",
+            "ownershipProofSHA256": "bc267bcbc8a0da3ba9e685fc472ab85cf456e2586dc3b12e6c330d90839ee68f",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "87c8b1871bc0de767d2ce36f625c7986fc7bf2b3b7f4c45228bb43822da1eb36",
+            "cutLogSHA256": "b68f6e30c1b1234a5352b4f18c12412880d2e521c3483f5c0c2c3c072ec4bac4",
+            "ownershipProofSHA256": "77ec957a41fe52fff8c964d83afa96c09bb4ee2f93e5eb47da0e7a2b3a0f0139",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.666666667,
+                "difference": 0.09333333300003233
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-over-7",
+        "format": "hwpx",
+        "sourceSHA256": "3a20735134a7722c600b5cadcc4abf81bea8b335c6d0ea0e0e4fa5a295a5aa17",
+        "expectedDifferencePx": 0.09333333333333334,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [
+              10
+            ],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 298.0
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "c0dcaff72a32aeea63ed58a35773fa2a8f6a7f265537b18a499b64391cf45619",
+            "cutLogSHA256": "b41ed89faa8436be81ddc9999352d2155cae9953af62726e023fb8e323a66776",
+            "ownershipProofSHA256": "bc267bcbc8a0da3ba9e685fc472ab85cf456e2586dc3b12e6c330d90839ee68f",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 20,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 132.3
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "87c8b1871bc0de767d2ce36f625c7986fc7bf2b3b7f4c45228bb43822da1eb36",
+            "cutLogSHA256": "b68f6e30c1b1234a5352b4f18c12412880d2e521c3483f5c0c2c3c072ec4bac4",
+            "ownershipProofSHA256": "77ec957a41fe52fff8c964d83afa96c09bb4ee2f93e5eb47da0e7a2b3a0f0139",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.666666667,
+                "difference": 0.09333333300003233
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-over-8",
+        "format": "hwp",
+        "sourceSHA256": "5862023ae1e9804b9d040c19e23509ff597b98c4913b56944341122985bef5dd",
+        "expectedDifferencePx": 0.10666666666666667,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 315.1
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "6340f70f7e2e72635a1a9cd1d139a3c811808be7caa3e18cf3c653d86aac1499",
+            "cutLogSHA256": "0a418ec711b1c78782833d0a63bdeb36da2179809cd395e61012a76ab483adcb",
+            "ownershipProofSHA256": "95ce8b5ceb065c49adc01ca23304c608530de54b4a8d557ad09242fa06137f76",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 315.1
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "6340f70f7e2e72635a1a9cd1d139a3c811808be7caa3e18cf3c653d86aac1499",
+            "cutLogSHA256": "058ca5fb0e842e36d3fe30cc1e7d135f87c8dd78158dfcc6f2fc0c23c7b91e46",
+            "ownershipProofSHA256": "e3cd52dff91f084a394d092585de544c84c16bb0fbd7676ce501aa9074aeb9bc",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.653333333,
+                "difference": 0.10666666700001315
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-over-8",
+        "format": "hwpx",
+        "sourceSHA256": "6524298a4a3f76837cf3f3f19f8dd3f641a273b61b95daaab42abf9f6e04fb4b",
+        "expectedDifferencePx": 0.10666666666666667,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 315.1
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "6340f70f7e2e72635a1a9cd1d139a3c811808be7caa3e18cf3c653d86aac1499",
+            "cutLogSHA256": "0a418ec711b1c78782833d0a63bdeb36da2179809cd395e61012a76ab483adcb",
+            "ownershipProofSHA256": "95ce8b5ceb065c49adc01ca23304c608530de54b4a8d557ad09242fa06137f76",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 315.1
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "6340f70f7e2e72635a1a9cd1d139a3c811808be7caa3e18cf3c653d86aac1499",
+            "cutLogSHA256": "058ca5fb0e842e36d3fe30cc1e7d135f87c8dd78158dfcc6f2fc0c23c7b91e46",
+            "ownershipProofSHA256": "e3cd52dff91f084a394d092585de544c84c16bb0fbd7676ce501aa9074aeb9bc",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.653333333,
+                "difference": 0.10666666700001315
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-over-10",
+        "format": "hwp",
+        "sourceSHA256": "74ced04c59f0d2120032baae905441c7fbfb2cdbb7b3412a011e30228720c7e8",
+        "expectedDifferencePx": 0.13333333333333333,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 315.1
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "6340f70f7e2e72635a1a9cd1d139a3c811808be7caa3e18cf3c653d86aac1499",
+            "cutLogSHA256": "16b2ee0d08c03490ec81fd92d110a3b73ba5f22164cd20d8336a26b89e42d2a9",
+            "ownershipProofSHA256": "6405d424199fa4aa25971a56ac45024b652a8f48e9a7d18fddbd0f09e8d98975",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 315.1
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "6340f70f7e2e72635a1a9cd1d139a3c811808be7caa3e18cf3c653d86aac1499",
+            "cutLogSHA256": "843e064bc69a967b610c97055f5d27a3d524da9006e8ff3202741136b4375bfb",
+            "ownershipProofSHA256": "ba1aecfe72715e215e800c29935b81caf465f8e3eadf4b69320d1f82159daeef",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.626666667,
+                "difference": 0.13333333299999595
+              }
+            ]
+          }
+        }
+      },
+      {
+        "label": "completion-over-10",
+        "format": "hwpx",
+        "sourceSHA256": "658aeba5b60d2d1378f0414ba42312560a00dee90c64f95691e857b1d8ce8796",
+        "expectedDifferencePx": 0.13333333333333333,
+        "pair": {
+          "old": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 315.1
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "6340f70f7e2e72635a1a9cd1d139a3c811808be7caa3e18cf3c653d86aac1499",
+            "cutLogSHA256": "16b2ee0d08c03490ec81fd92d110a3b73ba5f22164cd20d8336a26b89e42d2a9",
+            "ownershipProofSHA256": "6405d424199fa4aa25971a56ac45024b652a8f48e9a7d18fddbd0f09e8d98975",
+            "boundaryScans": []
+          },
+          "new": {
+            "exitCode": 0,
+            "tablePages": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "emptyTablePages": [],
+            "headerCellInstances": 22,
+            "trailingBody": [
+              {
+                "page": 10,
+                "paras": [
+                  0,
+                  1
+                ],
+                "y": 315.1
+              }
+            ],
+            "trailingBodyTextSHA256": "a6b5e2ac71776a85736608c0fd7a0994e92829de50d0649d30a4b5d5a3190b34",
+            "nativeWarnings": 0,
+            "sourceLedgerSHA256": "6340f70f7e2e72635a1a9cd1d139a3c811808be7caa3e18cf3c653d86aac1499",
+            "cutLogSHA256": "843e064bc69a967b610c97055f5d27a3d524da9006e8ff3202741136b4375bfb",
+            "ownershipProofSHA256": "ba1aecfe72715e215e800c29935b81caf465f8e3eadf4b69320d1f82159daeef",
+            "boundaryScans": [
+              {
+                "residual": 699.76,
+                "budget": 699.626666667,
+                "difference": 0.13333333299999595
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "actualElectronBaseline": [
+    {
+      "case": "completion-over-7-input.hwp-initial-state.json",
+      "stateSHA256": "3faa82eee6e57fa54344e9dca304925400c6ca730a60ebbf37179630357f4f3d",
+      "tablePages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "emptyTablePages": [
+        10
+      ]
+    },
+    {
+      "case": "completion-over-7-input.hwpx-initial-state.json",
+      "stateSHA256": "b930dff53572acc2a08230bc3801b261b4fe1de0c3216716088772d198d8c395",
+      "tablePages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "emptyTablePages": [
+        10
+      ]
+    },
+    {
+      "case": "completion-over-1-input.hwp-initial-state.json",
+      "stateSHA256": "c2680e4872c6c0baaf6cc5930e164011c2c49dd51afeca9ad7ff6951759283a1",
+      "tablePages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "emptyTablePages": [
+        10
+      ]
+    },
+    {
+      "case": "completion-over-1-input.hwpx-initial-state.json",
+      "stateSHA256": "ec3be723485a8a46b8018cd524faf2ea3b41ef1f6eb96e0a5517834306759d54",
+      "tablePages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "emptyTablePages": [
+        10
+      ]
+    }
+  ],
+  "actualMacElectron": [
+    {
+      "stage": "baseline-app",
+      "rawProcessRecordSHA256": "b2b74fcc9e1ff7335d26c9ff55e34aac54672ab682cf7f5f9e15894d7af3a317",
+      "rawProofSHA256": "1404e8175bb696d26bd4c0398633b2f1307841b9e6a36b357b31e635fc281ab5",
+      "rawLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourceBeforeSHA256": {
+        "run-electron-table-qa.py": "de45558259318f3da47e0c8c78304f32947034dad470a643b53e9d69dc92470f",
+        "check-electron-stored-merged-fragments.mjs": "54c34a4b5ebcc646779eeeeaea6b65ed53811d66f7a9bd944c34e6f8802f1bb7",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourceAfterSHA256": {
+        "run-electron-table-qa.py": "de45558259318f3da47e0c8c78304f32947034dad470a643b53e9d69dc92470f",
+        "check-electron-stored-merged-fragments.mjs": "54c34a4b5ebcc646779eeeeaea6b65ed53811d66f7a9bd944c34e6f8802f1bb7",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourcesUnchanged": true,
+      "sourceSeedsBeforeSHA256": "7763c6d54a53e1305ee8528270ea8b4efc113b0fcb4c052979e57ce9c9193684",
+      "sourceSeedsAfterSHA256": "7763c6d54a53e1305ee8528270ea8b4efc113b0fcb4c052979e57ce9c9193684",
+      "sourceSeedsUnchanged": true,
+      "cases": 4,
+      "pairs": 0,
+      "reopens": 0,
+      "errors": [],
+      "engineSHA256": "6f98907e4d41136c62a2f8c8c7bd3c0e62a5ccc2fe0695491248faf3024f6b24",
+      "receivedEngineSHA256": "6f98907e4d41136c62a2f8c8c7bd3c0e62a5ccc2fe0695491248faf3024f6b24",
+      "paintChecks": 4,
+      "paintPages": 44,
+      "hidden": 0,
+      "partial": 0,
+      "maxBorderOverflowPx": 0.09333333333336213,
+      "maxInkOverflowPx": -0.7865855153402208,
+      "rows": [
+        {
+          "label": "completion-over-1",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-over-1",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-over-7",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-over-7",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        }
+      ]
+    },
+    {
+      "stage": "boundary-app",
+      "rawProcessRecordSHA256": "dc22b0b0615cec0ad14bc31f5b67b11cac8e1b945a9683422d99c86dc5d94f68",
+      "rawProofSHA256": "a085c6d1461cd593e0492ad1634b6317998846290c371d38e097e735b9a3d093",
+      "rawLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourceBeforeSHA256": {
+        "run-electron-table-qa.py": "de45558259318f3da47e0c8c78304f32947034dad470a643b53e9d69dc92470f",
+        "check-electron-stored-merged-fragments.mjs": "18a7e242db2204d6079be75aeab02442cb8b18dc7d5cc43871327aa30b6745c9",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourceAfterSHA256": {
+        "run-electron-table-qa.py": "de45558259318f3da47e0c8c78304f32947034dad470a643b53e9d69dc92470f",
+        "check-electron-stored-merged-fragments.mjs": "18a7e242db2204d6079be75aeab02442cb8b18dc7d5cc43871327aa30b6745c9",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourcesUnchanged": true,
+      "sourceSeedsBeforeSHA256": "9561d25dc513722dd165dd432de4bfc3d57e3c3cfda2769f4bcd4ac9bcd70c01",
+      "sourceSeedsAfterSHA256": "9561d25dc513722dd165dd432de4bfc3d57e3c3cfda2769f4bcd4ac9bcd70c01",
+      "sourceSeedsUnchanged": true,
+      "cases": 18,
+      "pairs": 0,
+      "reopens": 36,
+      "errors": [],
+      "engineSHA256": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+      "receivedEngineSHA256": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+      "paintChecks": 72,
+      "paintPages": 792,
+      "hidden": 0,
+      "partial": 0,
+      "maxBorderOverflowPx": 0.09333333333336213,
+      "maxInkOverflowPx": -0.7865855153402208,
+      "rows": [
+        {
+          "label": "completion-under-10",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-under-10",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-under-8",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-under-8",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-under-7",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-under-7",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-under-1",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-under-1",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-exact-0",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-exact-0",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-over-1",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-over-1",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-over-7",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-over-7",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-over-8",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-over-8",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-over-10",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "completion-over-10",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        }
+      ]
+    },
+    {
+      "stage": "regression-app",
+      "rawProcessRecordSHA256": "88624f891b6c3ed71ad8793fe71e3a07dd46ff08e55bd4c0d7829050fd2a77a5",
+      "rawProofSHA256": "274d7ea36c5e7958f00e96e55dc244928aa6e97beb2e83d943c973dc40342205",
+      "rawLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourceBeforeSHA256": {
+        "run-electron-table-qa.py": "de45558259318f3da47e0c8c78304f32947034dad470a643b53e9d69dc92470f",
+        "check-electron-stored-merged-fragments.mjs": "18a7e242db2204d6079be75aeab02442cb8b18dc7d5cc43871327aa30b6745c9",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourceAfterSHA256": {
+        "run-electron-table-qa.py": "de45558259318f3da47e0c8c78304f32947034dad470a643b53e9d69dc92470f",
+        "check-electron-stored-merged-fragments.mjs": "18a7e242db2204d6079be75aeab02442cb8b18dc7d5cc43871327aa30b6745c9",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourcesUnchanged": true,
+      "sourceSeedsBeforeSHA256": "1ac780339959dbe4308241916b6dcbee09d6d1865e6dce439c5c657f3716fcce",
+      "sourceSeedsAfterSHA256": "1ac780339959dbe4308241916b6dcbee09d6d1865e6dce439c5c657f3716fcce",
+      "sourceSeedsUnchanged": true,
+      "cases": 48,
+      "pairs": 96,
+      "reopens": 96,
+      "errors": [],
+      "engineSHA256": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+      "receivedEngineSHA256": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+      "paintChecks": 158,
+      "paintPages": 1784,
+      "hidden": 0,
+      "partial": 0,
+      "maxBorderOverflowPx": 0.0266666666667561,
+      "maxInkOverflowPx": -0.8532725270589481,
+      "rows": [
+        {
+          "label": "mixed-large-left",
+          "ext": "hwpx",
+          "operation": "input-0",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left",
+          "ext": "hwpx",
+          "operation": "input-1",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 2,
+            "para": 22,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 22,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 22,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 22
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 413.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left",
+          "ext": "hwpx",
+          "operation": "input-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 2,
+            "para": 46,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left",
+          "ext": "hwpx",
+          "operation": "owner-2-fragment-tail",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 2,
+            "para": 46,
+            "charOffset": 61,
+            "page": 11
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 61
+            },
+            "rect": {
+              "pageIndex": 11,
+              "x": 182.5,
+              "y": 289.9,
+              "height": 24,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 27.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left",
+          "ext": "hwpx",
+          "operation": "owner-49-fragment-tail",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 49,
+            "para": 0,
+            "charOffset": 16,
+            "page": 2
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 49,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 49,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 16
+            },
+            "rect": {
+              "pageIndex": 2,
+              "x": 270.6,
+              "y": 821,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 633.9,
+                "w": 93.3,
+                "h": 366.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left",
+          "ext": "hwp",
+          "operation": "input-0",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left",
+          "ext": "hwp",
+          "operation": "input-1",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 2,
+            "para": 22,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 22,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 22,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 22
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 413.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left",
+          "ext": "hwp",
+          "operation": "input-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 2,
+            "para": 46,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left",
+          "ext": "hwp",
+          "operation": "owner-2-fragment-tail",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 2,
+            "para": 46,
+            "charOffset": 61,
+            "page": 11
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 61
+            },
+            "rect": {
+              "pageIndex": 11,
+              "x": 182.5,
+              "y": 289.9,
+              "height": 24,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 27.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left",
+          "ext": "hwp",
+          "operation": "owner-49-fragment-tail",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 49,
+            "para": 0,
+            "charOffset": 16,
+            "page": 2
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 49,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 49,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 16
+            },
+            "rect": {
+              "pageIndex": 2,
+              "x": 270.6,
+              "y": 821,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 633.9,
+                "w": 93.3,
+                "h": 366.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right",
+          "ext": "hwpx",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right",
+          "ext": "hwpx",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 3,
+            "para": 24,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 24,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 3,
+              "cellParaIndex": 24,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 3,
+                  "cellParaIndex": 24
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 213.5,
+              "y": 332.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 718.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right",
+          "ext": "hwpx",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 49,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 49,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 49,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 339,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 337.1,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right",
+          "ext": "hwpx",
+          "operation": "owner-3-fragment-tail",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 3,
+            "para": 46,
+            "charOffset": 68,
+            "page": 9
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 3,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 3,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 68
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 260.1,
+              "y": 908.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right",
+          "ext": "hwpx",
+          "operation": "owner-49-fragment-tail",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 49,
+            "para": 0,
+            "charOffset": 61,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 49,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 49,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 61
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 182.5,
+              "y": 467,
+              "height": 24,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 337.1,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right",
+          "ext": "hwp",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right",
+          "ext": "hwp",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 3,
+            "para": 24,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 24,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 3,
+              "cellParaIndex": 24,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 3,
+                  "cellParaIndex": 24
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 213.5,
+              "y": 332.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 718.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right",
+          "ext": "hwp",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 49,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 49,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 49,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 339,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 337.1,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right",
+          "ext": "hwp",
+          "operation": "owner-3-fragment-tail",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 3,
+            "para": 46,
+            "charOffset": 68,
+            "page": 9
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 3,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 3,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 68
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 260.1,
+              "y": 908.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right",
+          "ext": "hwp",
+          "operation": "owner-49-fragment-tail",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 49,
+            "para": 0,
+            "charOffset": 61,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 49,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 49,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 61
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 182.5,
+              "y": 467,
+              "height": 24,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 337.1,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwpx",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwpx",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 2,
+            "para": 22,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 22,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 22,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 22
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 413.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwpx",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 33,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 33,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 33,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 671.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 670,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwpx",
+          "operation": "owner-2-fragment-tail",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 2,
+            "para": 31,
+            "charOffset": 61,
+            "page": 7
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 61
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 182.5,
+              "y": 622.7,
+              "height": 24,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 360.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwpx",
+          "operation": "owner-18-fragment-tail",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 18,
+            "para": 31,
+            "charOffset": 68,
+            "page": 9
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 18,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 18,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 68
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 260.1,
+              "y": 865.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwpx",
+          "operation": "owner-33-fragment-tail",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 33,
+            "para": 0,
+            "charOffset": 61,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 33,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 33,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 61
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 182.5,
+              "y": 799.9,
+              "height": 24,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 670,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwp",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwp",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 2,
+            "para": 22,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 22,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 22,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 22
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 413.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwp",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 33,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 33,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 33,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 671.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 670,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwp",
+          "operation": "owner-2-fragment-tail",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 2,
+            "para": 31,
+            "charOffset": 61,
+            "page": 7
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 61
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 182.5,
+              "y": 622.7,
+              "height": 24,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 360.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwp",
+          "operation": "owner-18-fragment-tail",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 18,
+            "para": 31,
+            "charOffset": 68,
+            "page": 9
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 18,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 18,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 68
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 260.1,
+              "y": 865.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered",
+          "ext": "hwp",
+          "operation": "owner-33-fragment-tail",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 33,
+            "para": 0,
+            "charOffset": 61,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 33,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 33,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 61
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 182.5,
+              "y": 799.9,
+              "height": 24,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 670,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left-history-owner-2",
+          "ext": "hwpx",
+          "operation": "shift-enter-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 2,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left-history-owner-2",
+          "ext": "hwpx",
+          "operation": "direct-delete-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 2,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left-history-owner-2",
+          "ext": "hwp",
+          "operation": "shift-enter-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 2,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-left-history-owner-2",
+          "ext": "hwp",
+          "operation": "direct-delete-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 2,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right-history-owner-3",
+          "ext": "hwpx",
+          "operation": "shift-enter-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 3,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 3,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 3,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 213.5,
+              "y": 780.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right-history-owner-3",
+          "ext": "hwpx",
+          "operation": "direct-delete-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 3,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 3,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 3,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 213.5,
+              "y": 780.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right-history-owner-3",
+          "ext": "hwp",
+          "operation": "shift-enter-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 3,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 3,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 3,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 213.5,
+              "y": 780.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-large-right-history-owner-3",
+          "ext": "hwp",
+          "operation": "direct-delete-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 3,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 3,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 3,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 213.5,
+              "y": 780.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered-history-owner-2",
+          "ext": "hwpx",
+          "operation": "shift-enter-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 2,
+            "para": 31
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 494.7,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 360.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered-history-owner-2",
+          "ext": "hwpx",
+          "operation": "direct-delete-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 2,
+            "para": 31
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 494.7,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 360.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered-history-owner-2",
+          "ext": "hwp",
+          "operation": "shift-enter-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 2,
+            "para": 31
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 494.7,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 360.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered-history-owner-2",
+          "ext": "hwp",
+          "operation": "direct-delete-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 2,
+            "para": 31
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 2,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 2,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 494.7,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 360.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered-history-owner-18",
+          "ext": "hwpx",
+          "operation": "shift-enter-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 18,
+            "para": 31
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 18,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 18,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 213.5,
+              "y": 737.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered-history-owner-18",
+          "ext": "hwpx",
+          "operation": "direct-delete-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 18,
+            "para": 31
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 18,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 18,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 213.5,
+              "y": 737.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered-history-owner-18",
+          "ext": "hwp",
+          "operation": "shift-enter-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 18,
+            "para": 31
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 18,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 18,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 213.5,
+              "y": 737.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "mixed-staggered-history-owner-18",
+          "ext": "hwp",
+          "operation": "direct-delete-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 18,
+            "para": 31
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 18,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 18,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 9,
+              "x": 213.5,
+              "y": 737.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 288,
+                "w": 93.3,
+                "h": 712.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "oldActualAppReproductionCases": 4,
+    "newCases": 66,
+    "historyPairs": 96,
+    "actualSavedReopens": 132,
+    "newPaintChecks": 230,
+    "newPaintPages": 2576,
+    "newHidden": 0,
+    "newPartial": 0,
+    "maxBorderOverflowPx": 0.09333333333336213,
+    "maxInkOverflowPx": -0.7865855153402208,
+    "nativeActualSavedFiles": 132,
+    "nativeAPINewCases": 18,
+    "nativeAPIOldCases": 18
+  },
+  "newNativeSavedIndices": {
+    "native-saved-boundary": {
+      "indexSHA256": "e462ce99022a9af615e26be5572ba9f8244d30640b6385138e5050a4b2f7f808",
+      "cases": 36,
+      "sourceManifestSHA256": "1a11871d7499516180a98ca05e05cdb5bfef96597a209ca2ad2896ccbe8d35c2",
+      "sourceManifestBytes": 76686921,
+      "nativeSHA256": "369fa9dc076cb2826c443f8e8902f24bb44d771391d295eea0181711dfe8eade",
+      "warnings": 0,
+      "evidenceMode": "immutable-source-with-reused-scratch",
+      "originalManifestPreserved": true,
+      "scratchIsCanonicalEvidence": false
+    },
+    "native-saved-regression": {
+      "indexSHA256": "d8d785f706e213b363b9f3771865d93fefa5bcf3e651a7c7bab3ff12c529eb02",
+      "cases": 96,
+      "sourceManifestSHA256": "a56235b260a238cb8de06e95aa6579c99aeea95cb4894b93321885d19c71e33c",
+      "sourceManifestBytes": 396129057,
+      "nativeSHA256": "369fa9dc076cb2826c443f8e8902f24bb44d771391d295eea0181711dfe8eade",
+      "warnings": 0,
+      "evidenceMode": "immutable-source-with-reused-scratch",
+      "originalManifestPreserved": true,
+      "scratchIsCanonicalEvidence": false
+    }
+  },
+  "oldP3RecordsPreserved": [
+    {
+      "stage": "geometry-3",
+      "rawRecordSHA256": "17fea4aea826a1f5f6c69158ca3291e2693422ccb84f6cf1f88253b2fd582502",
+      "qaSourceSHA256": "a9f4f0f37acd4d0e3828f43a0ffd3d1dadb56d80424b3170e0eec7bd1edb7030",
+      "hashTiming": "after execution only; no retroactive before hash",
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0
+    },
+    {
+      "stage": "full-3",
+      "rawRecordSHA256": "13ed22780efc4da777ee1ff475f15ed102a90b85244e7031cecdd0028de4171c",
+      "qaSourceSHA256": "a9f4f0f37acd4d0e3828f43a0ffd3d1dadb56d80424b3170e0eec7bd1edb7030",
+      "hashTiming": "after execution only; no retroactive before hash",
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0
+    },
+    {
+      "stage": "tail-3",
+      "rawRecordSHA256": "cd41d90de1b0d4dce1a70eb97d602b1f38f1387add14175c2362e8e5c514aff3",
+      "qaSourceSHA256": "05a77d36b26af2e30be1a8e890022b65df67859eb2f19dbb4792cc147654b119",
+      "hashTiming": "after execution only; no retroactive before hash",
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0
+    },
+    {
+      "stage": "regression-parallel-large-4",
+      "rawRecordSHA256": "e7be04d8b3d0f4b44d4eb4255938348ab08bc76382c8f6f8ccf04d48a9aaa322",
+      "qaSourceSHA256": "05a77d36b26af2e30be1a8e890022b65df67859eb2f19dbb4792cc147654b119",
+      "hashTiming": "after execution only; no retroactive before hash",
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0
+    },
+    {
+      "stage": "regression-parallel-unequal-4",
+      "rawRecordSHA256": "38c6535d452c09c323d2725fe6cd050b21a686af56ef51defadba836425b0a1e",
+      "qaSourceSHA256": "05a77d36b26af2e30be1a8e890022b65df67859eb2f19dbb4792cc147654b119",
+      "hashTiming": "after execution only; no retroactive before hash",
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0
+    },
+    {
+      "stage": "regression-parallel-short-4",
+      "rawRecordSHA256": "a3583ad87e04e39e54ddf80588df88dad2476edf852c0d935599960019a6158a",
+      "qaSourceSHA256": "05a77d36b26af2e30be1a8e890022b65df67859eb2f19dbb4792cc147654b119",
+      "hashTiming": "after execution only; no retroactive before hash",
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0
+    },
+    {
+      "stage": "regression-mixed-short-4",
+      "rawRecordSHA256": "cb201d8876796fbdf6b7b63fa04371c150fcce5419f22353451018175de3d0e5",
+      "qaSourceSHA256": "05a77d36b26af2e30be1a8e890022b65df67859eb2f19dbb4792cc147654b119",
+      "hashTiming": "after execution only; no retroactive before hash",
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0
+    }
+  ],
+  "builds": {
+    "native-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--example",
+        "horizontal_table_saved_check",
+        "--example",
+        "mixed_table_owner_probe"
+      ],
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "targetInitialBytes": 4340088832,
+      "targetPeakBytes": 4601016320,
+      "targetBeforeProbePreservationBytes": 4599996416,
+      "targetFinalBytes": 4528959488,
+      "targetLimitBytes": 4810363371,
+      "minimumFreeBytes": 16106127360,
+      "freeBytes": 17798340608,
+      "elapsedSeconds": 26.858047166955657
+    },
+    "wasm-build-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--lib"
+      ],
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "targetInitialBytes": 4528959488,
+      "targetPeakBytes": 4764397568,
+      "targetBeforeProbePreservationBytes": 4764397568,
+      "targetFinalBytes": 4764397568,
+      "targetLimitBytes": 4810363371,
+      "minimumFreeBytes": 16106127360,
+      "freeBytes": 17668771840,
+      "elapsedSeconds": 143.43988179200096
+    },
+    "native-build-2-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--example",
+        "horizontal_table_saved_check",
+        "--example",
+        "mixed_table_owner_probe"
+      ],
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "targetInitialBytes": 4340088832,
+      "targetPeakBytes": 4599992320,
+      "targetBeforeProbePreservationBytes": 4599992320,
+      "targetFinalBytes": 4528955392,
+      "targetLimitBytes": 4810363371,
+      "minimumFreeBytes": 16106127360,
+      "freeBytes": 17461190656,
+      "elapsedSeconds": 25.40129066701047
+    },
+    "wasm-build-2-proof.json": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--lib"
+      ],
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "targetInitialBytes": 4528955392,
+      "targetPeakBytes": 4764393472,
+      "targetBeforeProbePreservationBytes": 4764393472,
+      "targetFinalBytes": 4764393472,
+      "targetLimitBytes": 4810363371,
+      "minimumFreeBytes": 16106127360,
+      "freeBytes": 17353052160,
+      "elapsedSeconds": 140.19373050000286
+    }
+  },
+  "protection": {
+    "oldBeta3ASAR": "e94f2bfc1b0cb1911c358fe16e036935c7ad8514ee4923bff89555f05990e15e",
+    "pausedMixedCandidateASAR": "f67a7795978e0bdf7f2c28f217e076c60026a197b9d8fdd6fd77bdd3ac0e22a3",
+    "candidateProductSHA": "c74d71b7c356303392d26e06cbb3d0196ff0b9d8",
+    "candidateStillUsesPriorEngine": true,
+    "candidateAdoptionHeld": true,
+    "noZipTagReleaseMerge": true
+  },
+  "space": {
+    "targetLimitBytes": 4810363371,
+    "targetBytes": 4764393472,
+    "minimumFreeBytes": 16106127360,
+    "freeBytes": 16432893952,
+    "newQARootBytes": 1938599936,
+    "oldBuildArtifactsPreservedWithoutDeletion": true
+  },
+  "remainingLimits": [
+    "Exact ±0.1px is not encodable in integer HWP units; ±7/75px and ±8/75px bracket it, with ±1/75px, zero and ±10/75px also tested.",
+    "Actual Mac Electron uses the official runtime and task-only source-QA adapters; the paused signed candidate has not been rebuilt with this fix.",
+    "OS chooser, physical IME, manual GUI, Hancom comparison and Linux remain unverified.",
+    "Existing full Rust lib tests still lack three include_bytes fixtures; no claim of passing the full suite.",
+    "No new 3-column/colspan/complex header rowspan support."
+  ]
+}

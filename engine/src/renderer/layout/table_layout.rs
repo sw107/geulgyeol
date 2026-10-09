@@ -13147,7 +13147,7 @@ impl LayoutEngine {
         let consumed_height = self.mixed_plain_fragment_row_heights(table, start, end, start_cut, &cut, styles).iter().sum();
         let fully_consumed = cut.iter().zip(lengths).all(|(&cut, len)| cut == len);
         if std::env::var("RHWP_DIAG_MIXED_OWNER").is_ok() {
-            eprintln!("MIXED_OWNER_CUT block={start}..{end} start={start_cut:?} end={cut:?} height={consumed_height:.4} budget={available:.4}");
+            eprintln!("MIXED_OWNER_CUT block={start}..{end} start={start_cut:?} end={cut:?} height={consumed_height:.4} budget={available:.4} fully_consumed={fully_consumed}");
         }
         RowCutResult { end_cut: cut, hit_hard_break: false, fully_consumed, consumed_height }
     }
