@@ -4,6 +4,7 @@
 Usage: shard-electron-table-manifest.py MANIFEST_JSON FRESH_OUTPUT_DIR [NATIVE_BINARY] [--scratch]
 The original evidence remains unchanged. No fixture contents enter the index.
 """
+import gzip
 import hashlib
 import json
 from pathlib import Path
@@ -18,7 +19,8 @@ def digest(file):
 
 def rows(file):
     decoder = json.JSONDecoder()
-    with Path(file).open(encoding="utf-8") as stream:
+    opener = gzip.open if str(file).endswith(".gz") else open
+    with opener(file, "rt", encoding="utf-8") as stream:
         buffer = stream.read(1024 * 1024).lstrip()
         assert buffer.startswith("["), "array manifest required"
         buffer = buffer[1:]
@@ -54,6 +56,14 @@ def main():
     assert len(sys.argv) <= 5 and (len(sys.argv) != 5 or scratch)
     assert not scratch or native, "scratch mode requires immediate Native verification"
     source_before = digest(source)
+    raw_hash = hashlib.sha256()
+    raw_bytes = 0
+    opener = gzip.open if source.suffix == ".gz" else open
+    with opener(source, "rb") as stream:
+        while chunk := stream.read(1024 * 1024):
+            raw_hash.update(chunk)
+            raw_bytes += len(chunk)
+    uncompressed_sha = raw_hash.hexdigest()
     native_before = digest(native) if native else None
     assert not output.exists(), "fresh output required"
     output.mkdir(parents=True)
@@ -74,7 +84,7 @@ def main():
             assert item["overflowWarnings"] == 0, f"saved case overflow at {i}"
         index.append(item)
     assert source_before == digest(source) and native_before == (digest(native) if native else None), "verification inputs changed"
-    proof = {"evidenceMode": "immutable-source-with-reused-scratch" if scratch else "retained-shards", "scratchIsCanonicalEvidence": False, "verificationInputsUnchanged": True, "cases": len(index), "sourceManifestSHA256": digest(source), "sourceManifestBytes": source.stat().st_size, "nativeSHA256": digest(native) if native else None, "rows": index}
+    proof = {"sourceEncoding": "gzip" if source.suffix == ".gz" else "json", "sourceUncompressedBytes": raw_bytes, "sourceUncompressedSHA256": uncompressed_sha, "evidenceMode": "immutable-source-with-reused-scratch" if scratch else "retained-shards", "scratchIsCanonicalEvidence": False, "verificationInputsUnchanged": True, "cases": len(index), "sourceManifestSHA256": digest(source), "sourceManifestBytes": source.stat().st_size, "nativeSHA256": digest(native) if native else None, "rows": index}
     (output / "index.json").write_text(json.dumps(proof, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"cases": len(index), "nativeCompared": bool(native), "sourceManifestBytes": source.stat().st_size}), flush=True)
 
