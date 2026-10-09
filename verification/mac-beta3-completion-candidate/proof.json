@@ -1,0 +1,1156 @@
+{
+  "createdUTC": "2026-10-09T21:32:05.922447+00:00",
+  "sourceMainSHA": "dd7752874827f5dabf6ab1d0cebb85e9cb24fda5",
+  "approvedImplementationSHA": "1ddd4fd16b7adbd5b43d9b0eaf9a27586ce79c85",
+  "productSHA": "7b1c86e334f75d1f184a67797537da79daa1dd7c",
+  "validationToolsGitSHA": "4bc3e51f5c4443a613cb82c3949a2962eb9a624f",
+  "candidateRoot": "../mac-beta3-completion-candidate-qa",
+  "candidate": {
+    "sourceProductSHA": "7b1c86e334f75d1f184a67797537da79daa1dd7c",
+    "version": "0.4.4-beta.3",
+    "bundleId": "org.geulgyeol.beta.0443",
+    "profileName": "GeulgyeolBeta3",
+    "architecture": "arm64",
+    "asarSHA256": "bd7331abd570fd1d4a67657111ea5758cef6a5825e8c3d3029f0ac0a58962ca4",
+    "asarHeaderSHA256": "7a78fa5bd44e85571dee02251db36c7437ef1df92d2a0be99208888ceb7d7f92",
+    "engineSHA256": {
+      "web/studio/assets/rhwp_bg-DYZzqjCw.wasm": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+      "web/studio/rhwp_bg.wasm": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7"
+    },
+    "allASAREntryAndBlockHashesValid": true,
+    "allPackagedBytesMatchDeclaredSource": true,
+    "trackedDesktopFilesMatchExactGitProductSHA": 32,
+    "generatedOrUntrackedAssetFilesMatchPinnedPackageSHA": 47,
+    "productionReadGlobalsAbsent": true,
+    "bundleTreeSHA256": "7360a8abaac4b5900a723e99729e0f5b33a3a2288b914ee707fa0d22578c0687",
+    "bundleFileBytes": 351044185,
+    "bundleEntries": 279,
+    "asarEntries": 80,
+    "codeResourcesSHA256": "47cccd7ae5b19a64c9f6a2613aa75316ddf812efc72b371e5a6c7b9f193a86ca",
+    "CDHash": "138a0224d81c1bf776ef99e59462784972288d6e",
+    "strictDeepSignatureExitCode": 0,
+    "signatureType": "ad-hoc",
+    "developerIDSigned": false,
+    "notarized": false,
+    "ZIPCreated": false
+  },
+  "beforeAndAfterWholeBundleManifestExact": true,
+  "beforeVerificationSHA256": "13f52f1605b76b65bbc36d06959dcf8a1557df6dfea9eb4c3fdcb481c320f0b7",
+  "afterVerificationSHA256": "13f52f1605b76b65bbc36d06959dcf8a1557df6dfea9eb4c3fdcb481c320f0b7",
+  "totals": {
+    "tableCases": 268,
+    "historyPairs": 604,
+    "savedReopens": 480,
+    "nativeSavedComparisons": 480,
+    "hostChecks": 81,
+    "ordinaryChecks": 1,
+    "appNormalExits": 59,
+    "rawNodeNormalExits": 34,
+    "gzipManifestBytes": 40348828,
+    "uncompressedManifestBytes": 1926388658
+  },
+  "paint": {
+    "checks": 806,
+    "pages": 9132,
+    "hidden": 0,
+    "partial": 0,
+    "maxBorderOverflowPx": 0.09333333333336213,
+    "maxInkOverflowPx": -0.7865855153402208,
+    "existingPhysicalBodyTolerancePx": 2
+  },
+  "desktopRegression": {
+    "tests": 50,
+    "pass": 49,
+    "fail": 0,
+    "skipped": 1,
+    "rawLogSHA256": "db1fc3c114e31e7f99bdd1199955de42593d8ef1e642e8a7d58216895bd7edbe",
+    "proofSHA256": "9658b5d846b794a59378493529c99817dd634d4c65fd87e276b6e1fbe7fa1845",
+    "allInputsBeforeAfterEqual": true
+  },
+  "executionSourceEpochs": {
+    "afe2aea2645775d67b240514ac1ceb28d1680c8b1c17bf43172d32831d5b1e78": {
+      "qaSources": {
+        "check-packaged-ordinary-launch.mjs": "6702be7f4a94f8f0ed9eb6c61d46f5ff48551905be203abba18f315b79c01a59",
+        "run-packaged-qa.py": "833bff95546e2cbc9f884927912d53f1717ca6083b57664b73937c8354e00661",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "electron-document-lifecycle-bootstrap.cjs": "812b4dd81357d0ff21743aa175e872063b9ad588da8d150e76372c85ba161c90"
+      },
+      "engineFiles": {
+        "rhwp_bg.wasm": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7"
+      }
+    },
+    "5f583b6d02cf251e9ffb76afb30a9e1edefb956833556ed1555e927e93757557": {
+      "qaSources": {
+        "check-electron-stored-merged-fragments.mjs": "e27c7a635a299290fab3e6449eb1dc0bc05a2bedf626c8574509aa447e5e92bd",
+        "run-packaged-qa.py": "8e4f55805eedaa4c9f7b61510e77eb8c5c07abf333ae3d71579c81c1d4cdbf8e",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "electron-document-lifecycle-bootstrap.cjs": "812b4dd81357d0ff21743aa175e872063b9ad588da8d150e76372c85ba161c90",
+        "write-electron-table-manifest.mjs": "eb4c0aa23d5e61e9c4199568e49a8cc3d68070dd1a38dc1645fff91935e14677"
+      },
+      "engineFiles": {
+        "rhwp.js": "28e5389a18216617438f012d2aa8d3ce94897893fbd44d9ca598eb119c00a5e5",
+        "rhwp.d.ts": "9b88eefb2ec71b4eea5827e7cd0dbff5abd9fddc055f551d815c964b775d585f",
+        "rhwp_bg.wasm": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+        "rhwp_bg.wasm.d.ts": "af328c4ccbd58a80a4cebad533dc33b5f898a34c1a2c2fd2e6ecffed86c9848e"
+      }
+    },
+    "77f98db8727ca048c8ddc07893c31308d2a095336f6d463830934d4e9793d7ed": {
+      "qaSources": {
+        "check-electron-stored-merged-fragments.mjs": "e27c7a635a299290fab3e6449eb1dc0bc05a2bedf626c8574509aa447e5e92bd",
+        "run-packaged-qa.py": "404cdfbafdaa5b0d738a4dcc45f5cda6195f17d30d1df6ffa0f1bda64dd389c3",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "electron-document-lifecycle-bootstrap.cjs": "812b4dd81357d0ff21743aa175e872063b9ad588da8d150e76372c85ba161c90",
+        "write-electron-table-manifest.mjs": "eb4c0aa23d5e61e9c4199568e49a8cc3d68070dd1a38dc1645fff91935e14677"
+      },
+      "engineFiles": {
+        "rhwp.js": "28e5389a18216617438f012d2aa8d3ce94897893fbd44d9ca598eb119c00a5e5",
+        "rhwp.d.ts": "9b88eefb2ec71b4eea5827e7cd0dbff5abd9fddc055f551d815c964b775d585f",
+        "rhwp_bg.wasm": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+        "rhwp_bg.wasm.d.ts": "af328c4ccbd58a80a4cebad533dc33b5f898a34c1a2c2fd2e6ecffed86c9848e"
+      }
+    },
+    "434d5fd6f02098b8a1436098eeaa0a5e173775f1d7f0880f7ce35b52d007ace6": {
+      "qaSources": {
+        "check-electron-document-lifecycle.mjs": "dc978a276268fac2604eac598a66fd744b4f655c2673cb80188358a39f94ebd1",
+        "check-packaged-document-lifecycle.mjs": "ad72aed1529ee676afd55717a607ba71179d811281c1cd0c1d86f06526ab7311",
+        "run-packaged-qa.py": "404cdfbafdaa5b0d738a4dcc45f5cda6195f17d30d1df6ffa0f1bda64dd389c3",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "electron-document-lifecycle-bootstrap.cjs": "812b4dd81357d0ff21743aa175e872063b9ad588da8d150e76372c85ba161c90"
+      },
+      "engineFiles": {
+        "rhwp.js": "28e5389a18216617438f012d2aa8d3ce94897893fbd44d9ca598eb119c00a5e5",
+        "rhwp.d.ts": "9b88eefb2ec71b4eea5827e7cd0dbff5abd9fddc055f551d815c964b775d585f",
+        "rhwp_bg.wasm": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+        "rhwp_bg.wasm.d.ts": "af328c4ccbd58a80a4cebad533dc33b5f898a34c1a2c2fd2e6ecffed86c9848e"
+      }
+    },
+    "278f5eff71c82e57ddffc93cc26fbacae673274a084f801da79c2956416dbc2c": {
+      "qaSources": {
+        "check-packaged-recovery.mjs": "c2908c45aba4278931ed6b488e6121408db6280f0204610eb7375c64d76639a0",
+        "run-packaged-qa.py": "404cdfbafdaa5b0d738a4dcc45f5cda6195f17d30d1df6ffa0f1bda64dd389c3",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "electron-document-lifecycle-bootstrap.cjs": "812b4dd81357d0ff21743aa175e872063b9ad588da8d150e76372c85ba161c90"
+      },
+      "engineFiles": {
+        "rhwp.js": "28e5389a18216617438f012d2aa8d3ce94897893fbd44d9ca598eb119c00a5e5",
+        "rhwp.d.ts": "9b88eefb2ec71b4eea5827e7cd0dbff5abd9fddc055f551d815c964b775d585f",
+        "rhwp_bg.wasm": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+        "rhwp_bg.wasm.d.ts": "af328c4ccbd58a80a4cebad533dc33b5f898a34c1a2c2fd2e6ecffed86c9848e"
+      }
+    },
+    "0a84a1c7c50cb3ebd8e14653d10539d91bc6aedf41c0b28bc5737e165b0167ff": {
+      "qaSources": {
+        "check-packaged-recovery-safety.mjs": "537ea34b15af66ae61e14db1bdcb778452228d73aac3dc9835bab6b851154def",
+        "run-packaged-qa.py": "404cdfbafdaa5b0d738a4dcc45f5cda6195f17d30d1df6ffa0f1bda64dd389c3",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "electron-document-lifecycle-bootstrap.cjs": "812b4dd81357d0ff21743aa175e872063b9ad588da8d150e76372c85ba161c90"
+      },
+      "engineFiles": {
+        "rhwp.js": "28e5389a18216617438f012d2aa8d3ce94897893fbd44d9ca598eb119c00a5e5",
+        "rhwp.d.ts": "9b88eefb2ec71b4eea5827e7cd0dbff5abd9fddc055f551d815c964b775d585f",
+        "rhwp_bg.wasm": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+        "rhwp_bg.wasm.d.ts": "af328c4ccbd58a80a4cebad533dc33b5f898a34c1a2c2fd2e6ecffed86c9848e"
+      }
+    },
+    "cb38670675d93073ca9826e4c5ee8286f79b768d67ca2641159e4b49c75707ab": {
+      "qaSources": {
+        "check-packaged-pruning-safety.mjs": "88279432742b34120ddf5bfa908da40ab4e860eba72803be734f256c798a3ad0",
+        "run-packaged-qa.py": "404cdfbafdaa5b0d738a4dcc45f5cda6195f17d30d1df6ffa0f1bda64dd389c3",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "electron-document-lifecycle-bootstrap.cjs": "812b4dd81357d0ff21743aa175e872063b9ad588da8d150e76372c85ba161c90"
+      },
+      "engineFiles": {
+        "rhwp.js": "28e5389a18216617438f012d2aa8d3ce94897893fbd44d9ca598eb119c00a5e5",
+        "rhwp.d.ts": "9b88eefb2ec71b4eea5827e7cd0dbff5abd9fddc055f551d815c964b775d585f",
+        "rhwp_bg.wasm": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+        "rhwp_bg.wasm.d.ts": "af328c4ccbd58a80a4cebad533dc33b5f898a34c1a2c2fd2e6ecffed86c9848e"
+      }
+    },
+    "70f0059d3d00e3c37c0fa184ee37e6f10e4d4b22b89586980b56b28c400616db": {
+      "qaSources": {
+        "check-electron-final-ack.mjs": "89b812916fa6d44edea375ad9feef08de38029a0b3855cf22090e9b8e3d6dcb0",
+        "check-packaged-final-ack.mjs": "e34dbba2a8f1241cf7af31dbc7601513a4cf296a756091fdacd94f831c3c945d",
+        "run-packaged-qa.py": "404cdfbafdaa5b0d738a4dcc45f5cda6195f17d30d1df6ffa0f1bda64dd389c3",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "electron-document-lifecycle-bootstrap.cjs": "812b4dd81357d0ff21743aa175e872063b9ad588da8d150e76372c85ba161c90"
+      },
+      "engineFiles": {
+        "rhwp.js": "28e5389a18216617438f012d2aa8d3ce94897893fbd44d9ca598eb119c00a5e5",
+        "rhwp.d.ts": "9b88eefb2ec71b4eea5827e7cd0dbff5abd9fddc055f551d815c964b775d585f",
+        "rhwp_bg.wasm": "e9cdd0cd9b2bb4c2205ae674305d19748ae6651a75da759f672b2233030d42f7",
+        "rhwp_bg.wasm.d.ts": "af328c4ccbd58a80a4cebad533dc33b5f898a34c1a2c2fd2e6ecffed86c9848e"
+      }
+    }
+  },
+  "phases": [
+    {
+      "phase": "ordinary",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "afe2aea2645775d67b240514ac1ceb28d1680c8b1c17bf43172d32831d5b1e78",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": false,
+      "rawProcessRecordSHA256": "a623ed58588d8b3f0b0d4d16e116df9c1f19e01a1b446b8b5cfa6e9338d601b9",
+      "rawNodeLogSHA256": "437bca44aeb17ce4426462c82aebfe6314b5516c9470545b3ec93f5178c8b55e",
+      "appLifecycleSHA256": "7449fd72551048d79305cb6d97e56f952ddfa0d6c2dd76b4a30d8b7e85a0d337",
+      "proofSHA256": "7c8a9ea181de8f8fa3a81b9f4b2967836f0f74f422a5317de0abc700e8d802e9",
+      "checks": 1
+    },
+    {
+      "phase": "table-geometry",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "5f583b6d02cf251e9ffb76afb30a9e1edefb956833556ed1555e927e93757557",
+      "sourceSeedsSHA256": "8d5ce5d19f4d1f1ce22e6da2c45b889f55d4636ff06c5a3948188eecc0f1bc79",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "64e9562980c91728613b697eb1e2beb09d6dc4f798a30d6c99bb86f2681f9b32",
+      "rawNodeLogSHA256": "4dd17590bf314ff2426059d4e8df7e63ebeea3663edf5e2e1c7a9c0e4a212f8b",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "2dfc17f3f362ff7db797d54c66bdc0b850b03a1c855c7646fe851b15be29fa59",
+      "cases": 6,
+      "historyPairs": 0,
+      "savedReopens": 0,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 2,
+        "uncompressedSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "fileBytes": 22,
+        "fileSHA256": "b49153039ab3d17e6eb1256bc1076131c306b30f3b77e951232beb47748fa564",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 6
+    },
+    {
+      "phase": "table-mixed-1",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "5f583b6d02cf251e9ffb76afb30a9e1edefb956833556ed1555e927e93757557",
+      "sourceSeedsSHA256": "d04342e499a7cb216d682bbded4624b0d13281d56352555da50764e4948aa989",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "278fc87c2f8498a17430fd9333db75f7146ff8e76cccfa0f6dd13d6a79638e6d",
+      "rawNodeLogSHA256": "9e2867cdcd41f8c4e186b706d19f204c1a082eb8d8add5b45e089c895bd0f379",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "5735a849c84256b927a06ccbc1b2802d095d016676f9cbdbbeefb24838d51e98",
+      "cases": 22,
+      "historyPairs": 40,
+      "savedReopens": 40,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 115275349,
+        "uncompressedSHA256": "3b31571db5f53d3877bdc28a55cb32f614b57db9cb7e999212225c65e81a48bf",
+        "fileBytes": 2422391,
+        "fileSHA256": "24ec88186d8be5488299e2c15347afe546b03e3b3e067de7ccac4d33403119f7",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 62,
+      "native": {
+        "cases": 40,
+        "indexSHA256": "b97d84b544ac20c2da55a5366c879f3efd7d167c2a4f313ee4f0f8e0a652e7e8",
+        "savedRecordsSHA256": "5d6e0add7dc2ed5e5f0463b832bf09d0b6c3f852501c7c308833e29a947572c1",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "table-mixed-2",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "5f583b6d02cf251e9ffb76afb30a9e1edefb956833556ed1555e927e93757557",
+      "sourceSeedsSHA256": "c60b33253a657a615ef51096fb1daf6027f85e504e95663c7e6f69b174f31bd0",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "5ed66259d9376ee4862a77c2a39e2ee11436d3f5567b08c106b334ca7541e56e",
+      "rawNodeLogSHA256": "0e710326e258a843d73a5d53a154cadb54012acf84d5b55eacda2fbbada67025",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "5f65ea26d349b7f7fa0ba8093edadec3853de0e422d28cacf25cc9ba20e006d6",
+      "cases": 22,
+      "historyPairs": 40,
+      "savedReopens": 40,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 186045709,
+        "uncompressedSHA256": "bd8b328c71f12dcc8272c8e1a2398a753c442a0209ec3470dc49e8ae880c60d1",
+        "fileBytes": 3866698,
+        "fileSHA256": "86a9d93e2de699da9db930f77a6b7e9fa1ffe5f21352f6b6e879368c4bdbcddc",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 62,
+      "native": {
+        "cases": 40,
+        "indexSHA256": "c2e7905de2f18053342a6393754e43c5f6a5dbe36962f597fffb96011246ace0",
+        "savedRecordsSHA256": "93cc5a4bb8c3528d41105262d9add6db2bdb06c95afce1f92e165d0896f024c3",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "table-mixed-3",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "5f583b6d02cf251e9ffb76afb30a9e1edefb956833556ed1555e927e93757557",
+      "sourceSeedsSHA256": "7e09c34437c32a027868714facaf7e170e135f085cae7afd3a3b8db8b8236008",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "e95d25fc7c667392fcdc64868d69583cfce6b824a014fc5d96e43562ad02e43a",
+      "rawNodeLogSHA256": "55d36d61535ea11adfbf841a1bc5b6286ec659fb796c4e9046cc7dab7a3c6f4d",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "5be7fd7fc250a81d8a6dde7200866ded0d789c4309c0a0ee92d0edd38950c824",
+      "cases": 30,
+      "historyPairs": 56,
+      "savedReopens": 56,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 259538413,
+        "uncompressedSHA256": "aaa4193a900667704a24b71a12c354972ef4737f08be2a1019d5f4ccec7ec738",
+        "fileBytes": 5475740,
+        "fileSHA256": "622895b25e3af7b32bb138869934cebc821c19a3c95384c9214599d77067cc3d",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 86,
+      "native": {
+        "cases": 56,
+        "indexSHA256": "701f986ba8210aea627da8552d04d0dc0289506aa92b17ba1baddb7138dc4930",
+        "savedRecordsSHA256": "851c6d0246abacb00a222a4854cb2afa2d21ee910fa436ce5e2558b3257e82b5",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "table-mixed-4-complete",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "5f583b6d02cf251e9ffb76afb30a9e1edefb956833556ed1555e927e93757557",
+      "sourceSeedsSHA256": "9ff9688e9773067039464188421c19bf59c71255a565e70883a4c0e170bd1514",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "28cdbfe371ca0ac2c2b90d18e4b02359e52a0505923956de284bed4f6656e7e1",
+      "rawNodeLogSHA256": "e632064529b2e0a5c0f161fa71174f730606fca423844c6c435be215f290b0a0",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "a9bca03293b17f5162bbae9698ad70801084c8ab4d8c5a8d296afa7c32d129fd",
+      "cases": 20,
+      "historyPairs": 76,
+      "savedReopens": 36,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 103327081,
+        "uncompressedSHA256": "3faf83dba6d6bb02409e9b0df32b890f6b997f38252cc904be962997b6ecc131",
+        "fileBytes": 2166982,
+        "fileSHA256": "289a9916307ebff2bdc7bbbeffdb77cabbea7621b7cb32c242405e14d7641c90",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 66,
+      "native": {
+        "cases": 36,
+        "indexSHA256": "02fc600356a2fe4c7dbcc9482cd96e02c63b79973e9c223d3b30a1a5928069e5",
+        "savedRecordsSHA256": "339b95fc390432d2be6ec789a10fcfa9261dbf1a32dfafc525938a2e645d141c",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "table-mixed-5",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "5f583b6d02cf251e9ffb76afb30a9e1edefb956833556ed1555e927e93757557",
+      "sourceSeedsSHA256": "29175b244c03ea7e21cbb4058b6fff8d53cf28753639bca5a3d1f83e07ae3463",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "f75edaef636881ce25c53163110a5fb7cf6d59f761db9973baa90a0db58983e6",
+      "rawNodeLogSHA256": "569434aa0a7ced9487fc399d5c71bb7b65c55f4e6ce336d2c411e964a4aa8a5f",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "6f617f671b0e823a1f335940382b22dd179068fc000a40f7ea5dd71cef562c5c",
+      "cases": 20,
+      "historyPairs": 76,
+      "savedReopens": 36,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 167220865,
+        "uncompressedSHA256": "7961498ccecaecce1594bb0fbef3a4db00c00ff7b9624d55a0f9cf74cc5de652",
+        "fileBytes": 3468701,
+        "fileSHA256": "96d17b461a2309e54f315b944ea304a03be44cb2f0da783cf3352bdb7bd96e44",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 66,
+      "native": {
+        "cases": 36,
+        "indexSHA256": "a05c0dba0b13d7dda1ebf75315ab79513c382339e3a1db34790733bc1fd7fbac",
+        "savedRecordsSHA256": "c5bf4c047cd980217751ad8f4ed4b9572cbee88c9438e52d13e03dfa305de493",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "table-mixed-6",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "5f583b6d02cf251e9ffb76afb30a9e1edefb956833556ed1555e927e93757557",
+      "sourceSeedsSHA256": "d2f36a11befd12f9d966eb653e278283f983d5be46af40e23ce747cad799e1a4",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "ae432cac075d4cb9fbbe1d23bf64be39bf6f83c2c004acced30796d8a41dfb35",
+      "rawNodeLogSHA256": "3be23321deb39665c2664397f40fbbcc493bbf39a6d4cdd8dd33e18152465631",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "b56eb56e15778b330b65d02460e0b49a3b46b58e6af239b64bde6ab8135b4db3",
+      "cases": 20,
+      "historyPairs": 76,
+      "savedReopens": 36,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 166666673,
+        "uncompressedSHA256": "80ea83bcb18a98345371517180909eaea412032c94cb21866cc23aeaae8537b6",
+        "fileBytes": 3513833,
+        "fileSHA256": "c5a998f96a4b8b0ed8ce5a8f3213448321884a18387a69b7ebadf84cab9eed42",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 66,
+      "native": {
+        "cases": 36,
+        "indexSHA256": "804b3ee718551d3760dcbbc08366e77c60ad29ab83e542c9032ed07c3316a121",
+        "savedRecordsSHA256": "d1ecb0ef3fabdb7850cb52b51a73a2e7523ada72a153ca3745148f414f39f308",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "table-mixed-7",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "77f98db8727ca048c8ddc07893c31308d2a095336f6d463830934d4e9793d7ed",
+      "sourceSeedsSHA256": "a58a63462f448ee6d959be8b02410ee592f7d75cdd88ea01703df16c63ff14bf",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "123bee5f4eafeca08e3c87801eff5a129d6460ac21f29874b7bd3a6b65112c7e",
+      "rawNodeLogSHA256": "0f37af768a0450970176313885a37566ea5b79f190774a751bf4af9dc69d0e71",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "9d07819542f9d8e7ad7aabd40d73fc03337fdb7f80797f71d0ceb870d47f31ac",
+      "cases": 20,
+      "historyPairs": 76,
+      "savedReopens": 36,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 166654865,
+        "uncompressedSHA256": "babaeac0df8d5fdbd2df05826f82ae1d5effc86384ae597586d2f533c4248a1d",
+        "fileBytes": 3514282,
+        "fileSHA256": "dd6589a11928dd1bfbecc21543e90e9af6680ebc5ac153d88b61238944e66e97",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 66,
+      "native": {
+        "cases": 36,
+        "indexSHA256": "8ff1218e0bec978a131ffa20f51e54583563c2e7521eae83876a97851b853fca",
+        "savedRecordsSHA256": "2baf9b253a5b75bc9951548cb033cac4ac6a2371b4d3830665c226b9cad46638",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "table-regression-parallel-large",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "77f98db8727ca048c8ddc07893c31308d2a095336f6d463830934d4e9793d7ed",
+      "sourceSeedsSHA256": "6f0968cdca17dd720d097b0dd1d82e77f1ea418ba0ae4f1118e78ecc02c34ff9",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "a874dc4ff71d1b5b0b1e4288b72e4865c0d27023b4e0527aa11c0279846eaaf4",
+      "rawNodeLogSHA256": "f918782fabc898f3ea5ff72e9685c52f46fe08e3b0dd1b9e0e3293a4bb758b08",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "d2eabb716beb016d21fb885861dc12f8b54d7212df7dd09b72eba797a01f3aec",
+      "cases": 24,
+      "historyPairs": 44,
+      "savedReopens": 44,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 205653005,
+        "uncompressedSHA256": "c27efa8ccb0f3a2738fe5ad0d43d806236683ca58187d9c1e6ebcde4a045b676",
+        "fileBytes": 4280508,
+        "fileSHA256": "c04d1b637dc4b966c2c81825187287bb5f9a029c4c7b851d84764b0f621bbc23",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 68,
+      "native": {
+        "cases": 44,
+        "indexSHA256": "98677cd5f5d713759f09cfe840c7a07fcc47d90a879cc18ec7ac09ac8998ad3c",
+        "savedRecordsSHA256": "a918cfd20b5300d8ba55e1d7802f3849f15da40f2ce119ecf02621554bc46b98",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "table-regression-parallel-unequal",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "77f98db8727ca048c8ddc07893c31308d2a095336f6d463830934d4e9793d7ed",
+      "sourceSeedsSHA256": "442df0429479d8c25f0c98dd398c51dc744180a327e935f1ecbdce5082e82568",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "ad1524e725a918bdffbf2881dd530c1384d82747c62c6ebfbe9e55f81c3bd6ea",
+      "rawNodeLogSHA256": "cf49c2222dc624fb3a8f7b53a15c73a6c92f3dbfabd8a30bdb09d7d3cd7802f4",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "b9993fe32ab7d0787ba591d53a9f5452c6a5d7832835b101bbc472c3be05fa3b",
+      "cases": 24,
+      "historyPairs": 44,
+      "savedReopens": 44,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 124422785,
+        "uncompressedSHA256": "92f5ca3a6be269a4d108377a6d5154e8b77cc9323e36cdc3375b9e069d03fcce",
+        "fileBytes": 2579342,
+        "fileSHA256": "e38faa9d81418276a8cb7c41d93ce7c7d46ef09d44f1093e646b17279c3986a7",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 68,
+      "native": {
+        "cases": 44,
+        "indexSHA256": "84dc96b81d994bee44aa65ab5d66899685ab2b79e0b87155ddc8e8a94617349f",
+        "savedRecordsSHA256": "a8fd691706e22bc6da7f53cbcd31993b7357c1cd6eec41cc1d0575ef11324aba",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "table-regression-parallel-short",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "77f98db8727ca048c8ddc07893c31308d2a095336f6d463830934d4e9793d7ed",
+      "sourceSeedsSHA256": "118136cd6cf4fec90b2cffd21e7f54fbde07cf02f0f15f795ecc042a2237e191",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "5a8d5ffbdc342e886c728cc22608a048b80faa7606391c0feee3ec86ddf43e17",
+      "rawNodeLogSHA256": "dfaa95135c73d2eb4becb885f68aea9d65e80531f82e2c7cee58824231edc323",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "3023fc046a6d8485bf9aa7bca76e48335004a7383e0553c85c0bbdb105102cbf",
+      "cases": 24,
+      "historyPairs": 44,
+      "savedReopens": 44,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 205412605,
+        "uncompressedSHA256": "c0c493589bee7e52255603640bd0e3d385257baedb053a23ab1dd0415877d517",
+        "fileBytes": 4433368,
+        "fileSHA256": "f5d94372626756048d134f83aa32c910d10b2fa1bfab1ff1e7d9a319b95bf186",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 68,
+      "native": {
+        "cases": 44,
+        "indexSHA256": "d8f717ccebcff518b028ce675d38d7d655ec5f4be9354d9911b9ecce8aaf4fa2",
+        "savedRecordsSHA256": "91fc70f9161964b5b4d1905b7898424bfbe092b93eeae28e14e272947b73528a",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "table-regression-mixed-short",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "77f98db8727ca048c8ddc07893c31308d2a095336f6d463830934d4e9793d7ed",
+      "sourceSeedsSHA256": "a17efaca7d96528fa4b77b6715a910ae10434cd477edd73cb6e578781418f03f",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "b492d14f02320bad26d4e1114ab771977ff43775a04e849206c4d52a1a96f232",
+      "rawNodeLogSHA256": "91d350da9402c1ca81ac175e39bdaa2b63da09ab0392c6f3b97a578d6121cd19",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "88432f2022ac0c765c2c8437727d65bc1f41f759123cd14a9eb8b0abfd61210e",
+      "cases": 18,
+      "historyPairs": 32,
+      "savedReopens": 32,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 149483845,
+        "uncompressedSHA256": "0403e546f949f106d6279e7ba88d464229fe5b8f78d4baec43cc1d194fb50227",
+        "fileBytes": 3226086,
+        "fileSHA256": "584a044259ff7abc35d02454d7059e319d0aaad628073deb85c6e3b1f50fc81f",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 50,
+      "native": {
+        "cases": 32,
+        "indexSHA256": "6fc051ab56981524c3d32eaa2021ec065aedf9d4adf69a71c5679db71adb7d4b",
+        "savedRecordsSHA256": "e00f542544800dca97fb1f406bfcbfa3b9ce36f5c94e8ae283ae13c5e8e475c6",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "table-completion-boundary",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "77f98db8727ca048c8ddc07893c31308d2a095336f6d463830934d4e9793d7ed",
+      "sourceSeedsSHA256": "9561d25dc513722dd165dd432de4bfc3d57e3c3cfda2769f4bcd4ac9bcd70c01",
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "8552ce7a52ddd8d0d25549178a1f2f33a1027699c74b5cfe0889ec5570451eef",
+      "rawNodeLogSHA256": "6a02fdd2e1f50f782b73776dc700a6e2f085b9e7f79c0e8528b0904aa8d482a4",
+      "appLifecycleSHA256": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+      "proofSHA256": "29eca8d75b76359f23244cb7b862306cc143e74dfbe32e4b0dd07f404212e57f",
+      "cases": 18,
+      "historyPairs": 0,
+      "savedReopens": 36,
+      "gzipManifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "uncompressedBytes": 76687461,
+        "uncompressedSHA256": "9530f5cb28757b27bcd2397ec9696e8fd4bfaabdb1f844289f9234202955b0a8",
+        "fileBytes": 1400875,
+        "fileSHA256": "ba2271f50b5f163dd02ec27b4ff7113c8a714f8c87778816165b5ec09f947e8a",
+        "diskReadBackVerified": true
+      },
+      "paintChecks": 72,
+      "native": {
+        "cases": 36,
+        "indexSHA256": "b58f9976c92bd0b177d50398de1f4b5c2337e140c7c965eb894b36706f45b9bd",
+        "savedRecordsSHA256": "6fb7b14eddbdd64e703cdf3a006e81cffc42ae3e5bd0aca822fce20b9482e3ed",
+        "allActualSavedBytesAndIndividualNativeLogsRechecked": true,
+        "overflowWarnings": 0,
+        "scratchIsCanonicalEvidence": false
+      }
+    },
+    {
+      "phase": "document-lifecycle",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "434d5fd6f02098b8a1436098eeaa0a5e173775f1d7f0880f7ce35b52d007ace6",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "008326d6c2d2b07c010754523b8b6bc0cad75efc1537dac57967a302aab8e884",
+      "rawNodeLogSHA256": "090d574a871591e12ba9382f17831d2735e0d99015707d3932bb1d766ec9a901",
+      "appLifecycleSHA256": "76fe954c81ad6403db10e2d477e1d85b54e7a009e896e5b72cd94cb149b68e4a",
+      "proofSHA256": "a13b81aac7167937b945bf56a5493de43fe5bf6a34933df9248ad3f7848b957c",
+      "checks": 29
+    },
+    {
+      "phase": "recovery",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "278f5eff71c82e57ddffc93cc26fbacae673274a084f801da79c2956416dbc2c",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "51eaceeceef40f0e9f4e9d6751f3acf3c2850275c658e032f1e2b111821e96f5",
+      "rawNodeLogSHA256": "8428155c25a4c31eb2941bf3889e0efc93cad2f7605105ebe9abfb63b38f6953",
+      "appLifecycleSHA256": "174b83b866f820e0d576b82bf8be005b8b2c211d1151ec47884991aa0aad1422",
+      "proofSHA256": "900a6d6b3f4fbfc897a42127fa153084b466bcc8283374f260a3b774e6b1bcae",
+      "checks": 6
+    },
+    {
+      "phase": "recovery-crash-again",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "0a84a1c7c50cb3ebd8e14653d10539d91bc6aedf41c0b28bc5737e165b0167ff",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "a239d14a64c2628b8e33743cda04b6668f9b5940674d7e3f59a540b6391e2470",
+      "rawNodeLogSHA256": "ef585da23906956eb12fc50f7932407aec41a727fd76272bcc7b09f880de8355",
+      "appLifecycleSHA256": "174b83b866f820e0d576b82bf8be005b8b2c211d1151ec47884991aa0aad1422",
+      "proofSHA256": "f541e94386d902d94d2e19197c69307cc406a692b8bb0c838fb8963da469003e",
+      "checks": 3
+    },
+    {
+      "phase": "recovery-delete-failure",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "0a84a1c7c50cb3ebd8e14653d10539d91bc6aedf41c0b28bc5737e165b0167ff",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "910b587796eac57014eb09519e0e99027fa2920e6b6e555088fdd1985e0b089c",
+      "rawNodeLogSHA256": "021bfe61ebbea1012d53f0f5ef764271840ae2d82997a5991713be887ca26045",
+      "appLifecycleSHA256": "432bc4949a2c378a4ea63a1d1480a651bd04d21299f7a1d9a44871df799dcf6f",
+      "proofSHA256": "5e89a1e611972dfc621801a97ca1ae9cb98de09f76e7ee607586120c3157cf02",
+      "checks": 3
+    },
+    {
+      "phase": "recovery-later",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "0a84a1c7c50cb3ebd8e14653d10539d91bc6aedf41c0b28bc5737e165b0167ff",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "38f2bf69a0411000bf22e19c8f2379f4600a4671cb212d2c8afb621827bd81b9",
+      "rawNodeLogSHA256": "73c6e6b9265eaa19a4c15a88bb46826328e151323f3f05e31192c79bc61e023f",
+      "appLifecycleSHA256": "174b83b866f820e0d576b82bf8be005b8b2c211d1151ec47884991aa0aad1422",
+      "proofSHA256": "fb7b6ea91c4b9c946308ec4a70fdb99931c7ced12f5b6ac8e7ec6502403032b1",
+      "checks": 1
+    },
+    {
+      "phase": "recovery-clear-failure",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "0a84a1c7c50cb3ebd8e14653d10539d91bc6aedf41c0b28bc5737e165b0167ff",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "7e0ea6d8bcac94193c34d659a7c7bfd8cad7ba3cc0d8aa456a7368080e3f18a3",
+      "rawNodeLogSHA256": "86d496e9885d6666bb13f5c1b4c2b48e8ce16d66ab7e14fae57d629e1e0f28e0",
+      "appLifecycleSHA256": "9bf784c397820cb077a41a81f60ed7d1b22e814f1a894c94e1972acd7f73261b",
+      "proofSHA256": "d28abd7b528f1dc1483ff1c49070da8c705dc615fb7ec4c46a7ebb7b4e12c99e",
+      "checks": 2
+    },
+    {
+      "phase": "recovery-select-many",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "0a84a1c7c50cb3ebd8e14653d10539d91bc6aedf41c0b28bc5737e165b0167ff",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "ec00c21c431d39eb1206394c38c622474b2a345831090f2e56c0fafaa6e754ef",
+      "rawNodeLogSHA256": "65c70e2204677533e9bc76309c92645113564b90c4d872390f9074b665d92c25",
+      "appLifecycleSHA256": "432bc4949a2c378a4ea63a1d1480a651bd04d21299f7a1d9a44871df799dcf6f",
+      "proofSHA256": "ebb9356420c1d795e7fd9fbc17469611db3f80b9b1204ac7b9ad5595abce1780",
+      "checks": 2
+    },
+    {
+      "phase": "recovery-replacement-failure",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "0a84a1c7c50cb3ebd8e14653d10539d91bc6aedf41c0b28bc5737e165b0167ff",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "76506b2ce0d4cbf943a8fb1fb0d8b24f2474370fea7cbbb9b83e619915cf047a",
+      "rawNodeLogSHA256": "a2b530ce835be237c6cce46d1348089d87e24cc78b5de6a5af17f38dffaea2a0",
+      "appLifecycleSHA256": "432bc4949a2c378a4ea63a1d1480a651bd04d21299f7a1d9a44871df799dcf6f",
+      "proofSHA256": "7bfef4683ca8a3a529508e70242d1e35069be2b65815b17f809964c37ab0c91f",
+      "checks": 3
+    },
+    {
+      "phase": "recovery-replacement-abort",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "0a84a1c7c50cb3ebd8e14653d10539d91bc6aedf41c0b28bc5737e165b0167ff",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "3cba9fb0397b99e61c9affc8bbe25b4bc5766fc00282bf6b649fe571345b3b47",
+      "rawNodeLogSHA256": "0d24716dd3ceede302e94c6277bdefdfaa09422bd12aa6391f93d3f789ac99a6",
+      "appLifecycleSHA256": "432bc4949a2c378a4ea63a1d1480a651bd04d21299f7a1d9a44871df799dcf6f",
+      "proofSHA256": "698572c6a9227090a78cb09a42dd2dca5764322acedd2a5949a2bf52adf3c313",
+      "checks": 3
+    },
+    {
+      "phase": "recovery-replacement-success",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "0a84a1c7c50cb3ebd8e14653d10539d91bc6aedf41c0b28bc5737e165b0167ff",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "5d2c8052df9f6b640636ab39f28ca22e476bf17ecd6c5c3d0cfe826f82da69a1",
+      "rawNodeLogSHA256": "80dc5cfed9480c451b40c7324a121f65ab418890463fc7375a56bcf4d4af7863",
+      "appLifecycleSHA256": "174b83b866f820e0d576b82bf8be005b8b2c211d1151ec47884991aa0aad1422",
+      "proofSHA256": "bdc0453b929566f43904fe1d5d117b4338721c1046741863694c2e6fc57c13b2",
+      "checks": 3
+    },
+    {
+      "phase": "pruning-future-timestamps",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "cb38670675d93073ca9826e4c5ee8286f79b768d67ca2641159e4b49c75707ab",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "7bd055af3732be7b8cb7dd746bcf3bd2e019e9cbcd349360db3a3d39c78023ee",
+      "rawNodeLogSHA256": "410c7db4de7cefe6dfe13ba22094b796c09c4ba59b0e945b486dce3d7d6738c7",
+      "appLifecycleSHA256": "174b83b866f820e0d576b82bf8be005b8b2c211d1151ec47884991aa0aad1422",
+      "proofSHA256": "2a8fa600c5c9a9a418b3397a4413acc75acc3fa3a8894c840c03b76eadb0d8b9",
+      "checks": 3
+    },
+    {
+      "phase": "pruning-query-failure",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "cb38670675d93073ca9826e4c5ee8286f79b768d67ca2641159e4b49c75707ab",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "25f2d562a176e466b27da4f29899415d1c11278fe589c5eaf09e919c0f43af82",
+      "rawNodeLogSHA256": "874e440351e3924f905ec06afc29c5824dfbbe3e416eb359f582fb548ab54c18",
+      "appLifecycleSHA256": "174b83b866f820e0d576b82bf8be005b8b2c211d1151ec47884991aa0aad1422",
+      "proofSHA256": "01c67e8d5ffcc545c1de5fac655388d889e57474e1de6cee1a984889b968dbf2",
+      "checks": 3
+    },
+    {
+      "phase": "pruning-query-abort",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "cb38670675d93073ca9826e4c5ee8286f79b768d67ca2641159e4b49c75707ab",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "ffdd7c42397a86bb4a7edc8cac30dcd6321b3873c0dc940155058b9a89168eb6",
+      "rawNodeLogSHA256": "6266d1c59a680f8248a25f655341bfd84df55c267b388175f3a52b2e9556f135",
+      "appLifecycleSHA256": "174b83b866f820e0d576b82bf8be005b8b2c211d1151ec47884991aa0aad1422",
+      "proofSHA256": "0f40db29b160e18d23424919f02e91c2ade3fdbddb46a2c6269d262f7ff02635",
+      "checks": 3
+    },
+    {
+      "phase": "pruning-delete-failure",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "cb38670675d93073ca9826e4c5ee8286f79b768d67ca2641159e4b49c75707ab",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "4d7c5e464afeedefd883fc8cc07517eaa171d553ea6ce1a608365dd09b36e1fc",
+      "rawNodeLogSHA256": "547a59ba5ef879918998edd02084dad3fbf470afd61ddb3dfc7286bc58675a29",
+      "appLifecycleSHA256": "174b83b866f820e0d576b82bf8be005b8b2c211d1151ec47884991aa0aad1422",
+      "proofSHA256": "1ac857f6309858558ef4e51061f645f8a7129006208518e991ed2db125e8499b",
+      "checks": 3
+    },
+    {
+      "phase": "pruning-delete-abort",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0,
+        0,
+        0
+      ],
+      "sourceEpochSHA256": "cb38670675d93073ca9826e4c5ee8286f79b768d67ca2641159e4b49c75707ab",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "5f4c26a91f025e4506bc3bb29000dd10a8c583f42f3e4185c40396dc11b0bc04",
+      "rawNodeLogSHA256": "170bec7de3e6a31cdc4a9bb2da6d87f5830653a685eb4d8e93c683251dd13703",
+      "appLifecycleSHA256": "174b83b866f820e0d576b82bf8be005b8b2c211d1151ec47884991aa0aad1422",
+      "proofSHA256": "93656f181882860ca7c708102e693359db2687aff6f94ba849465fe0c9dd8948",
+      "checks": 3
+    },
+    {
+      "phase": "final-ack-public",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "70f0059d3d00e3c37c0fa184ee37e6f10e4d4b22b89586980b56b28c400616db",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "d6855e8df06497e4fca02d937e1702142b9c4c4ac83cacb0e3f19679a8fc2f0e",
+      "rawNodeLogSHA256": "752e15a16eab2102b89faef6c80de006f6fc3ccba89dc795da15c4e74a3db7ce",
+      "appLifecycleSHA256": "76fe954c81ad6403db10e2d477e1d85b54e7a009e896e5b72cd94cb149b68e4a",
+      "proofSHA256": "ab5baae3f118bf99f2eb4623385e2b7592f73be7e5c6eb22d089316d101a4197",
+      "checks": 2
+    },
+    {
+      "phase": "final-ack-file-read",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "70f0059d3d00e3c37c0fa184ee37e6f10e4d4b22b89586980b56b28c400616db",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "6352cf9cb8a4fad10da2753ad1a95ca218faa4da6ca5982d155a24e776332b98",
+      "rawNodeLogSHA256": "7f3f37a55060d3ba0099474b26665981ebee761fa46e60805c3e993c900b2235",
+      "appLifecycleSHA256": "76fe954c81ad6403db10e2d477e1d85b54e7a009e896e5b72cd94cb149b68e4a",
+      "proofSHA256": "a3e1919a733b6587bcbbaac0b1d9dfea50c4372e9e37e8b04fc05b21ffeecb1a",
+      "checks": 2
+    },
+    {
+      "phase": "final-ack-image-decode",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "70f0059d3d00e3c37c0fa184ee37e6f10e4d4b22b89586980b56b28c400616db",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "9e92ea10ba2564b04b606926fcb6ba82e6264627d22bff39c8e4a6ab1a53b9c1",
+      "rawNodeLogSHA256": "151b3d08a957c7b855c2cc069d1bd77306fdf9c6dab0e68e08231884b139c65a",
+      "appLifecycleSHA256": "76fe954c81ad6403db10e2d477e1d85b54e7a009e896e5b72cd94cb149b68e4a",
+      "proofSHA256": "ea42de65c0f6338c17bb8f4ab6d74ba853b07ee3d2668d60e537f841ebfa879d",
+      "checks": 2
+    },
+    {
+      "phase": "final-ack-cancel",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "70f0059d3d00e3c37c0fa184ee37e6f10e4d4b22b89586980b56b28c400616db",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "e4b78a8c9d8420c2e838052a49bed131348c6e8dffa069a9e276d94391fdb236",
+      "rawNodeLogSHA256": "9f29e69045320ec268ea2149ac99f9eb4cd8d0f338008f645ad15071670bd731",
+      "appLifecycleSHA256": "76fe954c81ad6403db10e2d477e1d85b54e7a009e896e5b72cd94cb149b68e4a",
+      "proofSHA256": "3597b4a6e39570e1f4001aba69d501666dbacdc283b88d4f56d75c17270b798c",
+      "checks": 3
+    },
+    {
+      "phase": "final-ack-pending-render",
+      "nodeExitCode": 0,
+      "appExitCodes": [
+        0
+      ],
+      "sourceEpochSHA256": "70f0059d3d00e3c37c0fa184ee37e6f10e4d4b22b89586980b56b28c400616db",
+      "sourceSeedsSHA256": null,
+      "sourceAndInputHashesBeforeAfterEqual": true,
+      "fourEngineBindingFilesPinned": true,
+      "rawProcessRecordSHA256": "246dc160c74b724f6acc3a3d545034b637a4a732e3433c5fbd17a30d5cfc6436",
+      "rawNodeLogSHA256": "10641eb0c148224f0a86cc65a0d2d55709fd790acc756a8e30767f2fee132d13",
+      "appLifecycleSHA256": "76fe954c81ad6403db10e2d477e1d85b54e7a009e896e5b72cd94cb149b68e4a",
+      "proofSHA256": "deb42ca0dd4f522f127da45ab0767c622f65359cdb874c5ebb2168774a607fb5",
+      "checks": 2
+    }
+  ],
+  "nativeCheckerSHA256": "369fa9dc076cb2826c443f8e8902f24bb44d771391d295eea0181711dfe8eade",
+  "protectedPrevious13ASARs": {
+    "dev10-checkpoint-qa/GeulgyeolDev10.app/Contents/Resources/app.asar": "c4b83977cd089650cfd6c51780ce3901d764f96205ec16e056a9b2eaede49b9e",
+    "dev6-checkpoint-qa/GeulgyeolDev6.app/Contents/Resources/app.asar": "ed7177e86ce8b835322697f64e0a684614ea0417bf79efaf9e4b74944ccbb78f",
+    "dev8-checkpoint-qa/GeulgyeolDev8.app/Contents/Resources/app.asar": "66e9af062d45efaca508053e87a7a759489d7f98e0484798e7fd60b5d468a104",
+    "dev9-checkpoint-qa/GeulgyeolDev9.app/Contents/Resources/app.asar": "12065a11b5217639bc145354dc12f53170702d922ad05cd1757e63568190db9b",
+    "dev7-checkpoint-qa/GeulgyeolDev7.app/Contents/Resources/app.asar": "e28969fa32824c2a9b914e84419c10b9f23dffe12984eab9404e986d645e6129",
+    "mac-beta2-candidate-qa/GeulgyeolBeta2.app/Contents/Resources/app.asar": "2ab3e7ca8ce041f593b2d5687cd4e7ffe7331c9607ca0295ccf95fd59491f3b4",
+    "dev11-checkpoint-qa/GeulgyeolDev11.app/Contents/Resources/app.asar": "cc93b8d25713cca6f354739d3db542b4c5027cc897eccda1d9b576e6a515aa6f",
+    "dev12-integration-qa/GeulgyeolDev12.app/Contents/Resources/app.asar": "7cb9e475d25d3ed7ec7d7a95b1b28e278547c3d32bd3dbc885d336ea0a113d36",
+    "app-integration-qa/GeulgyeolDevEnter.app/Contents/Resources/app.asar": "8e195e5527d38652705c308eef2ab40db47cae2c4d395fabe4870d6c6c6da0ed",
+    "geulgyeol-dev-propagation/dist/GeulgyeolBetaNext.app/Contents/Resources/app.asar": "95071ec51add351b31c9ca77e6589cc2f4afbfb0d0264600abfb9eb0a082941b",
+    "geulgyeol-dev-propagation/dist/GeulgyeolDevPropagation.app/Contents/Resources/app.asar": "b868b25abfbb27516714546ac5312abda9dfbc645513c54704c8f115d7ba43ac",
+    "table-stored-merged-fragments-qa/GeulgyeolBeta3.app/Contents/Resources/app.asar": "e94f2bfc1b0cb1911c358fe16e036935c7ad8514ee4923bff89555f05990e15e",
+    "mac-beta3-mixed-candidate-qa/GeulgyeolBeta3.app/Contents/Resources/app.asar": "f67a7795978e0bdf7f2c28f217e076c60026a197b9d8fdd6fd77bdd3ac0e22a3"
+  },
+  "archives": [
+    {
+      "directory": "table-parallel-merged-fragments-qa/parallel-final-3",
+      "originalBytes": 1074263609,
+      "originalSHA256": "457efa00d47772503a59dcc6c46bdf7e55eea3864281bec276091322e23f63f9",
+      "archiveBytes": 22859770,
+      "archiveSHA256": "fc0b39bbd29cac91d59a500dd68a4148e6de09951bda2c0c6d30a7b66551b479",
+      "archiveIndexSHA256": "b5a77ca0303fdf919d36ac00d121e084042fa822b4b6c813aea6c48f48d0ebd9",
+      "originalMetadataAndRestoreCommandRetainedInIndex": true,
+      "finalDiskReadBackVerified": true,
+      "shardIndexSHA256Unchanged": "5d3168a9994e96d968e602737e903889a76b09e8f95715472af6a4236f80dc14"
+    },
+    {
+      "directory": "table-mixed-owner-pagination-qa/full-3",
+      "originalBytes": 1048894333,
+      "originalSHA256": "fff6feb73498f95e2926c444ad3c98d887270b79dd38132a697d0fa0aab84ab8",
+      "archiveBytes": 22438284,
+      "archiveSHA256": "7b4f8e2abd480ee59e6b84099655ec3069e0d8c3335ae24a6feb74c560b04dff",
+      "archiveIndexSHA256": "70a42b4cba9d115df978edfb08ae620ec847738aeba631b3c54f819db0ce4d54",
+      "originalMetadataAndRestoreCommandRetainedInIndex": true,
+      "finalDiskReadBackVerified": true,
+      "shardIndexSHA256Unchanged": "df5de9a8aaa2160fdca1fb2afd2f953f172687e739b9d7612f3cf268c58bf0b1"
+    }
+  ],
+  "archiveOperationFreeBytesBefore": 16465920000,
+  "archiveOperationFreeBytesBeforeEvidence": "earlier execution tool output; not a retroactively fabricated on-disk raw log",
+  "archiveOperationFreeBytesAfter": 18562781184,
+  "space": {
+    "newRootAllocatedBytes": 1373708288,
+    "freeBytes": 17088933888,
+    "targetBytes": 4764311552,
+    "minimumFreeBytes": 16106127360,
+    "futureZIPReserveBytes": 268435456,
+    "newRootBudgetBytes": 2147483648,
+    "targetLimitBytes": 4810363371,
+    "freeBeyondMinimumAndFutureZIPReserveBytes": 714371072
+  },
+  "privateOrchestrationHashesEvidence": "final assembly hashes only; not retroactive before/after execution evidence",
+  "privateMatrixRunnerSHA256": "90fc558a3ede0a67944ff8d537913a8f17a61ca4fc80f439021cf0f9ae25cadf",
+  "privateMatrixPlanSHA256": "b9e6a4a6ac7ec3caba1a5fa616f2b0b4c96d0e89cdd932f18ccbadcacbff89d7",
+  "privateMatrixResultSHA256": "11e16ef5a78dc41c98c4e315b154eb88758806229cb323a55af8bb4d931df4bd",
+  "privateResumedRunnerSHA256": "fbf3ae365b98c010002878424223bb7b86b1ed21919d427448502129dd7b6068",
+  "privateRemainingPlanSHA256": "324619621c8767af341bb77c8ff8808f53284d33940f7008f2bda34f68172806",
+  "interruptedPartialRun": {
+    "observedUTC": "2026-10-09T20:59:51.345678+00:00",
+    "toolSession12947": "Unknown process id",
+    "cause": "unconfirmed",
+    "completedBeforeInterruption": [
+      "table-mixed-1",
+      "table-mixed-2",
+      "table-mixed-3"
+    ],
+    "partialPhase": "table-mixed-4",
+    "partialPassLines": 9,
+    "partialNodeAndAppExitCodes": "unconfirmed",
+    "includedInCompletedCounts": false,
+    "ports": [
+      {
+        "ownedLoopbackPort": 64160,
+        "acceptsConnection": false
+      },
+      {
+        "ownedLoopbackPort": 64162,
+        "acceptsConnection": false
+      }
+    ],
+    "recordSHA256": "21b8fe4bec1306bce728605a537223d160c734750273ce6eefa9950e152c1c9e"
+  },
+  "postCompletionSpaceCheckFailure": {
+    "runPhaseExitCode": 1,
+    "reason": "post-completion space assertion failed; original failing measurement not recorded",
+    "appAndNodeVerificationCompleted": true,
+    "nativeWrapperLogConfirmsCases": 36,
+    "rawNodeHarnessExitCode": 0,
+    "rawAppExitCodes": [
+      0
+    ],
+    "newMeasurement": {
+      "observedUTC": "2026-10-09T21:21:46.298295+00:00",
+      "rootAllocatedBytes": 1328558080,
+      "freeBytes": 16500813824,
+      "minimumFreeBytes": 16106127360,
+      "futureZipReserveBytes": 268435456,
+      "additionalTablePhasePeakReserveBytes": 157286400,
+      "beyondMinimumAndZipBytes": 126251008
+    },
+    "previousRunPhaseRecordNotFabricated": true,
+    "recordSHA256": "a0a41957a6a9952f6d38bf7a03ddfabc76c11850127e1a3a8c51b29b36bc5010"
+  },
+  "hostSpacePlan": {
+    "oldSignedHostSuiteMeasuredMaxBytes": 2482176,
+    "newHostPhasePeakReserveBytes": 8388608,
+    "remainingHostPhases": 20,
+    "expectedMaximumCumulativeBytesBasedOnHistoricalRuns": 49643520,
+    "minimumFreeBytes": 16106127360,
+    "futureZipReserveBytes": 268435456,
+    "policy": "only host phase reserve is scoped to measured host needs; minimum and ZIP reserve unchanged; check before and after every independent phase; do not remove previous evidence or caches"
+  },
+  "collectorInitialAttempt": {
+    "reportedToolExitCode": 1,
+    "exception": "KeyError: engineFilesBeforeSHA256",
+    "productFailure": false,
+    "reason": "ordinary launch predates four engine binding pins and does not import binding JS; preserve historical WASM-only before/after schema",
+    "rawEvidence": "execution tool output; no fabricated on-disk raw log",
+    "statusSHA256": "54e9139467375cea49c4ed6041f8e2b8d3b933843acd6f9860b33d99980f3315"
+  },
+  "verifierInitialAttempt": {
+    "exitCode": 1,
+    "productFailure": false,
+    "reason": "untracked font asset was incorrectly queried by git show; tracked files now use Git product byte comparison, generated/untracked assets use package SHA pins",
+    "privateStatusSHA256": "fa4ed2ffecc3df270cfb15603cd604b5917745880a1b4baf87286d3d20d63997"
+  },
+  "notVerified": [
+    "OS native chooser",
+    "physical Hangul IME",
+    "manual GUI",
+    "clipboard",
+    "Hancom comparison",
+    "Linux runtime",
+    "Developer ID or notarization",
+    "full Rust lib suite: three historical include_bytes source files missing",
+    "unsupported three-column/colspan and complex header-rowspan contracts"
+  ],
+  "publicHold": {
+    "draftForIndependentReview": true,
+    "sourceApprovalDoesNotApproveCandidate": true,
+    "previousCandidatesRemainHeld": true,
+    "ZIPCreated": false,
+    "tagCreated": false,
+    "releaseCreated": false,
+    "merged": false
+  }
+}
