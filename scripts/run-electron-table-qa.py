@@ -23,7 +23,7 @@ if len(sys.argv) > 4 and sys.argv[4] != "all":
 if len(sys.argv) > 5:
     assert sys.argv[5] == "baseline"
     command.append("baseline")
-source_paths = [root / "scripts" / name for name in ["run-electron-table-qa.py", "check-electron-stored-merged-fragments.mjs"]] + [qa / "bootstrap.cjs"]
+source_paths = [root / "scripts" / name for name in ["run-electron-table-qa.py", "check-electron-stored-merged-fragments.mjs", "write-electron-table-manifest.mjs", "packaged-electron-qa.mjs"]] + [qa / "bootstrap.cjs"]
 # Capture before launch, then independently after exit. Do not retrofit old records.
 def source_hashes():
     return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in source_paths}
