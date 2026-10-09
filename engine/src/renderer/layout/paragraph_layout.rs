@@ -3654,32 +3654,11 @@ impl LayoutEngine {
         // [#5601] 셀 저장-앵커 스냅 문단 — 호출자가 para_y 에서 spacing_before 를
         // 미리 뺐으므로 column-top 트림과 무관하게 전량 재가산해야 vpos 와 맞는다.
         let reapply_snap_spacing_before = self.reapply_snap_anchored_spacing_before.replace(false);
-        if start_line == 0 && spacing_before > 0.0 {
-            if !is_column_top || keep_continuation_spacing_before || reapply_snap_spacing_before {
-                y += spacing_before;
-            } else if para_index == 0 && !suppress_column_top_vpos_fallback {
-                let vpos0_px = para
-                    .and_then(|p| p.line_segs.first())
-                    .map(|ls| hwpunit_to_px(ls.vertical_pos, self.dpi))
-                    .unwrap_or(0.0);
-                y += spacing_before.min(vpos0_px.max(0.0));
-            } else if !suppress_column_top_vpos_fallback {
-                // [Task #1811] 쪽 상단(para_index>0) 문단도 저장 첫 줄 vpos 가 증거다 —
-                // 한컴이 앞 간격을 유지한 문서는 쪽-상대 vpos ≈ spacing_before 로 저장되고
-                // (task1750 샘플 p2: sb=700HU, vpos=700 — 트림 시 페이지 전체가 5pt 위로
-                // 밀려 visual sweep 이중상), 트림한 문서는 vpos=0 이다. #853 의
-                // para_index==0 클램프를 저장 증거 기반으로 일반화하되, 누적축 vpos
-                // 인코딩(vpos ≫ sb)은 쪽-상대 증거가 아니므로 종전(트림) 유지.
-                let vpos0_px = para
-                    .and_then(|p| p.line_segs.first())
-                    .filter(|ls| ls.tag & LineSeg::TAG_IMPLEMENTATION_PROPERTY == 0)
-                    .map(|ls| hwpunit_to_px(ls.vertical_pos, self.dpi))
-                    .unwrap_or(0.0);
-                if vpos0_px > 0.0 && vpos0_px <= spacing_before + 0.5 {
-                    y += vpos0_px;
-                }
-            }
-        }
+        y += crate::renderer::paragraph_spacing::partial_paragraph_spacing_before_px(
+            para, para_index, start_line, spacing_before, self.dpi,
+            is_column_top, keep_continuation_spacing_before,
+            reapply_snap_spacing_before, suppress_column_top_vpos_fallback,
+        );
         // [Task #1012] paragraph 첫 line vpos > 0 인데 spacing_before=0 으로
         // 위 블록 진입 안한 경우 (test-image.hwp page 1: TopAndBottom Picture)
         // line_seg.vpos 를 직접 y 에 가산하여 텍스트가 wrap shape 아래로

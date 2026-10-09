@@ -3347,7 +3347,7 @@ export class InputHandler {
           this.wasm.clearActiveField();
         }
         // Inverse typing/merge cannot reconstruct contracted anchors or mixed formatting.
-        // Preserve exact states for body commands touching review comments or bookmarks.
+        // Preserve source states for review anchors and a first NoLS table-host edit.
         const body = !this.cursor.isInFootnote() && !this.cursor.isInHeaderFooter()
           && beforePos.parentParaIndex === undefined && !beforePos.cellPath?.length;
         const type = desc.command.type;
@@ -3359,7 +3359,11 @@ export class InputHandler {
           && (this.wasm.getFieldList().some((f: any) => f.fieldType === 'memo'
             && f.location?.sectionIndex === beforePos.sectionIndex && !f.location?.path?.length
             && paragraphs.includes(f.location?.paraIndex))
-            || this.wasm.getBookmarks().some(b => b.editable && b.sec === beforePos.sectionIndex && paragraphs.includes(b.para)));
+            || this.wasm.getBookmarks().some(b => b.editable && b.sec === beforePos.sectionIndex && paragraphs.includes(b.para))
+            // A first edit generates line segments. Its inverse cannot restore
+            // an imported absent ladder.
+            || (['insertText', 'deleteText', 'insertTab'].includes(type)
+              && this.wasm.bodyTableHostNeedsTextSnapshot(beforePos.sectionIndex, beforePos.paragraphIndex)));
         const command = anchoredBodyEdit ? new SnapshotCommand(type, beforePos, beforePos, bridge => {
           try { return desc.command.execute(bridge); }
           finally { desc.command.discard?.(bridge); }

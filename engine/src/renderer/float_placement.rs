@@ -277,6 +277,28 @@ pub(crate) fn is_para_topbottom_float(common: &CommonObjAttr) -> bool {
         && matches!(common.vert_rel_to, VertRelTo::Para)
 }
 
+/// A page-top, non-overlapping RowBreak table owns the page band before
+/// text stored after its anchor. The trailing host must flow after the final
+/// fragment, rather than being painted at the first fragment's page origin.
+/// Paragraph-relative offsets and intentional overlays keep their own rules.
+pub(crate) fn page_top_rowbreak_has_trailing_host(
+    para: &Paragraph,
+    control_index: usize,
+    table: &crate::model::table::Table,
+) -> bool {
+    let common = &table.common;
+    !common.treat_as_char
+        && !common.allow_overlap
+        && matches!(common.text_wrap, TextWrap::TopAndBottom)
+        && matches!(common.vert_rel_to, VertRelTo::Page)
+        && matches!(common.vert_align, VertAlign::Top)
+        && signed_hwpunit(common.vertical_offset) == 0
+        && matches!(table.page_break, crate::model::table::TablePageBreak::RowBreak)
+        && para.text.chars().any(|c| c > '\u{001F}' && c != '\u{FFFC}' && !c.is_whitespace())
+        && para.controls.iter().filter(|c| matches!(c, Control::Table(_))).count() == 1
+        && para.control_text_positions().get(control_index) == Some(&0)
+}
+
 /// A positive-offset empty host float whose next, generated body paragraph has
 /// no stored line-segment anchor. Hancom consumes the empty host's physical row,
 /// lays that body paragraph in the remaining gap above the float, then resumes
