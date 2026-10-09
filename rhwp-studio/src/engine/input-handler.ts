@@ -3368,14 +3368,25 @@ export class InputHandler {
           && !this.cursor.isInFootnote() && !this.cursor.isInHeaderFooter()
           && beforePos.cellPath?.length === 1 && beforePos.parentParaIndex !== undefined
           && beforePos.controlIndex !== undefined && beforePos.cellIndex !== undefined
-          && ['insertText', 'deleteText', 'insertTab'].includes(type)
+          && ['insertText', 'deleteText', 'insertTab', 'insertLineBreak'].includes(type)
           && this.wasm.mergedCellNeedsTextSnapshot(beforePos.sectionIndex, beforePos.parentParaIndex,
             beforePos.controlIndex, beforePos.cellIndex);
         const preserveSourceEdit = anchoredBodyEdit || mergedCellEdit;
-        const command = preserveSourceEdit ? new SnapshotCommand(type, beforePos, beforePos, bridge => {
-          try { return desc.command.execute(bridge); }
-          finally { desc.command.discard?.(bridge); }
+        let sourceMutationEffects: TextMutationEffects | undefined;
+        const command: EditCommand = preserveSourceEdit ? new SnapshotCommand(type, beforePos, beforePos, bridge => {
+          try {
+            const result = desc.command.execute(bridge);
+            // Preserve the original command's pagination contract even when
+            // source history is owned by the snapshot wrapper.
+            sourceMutationEffects = desc.command.consumeTextMutationEffects?.();
+            return result;
+          } finally { desc.command.discard?.(bridge); }
         }) : desc.command;
+        if (preserveSourceEdit) command.consumeTextMutationEffects = () => {
+          const effects = sourceMutationEffects ?? IMMEDIATE_TEXT_MUTATION_EFFECTS;
+          sourceMutationEffects = undefined;
+          return effects;
+        };
         const newPos = this.history.execute(command, this.wasm);
         const boundaryHandled = this.prepareTextMutationBeforeCursor(
           this.history.consumeLastExecutionEffects(),

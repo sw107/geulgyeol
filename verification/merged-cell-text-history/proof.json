@@ -1,0 +1,4955 @@
+{
+  "basis": {
+    "main": "5ded4ed8cd4ac3834aacb6665a5e1edeb684ac72",
+    "previousPR8": "7b5a028620e8e810bdd122c454d7d2a274b8f015",
+    "preservedPR9": "fda752466027f12a6d23b508891bbb581199149d",
+    "preservedParallelLocalCheckpoint": "778a1cf34e99060f2f3d02371b5db1a7bf3f13d9",
+    "syntheticOnly": true,
+    "HancomAuthoredOriginalAvailable": false
+  },
+  "productChange": "InputHandler source snapshot eligibility for insertLineBreak and forwarding original TextMutationEffects; no Rust changes",
+  "sourceFiles": {
+    "rhwp-studio/src/engine/input-handler.ts": "d4ff15f2864c236b1df4cdef54152758413e1f781e28821a2f5105105999550a",
+    "scripts/check-electron-stored-merged-fragments.mjs": "e7a39936ff3f7eb8f763ca5ca7782400344ba46845de4c507ded0975965c98e1",
+    "scripts/prepare-merged-cell-text-history.mjs": "7ed4eac89cf554e56c9994ef9f61214007f53aef4e383eec5c96cc78129f2269"
+  },
+  "sourceFixtures": [
+    {
+      "format": "hwp",
+      "sha256": "98fb600dc4e4e0577914b30673e234a1108b4e484212f115523385040ddf72a0"
+    },
+    {
+      "format": "hwpx",
+      "sha256": "ca1b869c5780136eb201d389ba574d258e2cdb017f19e384c4ef121ecf2de7eb"
+    }
+  ],
+  "baseline": {
+    "ShiftEnterMiddle": {
+      "undoClipHeightBeforePx": 693.36,
+      "undoClipHeightActualPx": 707.76,
+      "deltaPx": 14.4,
+      "normalQuit": true
+    },
+    "directDeleteFirst": {
+      "settledUIBorderOverflowPx": 8.026666666666642,
+      "redoFullSVGDiffered": true,
+      "cause": "snapshot wrapper omitted original deferred pagination effects"
+    },
+    "rawEvidencePreservedOutsideGit": true,
+    "failedStrictGraceRustHypothesisReverted": true
+  },
+  "electron": {
+    "officialRuntime": "44.3.0",
+    "newHistory": {
+      "cases": 20,
+      "changedCases": 18,
+      "historyPairs": 76,
+      "actualIPCReopens": 36,
+      "rendererErrors": 0,
+      "paintChecks": 66,
+      "paintedPages": 792,
+      "maxBorderOverflowPx": -6.373333333333335,
+      "maxInkOverflowPx": -6.373333333333335,
+      "hidden": 0,
+      "partial": 0,
+      "normalQuit": true,
+      "exitCode": 0,
+      "engineSHA256": "b5b5b2fc52dedbd0140322497e7fe792c9a34f8568ed8bc8f02dbd341a67474b",
+      "operations": [
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "shift-enter-0",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 289.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "direct-delete-0",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 289.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "shift-enter-1",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 23
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 23,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 23,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 23
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 580,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "direct-delete-1",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 23
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 23,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 23,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 23
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 580,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "shift-enter-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "direct-delete-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "tab-navigation",
+          "noChange": true
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "tab-last-row",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 23
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 23,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 23,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 23
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 580,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "mixed-text-history",
+          "burst": false,
+          "observations": [],
+          "steps": [
+            "text",
+            "shift-enter",
+            "delete",
+            "backspace",
+            "tab-last-row",
+            "new-row-text"
+          ],
+          "historyPairs": 12,
+          "beforePages": 12,
+          "afterPages": 12,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "mixed-burst-history",
+          "burst": true,
+          "observations": [
+            {
+              "pending": true,
+              "undo": 1
+            },
+            {
+              "pending": false,
+              "undo": 2
+            },
+            {
+              "pending": true,
+              "undo": 3
+            },
+            {
+              "pending": true,
+              "undo": 4
+            },
+            {
+              "pending": false,
+              "undo": 5
+            },
+            {
+              "pending": true,
+              "undo": 6
+            }
+          ],
+          "steps": [
+            "text",
+            "shift-enter",
+            "delete",
+            "backspace",
+            "tab-last-row",
+            "new-row-text"
+          ],
+          "historyPairs": 12,
+          "beforePages": 12,
+          "afterPages": 12,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "shift-enter-0",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 289.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "direct-delete-0",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 289.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "shift-enter-1",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 23
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 23,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 23,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 23
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 580,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "direct-delete-1",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 23
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 23,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 23,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 23
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 580,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "shift-enter-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "direct-delete-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 46
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "tab-navigation",
+          "noChange": true
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "tab-last-row",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 23
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 23,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 23,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 23
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 580,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "mixed-text-history",
+          "burst": false,
+          "observations": [],
+          "steps": [
+            "text",
+            "shift-enter",
+            "delete",
+            "backspace",
+            "tab-last-row",
+            "new-row-text"
+          ],
+          "historyPairs": 12,
+          "beforePages": 12,
+          "afterPages": 12,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "mixed-burst-history",
+          "burst": true,
+          "observations": [
+            {
+              "pending": true,
+              "undo": 1
+            },
+            {
+              "pending": false,
+              "undo": 2
+            },
+            {
+              "pending": true,
+              "undo": 3
+            },
+            {
+              "pending": true,
+              "undo": 4
+            },
+            {
+              "pending": false,
+              "undo": 5
+            },
+            {
+              "pending": true,
+              "undo": 6
+            }
+          ],
+          "steps": [
+            "text",
+            "shift-enter",
+            "delete",
+            "backspace",
+            "tab-last-row",
+            "new-row-text"
+          ],
+          "historyPairs": 12,
+          "beforePages": 12,
+          "afterPages": 12,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        }
+      ],
+      "rawProofSHA256": "09b5e7a38321c11b9decab18f19d95e524ca5d940aaf973ac23b754abf6c572e"
+    },
+    "relatedPR8Regression": {
+      "cases": 114,
+      "changedCases": 100,
+      "historyPairs": 200,
+      "actualIPCReopens": 200,
+      "rendererErrors": 0,
+      "paintChecks": 314,
+      "paintedPages": 3366,
+      "maxBorderOverflowPx": -0.37333333333344854,
+      "maxInkOverflowPx": -5.253235905965198,
+      "hidden": 0,
+      "partial": 0,
+      "normalQuit": true,
+      "exitCode": 0,
+      "engineSHA256": "b5b5b2fc52dedbd0140322497e7fe792c9a34f8568ed8bc8f02dbd341a67474b",
+      "operations": [
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwpx",
+          "operation": "input-0",
+          "beforePages": 2,
+          "afterPages": 2,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 17.3
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwpx",
+          "operation": "input-1",
+          "beforePages": 2,
+          "afterPages": 2,
+          "target": {
+            "cell": 1,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 151.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 149.6,
+                "w": 93.3,
+                "h": 17.3
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwpx",
+          "operation": "input-2",
+          "beforePages": 2,
+          "afterPages": 2,
+          "target": {
+            "cell": 47,
+            "para": 0,
+            "page": 1
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 47,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 47,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 1,
+              "x": 120.2,
+              "y": 498.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 496.3,
+                "w": 93.3,
+                "h": 17.3
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwpx",
+          "operation": "host-input",
+          "beforePages": 2,
+          "afterPages": 2,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwpx",
+          "operation": "replace-one",
+          "beforePages": 2,
+          "afterPages": 2,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwp",
+          "operation": "input-0",
+          "beforePages": 2,
+          "afterPages": 2,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 17.3
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwp",
+          "operation": "input-1",
+          "beforePages": 2,
+          "afterPages": 2,
+          "target": {
+            "cell": 1,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 151.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 149.6,
+                "w": 93.3,
+                "h": 17.3
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwp",
+          "operation": "input-2",
+          "beforePages": 2,
+          "afterPages": 2,
+          "target": {
+            "cell": 47,
+            "para": 0,
+            "page": 1
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 47,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 47,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 1,
+              "x": 120.2,
+              "y": 498.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 496.3,
+                "w": 93.3,
+                "h": 17.3
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwp",
+          "operation": "host-input",
+          "beforePages": 2,
+          "afterPages": 2,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwp",
+          "operation": "replace-one",
+          "beforePages": 2,
+          "afterPages": 2,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-consistent-frame",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwpx",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwpx",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwpx",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 47,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 47,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 47,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 445.7,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 443.8,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwpx",
+          "operation": "host-input",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwpx",
+          "operation": "replace-one",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwp",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwp",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwp",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 47,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 47,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 47,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 445.7,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 443.8,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwp",
+          "operation": "host-input",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwp",
+          "operation": "replace-one",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-plain",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwpx",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwpx",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 488.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwpx",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 45,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 45,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 45,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 445.7,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 443.8,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 488.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 1,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 1,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 1,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 1
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 526.7,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 488.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 2,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 2,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 2,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 2
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 693.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 488.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwpx",
+          "operation": "host-input",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwpx",
+          "operation": "replace-one",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwp",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwp",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 488.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwp",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 45,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 45,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 45,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 445.7,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 443.8,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 488.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 1,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 1,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 1,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 1
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 526.7,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 488.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 2,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 2,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 2,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 2
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 693.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 488.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwp",
+          "operation": "host-input",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwp",
+          "operation": "replace-one",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-rowspan",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwpx",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwpx",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwpx",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 46,
+            "para": 1,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 1,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 46,
+              "cellParaIndex": 1,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 46,
+                  "cellParaIndex": 1
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 456.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 46,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 46,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 46,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 289.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 46,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 46,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 46,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 289.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 46,
+            "para": 1,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 1,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 46,
+              "cellParaIndex": 1,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 46,
+                  "cellParaIndex": 1
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 456.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwpx",
+          "operation": "host-input",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwpx",
+          "operation": "replace-one",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwp",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwp",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 24,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwp",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 46,
+            "para": 1,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 1,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 46,
+              "cellParaIndex": 1,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 46,
+                  "cellParaIndex": 1
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 456.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 46,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 46,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 46,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 289.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 46,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 46,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 46,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 289.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 46,
+            "para": 1,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 1,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 46,
+              "cellParaIndex": 1,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 46,
+                  "cellParaIndex": 1
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 456.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwp",
+          "operation": "host-input",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwp",
+          "operation": "replace-one",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-terminal-rowspan",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "input-0",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "input-1",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 22,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 22,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 22,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 22
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 413.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "input-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 46,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-0",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 289.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-1",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 23,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 23,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 23,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 23
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 580,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 46,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "host-input",
+          "beforePages": 12,
+          "afterPages": 12,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "replace-one",
+          "beforePages": 12,
+          "afterPages": 12,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "input-0",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "input-1",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 22,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 22,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 22,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 22
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 413.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "input-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 46,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-0",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 289.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-1",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 23,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 23,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 23,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 23
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 580,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-2",
+          "beforePages": 12,
+          "afterPages": 12,
+          "target": {
+            "cell": 1,
+            "para": 46,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 46,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 1,
+              "cellParaIndex": 46,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 1,
+                  "cellParaIndex": 46
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 120.2,
+              "y": 870.2,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 288,
+                "w": 93.3,
+                "h": 712
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "host-input",
+          "beforePages": 12,
+          "afterPages": 12,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "replace-one",
+          "beforePages": 12,
+          "afterPages": 12,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-long-rowspan",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwpx",
+          "operation": "input-0",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwpx",
+          "operation": "input-1",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 22,
+            "para": 0,
+            "page": 6
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 22,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 22,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 6,
+              "x": 120.2,
+              "y": 548.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 546.2,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwpx",
+          "operation": "input-2",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 46,
+            "para": 0,
+            "page": 13
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 46,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 46,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 13,
+              "x": 120.2,
+              "y": 569.4,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 567.5,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-0",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-1",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwpx",
+          "operation": "merged-input-2",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 0,
+            "para": 1,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 1,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 1,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 1
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 300.5,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwpx",
+          "operation": "host-input",
+          "beforePages": 14,
+          "afterPages": 14,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwpx",
+          "operation": "replace-one",
+          "beforePages": 14,
+          "afterPages": 14,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwp",
+          "operation": "input-0",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwp",
+          "operation": "input-1",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 22,
+            "para": 0,
+            "page": 6
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 22,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 22,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 6,
+              "x": 120.2,
+              "y": 548.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 546.2,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwp",
+          "operation": "input-2",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 46,
+            "para": 0,
+            "page": 13
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 46,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 46,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 13,
+              "x": 120.2,
+              "y": 569.4,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 567.5,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-0",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-1",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwp",
+          "operation": "merged-input-2",
+          "beforePages": 14,
+          "afterPages": 14,
+          "target": {
+            "cell": 0,
+            "para": 1,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 1,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 1,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 1
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 300.5,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 322.2
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwp",
+          "operation": "host-input",
+          "beforePages": 14,
+          "afterPages": 14,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwp",
+          "operation": "replace-one",
+          "beforePages": 14,
+          "afterPages": 14,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-header-rowspan",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwpx",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwpx",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 48,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 48,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 48,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 186.7,
+                "h": 136.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwpx",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 94,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 94,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 94,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 213.5,
+              "y": 419,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwpx",
+          "operation": "merged-input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 48,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 48,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 48,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 186.7,
+                "h": 136.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwpx",
+          "operation": "merged-input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 48,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 48,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 48,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 186.7,
+                "h": 136.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwpx",
+          "operation": "merged-input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 48,
+            "para": 1,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 1,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 48,
+              "cellParaIndex": 1,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 48,
+                  "cellParaIndex": 1
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 479.8,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 186.7,
+                "h": 136.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwpx",
+          "operation": "host-input",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwpx",
+          "operation": "replace-one",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwpx",
+          "operation": "size-noop",
+          "noChange": true
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwp",
+          "operation": "input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 0,
+            "para": 0,
+            "page": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 0,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 0,
+              "x": 120.2,
+              "y": 134.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 132.3,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwp",
+          "operation": "input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 48,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 48,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 48,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 186.7,
+                "h": 136.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwp",
+          "operation": "input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 94,
+            "para": 0,
+            "page": 10
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 94,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 94,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 10,
+              "x": 213.5,
+              "y": 419,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 206.7,
+                "y": 358.5,
+                "w": 93.3,
+                "h": 155.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwp",
+          "operation": "merged-input-0",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 48,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 48,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 48,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 186.7,
+                "h": 136.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwp",
+          "operation": "merged-input-1",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 48,
+            "para": 0,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 48,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 48,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 360.3,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 186.7,
+                "h": 136.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwp",
+          "operation": "merged-input-2",
+          "beforePages": 11,
+          "afterPages": 11,
+          "target": {
+            "cell": 48,
+            "para": 1,
+            "page": 5
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 1,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 48,
+              "cellParaIndex": 1,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 48,
+                  "cellParaIndex": 1
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 5,
+              "x": 120.2,
+              "y": 479.8,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 358.5,
+                "w": 186.7,
+                "h": 136.6
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwp",
+          "operation": "host-input",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwp",
+          "operation": "replace-one",
+          "beforePages": 11,
+          "afterPages": 11,
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-colspan",
+          "ext": "hwp",
+          "operation": "size-noop",
+          "noChange": true
+        }
+      ],
+      "rawProofSHA256": "8c63a21b739d3cb70f28c2f71706ed6b72eba0ce23a68aaf103a2eee59b7970f"
+    },
+    "totals": {
+      "cases": 134,
+      "historyPairs": 276,
+      "actualIPCReopens": 236,
+      "paintChecks": 380,
+      "paintedPages": 4158
+    },
+    "rawDirectories": [
+      "../merged-cell-text-history-qa/full-4",
+      "../merged-cell-text-history-qa/pr8-regression-1"
+    ],
+    "physicalIMEVerified": false,
+    "OSChooserVerified": false,
+    "manualGUIVerified": false,
+    "clipboardAccessed": false,
+    "burstWaitsBetweenInputSteps": false,
+    "forcedTestPaginationFlush": false
+  },
+  "native": {
+    "binarySHA256": "8d14a5682372c5b681929d87699774d85c64f0a887bf506e19d89963590b0cbc",
+    "binarySourceAlignedToPR8": true,
+    "newNativeBuildClaimed": false,
+    "actualSavedFiles": 532,
+    "APIOnlyBoundaryFiles": 16,
+    "total": 548,
+    "fullModelAndSVGSame": true,
+    "actualSavedFilesOverflowWarnings": 0,
+    "genuineBoundaryWarningsPreserved": 4,
+    "excludedBoundaryWarningsPreserved": 2,
+    "checks": [
+      {
+        "fullSVGPageCountBodyCellsParagraphAndCharacterIDsStylesExact": true,
+        "sameBytesFiles": 36,
+        "name": "final-new-36"
+      },
+      {
+        "fullSVGPageCountBodyCellsParagraphAndCharacterIDsStylesExact": true,
+        "sameBytesFiles": 200,
+        "name": "final-pr8-200"
+      },
+      {
+        "fullSVGPageCountBodyCellsParagraphAndCharacterIDsStylesExact": true,
+        "sameBytesFiles": 164,
+        "name": "final-pr6-164"
+      },
+      {
+        "fullSVGPageCountBodyCellsParagraphAndCharacterIDsStylesExact": true,
+        "sameBytesFiles": 100,
+        "name": "final-pr6-100"
+      },
+      {
+        "fullSVGPageCountBodyCellsParagraphAndCharacterIDsStylesExact": true,
+        "sameBytesFiles": 32,
+        "name": "final-pr7-32"
+      }
+    ]
+  },
+  "snapshotScopeCases": 17,
+  "candidate": {
+    "untouched": true,
+    "ASARSHA256": "e94f2bfc1b0cb1911c358fe16e036935c7ad8514ee4923bff89555f05990e15e",
+    "newPackage": false,
+    "ZIPCreated": false,
+    "released": false
+  },
+  "limits": [
+    "Only the existing single-column whole-span plain-text source gate",
+    "Hancom-authored partial-frame original absent",
+    "Physical IME/OS chooser/manual GUI/Hancom app comparison/Linux unverified",
+    "Full Rust lib tests have three pre-existing missing include_bytes fixtures",
+    "Parallel/mixed ownership follow-up preserved in local checkpoint; not part of this fix"
+  ]
+}

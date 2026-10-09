@@ -13,7 +13,7 @@ const sha=b=>createHash('sha256').update(b).digest('hex'),write=(name,value)=>fs
 function compact(v){if(Array.isArray(v))return v.map(compact);if(v&&typeof v==='object')return Object.fromEntries(Object.entries(v).map(([k,x])=>[k,['hwp','hwpx'].includes(k)?{sha256:sha(Buffer.from(x)),bytes:x.length}:k==='svg'?x.map(s=>({sha256:sha(s),bytes:Buffer.byteLength(s)})):compact(x)]));return v;}
 const control=value=>write('control.json',value),pause=ms=>new Promise(r=>setTimeout(r,ms));
 async function until(fn,label){const end=Date.now()+65000;while(Date.now()<end){if(await fn())return;await pause(50);}throw Error('Timeout '+label);}
-let p,b,page,frame,failure,caseMeta,normalQuit=false,receivedEngineSHA256;const errors=[],rows=[],manifest=[];let pairs=0,reopens=0;const paintChecks=[];
+let p,b,page,frame,failure,caseMeta,normalQuit=false,receivedEngineSHA256;const errors=[],rows=[],manifest=[];let pairs=0,reopens=0;const paintChecks=[];const mixedReferences=new Map();
 // A background/occluded Mac window can suspend RAF; readiness uses host state
 // and completed synchronous engine SVG, with a bounded renderer timer.
 const settle=async()=>{
@@ -77,21 +77,52 @@ async function saveAndReopen(label,expected){
  }
 }
 function ownership(v){
+ const headerRows=new Set(v.cells.filter(c=>c.props.isHeader).flatMap(c=>Array.from({length:c.info.rowSpan},(_,i)=>c.info.row+i)));let leadingRows=0;while(headerRows.has(leadingRows))leadingRows++;
+ const repeats=c=>v.props.repeatHeader&&c.info.row<leadingRows;
  for(let i=0;i<v.cells.length;i++)for(let cp=0;cp<v.cells[i].paras.length;cp++){
   const perPage=v.cellRendered.map(runs=>runs.filter(r=>r.cell===i&&r.para===cp).map(r=>r.text).join('')),expected=v.cells[i].paras[cp].text.replace(/\s/g,'');
-  if(v.cells[i].props.isHeader){for(const actual of perPage.filter(Boolean))assert.equal(actual.replace(/\s/g,''),expected,'complete repeated header '+i+':'+cp);}
+  if(repeats(v.cells[i])){for(const actual of perPage.filter(Boolean))assert.equal(actual.replace(/\s/g,''),expected,'complete repeated header '+i+':'+cp);}
   else assert.equal(perPage.join('').replace(/\s/g,''),expected,'ordered merged cell text across fragments '+i+':'+cp);
  }
  const count=t=>Object.fromEntries([...t.replace(/\s/g,'')].sort().reduce((entries,c)=>{const last=entries.at(-1);if(last?.[0]===c)last[1]++;else entries.push([c,1]);return entries;},[]));
- const header=v.cells.filter(c=>c.props.isHeader).flatMap(c=>c.paras.map(p=>p.text)).join('');
+ const header=v.cells.filter(repeats).flatMap(c=>c.paras.map(p=>p.text)).join('');
  let model=v.body.join('')+v.cells.flatMap(c=>c.paras.map(p=>p.text)).join('');
  const tablePages=v.cellRendered.filter(runs=>runs.length).length;model+=header.repeat(Math.max(0,tablePages-1));
  assert.deepEqual(count(v.rendered.join('')),count(model),'visible nonspace scalars exactly once except complete repeated header');
  const text=v.rendered.join('');for(const marker of['AFTER_TABLE_END'])if(v.body.some(t=>t.includes(marker)))assert.equal(text.split(marker).length-1,1,'following body owner');
 }
 
+async function mixedTextHistory(f,op,before,hist){
+ let stages=[before];const steps=[
+  {name:'text',run:()=>page.keyboard.sendCharacter('SEQ🙂')},
+  {name:'shift-enter',run:async()=>{await page.keyboard.down('Shift');try{await page.keyboard.press('Enter');}finally{await page.keyboard.up('Shift');}}},
+  {name:'delete',run:()=>page.keyboard.press('Delete')},
+  {name:'backspace',run:()=>page.keyboard.press('Backspace')},
+  {name:'tab-last-row',run:()=>page.keyboard.press('Tab')},
+  {name:'new-row-text',run:()=>page.keyboard.sendCharacter('TAIL🙂')},
+ ];
+ await selectCell(op.target.cell,op.target.para);
+ const burst=op.name==='mixed-burst-history',observations=[];
+ if(burst){
+  const reference=mixedReferences.get(f.name);assert(reference,'settled reference sequence required');assert.deepEqual(comparable(before),comparable(reference[0]));
+  for(const step of steps){await step.run();observations.push(await frame.evaluate(()=>({pending:window.__inputHandler.hasDeferredPaginationPending(),undo:window.__inputHandler.history.undoStack.length})));}
+  await settle();const after=await state(),h=await history();assert.equal(h.u,hist.u+steps.length,'burst preserves separate mixed commands');assert(h.snapshotResources<=2*(h.u+h.r));write(f.name+'-mixed-burst-state.json',{after,history:h,observations});assert.deepEqual(comparable(after),comparable(reference.at(-1)),'burst equals settled mixed result');ownership(after);await verifyPaint(f.name+'-mixed-burst',after);stages=reference;
+ }else{
+  for(const [i,step]of steps.entries()){
+   await step.run();await settle();const after=await state(),h=await history();assert.equal(h.u,hist.u+i+1,'one operation for mixed step '+step.name);assert(h.snapshotResources<=2*(h.u+h.r),'bounded snapshot resource ownership');write(f.name+'-mixed-step-'+i+'-state.json',{after,history:h,step:step.name});ownership(after);await verifyPaint(f.name+'-mixed-step-'+i,after);stages.push(after);
+  }
+  mixedReferences.set(f.name,stages);
+ }
+ for(let cycle=0;cycle<2;cycle++){
+  for(let i=steps.length-1;i>=0;i--){await key(false);const actual=await state();write(f.name+'-mixed-undo-'+cycle+'-'+i+'-state.json',actual);assert.deepEqual(comparable(actual),comparable(stages[i]),'exact mixed undo '+i);}
+  for(let i=1;i<stages.length;i++){await key(true);const actual=await state();write(f.name+'-mixed-redo-'+cycle+'-'+i+'-state.json',actual);assert.deepEqual(comparable(actual),comparable(stages[i]),'exact mixed redo '+i);pairs++;}
+ }
+ await saveAndReopen(f.label+'-'+f.ext+'-'+op.name,stages.at(-1));rows.push({label:f.label,ext:f.ext,operation:op.name,burst,observations,steps:steps.map(s=>s.name),historyPairs:steps.length*2,beforePages:before.pageCount,afterPages:stages.at(-1).pageCount,historyAfter:await history()});console.log('PASS '+f.name+' '+op.name);
+}
+
 async function selectCell(cell,para){return frame.evaluate(({cell,para})=>{const h=window.__inputHandler,w=window.__wasm,t=JSON.parse(w.doc.getControls()).find(t=>t.ctrlId==='tbl'&&t.list===0);h.cursor.exitCellSelectionMode();h.cursor.exitCellMode?.();h.cursor.clearSelection();h.cursor.moveTo({sectionIndex:0,paragraphIndex:para,parentParaIndex:t.para,controlIndex:t.controlIndex,cellIndex:cell,cellParaIndex:para,cellPath:[{controlIndex:t.controlIndex,cellIndex:cell,cellParaIndex:para}],charOffset:0});h.updateCaret();h.focus();return {position:h.cursor.getPosition(),rect:h.cursor.getRect()};},{cell,para});}
 async function type(cell,para,text){const before=await selectCell(cell,para);assert(before.rect,'cell caret');await page.keyboard.sendCharacter(text);await settle();return before;}
+async function cellKey(cell,para,key,shift=false){const caret=await selectCell(cell,para);if(shift)await page.keyboard.down('Shift');try{await page.keyboard.press(key);}finally{if(shift)await page.keyboard.up('Shift');}await settle();return caret;}
 async function typeHost(){await frame.evaluate(()=>{const h=window.__inputHandler,w=window.__wasm,t=JSON.parse(w.doc.getControls()).find(t=>t.ctrlId==='tbl'&&t.list===0);h.cursor.exitCellSelectionMode();h.cursor.exitCellMode?.();h.cursor.clearSelection();h.cursor.moveTo({sectionIndex:0,paragraphIndex:t.para,charOffset:w.doc.getParagraphLength(0,t.para)});h.updateCaret();h.focus();});await page.keyboard.sendCharacter('HOST_EDIT🙂');await settle();}
 async function prepareReplace(query,text,all){await frame.evaluate(()=>window.__inputHandler.dispatcher.dispatchWithResult('edit:find-replace'));await frame.waitForSelector('.find-dialog-input',{visible:true});await frame.evaluate(({query,text,all})=>{const es=document.querySelectorAll('.find-dialog-input');es[0].value=query;es[1].value=text;if(!all)[...document.querySelectorAll('.find-dialog-buttons button')].find(b=>b.textContent.trim()==='다음 찾기').click();},{query,text,all});await settle();}
 async function replace(all){await frame.evaluate(all=>{[...document.querySelectorAll('.find-dialog-buttons button')].find(b=>b.textContent.trim()===(all?'모두 바꾸기':'바꾸기')).click();document.querySelector('.find-dialog .dialog-close').click();},all);await settle();}
@@ -109,29 +140,49 @@ try{
   const positions=await frame.evaluate(()=>{const w=window.__wasm,d=w.doc,t=JSON.parse(d.getControls()).find(t=>t.ctrlId==='tbl'&&t.list===0),dim=w.getTableDimensions(0,t.para,t.controlIndex),out=[];for(let cell=0;cell<dim.cellCount;cell++)for(let para=0;para<w.getCellParagraphCount(0,t.para,t.controlIndex,cell);para++){const r=w.getCursorRectInCell(0,t.para,t.controlIndex,cell,para,0);if(r)out.push({cell,para,page:r.pageIndex});}const last=Math.max(...out.map(p=>p.page));return [out.find(p=>p.page===0)||out[0],last===0?out[Math.floor(out.length/2)]:out.find(p=>p.page===Math.floor(last/2)&&p.cell!==0)||out[Math.floor(out.length/2)],out.findLast(p=>p.page===last)];});assert(positions.every(Boolean));write(f.name+'-fragments.json',{positions,pageCount:initial.pageCount});
   const ops=positions.map((p,i)=>({name:'input-'+i,run:()=>type(p.cell,p.para,'EDIT'+i+'🙂'),kind:'input',target:p}));
   if(f.merged){
-   const cell=initial.cells.findIndex(c=>c.info.rowSpan>1||c.info.colSpan>1);assert(cell>=0,'merged source owner');
-   const count=initial.cells[cell].paras.length,paragraphs=[0,Math.floor((count-1)/2),count-1];
-   for(const [i,para]of paragraphs.entries()){
-    const rect=await frame.evaluate(({cell,para})=>{const w=window.__wasm,t=JSON.parse(w.doc.getControls()).find(t=>t.ctrlId==='tbl'&&t.list===0);return w.getCursorRectInCell(0,t.para,t.controlIndex,cell,para,0);},{cell,para});assert(rect,'merged owner caret');
-    const target={cell,para,page:rect.pageIndex};ops.push({name:'merged-input-'+i,run:()=>type(cell,para,'MERGED'+i+'🙂'),kind:'input',target});
+   const owners=f.mergedOwners?initial.cells.flatMap((c,i)=>c.info.rowSpan>1||c.info.colSpan>1?[i]:[]):[initial.cells.findIndex(c=>c.info.rowSpan>1||c.info.colSpan>1)];
+   assert(owners.length&&owners.every(cell=>cell>=0),'merged source owners');
+   for(const cell of owners){
+    const count=initial.cells[cell].paras.length,paragraphs=[0,Math.floor((count-1)/2),count-1];
+    for(const [i,para]of paragraphs.entries()){
+     const rect=await frame.evaluate(({cell,para})=>{const w=window.__wasm,t=JSON.parse(w.doc.getControls()).find(t=>t.ctrlId==='tbl'&&t.list===0);return w.getCursorRectInCell(0,t.para,t.controlIndex,cell,para,0);},{cell,para});assert(rect,'merged owner caret');
+     const target={cell,para,page:rect.pageIndex},name=f.mergedOwners?'owner-'+cell+'-input-'+i:'merged-input-'+i;
+     ops.push({name,run:()=>type(cell,para,'MERGED'+i+'🙂'),kind:'input',target});
+    }
    }
+  }
+  if(f.historyGaps){
+   const cell=f.historyCell??initial.cells.findIndex(c=>c.info.rowSpan>1),count=initial.cells[cell].paras.length;
+   for(const [i,para]of [0,Math.floor((count-1)/2),count-1].entries()){
+    const target={cell,para};
+    ops.push({name:'shift-enter-'+i,kind:'line-break',target,run:()=>cellKey(cell,para,'Enter',true)});
+    ops.push({name:'direct-delete-'+i,kind:'direct-delete',target,run:()=>cellKey(cell,para,'Delete')});
+   }
+   ops.push({name:'tab-navigation',kind:'navigation',target:{cell:0,para:0},run:()=>cellKey(0,0,'Tab')});
+   const lastCell=initial.cells.length-1,lastPara=Math.floor((initial.cells[lastCell].paras.length-1)/2);
+   ops.push({name:'tab-last-row',kind:'row-insert',target:{cell:lastCell,para:lastPara},run:()=>cellKey(lastCell,lastPara,'Tab')});
+   for(const name of ['mixed-text-history','mixed-burst-history'])ops.push({name,kind:'sequence',target:{cell,para:Math.floor((count-1)/2)}});
   }
   if(!baseline&&f.label!=='numbered')ops.push({name:'host-input',kind:'host-input',run:()=>typeHost()});
   ops.push({name:'replace-one',kind:'replace',prepare:()=>prepareReplace(f.query||'ROW024','SINGLE🙂',false),run:()=>replace(false)});
   ops.push({name:'replace-all',kind:'replace',prepare:()=>prepareReplace(f.allQuery||'ROW','T',true),run:()=>replace(true)});
   ops.push({name:'size-noop',kind:'noop',run:()=>height(positions[1].cell,null)});
   if(f.label!=='numbered')for(const mm of [30,2])ops.push({name:'height-'+mm,kind:'height',run:()=>height(positions[1].cell,mm)});
-  for(const op of ops.filter(op=>(!f.operations||f.operations.includes(op.name))&&(!process.env.GEULGYEOL_FRAGMENT_OPERATION||op.name===process.env.GEULGYEOL_FRAGMENT_OPERATION))){await load(f.name);if(op.name==='height-2')await height(positions[1].cell,30);if(op.target)await selectCell(op.target.cell,op.target.para);else if(op.kind==='height'||op.kind==='noop')await selectCell(positions[1].cell,0);if(op.prepare)await op.prepare();const before=await state(),hist=await history();const caret=await op.run();const after=await state();write(f.name+'-'+op.name+'-state.json',{before,after,caret});if(op.kind==='noop'){assert.deepEqual(comparable(after),comparable(before));assert.deepEqual(await history(),hist);ownership(after);rows.push({label:f.label,ext:f.ext,operation:op.name,noChange:true});console.log('PASS '+f.name+' '+op.name);continue;}if(op.kind==='height'){
+  for(const op of ops.filter(op=>(!f.operations||f.operations.includes(op.name))&&(!process.env.GEULGYEOL_FRAGMENT_OPERATION||op.name===process.env.GEULGYEOL_FRAGMENT_OPERATION))){await load(f.name);if(op.name==='height-2')await height(positions[1].cell,30);if(op.target)await selectCell(op.target.cell,op.target.para);else if(op.kind==='height'||op.kind==='noop')await selectCell(positions[1].cell,0);if(op.prepare)await op.prepare();const before=await state(),hist=await history();if(op.kind==='sequence'){await mixedTextHistory(f,op,before,hist);continue;}const caret=await op.run();const after=await state();write(f.name+'-'+op.name+'-state.json',{before,after,caret});if(op.kind==='noop'||op.kind==='navigation'){assert.deepEqual(comparable(after),comparable(before));assert.deepEqual(await history(),hist);ownership(after);if(op.kind==='navigation'){const cursor=await frame.evaluate(()=>window.__inputHandler.cursor.getPosition());assert.equal(cursor.cellIndex,1,'Tab navigates into next cell without text or history mutation');}rows.push({label:f.label,ext:f.ext,operation:op.name,noChange:true});console.log('PASS '+f.name+' '+op.name);continue;}if(op.kind==='row-insert'){
+    assert.equal(after.dims.rowCount,before.dims.rowCount+1,'last-cell Tab adds one row');assert.equal(after.dims.colCount,before.dims.colCount);assert.deepEqual(after.cells.slice(0,before.cells.length).map(c=>c.paras),before.cells.map(c=>c.paras),'Tab preserves all original cell text and styles');assert.deepEqual(after.body,before.body);
+   }else if(op.kind==='height'){
     // Cell size is a minimum. Long content can keep the same physical rows
     // after a smaller declared height; the stored edit must still be applied.
     assert.notDeepEqual(after.cells.map(c=>c.props),before.cells.map(c=>c.props),'declared height changed');
    }else assert.notDeepEqual(after.svg,before.svg,'text operation changes complete SVG');assert.equal((await history()).u,hist.u+1,'one history operation');if(op.kind==='host-input'&&before.needsTextSnapshot){assert.equal(after.needsTextSnapshot,false,'first host edit generated lines');assert.equal((await history()).snapshotResources,hist.snapshotResources+1,'one bounded source snapshot');}
-   if(op.kind==='height'){assert.deepEqual(after.cells.map(c=>c.props.width),before.cells.map(c=>c.props.width),'height-only edit preserves exact cell widths');assert.deepEqual(after.cells.map(c=>c.paras),before.cells.map(c=>c.paras));assert.deepEqual(after.body,before.body);const tpBefore={...before.props},tpAfter={...after.props};delete tpBefore.tableHeight;delete tpAfter.tableHeight;assert.deepEqual(tpAfter,tpBefore,'height edit preserves other table properties');}
+   if(op.kind==='row-insert'){assert.deepEqual(after.styles,before.styles);}
+   else if(op.kind==='height'){assert.deepEqual(after.cells.map(c=>c.props.width),before.cells.map(c=>c.props.width),'height-only edit preserves exact cell widths');assert.deepEqual(after.cells.map(c=>c.paras),before.cells.map(c=>c.paras));assert.deepEqual(after.body,before.body);const tpBefore={...before.props},tpAfter={...after.props};delete tpBefore.tableHeight;delete tpAfter.tableHeight;assert.deepEqual(tpAfter,tpBefore,'height edit preserves other table properties');}
    else{assert.deepEqual(after.cells.map(c=>c.props),before.cells.map(c=>c.props));if(op.kind==='host-input'){const expected=[...before.body];expected[before.target.para]+='HOST_EDIT🙂';assert.deepEqual(after.body,expected);assert.deepEqual(after.cells,before.cells,'host input preserves all table cells');}else assert.deepEqual(after.body,before.body);assert.deepEqual(after.styles,before.styles);}
    // Actual model text supplies the ownership oracle after deliberate replacements.
    assert.deepEqual(after.bodyFormats.map(p=>p.props),before.bodyFormats.map(p=>p.props),'body paragraph properties preserved');for(let i=0;i<before.body.length;i++){if(before.body[i]===after.body[i])assert.deepEqual(after.bodyFormats[i].runs,before.bodyFormats[i].runs,'original body character styles');else{const ids=p=>p.runs.flatMap(r=>Array(r.endOffset-r.startOffset).fill(r.charShapeId));assert.deepEqual(ids(after.bodyFormats[i]).slice(0,[...before.body[i]].length),ids(before.bodyFormats[i]),'all original host character styles preserved');}}
-   if(op.kind==='input'&&before.cells[op.target.cell].needsTextSnapshot){const now=await history();assert.equal(now.u,hist.u+1,'one bounded merged-cell history entry');assert.equal(now.snapshotResources,hist.snapshotResources+1,'one source snapshot before first undo');}
-   ownership(after);await verifyPaint(f.name+'-'+op.name,after);assert.deepEqual(after.pageDef,before.pageDef,'original page definition');if(op.kind!=='height')assert.deepEqual(after.props,before.props,'text operations preserve table position and flow properties');assert.deepEqual(after.cells.map(c=>c.paras.map(p=>p.props)),before.cells.map(c=>c.paras.map(p=>p.props)),'paragraph/style/numbering references');const ids=p=>p.runs.flatMap(r=>Array(r.endOffset-r.startOffset).fill(r.charShapeId));for(let cell=0;cell<before.cells.length;cell++)for(let para=0;para<before.cells[cell].paras.length;para++){const a=before.cells[cell].paras[para],b=after.cells[cell].paras[para];if(a.text===b.text)assert.deepEqual(b.runs,a.runs);else if(op.kind==='input')assert.deepEqual(ids(b).slice([...b.text].length-[...a.text].length),ids(a),'input preserves all original character shape IDs');else assert.deepEqual(ids(b).slice(-1),ids(a).slice(-1),'replacement preserves unchanged tail format');}
+   if(['input','line-break','direct-delete'].includes(op.kind)&&before.cells[op.target.cell].needsTextSnapshot){const now=await history();assert.equal(now.u,hist.u+1,'one bounded merged-cell history entry');assert.equal(now.snapshotResources,hist.snapshotResources+1,'one source snapshot before first undo');}
+   if(op.kind!=='row-insert')assert.deepEqual(after.cells.map(c=>c.info),before.cells.map(c=>c.info),'merged topology unchanged by content edits');
+   ownership(after);await verifyPaint(f.name+'-'+op.name,after);assert.deepEqual(after.pageDef,before.pageDef,'original page definition');if(!['height','row-insert'].includes(op.kind))assert.deepEqual(after.props,before.props,'text operations preserve table position and flow properties');assert.deepEqual(after.cells.slice(0,before.cells.length).map(c=>c.paras.map(p=>p.props)),before.cells.map(c=>c.paras.map(p=>p.props)),'paragraph/style/numbering references');const ids=p=>p.runs.flatMap(r=>Array(r.endOffset-r.startOffset).fill(r.charShapeId));for(let cell=0;cell<before.cells.length;cell++)for(let para=0;para<before.cells[cell].paras.length;para++){const a=before.cells[cell].paras[para],b=after.cells[cell].paras[para];if(a.text===b.text)assert.deepEqual(b.runs,a.runs);else if(op.kind==='input')assert.deepEqual(ids(b).slice([...b.text].length-[...a.text].length),ids(a),'input preserves all original character shape IDs');else assert.deepEqual(ids(b).slice(-1),ids(a).slice(-1),'replacement preserves unchanged tail format');}
    for(let n=0;n<2;n++){await key(false);const undo=await state();write(f.name+'-'+op.name+'-undo'+n+'.json',undo);if(sha(undo.svg.join(''))!==sha(before.svg.join('')))write(f.name+'-'+op.name+'-undo-svg-diff.json',{beforeSvg:before.svg,actualSvg:undo.svg,geometry:await paintGeometry()});assert.deepEqual(comparable(undo),comparable(before),'exact undo including clips/cuts/complete SVG');await key(true);const redo=await state();write(f.name+'-'+op.name+'-redo'+n+'.json',redo);assert.deepEqual(comparable(redo),comparable(after),'exact redo including clips/cuts/complete SVG');pairs++;}
    // Skip numbered ownership tokens only when replacement changed them.
    await saveAndReopen(f.label+'-'+f.ext+'-'+op.name,after);rows.push({label:f.label,ext:f.ext,operation:op.name,beforePages:before.pageCount,afterPages:after.pageCount,target:op.target,caret,historyPairs:2,historyAfter:await history()});console.log('PASS '+f.name+' '+op.name);
