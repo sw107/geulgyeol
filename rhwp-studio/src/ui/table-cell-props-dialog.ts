@@ -1375,15 +1375,15 @@ export class TableCellPropsDialog extends ModalDialog {
     // 셀 속성 수정
     const newCellProps: Record<string, unknown> = {};
     if (this.cellApplySizeCheck.checked) {
-      newCellProps.width = mmToHwpunit(parseFloat(this.cellWidthInput.value) || 0);
-      newCellProps.height = mmToHwpunit(parseFloat(this.cellHeightInput.value) || 0);
+      newCellProps.width = this.readCellDimension('width');
+      newCellProps.height = this.readCellDimension('height');
     }
     newCellProps.applyInnerMargin = this.cellPaddingCheck.checked;
     if (this.cellPaddingCheck.checked) {
-      newCellProps.paddingLeft = mmToHwp16(parseFloat(this.cellPaddingInputs['left'].value) || 0);
-      newCellProps.paddingRight = mmToHwp16(parseFloat(this.cellPaddingInputs['right'].value) || 0);
-      newCellProps.paddingTop = mmToHwp16(parseFloat(this.cellPaddingInputs['top'].value) || 0);
-      newCellProps.paddingBottom = mmToHwp16(parseFloat(this.cellPaddingInputs['bottom'].value) || 0);
+      newCellProps.paddingLeft = this.readMargin(this.cellPaddingInputs['left'], this.cellProps.paddingLeft);
+      newCellProps.paddingRight = this.readMargin(this.cellPaddingInputs['right'], this.cellProps.paddingRight);
+      newCellProps.paddingTop = this.readMargin(this.cellPaddingInputs['top'], this.cellProps.paddingTop);
+      newCellProps.paddingBottom = this.readMargin(this.cellPaddingInputs['bottom'], this.cellProps.paddingBottom);
     }
     const activeVAlign = this.cellVAlignBtns.findIndex(b => b.classList.contains('active'));
     if (activeVAlign >= 0) newCellProps.verticalAlign = activeVAlign;
@@ -1428,10 +1428,10 @@ export class TableCellPropsDialog extends ModalDialog {
       keepWithAnchor: this.keepWithAnchorCheck.checked,
       pageBreak: pbValue,
       repeatHeader: this.tableRepeatHeaderCheck.checked,
-      paddingLeft: mmToHwp16(parseFloat(this.tablePaddingInputs['left'].value) || 0),
-      paddingRight: mmToHwp16(parseFloat(this.tablePaddingInputs['right'].value) || 0),
-      paddingTop: mmToHwp16(parseFloat(this.tablePaddingInputs['top'].value) || 0),
-      paddingBottom: mmToHwp16(parseFloat(this.tablePaddingInputs['bottom'].value) || 0),
+      paddingLeft: this.readMargin(this.tablePaddingInputs['left'], this.tableProps.paddingLeft),
+      paddingRight: this.readMargin(this.tablePaddingInputs['right'], this.tableProps.paddingRight),
+      paddingTop: this.readMargin(this.tablePaddingInputs['top'], this.tableProps.paddingTop),
+      paddingBottom: this.readMargin(this.tablePaddingInputs['bottom'], this.tableProps.paddingBottom),
       cellSpacing: this.borderCellSpacingInput ? mmToHwp16(parseFloat(this.borderCellSpacingInput.value) || 0) : this.tableProps.cellSpacing,
       // 바깥 여백
       outerLeft: outerMargins[0],
@@ -1517,9 +1517,21 @@ export class TableCellPropsDialog extends ModalDialog {
 
   // ─── "모두(A)" 일괄 여백 스피너 ─────────────────────
 
+  private readCellDimension(property: 'width' | 'height'): number {
+    const original = this.cellProps[property];
+    const input = property === 'width' ? this.cellWidthInput : this.cellHeightInput;
+    // Editing one dimension must not round the other from its 0.1mm display.
+    return input.value === hwpunitToMm(original).toFixed(1)
+      ? original
+      : mmToHwpunit(parseFloat(input.value) || 0);
+  }
+
   private readOuterMargin(side: string, property: 'outerLeft' | 'outerRight' | 'outerTop' | 'outerBottom'): number {
-    const original = this.tableProps[property] ?? 0;
-    const displayed = this.marginOuterInputs[side].value;
+    return this.readMargin(this.marginOuterInputs[side], this.tableProps[property] ?? 0);
+  }
+
+  private readMargin(input: HTMLInputElement, original: number): number {
+    const displayed = input.value;
     // Display is rounded to 0.1mm. Confirming an unchanged display must retain
     // the precise signed HWPUNIT, including zero and values between UI steps.
     return displayed === hwp16ToMm(original).toFixed(1)
