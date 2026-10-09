@@ -21273,10 +21273,19 @@ impl TypesetEngine {
             } else {
                 false
             };
+            // A large block owned exclusively by full-span horizontal plain
+            // cells has no per-row text owner. Its measured height can be
+            // carried by the last physical row, so the per-row fallback forces
+            // an entire page-larger tail and restarts the same cell text.
+            // Reuse the existing block cell-unit cuts for this exact contract.
+            let whole_span_plain_owner_block =
+                crate::renderer::float_placement::whole_span_plain_owner_block(table, b_start, b_end);
             let rowbreak_rowspan_block = mt.allows_row_break_split()
                 && b_start == r
                 && block_has_any_rowspan
-                && (rowbreak_has_internal_hard_break || rowbreak_block_content_exceeds_row_sum);
+                && (rowbreak_has_internal_hard_break
+                    || rowbreak_block_content_exceeds_row_sum
+                    || whole_span_plain_owner_block);
             // #1486: hard-break가 rowspan 블록 첫 행의 큰 셀 안에 있을 때만
             // 행 시작 y offset을 빼서 아래 행 셀을 다음 조각에 남긴다.
             // #1105처럼 hard-break가 뒤 행 셀 안에 있는 블록은 기존 블록 컷을
@@ -21509,6 +21518,9 @@ impl TypesetEngine {
                 let allow_block_split = if rowbreak_rowspan_block {
                     r == cursor_row
                         || (res.hit_hard_break && res.consumed_height >= MIN_TOP_KEEP_PX)
+                        || (whole_span_plain_owner_block
+                            && genuinely_page_larger
+                            && res.consumed_height >= MIN_TOP_KEEP_PX)
                 } else {
                     r == cursor_row
                         || (genuinely_page_larger && res.consumed_height >= MIN_TOP_KEEP_PX)

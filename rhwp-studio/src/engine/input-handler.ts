@@ -3364,7 +3364,15 @@ export class InputHandler {
             // an imported absent ladder.
             || (['insertText', 'deleteText', 'insertTab'].includes(type)
               && this.wasm.bodyTableHostNeedsTextSnapshot(beforePos.sectionIndex, beforePos.paragraphIndex)));
-        const command = anchoredBodyEdit ? new SnapshotCommand(type, beforePos, beforePos, bridge => {
+        const mergedCellEdit = this.editMode === 'normal'
+          && !this.cursor.isInFootnote() && !this.cursor.isInHeaderFooter()
+          && beforePos.cellPath?.length === 1 && beforePos.parentParaIndex !== undefined
+          && beforePos.controlIndex !== undefined && beforePos.cellIndex !== undefined
+          && ['insertText', 'deleteText', 'insertTab'].includes(type)
+          && this.wasm.mergedCellNeedsTextSnapshot(beforePos.sectionIndex, beforePos.parentParaIndex,
+            beforePos.controlIndex, beforePos.cellIndex);
+        const preserveSourceEdit = anchoredBodyEdit || mergedCellEdit;
+        const command = preserveSourceEdit ? new SnapshotCommand(type, beforePos, beforePos, bridge => {
           try { return desc.command.execute(bridge); }
           finally { desc.command.discard?.(bridge); }
         }) : desc.command;
@@ -3385,7 +3393,7 @@ export class InputHandler {
           this.markCurrentFieldStartOutside();
         }
         this.refreshAfterOperation(desc.meta?.refresh, 'auto', desc.command.type, beforePos, newPos, {
-          ...(anchoredBodyEdit ? undefined : desc.command.getPageLocalTextEditOptions?.()),
+          ...(preserveSourceEdit ? undefined : desc.command.getPageLocalTextEditOptions?.()),
           beforePageIndex,
           afterPageIndex: this.cursor.getRect()?.pageIndex,
         }, boundaryHandled);

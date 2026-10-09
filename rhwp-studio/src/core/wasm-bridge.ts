@@ -1354,6 +1354,10 @@ export class WasmBridge {
     return this.doc?.bodyTableHostNeedsTextSnapshot(sec, para) ?? false;
   }
 
+  mergedCellNeedsTextSnapshot(sec: number, para: number, control: number, cell: number): boolean {
+    return this.doc?.mergedCellNeedsTextSnapshot(sec, para, control, cell) ?? false;
+  }
+
   getParagraphLength(sec: number, para: number): number {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     return this.doc.getParagraphLength(sec, para);
