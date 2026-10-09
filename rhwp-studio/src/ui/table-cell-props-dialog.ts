@@ -662,6 +662,9 @@ export class TableCellPropsDialog extends ModalDialog {
     for (const [key, text] of [['left', '왼쪽'], ['right', '오른쪽'], ['top', '위쪽'], ['bottom', '아래쪽']] as const) {
       outerGrid.appendChild(this.label(text));
       this.marginOuterInputs[key] = this.numberInput();
+      // Rounded display envelope; onConfirm checks the exact signed HWPUNIT.
+      this.marginOuterInputs[key].min = '-115.6';
+      this.marginOuterInputs[key].max = '115.6';
       outerGrid.appendChild(this.marginOuterInputs[key]);
       outerGrid.appendChild(this.unit('mm'));
     }
@@ -1350,8 +1353,24 @@ export class TableCellPropsDialog extends ModalDialog {
     }
   }
 
-  protected onConfirm(): void {
+  protected onConfirm(): void | boolean {
     const { sec, ppi, ci } = this.tableCtx;
+
+    // Check before either cell or table edits enter history. The displayed
+    // boundary can round beyond i16, so HTML min/max alone are insufficient.
+    const outerMargins = [
+      this.readOuterMargin('left', 'outerLeft'), this.readOuterMargin('right', 'outerRight'),
+      this.readOuterMargin('top', 'outerTop'), this.readOuterMargin('bottom', 'outerBottom'),
+    ];
+    const invalidSide = outerMargins.findIndex(v => !Number.isInteger(v) || v < -32768 || v > 32767);
+    if (invalidSide >= 0) {
+      const input = Object.values(this.marginOuterInputs)[invalidSide];
+      input.setCustomValidity('바깥 여백은 -32768~32767 HWPUNIT 범위여야 합니다.');
+      input.reportValidity();
+      input.focus();
+      input.addEventListener('input', () => input.setCustomValidity(''), { once: true });
+      return false;
+    }
 
     // 셀 속성 수정
     const newCellProps: Record<string, unknown> = {};
@@ -1415,10 +1434,10 @@ export class TableCellPropsDialog extends ModalDialog {
       paddingBottom: mmToHwp16(parseFloat(this.tablePaddingInputs['bottom'].value) || 0),
       cellSpacing: this.borderCellSpacingInput ? mmToHwp16(parseFloat(this.borderCellSpacingInput.value) || 0) : this.tableProps.cellSpacing,
       // 바깥 여백
-      outerLeft: this.readOuterMargin('left', 'outerLeft'),
-      outerRight: this.readOuterMargin('right', 'outerRight'),
-      outerTop: this.readOuterMargin('top', 'outerTop'),
-      outerBottom: this.readOuterMargin('bottom', 'outerBottom'),
+      outerLeft: outerMargins[0],
+      outerRight: outerMargins[1],
+      outerTop: outerMargins[2],
+      outerBottom: outerMargins[3],
     };
 
     // 캡션 속성 (가운데 = 캡션 없음)
@@ -1505,7 +1524,7 @@ export class TableCellPropsDialog extends ModalDialog {
     // the precise signed HWPUNIT, including zero and values between UI steps.
     return displayed === hwp16ToMm(original).toFixed(1)
       ? original
-      : mmToHwp16(parseFloat(displayed) || 0);
+      : mmToHwp16(parseFloat(displayed));
   }
 
   /** 4방향 여백 입력을 일괄 조정하는 "모두(A)" 스피너 생성 */

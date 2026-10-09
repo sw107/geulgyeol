@@ -2992,7 +2992,41 @@ impl DocumentCore {
         control_idx: usize,
         json: &str,
     ) -> Result<String, HwpError> {
-        use super::super::helpers::{json_bool, json_i16, json_i32, json_str, json_u32, json_u8};
+        use super::super::helpers::{json_bool, json_i32, json_str, json_u32, json_u8};
+
+        // Validate every supplied signed field before borrowing/mutating the
+        // table, DocInfo or raw header. Unchecked i16 casts otherwise wrap.
+        let patch: serde_json::Value = serde_json::from_str(json)
+            .map_err(|e| HwpError::InvalidField(format!("invalid table properties: {e}")))?;
+        let fields = patch.as_object().ok_or_else(|| {
+            HwpError::InvalidField("table properties must be an object".into())
+        })?;
+        for key in [
+            "cellSpacing",
+            "paddingLeft",
+            "paddingRight",
+            "paddingTop",
+            "paddingBottom",
+            "outerLeft",
+            "outerRight",
+            "outerTop",
+            "outerBottom",
+            "captionSpacing",
+        ] {
+            if let Some(value) = fields.get(key) {
+                if value.as_i64().and_then(|v| i16::try_from(v).ok()).is_none() {
+                    return Err(HwpError::InvalidField(format!(
+                        "{key} must be an integer in -32768..32767"
+                    )));
+                }
+            }
+        }
+        let signed = |key| {
+            fields
+                .get(key)
+                .and_then(serde_json::Value::as_i64)
+                .map(|v| v as i16)
+        };
 
         let caption_style = self
             .document
@@ -3007,19 +3041,19 @@ impl DocumentCore {
 
         let table = self.get_table_mut(section_idx, parent_para_idx, control_idx)?;
 
-        if let Some(v) = json_i16(json, "cellSpacing") {
+        if let Some(v) = signed("cellSpacing") {
             table.cell_spacing = v;
         }
-        if let Some(v) = json_i16(json, "paddingLeft") {
+        if let Some(v) = signed("paddingLeft") {
             table.padding.left = v;
         }
-        if let Some(v) = json_i16(json, "paddingRight") {
+        if let Some(v) = signed("paddingRight") {
             table.padding.right = v;
         }
-        if let Some(v) = json_i16(json, "paddingTop") {
+        if let Some(v) = signed("paddingTop") {
             table.padding.top = v;
         }
-        if let Some(v) = json_i16(json, "paddingBottom") {
+        if let Some(v) = signed("paddingBottom") {
             table.padding.bottom = v;
         }
         if let Some(v) = json_u8(json, "pageBreak") {
@@ -3207,7 +3241,7 @@ impl DocumentCore {
         // HWPX serializes Table.outer_margin_*, while HWP/raw synthesis and
         // layout use common.margin. An explicit edit must update both owners;
         // patch each available raw field independently, never grow the header.
-        if let Some(v) = json_i16(json, "outerLeft") {
+        if let Some(v) = signed("outerLeft") {
             table.outer_margin_left = v;
             table.common.margin.left = v;
             patch_raw_ctrl_field(
@@ -3216,7 +3250,7 @@ impl DocumentCore {
                 &v.to_le_bytes(),
             );
         }
-        if let Some(v) = json_i16(json, "outerRight") {
+        if let Some(v) = signed("outerRight") {
             table.outer_margin_right = v;
             table.common.margin.right = v;
             patch_raw_ctrl_field(
@@ -3225,7 +3259,7 @@ impl DocumentCore {
                 &v.to_le_bytes(),
             );
         }
-        if let Some(v) = json_i16(json, "outerTop") {
+        if let Some(v) = signed("outerTop") {
             table.outer_margin_top = v;
             table.common.margin.top = v;
             patch_raw_ctrl_field(
@@ -3234,7 +3268,7 @@ impl DocumentCore {
                 &v.to_le_bytes(),
             );
         }
-        if let Some(v) = json_i16(json, "outerBottom") {
+        if let Some(v) = signed("outerBottom") {
             table.outer_margin_bottom = v;
             table.common.margin.bottom = v;
             patch_raw_ctrl_field(
@@ -3312,7 +3346,7 @@ impl DocumentCore {
                 };
                 caption_changed = true;
             }
-            if let Some(v) = json_i16(json, "captionSpacing") {
+            if let Some(v) = signed("captionSpacing") {
                 cap.spacing = v;
                 caption_changed = true;
             }

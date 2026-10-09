@@ -1,5 +1,7 @@
 # 현재 개발 checkout 기능 대조
 
+같은 날 독립 검토에서 발견한 **signed 표 여백 범위 초과 P2**를 실제 API/Electron에서 재현하고 별도 후속 수정했다. Native 원자거절160/경계40/재열기80, 실제 Electron API·이력거절162/UI거절16, 기존14/28/56 재실행과 새 저장물 Native56 대조가 통과했다. 전체 signed 표 필드를 변경 전에 검증하고 UI 오류 시 모델/이력을 보존한다. [범위 수정·한계·자원 기록](table-outer-margin/RANGE_KO.md), [증거](table-outer-margin/range-proof.json).
+
 2026-10-09 main `2660485` 이후 소스 후보는 **표 바깥 여백의 HWPX 조회·명시 편집·양형식 저장**을 보완했다. 실제 Mac Electron 14사례/28이력쌍/56재열기와 같은 저장 바이트 Native 56대조, Native 48편집/96재열기/raw40계약이 통과했다. 여백의 typed/common/raw 소유와 부분 변경 배치 플래그를 보존하고 무변경 확인의 정밀 HWPUNIT 반올림을 막았다. 자동 회귀48통과/skip1·TS·Clippy·WASM·생산 Vite 통과. 별도 소스 QA runtime 검사이며 새 앱 패키지·수동 GUI·OS 선택창·물리 IME·한컴·Linux는 미검증이다. 공개 beta.2 앱과 원본·이전 QA를 보존한다. [결과·한계·다음 관문](table-outer-margin/RESULT_KO.md), [증거](table-outer-margin/proof.json). 아래는 각 단계 당시의 역사 기록이다.
 
 병합 `35fdcd0` 기반 최신 Mac 후보는 **GeulgyeolBeta2.app / 0.4.4-beta.2**, 제품 소스 `af87bf3`이다. 이전 복구 영속본/dirty 보존 수정 후, 다른 draft의 미래 timestamp 때문에 방금 replacement commit한 현재 ID가 pruning되는 후속 P2를 이전 실제 패키지로 재현·수정했다. 현재 ID를 정리 대상에서 제외하고 조회 transaction 완료와 일괄 삭제 rollback을 보장한다. 현재 패키지81항목·별도 어댑터 없는 일반 기동/네이티브 정상 종료·46회 exit0, 회귀47통과/skip1·TypeScript·Vite·strict ad-hoc·ZIP 대조를 통과했다. 이전 후보 바이트·원본·QA를 보존했고 공개 태그/릴리스는 만들지 않았다. OS 선택창·물리 IME/클립보드·수동 GUI·한컴·Linux 런타임은 미검증이다. [현재 수정·후보·결과·한계](mac-beta-candidate/RESULT_KO.md), [패키지·재현·검증 증거](mac-beta-candidate/proof.json). 전체 완성률을 테스트 수로 추정하지 않는다. 아래 단락은 각 단계 당시의 역사 기록이다.

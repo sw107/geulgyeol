@@ -35,3 +35,24 @@ test('table outer-margin edits survive HWP/HWPX origins, snapshots and both save
   }
  }finally{seed.free();}
 });
+
+test('signed table margins reject invalid mixed patches before any mutation',async()=>{
+ const root=process.env.GEULGYEOL_QA_ENGINE_DIR||path.resolve(__dirname,'../web/studio');
+ const {initSync,HwpDocument}=await import(pathToFileURL(root+'/rhwp.js'));
+ initSync({module:fs.readFileSync(root+'/rhwp_bg.wasm')});
+ const seed=HwpDocument.createEmpty();
+ try{
+  seed.createBlankDocument();seed.createTable(0,0,0,2,2);
+  for(const origin of ['Hwp','Hwpx']){
+   const d=new HwpDocument(seed['export'+origin]());
+   try{
+    const t=JSON.parse(d.getControls()).find(c=>c.ctrlId==='tbl'&&c.list===0);
+    const state=()=>({hwp:Buffer.from(d.exportHwp()),hwpx:Buffer.from(d.exportHwpx()),props:d.getTableProperties(0,t.para,t.controlIndex),svg:Array.from({length:d.pageCount()},(_,i)=>d.renderPageSvg(i))});
+    for(const key of ['outerLeft','outerRight','outerTop','outerBottom','paddingLeft','paddingRight','paddingTop','paddingBottom','cellSpacing','captionSpacing'])for(const value of [32768,-32769,34016,2147483648,1.5,null,'32767',true]){
+     const before=state();assert.throws(()=>d.setTableProperties(0,t.para,t.controlIndex,JSON.stringify({treatAsChar:false,outerLeft:13,hasCaption:true,cellSpacing:13,[key]:value})));assert.deepEqual(state(),before);
+    }
+    for(const value of [-32768,32767]){d.setTableProperties(0,t.para,t.controlIndex,JSON.stringify({outerLeft:value}));assert.equal(JSON.parse(d.getTableProperties(0,t.para,t.controlIndex)).outerLeft,value);for(const fmt of ['Hwp','Hwpx']){const r=new HwpDocument(d['export'+fmt]());try{const rt=JSON.parse(r.getControls()).find(c=>c.ctrlId==='tbl'&&c.list===0);assert.equal(JSON.parse(r.getTableProperties(0,rt.para,rt.controlIndex)).outerLeft,value);}finally{r.free();}}}
+   }finally{d.free();}
+  }
+ }finally{seed.free();}
+});
