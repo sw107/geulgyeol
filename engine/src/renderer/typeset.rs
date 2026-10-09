@@ -25254,6 +25254,11 @@ impl TypesetEngine {
                 && table.common.height > 0
                 && table.common.height <= i32::MAX as u32
                 && std::ptr::eq(row_geometry_table, table)
+                // A frame covering every stored row describes the whole table,
+                // not a saved first fragment. Reflow can expand those rows far
+                // beyond the declaration; its remaining page slack must not
+                // authorize a whole row that crosses the physical body bottom.
+                && !table_declared_object_covers_cell_row_frames(table, self.dpi)
             {
                 para.line_segs
                     .iter()
