@@ -1,0 +1,487 @@
+{
+  "rows": [
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "cell",
+      "side": 0,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "cell",
+      "side": 0,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "cell",
+      "side": 1,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "cell",
+      "side": 1,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "cell",
+      "side": 2,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "cell",
+      "side": 2,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "cell",
+      "side": 3,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "cell",
+      "side": 3,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "table",
+      "side": 0,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "table",
+      "side": 0,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "table",
+      "side": 1,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "table",
+      "side": 1,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "table",
+      "side": 2,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "table",
+      "side": 2,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "table",
+      "side": 3,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "kind": "table",
+      "side": 3,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "widthOnly": true,
+      "widthHeight": false,
+      "unchangedHeightExact": true,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwpx",
+      "widthOnly": false,
+      "widthHeight": true,
+      "unchangedHeightExact": false,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "cell",
+      "side": 0,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "cell",
+      "side": 0,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "cell",
+      "side": 1,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "cell",
+      "side": 1,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "cell",
+      "side": 2,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "cell",
+      "side": 2,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "cell",
+      "side": 3,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "cell",
+      "side": 3,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "table",
+      "side": 0,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "table",
+      "side": 0,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "table",
+      "side": 1,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "table",
+      "side": 1,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "table",
+      "side": 2,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "table",
+      "side": 2,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "table",
+      "side": 3,
+      "mixed": false,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "kind": "table",
+      "side": 3,
+      "mixed": true,
+      "rejectedBeforeCommand": true,
+      "repeatedFailureAtomic": true,
+      "validRetryUnit": 482,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "widthOnly": true,
+      "widthHeight": false,
+      "unchangedHeightExact": true,
+      "undoRedo": true
+    },
+    {
+      "name": "boundary-input.hwp",
+      "widthOnly": false,
+      "widthHeight": true,
+      "unchangedHeightExact": false,
+      "undoRedo": true
+    }
+  ],
+  "pairs": 36,
+  "reopens": 72,
+  "errors": [],
+  "actualMacElectron": true,
+  "officialRuntimeVersion": "44.3.0",
+  "QAWindowBackgroundThrottlingDisabled": true,
+  "receivedEngineSHA256": "14c6978c7712faf84846c65619adc137bd923b17c3d47fd715544dc76fd1ec99",
+  "QAReadExposuresForSelection": true,
+  "nativeResponsesControlled": true,
+  "OSChooserVerified": false,
+  "physicalIMEVerified": false,
+  "manualGUIVerified": false,
+  "clipboardAccessed": false,
+  "engineSHA256": "14c6978c7712faf84846c65619adc137bd923b17c3d47fd715544dc76fd1ec99",
+  "exitCode": 0,
+  "baseline": {
+    "rows": [
+      {
+        "name": "boundary-input.hwpx",
+        "kind": "cell",
+        "result": {
+          "open": false,
+          "invalid": [],
+          "focused": ""
+        },
+        "historyBefore": {
+          "u": 0,
+          "r": 0,
+          "dirty": false
+        },
+        "historyAfter": {
+          "u": 1,
+          "r": 0,
+          "dirty": true
+        },
+        "modelUnchanged": true
+      },
+      {
+        "name": "boundary-input.hwpx",
+        "kind": "table",
+        "result": {
+          "open": true,
+          "invalid": [],
+          "focused": ""
+        },
+        "historyBefore": {
+          "u": 0,
+          "r": 0,
+          "dirty": false
+        },
+        "historyAfter": {
+          "u": 0,
+          "r": 0,
+          "dirty": false
+        },
+        "modelUnchanged": true
+      },
+      {
+        "name": "boundary-input.hwp",
+        "kind": "cell",
+        "result": {
+          "open": false,
+          "invalid": [],
+          "focused": ""
+        },
+        "historyBefore": {
+          "u": 0,
+          "r": 0,
+          "dirty": false
+        },
+        "historyAfter": {
+          "u": 1,
+          "r": 0,
+          "dirty": true
+        },
+        "modelUnchanged": true
+      },
+      {
+        "name": "boundary-input.hwp",
+        "kind": "table",
+        "result": {
+          "open": true,
+          "invalid": [],
+          "focused": ""
+        },
+        "historyBefore": {
+          "u": 0,
+          "r": 0,
+          "dirty": false
+        },
+        "historyAfter": {
+          "u": 0,
+          "r": 0,
+          "dirty": false
+        },
+        "modelUnchanged": true
+      }
+    ],
+    "pairs": 0,
+    "reopens": 0,
+    "errors": [
+      "필드 오류: paddingLeft must be an integer in -32768..32767",
+      "필드 오류: paddingLeft must be an integer in -32768..32767"
+    ],
+    "actualMacElectron": true,
+    "officialRuntimeVersion": "44.3.0",
+    "QAWindowBackgroundThrottlingDisabled": true,
+    "receivedEngineSHA256": "14c6978c7712faf84846c65619adc137bd923b17c3d47fd715544dc76fd1ec99",
+    "QAReadExposuresForSelection": true,
+    "nativeResponsesControlled": true,
+    "OSChooserVerified": false,
+    "physicalIMEVerified": false,
+    "manualGUIVerified": false,
+    "clipboardAccessed": false,
+    "engineSHA256": "14c6978c7712faf84846c65619adc137bd923b17c3d47fd715544dc76fd1ec99",
+    "exitCode": 0
+  },
+  "native": {
+    "fullSVGPageCountBodyCellsParagraphAndCharacterIDsStylesExact": true,
+    "sameBytesFiles": 72
+  },
+  "baseSHA": "b532789a505c9b8b9da15034f857a8b4a15ed2bf",
+  "parentMainSHA": "3d00e9a20e51c84c49cd70a7e299e982e342392c",
+  "evidenceRoot": "../inner-margin-validation-qa",
+  "sha256": {
+    "rhwp-studio/src/ui/table-cell-props-dialog.ts": "bd288e248583d86bd0c5f6cd25e4f122034d244715b629efe2280e1ecd114b4d",
+    "scripts/check-electron-inner-margin-validation.mjs": "c2a344fcb25038186e24cefb4dd8715f29f32f15d658eee95d35d1ad89782cfe",
+    "../inner-margin-validation-qa/baseline/proof.json": "37f2f0e97c82513db932218ff808956cda492bd55e1b4a6348b21e06bda5adb8",
+    "../inner-margin-validation-qa/final/proof.json": "1b7e7f52ed2f7497e6282ff65cb1496fc0b32753f3f6410a52f30f4145659cd5",
+    "../inner-margin-validation-qa/final/manifest.json": "83f7a642c272a7097ea3a84513f6532c04be967982e4ef88e04fb783d6cecff6",
+    "../inner-margin-validation-qa/final/electron.png": "efd63ae1a15d2553922cda5344378dd02382e52814176e194e6850a69ac93d31",
+    "../inner-margin-validation-qa/final/lifecycle.json": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+    "../inner-margin-validation-qa/native-final/proof.json": "db679ed71da84c4bbd51ad4baa7c1123030c9a1a13e107cc97159c47892269f4",
+    "../inner-margin-validation-qa/overflow-diag.log": "203cfc479bd162b96aae0c5dda102b25666b28b0d84388e7a2b6e16c18181b41"
+  }
+}
