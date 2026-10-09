@@ -2789,6 +2789,24 @@ impl HwpDocument {
                         if crate::renderer::float_placement::page_top_rowbreak_has_trailing_host(para, ci, t))))
     }
 
+    /// Plain inverse text edits cannot reconstruct stored line-frame state in
+    /// a page-larger full-span cell. Reuse bounded source snapshot history.
+    #[wasm_bindgen(js_name = mergedCellNeedsTextSnapshot)]
+    pub fn merged_cell_needs_text_snapshot(&self, section_idx: u32, para_idx: u32,
+        control_idx: u32, cell_idx: u32) -> bool {
+        self.document.sections.get(section_idx as usize)
+            .and_then(|section| section.paragraphs.get(para_idx as usize))
+            .and_then(|para| para.controls.get(control_idx as usize))
+            .is_some_and(|control| match control {
+                Control::Table(table) => table.cells.get(cell_idx as usize).is_some_and(|cell| {
+                    let start = cell.row as usize;
+                    crate::renderer::float_placement::whole_span_plain_owner_block(
+                        table, start, start + cell.row_span as usize)
+                }),
+                _ => false,
+            })
+    }
+
     /// 문단에 텍스트박스가 있는 Shape 컨트롤이 있으면 해당 control_index를 반환한다.
     /// 없으면 -1을 반환한다.
     #[wasm_bindgen(js_name = getTextBoxControlIndex)]

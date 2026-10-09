@@ -1,0 +1,794 @@
+{
+  "basis": {
+    "main": "795f93cf48c86cf0f9b52d1ce60c10f7b411664b",
+    "previousPaintedHeight": "23681741320f8ac51ea775ede2b2863d1760ea54",
+    "syntheticSourceOnly": true,
+    "sourceVisualComparisonWithHancom": false
+  },
+  "engineSHA256": "b5b5b2fc52dedbd0140322497e7fe792c9a34f8568ed8bc8f02dbd341a67474b",
+  "receivedEngineSHA256": "b5b5b2fc52dedbd0140322497e7fe792c9a34f8568ed8bc8f02dbd341a67474b",
+  "sourceFixtures": [
+    {
+      "label": "partial-consistent-frame",
+      "format": "hwp",
+      "sha256": "1f319c30f1956bf2e9f325753c88b984c8316db46219ca38a51d308a451f6ac3",
+      "objectHeightHU": 31200,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 48,
+      "storedCellLineSegments": 48,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": []
+    },
+    {
+      "label": "partial-consistent-frame",
+      "format": "hwpx",
+      "sha256": "98883ccde37d2332da85c86af504442006b4cfd0701366059f95fd299e0f3b8f",
+      "objectHeightHU": 31200,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 48,
+      "storedCellLineSegments": 48,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": []
+    },
+    {
+      "label": "partial-plain",
+      "format": "hwp",
+      "sha256": "d3806f08f2f9323cfc9ac70351751b186578b523259167e8f80ab9245f4deb02",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 48,
+      "storedCellLineSegments": 336,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": []
+    },
+    {
+      "label": "partial-plain",
+      "format": "hwpx",
+      "sha256": "f87d71b7d81c345389ceef95d87af5f2330501ae3f1f6b0eefc8eac9f91ebdf9",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 48,
+      "storedCellLineSegments": 336,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": []
+    },
+    {
+      "label": "partial-middle-rowspan",
+      "format": "hwp",
+      "sha256": "68f2f891d1b011eada727daf0a24b2bfea6321e8425614a35dc36275bf810e2f",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 46,
+      "storedCellLineSegments": 336,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": [
+        {
+          "row": 24,
+          "col": 0,
+          "rowSpan": 3,
+          "colSpan": 1,
+          "heightHU": 3900,
+          "paragraphs": 3
+        }
+      ]
+    },
+    {
+      "label": "partial-middle-rowspan",
+      "format": "hwpx",
+      "sha256": "27c6477122aec1311b26113aa2684a2c124abb947bbad797cb37ce79f0dd0506",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 46,
+      "storedCellLineSegments": 336,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": [
+        {
+          "row": 24,
+          "col": 0,
+          "rowSpan": 3,
+          "colSpan": 1,
+          "heightHU": 3900,
+          "paragraphs": 3
+        }
+      ]
+    },
+    {
+      "label": "partial-terminal-rowspan",
+      "format": "hwp",
+      "sha256": "3df854622b5ce7480421414be1a796a65f734fd5c155e82453e880d9a604b860",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 47,
+      "storedCellLineSegments": 336,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": [
+        {
+          "row": 46,
+          "col": 0,
+          "rowSpan": 2,
+          "colSpan": 1,
+          "heightHU": 2600,
+          "paragraphs": 2
+        }
+      ]
+    },
+    {
+      "label": "partial-terminal-rowspan",
+      "format": "hwpx",
+      "sha256": "59a7ba7be6119db6016fe72fab23f3a599d731231d5f464812309b9de5725f37",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 47,
+      "storedCellLineSegments": 336,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": [
+        {
+          "row": 46,
+          "col": 0,
+          "rowSpan": 2,
+          "colSpan": 1,
+          "heightHU": 2600,
+          "paragraphs": 2
+        }
+      ]
+    },
+    {
+      "label": "partial-long-rowspan",
+      "format": "hwp",
+      "sha256": "98fb600dc4e4e0577914b30673e234a1108b4e484212f115523385040ddf72a0",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 2,
+      "storedCellLineSegments": 336,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": [
+        {
+          "row": 1,
+          "col": 0,
+          "rowSpan": 47,
+          "colSpan": 1,
+          "heightHU": 61100,
+          "paragraphs": 47
+        }
+      ]
+    },
+    {
+      "label": "partial-long-rowspan",
+      "format": "hwpx",
+      "sha256": "ca1b869c5780136eb201d389ba574d258e2cdb017f19e384c4ef121ecf2de7eb",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 2,
+      "storedCellLineSegments": 336,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": [
+        {
+          "row": 1,
+          "col": 0,
+          "rowSpan": 47,
+          "colSpan": 1,
+          "heightHU": 61100,
+          "paragraphs": 47
+        }
+      ]
+    },
+    {
+      "label": "partial-header-rowspan",
+      "format": "hwp",
+      "sha256": "de946c31f0f5f460d7c8cbd83fb615d8787ea873824534202a3fbdd93b048962",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 47,
+      "storedCellLineSegments": 336,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": [
+        {
+          "row": 0,
+          "col": 0,
+          "rowSpan": 2,
+          "colSpan": 1,
+          "heightHU": 2600,
+          "paragraphs": 2
+        }
+      ]
+    },
+    {
+      "label": "partial-header-rowspan",
+      "format": "hwpx",
+      "sha256": "fd34934ff2648e2856e841f7c7f12827b7f69a49a58389dbd923b47ad3bf87d9",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 1,
+      "cells": 47,
+      "storedCellLineSegments": 336,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": [
+        {
+          "row": 0,
+          "col": 0,
+          "rowSpan": 2,
+          "colSpan": 1,
+          "heightHU": 2600,
+          "paragraphs": 2
+        }
+      ]
+    },
+    {
+      "label": "partial-colspan",
+      "format": "hwp",
+      "sha256": "b1d4d2cd1b6afbf3c17fa68a3eae229474563cca2eca4a22e55830067993a9ba",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 2,
+      "cells": 95,
+      "storedCellLineSegments": 428,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": [
+        {
+          "row": 24,
+          "col": 0,
+          "rowSpan": 1,
+          "colSpan": 2,
+          "heightHU": 1300,
+          "paragraphs": 2
+        }
+      ]
+    },
+    {
+      "label": "partial-colspan",
+      "format": "hwpx",
+      "sha256": "9eb5925ecef3482c4df2154d9a6fdcc51fe60f1c1ec23f70088b6333c1cda8f0",
+      "objectHeightHU": 40000,
+      "rowCount": 48,
+      "colCount": 2,
+      "cells": 95,
+      "storedCellLineSegments": 428,
+      "storedLineSegTags": [
+        393216
+      ],
+      "storedHostLineSegs": [
+        {
+          "text_start": 0,
+          "vertical_pos": 0,
+          "line_height": 1000,
+          "text_height": 1000,
+          "baseline_distance": 850,
+          "line_spacing": 600,
+          "column_start": 0,
+          "segment_width": 42520,
+          "tag": 393216
+        }
+      ],
+      "exactGridOwnership": true,
+      "mergedCells": [
+        {
+          "row": 24,
+          "col": 0,
+          "rowSpan": 1,
+          "colSpan": 2,
+          "heightHU": 1300,
+          "paragraphs": 2
+        }
+      ]
+    }
+  ],
+  "baselineGeometry": [
+    {
+      "page": 0,
+      "borderOverflowPx": -10.399999999999523,
+      "inkOverflowPx": -17.919922917683948,
+      "hiddenGlyphs": 0,
+      "partialGlyphs": 0
+    },
+    {
+      "page": 1,
+      "borderOverflowPx": 1.1368683772161603e-13,
+      "inkOverflowPx": 23.74666666666701,
+      "hiddenGlyphs": 2324,
+      "partialGlyphs": 11
+    },
+    {
+      "page": 2,
+      "borderOverflowPx": 5657.359999999994,
+      "inkOverflowPx": 5656.747069269816,
+      "hiddenGlyphs": 236,
+      "partialGlyphs": 0
+    },
+    {
+      "page": 3,
+      "borderOverflowPx": null,
+      "inkOverflowPx": -836.1599741872152,
+      "hiddenGlyphs": 0,
+      "partialGlyphs": 0
+    }
+  ],
+  "electron": {
+    "cases": 114,
+    "changingCases": 100,
+    "noops": 14,
+    "undoRedoPairs": 200,
+    "nativeIPCReopens": 200,
+    "errors": [],
+    "runtimeVersion": "44.3.0",
+    "normalExitCode": 0,
+    "normalQuit": true,
+    "longMergedCellTargets": [
+      {
+        "cell": 1,
+        "para": 0,
+        "page": 0
+      },
+      {
+        "cell": 1,
+        "para": 23,
+        "page": 5
+      },
+      {
+        "cell": 1,
+        "para": 46,
+        "page": 10
+      }
+    ]
+  },
+  "paint": {
+    "checks": 314,
+    "pages": 3366,
+    "maxBorderOverflowPx": -0.37333333333344854,
+    "maxInkOverflowPx": -5.253235905965198,
+    "hiddenGlyphs": 0,
+    "partialGlyphs": 0,
+    "physicalBodyTolerancePx": 2
+  },
+  "nativeComparisons": {
+    "newActualElectronSavedFiles": 200,
+    "previousActualElectronSavedFiles": 296,
+    "apiBoundaryFiles": 16,
+    "total": 512,
+    "fullSVGAndModelMatch": true,
+    "actualFileLayoutWarnings": 0,
+    "genuineBoundaryWarningsRetained": 4,
+    "excludedBoundaryWarningsRetained": 2
+  },
+  "snapshotQuery": {
+    "cases": 17,
+    "engineSHA256": "b5b5b2fc52dedbd0140322497e7fe792c9a34f8568ed8bc8f02dbd341a67474b",
+    "rows": [
+      {
+        "label": "partial-consistent-frame",
+        "ext": "hwp",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "label": "partial-consistent-frame",
+        "ext": "hwpx",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "label": "partial-plain",
+        "ext": "hwp",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "label": "partial-plain",
+        "ext": "hwpx",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "label": "partial-middle-rowspan",
+        "ext": "hwp",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "label": "partial-middle-rowspan",
+        "ext": "hwpx",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "label": "partial-terminal-rowspan",
+        "ext": "hwp",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "label": "partial-terminal-rowspan",
+        "ext": "hwpx",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "label": "partial-long-rowspan",
+        "ext": "hwp",
+        "eligibleCells": [
+          1
+        ],
+        "readOnly": true
+      },
+      {
+        "label": "partial-long-rowspan",
+        "ext": "hwpx",
+        "eligibleCells": [
+          1
+        ],
+        "readOnly": true
+      },
+      {
+        "label": "partial-header-rowspan",
+        "ext": "hwp",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "label": "partial-header-rowspan",
+        "ext": "hwpx",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "label": "partial-colspan",
+        "ext": "hwp",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "label": "partial-colspan",
+        "ext": "hwpx",
+        "eligibleCells": [],
+        "readOnly": true
+      },
+      {
+        "excludedWrap": "Square",
+        "needsTextSnapshot": false
+      },
+      {
+        "excludedWrap": "BehindText",
+        "needsTextSnapshot": false
+      },
+      {
+        "excludedWrap": "InFrontOfText",
+        "needsTextSnapshot": false
+      }
+    ]
+  },
+  "builds": {
+    "native": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--example",
+        "horizontal_table_saved_check"
+      ],
+      "targetInitialBytes": 4763553792,
+      "targetLimitBytes": 4810363371,
+      "targetPeakBytes": 4795547648,
+      "targetFinalBytes": 4763500544,
+      "minimumFreeBytes": 16106127360,
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "stopReason": null,
+      "preservedBuildArtifacts": [
+        {
+          "path": "debug/deps/librhwp.rlib",
+          "bytes": 115685720
+        },
+        {
+          "path": "debug/examples/horizontal_table_saved_check.d",
+          "bytes": 73516
+        },
+        {
+          "path": "debug/examples/horizontal_table_saved_check-ea942eb343e95067",
+          "bytes": 36310096
+        },
+        {
+          "path": "debug/examples/horizontal_table_saved_check",
+          "bytes": 36310096
+        },
+        {
+          "path": "debug/examples/horizontal_table_saved_check-ea942eb343e95067.d",
+          "bytes": 384
+        }
+      ],
+      "elapsedSeconds": 24.99
+    },
+    "wasm": {
+      "command": [
+        "/Users/sw107/Documents/Codex/2026-09-08/new-chat/work/rustup-home/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--lib"
+      ],
+      "targetInitialBytes": 4763500544,
+      "targetLimitBytes": 4810363371,
+      "targetPeakBytes": 4763541504,
+      "targetFinalBytes": 4763541504,
+      "minimumFreeBytes": 16106127360,
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "stopReason": null,
+      "preservedBuildArtifacts": [
+        {
+          "path": "wasm32-unknown-unknown/release/rhwp.wasm",
+          "bytes": 13686033
+        },
+        {
+          "path": "wasm32-unknown-unknown/release/rhwp.d",
+          "bytes": 72425
+        },
+        {
+          "path": "wasm32-unknown-unknown/release/librhwp.d",
+          "bytes": 72428
+        },
+        {
+          "path": "wasm32-unknown-unknown/release/librhwp.rlib",
+          "bytes": 103783596
+        },
+        {
+          "path": "wasm32-unknown-unknown/release/deps/rhwp.wasm",
+          "bytes": 13686033
+        },
+        {
+          "path": "wasm32-unknown-unknown/release/deps/librhwp.rlib",
+          "bytes": 103783596
+        }
+      ],
+      "elapsedSeconds": 138.87
+    }
+  },
+  "rawEvidenceHashes": {
+    "full-1/proof.json": "8c63a21b739d3cb70f28c2f71706ed6b72eba0ce23a68aaf103a2eee59b7970f",
+    "full-1/lifecycle.json": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+    "full-1/manifest.json": "e7dc023465926e84b5661ad6c14443400fb5263c545f73e0fda481ceb087a520",
+    "native-full-1/proof.json": "70a531f79eb32476e2600c6e6e2955dd545a4e17a2cb3b81e8d0c410abc4b612",
+    "native-pr6-164/proof.json": "dd81d9a0402f00fe643d816ec200547b6bff735818570e41d921391773774685",
+    "native-pr6-100/proof.json": "7cb0a7dc100c68f05695a1f3308040c107bdebbd9bdad72190fb9ba47a4365c1",
+    "native-pr7-32/proof.json": "52edb6410f34bf84d2f1eda1f74492a767db3c64c63f07fe7582ea6e0033cd27",
+    "scope-1/proof.json": "fb7b9df046fe427543ee9f07c17f5d5c6ff1922b9021260a2aefd2a83804b856",
+    "pr7-boundary-1/proof.json": "eec6442a6c7886a2666eb28b5a38ded62963418e59606adbacd682a4f5c942fd",
+    "native-build-2-proof.json": "9da2c8d79aae6918550134f136b37b6d1edabb75224c0f94cc346a7fdaafca49",
+    "wasm-build-2-proof.json": "5a3709d11c103360baf12eac41ec4a321e75b18c45186df6c7dd12dd2a4d5e94",
+    "long-baseline-2/failure.json": "554209c045b6ecd574cc93e6a6e44b62032009adb0f9d37f94d949eaf6ebe1f9",
+    "long-baseline-2/partial-long-rowspan-input.hwpx-initial-paint.json": "0a653da00e8cb486cd24e1ec4ae0996c04bbcfc6b87d21c7c3c0b0fbb07fd58f",
+    "long-fixed-1/failure.json": "5b3adb5fe36b07ee8a9c9f2e44829d94f8ffeb7b3660f48ce0b6da5664bba75e"
+  },
+  "limitations": [
+    "synthetic stored-source contracts; no matching Hancom-authored partial-frame original available",
+    "single-column horizontal plain full-span blocks only; parallel/mixed owner blocks, vertical text, captions and nested controls excluded",
+    "physical IME, OS chooser, manual GUI, Linux and Hancom visual comparison not verified",
+    "whole Rust lib tests blocked by three pre-existing missing include_bytes fixtures",
+    "candidate packaging/lifecycle is a separate follow-up; public beta remains beta.2"
+  ]
+}
