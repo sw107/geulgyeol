@@ -299,6 +299,52 @@ pub(crate) fn page_top_rowbreak_has_trailing_host(
         && para.control_text_positions().get(control_index) == Some(&0)
 }
 
+/// Connected rowspan range shared by mixed owner layout and source history.
+pub(crate) fn rowspan_owner_block_range(table: &Table, row: usize) -> (usize, usize) {
+    let (mut start, mut end) = (row, row + 1);
+    loop {
+        let before = (start, end);
+        for cell in table.cells.iter().filter(|cell| cell.row_span > 1) {
+            let lo = cell.row as usize;
+            let hi = lo + cell.row_span as usize;
+            if lo < end && hi > start {
+                start = start.min(lo);
+                end = end.max(hi);
+            }
+        }
+        if before == (start, end) { return (start, end); }
+    }
+}
+
+/// Bounded plain two-column mixed-owner contract. Independent/staggered row
+/// owners need their own cut ledger; the whole-span max-height route cannot
+/// represent their different row origins and ends.
+pub(crate) fn mixed_plain_owner_block(table: &Table, start: usize, end: usize) -> bool {
+    let size = end.saturating_sub(start);
+    size > crate::renderer::height_measurer::BLOCK_UNIT_MAX_ROWS && size <= 64
+        && end <= table.row_count as usize && table.col_count == 2 && table.cell_spacing == 0
+        && !table.common.treat_as_char && !table.common.allow_overlap
+        && matches!(table.page_break, TablePageBreak::RowBreak)
+        && matches!(table.common.text_wrap, TextWrap::TopAndBottom)
+        && matches!(table.common.vert_rel_to, VertRelTo::Page)
+        && matches!(table.common.vert_align, VertAlign::Top)
+        && signed_hwpunit(table.common.vertical_offset) == 0 && table.caption.is_none()
+        && table.cells.iter().any(|cell| cell.row_span > 1 && (cell.row as usize) < end
+            && cell.row as usize + cell.row_span as usize > start)
+        && !whole_span_plain_owner_block(table, start, end)
+        && table.cells.iter().filter(|cell| (cell.row as usize) < end
+            && cell.row as usize + cell.row_span as usize > start).all(|cell| {
+                cell.row as usize >= start && cell.row as usize + cell.row_span as usize <= end
+                    && cell.row_span > 0 && cell.col_span == 1 && cell.col < 2
+                    && cell.text_direction == 0 && cell.line_wrap == 0
+                    && cell.paragraphs.iter().all(|para| para.controls.is_empty() && para.raw_break_type == 0)
+            })
+        && (start..end).all(|row| (0..2).all(|col| table.cells.iter().filter(|cell| {
+            cell.col as usize == col && cell.row as usize <= row
+                && row < cell.row as usize + cell.row_span as usize
+        }).count() == 1))
+}
+
 /// A large plain block owned by full-span horizontal cells.
 /// There is no independent per-row text owner; pagination and source-preserving
 /// text history must therefore use the same whole-cell unit contract.

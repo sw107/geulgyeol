@@ -21,7 +21,7 @@ PR10 source `fe10c48ababba88bd49827e883c2a7e9cc746b4e` 위의 후속이다. 이�
 
 앞선 parallel-final-2는 152개 개별 PASS와 정상 앱 Quit 0 뒤 대형 manifest를 JSON.stringify 하다가 Node 문자열 한도의 RangeError를 냈다. 종료된 frame의 진단 호출도 detached Frame 오류를 냈다. 최종 proof가 없었으므로 그 실행은 전체 완료로 취급하지 않았다. raw 실패와 종료 기록을 그대로 보존했다.
 
-QA 하네스는 manifest를 행별로 저장하고 앱 종료 후 frame 진단을 하지 않도록 고쳤다. 전체 152사례를 다시 실행한 parallel-final-3은 하네스 종료도 0이며 proof/manifest를 완전히 남겼다. manifest는 1,074,263,609바이트다. 별도 스트리밍 도구가 이를 저장 파일별 276개 증거로 나누고 각 전체 모델/SVG manifest와 실제 저장 파일의 SHA256·페이지 수·Native 일치 결과를 작은 index.json에 기록했다. 기존 실제 36건 manifest에서 분할 전후 모든 데이터와 해시가 일치하는 검사도 통과했다. 원본 대형 manifest와 이전 실패 기록은 변경하거나 삭제하지 않았다. 공개 proof는 해시·건수·요약을 담고 원본 내용이나 캐시는 포함하지 않는다.
+QA 하네스는 manifest를 행별로 저장하고 앱 종료 후 frame 진단을 하지 않도록 고쳤다. 전체 152사례를 다시 실행한 parallel-final-3은 앱 정상 종료 0이 원시 lifecycle에 기록되어 있고 proof/manifest를 완전히 남겼다. Node 하네스 종료 0은 작성자의 실행 wrapper 보고이며 별도 원시 종료 JSON은 보존하지 않았다. 기존 proof의 exitCode는 앱 프로세스 값이다. manifest는 1,074,263,609바이트다. 별도 스트리밍 도구가 이를 저장 파일별 276개 증거로 나누고 각 전체 모델/SVG manifest와 실제 저장 파일의 SHA256·페이지 수·Native 일치 결과를 작은 index.json에 기록했다. 기존 실제 36건 manifest에서 분할 전후 모든 데이터와 해시가 일치하는 검사도 통과했다. 원본 대형 manifest와 이전 실패 기록은 변경하거나 삭제하지 않았다. 공개 proof는 해시·건수·요약을 담고 원본 내용이나 캐시는 포함하지 않는다.
 
 WASM/실제 앱 수신 SHA256: `751a0bfa25867e117abb462e50db583ecc602f6ef8a5bfb94160f6e4b6564c0b`. Native SHA256: `d61fe9e8934b81d941ee0f2b2f151b9012fef3b6fdc3bb7fef611f6cb2cacaf3`. 이전 offline 빌드의 보존 아티팩트이며 현재 Rust 소스가 보존 체크포인트와 정확히 같다. 새 Rust 빌드나 패키징을 주장하지 않는다. 현재 UI 빌드, TypeScript·Node·Python 구문 및 diff 공백 검사도 통과했다. 기존 beta.3 ASAR `e94f2bfc1b0cb1911c358fe16e036935c7ad8514ee4923bff89555f05990e15e`와 PR9 SHA를 보존했고 새 앱·ZIP·태그·릴리스는 만들지 않았다.
 

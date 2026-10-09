@@ -3496,6 +3496,25 @@ impl LayoutEngine {
             }
         }
 
+        // Mixed owner bands have per-span constraints. Override the legacy
+        // block-last-row maximum with the exact same cut bands used by scan.
+        if is_block_split {
+            let mut blocks = Vec::new();
+            if !start_cut.is_empty() { blocks.push(rowspan_block_range(table, start_row)); }
+            if !end_cut.is_empty() {
+                let block = rowspan_block_range(table, end_row.saturating_sub(1));
+                if !blocks.contains(&block) { blocks.push(block); }
+            }
+            for (bs, be) in blocks {
+                if crate::renderer::float_placement::mixed_plain_owner_block(table, bs, be) {
+                    let su = if !start_cut.is_empty() && rowspan_block_range(table, start_row) == (bs, be) { start_cut } else { &[] };
+                    let eu = if !end_cut.is_empty() && rowspan_block_range(table, end_row.saturating_sub(1)) == (bs, be) { end_cut } else { &[] };
+                    let heights = self.mixed_plain_fragment_row_heights(table, bs, be, su, eu, styles);
+                    row_heights[bs..be].copy_from_slice(&heights);
+                }
+            }
+        }
+
         // [#3820 Stage 76] RowBreak 표의 rowspan-연속 밴드에서 실제 셀 내용은
         // 현재 쪽에 모두 들어가지만, 원본 선언 행 높이만 남은 공간보다 큰 경우가
         // 있다. 페이지네이터는 다음 조각을 다음 행부터 재개하고 이 조각의 마지막
