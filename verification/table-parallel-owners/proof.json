@@ -1,0 +1,941 @@
+{
+  "basis": {
+    "sourceBasePR10": "fe10c48ababba88bd49827e883c2a7e9cc746b4e",
+    "preservedLocalCheckpoint": "778a1cf34e99060f2f3d02371b5db1a7bf3f13d9",
+    "engineSourceGitTree": "03f1686e5cbb4d26d120c8264ec892be2a4b0326",
+    "reusedRustSourceIdenticalToCheckpoint": true,
+    "syntheticOnly": true,
+    "HancomAuthoredPartialFrameOriginalAvailable": false
+  },
+  "scope": "Only large horizontal plain blocks where every intersecting owner begins at the block start and spans the entire block; independent/staggered owners excluded",
+  "sourceFilesSHA256": {
+    "engine/src/renderer/float_placement.rs": "ea57f256f40ff2f01ebc46f3b1a3d63d0fb26ba2581a93e4bdd2f4c9e87a06ad",
+    "scripts/check-electron-stored-merged-fragments.mjs": "40f8c4f43ed73c5da940c3ba313069b9266dfc8222ee801ddfdd2e2e35e2dfcc",
+    "scripts/check-merged-cell-snapshot-scope.mjs": "88724fd2b8b696c0006d9ed8c4c96ebf2810fd523ed63bee4c0fb8cbe1edd65f",
+    "scripts/prepare-parallel-merged-table-fragments.mjs": "304eb7b3a29d12c79ecb58d072ae11693045898e8e8f5f3086a823d63b12c7de",
+    "scripts/prepare-parallel-owner-history.mjs": "e3d2aacf40610d80b474cf6e647fe8c388cf27f802e4dd5da7f4b5f00d756c9c",
+    "scripts/shard-electron-table-manifest.py": "aa17718f996cfbad37041ee24846fb320a7769fc1075215eb3d5096feb7eb493"
+  },
+  "sourceProvenance": {
+    "cases": 14,
+    "syntheticOnly": true,
+    "authoredPageBreakEvidence": false,
+    "rows": [
+      {
+        "label": "parallel-large",
+        "format": "hwp",
+        "SHA256": "98d666d0b6eeb82e00d95e3adee693dd2a0f6c187715c17709de539cfee2b8b2",
+        "rows": 48,
+        "cols": 2,
+        "cells": 4,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 672,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 2,
+            "row": 1,
+            "col": 0,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          },
+          {
+            "index": 3,
+            "row": 1,
+            "col": 1,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          }
+        ]
+      },
+      {
+        "label": "parallel-large",
+        "format": "hwpx",
+        "SHA256": "741c45475e4a538dd300d0cb5200cf2095244e4718f53cd590818749fd3bcbb7",
+        "rows": 48,
+        "cols": 2,
+        "cells": 4,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 672,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 2,
+            "row": 1,
+            "col": 0,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          },
+          {
+            "index": 3,
+            "row": 1,
+            "col": 1,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          }
+        ]
+      },
+      {
+        "label": "parallel-unequal",
+        "format": "hwp",
+        "SHA256": "be84458a55b621de53a8493ffb2217eb421951e20517c7ecf6509315000a722c",
+        "rows": 48,
+        "cols": 2,
+        "cells": 4,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 432,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 2,
+            "row": 1,
+            "col": 0,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          },
+          {
+            "index": 3,
+            "row": 1,
+            "col": 1,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          }
+        ]
+      },
+      {
+        "label": "parallel-unequal",
+        "format": "hwpx",
+        "SHA256": "1f17ef2ec3af60862abfefcafd15dec0bb2fb4fab130c53d4513e150f6d665ae",
+        "rows": 48,
+        "cols": 2,
+        "cells": 4,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 432,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 2,
+            "row": 1,
+            "col": 0,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          },
+          {
+            "index": 3,
+            "row": 1,
+            "col": 1,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          }
+        ]
+      },
+      {
+        "label": "mixed-large-left",
+        "format": "hwp",
+        "SHA256": "0487a9858ef28ec5e1e5ab8d38c9d428fe9fd61e6ca1d561dbc33f4cb25c9823",
+        "rows": 48,
+        "cols": 2,
+        "cells": 50,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 432,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 2,
+            "row": 1,
+            "col": 0,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          }
+        ]
+      },
+      {
+        "label": "mixed-large-left",
+        "format": "hwpx",
+        "SHA256": "a2379802c93da1b558b5b535fcd3150521e2937007f398d3ca223df4c9a4a41e",
+        "rows": 48,
+        "cols": 2,
+        "cells": 50,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 432,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 2,
+            "row": 1,
+            "col": 0,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          }
+        ]
+      },
+      {
+        "label": "mixed-large-right",
+        "format": "hwp",
+        "SHA256": "8893c5ce5851f72e86ed6dbdd0e79d07d309df58d1cf7911d4f64c3839bab46f",
+        "rows": 48,
+        "cols": 2,
+        "cells": 50,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 672,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 3,
+            "row": 1,
+            "col": 1,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          }
+        ]
+      },
+      {
+        "label": "mixed-large-right",
+        "format": "hwpx",
+        "SHA256": "d1213d6663bceedb8aa7bb19364e5507a1e4104911bf6746305be14ae0524217",
+        "rows": 48,
+        "cols": 2,
+        "cells": 50,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 672,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 3,
+            "row": 1,
+            "col": 1,
+            "rowSpan": 47,
+            "colSpan": 1,
+            "paragraphs": 47
+          }
+        ]
+      },
+      {
+        "label": "mixed-staggered",
+        "format": "hwp",
+        "SHA256": "baededfd0a71f794c0723b5a87f0bdd0f3ea96a7824528d751e09ff1f2411282",
+        "rows": 48,
+        "cols": 2,
+        "cells": 34,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 672,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 2,
+            "row": 1,
+            "col": 0,
+            "rowSpan": 32,
+            "colSpan": 1,
+            "paragraphs": 32
+          },
+          {
+            "index": 18,
+            "row": 16,
+            "col": 1,
+            "rowSpan": 32,
+            "colSpan": 1,
+            "paragraphs": 32
+          }
+        ]
+      },
+      {
+        "label": "mixed-staggered",
+        "format": "hwpx",
+        "SHA256": "fc43ef62cc1d178b017d70c3ca250f4e56b3c3329cf5b5ee5ee867b1c81794ea",
+        "rows": 48,
+        "cols": 2,
+        "cells": 34,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 672,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 2,
+            "row": 1,
+            "col": 0,
+            "rowSpan": 32,
+            "colSpan": 1,
+            "paragraphs": 32
+          },
+          {
+            "index": 18,
+            "row": 16,
+            "col": 1,
+            "rowSpan": 32,
+            "colSpan": 1,
+            "paragraphs": 32
+          }
+        ]
+      },
+      {
+        "label": "parallel-short",
+        "format": "hwp",
+        "SHA256": "76275b3f65a87c24ec5e44493f1f458311ef280131b164f95302d2472b71a00a",
+        "rows": 48,
+        "cols": 2,
+        "cells": 92,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 672,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 48,
+            "row": 24,
+            "col": 0,
+            "rowSpan": 3,
+            "colSpan": 1,
+            "paragraphs": 3
+          },
+          {
+            "index": 49,
+            "row": 24,
+            "col": 1,
+            "rowSpan": 3,
+            "colSpan": 1,
+            "paragraphs": 3
+          }
+        ]
+      },
+      {
+        "label": "parallel-short",
+        "format": "hwpx",
+        "SHA256": "5894cb71c18f75addb1cfa385227367bf44635e38bb788f6dbe5bf513a888321",
+        "rows": 48,
+        "cols": 2,
+        "cells": 92,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 672,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 48,
+            "row": 24,
+            "col": 0,
+            "rowSpan": 3,
+            "colSpan": 1,
+            "paragraphs": 3
+          },
+          {
+            "index": 49,
+            "row": 24,
+            "col": 1,
+            "rowSpan": 3,
+            "colSpan": 1,
+            "paragraphs": 3
+          }
+        ]
+      },
+      {
+        "label": "mixed-short",
+        "format": "hwp",
+        "SHA256": "4e6e90304c2e65f2e228093814e2f6181f502348f03fe4e0e1a9ae4db7d334d7",
+        "rows": 48,
+        "cols": 2,
+        "cells": 94,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 672,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 48,
+            "row": 24,
+            "col": 0,
+            "rowSpan": 3,
+            "colSpan": 1,
+            "paragraphs": 3
+          }
+        ]
+      },
+      {
+        "label": "mixed-short",
+        "format": "hwpx",
+        "SHA256": "975bd954347eda96be725230656169e865fa792ea81789fa3d946c1b70b94318",
+        "rows": 48,
+        "cols": 2,
+        "cells": 94,
+        "exactNativeGridOwnership": true,
+        "storedCellLineSegments": 672,
+        "storedLineTags": [
+          393216
+        ],
+        "storedHostLineSegments": 1,
+        "commonHeightHU": 40000,
+        "mergedOwners": [
+          {
+            "index": 48,
+            "row": 24,
+            "col": 0,
+            "rowSpan": 3,
+            "colSpan": 1,
+            "paragraphs": 3
+          }
+        ]
+      }
+    ]
+  },
+  "engineSHA256": "751a0bfa25867e117abb462e50db583ecc602f6ef8a5bfb94160f6e4b6564c0b",
+  "receivedEngineSHA256": "751a0bfa25867e117abb462e50db583ecc602f6ef8a5bfb94160f6e4b6564c0b",
+  "nativeSHA256": "d61fe9e8934b81d941ee0f2b2f151b9012fef3b6fdc3bb7fef611f6cb2cacaf3",
+  "newRustBuildClaimed": false,
+  "previousBuildProofs": [
+    "../table-parallel-merged-fragments-qa/native-build-1-proof.json",
+    "../table-parallel-merged-fragments-qa/wasm-build-1-proof.json"
+  ],
+  "baseline": {
+    "parallelLargePages": 4,
+    "parallelLargeModelOwnershipMismatches": 85,
+    "parallelUnequalPages": 4,
+    "parallelUnequalModelOwnershipMismatches": 72,
+    "parallelLargeMaxBorderOverflowPx": 5657.359999999994,
+    "parallelLargeHiddenGlyphs": 5093,
+    "parallelLargePartialGlyphs": 22
+  },
+  "electron": {
+    "officialRuntime": "44.3.0",
+    "cases": 152,
+    "changedCases": 138,
+    "historyPairs": 436,
+    "actualIPCReopens": 276,
+    "paintChecks": 468,
+    "paintedPages": 5548,
+    "maxBorderOverflowPx": -6.32000000000005,
+    "maxInkOverflowPx": -6.299935429890979,
+    "hidden": 0,
+    "partial": 0,
+    "rendererErrors": 0,
+    "normalQuit": true,
+    "exitCode": 0,
+    "rawProofSHA256": "650b194bd9e57b7bc8873e7d92268e28e3f48f3e968bccab8ad0da381a1d54e2",
+    "representativeOwnerTargets": [
+      {
+        "label": "parallel-large",
+        "cell": 2,
+        "paragraph": 0,
+        "page": 0
+      },
+      {
+        "label": "parallel-large",
+        "cell": 2,
+        "paragraph": 23,
+        "page": 5
+      },
+      {
+        "label": "parallel-large",
+        "cell": 2,
+        "paragraph": 46,
+        "page": 10
+      },
+      {
+        "label": "parallel-large",
+        "cell": 3,
+        "paragraph": 0,
+        "page": 0
+      },
+      {
+        "label": "parallel-large",
+        "cell": 3,
+        "paragraph": 23,
+        "page": 4
+      },
+      {
+        "label": "parallel-large",
+        "cell": 3,
+        "paragraph": 46,
+        "page": 9
+      },
+      {
+        "label": "parallel-unequal",
+        "cell": 2,
+        "paragraph": 0,
+        "page": 0
+      },
+      {
+        "label": "parallel-unequal",
+        "cell": 2,
+        "paragraph": 23,
+        "page": 5
+      },
+      {
+        "label": "parallel-unequal",
+        "cell": 2,
+        "paragraph": 46,
+        "page": 10
+      },
+      {
+        "label": "parallel-unequal",
+        "cell": 3,
+        "paragraph": 0,
+        "page": 0
+      },
+      {
+        "label": "parallel-unequal",
+        "cell": 3,
+        "paragraph": 23,
+        "page": 1
+      },
+      {
+        "label": "parallel-unequal",
+        "cell": 3,
+        "paragraph": 46,
+        "page": 2
+      }
+    ],
+    "burstSequences": [
+      {
+        "label": "parallel-large-owner-2",
+        "ext": "hwpx",
+        "observations": [
+          {
+            "pending": true,
+            "undo": 1
+          },
+          {
+            "pending": false,
+            "undo": 2
+          },
+          {
+            "pending": true,
+            "undo": 3
+          },
+          {
+            "pending": true,
+            "undo": 4
+          },
+          {
+            "pending": false,
+            "undo": 5
+          },
+          {
+            "pending": true,
+            "undo": 6
+          }
+        ],
+        "historyPairs": 12
+      },
+      {
+        "label": "parallel-large-owner-2",
+        "ext": "hwp",
+        "observations": [
+          {
+            "pending": true,
+            "undo": 1
+          },
+          {
+            "pending": false,
+            "undo": 2
+          },
+          {
+            "pending": true,
+            "undo": 3
+          },
+          {
+            "pending": true,
+            "undo": 4
+          },
+          {
+            "pending": false,
+            "undo": 5
+          },
+          {
+            "pending": true,
+            "undo": 6
+          }
+        ],
+        "historyPairs": 12
+      },
+      {
+        "label": "parallel-large-owner-3",
+        "ext": "hwpx",
+        "observations": [
+          {
+            "pending": true,
+            "undo": 1
+          },
+          {
+            "pending": false,
+            "undo": 2
+          },
+          {
+            "pending": true,
+            "undo": 3
+          },
+          {
+            "pending": true,
+            "undo": 4
+          },
+          {
+            "pending": false,
+            "undo": 5
+          },
+          {
+            "pending": true,
+            "undo": 6
+          }
+        ],
+        "historyPairs": 12
+      },
+      {
+        "label": "parallel-large-owner-3",
+        "ext": "hwp",
+        "observations": [
+          {
+            "pending": true,
+            "undo": 1
+          },
+          {
+            "pending": false,
+            "undo": 2
+          },
+          {
+            "pending": true,
+            "undo": 3
+          },
+          {
+            "pending": true,
+            "undo": 4
+          },
+          {
+            "pending": false,
+            "undo": 5
+          },
+          {
+            "pending": true,
+            "undo": 6
+          }
+        ],
+        "historyPairs": 12
+      },
+      {
+        "label": "parallel-unequal-owner-2",
+        "ext": "hwpx",
+        "observations": [
+          {
+            "pending": true,
+            "undo": 1
+          },
+          {
+            "pending": false,
+            "undo": 2
+          },
+          {
+            "pending": true,
+            "undo": 3
+          },
+          {
+            "pending": true,
+            "undo": 4
+          },
+          {
+            "pending": false,
+            "undo": 5
+          },
+          {
+            "pending": true,
+            "undo": 6
+          }
+        ],
+        "historyPairs": 12
+      },
+      {
+        "label": "parallel-unequal-owner-2",
+        "ext": "hwp",
+        "observations": [
+          {
+            "pending": true,
+            "undo": 1
+          },
+          {
+            "pending": false,
+            "undo": 2
+          },
+          {
+            "pending": true,
+            "undo": 3
+          },
+          {
+            "pending": true,
+            "undo": 4
+          },
+          {
+            "pending": false,
+            "undo": 5
+          },
+          {
+            "pending": true,
+            "undo": 6
+          }
+        ],
+        "historyPairs": 12
+      },
+      {
+        "label": "parallel-unequal-owner-3",
+        "ext": "hwpx",
+        "observations": [
+          {
+            "pending": true,
+            "undo": 1
+          },
+          {
+            "pending": false,
+            "undo": 2
+          },
+          {
+            "pending": true,
+            "undo": 3
+          },
+          {
+            "pending": true,
+            "undo": 4
+          },
+          {
+            "pending": false,
+            "undo": 5
+          },
+          {
+            "pending": true,
+            "undo": 6
+          }
+        ],
+        "historyPairs": 12
+      },
+      {
+        "label": "parallel-unequal-owner-3",
+        "ext": "hwp",
+        "observations": [
+          {
+            "pending": true,
+            "undo": 1
+          },
+          {
+            "pending": false,
+            "undo": 2
+          },
+          {
+            "pending": true,
+            "undo": 3
+          },
+          {
+            "pending": true,
+            "undo": 4
+          },
+          {
+            "pending": false,
+            "undo": 5
+          },
+          {
+            "pending": true,
+            "undo": 6
+          }
+        ],
+        "historyPairs": 12
+      }
+    ],
+    "physicalIMEVerified": false,
+    "OSChooserVerified": false,
+    "manualGUIVerified": false,
+    "LinuxVerified": false
+  },
+  "native": {
+    "newActualSavedCases": 276,
+    "previousActualSavedCases": 532,
+    "actualSavedTotal": 808,
+    "APIOnlyBoundaryCases": 16,
+    "total": 824,
+    "fullModelsAndSVGSame": true,
+    "actualSavedOverflowWarnings": 0,
+    "previous": [
+      {
+        "name": "native-final-pr6-164",
+        "cases": 164,
+        "exitCode": 0
+      },
+      {
+        "name": "native-final-pr6-100",
+        "cases": 100,
+        "exitCode": 0
+      },
+      {
+        "name": "native-final-pr7-32",
+        "cases": 32,
+        "exitCode": 0
+      },
+      {
+        "name": "native-final-pr8-200",
+        "cases": 200,
+        "exitCode": 0
+      },
+      {
+        "name": "native-final-history-36",
+        "cases": 36,
+        "exitCode": 0
+      }
+    ],
+    "genuineBoundaryWarnings": 4,
+    "excludedBoundaryWarnings": 2
+  },
+  "evidence": {
+    "rawDirectory": "../table-parallel-merged-fragments-qa",
+    "completePhase": "parallel-final-3",
+    "shardedIndex": "shards-final-276/index.json",
+    "indexSHA256": "5d3168a9994e96d968e602737e903889a76b09e8f95715472af6a4236f80dc14",
+    "manifestSHA256": "457efa00d47772503a59dcc6c46bdf7e55eea3864281bec276091322e23f63f9",
+    "manifestBytes": 1074263609,
+    "perSaveManifestCases": 276,
+    "savedFilesHaveSHA256": true,
+    "perSaveManifestHasSHA256": true,
+    "parserRegressionCases": 36,
+    "originalEvidencePreserved": true
+  },
+  "priorHarnessFailure": {
+    "phase": "parallel-final-2",
+    "individualPassCases": 152,
+    "appExitCode": 0,
+    "normalQuit": true,
+    "harnessExitCode": 1,
+    "finalProofWritten": false,
+    "cause": "RangeError: Invalid string length during monolithic manifest JSON.stringify after app exit",
+    "secondaryError": "Detached Frame while attempting post-quit diagnostics",
+    "fix": "Stream individual JSON rows, avoid post-exit frame diagnostics, shard evidence and hash index; complete 152-case rerun"
+  },
+  "snapshotScopeCases": 17,
+  "mixedExclusionCompare": {
+    "cases": 8,
+    "rows": [
+      {
+        "label": "mixed-large-left",
+        "ext": "hwp",
+        "pageCount": 4,
+        "fullSVGAndExportsSame": true,
+        "allSnapshotOwnersExcluded": true
+      },
+      {
+        "label": "mixed-large-left",
+        "ext": "hwpx",
+        "pageCount": 4,
+        "fullSVGAndExportsSame": true,
+        "allSnapshotOwnersExcluded": true
+      },
+      {
+        "label": "mixed-large-right",
+        "ext": "hwp",
+        "pageCount": 11,
+        "fullSVGAndExportsSame": true,
+        "allSnapshotOwnersExcluded": true
+      },
+      {
+        "label": "mixed-large-right",
+        "ext": "hwpx",
+        "pageCount": 11,
+        "fullSVGAndExportsSame": true,
+        "allSnapshotOwnersExcluded": true
+      },
+      {
+        "label": "mixed-staggered",
+        "ext": "hwp",
+        "pageCount": 9,
+        "fullSVGAndExportsSame": true,
+        "allSnapshotOwnersExcluded": true
+      },
+      {
+        "label": "mixed-staggered",
+        "ext": "hwpx",
+        "pageCount": 9,
+        "fullSVGAndExportsSame": true,
+        "allSnapshotOwnersExcluded": true
+      },
+      {
+        "label": "mixed-short",
+        "ext": "hwp",
+        "pageCount": 11,
+        "fullSVGAndExportsSame": true,
+        "allSnapshotOwnersExcluded": true
+      },
+      {
+        "label": "mixed-short",
+        "ext": "hwpx",
+        "pageCount": 11,
+        "fullSVGAndExportsSame": true,
+        "allSnapshotOwnersExcluded": true
+      }
+    ]
+  },
+  "candidate": {
+    "preservedPR9": "fda752466027f12a6d23b508891bbb581199149d",
+    "ASARSHA256": "e94f2bfc1b0cb1911c358fe16e036935c7ad8514ee4923bff89555f05990e15e",
+    "unchanged": true,
+    "newPackage": false,
+    "ZIP": false,
+    "released": false
+  },
+  "remaining": [
+    "Mixed independent/staggered ownership omissions, clipping and overflow in KNOWN_MIXED_KO.md",
+    "Hancom-authored partial-frame original unavailable",
+    "Physical IME, OS chooser, manual GUI, Hancom comparison, Linux unverified",
+    "Pre-existing missing Rust include_bytes fixtures prevent full lib suite",
+    "New candidate must be validated from independently reviewed new source"
+  ]
+}
