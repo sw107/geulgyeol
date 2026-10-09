@@ -3,7 +3,7 @@
 import puppeteer from '../rhwp-studio/node_modules/puppeteer-core/lib/puppeteer/puppeteer-core.js';
 import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';import {createHash} from 'node:crypto';
-const q=path.resolve(process.argv[2]),executable=path.resolve(process.argv[3]),engineSHA=process.argv[4];
+const q=path.resolve(process.argv[2]),executable=path.resolve(process.argv[3]),engineSHA=process.argv[4],expectedVersion=process.argv[5]??JSON.parse(fs.readFileSync(new URL('../desktop/package.json',import.meta.url))).version;
 assert(executable.includes('.app/Contents/MacOS/'));assert(!fs.existsSync(path.join(q,'profile')));
 const env={...process.env,GEULGYEOL_PROFILE_ROOT:path.join(q,'profile')};
 for(const key of ['ELECTRON_RUN_AS_NODE','GEULGYEOL_QA_DIR','GEULGYEOL_ELECTRON_MODULE','GEULGYEOL_QA_PACKAGED_APP'])delete env[key];
@@ -35,7 +35,7 @@ try{
   b=await puppeteer.connect({browserWSEndpoint:log.match(/DevTools listening on (ws:\/\/\S+)/)[1],defaultViewport:null});let page;
   await until(async()=>{page=(await b.pages()).find(page=>/^http:\/\/127\.0\.0\.1:\d+\/$/.test(page.url()));return page;},'ordinary window');
   await page.waitForFunction(()=>!document.querySelector('#save').disabled,{timeout:30000});
-  const info=await page.evaluate(()=>window.baram.info());assert.equal(info.version,'0.4.4-beta.2');
+  const info=await page.evaluate(()=>window.baram.info());assert.equal(info.version,expectedVersion);
   const state=await page.evaluate(()=>document.querySelector('#editor iframe').contentWindow.baramHost.state());assert.equal(state.dirty,false);
   const wasm=Buffer.from(await(await fetch(page.url()+'studio/rhwp_bg.wasm')).arrayBuffer()),hash=createHash('sha256').update(wasm).digest('hex');assert.equal(hash,engineSHA);
   await page.screenshot({path:path.join(q,'startup.png')});await normalQuit();
