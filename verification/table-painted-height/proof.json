@@ -1,0 +1,595 @@
+{
+  "basis": {
+    "sourceParent": "8512984d0d1d41d16484784937b8c6f1a891af39",
+    "reviewBaseMain": "2ce682f1a23f52ebae359d7cb82eeef9aa00c443",
+    "branch": "dev/table-painted-height"
+  },
+  "scope": "No-caption, separately emitted Page/Top RowBreak trailing host in the page-layer table path; flow and serialization unchanged.",
+  "sourceHashes": {
+    "engine/src/renderer/layout.rs": "cd6b9d56c6112f63b76abe81a70231a0c881eda799b63276426b8f49336e96fa",
+    "scripts/check-native-table-painted-height.mjs": "03629fa9bf9de58f719002248453a459978d5f3a2a4cfb211c7c171404e5b8f8"
+  },
+  "electron": {
+    "runtime": "44.3.0",
+    "cases": 16,
+    "historyPairs": 32,
+    "nativeIPCReopens": 32,
+    "errors": [],
+    "receivedWASMSHA256": "4af551769fa8d5d0eb27fda4f4e208e04eb72cb6ea18ab13562038659cb4fcd0",
+    "WASMSHA256": "4af551769fa8d5d0eb27fda4f4e208e04eb72cb6ea18ab13562038659cb4fcd0",
+    "lifecycle": {
+      "exitCode": 0,
+      "normalQuit": true
+    },
+    "rows": [
+      {
+        "label": "split-none-fit",
+        "ext": "hwpx",
+        "operation": "input-0",
+        "beforePages": 16,
+        "afterPages": 16,
+        "target": {
+          "cell": 0,
+          "para": 0,
+          "page": 0
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "split-none-fit",
+        "ext": "hwpx",
+        "operation": "input-1",
+        "beforePages": 16,
+        "afterPages": 16,
+        "target": {
+          "cell": 23,
+          "para": 0,
+          "page": 7
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "split-none-fit",
+        "ext": "hwpx",
+        "operation": "input-2",
+        "beforePages": 16,
+        "afterPages": 16,
+        "target": {
+          "cell": 47,
+          "para": 0,
+          "page": 14
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "split-none-fit",
+        "ext": "hwpx",
+        "operation": "host-input",
+        "beforePages": 16,
+        "afterPages": 16,
+        "historyPairs": 2
+      },
+      {
+        "label": "split-none-fit",
+        "ext": "hwp",
+        "operation": "input-0",
+        "beforePages": 16,
+        "afterPages": 16,
+        "target": {
+          "cell": 0,
+          "para": 0,
+          "page": 0
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "split-none-fit",
+        "ext": "hwp",
+        "operation": "input-1",
+        "beforePages": 16,
+        "afterPages": 16,
+        "target": {
+          "cell": 23,
+          "para": 0,
+          "page": 7
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "split-none-fit",
+        "ext": "hwp",
+        "operation": "input-2",
+        "beforePages": 16,
+        "afterPages": 16,
+        "target": {
+          "cell": 47,
+          "para": 0,
+          "page": 14
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "split-none-fit",
+        "ext": "hwp",
+        "operation": "host-input",
+        "beforePages": 16,
+        "afterPages": 16,
+        "historyPairs": 2
+      },
+      {
+        "label": "whole-none-fit",
+        "ext": "hwpx",
+        "operation": "input-0",
+        "beforePages": 2,
+        "afterPages": 2,
+        "target": {
+          "cell": 0,
+          "para": 0,
+          "page": 0
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "whole-none-fit",
+        "ext": "hwpx",
+        "operation": "input-1",
+        "beforePages": 2,
+        "afterPages": 2,
+        "target": {
+          "cell": 24,
+          "para": 0,
+          "page": 0
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "whole-none-fit",
+        "ext": "hwpx",
+        "operation": "input-2",
+        "beforePages": 2,
+        "afterPages": 2,
+        "target": {
+          "cell": 47,
+          "para": 0,
+          "page": 0
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "whole-none-fit",
+        "ext": "hwpx",
+        "operation": "host-input",
+        "beforePages": 2,
+        "afterPages": 2,
+        "historyPairs": 2
+      },
+      {
+        "label": "whole-none-fit",
+        "ext": "hwp",
+        "operation": "input-0",
+        "beforePages": 2,
+        "afterPages": 2,
+        "target": {
+          "cell": 0,
+          "para": 0,
+          "page": 0
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "whole-none-fit",
+        "ext": "hwp",
+        "operation": "input-1",
+        "beforePages": 2,
+        "afterPages": 2,
+        "target": {
+          "cell": 24,
+          "para": 0,
+          "page": 0
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "whole-none-fit",
+        "ext": "hwp",
+        "operation": "input-2",
+        "beforePages": 2,
+        "afterPages": 2,
+        "target": {
+          "cell": 47,
+          "para": 0,
+          "page": 0
+        },
+        "historyPairs": 2
+      },
+      {
+        "label": "whole-none-fit",
+        "ext": "hwp",
+        "operation": "host-input",
+        "beforePages": 2,
+        "afterPages": 2,
+        "historyPairs": 2
+      }
+    ]
+  },
+  "paint": {
+    "checks": 52,
+    "pages": 468,
+    "maxBorderOverflowPx": 0.26666666666721994,
+    "maxInkOverflowPx": -0.6132822926839481,
+    "hidden": 0,
+    "partialClip": 0,
+    "unchangedTolerancePx": 2
+  },
+  "boundary": {
+    "sourceFile": "whole-none-fit-hwpx-input-1.hwp",
+    "sourceSHA256": "743a74b56186f62f904692ff47dd8387d8f2f3c689ee9fa34135a1e4a539d1f4",
+    "wasmSHA256": "4af551769fa8d5d0eb27fda4f4e208e04eb72cb6ea18ab13562038659cb4fcd0",
+    "nativeSHA256": "b4eb7b0a89cdaddf310ba5f0dd3a8596bf7d5f78307491a34c9e140abc2713da",
+    "cases": 16,
+    "rows": [
+      {
+        "name": "original",
+        "top": 283,
+        "bottom": 283,
+        "shrink": 0,
+        "ext": "hwp",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 985.0933333333334,
+        "visibleOverflow": 0.26666666666721994,
+        "diagnostics": [],
+        "savedSHA256": "4e701d75851d852f6cf9330ff00c410751383735764f73bb177e7b0a55838449",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "original",
+        "top": 283,
+        "bottom": 283,
+        "shrink": 0,
+        "ext": "hwpx",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 985.0933333333334,
+        "visibleOverflow": 0.26666666666721994,
+        "diagnostics": [],
+        "savedSHA256": "2491f1091d1e61a3ff8d77656c7d84c8f4b6345e856f2299033823623fce448c",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "bottom-zero",
+        "top": 900,
+        "bottom": 0,
+        "shrink": 0,
+        "ext": "hwp",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 985.0933333333334,
+        "visibleOverflow": 0.26666666666721994,
+        "diagnostics": [],
+        "savedSHA256": "fbe5c79a05636349630cb78d89b5b88f0cdf5845f37d6d731e1dd8f97aa6ec99",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "bottom-zero",
+        "top": 900,
+        "bottom": 0,
+        "shrink": 0,
+        "ext": "hwpx",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 985.0933333333334,
+        "visibleOverflow": 0.26666666666721994,
+        "diagnostics": [],
+        "savedSHA256": "6402a29279ddb663b3202872dfb777e59c580c04ebeb521bd780a2319f274f69",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "bottom-large",
+        "top": 0,
+        "bottom": 900,
+        "shrink": 0,
+        "ext": "hwp",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 985.0933333333334,
+        "visibleOverflow": 0.26666666666721994,
+        "diagnostics": [],
+        "savedSHA256": "e862874b9965c96e9b77dbd385a4af74f7e766eff4ec51059aa0941b1a50d2a0",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "bottom-large",
+        "top": 0,
+        "bottom": 900,
+        "shrink": 0,
+        "ext": "hwpx",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 985.0933333333334,
+        "visibleOverflow": 0.26666666666721994,
+        "diagnostics": [],
+        "savedSHA256": "9964f9ea6712f4d72682151464476d70a66d075680827ad64598b4faa138f80d",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "bottom-negative",
+        "top": 900,
+        "bottom": -150,
+        "shrink": 0,
+        "ext": "hwp",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 985.0933333333334,
+        "visibleOverflow": 0.26666666666721994,
+        "diagnostics": [],
+        "savedSHA256": "04f4421584a6ba76c5e1ec60c1c8b982fb6b55e490c0ff4fe46fc6ecf95a4d39",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "bottom-negative",
+        "top": 900,
+        "bottom": -150,
+        "shrink": 0,
+        "ext": "hwpx",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 985.0933333333334,
+        "visibleOverflow": 0.26666666666721994,
+        "diagnostics": [],
+        "savedSHA256": "8c06616120ddbb3722b93ec9786646eea7b3d8138ca47e834cbb1007be9c6296",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "within-two",
+        "top": 0,
+        "bottom": 900,
+        "shrink": 75,
+        "ext": "hwp",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 984.0933333333334,
+        "visibleOverflow": 1.26666666666722,
+        "diagnostics": [],
+        "savedSHA256": "3bd470ebb0e41d9c86d6503c07fcbf63494ffe1cfa727c71b7510a2721bf4cc0",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "within-two",
+        "top": 0,
+        "bottom": 900,
+        "shrink": 75,
+        "ext": "hwpx",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 984.0933333333334,
+        "visibleOverflow": 1.26666666666722,
+        "diagnostics": [],
+        "savedSHA256": "07cad6a2e278e55233918cc44069adea20e3f33a3ab2f305da7b1bdbd82bfbeb",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "visible-over-two",
+        "top": 900,
+        "bottom": 0,
+        "shrink": 150,
+        "ext": "hwp",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 983.0933333333334,
+        "visibleOverflow": 2.26666666666722,
+        "diagnostics": [
+          {
+            "y": 985.4,
+            "bottom": 983.1,
+            "overflow": 2.3
+          }
+        ],
+        "savedSHA256": "27c9c950429364a63975715e63a7e8110033265ffa5dfdf46ddc03b68c51f029",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "visible-over-two",
+        "top": 900,
+        "bottom": 0,
+        "shrink": 150,
+        "ext": "hwpx",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 983.0933333333334,
+        "visibleOverflow": 2.26666666666722,
+        "diagnostics": [
+          {
+            "y": 985.4,
+            "bottom": 983.1,
+            "overflow": 2.3
+          }
+        ],
+        "savedSHA256": "37cf4d21d4289aa032d1af352d34b44275cc1122ff67200508cc89aa9c85952c",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "visible-over-three",
+        "top": 0,
+        "bottom": 900,
+        "shrink": 225,
+        "ext": "hwp",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 982.0933333333334,
+        "visibleOverflow": 3.26666666666722,
+        "diagnostics": [
+          {
+            "y": 985.4,
+            "bottom": 982.1,
+            "overflow": 3.3
+          }
+        ],
+        "savedSHA256": "c71c4cd7c65593b0c08391f605b7c6bb58a857cfd1810383fe7db1640e778d10",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "visible-over-three",
+        "top": 0,
+        "bottom": 900,
+        "shrink": 225,
+        "ext": "hwpx",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 982.0933333333334,
+        "visibleOverflow": 3.26666666666722,
+        "diagnostics": [
+          {
+            "y": 985.4,
+            "bottom": 982.1,
+            "overflow": 3.3
+          }
+        ],
+        "savedSHA256": "ccd5e06d8c0ae221dff131850a923bec02f1c5cc863ad0fc537733b39107e75e",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "overlap-excluded",
+        "top": 283,
+        "bottom": 283,
+        "shrink": 0,
+        "overlap": true,
+        "ext": "hwp",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 985.0933333333334,
+        "visibleOverflow": 0.26666666666721994,
+        "diagnostics": [
+          {
+            "y": 1013.1,
+            "bottom": 985.1,
+            "overflow": 28
+          }
+        ],
+        "savedSHA256": "c718d04a9014caf0429482fb749df475320b3746a28f8991820dd739f3b88958",
+        "completeNativeSVGSame": true
+      },
+      {
+        "name": "overlap-excluded",
+        "top": 283,
+        "bottom": 283,
+        "shrink": 0,
+        "overlap": true,
+        "ext": "hwpx",
+        "frameBottom": 985.3600000000006,
+        "bodyBottom": 985.0933333333334,
+        "visibleOverflow": 0.26666666666721994,
+        "diagnostics": [
+          {
+            "y": 1013.1,
+            "bottom": 985.1,
+            "overflow": 28
+          }
+        ],
+        "savedSHA256": "deed4bb9bb22b094a7a0a151a130db44cdccbb7f7e3212dacca9b476883a2004",
+        "completeNativeSVGSame": true
+      }
+    ]
+  },
+  "nativeComparisons": {
+    "previousActualElectronSavedFiles": 264,
+    "newActualElectronSavedFiles": 32,
+    "APIDerivedBoundaryFiles": 16,
+    "completeSVGSame": true,
+    "modelsEqual": true,
+    "actualElectronWarningsBefore": 12,
+    "actualElectronWarningsAfter": 0,
+    "genuineBorderOverflowWarnings": 4,
+    "predicateExcludedWarnings": 2
+  },
+  "builds": {
+    "native": {
+      "command": [
+        "cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "Native example"
+      ],
+      "targetInitialBytes": 4763631616,
+      "targetLimitBytes": 4810363371,
+      "targetPeakBytes": 4795691008,
+      "targetFinalBytes": 4763586560,
+      "minimumFreeBytes": 16106127360,
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "stopReason": null,
+      "preservedBuildArtifacts": [
+        {
+          "path": "debug/deps/librhwp.rlib",
+          "bytes": 115722432
+        },
+        {
+          "path": "debug/examples/horizontal_table_saved_check.d",
+          "bytes": 73516
+        },
+        {
+          "path": "debug/examples/horizontal_table_saved_check-ea942eb343e95067",
+          "bytes": 36329744
+        },
+        {
+          "path": "debug/examples/horizontal_table_saved_check",
+          "bytes": 36329744
+        },
+        {
+          "path": "debug/examples/horizontal_table_saved_check-ea942eb343e95067.d",
+          "bytes": 384
+        }
+      ],
+      "elapsedSeconds": 25.0
+    },
+    "wasm": {
+      "command": [
+        "cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "WASM release"
+      ],
+      "targetInitialBytes": 4763586560,
+      "targetLimitBytes": 4810363371,
+      "targetPeakBytes": 4763586560,
+      "targetFinalBytes": 4763586560,
+      "minimumFreeBytes": 16106127360,
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "stopReason": null,
+      "preservedBuildArtifacts": [
+        {
+          "path": "wasm32-unknown-unknown/release/rhwp.wasm",
+          "bytes": 13685790
+        },
+        {
+          "path": "wasm32-unknown-unknown/release/rhwp.d",
+          "bytes": 72425
+        },
+        {
+          "path": "wasm32-unknown-unknown/release/librhwp.d",
+          "bytes": 72428
+        },
+        {
+          "path": "wasm32-unknown-unknown/release/librhwp.rlib",
+          "bytes": 103780526
+        },
+        {
+          "path": "wasm32-unknown-unknown/release/deps/rhwp.wasm",
+          "bytes": 13685790
+        },
+        {
+          "path": "wasm32-unknown-unknown/release/deps/librhwp.rlib",
+          "bytes": 103780526
+        }
+      ],
+      "elapsedSeconds": 138.37
+    }
+  },
+  "rawEvidenceHashes": {
+    "native-baseline.log": "da2b8221ab4d227cd9b622ff831735466794cc032f401d3e0187fe4877a1ceff",
+    "native-164.log": "664ab1bdd4e97003e28588892971d70825c2647ee639885afa7e4cc418836a20",
+    "native-100.log": "4eec7e74dea2ed3ffdb108afee122fbe08d5abfe4af05d95661b1f6da18bed92",
+    "native-electron-32.log": "c3720fd6785bf2004e6109abe6640dffc40751fca7482acf4ae1fcf6b217e481",
+    "boundary-final/proof.json": "756b263843a9e74bf3b867fe2c597fbb8c99005f6219b3b4ff89c93ca043070b",
+    "boundary-before.log": "76a27412ca69a2a6f2880bb1cb1599f392adf8620561a5a86b48c92882d4fd56",
+    "boundary-before/original-hwp.log": "2e0c3a854eca5709da249b8a13c8fee1ba55159cc1ea1a3708b87068ae5fc6fd",
+    "electron-1/proof.json": "ddcf725bc766278283db13ad66038ea8aee75bbefebee9c39333da1b9bd14561",
+    "electron-1/manifest.json": "0efcff2cc67f848b0d2a1f846adf9b2731d9e6bad905bfeb80d62990a35c262e",
+    "electron-1/lifecycle.json": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+    "electron-1/build-proof.json": "a92e701567d74998d5e8b755b94864b92381227610821b734c243011ed5b5445"
+  },
+  "limitations": [
+    "No ordinary in-body, caption, multicolumn, specialized controls or unrelated float contract change claimed.",
+    "No full Rust lib tests: three existing include_bytes fixtures missing.",
+    "No physical IME, OS chooser, manual GUI, Hancom app comparison, Linux runtime or new app packaging.",
+    "Real partially stored frames and merged-cell continuation boundaries remain next priority."
+  ]
+}
