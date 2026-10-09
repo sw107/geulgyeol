@@ -14,7 +14,7 @@ record,log=qa/'harness-process.json',qa/'harness-process.log';assert not record.
 def sha(p):
  with p.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
 asar=exe.parents[1]/'Resources/app.asar';before=sha(asar)
-dependencies={'check-packaged-document-lifecycle.mjs':['check-electron-document-lifecycle.mjs']}
+dependencies={'check-packaged-document-lifecycle.mjs':['check-electron-document-lifecycle.mjs'],'check-packaged-final-ack.mjs':['check-electron-final-ack.mjs']}
 source_names=list(dict.fromkeys(dependencies.get(script,[])+[script,'run-packaged-qa.py','packaged-electron-qa.mjs','electron-document-lifecycle-bootstrap.cjs']+(['write-electron-table-manifest.mjs'] if script=='check-electron-stored-merged-fragments.mjs' else [])))
 sources={name:sha(root/'scripts'/name) for name in source_names}
 command=['node',str(root/'scripts'/script),str(qa)]
