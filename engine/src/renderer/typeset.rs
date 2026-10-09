@@ -20982,20 +20982,42 @@ impl TypesetEngine {
         true
     }
 
+    fn format_trailing_table_host(
+        &self,
+        para: &Paragraph,
+        composed: Option<&ComposedParagraph>,
+        styles: &ResolvedStyleSet,
+        width: f64,
+    ) -> FormattedParagraph {
+        let mut fmt = self.format_paragraph(para, composed, styles, Some(width));
+        // The PartialParagraph painter uses the resolved style even with no
+        // saved lines. The general no-lines flow policy must not erase this
+        // leading spacing from the trailing host's fit budget.
+        let style_id = composed.map(|c| c.para_style_id as usize)
+            .unwrap_or(para.para_shape_id as usize);
+        let before = styles.para_styles.get(style_id).map(|s| s.spacing_before)
+            .unwrap_or(0.0);
+        let delta = before - fmt.spacing_before;
+        fmt.spacing_before = before;
+        fmt.total_height += delta;
+        fmt.height_for_fit += delta;
+        fmt
+    }
+
     fn emit_trailing_table_host(
         &self,
         st: &mut TypesetState,
         para_idx: usize,
+        para: &Paragraph,
         fmt: &FormattedParagraph,
     ) {
         let mut start = 0;
         let count = fmt.line_count();
         while start < count {
-            let before = if start == 0 && st.current_height > 0.0 {
-                fmt.spacing_before
-            } else {
-                0.0
-            };
+            let before = crate::renderer::paragraph_spacing::partial_paragraph_spacing_before_px(
+                Some(para), para_idx, start, fmt.spacing_before, self.dpi,
+                st.current_height.abs() < 1.0, false, false, false,
+            );
             let mut end = start;
             let mut advance = 0.0;
             while end < count {
@@ -23972,6 +23994,24 @@ impl TypesetEngine {
                     st.current_height, whole_fit_table_total, available,
                 );
             }
+            if st.col_count == 1 && ft.table_footnotes.is_empty()
+                && page_top_rowbreak_has_trailing_host(para, ctrl_idx, table)
+            {
+                st.current_items.push(PageItem::Table {
+                    para_index: para_idx,
+                    control_index: ctrl_idx,
+                });
+                // Page/Top/offset=0 places the frame at the body origin.
+                // Its bottom margin belongs to the frame; paragraph before,
+                // after and line spacing belong to the separate text owner.
+                st.current_height = st.current_height.max(ft.effective_height
+                    + hwpunit_to_px(table.outer_margin_bottom as i32, self.dpi));
+                let host_fmt = self.format_trailing_table_host(
+                    para, composed_all.get(para_idx), styles, st.layout.body_area.width,
+                );
+                self.emit_trailing_table_host(st, para_idx, para, &host_fmt);
+                return None;
+            }
             self.place_table_with_text(
                 st,
                 para_idx,
@@ -24777,8 +24817,8 @@ impl TypesetEngine {
             trailing_host_format: (st.col_count == 1
                 && ft.table_footnotes.is_empty()
                 && page_top_rowbreak_has_trailing_host(para, ctrl_idx, table))
-                .then(|| self.format_paragraph(para, composed_all.get(para_idx), styles,
-                    Some(st.layout.body_area.width))),
+                .then(|| self.format_trailing_table_host(para, composed_all.get(para_idx), styles,
+                    st.layout.body_area.width)),
             terminal_nested_child_host_line_spacing: native_terminal_child_host_line_spacing(
                 self.profile.get().hwp5_stored_pagination_layout(),
                 table,
@@ -25145,7 +25185,7 @@ impl TypesetEngine {
                 continuation.skip_consumed_row();
                 if continuation.row >= row_count {
                     if let Some(fmt) = &prepared.trailing_host_format {
-                        self.emit_trailing_table_host(st, para_idx, fmt);
+                        self.emit_trailing_table_host(st, para_idx, para, fmt);
                     }
                 }
                 return TableContinuationIteration::Skipped;
@@ -25755,7 +25795,7 @@ impl TypesetEngine {
                     });
                 if skip_terminal_empty_sliver {
                     if let Some(fmt) = &prepared.trailing_host_format {
-                        self.emit_trailing_table_host(st, para_idx, fmt);
+                        self.emit_trailing_table_host(st, para_idx, para, fmt);
                     }
                     continuation.finish(row_count, false);
                     return TableContinuationIteration::Complete;
@@ -25851,7 +25891,7 @@ impl TypesetEngine {
                     }
                 }
                 if let Some(fmt) = &prepared.trailing_host_format {
-                    self.emit_trailing_table_host(st, para_idx, fmt);
+                    self.emit_trailing_table_host(st, para_idx, para, fmt);
                 }
                 continuation.finish(row_count, true);
                 return TableContinuationIteration::Complete;

@@ -2777,6 +2777,18 @@ impl HwpDocument {
             .map_err(|e| e.into())
     }
 
+    /// Inverse typing cannot restore an imported absent line ladder. Preserve
+    /// that source state for the first edit of a trailing page-top table host.
+    #[wasm_bindgen(js_name = bodyTableHostNeedsTextSnapshot)]
+    pub fn body_table_host_needs_text_snapshot(&self, section_idx: u32, para_idx: u32) -> bool {
+        self.document.sections.get(section_idx as usize)
+            .and_then(|s| s.paragraphs.get(para_idx as usize))
+            .is_some_and(|para| para.line_segs.is_empty()
+                && para.controls.iter().enumerate().any(|(ci, c)|
+                    matches!(c, Control::Table(t)
+                        if crate::renderer::float_placement::page_top_rowbreak_has_trailing_host(para, ci, t))))
+    }
+
     /// 문단에 텍스트박스가 있는 Shape 컨트롤이 있으면 해당 control_index를 반환한다.
     /// 없으면 -1을 반환한다.
     #[wasm_bindgen(js_name = getTextBoxControlIndex)]

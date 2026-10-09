@@ -152,6 +152,29 @@ pub(crate) fn compose_section_with_horizontal_shaping(
         .filter(|c| line_breaking::is_frame_float(c)).count();
     let multiple_pictures = picture_count >= 2 || section.paragraphs.iter().flat_map(|p| &p.controls)
         .any(|c| matches!(c, Control::Shape(_)) && line_breaking::is_frame_float(c));
+    if column_def.column_count <= 1 {
+        let layout = crate::renderer::page_layout::PageLayoutInfo::from_page_def(
+            &section.section_def.page_def, &column_def, dpi,
+        );
+        for (paragraph, result) in section.paragraphs.iter().zip(&mut composed) {
+            let missing_trailing_host = paragraph.line_segs.is_empty()
+                && paragraph.controls.iter().all(|c| matches!(c,
+                    Control::Table(_) | Control::SectionDef(_) | Control::ColumnDef(_)))
+                && paragraph.controls.iter().enumerate().any(|(ci, c)| matches!(c,
+                    Control::Table(t) if super::float_placement::page_top_rowbreak_has_trailing_host(paragraph, ci, t)));
+            if missing_trailing_host {
+                // A trailing body has the column text frame even though its
+                // paragraph also owns a floating table. Use editing's frame
+                // fill instead of the legacy 45-character control fallback.
+                // This is a derived projection; absent source caches stay absent.
+                let mut shadow = paragraph.clone();
+                let style = styles.para_styles.get(paragraph.para_shape_id as usize);
+                reflow_line_segs(&mut shadow,
+                    ParagraphBox::body_for_style(layout.body_area.width, style, dpi), styles, dpi);
+                *result = compose_paragraph_with_horizontal_shaping(&shadow, styles);
+            }
+        }
+    }
     let all_missing = section.paragraphs.iter().all(|p| p.line_segs.is_empty());
     if column_def.column_count <= 1 && (picture_count > 0 || all_missing) {
         let layout = crate::renderer::page_layout::PageLayoutInfo::from_page_def(&section.section_def.page_def, &column_def, dpi);

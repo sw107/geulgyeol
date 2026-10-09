@@ -8,7 +8,8 @@ use super::composer::{
 };
 use super::float_placement::{
     empty_host_physical_ladder_extras_hu, empty_offset_float_deferred_text_ladder_hu,
-    horizontal_range, is_para_topbottom_float, native_empty_host_physical_outer_box_paint_inset,
+    horizontal_range, is_para_topbottom_float, page_top_rowbreak_has_trailing_host,
+    native_empty_host_physical_outer_box_paint_inset,
     native_empty_host_rowbreak_line_advance_hu,
     original_hwpx_column_rowbreak_equal_outer_margin_hu, signed_hwpunit,
     stored_empty_anchor_band_host_line_advance_hu, stored_visible_anchor_band_host_line_advance_hu,
@@ -6736,6 +6737,23 @@ impl LayoutEngine {
                 // ≤8px 백워드 클램프를 모두 캡슐화 (Stage A/B 함수 결합). 렌더러·페이지네이터 공유.
                 y_offset = hcursor.vpos_adjust(y_offset, item_para, paragraphs, styles);
             } // !shape_jumped
+            // A separately emitted trailing host owns its completed line and
+            // paragraph-after advance. A following paragraph's old saved vpos
+            // cannot pull that consumed spacing backwards after a page move.
+            let follows_trailing_table_host = item_is_paragraph
+                && item_ordinal > 0
+                && matches!(&col_content.items[item_ordinal - 1],
+                    PageItem::PartialParagraph { para_index: pi, end_line, .. }
+                    if *pi < item_para
+                        && self.pre_emitted_host_paras.borrow().contains(pi)
+                        && composed.get(*pi).is_some_and(|c| *end_line == c.lines.len())
+                        && paragraphs.get(*pi).is_some_and(|p|
+                            p.controls.iter().enumerate().any(|(ci, c)| matches!(c,
+                                Control::Table(t) if page_top_rowbreak_has_trailing_host(p, ci, t)))));
+            if follows_trailing_table_host && y_offset < y_before_vpos_adjust {
+                hcursor.shift_vpos_base_for_rendered_delta(y_before_vpos_adjust - y_offset);
+                y_offset = y_before_vpos_adjust;
+            }
               // [#5699 H1] 밴드-바닥 활성 단(사다리-미계상 표를 이 단에서 교정): 저장
               // vpos 는 표 밴드를 모르는 좌표계다. 후방 스냅은 순차 흐름과 바닥 중
               // 큰 쪽 아래로 내려가지 못한다 — 바닥 상수만으로 막으면 연속 문단이
@@ -10576,7 +10594,11 @@ impl LayoutEngine {
                             }
                         }
                     }
-                } else if !is_current_empty_para_float && !is_current_visible_para_float {
+                } else if !is_current_empty_para_float && !is_current_visible_para_float
+                    && !(self.pre_emitted_host_paras.borrow().contains(&para_index)
+                        && matches!(para.controls.get(control_index), Some(Control::Table(t))
+                            if page_top_rowbreak_has_trailing_host(para, control_index, t)))
+                {
                     // [#6267] 자리차지(para-float) 표는 흐름을 소비하지 않고
                     // compute_table_y_position 이 sb 이전 앵커(para_y_for_table)로
                     // 따로 앉힌다. 그러므로 여기서 y_offset 에 더한 sb 는 표에는
@@ -10701,6 +10723,14 @@ impl LayoutEngine {
             let para_float_lane_info = table_ctl_out.para_float_lane_info;
             if let Some(ret) = table_ctl_out.early_return {
                 return ret;
+            }
+            let trailing_host_owns_spacing = self.pre_emitted_host_paras.borrow().contains(&para_index)
+                && matches!(para.controls.get(control_index), Some(Control::Table(t))
+                    if page_top_rowbreak_has_trailing_host(para, control_index, t));
+            if trailing_host_owns_spacing {
+                // Retain the table painter's content-bottom record
+                // independently of the separate trailing-body flow.
+                return (y_offset, true);
             }
             // ── 표 아래 간격 ──
             // out-of-flow로 그려진 표(머리말/꼬리말 자리)는 본문 흐름 간격을 추가하지 않는다.
@@ -11533,7 +11563,11 @@ impl LayoutEngine {
                         y_offset += outer_margin_bottom_px;
                     }
                 } else {
-                    if para_style.spacing_after > 0.0 {
+                    if para_style.spacing_after > 0.0
+                        && !(self.pre_emitted_host_paras.borrow().contains(&para_index)
+                            && matches!(para.controls.get(control_index), Some(Control::Table(t))
+                                if page_top_rowbreak_has_trailing_host(para, control_index, t)))
+                    {
                         y_offset += para_style.spacing_after;
                     }
                 }

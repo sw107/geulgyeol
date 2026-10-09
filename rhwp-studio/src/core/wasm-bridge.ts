@@ -1350,6 +1350,10 @@ export class WasmBridge {
     return this.doc.getTextRange(sec, para, charOffset, count);
   }
 
+  bodyTableHostNeedsTextSnapshot(sec: number, para: number): boolean {
+    return this.doc?.bodyTableHostNeedsTextSnapshot(sec, para) ?? false;
+  }
+
   getParagraphLength(sec: number, para: number): number {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     return this.doc.getParagraphLength(sec, para);
