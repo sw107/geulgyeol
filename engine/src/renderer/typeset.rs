@@ -19,7 +19,8 @@ use crate::renderer::composer::{compose_paragraph, first_text_line, ComposedPara
 use crate::renderer::float_placement::{
     empty_offset_float_deferred_text_ladder_hu, horizontal_range, is_page_bottom_fixed_float,
     is_para_topbottom_float, native_empty_host_rowbreak_line_advance_hu,
-    original_hwpx_infront_para_flow_paginates, signed_hwpunit,
+    original_hwpx_infront_para_flow_paginates, page_top_rowbreak_has_trailing_host,
+    signed_hwpunit,
     stored_empty_anchor_band_host_line_advance_hu,
     stored_visible_anchor_band_host_line_advance_from_vpos, FloatLaneSet, FloatPlacementContext,
 };
@@ -198,6 +199,9 @@ struct BlockTableContinuationPreparedState {
     host_spacing_total: f64,
     host_spacing_before: f64,
     host_spacing_after_only: f64,
+    /// Page-top non-overlapping table text stored after the anchor. It gets
+    /// independent line PageItems after the final fragment, with real fit.
+    trailing_host_format: Option<FormattedParagraph>,
     /// 마지막 RowBreak child 뒤의 저장 empty-host line spacing. 첫 anchor
     /// fragment가 아니라 terminal continuation 뒤에서 한 번만 소비한다.
     terminal_nested_child_host_line_spacing: f64,
@@ -20978,6 +20982,56 @@ impl TypesetEngine {
         true
     }
 
+    fn emit_trailing_table_host(
+        &self,
+        st: &mut TypesetState,
+        para_idx: usize,
+        fmt: &FormattedParagraph,
+    ) {
+        let mut start = 0;
+        let count = fmt.line_count();
+        while start < count {
+            let before = if start == 0 && st.current_height > 0.0 {
+                fmt.spacing_before
+            } else {
+                0.0
+            };
+            let mut end = start;
+            let mut advance = 0.0;
+            while end < count {
+                let fit = before + advance + fmt.line_heights[end];
+                if st.current_height + fit > st.available_height() {
+                    break;
+                }
+                advance += fmt.line_advance(end);
+                end += 1;
+            }
+            if end == start {
+                if !st.current_items.is_empty() {
+                    st.advance_column_or_new_page();
+                    continue;
+                }
+                // An indivisible line taller than a fresh page must advance.
+                end += 1;
+                advance = fmt.line_advance(start);
+            }
+            st.current_items.push(PageItem::PartialParagraph {
+                para_index: para_idx,
+                start_line: start,
+                end_line: end,
+            });
+            st.current_height += before + advance;
+            start = end;
+            if start < count {
+                st.advance_column_or_new_page();
+            }
+        }
+        st.current_height += fmt.spacing_after;
+        // The separate line PageItems own the text; table fragment painting
+        // must suppress its embedded host copy on every physical page.
+        st.pre_emitted_host_paras.insert(para_idx);
+    }
+
     /// [Task #1753] 지연 이월되는 visible-host 자리차지 표의 후속 문단 선행 채움.
     ///
     /// 한글은 자리차지(TopAndBottom·vert=Para) RowBreak 표가 현재 쪽 잔여 공간에 안
@@ -24720,6 +24774,11 @@ impl TypesetEngine {
             host_spacing_total,
             host_spacing_before: ft.host_spacing.before,
             host_spacing_after_only: ft.host_spacing.spacing_after_only,
+            trailing_host_format: (st.col_count == 1
+                && ft.table_footnotes.is_empty()
+                && page_top_rowbreak_has_trailing_host(para, ctrl_idx, table))
+                .then(|| self.format_paragraph(para, composed_all.get(para_idx), styles,
+                    Some(st.layout.body_area.width))),
             terminal_nested_child_host_line_spacing: native_terminal_child_host_line_spacing(
                 self.profile.get().hwp5_stored_pagination_layout(),
                 table,
@@ -25084,6 +25143,11 @@ impl TypesetEngine {
                     <= 0.0
             {
                 continuation.skip_consumed_row();
+                if continuation.row >= row_count {
+                    if let Some(fmt) = &prepared.trailing_host_format {
+                        self.emit_trailing_table_host(st, para_idx, fmt);
+                    }
+                }
                 return TableContinuationIteration::Skipped;
             }
 
@@ -25690,6 +25754,9 @@ impl TypesetEngine {
                         )
                     });
                 if skip_terminal_empty_sliver {
+                    if let Some(fmt) = &prepared.trailing_host_format {
+                        self.emit_trailing_table_host(st, para_idx, fmt);
+                    }
                     continuation.finish(row_count, false);
                     return TableContinuationIteration::Complete;
                 }
@@ -25728,7 +25795,7 @@ impl TypesetEngine {
                         + partial_height
                         + bottom_caption_extra
                         + fragment_outer_bottom_overhead
-                        + host_spacing_after_only
+                        + if prepared.trailing_host_format.is_some() { 0.0 } else { host_spacing_after_only }
                         + terminal_nested_child_host_line_spacing;
                 }
                 if queue_table_footnotes {
@@ -25782,6 +25849,9 @@ impl TypesetEngine {
                             break;
                         }
                     }
+                }
+                if let Some(fmt) = &prepared.trailing_host_format {
+                    self.emit_trailing_table_host(st, para_idx, fmt);
                 }
                 continuation.finish(row_count, true);
                 return TableContinuationIteration::Complete;
@@ -27989,6 +28059,7 @@ mod tests {
             host_spacing_total: 0.0,
             host_spacing_before: 0.0,
             host_spacing_after_only: 0.0,
+            trailing_host_format: None,
             terminal_nested_child_host_line_spacing: 0.0,
             strict_following_plain_text_fit: false,
             budget_para_start_height: 0.0,

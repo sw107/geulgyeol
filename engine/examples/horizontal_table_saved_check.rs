@@ -83,6 +83,15 @@ fn main() {
         let body: Vec<_> = (0..d.document().sections[0].paragraphs.len())
             .map(|i| d.get_text_range(0, i as u32, 0, 100000).unwrap())
             .collect();
+        if let Some(expected) = row.get("bodyFormats").and_then(Value::as_array) {
+            for (i, expected) in expected.iter().enumerate() {
+                assert_eq!(parse(d.get_para_properties_at_native(0, i).unwrap()), expected["props"]);
+                assert_eq!(parse(d.get_char_format_runs_native(0, i, 0, body[i].chars().count()).unwrap()), expected["runs"]);
+            }
+        }
+        if let Some(expected) = row.get("pageDef") {
+            assert_eq!(parse(d.get_page_def(0).unwrap()), *expected);
+        }
         assert_eq!(json!(body), row["body"]);
         assert_eq!(d.get_text_file_text(), row["text"].as_str().unwrap());
         for (i, cell) in row["cells"].as_array().unwrap().iter().enumerate() {

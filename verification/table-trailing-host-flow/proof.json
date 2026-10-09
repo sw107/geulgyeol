@@ -1,0 +1,1299 @@
+{
+  "baseCommit": "5d90870a839ebbe07b087426d3305854ae0db15b",
+  "fixedEarlierBranches": {
+    "dev/table-inner-margin-validation": "f2423db182555d7a73cf06974fbcfeb19067cd96",
+    "dev/table-first-fragment-fit": "5d90870a839ebbe07b087426d3305854ae0db15b"
+  },
+  "branch": "dev/table-trailing-host-flow",
+  "actualMacElectron": true,
+  "officialRuntimeVersion": "44.3.0",
+  "engineSHA256": "4d020a603b18ca3ce248a5014463ee581762c798e27225d5e14e9457835b6e23",
+  "receivedEngineSHA256": "4d020a603b18ca3ce248a5014463ee581762c798e27225d5e14e9457835b6e23",
+  "summary": {
+    "cases": 56,
+    "undoRedoPairs": 100,
+    "realIPCSavesAndReopens": 100,
+    "nativeSameSavedBytesFiles": 100,
+    "paintChecks": 160,
+    "physicalPages": 1226,
+    "maximumBorderOverflowPx": -0.27999999999792635,
+    "maximumInkOverflowPx": -2.626526921590198,
+    "hiddenGlyphs": 0,
+    "glyphsVerticallyClippedOver1Px": 0,
+    "nativeOverflowDiagnostics": 0,
+    "rendererErrors": [],
+    "exitCode": 0
+  },
+  "rows": [
+    {
+      "label": "numbered",
+      "ext": "hwpx",
+      "operation": "input-0",
+      "beforePages": 4,
+      "afterPages": 4,
+      "target": {
+        "cell": 0,
+        "para": 0,
+        "page": 0
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 0,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 0,
+          "x": 120.2,
+          "y": 133.2,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 132.3,
+            "w": 559.4,
+            "h": 855.2
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "numbered",
+      "ext": "hwpx",
+      "operation": "input-1",
+      "beforePages": 4,
+      "afterPages": 4,
+      "target": {
+        "cell": 0,
+        "para": 62,
+        "page": 1
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 62,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 0,
+          "cellParaIndex": 62,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 62
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 1,
+          "x": 120.2,
+          "y": 602.5,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 132.3,
+            "w": 559.4,
+            "h": 876.5
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "numbered",
+      "ext": "hwpx",
+      "operation": "input-2",
+      "beforePages": 4,
+      "afterPages": 4,
+      "target": {
+        "cell": 0,
+        "para": 123,
+        "page": 3
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 123,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 0,
+          "cellParaIndex": 123,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 123
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 3,
+          "x": 120.2,
+          "y": 154.5,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 132.3,
+            "w": 559.4,
+            "h": 36.5
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "numbered",
+      "ext": "hwpx",
+      "operation": "replace-one",
+      "beforePages": 4,
+      "afterPages": 4,
+      "historyPairs": 2
+    },
+    {
+      "label": "numbered",
+      "ext": "hwpx",
+      "operation": "replace-all",
+      "beforePages": 4,
+      "afterPages": 4,
+      "historyPairs": 2
+    },
+    {
+      "label": "numbered",
+      "ext": "hwpx",
+      "operation": "size-noop",
+      "noChange": true
+    },
+    {
+      "label": "numbered",
+      "ext": "hwp",
+      "operation": "input-0",
+      "beforePages": 4,
+      "afterPages": 4,
+      "target": {
+        "cell": 0,
+        "para": 0,
+        "page": 0
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 0,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 0,
+          "x": 120.2,
+          "y": 133.2,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 132.3,
+            "w": 559.4,
+            "h": 855.2
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "numbered",
+      "ext": "hwp",
+      "operation": "input-1",
+      "beforePages": 4,
+      "afterPages": 4,
+      "target": {
+        "cell": 0,
+        "para": 62,
+        "page": 1
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 62,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 0,
+          "cellParaIndex": 62,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 62
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 1,
+          "x": 120.2,
+          "y": 602.5,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 132.3,
+            "w": 559.4,
+            "h": 876.5
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "numbered",
+      "ext": "hwp",
+      "operation": "input-2",
+      "beforePages": 4,
+      "afterPages": 4,
+      "target": {
+        "cell": 0,
+        "para": 123,
+        "page": 3
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 123,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 0,
+          "cellParaIndex": 123,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 123
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 3,
+          "x": 120.2,
+          "y": 154.5,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 132.3,
+            "w": 559.4,
+            "h": 36.5
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "numbered",
+      "ext": "hwp",
+      "operation": "replace-one",
+      "beforePages": 4,
+      "afterPages": 4,
+      "historyPairs": 2
+    },
+    {
+      "label": "numbered",
+      "ext": "hwp",
+      "operation": "replace-all",
+      "beforePages": 4,
+      "afterPages": 4,
+      "historyPairs": 2
+    },
+    {
+      "label": "numbered",
+      "ext": "hwp",
+      "operation": "size-noop",
+      "noChange": true
+    },
+    {
+      "label": "growth",
+      "ext": "hwpx",
+      "operation": "input-0",
+      "beforePages": 3,
+      "afterPages": 3,
+      "target": {
+        "cell": 0,
+        "para": 0,
+        "page": 0
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 0,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 0,
+          "x": 120.2,
+          "y": 134.1,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 132.3,
+            "w": 93.3,
+            "h": 49.1
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwpx",
+      "operation": "input-1",
+      "beforePages": 3,
+      "afterPages": 3,
+      "target": {
+        "cell": 17,
+        "para": 0,
+        "page": 1
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 17,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 17,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 1,
+          "x": 120.2,
+          "y": 183.2,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 181.4,
+            "w": 93.3,
+            "h": 49.1
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwpx",
+      "operation": "input-2",
+      "beforePages": 3,
+      "afterPages": 3,
+      "target": {
+        "cell": 47,
+        "para": 0,
+        "page": 2
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 47,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 47,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 2,
+          "x": 120.2,
+          "y": 870.5,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 868.7,
+            "w": 93.3,
+            "h": 49.1
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwpx",
+      "operation": "host-input",
+      "beforePages": 3,
+      "afterPages": 3,
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwpx",
+      "operation": "replace-one",
+      "beforePages": 3,
+      "afterPages": 4,
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwpx",
+      "operation": "replace-all",
+      "beforePages": 3,
+      "afterPages": 8,
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwpx",
+      "operation": "size-noop",
+      "noChange": true
+    },
+    {
+      "label": "growth",
+      "ext": "hwpx",
+      "operation": "height-30",
+      "beforePages": 3,
+      "afterPages": 3,
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwpx",
+      "operation": "height-2",
+      "beforePages": 3,
+      "afterPages": 3,
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwp",
+      "operation": "input-0",
+      "beforePages": 3,
+      "afterPages": 3,
+      "target": {
+        "cell": 0,
+        "para": 0,
+        "page": 0
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 0,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 0,
+          "x": 120.2,
+          "y": 134.1,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 132.3,
+            "w": 93.3,
+            "h": 49.1
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwp",
+      "operation": "input-1",
+      "beforePages": 3,
+      "afterPages": 3,
+      "target": {
+        "cell": 17,
+        "para": 0,
+        "page": 1
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 17,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 17,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 1,
+          "x": 120.2,
+          "y": 183.2,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 181.4,
+            "w": 93.3,
+            "h": 49.1
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwp",
+      "operation": "input-2",
+      "beforePages": 3,
+      "afterPages": 3,
+      "target": {
+        "cell": 47,
+        "para": 0,
+        "page": 2
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 47,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 47,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 2,
+          "x": 120.2,
+          "y": 870.5,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 868.7,
+            "w": 93.3,
+            "h": 49.1
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwp",
+      "operation": "host-input",
+      "beforePages": 3,
+      "afterPages": 3,
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwp",
+      "operation": "replace-one",
+      "beforePages": 3,
+      "afterPages": 4,
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwp",
+      "operation": "replace-all",
+      "beforePages": 3,
+      "afterPages": 8,
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwp",
+      "operation": "size-noop",
+      "noChange": true
+    },
+    {
+      "label": "growth",
+      "ext": "hwp",
+      "operation": "height-30",
+      "beforePages": 3,
+      "afterPages": 3,
+      "historyPairs": 2
+    },
+    {
+      "label": "growth",
+      "ext": "hwp",
+      "operation": "height-2",
+      "beforePages": 3,
+      "afterPages": 3,
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwpx",
+      "operation": "input-0",
+      "beforePages": 11,
+      "afterPages": 11,
+      "target": {
+        "cell": 0,
+        "para": 0,
+        "page": 0
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 0,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 0,
+          "x": 120.2,
+          "y": 134.1,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 132.3,
+            "w": 93.3,
+            "h": 155.8
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwpx",
+      "operation": "input-1",
+      "beforePages": 11,
+      "afterPages": 11,
+      "target": {
+        "cell": 24,
+        "para": 0,
+        "page": 5
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 24,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 5,
+          "x": 120.2,
+          "y": 360.3,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 358.5,
+            "w": 93.3,
+            "h": 155.8
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwpx",
+      "operation": "input-2",
+      "beforePages": 11,
+      "afterPages": 11,
+      "target": {
+        "cell": 47,
+        "para": 0,
+        "page": 10
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 47,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 47,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 10,
+          "x": 120.2,
+          "y": 445.7,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 443.8,
+            "w": 93.3,
+            "h": 155.8
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwpx",
+      "operation": "host-input",
+      "beforePages": 11,
+      "afterPages": 11,
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwpx",
+      "operation": "replace-one",
+      "beforePages": 11,
+      "afterPages": 10,
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwpx",
+      "operation": "replace-all",
+      "beforePages": 11,
+      "afterPages": 3,
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwpx",
+      "operation": "size-noop",
+      "noChange": true
+    },
+    {
+      "label": "shrink",
+      "ext": "hwpx",
+      "operation": "height-30",
+      "beforePages": 11,
+      "afterPages": 11,
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwpx",
+      "operation": "height-2",
+      "beforePages": 11,
+      "afterPages": 11,
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwp",
+      "operation": "input-0",
+      "beforePages": 11,
+      "afterPages": 11,
+      "target": {
+        "cell": 0,
+        "para": 0,
+        "page": 0
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 0,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 0,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 0,
+          "x": 120.2,
+          "y": 134.1,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 132.3,
+            "w": 93.3,
+            "h": 155.8
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwp",
+      "operation": "input-1",
+      "beforePages": 11,
+      "afterPages": 11,
+      "target": {
+        "cell": 24,
+        "para": 0,
+        "page": 5
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 24,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 5,
+          "x": 120.2,
+          "y": 360.3,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 358.5,
+            "w": 93.3,
+            "h": 155.8
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwp",
+      "operation": "input-2",
+      "beforePages": 11,
+      "afterPages": 11,
+      "target": {
+        "cell": 47,
+        "para": 0,
+        "page": 10
+      },
+      "caret": {
+        "position": {
+          "sectionIndex": 0,
+          "paragraphIndex": 0,
+          "parentParaIndex": 0,
+          "controlIndex": 2,
+          "cellIndex": 47,
+          "cellParaIndex": 0,
+          "cellPath": [
+            {
+              "controlIndex": 2,
+              "cellIndex": 47,
+              "cellParaIndex": 0
+            }
+          ],
+          "charOffset": 0
+        },
+        "rect": {
+          "pageIndex": 10,
+          "x": 120.2,
+          "y": 445.7,
+          "height": 13.3,
+          "cellBounds": {
+            "x": 113.4,
+            "y": 443.8,
+            "w": 93.3,
+            "h": 155.8
+          },
+          "cellOverflowed": false
+        }
+      },
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwp",
+      "operation": "host-input",
+      "beforePages": 11,
+      "afterPages": 11,
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwp",
+      "operation": "replace-one",
+      "beforePages": 11,
+      "afterPages": 10,
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwp",
+      "operation": "replace-all",
+      "beforePages": 11,
+      "afterPages": 3,
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwp",
+      "operation": "size-noop",
+      "noChange": true
+    },
+    {
+      "label": "shrink",
+      "ext": "hwp",
+      "operation": "height-30",
+      "beforePages": 11,
+      "afterPages": 11,
+      "historyPairs": 2
+    },
+    {
+      "label": "shrink",
+      "ext": "hwp",
+      "operation": "height-2",
+      "beforePages": 11,
+      "afterPages": 11,
+      "historyPairs": 2
+    },
+    {
+      "label": "long-host",
+      "ext": "hwpx",
+      "operation": "host-input",
+      "beforePages": 15,
+      "afterPages": 15,
+      "historyPairs": 2
+    },
+    {
+      "label": "long-host",
+      "ext": "hwpx",
+      "operation": "replace-one",
+      "beforePages": 15,
+      "afterPages": 14,
+      "historyPairs": 2
+    },
+    {
+      "label": "long-host",
+      "ext": "hwp",
+      "operation": "host-input",
+      "beforePages": 15,
+      "afterPages": 15,
+      "historyPairs": 2
+    },
+    {
+      "label": "long-host",
+      "ext": "hwp",
+      "operation": "replace-one",
+      "beforePages": 15,
+      "afterPages": 14,
+      "historyPairs": 2
+    },
+    {
+      "label": "budget",
+      "ext": "hwpx",
+      "operation": "host-input",
+      "beforePages": 16,
+      "afterPages": 16,
+      "historyPairs": 2
+    },
+    {
+      "label": "budget",
+      "ext": "hwpx",
+      "operation": "replace-one",
+      "beforePages": 16,
+      "afterPages": 14,
+      "historyPairs": 2
+    },
+    {
+      "label": "budget",
+      "ext": "hwp",
+      "operation": "host-input",
+      "beforePages": 16,
+      "afterPages": 16,
+      "historyPairs": 2
+    },
+    {
+      "label": "budget",
+      "ext": "hwp",
+      "operation": "replace-one",
+      "beforePages": 16,
+      "afterPages": 14,
+      "historyPairs": 2
+    }
+  ],
+  "scopeDifferential": {
+    "rows": [
+      {
+        "scenario": "eligible",
+        "format": "hwp",
+        "unchangedSvg": false,
+        "pagesBefore": 11,
+        "pagesAfter": 11,
+        "sourceSHA256": "8b93ad67e8955a8d3af44ad73a6d85af1eb4f43ed64cc618359c73e28fd1f722",
+        "beforeSvgSHA256": "3de6611dfe1a3ebcbcf560a9885c1d7358572dacc8095c4acc721e2e74223f19",
+        "afterSvgSHA256": "8e5972e668218d0cc0c07fefb470302e723e224cd9042c2585c47d8b42a7e434"
+      },
+      {
+        "scenario": "eligible",
+        "format": "hwpx",
+        "unchangedSvg": false,
+        "pagesBefore": 11,
+        "pagesAfter": 11,
+        "sourceSHA256": "dbe05fc587cc8de3e1320af5fe8bfe76f4fb6237a1ff06bc98f239882c1661e5",
+        "beforeSvgSHA256": "3de6611dfe1a3ebcbcf560a9885c1d7358572dacc8095c4acc721e2e74223f19",
+        "afterSvgSHA256": "8e5972e668218d0cc0c07fefb470302e723e224cd9042c2585c47d8b42a7e434"
+      },
+      {
+        "scenario": "allow-overlap",
+        "format": "hwp",
+        "unchangedSvg": true,
+        "pagesBefore": 11,
+        "pagesAfter": 11,
+        "sourceSHA256": "d25379c670d624f392a4787cdab4e76ee55d5ab7105115f7d02a9fef9a239225",
+        "beforeSvgSHA256": "3de6611dfe1a3ebcbcf560a9885c1d7358572dacc8095c4acc721e2e74223f19",
+        "afterSvgSHA256": "3de6611dfe1a3ebcbcf560a9885c1d7358572dacc8095c4acc721e2e74223f19"
+      },
+      {
+        "scenario": "allow-overlap",
+        "format": "hwpx",
+        "unchangedSvg": true,
+        "pagesBefore": 11,
+        "pagesAfter": 11,
+        "sourceSHA256": "075df4693527f165796cc335f21b502a0d8865bed5567d5a6b33e6ed88fb184e",
+        "beforeSvgSHA256": "3de6611dfe1a3ebcbcf560a9885c1d7358572dacc8095c4acc721e2e74223f19",
+        "afterSvgSHA256": "3de6611dfe1a3ebcbcf560a9885c1d7358572dacc8095c4acc721e2e74223f19"
+      },
+      {
+        "scenario": "paragraph-relative",
+        "format": "hwp",
+        "unchangedSvg": true,
+        "pagesBefore": 11,
+        "pagesAfter": 11,
+        "sourceSHA256": "8c1aa1af5b5ee4e96233a7e74e4d5027f7971b59612e8ba3ae99a9205e105b52",
+        "beforeSvgSHA256": "8e5972e668218d0cc0c07fefb470302e723e224cd9042c2585c47d8b42a7e434",
+        "afterSvgSHA256": "8e5972e668218d0cc0c07fefb470302e723e224cd9042c2585c47d8b42a7e434"
+      },
+      {
+        "scenario": "paragraph-relative",
+        "format": "hwpx",
+        "unchangedSvg": true,
+        "pagesBefore": 11,
+        "pagesAfter": 11,
+        "sourceSHA256": "43cf78a3dcdc0d1bd132eebf345967d1bec7f55701de75e36eefc329732f6f03",
+        "beforeSvgSHA256": "8e5972e668218d0cc0c07fefb470302e723e224cd9042c2585c47d8b42a7e434",
+        "afterSvgSHA256": "8e5972e668218d0cc0c07fefb470302e723e224cd9042c2585c47d8b42a7e434"
+      },
+      {
+        "scenario": "positive-page-offset",
+        "format": "hwp",
+        "unchangedSvg": true,
+        "pagesBefore": 11,
+        "pagesAfter": 11,
+        "sourceSHA256": "bf24ce03b9e8108df082694de69add5b2838e9e17d70041a859f476eebd308fe",
+        "beforeSvgSHA256": "3de6611dfe1a3ebcbcf560a9885c1d7358572dacc8095c4acc721e2e74223f19",
+        "afterSvgSHA256": "3de6611dfe1a3ebcbcf560a9885c1d7358572dacc8095c4acc721e2e74223f19"
+      },
+      {
+        "scenario": "positive-page-offset",
+        "format": "hwpx",
+        "unchangedSvg": true,
+        "pagesBefore": 11,
+        "pagesAfter": 11,
+        "sourceSHA256": "1d02c9ef7729da24886e7a403dd46fe12edd02a767d7b8c2455c00c4e7aa3291",
+        "beforeSvgSHA256": "3de6611dfe1a3ebcbcf560a9885c1d7358572dacc8095c4acc721e2e74223f19",
+        "afterSvgSHA256": "3de6611dfe1a3ebcbcf560a9885c1d7358572dacc8095c4acc721e2e74223f19"
+      },
+      {
+        "scenario": "visible-before-anchor",
+        "format": "hwp",
+        "unchangedSvg": true,
+        "pagesBefore": 11,
+        "pagesAfter": 11,
+        "sourceSHA256": "b200628aed8630fba075a538d707ce2f1b202b2b4d3a21fbe2ecec2776ee7e92",
+        "beforeSvgSHA256": "afa0a2401f5d91e50da563715cfecdab769f4559e76f3ad36b56d67f00f8fa01",
+        "afterSvgSHA256": "afa0a2401f5d91e50da563715cfecdab769f4559e76f3ad36b56d67f00f8fa01"
+      },
+      {
+        "scenario": "visible-before-anchor",
+        "format": "hwpx",
+        "unchangedSvg": true,
+        "pagesBefore": 11,
+        "pagesAfter": 11,
+        "sourceSHA256": "f4bf5bde60959f6fdb1da2c28b237500b1fde0cc12ca56332bae2a6a08ef0c80",
+        "beforeSvgSHA256": "afa0a2401f5d91e50da563715cfecdab769f4559e76f3ad36b56d67f00f8fa01",
+        "afterSvgSHA256": "afa0a2401f5d91e50da563715cfecdab769f4559e76f3ad36b56d67f00f8fa01"
+      }
+    ],
+    "oldEngineSHA256": "84efddd2392e1f0faa6fade59ec642f21785b7cc05b07b59a0e3c42fe8a10b8b",
+    "newEngineSHA256": "4d020a603b18ca3ce248a5014463ee581762c798e27225d5e14e9457835b6e23"
+  },
+  "builds": {
+    "native": {
+      "targetInitialBytes": 4575170560,
+      "targetLimitBytes": 4810363371,
+      "targetPeakBytes": 4795482112,
+      "targetFinalBytes": 4763353088,
+      "minimumFreeBytes": 16106127360,
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "elapsedSeconds": 25.2
+    },
+    "native-example": {
+      "targetInitialBytes": 4763385856,
+      "targetLimitBytes": 4810363371,
+      "targetPeakBytes": 4800872448,
+      "targetFinalBytes": 4763426816,
+      "minimumFreeBytes": 16106127360,
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "elapsedSeconds": 2.23
+    },
+    "wasm": {
+      "targetInitialBytes": 4763353088,
+      "targetLimitBytes": 4810363371,
+      "targetPeakBytes": 4763385856,
+      "targetFinalBytes": 4763385856,
+      "minimumFreeBytes": 16106127360,
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "elapsedSeconds": 139.23
+    }
+  },
+  "unchangedUIAssetsReused": {
+    "instrumentedQAReadOnlyExposures": true,
+    "sourceProductUnmodifiedByInstrumentation": true,
+    "reused": 16,
+    "written": 0,
+    "engine": "/Users/sw107/Documents/Codex/2026-10-06/task/table-trailing-host-flow-qa/pkg",
+    "out": "/Users/sw107/Documents/Codex/2026-10-06/task/table-trailing-host-flow-qa/final-3/runtime/web/studio"
+  },
+  "nativeChecksIncludePageDefinitionAndBodyParagraphCharacterStyles": true,
+  "clipMeasurementScope": "Vertical actual Electron SVG glyph bbox, body bounds, vertical clip visibility, raw/visible scalar ownership; ordered cell text across fragments",
+  "scopeLimits": [
+    "continuation path only",
+    "single column and no table footnotes",
+    "non-overlapping Page/Top/zero offset TopAndBottom RowBreak single table anchor before all visible host text",
+    "whole-table one-page path, merged/nested cells, real partial source frames, missing/zero source frames, footnotes, multiple columns, non-default before spacing not independently validated",
+    "no physical IME, OS chooser, manual GUI, Linux, raster or Hancom app comparison",
+    "full Rust lib tests not run because existing include_bytes fixtures are missing"
+  ],
+  "placementInferenceSource": "https://cdn.hancom.com/link/docs/HanwordUserGuide%28ipad%29KO.pdf",
+  "sha256": {
+    "engine/src/renderer/float_placement.rs": "1870cf7b18cb9e49f01050d0ac186ffafb509a24c428034ca3c02a5901786c88",
+    "engine/src/renderer/typeset.rs": "f9acbe021d9c9f267f6eed83ae0ae7d2db2d07ebae1e5e2f215e74505d0e4ba1",
+    "engine/examples/horizontal_table_saved_check.rs": "add99172086480f8c7c07eb1f7a9d444398424cf0f0540a159a6c88da5fc6f89",
+    "scripts/check-electron-trailing-host-flow.mjs": "d933f747d420b6f49e0614dd2855b256eff6b8b7b3d4496d791590d0d57e756b",
+    "scripts/check-table-trailing-host-scope.mjs": "dc3879e89bef3d053c6692b7804b81e51d79618c2e236fd7623afaf119dd16b1",
+    "verification/inner-margin-validation/RESULT_KO.md": "5f27fde4f1efb0010e441de81d661593c13bda87e7a062aa03da7f5d4cdd573c",
+    "../table-trailing-host-flow-qa/pkg/rhwp_bg.wasm": "4d020a603b18ca3ce248a5014463ee581762c798e27225d5e14e9457835b6e23",
+    "../table-trailing-host-flow-qa/baseline/proof.json": "71d9b749edf1d9697b621f57a369f353fc89d637aee321356b992f46e431981e",
+    "../table-trailing-host-flow-qa/baseline/shrink-input.hwpx-initial-paint.json": "740781e90fc4d1ac93b127db88d3ce824117d411fc34bccbd73e6a93cc00df9f",
+    "../table-trailing-host-flow-qa/targeted-2/proof.json": "18392829ca6988b254378d994045b7c37c4859dcbc4a4e1af794da17bbb36099",
+    "../table-trailing-host-flow-qa/long-target/proof.json": "0e21e56c99cccee19ebe910e6f85b1df49ef5b3493ba68a03913fa2f75466e8a",
+    "../table-trailing-host-flow-qa/budget-target/proof.json": "2a274beb0a7e2a0f787e3a160537b929070356818fe47b15999d3bf9f86446d0",
+    "../table-trailing-host-flow-qa/budget-target/budget-input.hwpx-initial-paint.json": "c9df60389e63db72464030bee9b4ec307610f77e319196a9c6deab9c4ddd37c7",
+    "../table-trailing-host-flow-qa/budget-seed-proof.json": "9622a476f1ac114e3b06dcb9e0a0841b1e1ea3ea58661227e4a6a9e8be7269aa",
+    "../table-trailing-host-flow-qa/scope-proof.json": "ba358b0a6b63edfc7e7bf854d2d17ec7b47c44859a94c23ec8d3ab0ef2db8ee0",
+    "../table-trailing-host-flow-qa/final-3/proof.json": "ccced8d0ac00b996134a4c5455b5744035c2b8552f9d4b4b3197049b09b49aa8",
+    "../table-trailing-host-flow-qa/final-3/manifest.json": "c09f60b919af3b8bf12a378d7f5e3e3979550b94d329a7142e97eab180bfc412",
+    "../table-trailing-host-flow-qa/final-3/electron.png": "ec3de43afe8f2d3ab815d23f4601e79809440cba0e687f60cc536f9e7e306200",
+    "../table-trailing-host-flow-qa/final-3/lifecycle.json": "6c85289d23b64e883319ea06d046db112ebe968534e95d8d1584aa61ec716182",
+    "../table-trailing-host-flow-qa/final-3/build-proof.json": "ea6a0871405583067b36a54c1867bc5bed6801f627fd824bd96cb2750b7235d7",
+    "../table-trailing-host-flow-qa/native-final/proof.json": "7cb0a7dc100c68f05695a1f3308040c107bdebbd9bdad72190fb9ba47a4365c1",
+    "../table-trailing-host-flow-qa/native-final.log": "4eec7e74dea2ed3ffdb108afee122fbe08d5abfe4af05d95661b1f6da18bed92",
+    "../table-trailing-host-flow-qa/native-build-proof.json": "d9f0b923e9b562742936a601c72994496ae940e5f70942975e8e9c09a039edde",
+    "../table-trailing-host-flow-qa/native-example-build-proof.json": "009495d1c29f263601ab04a9991da8c59fd0aef503b71953d60d3ab4b0c5b205",
+    "../table-trailing-host-flow-qa/wasm-build-proof.json": "559db163e7023a83fa959fc897bd2fb58afba23353334b3d1312e7dd53615065",
+    "../table-trailing-host-flow-qa/final/failure.json": "220cca0695d0d367d43006a029715ea21ff1ce5f54757fa75b73eab719cb9640",
+    "../table-trailing-host-flow-qa/final-2/failure.json": "f452b8ff59427cac609d94a419cc2cdeedd3d8a18ca4bc90a2e091560447bc7c"
+  }
+}
