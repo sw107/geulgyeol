@@ -1372,6 +1372,34 @@ export class TableCellPropsDialog extends ModalDialog {
       return false;
     }
 
+    // Reject missing or out-of-range active inner margins before a snapshot
+    // command can alter either cell or table properties. NaN becomes null in
+    // JSON, which the cell setter ignores while still recording an edit.
+    const marginSides = [
+      ['left', 'paddingLeft'], ['right', 'paddingRight'],
+      ['top', 'paddingTop'], ['bottom', 'paddingBottom'],
+    ] as const;
+    const innerMargins = [
+      ...(this.cellPaddingCheck.checked ? marginSides.map(([side, property]) => ({
+        input: this.cellPaddingInputs[side],
+        value: this.readMargin(this.cellPaddingInputs[side], this.cellProps[property]),
+      })) : []),
+      ...marginSides.map(([side, property]) => ({
+        input: this.tablePaddingInputs[side],
+        value: this.readMargin(this.tablePaddingInputs[side], this.tableProps[property]),
+      })),
+    ];
+    const invalidInner = innerMargins.find(({ value }) => !Number.isInteger(value) || value < -32768 || value > 32767);
+    if (invalidInner) {
+      const panel = this.panels.findIndex(panel => panel.contains(invalidInner.input));
+      if (panel >= 0) this.switchTab(panel);
+      invalidInner.input.setCustomValidity('안쪽 여백을 입력하세요. -32768~32767 HWPUNIT 범위여야 합니다.');
+      invalidInner.input.reportValidity();
+      invalidInner.input.focus();
+      invalidInner.input.addEventListener('input', () => invalidInner.input.setCustomValidity(''), { once: true });
+      return false;
+    }
+
     // 셀 속성 수정
     const newCellProps: Record<string, unknown> = {};
     if (this.cellApplySizeCheck.checked) {
