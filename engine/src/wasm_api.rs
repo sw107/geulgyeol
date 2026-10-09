@@ -2800,8 +2800,10 @@ impl HwpDocument {
             .is_some_and(|control| match control {
                 Control::Table(table) => table.cells.get(cell_idx as usize).is_some_and(|cell| {
                     let start = cell.row as usize;
+                    let (block_start, block_end) = crate::renderer::float_placement::rowspan_owner_block_range(table, start);
                     crate::renderer::float_placement::whole_span_plain_owner_block(
                         table, start, start + cell.row_span as usize)
+                        || crate::renderer::float_placement::mixed_plain_owner_block(table, block_start, block_end)
                 }),
                 _ => false,
             })

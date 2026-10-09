@@ -21238,6 +21238,40 @@ impl TypesetEngine {
                     continue;
                 }
             }
+            // Plain mixed rows keep a stable block owner vector. The row bands
+            // are shared with paint, so no owner's residual is inferred from a
+            // different column's cumulative physical height.
+            let (mixed_start, mixed_end, _) = mt.row_block_for(r);
+            if r == mixed_start && crate::renderer::float_placement::mixed_plain_owner_block(table, mixed_start, mixed_end) {
+                let su: &[usize] = if r == cursor_row { start_cut } else { &[] };
+                let full_height: f64 = layout_engine.mixed_plain_fragment_row_heights(table, mixed_start, mixed_end, su, &[], styles).iter().sum();
+                let budget = (avail_for_rows - consumed - cs_before).max(0.0);
+                if std::env::var("RHWP_DIAG_MIXED_OWNER_SCAN").is_ok() {
+                    eprintln!("MIXED_OWNER_SCAN block={mixed_start}..{mixed_end} start={su:?} residual={full_height:.9} budget={budget:.9}");
+                }
+                if !su.is_empty() || full_height > st.base_available_height() {
+                if full_height <= budget {
+                    consumed += cs_before + full_height; r = mixed_end; end_row = r; continue;
+                }
+                let cut = layout_engine.advance_mixed_plain_block_cut(table, mixed_start, mixed_end, su, budget, styles);
+                if can_intra_split && cut.consumed_height > 0.0
+                    && (r == cursor_row || (full_height > st.base_available_height() && cut.consumed_height >= MIN_TOP_KEEP_PX)) {
+                    consumed += cs_before + cut.consumed_height;
+                    end_row = mixed_end;
+                    // The unit-cut capacity includes the existing FP tolerance.
+                    // If it consumed every owner, advance beyond the block;
+                    // a continuation cut here would create a header-only tail.
+                    if cut.fully_consumed {
+                        r = mixed_end;
+                        continue;
+                    }
+                    split_end_cut = cut.end_cut;
+                    split_end_limit = cut.consumed_height; split_block_start = Some(mixed_start); break;
+                }
+                if r > cursor_row { end_row = r; break; }
+                }
+            }
+
             // rowspan 보호 블록 — 블록 전체를 분할 없이 한 단위로.
             let (b_start, b_end, _) = mt.row_block_for(r);
             let block_size = b_end.saturating_sub(b_start);

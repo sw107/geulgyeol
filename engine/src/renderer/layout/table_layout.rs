@@ -13099,6 +13099,59 @@ impl LayoutEngine {
             .collect()
     }
 
+    /// Minimal row bands satisfying every selected cell's own span, rather than
+    /// adding the block maximum to a row outside a shorter owner's range.
+    pub(crate) fn mixed_plain_fragment_row_heights(
+        &self, table: &crate::model::table::Table, start: usize, end: usize,
+        start_cut: &[usize], end_cut: &[usize], styles: &ResolvedStyleSet,
+    ) -> Vec<f64> {
+        let mut cells = Self::row_block_cells(table, start, end);
+        cells.sort_by_key(|cell| (cell.row, cell.col));
+        let mut constraints: Vec<_> = cells.iter().enumerate().map(|(i, cell)| {
+            let units = self.cell_units(cell, table, styles);
+            let su = start_cut.get(i).copied().unwrap_or(0).min(units.len());
+            let eu = end_cut.get(i).copied().unwrap_or(units.len()).clamp(su, units.len());
+            let height = self.cell_cut_visible_height(cell, table, styles, su, eu);
+            (cell.row as usize - start, cell.row as usize + cell.row_span as usize - start, height)
+        }).collect();
+        constraints.sort_by_key(|&(lo, hi, _)| (hi, lo));
+        let mut heights = vec![0.0; end - start];
+        for (lo, hi, height) in constraints {
+            let existing: f64 = heights[lo..hi].iter().sum();
+            if height > existing { heights[hi - 1] += height - existing; }
+        }
+        heights
+    }
+
+    /// Advance each stable owner using its row prefix in this fragment. Fully
+    /// consumed row owners contribute no offset on the next fragment.
+    pub(crate) fn advance_mixed_plain_block_cut(
+        &self, table: &crate::model::table::Table, start: usize, end: usize,
+        start_cut: &[usize], available: f64, styles: &ResolvedStyleSet,
+    ) -> RowCutResult {
+        let mut cells = Self::row_block_cells(table, start, end);
+        cells.sort_by_key(|cell| (cell.row, cell.col));
+        let lengths: Vec<_> = cells.iter().map(|cell| self.cell_units(cell, table, styles).len()).collect();
+        let mut cut: Vec<_> = lengths.iter().enumerate().map(|(i, &len)| start_cut.get(i).copied().unwrap_or(0).min(len)).collect();
+        for (i, cell) in cells.iter().enumerate() {
+            let heights = self.mixed_plain_fragment_row_heights(table, start, end, start_cut, &cut, styles);
+            let offset: f64 = heights[..cell.row as usize - start].iter().sum();
+            let su = cut[i];
+            while cut[i] < lengths[i] {
+                let height = self.cell_cut_visible_height(cell, table, styles, su, cut[i] + 1);
+                if offset + height > available + ROW_CUT_CAPACITY_FP_EPSILON_PX
+                    && !(cut[i] == su && offset <= 0.5) { break; }
+                cut[i] += 1;
+            }
+        }
+        let consumed_height = self.mixed_plain_fragment_row_heights(table, start, end, start_cut, &cut, styles).iter().sum();
+        let fully_consumed = cut.iter().zip(lengths).all(|(&cut, len)| cut == len);
+        if std::env::var("RHWP_DIAG_MIXED_OWNER").is_ok() {
+            eprintln!("MIXED_OWNER_CUT block={start}..{end} start={start_cut:?} end={cut:?} height={consumed_height:.4} budget={available:.4} fully_consumed={fully_consumed}");
+        }
+        RowCutResult { end_cut: cut, hit_hard_break: false, fully_consumed, consumed_height }
+    }
+
     /// [Task #1025] 행블록 컷 범위 `[start_cut, end_cut)` 의 블록 표시 높이(패딩 포함).
     /// 블록 셀별 `content_in_cut + pad`, 블록 max. `advance_row_block_cut` 과 동일한
     /// `(row, col)` 셀 순서를 사용한다.
