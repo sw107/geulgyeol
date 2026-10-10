@@ -1,0 +1,412 @@
+{
+  "schema": 1,
+  "verifiedUTC": "2026-10-10T16:30:20.392435+00:00",
+  "scopeDescription": "one bounded partial-height colspan=2 rectangle under three repeated header cells",
+  "toolReviewHEAD": "c3f77fe51a3ce114acd7c008e850355fc3ba8c1e",
+  "toolPR17IndependentReviewPending": true,
+  "wasmSHA256": "444e1a45faad4f7c88aaa12b8ba30b6fd7e60174a612c6b54ae657213c8ac988",
+  "nativeSHA256": "1801e456363aa79de62e96f60d846a30d8d37251e0bfef72bb2a2dff686ad250",
+  "sourceRuntimeSHA256": "b7eb305b39bafd720dab6a0911c75771a36bd1c364e6f48a96f4019d08c9c2dd",
+  "hostElectronBinarySHA256": "588478afc5f2bc73b6433d6e565a214dc830144be39a3d79805723292754ccd8",
+  "electronVersion": "44.3.0",
+  "sourceCompiledSHA256": {
+    "engine/src/renderer/float_placement.rs": "9fa2ba99a1d3afee49a8d5547cdbef894f91002de11aadd05f7c4839b21cb202",
+    "engine/src/wasm_api.rs": "38611ae9d727af419caf7db25225ddeaa156e80994a4442491998f3f9d1517e2",
+    "engine/src/document_core/commands/text_editing.rs": "d22fff42cd7569088da758666c787bddb1545ab0e4a8545d77656bc3d4ca947e",
+    "engine/src/renderer/layout.rs": "3269c12c26c7b0e795eb11bd8ffd63eb3f8d714e25b1b751f5a062733cdbd92e"
+  },
+  "syntheticGroups": 5,
+  "inputFormats": [
+    "hwp",
+    "hwpx"
+  ],
+  "operations": 44,
+  "undoRedoPairs": 88,
+  "savedReopens": 88,
+  "nativeSavedComparisons": 88,
+  "nativeSavedOverflowWarnings": 0,
+  "nativeSourceCases": 10,
+  "nativeSourceInputHashesUnchanged": true,
+  "coordinateQueries": 12690,
+  "coordinateDocuments": 30,
+  "maximumXErrorPx": 0.09999999999999432,
+  "maximumYErrorPx": 0.046666666667306345,
+  "maximumHeightErrorPx": 0.033333333333333215,
+  "scope": {
+    "positiveCases": 10,
+    "excludedCases": 62,
+    "queryReadOnlyCases": 72,
+    "sourceFilesUnchanged": 10
+  },
+  "legacyScopeWithPromotedPartialVariant": {
+    "positiveCases": 12,
+    "excludedCases": 56,
+    "queryReadOnlyCases": 68,
+    "sourceFilesUnchanged": 10
+  },
+  "paintChecks": 142,
+  "paintPages": 1868,
+  "maximumBorderOverflowPx": 0,
+  "maximumInkOverflowPx": 0,
+  "hidden": 0,
+  "partial": 0,
+  "appNormalQuit": true,
+  "harnessExitCode": 0,
+  "appExitCode": 0,
+  "sourcesAndRuntimeUnchanged": true,
+  "proofSHA256": {
+    "native-source-width-order-proof.json": "15f878478d24eb6e371c52b2c04935d0495a983d7d84cd79d5e9042d32ed21b8",
+    "scope-supported/result/proof.json": "50aa50a0fb8110975d3b889353a20f4452daadbc82072db3344545c8dbb72f89",
+    "carets/result/proof.json": "5870f1a1836494bdef667b10d42b7c1ae3b58bbb7f6303415c9bef27af52cf80",
+    "full-height-regression-upgraded/result/proof.json": "32b38a7886a777b312ebc011f34a67b53726b8d0b35aa8a231b0b44d28badf1b",
+    "electron-full/proof.json": "77f0be5ead650d87204743b7d9145c2743f8d1fa87711bae9de51523399fb226",
+    "electron-full/harness-process.json": "d86c6ab5107ce7b5597201125d1de0f43039dbea13647502542ad246043c79b3",
+    "electron-full/manifest.json.gz": "9c7a7b4718e22ab205171f8487902e4e3e5018c332f8875aaebb5dd0025a5fd2",
+    "native-full/index.json": "9ab4a23f843ddcd8e4adf90961c292e419077757a2096523d78896c53b51b6f6"
+  },
+  "protectedFilesUnchanged": 22,
+  "priorProofsUnchanged": 23,
+  "evidenceBudget": {
+    "normalBytes": 229380096,
+    "failureBytes": 93597696,
+    "totalBytes": 322977792,
+    "incompletePhases": []
+  },
+  "freeBytes": 44916469760,
+  "builds": {
+    "native": {
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "targetPeakBytes": 4914991104,
+      "targetLimitBytes": 5078798827,
+      "freeMinimumObservedBytes": 45041934336,
+      "requiredFreeBytes": 16374562816
+    },
+    "wasm": {
+      "exitCode": 0,
+      "stoppedForBudget": false,
+      "targetPeakBytes": 4901273600,
+      "targetLimitBytes": 5078798827,
+      "freeMinimumObservedBytes": 44941893632,
+      "requiredFreeBytes": 16374562816
+    }
+  },
+  "initialFailedCandidateAndBaselineDiagnosticsPreserved": true,
+  "pastRedoFixReportedAsNewDefect": false,
+  "extraCleanupExecuted": false,
+  "newPackageOrReleaseCreated": false,
+  "OSChooserVerified": false,
+  "physicalIMEVerified": false,
+  "manualGUIVerified": false,
+  "LinuxVerified": false,
+  "operationsByCase": [
+    {
+      "label": "partial-middle-left",
+      "ext": "hwpx",
+      "operation": "input-0",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-middle-left",
+      "ext": "hwpx",
+      "operation": "input-1",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-middle-left",
+      "ext": "hwpx",
+      "operation": "input-2",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-middle-left",
+      "ext": "hwpx",
+      "operation": "owner-24-fragment-tail",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-middle-left",
+      "ext": "hwp",
+      "operation": "input-0",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-middle-left",
+      "ext": "hwp",
+      "operation": "input-1",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-middle-left",
+      "ext": "hwp",
+      "operation": "input-2",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-middle-left",
+      "ext": "hwp",
+      "operation": "owner-24-fragment-tail",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-top-right",
+      "ext": "hwpx",
+      "operation": "input-0",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-top-right",
+      "ext": "hwpx",
+      "operation": "input-1",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-top-right",
+      "ext": "hwpx",
+      "operation": "input-2",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-top-right",
+      "ext": "hwpx",
+      "operation": "owner-4-fragment-tail",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-top-right",
+      "ext": "hwp",
+      "operation": "input-0",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-top-right",
+      "ext": "hwp",
+      "operation": "input-1",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-top-right",
+      "ext": "hwp",
+      "operation": "input-2",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-top-right",
+      "ext": "hwp",
+      "operation": "owner-4-fragment-tail",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-bottom-left",
+      "ext": "hwpx",
+      "operation": "input-0",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-bottom-left",
+      "ext": "hwpx",
+      "operation": "input-1",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-bottom-left",
+      "ext": "hwpx",
+      "operation": "input-2",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-bottom-left",
+      "ext": "hwpx",
+      "operation": "owner-48-fragment-tail",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-bottom-left",
+      "ext": "hwp",
+      "operation": "input-0",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-bottom-left",
+      "ext": "hwp",
+      "operation": "input-1",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-bottom-left",
+      "ext": "hwp",
+      "operation": "input-2",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-bottom-left",
+      "ext": "hwp",
+      "operation": "owner-48-fragment-tail",
+      "beforePages": 10,
+      "afterPages": 10
+    },
+    {
+      "label": "partial-unequal-left",
+      "ext": "hwpx",
+      "operation": "input-0",
+      "beforePages": 14,
+      "afterPages": 14
+    },
+    {
+      "label": "partial-unequal-left",
+      "ext": "hwpx",
+      "operation": "input-1",
+      "beforePages": 14,
+      "afterPages": 14
+    },
+    {
+      "label": "partial-unequal-left",
+      "ext": "hwpx",
+      "operation": "input-2",
+      "beforePages": 14,
+      "afterPages": 14
+    },
+    {
+      "label": "partial-unequal-left",
+      "ext": "hwpx",
+      "operation": "owner-14-fragment-tail",
+      "beforePages": 14,
+      "afterPages": 14
+    },
+    {
+      "label": "partial-unequal-left",
+      "ext": "hwpx",
+      "operation": "owner-21-fragment-tail",
+      "beforePages": 14,
+      "afterPages": 14
+    },
+    {
+      "label": "partial-unequal-left",
+      "ext": "hwp",
+      "operation": "input-0",
+      "beforePages": 14,
+      "afterPages": 14
+    },
+    {
+      "label": "partial-unequal-left",
+      "ext": "hwp",
+      "operation": "input-1",
+      "beforePages": 14,
+      "afterPages": 14
+    },
+    {
+      "label": "partial-unequal-left",
+      "ext": "hwp",
+      "operation": "input-2",
+      "beforePages": 14,
+      "afterPages": 14
+    },
+    {
+      "label": "partial-unequal-left",
+      "ext": "hwp",
+      "operation": "owner-14-fragment-tail",
+      "beforePages": 14,
+      "afterPages": 14
+    },
+    {
+      "label": "partial-unequal-left",
+      "ext": "hwp",
+      "operation": "owner-21-fragment-tail",
+      "beforePages": 14,
+      "afterPages": 14
+    },
+    {
+      "label": "partial-unequal-right",
+      "ext": "hwpx",
+      "operation": "input-0",
+      "beforePages": 20,
+      "afterPages": 20
+    },
+    {
+      "label": "partial-unequal-right",
+      "ext": "hwpx",
+      "operation": "input-1",
+      "beforePages": 20,
+      "afterPages": 20
+    },
+    {
+      "label": "partial-unequal-right",
+      "ext": "hwpx",
+      "operation": "input-2",
+      "beforePages": 20,
+      "afterPages": 20
+    },
+    {
+      "label": "partial-unequal-right",
+      "ext": "hwpx",
+      "operation": "owner-12-fragment-tail",
+      "beforePages": 20,
+      "afterPages": 20
+    },
+    {
+      "label": "partial-unequal-right",
+      "ext": "hwpx",
+      "operation": "owner-21-fragment-tail",
+      "beforePages": 20,
+      "afterPages": 20
+    },
+    {
+      "label": "partial-unequal-right",
+      "ext": "hwp",
+      "operation": "input-0",
+      "beforePages": 20,
+      "afterPages": 20
+    },
+    {
+      "label": "partial-unequal-right",
+      "ext": "hwp",
+      "operation": "input-1",
+      "beforePages": 20,
+      "afterPages": 20
+    },
+    {
+      "label": "partial-unequal-right",
+      "ext": "hwp",
+      "operation": "input-2",
+      "beforePages": 20,
+      "afterPages": 20
+    },
+    {
+      "label": "partial-unequal-right",
+      "ext": "hwp",
+      "operation": "owner-12-fragment-tail",
+      "beforePages": 20,
+      "afterPages": 20
+    },
+    {
+      "label": "partial-unequal-right",
+      "ext": "hwp",
+      "operation": "owner-21-fragment-tail",
+      "beforePages": 20,
+      "afterPages": 20
+    }
+  ]
+}
