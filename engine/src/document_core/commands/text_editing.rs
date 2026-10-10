@@ -5864,22 +5864,36 @@ impl DocumentCore {
         // 없는 문단(중첩 표 host·빈 문단)은 줄 0 = 문단 첫 유닛으로 매핑한다 —
         // 그런 문단의 유닛 서수는 `cell_units` 의 atom 유닛이 권위라 줄 매핑이
         // 필요 없다 (행 수준으로 강등하면 거대 셀에서 전 페이지가 후보로 남는다).
-        let line_target: Option<(usize, usize, bool)> = target.and_then(|(cpi, off)| {
-            let para = cell.paragraphs.get(cpi)?;
-            if para.line_segs.is_empty() {
-                return Some((cpi, 0, true));
-            }
-            let off16: usize = para.text.chars().take(off).map(char::len_utf16).sum();
-            let li = para
-                .line_segs
-                .partition_point(|s| (s.text_start as usize) <= off16)
-                .saturating_sub(1);
-            let at_line_start = para
-                .line_segs
-                .get(li)
-                .is_some_and(|s| s.text_start as usize == off16);
-            Some((cpi, li, at_line_start))
-        });
+        // The bounded three-track rectangle recomposes stored lines at the sum of
+        // its paint tracks. Stored line_segs can therefore name an earlier unit
+        // than the actual caret, especially in the narrow unmerged side column.
+        // Keep all overlapping fragments as candidates for this small contract;
+        // the rendered TextRun match remains the authority for the exact offset.
+        let bounded_rectangle = table.col_count == 3
+            && table.cells.iter().any(|cell| cell.col_span == 2)
+            && crate::renderer::float_placement::mixed_plain_owner_block(
+                table,
+                1,
+                table.row_count as usize,
+            );
+        let line_target: Option<(usize, usize, bool)> = target
+            .filter(|_| !bounded_rectangle)
+            .and_then(|(cpi, off)| {
+                let para = cell.paragraphs.get(cpi)?;
+                if para.line_segs.is_empty() {
+                    return Some((cpi, 0, true));
+                }
+                let off16: usize = para.text.chars().take(off).map(char::len_utf16).sum();
+                let li = para
+                    .line_segs
+                    .partition_point(|s| (s.text_start as usize) <= off16)
+                    .saturating_sub(1);
+                let at_line_start = para
+                    .line_segs
+                    .get(li)
+                    .is_some_and(|s| s.text_start as usize == off16);
+                Some((cpi, li, at_line_start))
+            });
 
         if section_idx >= self.pagination.len() {
             return Err(HwpError::RenderError(format!(

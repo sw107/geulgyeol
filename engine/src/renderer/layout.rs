@@ -9513,6 +9513,18 @@ impl LayoutEngine {
                                 && meta.cell_context.is_none())
                     }) {
                         table_y_end = node.bbox.y + node.bbox.height;
+                        // A bounded merged rectangle can grow past its saved
+                        // anchor height. Its separately emitted trailing host
+                        // starts below the painted frame, including outer-bottom.
+                        if t.col_count == 3
+                            && t.cells.iter().any(|cell| cell.col_span == 2)
+                            && crate::renderer::float_placement::mixed_plain_owner_block(
+                                t, 1, t.row_count as usize,
+                            )
+                        {
+                            y_offset = y_offset.max(table_y_end
+                                + hwpunit_to_px(t.outer_margin_bottom as i32, self.dpi));
+                        }
                     }
                 }
                 let layer = Self::render_layer_from_common(&t.common, para_index, control_index);

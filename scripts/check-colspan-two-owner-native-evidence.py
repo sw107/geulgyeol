@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check existing Native ledgers without duplicating their SVG or source files.
 
-Usage: check-three-column-owner-native-evidence.py SEEDS_JSON LEDGER_ROOT FRESH_PROOF
+Usage: check-colspan-two-owner-native-evidence.py SEEDS_JSON LEDGER_ROOT FRESH_PROOF
 Generate ledgers with three_column_owner_check and both mixed-owner diagnostics.
 This reads immutable evidence; it does not load the editor or change fixtures.
 """
@@ -68,11 +68,13 @@ def main():
             document = json.loads(ledger.read_text())
             assert document['cols'] == 3 and document['storedTableWidthHU'] == sum(tracks)
             owners = document['owners']
-            assert all(owner['colEnd'] == owner['colStart'] + 1
-                       and owner['storedWidthHU'] == tracks[owner['colStart']] for owner in owners)
+            assert all(owner['colEnd'] - owner['colStart'] in [1, 2]
+                       and owner['storedWidthHU'] == sum(tracks[owner['colStart']:owner['colEnd']]) for owner in owners)
+            rectangles = [owner for owner in owners if owner['colEnd'] - owner['colStart'] == 2]
+            assert len(rectangles) == 1 and rectangles[0]['rowStart'] == 1 and rectangles[0]['rowEnd'] == document['rows']
             for row in range(document['rows']):
                 for col in range(3):
-                    assert sum(owner['colStart'] == col and owner['rowStart'] <= row < owner['rowEnd']
+                    assert sum(owner['colStart'] <= col < owner['colEnd'] and owner['rowStart'] <= row < owner['rowEnd']
                                for owner in owners) == 1, ('exact-cover', row, col)
             headers = check_ownership(document)
             table_pages, host_pages, width_errors, clip_errors = [], [], [], []
@@ -83,6 +85,10 @@ def main():
                           and table['controlIdx'] == document['target']['control']]
                 if tables:
                     table_pages.append(page['page'])
+                    present = {run.get('cellIdx') for run in runs if run.get('cellPath')
+                               and run.get('controlIdx') == document['target']['control']
+                               and run.get('parentParaIdx') == document['target']['para']}
+                    assert headers <= present, ('all repeated headers', stem, page['page'])
                     assert any(run.get('cellPath') and run['cellIdx'] not in headers for run in runs)
                     assert {run['cellIdx'] for run in runs if run.get('cellPath') and run['cellIdx'] in headers} == headers
                 for table in tables:
@@ -90,7 +96,7 @@ def main():
                     for cell in table['cells']:
                         # Continuation controls enumerate fragment-local cellIdx;
                         # the stable column coordinate identifies the stored track.
-                        error = abs(cell['w'] - tracks[cell['col']] / 75)
+                        error = abs(cell['w'] - sum(tracks[cell['col']:cell['col']+cell['colSpan']]) / 75)
                         assert error < .051, (stem, cell['row'], cell['col'], error)
                         width_errors.append(error)
                 if tables:
@@ -101,13 +107,24 @@ def main():
                         rect = clip.find('{http://www.w3.org/2000/svg}rect')
                         if rect is None:
                             continue
-                        x, width = float(rect.attrib['x']), float(rect.attrib['width'])
-                        candidates = [col for col in range(3)
-                                      if abs(x - (tables[0]['x'] + sum(tracks[:col]) / 75)) < .051]
-                        assert len(candidates) == 1, ('svg-column-origin', stem, x)
-                        error = abs(width - tracks[candidates[0]] / 75)
-                        assert error < 1e-8, ('svg-clip-width', stem, width)
+                        x, y, width = float(rect.attrib['x']), float(rect.attrib['y']), float(rect.attrib['width'])
+                        spans = {(cell['col'], cell['colSpan']) for cell in tables[0]['cells']
+                                 if abs(x - cell['x']) < .051 and abs(y - cell['y']) < .051}
+                        assert len(spans) == 1, ('svg-cell-origin', stem, x, y, spans)
+                        col, span = spans.pop()
+                        expected = sum(tracks[col:col+span]) / 75
+                        error = abs(width - expected)
+                        assert error < 1e-8, ('svg-clip-width', stem, width, expected)
                         clip_errors.append(error)
+                host = [run for run in runs if not run.get('cellPath')
+                        and run['paraIdx'] == document['target']['para']]
+                if tables and host:
+                    bottom = max(table['y'] + table['h'] for table in tables)
+                    assert all(run['y'] >= bottom - .2 for run in host), ('host-below-painted-frame', stem, page['page'])
+                    following = [run for run in runs if not run.get('cellPath')
+                                 and run['paraIdx'] > document['target']['para']]
+                    assert all(run['y'] >= max(h['y'] + h['h'] for h in host) - .2
+                               for run in following), ('following-after-host', stem, page['page'])
                 host_pages.extend(page['page'] for run in runs if not run.get('cellPath')
                                   and run['paraIdx'] >= document['target']['para'])
             assert table_pages and host_pages and min(host_pages) >= table_pages[-1]
@@ -128,7 +145,7 @@ def main():
                 assert cuts, 'multipart owner cut evidence required'
             result = {'label': seed['label'], 'format': extension, 'sourceSHA256': sha(source),
                       'ledgerSHA256': sha(ledger), 'cutLogSHA256': sha(log), 'sourceOwnershipIssues': 0,
-                      'tablePages': table_pages, 'emptyHeaderOnlyFragments': 0, 'repeatedHeaderCells': 3,
+                      'tablePages': table_pages, 'emptyHeaderOnlyFragments': 0, 'repeatedHeaderCells': 3, 'rectangularColSpanTwoOwners': 1,
                       'paintWidthChecks': len(width_errors), 'maximumRoundedPaintWidthErrorPx': max(width_errors),
                       'fullPrecisionSVGClipWidthChecks': len(clip_errors),
                       'maximumSVGClipWidthErrorPx': max(clip_errors, default=0),
