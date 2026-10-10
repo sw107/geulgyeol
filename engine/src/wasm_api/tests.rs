@@ -28583,3 +28583,76 @@ fn local_body_replace_rejects_stale_ranges_without_mutation() {
     doc.replace_body_text_local_native(0, 0, 1, 1, "가").unwrap();
     assert_eq!(doc.get_text_range_native(0, 0, 0, 3).unwrap(), "한가글");
 }
+
+fn excluded_line_wrap_history_doc() -> HwpDocument {
+    use crate::model::table::{Cell, Table, TablePageBreak, CELL_LINE_WRAP_SQUEEZE};
+    use crate::model::shape::{TextWrap, VertAlign, VertRelTo};
+    let mut table = Table { row_count: 48, col_count: 3, repeat_header: true,
+        page_break: TablePageBreak::RowBreak, ..Default::default() };
+    table.common.width = 21000;
+    table.common.text_wrap = TextWrap::TopAndBottom;
+    table.common.vert_rel_to = VertRelTo::Page;
+    table.common.vert_align = VertAlign::Top;
+    for row in 0..48 {
+        for col in 0..3 {
+            if (row == 8 && col == 1) || ((9..40).contains(&row) && col < 2) { continue; }
+            let rectangle = row == 8 && col == 0;
+            table.cells.push(Cell { row, col, row_span: if rectangle { 32 } else { 1 },
+                col_span: if rectangle { 2 } else { 1 }, width: if rectangle { 14000 } else { 7000 },
+                is_header: row == 0,
+                line_wrap: if row == 1 && col == 0 { CELL_LINE_WRAP_SQUEEZE } else { 0 },
+                paragraphs: vec![Paragraph { text: "stored frame".into(),
+                    line_segs: vec![LineSeg { line_height: 400, ..Default::default() }],
+                    ..Default::default() }], ..Default::default() });
+        }
+    }
+    let mut document = Document::default();
+    document.sections.push(Section { paragraphs: vec![Paragraph {
+        controls: vec![Control::Table(Box::new(table))], ..Default::default()
+    }], ..Default::default() });
+    let mut doc = HwpDocument::create_empty();
+    doc.set_document(document);
+    doc
+}
+
+#[test]
+fn excluded_line_wrap_history_is_read_only_and_keeps_layout_excluded() {
+    let doc = excluded_line_wrap_history_doc();
+    let before = format!("{:?}", doc.document);
+    let count = match &doc.document.sections[0].paragraphs[0].controls[0] { Control::Table(table) => table.cells.len(), _ => unreachable!() };
+    for cell in 0..count {
+        assert!(!doc.merged_cell_needs_text_snapshot(0, 0, 0, cell as u32));
+        assert_eq!(doc.excluded_line_wrap_cell_needs_text_snapshot(0, 0, 0, cell as u32), cell == 24);
+    }
+    assert!(!doc.excluded_line_wrap_cell_needs_text_snapshot(1, 0, 0, 24));
+    assert!(!doc.excluded_line_wrap_cell_needs_text_snapshot(0, 1, 0, 24));
+    assert!(!doc.excluded_line_wrap_cell_needs_text_snapshot(0, 0, 1, 24));
+    assert!(!doc.excluded_line_wrap_cell_needs_text_snapshot(0, 0, 0, u32::MAX));
+    assert_eq!(format!("{:?}", doc.document), before);
+}
+
+#[test]
+fn excluded_line_wrap_history_rejects_other_shapes_and_flags() {
+    use crate::model::table::Table;
+    let cases: &[(&str, fn(&mut Table))] = &[
+        ("lower row bound", |t| t.row_count = 4),
+        ("upper row bound", |t| t.row_count = 66),
+        ("multiple SQUEEZE cells", |t| t.cells[4].line_wrap = 1),
+        ("KEEP cell", |t| t.cells[3].line_wrap = 2),
+        ("wrapped owner", |t| t.cells[24].line_wrap = 1),
+        ("wrapped header", |t| { t.cells[3].line_wrap = 0; t.cells[0].line_wrap = 1; }),
+        ("SQUEEZE inside rectangle rows", |t| { t.cells[3].line_wrap = 0; t.cells[25].line_wrap = 1; }),
+        ("text direction", |t| t.cells[4].text_direction = 1),
+        ("no stored owner frame", |t| t.cells[24].paragraphs[0].line_segs.clear()),
+        ("raw break", |t| t.cells[4].paragraphs[0].raw_break_type = 1),
+        ("local resize", |t| t.local_resize_cols.push(0)),
+        ("local width", |t| t.local_resize_cell_widths.push((3, 6999))),
+        ("track mismatch", |t| t.cells[3].width -= 1),
+        ("allow overlap", |t| t.common.allow_overlap = true),
+    ];
+    for (name, mutate) in cases {
+        let mut doc = excluded_line_wrap_history_doc();
+        if let Control::Table(table) = &mut doc.document.sections[0].paragraphs[0].controls[0] { mutate(table); }
+        assert!(!doc.excluded_line_wrap_cell_needs_text_snapshot(0, 0, 0, 24), "{name}");
+    }
+}

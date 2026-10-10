@@ -1358,6 +1358,14 @@ export class WasmBridge {
     return this.doc?.mergedCellNeedsTextSnapshot(sec, para, control, cell) ?? false;
   }
 
+  excludedLineWrapCellNeedsTextSnapshot(sec: number, para: number, control: number, cell: number): boolean {
+    // Older engine packages keep their original fallback; this is history only.
+    const doc = this.doc as (HwpDocument & {
+      excludedLineWrapCellNeedsTextSnapshot?: (sec: number, para: number, control: number, cell: number) => boolean;
+    }) | null;
+    return doc?.excludedLineWrapCellNeedsTextSnapshot?.(sec, para, control, cell) ?? false;
+  }
+
   getParagraphLength(sec: number, para: number): number {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
     return this.doc.getParagraphLength(sec, para);

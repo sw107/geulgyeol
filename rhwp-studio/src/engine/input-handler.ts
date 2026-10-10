@@ -3369,8 +3369,11 @@ export class InputHandler {
           && beforePos.cellPath?.length === 1 && beforePos.parentParaIndex !== undefined
           && beforePos.controlIndex !== undefined && beforePos.cellIndex !== undefined
           && ['insertText', 'deleteText', 'insertTab', 'insertLineBreak'].includes(type)
-          && this.wasm.mergedCellNeedsTextSnapshot(beforePos.sectionIndex, beforePos.parentParaIndex,
-            beforePos.controlIndex, beforePos.cellIndex);
+          && (this.wasm.mergedCellNeedsTextSnapshot(beforePos.sectionIndex, beforePos.parentParaIndex,
+            beforePos.controlIndex, beforePos.cellIndex)
+            // Preserve excluded SQUEEZE source history without promoting layout.
+            || this.wasm.excludedLineWrapCellNeedsTextSnapshot(beforePos.sectionIndex, beforePos.parentParaIndex,
+              beforePos.controlIndex, beforePos.cellIndex));
         const preserveSourceEdit = anchoredBodyEdit || mergedCellEdit;
         let sourceMutationEffects: TextMutationEffects | undefined;
         const command: EditCommand = preserveSourceEdit ? new SnapshotCommand(type, beforePos, beforePos, bridge => {
