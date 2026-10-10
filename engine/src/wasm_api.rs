@@ -2804,6 +2804,14 @@ impl HwpDocument {
                     crate::renderer::float_placement::whole_span_plain_owner_block(
                         table, start, start + cell.row_span as usize)
                         || crate::renderer::float_placement::mixed_plain_owner_block(table, block_start, block_end)
+                        // Plain body cells outside a partial rectangle can retain
+                        // stored wrapping from earlier track widths too. Inverse
+                        // typing cannot reconstruct it; keep the same bounded
+                        // source history contract across this validated table.
+                        || (cell.row > 0 && table.col_count == 3
+                            && table.cells.iter().any(|cell| cell.col_span == 2)
+                            && crate::renderer::float_placement::mixed_plain_owner_block(
+                                table, 1, table.row_count as usize))
                 }),
                 _ => false,
             })

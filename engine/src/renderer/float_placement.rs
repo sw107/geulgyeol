@@ -324,8 +324,6 @@ pub(crate) fn mixed_plain_owner_block(table: &Table, start: usize, end: usize) -
     size > crate::renderer::height_measurer::BLOCK_UNIT_MAX_ROWS && size <= 64
         && end <= table.row_count as usize && matches!(table.col_count, 2 | 3) && table.cell_spacing == 0
         && (table.col_count == 2 || plain_three_column_owner_widths(table))
-        && (table.col_count != 3 || !table.cells.iter().any(|cell| cell.col_span == 2)
-            || (start == 1 && end == table.row_count as usize))
         && !table.common.treat_as_char && !table.common.allow_overlap
         && matches!(table.page_break, TablePageBreak::RowBreak)
         && matches!(table.common.text_wrap, TextWrap::TopAndBottom)
@@ -350,8 +348,8 @@ pub(crate) fn mixed_plain_owner_block(table: &Table, start: usize, end: usize) -
 }
 
 /// Exact stored column tracks keep cell-unit and resolved paint widths equal.
-/// The first colspan extension is one full-body two-column rectangle under
-/// three unmerged repeated header cells. Other colspan shapes stay separate.
+/// One bounded two-column rectangle can cover part or all of the body under
+/// three unmerged repeated header cells. Multiple rectangles stay separate.
 fn plain_three_column_owner_widths(table: &Table) -> bool {
     if table.col_count != 3 || table.common.width == 0 || table.common.width > i32::MAX as u32
         || !table.local_resize_rows.is_empty() || !table.local_resize_cell_widths.is_empty() {
@@ -388,8 +386,11 @@ fn plain_three_column_owner_widths(table: &Table) -> bool {
     if let Some(owner) = rectangles.next() {
         if rectangles.next().is_some() || !table.repeat_header
             || !(5..=65).contains(&table.row_count)
-            || owner.row != 1 || owner.row_span as usize + 1 != table.row_count as usize
-            || table.cells.iter().any(|cell| (cell.row == 0) != cell.is_header) {
+            || owner.row == 0 || owner.row_span as usize <= crate::renderer::height_measurer::BLOCK_UNIT_MAX_ROWS
+            || owner.row_span > 64
+            || table.cells.iter().any(|cell| (cell.row == 0) != cell.is_header
+                || cell.text_direction != 0 || cell.line_wrap != 0
+                || cell.paragraphs.iter().any(|para| !para.controls.is_empty() || para.raw_break_type != 0)) {
             return false;
         }
         // Inspect raw cells, not the last-writer-wins parsed lookup grid.
