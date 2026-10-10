@@ -2817,6 +2817,43 @@ impl HwpDocument {
             })
     }
 
+    /// History only: a plain partial rectangle remains excluded from layout when
+    /// one standalone body cell outside it uses SQUEEZE. Inverse text edits of
+    /// the rectangle lose its stored line frame, so preserve the source state.
+    /// The normalized clone is a shape witness; never change the document or
+    /// the renderer's original wrapping/scope decision.
+    #[wasm_bindgen(js_name = excludedLineWrapCellNeedsTextSnapshot)]
+    pub fn excluded_line_wrap_cell_needs_text_snapshot(&self, section_idx: u32,
+        para_idx: u32, control_idx: u32, cell_idx: u32) -> bool {
+        let Some(Control::Table(table)) = self.document.sections.get(section_idx as usize)
+            .and_then(|section| section.paragraphs.get(para_idx as usize))
+            .and_then(|para| para.controls.get(control_idx as usize)) else { return false; };
+        if table.col_count != 3 || !(5..=65).contains(&table.row_count)
+            || !table.local_resize_rows.is_empty() || !table.local_resize_cols.is_empty()
+            || !table.local_resize_cell_widths.is_empty() || !table.local_resize_cell_heights.is_empty() {
+            return false;
+        }
+        let Some(owner) = table.cells.get(cell_idx as usize) else { return false; };
+        let owner_end = u32::from(owner.row) + u32::from(owner.row_span);
+        if owner.col_span != 2 || owner.row_span <= 1 || owner.row == 0
+            || (owner.row == 1 && owner_end == u32::from(table.row_count))
+            || owner.line_wrap != 0 || owner.text_direction != 0
+            || !owner.paragraphs.iter().any(|para| !para.line_segs.is_empty()) {
+            return false;
+        }
+        let mut wrapped = table.cells.iter().enumerate().filter(|(_, cell)| cell.line_wrap != 0);
+        let Some((wrapped_idx, cell)) = wrapped.next() else { return false; };
+        if wrapped.next().is_some() || cell.line_wrap != crate::model::table::CELL_LINE_WRAP_SQUEEZE
+            || cell.is_header || cell.row == 0 || cell.row_span != 1 || cell.col_span != 1
+            || (cell.row >= owner.row && u32::from(cell.row) < owner_end) {
+            return false;
+        }
+        let mut witness = table.as_ref().clone();
+        witness.cells[wrapped_idx].line_wrap = 0;
+        crate::renderer::float_placement::mixed_plain_owner_block(
+            &witness, 1, table.row_count as usize)
+    }
+
     /// 문단에 텍스트박스가 있는 Shape 컨트롤이 있으면 해당 control_index를 반환한다.
     /// 없으면 -1을 반환한다.
     #[wasm_bindgen(js_name = getTextBoxControlIndex)]
