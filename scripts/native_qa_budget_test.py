@@ -207,6 +207,35 @@ class NativeBudgetTests(unittest.TestCase):
                 time.sleep(.05)
             self.assertTrue(ended.exists())
 
+    def test_broken_pipe_close_reaps_bridge_and_closes_every_pipe(self):
+        root, _, _, _ = self.case()
+        phase = root / "broken-pipe-phase"
+        phase.mkdir()
+        with patch.dict(os.environ, {"GEULGYEOL_QA_BUDGET_ROOT": str(root)}):
+            client = BudgetClient(phase)
+            try:
+                client.process.kill()  # Exact test-owned bridge, no Native child.
+                client.process.wait(timeout=5)
+                client.process.stdin.write("buffered request without newline")
+                client.close()  # Closing the buffered pipe raises BrokenPipeError before repair.
+                self.assertTrue(client.process.stdin.closed)
+                self.assertTrue(client.process.stdout.closed)
+                self.assertTrue(client.process.stderr.closed)
+                client.close()  # Already closed/reaped clients remain safe to close.
+                marker = phase / "qa-evidence-status.json"
+                pin = sha(marker)
+                self.assertEqual(json.loads(marker.read_text())["outcome"], "running")
+                next_phase = root / "next"
+                next_phase.mkdir()
+                with self.assertRaisesRegex(RuntimeError, "unfinished evidence"):
+                    BudgetClient(next_phase)
+                self.assertEqual(sha(marker), pin)
+                self.assertFalse((next_phase / "qa-evidence-status.json").exists())
+            finally:
+                for stream in (client.process.stdin, client.process.stdout, client.process.stderr):
+                    if not stream.closed:
+                        stream.close()  # Only this test's streams, even on the pre-repair failure.
+
     def test_sampled_budget_failure_stops_only_the_created_fake_child(self):
         root, _, _, _ = self.case()
         original = subprocess.Popen
