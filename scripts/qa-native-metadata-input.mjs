@@ -5,6 +5,9 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 const CASE_LIMIT=32*1024*1024, digestPattern=/^[a-f0-9]{64}$/;
+function requiredDigest(value) {
+ assert(typeof value==='string'&&digestPattern.test(value),'required SHA256 digest missing or malformed');return value;
+}
 async function fileSHA(file) {
  const hash=createHash('sha256');for await(const chunk of fs.createReadStream(file))hash.update(chunk);
  return hash.digest('hex');
@@ -20,6 +23,9 @@ class Inputs {
   if(expected!==undefined){assert(digestPattern.test(expected),'SHA256 required');assert.equal(hash,expected,'evidence SHA256 mismatch');}
   if(this.pins.has(resolved))assert.equal(hash,this.pins.get(resolved),'evidence changed during load');
   this.pins.set(resolved,hash);this.limits.set(resolved,Math.min(limit,this.limits.get(resolved)??limit));return hash;
+ }
+ async expected(file,expected,limit=CASE_LIMIT) {
+  return this.pin(file,requiredDigest(expected),limit);
  }
  async json(file,limit=CASE_LIMIT) {
   await this.pin(file,undefined,limit);const value=JSON.parse(fs.readFileSync(file,'utf8'));
@@ -53,8 +59,8 @@ export async function openNativeSourceEvidence({nativeRoot,seedsFile,baselineRoo
  const seeds=await input.json(seedsFile),seedPin=input.pins.get(path.resolve(seedsFile));
  assert.equal(process.seedIndexSHA256,seedPin);assert.equal(baselineProof.seedIndexSHA256,seedPin);
  const nativeBinary=nativePath(process.nativeBinary);
- const nativePin=await input.pin(nativeBinary,process.nativeSHA256Before,512*1024*1024);
- assert.equal(process.nativeSHA256After,nativePin);
+ const nativePin=await input.expected(nativeBinary,process.nativeSHA256Before,512*1024*1024);
+ assert.equal(requiredDigest(process.nativeSHA256After),nativePin);
  assert(Array.isArray(seeds)&&seeds.length>0&&seeds.length<=128,'bounded source plan required');
  assert(Array.isArray(process.rows)&&Array.isArray(baselineProof.rows),'source/baseline rows required');
  assert.equal(process.cases,seeds.length*2);assert.equal(process.rows.length,process.cases);
@@ -71,9 +77,9 @@ export async function openNativeSourceEvidence({nativeRoot,seedsFile,baselineRoo
    assert.equal(row.command[0],nativeBinary,'Native command must match metadata');
    assert(typeof seed.files[format]==='string'&&path.isAbsolute(seed.files[format]),'absolute planned source required');
    const source=fs.realpathSync(seed.files[format]);assert.equal(row.command[1],source);
-   const sourcePin=await input.pin(source,row.sourceSHA256Before);assert.equal(row.sourceSHA256After,sourcePin);
-   const ledgerFile=path.join(nativeRoot,stem,'ledger.json');await input.pin(ledgerFile,row.ledgerSHA256);
-   const ledger=await input.json(ledgerFile);await input.pin(path.join(nativeRoot,stem+'.log'),row.logSHA256);
+   const sourcePin=await input.expected(source,row.sourceSHA256Before);assert.equal(requiredDigest(row.sourceSHA256After),sourcePin);
+   const ledgerFile=path.join(nativeRoot,stem,'ledger.json');await input.expected(ledgerFile,row.ledgerSHA256);
+   const ledger=await input.json(ledgerFile);await input.expected(path.join(nativeRoot,stem+'.log'),row.logSHA256);
    const oracleFile=path.join(baselineRoot,stem+'.json'),oracle=await input.json(oracleFile);
    assert.equal(baselineRow.label,stem);assert.equal(baselineRow.oracleSHA256,input.pins.get(oracleFile));
    assert.equal(baselineRow.nativeLedgerSHA256,row.ledgerSHA256);assert.equal(baselineRow.sourceSHA256,sourcePin);
@@ -85,7 +91,7 @@ export async function openNativeSourceEvidence({nativeRoot,seedsFile,baselineRoo
    const pages=new Set();
    for(const page of oracle.pages) {
     assert(Number.isSafeInteger(page.page)&&page.page>=0&&!pages.has(page.page),'unique Native page required');pages.add(page.page);
-    await input.pin(path.join(nativeRoot,stem,'page-'+page.page+'.svg'),page.svgSHA256,16*1024*1024);
+    await input.expected(path.join(nativeRoot,stem,'page-'+page.page+'.svg'),page.svgSHA256,16*1024*1024);
    }
   }
  }
@@ -93,17 +99,34 @@ export async function openNativeSourceEvidence({nativeRoot,seedsFile,baselineRoo
  return {nativeBinary,nativePin,nativeProcess:process,nativeProcessFile,
   nativeProcessSHA256:input.pins.get(nativeProcessFile),verifyUnchanged:()=>input.unchanged(),inputFiles:input.pins.size};
 }
-export async function openNativeSavedEvidence({phase,nativeBinary}) {
+export async function openNativeSavedEvidence({phase,nativeBinary,processFile}) {
  phase=path.resolve(phase);const input=new Inputs();await input.phase(phase);
  const status=await input.json(path.join(phase,'native-wrapper-status.json'));
  assert.equal(status.complete,true,'complete Native wrapper required');
- const index=await input.json(path.join(phase,'index.json'));
+ const processRecord=await input.json(processFile??path.join(phase,'native-process.json'));
+ assert.equal(processRecord.schema,1);assert.equal(processRecord.exitCode,0,'successful whole Native wrapper exit required');
+ assert.equal(processRecord.phase,phase,'wrapper process must identify this phase');
+ assert(Array.isArray(processRecord.command)&&processRecord.command.length===7,'recorded Native wrapper command required');
+ assert.equal(path.basename(processRecord.command[2]),'shard-electron-table-manifest.py');
+ assert.equal(processRecord.command[4],phase);assert.equal(processRecord.command[5],nativePath(nativeBinary));
+ assert.equal(processRecord.command[6],'--scratch');
+ const indexFile=path.join(phase,'index.json');await input.expected(indexFile,processRecord.indexSHA256);
+ const index=await input.json(indexFile);
+ assert.deepEqual(processRecord.wrapperSourceSHA256Before,processRecord.wrapperSourceSHA256After);
+ assert(processRecord.wrapperSourceSHA256Before&&Object.keys(processRecord.wrapperSourceSHA256Before).length>0,'process wrapper source pins required');
+ for(const pin of Object.values(processRecord.wrapperSourceSHA256Before))requiredDigest(pin);
+ assert.equal(requiredDigest(processRecord.sourceManifestSHA256Before),requiredDigest(index.sourceManifestSHA256));
+ assert.equal(requiredDigest(processRecord.sourceManifestSHA256After),index.sourceManifestSHA256);
+ await input.expected(processRecord.command[3],index.sourceManifestSHA256);
+ assert.equal(requiredDigest(processRecord.nativeSHA256Before),requiredDigest(index.nativeSHA256));
+ assert.equal(requiredDigest(processRecord.nativeSHA256After),index.nativeSHA256);
  assert.equal(index.verificationInputsUnchanged,true);assert.equal(index.scratchIsCanonicalEvidence,false);
  assert.deepEqual(index.qaSourceBeforeSHA256,index.qaSourceAfterSHA256);
+ for(const [name,pin] of Object.entries(index.qaSourceBeforeSHA256??{}))assert.equal(pin,processRecord.wrapperSourceSHA256Before[name]);
  assert(index.qaSourceBeforeSHA256&&Object.keys(index.qaSourceBeforeSHA256).length>0,'wrapper source pins required');
  for(const pin of Object.values(index.qaSourceBeforeSHA256))assert(digestPattern.test(pin),'wrapper SHA256 required');
  assert(digestPattern.test(index.sourceManifestSHA256)&&digestPattern.test(index.sourceUncompressedSHA256),'manifest pins required');
- const nativePin=await input.pin(nativePath(nativeBinary),index.nativeSHA256,512*1024*1024);
+ const nativePin=await input.expected(nativePath(nativeBinary),index.nativeSHA256,512*1024*1024);
  assert(Array.isArray(index.rows)&&index.rows.length>0,'nonempty Native saved index required');
  assert.equal(index.cases,index.rows.length);assert.equal(status.cases,index.cases);
  const identities=new Set();

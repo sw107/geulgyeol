@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
+import {spawnSync} from 'node:child_process';
 import {openNativeSourceEvidence,openNativeSavedEvidence} from './qa-native-metadata-input.mjs';
 const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'geulgyeol-native-metadata-synthetic-')));
 console.log('SYNTHETIC_EVIDENCE_ROOT='+root);let serial=0;
@@ -71,11 +72,16 @@ function savedFixture() {
  const binary=path.join(q,'actual-fake-native');fs.writeFileSync(binary,'never executed');
  json(path.join(phase,'qa-evidence-status.json'),{schema:1,outcome:'complete',root:q});
  json(path.join(phase,'native-wrapper-status.json'),{complete:true,cases:1});
+ const manifest=path.join(q,'manifest.json');fs.writeFileSync(manifest,'synthetic manifest');
  const indexFile=path.join(phase,'index.json'),pin=sha(binary);json(indexFile,{cases:1,nativeSHA256:pin,
   verificationInputsUnchanged:true,scratchIsCanonicalEvidence:false,qaSourceBeforeSHA256:{wrapper:pin},qaSourceAfterSHA256:{wrapper:pin},
-  sourceManifestSHA256:pin,sourceUncompressedSHA256:pin,
+  sourceManifestSHA256:sha(manifest),sourceUncompressedSHA256:sha(manifest),
   rows:[{savedFile:'case.hwp',savedSHA256:pin,manifestSHA256:pin,nativeExitCode:0,nativeSame:true,overflowWarnings:0}]});
- return {phase,binary,indexFile,load:()=>openNativeSavedEvidence({phase,nativeBinary:binary})};
+ const processFile=path.join(phase,'native-process.json');json(processFile,{schema:1,phase,exitCode:0,indexSHA256:sha(indexFile),
+  command:[process.execPath,'-B',path.join(q,'shard-electron-table-manifest.py'),manifest,phase,binary,'--scratch'],
+  wrapperSourceSHA256Before:{wrapper:pin},wrapperSourceSHA256After:{wrapper:pin},
+  sourceManifestSHA256Before:sha(manifest),sourceManifestSHA256After:sha(manifest),nativeSHA256Before:pin,nativeSHA256After:pin});
+ return {phase,binary,indexFile,processFile,rebind:()=>edit(processFile,p=>p.indexSHA256=sha(indexFile)),load:()=>openNativeSavedEvidence({phase,nativeBinary:binary})};
 }
 test('saved consumer requires completed wrapper, phase and successful Native rows',async()=>{
  const f=savedFixture(),e=await f.load();assert.equal(e.cases,1);await e.verifyUnchanged();
@@ -88,8 +94,48 @@ for(const [name,mutate] of [
  ['wrong saved Native pin',f=>edit(f.indexFile,p=>p.nativeSHA256='0'.repeat(64))],
  ['inconsistent saved count',f=>edit(f.indexFile,p=>p.cases=2)]
 ])test(name+' cannot treat index presence as success',async()=>{
- const f=savedFixture();mutate(f);const pin=sha(f.indexFile);await assert.rejects(f.load());assert.equal(sha(f.indexFile),pin);
+ const f=savedFixture();mutate(f);f.rebind();const pin=sha(f.indexFile);await assert.rejects(f.load());assert.equal(sha(f.indexFile),pin);
 });
 test('saved marker mutation during consumption is rejected',async()=>{
  const f=savedFixture(),e=await f.load();edit(path.join(f.phase,'qa-evidence-status.json'),p=>p.outcome='failed');await assert.rejects(e.verifyUnchanged());
+});
+
+// Required pins may never be treated as an optional initial hash request.
+for(const [name,where,field,saved] of [
+ ['Native before',p=>p,'nativeSHA256Before',false],
+ ['source before',p=>p.rows[0],'sourceSHA256Before',false],
+ ['source log',p=>p.rows[0],'logSHA256',false],
+ ['source ledger',p=>p.rows[0],'ledgerSHA256',false],
+ ['saved Native',p=>p,'nativeSHA256',true],
+])for(const [variant,value] of [['missing',undefined],['empty',''],['malformed','invalid-sha']])
+ test(name+' '+variant+' digest is required',async()=>{
+  const f=saved?savedFixture():fixture(),file=saved?f.indexFile:f.processFile;
+  edit(file,p=>{if(value===undefined)delete where(p)[field];else where(p)[field]=value;});
+  if(saved)f.rebind();await assert.rejects(f.load(),/required SHA256/);
+ });
+for(const [name,mutate] of [
+ ['nonzero whole wrapper exit',f=>edit(f.processFile,p=>p.exitCode=1)],
+ ['missing whole process record',f=>fs.renameSync(f.processFile,f.processFile+'.preserved')],
+ ['wrong process phase',f=>edit(f.processFile,p=>p.phase=path.dirname(f.phase))],
+ ['missing index process pin',f=>edit(f.processFile,p=>delete p.indexSHA256)],
+ ['missing process Native pin',f=>edit(f.processFile,p=>delete p.nativeSHA256Before)],
+ ['wrong process Native command',f=>edit(f.processFile,p=>p.command[5]=f.indexFile)],
+])test(name+' cannot infer whole wrapper success from complete index',async()=>{
+ const f=savedFixture();mutate(f);const pin=sha(f.indexFile);await assert.rejects(f.load());assert.equal(sha(f.indexFile),pin);
+});
+test('whole process record mutation is rejected after loading',async()=>{
+ const f=savedFixture(),e=await f.load();edit(f.processFile,p=>p.exitCode=1);await assert.rejects(e.verifyUnchanged());
+});
+for(const failure of [false,true])test('real coordinator records own whole wrapper '+(failure?'failed':'successful')+' exit with fake Native only',async()=>{
+ const q=path.join(root,String(serial++));fs.mkdirSync(q);
+ const source=path.join(q,'saved.hwpx');fs.writeFileSync(source,'synthetic document');
+ const manifest=path.join(q,'manifest.json');json(manifest,[{file:source,svg:['<svg/>'],pageCount:1}]);
+ const binary=path.join(q,'fake-native.py');fs.writeFileSync(binary,'#!/usr/bin/env python3\nimport sys\nfrom pathlib import Path\nPath(sys.argv[2]).mkdir()\nraise SystemExit('+ (failure?1:0) +')\n');fs.chmodSync(binary,0o700);
+ const phase=path.join(q,'phase');const script=path.join(import.meta.dirname,'run-native-saved-qa.py');
+ const r=spawnSync('python3',['-B',script,manifest,phase,binary],{encoding:'utf8',timeout:15000,
+  env:{...process.env,GEULGYEOL_QA_BUDGET_ROOT:q,PYTHONDONTWRITEBYTECODE:'1'}});
+ assert.equal(r.status,failure?1:0,r.stderr);const record=JSON.parse(fs.readFileSync(path.join(phase,'native-process.json')));
+ assert.equal(record.exitCode,failure?1:0);assert.equal(record.phase,phase);
+ if(failure)await assert.rejects(openNativeSavedEvidence({phase,nativeBinary:binary}));
+ else {const e=await openNativeSavedEvidence({phase,nativeBinary:binary});assert.equal(e.cases,1);await e.verifyUnchanged();}
 });

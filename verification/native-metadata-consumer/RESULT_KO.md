@@ -1,5 +1,8 @@
 # Native metadata 소비자
 
+이 문서는 초기 ee114bd 검증 기록이다. 현재 필수 pin 및 saved 전체 wrapper exit 보완은
+[P2_RESULT_KO.md](P2_RESULT_KO.md)와 p2-proof.json을 따른다. 초기 proof.json은 보존했다.
+
 qa-native-metadata-input.mjs는 producer가 기록한 nativeBinary 절대 경로와 전후 SHA를
 사용한다. 기존 native/debug 경로를 추측하거나 compatibility hardlink를 만들지 않는다.
 실제 Native 실행은 하지 않는다. metadata가 없는 과거 증거는 기존 indexed 검사와

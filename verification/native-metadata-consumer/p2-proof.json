@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "reviewedBeforeFixSHA": "ee114bdc5754a14e819a8f73deb812d8f6f03063",
+  "mainAfterPR19": "77a4c925b2e43965c6780993cab174f6f9667ab4",
+  "syntheticTestsPassed": 53,
+  "requiredDigestVariants": [
+    "missing",
+    "empty",
+    "malformed"
+  ],
+  "requiredDigestFieldsTested": [
+    "source Native before",
+    "source before",
+    "source log",
+    "source ledger",
+    "saved index Native"
+  ],
+  "wholeWrapperProcessTests": [
+    {
+      "exitCode": 1,
+      "indexRecorded": false,
+      "recordSHA256": "e711a1446f12c08a997e21deddf13c3bca753dbefd39bc975d577191d9aa2a7a",
+      "record": "52/phase/native-process.json"
+    },
+    {
+      "exitCode": 0,
+      "indexRecorded": true,
+      "recordSHA256": "5337a2c96126a7d55fd6cbc53f131e82d0ae1c855bdbaa3e89437e6d1414ce45",
+      "record": "51/phase/native-process.json"
+    }
+  ],
+  "sourceMetadataCasesAfterFix": 10,
+  "sourceMetadataInputFilesAfterFix": 174,
+  "oldSaved88RejectedWithoutWholeWrapperRecord": true,
+  "noRetrofitOfOldProcessExit": true,
+  "oldCoordinateProofRetainedSHA256": "0d31c52bc077a1c657ae4bf031c34653fac7859f2c80612ca3f393e90eaf07a7",
+  "oldCoordinateQueries": 12690,
+  "oldCoordinateDocuments": 30,
+  "newCoordinateRun": false,
+  "priorPublicProofPreservedSHA256": "ae7deb90e73d02cf1e331eeebc1edff44de4f0ae7fe3ff6567aaeaf865b2618d",
+  "codeSHA256": {
+    "qa-native-metadata-input.mjs": "a9f7fb1692a2b7d166a25ed14f32410a681397a0eb6a2bc8e643efd8a593eb50",
+    "qa-native-metadata-input.test.mjs": "a02bc9d1e4835eaddfa9ff0dd03dfd0d053a9f3abe33008013919f66157daaaa",
+    "run-native-saved-qa.py": "954270e26b4d9eb62a80b6834a3aaced5ffa1c88fd386d0bd7b04f7357df2edc"
+  },
+  "syntheticBudgetObservation": {
+    "sharedMatchingRoots": 35,
+    "sharedPhysicalBytes": 10764288,
+    "limitBytes": 10000000,
+    "latestOwnTestRootPhysicalBytes": 2678784,
+    "additionalSyntheticWritesStopped": true,
+    "rootAttributionNotFullyEstablished": true
+  },
+  "wholeProductRunBudget": {
+    "normalBytes": 246571008,
+    "failureBytes": 84955136,
+    "totalBytes": 331526144,
+    "incompletePhases": [],
+    "freeBytes": 44946444288,
+    "normalForecastBytes": 0,
+    "failureForecastBytes": 0,
+    "normalLimit": 805306368,
+    "failureLimit": 268435456,
+    "requiredFreeBytes": 16374562816
+  },
+  "preservedProductSmoke": {
+    "cases": 4,
+    "undoRedoPairs": 28,
+    "savedReopens": 8,
+    "nodeExit": 0,
+    "appExit": 0,
+    "appNormalQuit": true,
+    "proofSHA256": "4e0bf973fc9dd29da1ba55446098033fb946ed9210fc8585ce354c999b7de129"
+  },
+  "productSource4Unchanged": true,
+  "newAppRunForToolFix": false,
+  "newBuildForToolFix": false,
+  "newProductNativeExecutionForToolFix": false,
+  "ciVerified": false,
+  "independentReviewPending": true
+}
