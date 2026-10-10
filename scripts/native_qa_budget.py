@@ -58,10 +58,10 @@ class BudgetClient:
         self.process.stderr.close()
 
 
-def run_native(command, log, budget, interval=.25):
+def run_native(command, log, budget, interval=.25, env=None):
     """Check while our Native child runs; stop only this child on a budget error."""
     with Path(log).open("x", encoding="utf-8") as stream:
-        process = subprocess.Popen(command, stdout=stream, stderr=subprocess.STDOUT)
+        process = subprocess.Popen(command, stdout=stream, stderr=subprocess.STDOUT, env=env)
         try:
             while True:
                 try:

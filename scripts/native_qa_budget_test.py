@@ -101,7 +101,7 @@ class NativeBudgetTests(unittest.TestCase):
         self.assertFalse((out / "native-0000").exists())
         self.assertEqual(sha(marker), pin)
 
-    def test_coordinator_pipe_eof_preserves_partial_as_failed_evidence(self):
+    def test_coordinator_pipe_eof_preserves_running_partial_and_blocks_next_phase(self):
         root, _, _, _ = self.case()
         phase = root / "phase"
         phase.mkdir()
@@ -110,8 +110,102 @@ class NativeBudgetTests(unittest.TestCase):
             partial = phase / "index.json.partial"
             partial.write_bytes(b"incomplete")
             client.close()
-        self.assertEqual(json.loads((phase / "qa-evidence-status.json").read_text())["outcome"], "failed")
+        self.assertEqual(json.loads((phase / "qa-evidence-status.json").read_text())["outcome"], "running")
         self.assertEqual(partial.read_bytes(), b"incomplete")
+        next_phase = root / "next"
+        next_phase.mkdir()
+        with patch.dict(os.environ, {"GEULGYEOL_QA_BUDGET_ROOT": str(root)}):
+            with self.assertRaisesRegex(RuntimeError, "unfinished evidence"):
+                BudgetClient(next_phase)
+        self.assertFalse((next_phase / "qa-evidence-status.json").exists())
+
+    def test_eof_with_live_owned_fake_native_keeps_next_phase_blocked(self):
+        import time
+        root, _, _, _ = self.case()
+        phase = root / "live-phase"
+        phase.mkdir()
+        heartbeat = phase / "heartbeat.txt"
+        code = "from pathlib import Path;import sys,time\np=Path(sys.argv[1])\nwhile True:\n with p.open('a') as f:f.write('tick\\n')\n time.sleep(.05)\n"
+        with patch.dict(os.environ, {"GEULGYEOL_QA_BUDGET_ROOT": str(root)}):
+            client = BudgetClient(phase)
+            child = subprocess.Popen([sys.executable, "-B", "-c", code, str(heartbeat)],
+                                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            try:
+                deadline = time.monotonic() + 2
+                while not heartbeat.exists() and time.monotonic() < deadline:
+                    time.sleep(.02)
+                self.assertTrue(heartbeat.exists())
+                client.close()  # Actual bridge EOF while the fake Native still writes.
+                before = heartbeat.stat().st_size
+                time.sleep(.15)
+                self.assertIsNone(child.poll())
+                self.assertGreater(heartbeat.stat().st_size, before)
+                marker = phase / "qa-evidence-status.json"
+                pin = sha(marker)
+                self.assertEqual(json.loads(marker.read_text())["outcome"], "running")
+                next_phase = root / "next"
+                next_phase.mkdir()
+                with self.assertRaisesRegex(RuntimeError, "unfinished evidence"):
+                    BudgetClient(next_phase)
+                self.assertEqual(sha(marker), pin)
+                self.assertFalse((next_phase / "qa-evidence-status.json").exists())
+            finally:
+                child.terminate()  # Exact test-owned fake child only.
+                child.wait(timeout=5)
+                if client.process.poll() is None:
+                    client.close()
+
+    def test_killed_coordinator_leaves_live_native_and_next_phase_blocked(self):
+        import time
+        root, _, _, _ = self.case()
+        phase = root / "killed-phase"
+        phase.mkdir()
+        heartbeat, ended = phase / "heartbeat.txt", phase / "ended.txt"
+        fake = root / "finite-fake-native.py"
+        fake.write_text("from pathlib import Path;import time,sys\n"
+                        "p=Path(sys.argv[1])\n"
+                        "for _ in range(40):\n"
+                        " with p.open('a') as f:f.write('tick\\n')\n"
+                        " time.sleep(.05)\n"
+                        "Path(sys.argv[2]).write_text('natural exit')\n")
+        code = ("import sys;sys.dont_write_bytecode=True\n"
+                "from pathlib import Path\n"
+                "from native_qa_budget import BudgetClient,run_native\n"
+                "b=BudgetClient(Path(sys.argv[1]))\n"
+                "run_native([sys.executable,'-B',sys.argv[2],sys.argv[3],sys.argv[4]],"
+                "Path(sys.argv[1])/'fake.log',b)\n")
+        env = {**os.environ, "GEULGYEOL_QA_BUDGET_ROOT": str(root),
+               "PYTHONPATH": str(ROOT), "PYTHONDONTWRITEBYTECODE": "1"}
+        coordinator = subprocess.Popen(
+            [sys.executable, "-B", "-c", code, str(phase), str(fake), str(heartbeat), str(ended)],
+            env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        try:
+            deadline = time.monotonic() + 3
+            while not heartbeat.exists() and time.monotonic() < deadline:
+                time.sleep(.02)
+            self.assertTrue(heartbeat.exists())
+            coordinator.kill()  # Only this exact synthetic coordinator; skip run_native cleanup.
+            coordinator.wait(timeout=5)
+            before = heartbeat.stat().st_size
+            time.sleep(.15)
+            self.assertGreater(heartbeat.stat().st_size, before)
+            self.assertFalse(ended.exists())
+            self.assertEqual(json.loads((phase / "qa-evidence-status.json").read_text())["outcome"], "running")
+            next_phase = root / "next"
+            next_phase.mkdir()
+            with patch.dict(os.environ, {"GEULGYEOL_QA_BUDGET_ROOT": str(root)}):
+                with self.assertRaisesRegex(RuntimeError, "unfinished evidence"):
+                    BudgetClient(next_phase)
+            self.assertFalse((next_phase / "qa-evidence-status.json").exists())
+        finally:
+            if coordinator.poll() is None:
+                coordinator.kill()
+                coordinator.wait(timeout=5)
+            # The finite synthetic Native exits naturally, even if the coordinator died.
+            deadline = time.monotonic() + 4
+            while not ended.exists() and time.monotonic() < deadline:
+                time.sleep(.05)
+            self.assertTrue(ended.exists())
 
     def test_sampled_budget_failure_stops_only_the_created_fake_child(self):
         root, _, _, _ = self.case()
