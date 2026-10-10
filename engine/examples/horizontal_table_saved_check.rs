@@ -22,7 +22,7 @@ fn parse(s: String) -> Value {
     canonical_numbers(&mut value);
     value
 }
-fn main() {
+pub(crate) fn main() {
     let args: Vec<_> = std::env::args().skip(1).collect();
     std::fs::create_dir_all(&args[1]).unwrap();
     if args.get(2).is_some_and(|x| x == "--pair") {

@@ -316,13 +316,14 @@ pub(crate) fn rowspan_owner_block_range(table: &Table, row: usize) -> (usize, us
     }
 }
 
-/// Bounded plain two-column mixed-owner contract. Independent/staggered row
+/// Bounded plain two/three-column mixed-owner contract. Independent/staggered row
 /// owners need their own cut ledger; the whole-span max-height route cannot
 /// represent their different row origins and ends.
 pub(crate) fn mixed_plain_owner_block(table: &Table, start: usize, end: usize) -> bool {
     let size = end.saturating_sub(start);
     size > crate::renderer::height_measurer::BLOCK_UNIT_MAX_ROWS && size <= 64
-        && end <= table.row_count as usize && table.col_count == 2 && table.cell_spacing == 0
+        && end <= table.row_count as usize && matches!(table.col_count, 2 | 3) && table.cell_spacing == 0
+        && (table.col_count == 2 || plain_three_column_owner_widths(table))
         && !table.common.treat_as_char && !table.common.allow_overlap
         && matches!(table.page_break, TablePageBreak::RowBreak)
         && matches!(table.common.text_wrap, TextWrap::TopAndBottom)
@@ -335,14 +336,42 @@ pub(crate) fn mixed_plain_owner_block(table: &Table, start: usize, end: usize) -
         && table.cells.iter().filter(|cell| (cell.row as usize) < end
             && cell.row as usize + cell.row_span as usize > start).all(|cell| {
                 cell.row as usize >= start && cell.row as usize + cell.row_span as usize <= end
-                    && cell.row_span > 0 && cell.col_span == 1 && cell.col < 2
+                    && cell.row_span > 0 && cell.col_span == 1 && cell.col < table.col_count
                     && cell.text_direction == 0 && cell.line_wrap == 0
                     && cell.paragraphs.iter().all(|para| para.controls.is_empty() && para.raw_break_type == 0)
             })
-        && (start..end).all(|row| (0..2).all(|col| table.cells.iter().filter(|cell| {
+        && (start..end).all(|row| (0..table.col_count as usize).all(|col| table.cells.iter().filter(|cell| {
             cell.col as usize == col && cell.row as usize <= row
                 && row < cell.row as usize + cell.row_span as usize
         }).count() == 1))
+}
+
+/// The first three-column unit uses one exact stored track width per column.
+/// Cell-unit measurement, resolved paint columns and paragraph frames therefore
+/// share the same widths (including the common render-normalization scale).
+/// Residual table width, local row resize and colspan need their own contract.
+fn plain_three_column_owner_widths(table: &Table) -> bool {
+    if table.col_count != 3 || table.common.width == 0 || table.common.width > i32::MAX as u32
+        || !table.local_resize_rows.is_empty() || !table.local_resize_cell_widths.is_empty() {
+        return false;
+    }
+    let mut widths = [0u32; 3];
+    for cell in &table.cells {
+        if cell.col >= 3 || cell.col_span != 1 || cell.width == 0 || cell.width > i32::MAX as u32
+            || cell.row_span == 0 || cell.row as usize + cell.row_span as usize > table.row_count as usize {
+            return false;
+        }
+        let width = &mut widths[cell.col as usize];
+        if *width != 0 && *width != cell.width { return false; }
+        *width = cell.width;
+        // Simple repeated header rows only; complex header spans are separate.
+        if cell.is_header && (cell.row_span != 1 || cell.text_direction != 0 || cell.line_wrap != 0
+            || cell.paragraphs.iter().any(|para| !para.controls.is_empty() || para.raw_break_type != 0)) {
+            return false;
+        }
+    }
+    widths.iter().all(|&width| width > 0)
+        && widths.iter().map(|&width| u64::from(width)).sum::<u64>() == u64::from(table.common.width)
 }
 
 /// A large plain block owned by full-span horizontal cells.

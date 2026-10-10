@@ -2,7 +2,7 @@
 //! Usage: mixed_table_owner_probe INPUT_HWP_OR_HWPX FRESH_OUTPUT_DIR
 use rhwp::{model::control::Control, wasm_api::HwpDocument};
 use serde_json::{json, Value};
-fn main() {
+pub(crate) fn main() {
     let args: Vec<_> = std::env::args().skip(1).collect();
     assert_eq!(args.len(), 2);
     assert!(!std::path::Path::new(&args[1]).exists());
@@ -17,7 +17,7 @@ fn main() {
     let owners: Vec<_> = table.cells.iter().enumerate().map(|(i, cell)| json!({
         "cell": i, "rowStart": cell.row, "rowEnd": cell.row as usize + cell.row_span as usize,
         "colStart": cell.col, "colEnd": cell.col as usize + cell.col_span as usize,
-        "header": cell.is_header, "paragraphs": cell.paragraphs.iter().map(|p| p.text.clone()).collect::<Vec<_>>()
+        "storedWidthHU": cell.width, "header": cell.is_header, "paragraphs": cell.paragraphs.iter().map(|p| p.text.clone()).collect::<Vec<_>>()
     })).collect();
     let mut pages = Vec::new();
     for page in 0..d.page_count() {
@@ -28,7 +28,7 @@ fn main() {
         pages.push(json!({"page": page, "text": text, "controls": controls, "info": info}));
     }
     let result = json!({"target": {"para": p, "control": c}, "rows": table.row_count, "cols": table.col_count,
-        "owners": owners, "pages": pages});
+        "storedTableWidthHU": table.common.width, "owners": owners, "pages": pages});
     std::fs::write(format!("{}/ledger.json", args[1]), serde_json::to_vec_pretty(&result).unwrap()).unwrap();
     println!("{}", json!({"pages": d.page_count(), "cells": table.cells.len()}));
 }
