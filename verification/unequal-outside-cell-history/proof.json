@@ -1,0 +1,430 @@
+{
+  "schema": 1,
+  "verifiedUTC": "2026-10-10T19:13:27.599452+00:00",
+  "baseMainSHA": "1fec4e325f2bea5fc24aa194070e2c5aa0248f4e",
+  "PR22ApprovedHeadSHA": "c5af9298a32252a22fe6ddd8500bab7a29310ef1",
+  "PR22Merged": true,
+  "productChange": false,
+  "scope": "unequal-left last outside ordinary cell 40, paragraph0, offset0 Delete and settled/burst mixed history",
+  "sourceInputPins": {
+    "hwp": {
+      "file": "partial-unequal-left.hwp",
+      "sha256": "4513d474c5972d1edef36956cb60a6d8162ef20937b7d8d7ad69db90066a44fe"
+    },
+    "hwpx": {
+      "file": "partial-unequal-left.hwpx",
+      "sha256": "d7baee69f2b9857b204723c8c906b9380cc7dba13a4e64163312e5a665a70457"
+    }
+  },
+  "tableRows": 48,
+  "trackWidthsHU": [
+    4000,
+    7000,
+    10000
+  ],
+  "targetCell": {
+    "index": 40,
+    "row": 47,
+    "col": 2,
+    "rowSpan": 1,
+    "colSpan": 1
+  },
+  "rectangleRows": [
+    8,
+    40
+  ],
+  "ownerBlockRows": [
+    4,
+    45
+  ],
+  "sourceCompiledSHA256": {
+    "engine/src/wasm_api.rs": "9a7e3e968f37800efa137caebd360e46a1ec3c9f002b7ca9f39f9776984d4da4",
+    "engine/src/wasm_api/tests.rs": "cc4e2df912a384e8f1f764efe00a8db478f3badef50df26fd2fd62ba3a16b2a1",
+    "rhwp-studio/src/core/wasm-bridge.ts": "aa304b58d27fcb150b6dc5661a4664e3a1e5bcaed564dfc0cbea83cb20a03deb",
+    "rhwp-studio/src/engine/input-handler.ts": "d0a76863f8db0ba3a2c2af9e2444ed782f191d1d8898f9630c534917f74b605e"
+  },
+  "unchangedRendererAndHistorySHA256": {
+    "engine/src/renderer/float_placement.rs": "9fa2ba99a1d3afee49a8d5547cdbef894f91002de11aadd05f7c4839b21cb202",
+    "engine/src/renderer/layout.rs": "3269c12c26c7b0e795eb11bd8ffd63eb3f8d714e25b1b751f5a062733cdbd92e",
+    "engine/src/document_core/commands/text_editing.rs": "d22fff42cd7569088da758666c787bddb1545ab0e4a8545d77656bc3d4ca947e",
+    "rhwp-studio/src/engine/history.ts": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db"
+  },
+  "WasmSHA256": "143713ea4cb939ac15db2b411891ffdcff551a40146a21dee182cac324fff651",
+  "beforeWasmSHA256": "444e1a45faad4f7c88aaa12b8ba30b6fd7e60174a612c6b54ae657213c8ac988",
+  "NativeSHA256": "1801e456363aa79de62e96f60d846a30d8d37251e0bfef72bb2a2dff686ad250",
+  "sourceRuntimeSHA256": "4040dd9fad254b5bdebaa9fbe91522f00bee5c03eed7fe3faa632c6f5941dce6",
+  "hostElectronSHA256": "588478afc5f2bc73b6433d6e565a214dc830144be39a3d79805723292754ccd8",
+  "stages": [
+    {
+      "phase": "hwp-delete",
+      "flows": 1,
+      "exactUndoRedoPairs": 2,
+      "savedReopens": 2,
+      "NodeExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourcesAndSeedUnchanged": true,
+      "proofSHA256": "9930176053b8763270ae46b96da1d7ee0548f8e80faf63f4d8f87f25eedaf983",
+      "processSHA256": "aedc50486f46065082a187711c97accc6f27a47f5905cf6a97555688c4802ec4",
+      "seedSHA256": "befb6675d877bbcf088088b0091255962a882554e0f1bfb1e0531a870f3365ff",
+      "runtimeFilesPinned": 52
+    },
+    {
+      "phase": "hwp-mixed",
+      "flows": 2,
+      "exactUndoRedoPairs": 24,
+      "savedReopens": 4,
+      "NodeExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourcesAndSeedUnchanged": true,
+      "proofSHA256": "df6ff93f24687b09364164f9b09e354fd706c399db0f2f93b21907d176c77400",
+      "processSHA256": "3abaa6d3dd25cc514c208209224ab64332de84ae3ab85a0259d47b894016bb93",
+      "seedSHA256": "ae9212111edce09341378e1fb7ec55719aec0244b10bb00a125555fbab283796",
+      "runtimeFilesPinned": 52
+    },
+    {
+      "phase": "hwpx-equivalent",
+      "flows": 3,
+      "exactUndoRedoPairs": 26,
+      "savedReopens": 6,
+      "NodeExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourcesAndSeedUnchanged": true,
+      "proofSHA256": "e9708d1465ca40b0099e89cd4485eff27c472a374ff56e7632941153d2f19197",
+      "processSHA256": "3a4bb38e3a998fbf05b727acba50c35baa8ef5c854289b4b10b16fbc81b963c1",
+      "seedSHA256": "a68b8ac72101be56ab80ae567f15f82617eeafc68845014f7d69239d66f3bbe9",
+      "runtimeFilesPinned": 52
+    },
+    {
+      "phase": "hwp-equivalent-plan",
+      "flows": 3,
+      "exactUndoRedoPairs": 26,
+      "savedReopens": 6,
+      "NodeExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourcesAndSeedUnchanged": true,
+      "proofSHA256": "6618a859311b3143d5b9bb10c5164e733ec0760cd159260e60b8451304e08463",
+      "processSHA256": "5da59583796c113e11a4b256718a22c11c829a0c3f04af21407716c757a0a36c",
+      "seedSHA256": "a68b8ac72101be56ab80ae567f15f82617eeafc68845014f7d69239d66f3bbe9",
+      "runtimeFilesPinned": 52
+    }
+  ],
+  "actualElectronFlows": 9,
+  "sameFormatExactUndoRedoPairs": 78,
+  "savedReopens": 18,
+  "NativeSavedComparisons": 18,
+  "NativeStages": [
+    {
+      "phase": "hwp-delete",
+      "actualFullSVGModelComparisons": 2,
+      "overallExitCode": 0,
+      "overflowWarnings": 0,
+      "indexSHA256": "c2bccbd210c5866964e83063b5a081a9d9eaa891d1f58d52546ec0a9b320546e",
+      "processSHA256": "6403f4947bd1a19b16dcabf588a597cb447402c845dbdc815c4f58b39d153514",
+      "metadataValidated": true,
+      "consumerReverifiedLayout": false
+    },
+    {
+      "phase": "hwp-mixed",
+      "actualFullSVGModelComparisons": 4,
+      "overallExitCode": 0,
+      "overflowWarnings": 0,
+      "indexSHA256": "753e94b7d0e08e4083f4eee104c99ded79b6dfc8aa5c7059dfefab899a63c9f6",
+      "processSHA256": "a49b640f832b0b0ad75a448cb10f0dda84b4f8375d1e425caf19170e2b635372",
+      "metadataValidated": true,
+      "consumerReverifiedLayout": false
+    },
+    {
+      "phase": "hwpx-equivalent",
+      "actualFullSVGModelComparisons": 6,
+      "overallExitCode": 0,
+      "overflowWarnings": 0,
+      "indexSHA256": "fb8e8d67005ade5a57fdd24c877099c2cda76a3432b039bcee6ab125b3918851",
+      "processSHA256": "6a53ba9aece4821fb41ce6365b41d0cfd39f6baf4886ea4a3c108ef004d14721",
+      "metadataValidated": true,
+      "consumerReverifiedLayout": false
+    },
+    {
+      "phase": "hwp-equivalent-plan",
+      "actualFullSVGModelComparisons": 6,
+      "overallExitCode": 0,
+      "overflowWarnings": 0,
+      "indexSHA256": "c9c7b19aebde152279685bc832cf96198c76ef294dabf043605ae2b47afd140a",
+      "processSHA256": "0ab1aed676761e7a1f5f2beed8178b044bfb3822786b51751d670cdf7e84b31d",
+      "metadataValidated": true,
+      "consumerReverifiedLayout": false
+    }
+  ],
+  "paintChecks": 46,
+  "paintPages": 644,
+  "hidden": 0,
+  "partial": 0,
+  "maximumBorderOverflowPx": -2.639999999999759,
+  "maximumInkOverflowPx": -11.519959538777698,
+  "crossFormatComparison": {
+    "sameFullInitialModelSVG": true,
+    "sameFullDeleteModelSVG": true,
+    "firstCharacterActuallyDeleted": true,
+    "sameMixedIntermediateLogicalModel": true,
+    "sameMixedIntermediateModelSVG": false,
+    "sameMixedUndoRedoModelSVG": false,
+    "sameBurstFinalModelSVG": true,
+    "preexistingCrossFormatWrapObservations": [
+      {
+        "label": "-mixed-step-2-state.json.gz",
+        "differentPages": [
+          12
+        ],
+        "logicalModelExact": true,
+        "HwpSVG": {
+          "sha256": "0bba4c5a94e4b74733272073a74dc876e14830cd908f1320b657e12019b480d7",
+          "bytes": 276246
+        },
+        "HwpxSVG": {
+          "sha256": "3d270ea625147cb337bbcbf6168f177926ab72c43fba5546a6ea3fd0c741c046",
+          "bytes": 276238
+        }
+      },
+      {
+        "label": "-mixed-step-3-state.json.gz",
+        "differentPages": [
+          12
+        ],
+        "logicalModelExact": true,
+        "HwpSVG": {
+          "sha256": "7587ba3eaf3152be6d09f4171aea7ca6b930d39e6469235f730318319bfa7ed0",
+          "bytes": 276246
+        },
+        "HwpxSVG": {
+          "sha256": "5775e45b611c69a9c546814e8115018a977bc913ef0dc914cef0e9ecbe283424",
+          "bytes": 276235
+        }
+      },
+      {
+        "label": "-mixed-undo-0-3-state.json.gz",
+        "differentPages": [
+          12
+        ],
+        "logicalModelExact": true,
+        "HwpSVG": {
+          "sha256": "0bba4c5a94e4b74733272073a74dc876e14830cd908f1320b657e12019b480d7",
+          "bytes": 276246
+        },
+        "HwpxSVG": {
+          "sha256": "3d270ea625147cb337bbcbf6168f177926ab72c43fba5546a6ea3fd0c741c046",
+          "bytes": 276238
+        }
+      },
+      {
+        "label": "-mixed-undo-0-4-state.json.gz",
+        "differentPages": [
+          12
+        ],
+        "logicalModelExact": true,
+        "HwpSVG": {
+          "sha256": "7587ba3eaf3152be6d09f4171aea7ca6b930d39e6469235f730318319bfa7ed0",
+          "bytes": 276246
+        },
+        "HwpxSVG": {
+          "sha256": "5775e45b611c69a9c546814e8115018a977bc913ef0dc914cef0e9ecbe283424",
+          "bytes": 276235
+        }
+      },
+      {
+        "label": "-mixed-redo-0-3-state.json.gz",
+        "differentPages": [
+          12
+        ],
+        "logicalModelExact": true,
+        "HwpSVG": {
+          "sha256": "0bba4c5a94e4b74733272073a74dc876e14830cd908f1320b657e12019b480d7",
+          "bytes": 276246
+        },
+        "HwpxSVG": {
+          "sha256": "3d270ea625147cb337bbcbf6168f177926ab72c43fba5546a6ea3fd0c741c046",
+          "bytes": 276238
+        }
+      },
+      {
+        "label": "-mixed-redo-0-4-state.json.gz",
+        "differentPages": [
+          12
+        ],
+        "logicalModelExact": true,
+        "HwpSVG": {
+          "sha256": "7587ba3eaf3152be6d09f4171aea7ca6b930d39e6469235f730318319bfa7ed0",
+          "bytes": 276246
+        },
+        "HwpxSVG": {
+          "sha256": "5775e45b611c69a9c546814e8115018a977bc913ef0dc914cef0e9ecbe283424",
+          "bytes": 276235
+        }
+      },
+      {
+        "label": "-mixed-undo-1-3-state.json.gz",
+        "differentPages": [
+          12
+        ],
+        "logicalModelExact": true,
+        "HwpSVG": {
+          "sha256": "0bba4c5a94e4b74733272073a74dc876e14830cd908f1320b657e12019b480d7",
+          "bytes": 276246
+        },
+        "HwpxSVG": {
+          "sha256": "3d270ea625147cb337bbcbf6168f177926ab72c43fba5546a6ea3fd0c741c046",
+          "bytes": 276238
+        }
+      },
+      {
+        "label": "-mixed-undo-1-4-state.json.gz",
+        "differentPages": [
+          12
+        ],
+        "logicalModelExact": true,
+        "HwpSVG": {
+          "sha256": "7587ba3eaf3152be6d09f4171aea7ca6b930d39e6469235f730318319bfa7ed0",
+          "bytes": 276246
+        },
+        "HwpxSVG": {
+          "sha256": "5775e45b611c69a9c546814e8115018a977bc913ef0dc914cef0e9ecbe283424",
+          "bytes": 276235
+        }
+      },
+      {
+        "label": "-mixed-redo-1-3-state.json.gz",
+        "differentPages": [
+          12
+        ],
+        "logicalModelExact": true,
+        "HwpSVG": {
+          "sha256": "0bba4c5a94e4b74733272073a74dc876e14830cd908f1320b657e12019b480d7",
+          "bytes": 276246
+        },
+        "HwpxSVG": {
+          "sha256": "3d270ea625147cb337bbcbf6168f177926ab72c43fba5546a6ea3fd0c741c046",
+          "bytes": 276238
+        }
+      },
+      {
+        "label": "-mixed-redo-1-4-state.json.gz",
+        "differentPages": [
+          12
+        ],
+        "logicalModelExact": true,
+        "HwpSVG": {
+          "sha256": "7587ba3eaf3152be6d09f4171aea7ca6b930d39e6469235f730318319bfa7ed0",
+          "bytes": 276246
+        },
+        "HwpxSVG": {
+          "sha256": "5775e45b611c69a9c546814e8115018a977bc913ef0dc914cef0e9ecbe283424",
+          "bytes": 276235
+        }
+      }
+    ],
+    "sameSavedModelSVGComparisons": 6,
+    "binaryDigestEqualityRequired": false,
+    "timingObservationEqualityRequired": false,
+    "sourceSHA256": "a70629acbb30fc0e56d9322b19adb9d6c374c8db642b2ade292146007f4b9323"
+  },
+  "crossFormatProofSHA256": "6109b27a362c30806bff0deada6372b8834a3059f394b1a0c1a3e64c645b4a20",
+  "oldCurrentMemoryReflowExact": true,
+  "oldCurrentMemoryReflowProofSHA256": "a1014f878c2b97d0e9c7d147a22ba62d5e0f6356ef36d31ca65bfa17d2bc53bc",
+  "oldCurrentReflowSourceCharPropertiesExact": true,
+  "oldCurrentCrossFormatReflowStages": [
+    {
+      "stage": "initial",
+      "textExact": true,
+      "svgExact": true,
+      "differentPages": []
+    },
+    {
+      "stage": "text",
+      "textExact": true,
+      "svgExact": true,
+      "differentPages": []
+    },
+    {
+      "stage": "shift-enter",
+      "textExact": true,
+      "svgExact": true,
+      "differentPages": []
+    },
+    {
+      "stage": "delete",
+      "textExact": true,
+      "svgExact": false,
+      "differentPages": [
+        12
+      ]
+    },
+    {
+      "stage": "backspace",
+      "textExact": true,
+      "svgExact": false,
+      "differentPages": [
+        12
+      ]
+    }
+  ],
+  "priorPublicProofsUnchangedSHA256": {
+    "verification/table-partial-edit-gaps/proof.json": "6c3936c96e4531b9bb46a9fae4cbf555c51a4404876cf42367069329761ba514",
+    "verification/excluded-linewrap-undo/proof.json": "cfe4ea71f834300d35b77886b7d73bfb41997a0fa145824bb5eed0be560f1813"
+  },
+  "originalDirtyUnchangedSHA256": {
+    "check-colspan-two-owner-carets.mjs": "367477219c197153dec12899885582a55e85e0ce0cca7e6aa5063e0d1f50dda9",
+    "check-partial-colspan-two-owner-snapshot-scope.mjs": "6c979f9b526bdf865951986407a663418b264ab9e4b031f85b4079ac56435549",
+    "prepare-native-cell-caret-oracle.py": "227aaca89f3097c0b34e8438c689e76140204058c036e6a2995860493cef9b7d",
+    "prepare-partial-colspan-two-owner-fixtures.mjs": "b319e32a5947013511ac9c10ae7ed3aea31a36fa14feddcc365b60393b669ad6"
+  },
+  "failureEvidencePreserved": [
+    {
+      "phase": "cross-format",
+      "failureSHA256": "34e80f5fc49086b021f9ed614ab19af27542e226082cc0a7eafc9c21ddf47abb",
+      "markerSHA256": "468c9b66652b3dd7e4c03525b396ea9a01fbf31a78c694f627d438277a06c114",
+      "outcome": "failed"
+    },
+    {
+      "phase": "cross-format-model",
+      "failureSHA256": "e41d3e3600ad67bf21edbbde1e17ea2f5dfaa42a6c16cb7a837fe15becec2af4",
+      "markerSHA256": "468c9b66652b3dd7e4c03525b396ea9a01fbf31a78c694f627d438277a06c114",
+      "outcome": "failed"
+    },
+    {
+      "phase": "cross-format-observed",
+      "failureSHA256": "49ecf94c81e852983a480084661fff02cc1fa0625781aed93f7da24fec3515df",
+      "markerSHA256": "468c9b66652b3dd7e4c03525b396ea9a01fbf31a78c694f627d438277a06c114",
+      "outcome": "failed"
+    }
+  ],
+  "strictComparatorCheckpointSHA256": "727e3da7e202da345c672f0a0c2d0ffd59c8f4851968452d81db93a462c18fba",
+  "observerComparatorCheckpointSHA256": "1921642a4f3bde5ff7a6494241a70c19d19984501559b8ed97c4246a84c94339",
+  "evidenceBudget": {
+    "normalBytes": 511561728,
+    "failureBytes": 71270400,
+    "totalBytes": 582832128,
+    "incompletePhases": [],
+    "freeBytes": 45071392768,
+    "normalForecastBytes": 0,
+    "failureForecastBytes": 0,
+    "normalLimit": 805306368,
+    "failureLimit": 268435456,
+    "requiredFreeBytes": 16374562816
+  },
+  "sharedSyntheticPhysicalBytes": 14602240,
+  "sharedSyntheticLimitBytes": 32000000,
+  "nativeUnitUnexecutedExistingMissingInputs": 4,
+  "nativeUnitPassClaimed": false,
+  "newBuild": false,
+  "newPackage": false,
+  "cleanupPerformed": false,
+  "limitations": [
+    "unequal-left cell40 only; unequal-right and other outside cells untested for Delete/mixed",
+    "same-format exact undo does not imply all cross-format intermediate SVGs exact",
+    "preexisting cross-format page12 line-wrap difference retained",
+    "physicalIME/manualGUI/Linux/CI unverified",
+    "no new packaged app or release"
+  ]
+}
