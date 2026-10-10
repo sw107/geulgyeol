@@ -46,16 +46,25 @@ class BudgetClient:
         return result
 
     def close(self):
-        if not self.process.stdin.closed:
-            self.process.stdin.close()
         try:
-            self.process.wait(timeout=5)
-        except subprocess.TimeoutExpired:
-            # This is the exact bridge child created by this client.
-            self.process.terminate()
-            self.process.wait(timeout=5)
-        self.process.stdout.close()
-        self.process.stderr.close()
+            try:
+                if not self.process.stdin.closed:
+                    self.process.stdin.close()
+            except BrokenPipeError:
+                # An exited bridge cannot consume a buffered request. Still reap it.
+                pass
+            finally:
+                try:
+                    self.process.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    # This is the exact bridge child created by this client.
+                    self.process.terminate()
+                    self.process.wait(timeout=5)
+        finally:
+            try:
+                self.process.stdout.close()
+            finally:
+                self.process.stderr.close()
 
 
 def run_native(command, log, budget, interval=.25, env=None):
