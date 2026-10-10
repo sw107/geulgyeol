@@ -127,7 +127,7 @@ def main():
     for name in ['native-source-svg-width-proof.json', 'native-boundary-svg-width-proof.json']:
         p = read(root / name)
         assert p['cases'] == len(p['rows']) and all(r['sourceOwnershipIssues'] == r['warnings'] == r['emptyHeaderOnlyFragments'] == 0 and r['cutContinuityExact'] for r in p['rows'])
-        
+
         directory = root / ('native-fixtures-2' if p['cases'] == 10 else 'native-completion')
         for row in p['rows']:
             case = directory / (row['label'] + '-' + row['format'])
