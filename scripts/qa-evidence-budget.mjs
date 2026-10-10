@@ -26,8 +26,10 @@ export function evidenceFootprint(root) {
    else if (s.isFile()) {
     if(!failed&&entry.name.endsWith('.partial'))incomplete.add(path.resolve(dir));
     if(entry.name==='manifest-status.json') {
-     assert(s.size<16384,'invalid manifest status');
-     if(!failed&&JSON.parse(fs.readFileSync(p)).complete!==true)incomplete.add(path.resolve(dir));
+     // Preserve historical failed output even if a large assertion expanded its
+     // status. Its bytes remain charged to failure; never parse or promote it.
+     if(!failed){assert(s.size<16384,'invalid manifest status');
+      if(JSON.parse(fs.readFileSync(p)).complete!==true)incomplete.add(path.resolve(dir));}
     }
     const key = s.dev + ':' + s.ino;
     if (seen.has(key)) continue;
