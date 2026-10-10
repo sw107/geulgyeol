@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "verifiedUTC": "2026-10-10T19:29:20.235922+00:00",
+  "baseMainSHA": "afaeb27a6288144e702608527b7cbc2fff9275b3",
+  "PR23ApprovedHeadSHA": "644df8acd1c33f6623172d1aa59b7cdbe8d4d848",
+  "PR23Merged": true,
+  "productChange": false,
+  "scope": "unequal-right cell40 paragraph0 offset0 Delete only, sequential HWP then Native then HWPX then Native",
+  "sourceInputPins": {
+    "hwp": {
+      "file": "partial-unequal-right.hwp",
+      "sha256": "6e2bfc7b7dbc43d46a984809f7367ed0d9170e350a54c835251b3467fcefb43c"
+    },
+    "hwpx": {
+      "file": "partial-unequal-right.hwpx",
+      "sha256": "fced43289b68336b6ea4bd2db2435919b96731eaf9d84b944847ef5dada085b3"
+    }
+  },
+  "tableRows": 48,
+  "tableColumns": 3,
+  "tableCells": 41,
+  "trackWidthsHU": [
+    4000,
+    7000,
+    10000
+  ],
+  "targetCell": {
+    "index": 40,
+    "row": 47,
+    "col": 2,
+    "rowSpan": 1,
+    "colSpan": 1
+  },
+  "beforePages": 20,
+  "historicalTargetCaretPage": 18,
+  "sourceCompiledSHA256": {
+    "engine/src/wasm_api.rs": "9a7e3e968f37800efa137caebd360e46a1ec3c9f002b7ca9f39f9776984d4da4",
+    "engine/src/wasm_api/tests.rs": "cc4e2df912a384e8f1f764efe00a8db478f3badef50df26fd2fd62ba3a16b2a1",
+    "rhwp-studio/src/core/wasm-bridge.ts": "aa304b58d27fcb150b6dc5661a4664e3a1e5bcaed564dfc0cbea83cb20a03deb",
+    "rhwp-studio/src/engine/input-handler.ts": "d0a76863f8db0ba3a2c2af9e2444ed782f191d1d8898f9630c534917f74b605e"
+  },
+  "unchangedRendererAndHistorySHA256": {
+    "engine/src/renderer/float_placement.rs": "9fa2ba99a1d3afee49a8d5547cdbef894f91002de11aadd05f7c4839b21cb202",
+    "engine/src/renderer/layout.rs": "3269c12c26c7b0e795eb11bd8ffd63eb3f8d714e25b1b751f5a062733cdbd92e",
+    "engine/src/document_core/commands/text_editing.rs": "d22fff42cd7569088da758666c787bddb1545ab0e4a8545d77656bc3d4ca947e",
+    "rhwp-studio/src/engine/history.ts": "c53fe9ede5f6ecc8ecd1c4f42f846f88895cfea2060251c6f759ca68a88c77db"
+  },
+  "WasmSHA256": "143713ea4cb939ac15db2b411891ffdcff551a40146a21dee182cac324fff651",
+  "NativeSHA256": "1801e456363aa79de62e96f60d846a30d8d37251e0bfef72bb2a2dff686ad250",
+  "sourceRuntimeSHA256": "4040dd9fad254b5bdebaa9fbe91522f00bee5c03eed7fe3faa632c6f5941dce6",
+  "hostElectronSHA256": "588478afc5f2bc73b6433d6e565a214dc830144be39a3d79805723292754ccd8",
+  "stages": [
+    {
+      "phase": "hwp-delete",
+      "flows": 1,
+      "assertedPairs": 2,
+      "independentlyRetainedPairs": 2,
+      "reopens": 2,
+      "NodeExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "firstCharacterActuallyDeleted": true,
+      "proofSHA256": "cb8cd0a5e3c875538aa3dc6c44ea277e3e3ea19ce681fd4c87a66634f72712d7",
+      "processSHA256": "9085dddcce230136a01d007f1deaa20609df647caabfdb21c260c70d9f2d8d95",
+      "QASeedSHA256": "498df2ea497eb9ff171dacd8a3df120320ecb3747cfc89d0f0327b1dd6d87eff",
+      "qaSourceBeforeSHA256": {
+        "run-electron-edit-gaps-qa.py": "3c1947a23d50e46f8abf066db296bb2c3afbe73f622dd9c2d5ecd91d18075295",
+        "check-electron-stored-edit-gaps.mjs": "ad5c6b3b0c5d6574f292ec6b42049ccfec6a5c58092dedb921fcb7d42fbbd09c",
+        "write-electron-table-manifest.mjs": "f96484695aab2184eb3b006381d9d837faee07f42ba54ad081207c3b74e54ad1",
+        "qa-evidence-budget.mjs": "e4fc4517e0c85bce1289a5d340d831bbc0b7ff6d65b3e626a4fcae89fb5a45fb",
+        "qa-table-evidence-files.mjs": "55aa6c6616953ce61bba8cd8200fc455bbc87f198c665c309c336746e943e102",
+        "qa-table-save-plan.mjs": "87f6c384eb4c1d5f6cceba5636f4d99aa761d2b6d651f688c3b6b7deb4deff70",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourceAfterSHA256": {
+        "run-electron-edit-gaps-qa.py": "3c1947a23d50e46f8abf066db296bb2c3afbe73f622dd9c2d5ecd91d18075295",
+        "check-electron-stored-edit-gaps.mjs": "ad5c6b3b0c5d6574f292ec6b42049ccfec6a5c58092dedb921fcb7d42fbbd09c",
+        "write-electron-table-manifest.mjs": "f96484695aab2184eb3b006381d9d837faee07f42ba54ad081207c3b74e54ad1",
+        "qa-evidence-budget.mjs": "e4fc4517e0c85bce1289a5d340d831bbc0b7ff6d65b3e626a4fcae89fb5a45fb",
+        "qa-table-evidence-files.mjs": "55aa6c6616953ce61bba8cd8200fc455bbc87f198c665c309c336746e943e102",
+        "qa-table-save-plan.mjs": "87f6c384eb4c1d5f6cceba5636f4d99aa761d2b6d651f688c3b6b7deb4deff70",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "runtimeFilesPinned": 52,
+      "NativeComparisons": 2,
+      "NativeOverallExitCode": 0,
+      "NativeWarnings": 0,
+      "NativeIndexSHA256": "57bc121f1fc49a0d4a78f31abbd9622b186ac03ec4aa6ab074a79eabcbcc7c68",
+      "NativeProcessSHA256": "0699884ceb0e5478ff406d860a5ce6c331018e5dc3994994360cc18eaa7de82c",
+      "NativeMetadataValidated": true,
+      "consumerReverifiedLayout": false
+    },
+    {
+      "phase": "hwpx-delete",
+      "flows": 1,
+      "assertedPairs": 2,
+      "independentlyRetainedPairs": 2,
+      "reopens": 2,
+      "NodeExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "firstCharacterActuallyDeleted": true,
+      "proofSHA256": "314e37e329457858cb325786e8cf206b0c32b9affb5d72ca47412b67f8a42d8c",
+      "processSHA256": "e045dcb371dcae7fe19fbc9da1808924b94bdea58118177f9aaf839271163508",
+      "QASeedSHA256": "498df2ea497eb9ff171dacd8a3df120320ecb3747cfc89d0f0327b1dd6d87eff",
+      "qaSourceBeforeSHA256": {
+        "run-electron-edit-gaps-qa.py": "3c1947a23d50e46f8abf066db296bb2c3afbe73f622dd9c2d5ecd91d18075295",
+        "check-electron-stored-edit-gaps.mjs": "ad5c6b3b0c5d6574f292ec6b42049ccfec6a5c58092dedb921fcb7d42fbbd09c",
+        "write-electron-table-manifest.mjs": "f96484695aab2184eb3b006381d9d837faee07f42ba54ad081207c3b74e54ad1",
+        "qa-evidence-budget.mjs": "e4fc4517e0c85bce1289a5d340d831bbc0b7ff6d65b3e626a4fcae89fb5a45fb",
+        "qa-table-evidence-files.mjs": "55aa6c6616953ce61bba8cd8200fc455bbc87f198c665c309c336746e943e102",
+        "qa-table-save-plan.mjs": "87f6c384eb4c1d5f6cceba5636f4d99aa761d2b6d651f688c3b6b7deb4deff70",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourceAfterSHA256": {
+        "run-electron-edit-gaps-qa.py": "3c1947a23d50e46f8abf066db296bb2c3afbe73f622dd9c2d5ecd91d18075295",
+        "check-electron-stored-edit-gaps.mjs": "ad5c6b3b0c5d6574f292ec6b42049ccfec6a5c58092dedb921fcb7d42fbbd09c",
+        "write-electron-table-manifest.mjs": "f96484695aab2184eb3b006381d9d837faee07f42ba54ad081207c3b74e54ad1",
+        "qa-evidence-budget.mjs": "e4fc4517e0c85bce1289a5d340d831bbc0b7ff6d65b3e626a4fcae89fb5a45fb",
+        "qa-table-evidence-files.mjs": "55aa6c6616953ce61bba8cd8200fc455bbc87f198c665c309c336746e943e102",
+        "qa-table-save-plan.mjs": "87f6c384eb4c1d5f6cceba5636f4d99aa761d2b6d651f688c3b6b7deb4deff70",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "runtimeFilesPinned": 52,
+      "NativeComparisons": 2,
+      "NativeOverallExitCode": 0,
+      "NativeWarnings": 0,
+      "NativeIndexSHA256": "390edb02e92aa1dc159302e1ef77f9347de47757b232ff754e905487682be740",
+      "NativeProcessSHA256": "44034b9103d43036d4011a2a97431d73834d9dff14f2716f90272f9cbb3c27a8",
+      "NativeMetadataValidated": true,
+      "consumerReverifiedLayout": false
+    }
+  ],
+  "actualElectronFlows": 2,
+  "assertedSameFormatUndoRedoPairs": 4,
+  "independentlyRetainedSameFormatUndoRedoPairs": 4,
+  "individualUndoRedoStateFiles": 8,
+  "retainedStatePairVerification": [
+    {
+      "input": "hwp",
+      "cycle": 0,
+      "fullSVGModelExact": true,
+      "retainedFiles": {
+        "undo": {
+          "file": "partial-unequal-right-input.hwp-direct-delete-0-undo0.json.gz",
+          "sha256": "35069ff99fb5669fbf4358849a24df055103726eac64f02d52a93d3d296afb51"
+        },
+        "redo": {
+          "file": "partial-unequal-right-input.hwp-direct-delete-0-redo0.json.gz",
+          "sha256": "a9b07a847b2b694e62a1c9091e5552984e43407d310ab5438381c6a6334eb019"
+        }
+      }
+    },
+    {
+      "input": "hwp",
+      "cycle": 1,
+      "fullSVGModelExact": true,
+      "retainedFiles": {
+        "undo": {
+          "file": "partial-unequal-right-input.hwp-direct-delete-0-undo1.json.gz",
+          "sha256": "35069ff99fb5669fbf4358849a24df055103726eac64f02d52a93d3d296afb51"
+        },
+        "redo": {
+          "file": "partial-unequal-right-input.hwp-direct-delete-0-redo1.json.gz",
+          "sha256": "a9b07a847b2b694e62a1c9091e5552984e43407d310ab5438381c6a6334eb019"
+        }
+      }
+    },
+    {
+      "input": "hwpx",
+      "cycle": 0,
+      "fullSVGModelExact": true,
+      "retainedFiles": {
+        "undo": {
+          "file": "partial-unequal-right-input.hwpx-direct-delete-0-undo0.json.gz",
+          "sha256": "21b347a9636f9c1f2b76d2b68bc5d782b3bad80627033bc120ac9e253d5b03bd"
+        },
+        "redo": {
+          "file": "partial-unequal-right-input.hwpx-direct-delete-0-redo0.json.gz",
+          "sha256": "3ae51f58d2bee4608d31392571daf422549b8bb0bed6cf50205d830a3737589d"
+        }
+      }
+    },
+    {
+      "input": "hwpx",
+      "cycle": 1,
+      "fullSVGModelExact": true,
+      "retainedFiles": {
+        "undo": {
+          "file": "partial-unequal-right-input.hwpx-direct-delete-0-undo1.json.gz",
+          "sha256": "21b347a9636f9c1f2b76d2b68bc5d782b3bad80627033bc120ac9e253d5b03bd"
+        },
+        "redo": {
+          "file": "partial-unequal-right-input.hwpx-direct-delete-0-redo1.json.gz",
+          "sha256": "3ae51f58d2bee4608d31392571daf422549b8bb0bed6cf50205d830a3737589d"
+        }
+      }
+    }
+  ],
+  "savedReopens": 4,
+  "NativeSavedComparisons": 4,
+  "directDeleteCrossFormatInitialSVGModelExact": true,
+  "directDeleteCrossFormatPostSVGModelExact": true,
+  "paintChecks": 8,
+  "paintPages": 160,
+  "hidden": 0,
+  "partial": 0,
+  "maximumBorderOverflowPx": -2.506666666666547,
+  "maximumInkOverflowPx": -11.386597722371448,
+  "newQASourceSHA256": {
+    "scripts/check-electron-stored-edit-gaps.mjs": "ad5c6b3b0c5d6574f292ec6b42049ccfec6a5c58092dedb921fcb7d42fbbd09c",
+    "scripts/run-electron-edit-gaps-qa.py": "3c1947a23d50e46f8abf066db296bb2c3afbe73f622dd9c2d5ecd91d18075295",
+    "scripts/qa-table-evidence-files.mjs": "55aa6c6616953ce61bba8cd8200fc455bbc87f198c665c309c336746e943e102",
+    "scripts/qa-table-evidence-files.test.mjs": "8f6a2558ab17932e881fb9f0246a97193c0b02686b76aaa3d42e118d5b4d4fa9"
+  },
+  "newImmutableArtifactWrites": true,
+  "mutableControlMessageWriterUnchanged": true,
+  "mixedExecutionPerformed": false,
+  "filenameSyntheticCheck": {
+    "operationArtifacts": 8,
+    "collisionRejected": true,
+    "priorBytesPreserved": true,
+    "freshExecutionSeparated": true,
+    "unsafeNamesRejected": true,
+    "actualMixedEngineExecuted": false
+  },
+  "PR23HistoricalAssertedPairs": 78,
+  "PR23HistoricalIndependentlyRetainedPairs": 42,
+  "PR23HistoricalRetainedPairsByPhase": [
+    {
+      "phase": "hwp-delete",
+      "retainedPairs": 2
+    },
+    {
+      "phase": "hwp-mixed",
+      "retainedPairs": 12
+    },
+    {
+      "phase": "hwpx-equivalent",
+      "retainedPairs": 14
+    },
+    {
+      "phase": "hwp-equivalent-plan",
+      "retainedPairs": 14
+    }
+  ],
+  "PR23OverwrittenSettledStateFilesRestored": false,
+  "priorEvidenceFilesUnchanged": 1920,
+  "priorEvidencePinIndexSHA256": "d134d1b166fc497804f5bf135940d41b50ab77d44ed61dbe42230cfbda532f12",
+  "priorPublicProofsUnchangedSHA256": {
+    "verification/table-partial-edit-gaps/proof.json": "6c3936c96e4531b9bb46a9fae4cbf555c51a4404876cf42367069329761ba514",
+    "verification/excluded-linewrap-undo/proof.json": "cfe4ea71f834300d35b77886b7d73bfb41997a0fa145824bb5eed0be560f1813",
+    "verification/unequal-outside-cell-history/proof.json": "7e71946dee792f975328ece114841359f10da0ca2f5b93dc40bd0c6196a7c042"
+  },
+  "originalDirtyUnchangedSHA256": {
+    "check-colspan-two-owner-carets.mjs": "367477219c197153dec12899885582a55e85e0ce0cca7e6aa5063e0d1f50dda9",
+    "check-partial-colspan-two-owner-snapshot-scope.mjs": "6c979f9b526bdf865951986407a663418b264ab9e4b031f85b4079ac56435549",
+    "prepare-native-cell-caret-oracle.py": "227aaca89f3097c0b34e8438c689e76140204058c036e6a2995860493cef9b7d",
+    "prepare-partial-colspan-two-owner-fixtures.mjs": "b319e32a5947013511ac9c10ae7ed3aea31a36fa14feddcc365b60393b669ad6"
+  },
+  "evidenceBudget": {
+    "normalBytes": 538435584,
+    "failureBytes": 71270400,
+    "totalBytes": 609705984,
+    "incompletePhases": [],
+    "freeBytes": 45056299008,
+    "normalForecastBytes": 0,
+    "failureForecastBytes": 0,
+    "normalLimit": 805306368,
+    "failureLimit": 268435456,
+    "requiredFreeBytes": 16374562816
+  },
+  "sharedSyntheticPhysicalBytes": 14639104,
+  "sharedSyntheticLimitBytes": 32000000,
+  "nativeUnitUnexecutedExistingMissingInputs": 4,
+  "nativeUnitPassClaimed": false,
+  "newBuild": false,
+  "newPackage": false,
+  "cleanupPerformed": false,
+  "limitations": [
+    "unequal-right Delete only; mixed history deferred",
+    "new mixed filenames tested synthetically, actual mixed execution deferred",
+    "historical PR23: 78 asserted pairs / 42 independently retained pairs",
+    "old cross-format page12 mixed line-wrap phenomenon remains unjudged; not a new regression",
+    "physicalIME/manualGUI/Linux/CI unverified",
+    "no release"
+  ]
+}

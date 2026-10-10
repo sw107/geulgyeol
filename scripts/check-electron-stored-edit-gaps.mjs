@@ -9,6 +9,7 @@ import {spawn} from 'node:child_process';
 import {launchPackaged} from './packaged-electron-qa.mjs';
 import {createTableManifestWriter} from './write-electron-table-manifest.mjs';
 import {EvidenceBudget} from './qa-evidence-budget.mjs';
+import {operationEvidencePrefix, writeImmutableEvidence} from './qa-table-evidence-files.mjs';
 import {selectPlannedOperations,plannedTableSaveFiles,assertPlannedFixtures} from './qa-table-save-plan.mjs';
 const packaged=process.env.GEULGYEOL_QA_PACKAGED_APP;
 import {pathToFileURL} from 'node:url';
@@ -17,7 +18,7 @@ import {gzipSync} from 'node:zlib';
 const root=path.resolve(import.meta.dirname,'..'),q=path.resolve(process.argv[2]),engine=path.resolve(process.argv[3]),baseline=process.argv[4]==='baseline';
 const M=await import(pathToFileURL(path.join(engine,'rhwp.js')));
 const sha=b=>createHash('sha256').update(b).digest('hex'),gzipEvidence=process.env.GEULGYEOL_QA_GZIP_EVIDENCE!=='0';
-const write=(name,value)=>{const json=JSON.stringify(name.endsWith('-state.json')||/-undo\d\.json$|-redo\d\.json$/.test(name)?compact(value):value,null,2),compressed=gzipEvidence&&!['control.json','proof.json','lifecycle.json','failure.json'].includes(name);const data=compressed?gzipSync(json):json;if(!failure)budget?.check({normalForecastBytes:Buffer.byteLength(data)});else assert(Buffer.byteLength(data)<=16384,'bounded failure metadata');fs.writeFileSync(path.join(q,name+(compressed?'.gz':'')),data);};
+const write=(name,value)=>{const json=JSON.stringify(name.endsWith('-state.json')||/-undo\d\.json$|-redo\d\.json$/.test(name)?compact(value):value,null,2),compressed=gzipEvidence&&!['control.json','proof.json','lifecycle.json','failure.json'].includes(name);const data=compressed?gzipSync(json):json;if(!failure)budget?.check({normalForecastBytes:Buffer.byteLength(data)});else assert(Buffer.byteLength(data)<=16384,'bounded failure metadata');const file=name+(compressed?'.gz':'');if(name==='control.json')fs.writeFileSync(path.join(q,file),data);else writeImmutableEvidence(q,file,data);};
 function compact(v){if(Array.isArray(v))return v.map(compact);if(v&&typeof v==='object')return Object.fromEntries(Object.entries(v).map(([k,x])=>[k,['hwp','hwpx'].includes(k)?{sha256:sha(Buffer.from(x)),bytes:x.length}:k==='svg'?x.map(s=>({sha256:sha(s),bytes:Buffer.byteLength(s)})):compact(x)]));return v;}
 const control=value=>write('control.json',value),pause=ms=>new Promise(r=>setTimeout(r,ms));
 async function until(fn,label){const end=Date.now()+65000;while(Date.now()<end){if(budgetFailure&&!label.startsWith('cleanup'))throw budgetFailure;if(await fn())return;await pause(50);}throw Error('Timeout '+label);}
@@ -110,6 +111,7 @@ function ownership(v){
 }
 
 async function mixedTextHistory(f,op,before,hist){
+ const evidencePrefix=operationEvidencePrefix(f.name,op.name);
  let stages=[before];const steps=[
   {name:'text',run:()=>page.keyboard.sendCharacter('SEQ🙂')},
   {name:'shift-enter',run:async()=>{await page.keyboard.down('Shift');try{await page.keyboard.press('Enter');}finally{await page.keyboard.up('Shift');}}},
@@ -123,16 +125,16 @@ async function mixedTextHistory(f,op,before,hist){
  if(burst){
   const reference=mixedReferences.get(f.name);assert(reference,'settled reference sequence required');assert.deepEqual(comparable(before),comparable(reference[0]));
   for(const step of steps){await step.run();observations.push(await frame.evaluate(()=>({pending:window.__inputHandler.hasDeferredPaginationPending(),undo:window.__inputHandler.history.undoStack.length})));}
-  await settle();const after=await state(),h=await history();assert.equal(h.u,hist.u+steps.length,'burst preserves separate mixed commands');assert(h.snapshotResources<=2*(h.u+h.r));write(f.name+'-mixed-burst-state.json',{after,history:h,observations});assert.deepEqual(comparable(after),comparable(reference.at(-1)),'burst equals settled mixed result');ownership(after);await verifyPaint(f.name+'-mixed-burst',after);stages=reference;
+  await settle();const after=await state(),h=await history();assert.equal(h.u,hist.u+steps.length,'burst preserves separate mixed commands');assert(h.snapshotResources<=2*(h.u+h.r));write(evidencePrefix+'-mixed-burst-state.json',{after,history:h,observations});assert.deepEqual(comparable(after),comparable(reference.at(-1)),'burst equals settled mixed result');ownership(after);await verifyPaint(evidencePrefix+'-mixed-burst',after);stages=reference;
  }else{
   for(const [i,step]of steps.entries()){
-   await step.run();await settle();const after=await state(),h=await history();assert.equal(h.u,hist.u+i+1,'one operation for mixed step '+step.name);assert(h.snapshotResources<=2*(h.u+h.r),'bounded snapshot resource ownership');write(f.name+'-mixed-step-'+i+'-state.json',{after,history:h,step:step.name});ownership(after);await verifyPaint(f.name+'-mixed-step-'+i,after);stages.push(after);
+   await step.run();await settle();const after=await state(),h=await history();assert.equal(h.u,hist.u+i+1,'one operation for mixed step '+step.name);assert(h.snapshotResources<=2*(h.u+h.r),'bounded snapshot resource ownership');write(evidencePrefix+'-mixed-step-'+i+'-state.json',{after,history:h,step:step.name});ownership(after);await verifyPaint(evidencePrefix+'-mixed-step-'+i,after);stages.push(after);
   }
   mixedReferences.set(f.name,stages);
  }
  for(let cycle=0;cycle<2;cycle++){
-  for(let i=steps.length-1;i>=0;i--){await key(false);const actual=await state();write(f.name+'-mixed-undo-'+cycle+'-'+i+'-state.json',actual);assert.deepEqual(comparable(actual),comparable(stages[i]),'exact mixed undo '+i);}
-  for(let i=1;i<stages.length;i++){await key(true);const actual=await state();write(f.name+'-mixed-redo-'+cycle+'-'+i+'-state.json',actual);assert.deepEqual(comparable(actual),comparable(stages[i]),'exact mixed redo '+i);pairs++;}
+  for(let i=steps.length-1;i>=0;i--){await key(false);const actual=await state();write(evidencePrefix+'-mixed-undo-'+cycle+'-'+i+'-state.json',actual);assert.deepEqual(comparable(actual),comparable(stages[i]),'exact mixed undo '+i);}
+  for(let i=1;i<stages.length;i++){await key(true);const actual=await state();write(evidencePrefix+'-mixed-redo-'+cycle+'-'+i+'-state.json',actual);assert.deepEqual(comparable(actual),comparable(stages[i]),'exact mixed redo '+i);pairs++;}
  }
  await saveAndReopen(f.label+'-'+f.ext+'-'+op.name,stages.at(-1));rows.push({label:f.label,ext:f.ext,operation:op.name,burst,observations,steps:steps.map(s=>s.name),historyPairs:steps.length*2,beforePages:before.pageCount,afterPages:stages.at(-1).pageCount,historyAfter:await history()});console.log('PASS '+f.name+' '+op.name);
 }

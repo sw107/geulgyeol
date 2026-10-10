@@ -23,7 +23,7 @@ if len(sys.argv) > 4 and sys.argv[4] != "all":
 if len(sys.argv) > 5:
     assert sys.argv[5] == "baseline"
     command.append("baseline")
-source_paths = [root / "scripts" / name for name in ["run-electron-edit-gaps-qa.py", "check-electron-stored-edit-gaps.mjs", "write-electron-table-manifest.mjs", "qa-evidence-budget.mjs", "qa-table-save-plan.mjs", "packaged-electron-qa.mjs"]] + [qa / "bootstrap.cjs"]
+source_paths = [root / "scripts" / name for name in ["run-electron-edit-gaps-qa.py", "check-electron-stored-edit-gaps.mjs", "write-electron-table-manifest.mjs", "qa-evidence-budget.mjs", "qa-table-evidence-files.mjs", "qa-table-save-plan.mjs", "packaged-electron-qa.mjs"]] + [qa / "bootstrap.cjs"]
 # Capture before launch, then independently after exit. Do not retrofit old records.
 def source_hashes():
     return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in source_paths}
