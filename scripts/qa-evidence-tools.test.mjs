@@ -7,6 +7,7 @@ import {gunzipSync} from 'node:zlib';
 import {createHash} from 'node:crypto';
 import {createTableManifestWriter,writeTableManifest} from './write-electron-table-manifest.mjs';
 import {EvidenceBudget,evidenceFootprint} from './qa-evidence-budget.mjs';
+import {selectPlannedOperations,plannedTableSaveFiles,assertPlannedFixtures} from './qa-table-save-plan.mjs';
 import {CaretRunIndex,forEachBatch} from './qa-caret-run-index.mjs';
 
 const root=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'geulgyeol-qa-tools-synthetic-')));
@@ -144,4 +145,103 @@ test('a phase cannot grow beyond the remaining failure evidence allowance',()=>{
  const b=new EvidenceBudget({root:q,phase,normalLimit:65536,failureLimit:8192,requiredFreeBytes:0,freeBytes:()=>1e9});
  assert.throws(()=>b.begin({normalForecastBytes:8193}),/failure evidence budget/);
  assert(!fs.existsSync(path.join(phase,'qa-evidence-status.json')));
+});
+
+test('interrupted running phase blocks next startup without changing prior evidence',()=>{
+ const q=fresh(),old=path.join(q,'old'),next=path.join(q,'next');fs.mkdirSync(old);fs.mkdirSync(next);
+ const b=new EvidenceBudget({root:q,phase:old,requiredFreeBytes:0,freeBytes:()=>1e9});
+ b.begin({normalForecastBytes:1});fs.writeFileSync(path.join(old,'manifest.json.gz.partial'),'interrupted bytes');
+ const pin=sha(fs.readFileSync(path.join(old,'qa-evidence-status.json')));
+ const later=new EvidenceBudget({root:q,phase:next,requiredFreeBytes:0,freeBytes:()=>1e9});
+ assert.throws(()=>later.begin({failureForecastBytes:1}),/unfinished evidence blocks next phase/);
+ assert(!fs.existsSync(path.join(next,'qa-evidence-status.json')));
+ assert.equal(sha(fs.readFileSync(path.join(old,'qa-evidence-status.json'))),pin);
+ assert(evidenceFootprint(q).incompletePhases.includes(old));
+});
+test('repeated attempts after interruption create no new phase evidence or reservations',()=>{
+ const q=fresh(),old=path.join(q,'old');fs.mkdirSync(old);
+ const b=new EvidenceBudget({root:q,phase:old,requiredFreeBytes:0,freeBytes:()=>1e9});
+ b.begin({normalForecastBytes:1});fs.writeFileSync(path.join(old,'manifest.json.gz.partial'),'partial');
+ const before=evidenceFootprint(q).totalBytes;
+ for(let i=0;i<3;i++){
+  const phase=path.join(q,'retry-'+i);fs.mkdirSync(phase);
+  const next=new EvidenceBudget({root:q,phase,requiredFreeBytes:0,freeBytes:()=>1e9});
+  assert.throws(()=>next.begin({failureForecastBytes:65536}),/unfinished evidence/);
+  assert(!fs.existsSync(path.join(phase,'qa-evidence-status.json')));
+ }
+ assert.equal(evidenceFootprint(q).totalBytes,before);
+});
+test('active writer may check its partial; a replacement writer cannot claim it',()=>{
+ const q=fresh(),phase=path.join(q,'active');fs.mkdirSync(phase);
+ const b=new EvidenceBudget({root:q,phase,requiredFreeBytes:0,freeBytes:()=>1e9});
+ b.begin({normalForecastBytes:1});fs.writeFileSync(path.join(phase,'manifest.json.gz.partial'),'partial');
+ assert.doesNotThrow(()=>b.check());
+ const replacement=new EvidenceBudget({root:q,phase,requiredFreeBytes:0,freeBytes:()=>1e9});
+ assert.throws(()=>replacement.check(),/unfinished evidence/);
+ assert.throws(()=>replacement.mark('failed'),/not started by this writer/);
+});
+test('orphan partial or incomplete manifest status also blocks a new phase',()=>{
+ for(const name of ['manifest.json.gz.partial','manifest-status.json']){
+  const q=fresh(),old=path.join(q,'old'),phase=path.join(q,'next');fs.mkdirSync(old);fs.mkdirSync(phase);
+  fs.writeFileSync(path.join(old,name),name.endsWith('.json')?'{"complete":false}':'partial');
+  const b=new EvidenceBudget({root:q,phase,requiredFreeBytes:0,freeBytes:()=>1e9});
+  assert.throws(()=>b.begin({normalForecastBytes:1}),/unfinished evidence/);
+ }
+});
+test('acknowledged failed partial consumes failure budget and permits a bounded next phase',()=>{
+ const q=fresh(),old=path.join(q,'old'),next=path.join(q,'next');fs.mkdirSync(old);fs.mkdirSync(next);
+ const b=new EvidenceBudget({root:q,phase:old,requiredFreeBytes:0,freeBytes:()=>1e9});
+ b.begin({normalForecastBytes:1});fs.writeFileSync(path.join(old,'manifest.json.gz.partial'),'partial');b.mark('failed');
+ const used=evidenceFootprint(q);assert(used.failureBytes>=8192);assert.equal(used.incompletePhases.length,0);
+ const later=new EvidenceBudget({root:q,phase:next,requiredFreeBytes:0,freeBytes:()=>1e9});
+ assert.doesNotThrow(()=>later.begin({normalForecastBytes:1}));
+});
+test('independent planned list catches missing final save with default finish counter',async()=>{
+ const q=fresh(),w=await createTableManifestWriter(q,{expectedFiles:sample.map(r=>r.file)});
+ await w.append(sample[0]);await assert.rejects(w.finish(),/missing planned manifest files/);
+ await w.abort(Error('missing planned final save'));assert.equal(status(q).plannedRecords,2);assert.equal(status(q).complete,false);
+});
+test('planned identities catch skipped middle and wrong replacement despite default sequence',async()=>{
+ for(const actual of ['third','replacement']){
+  const q=fresh(),w=await createTableManifestWriter(q,{expectedFiles:['first','second','third']});
+  await w.append({file:'first'});await assert.rejects(w.append({file:actual}),/planned file/);
+  await w.abort(Error('planned mismatch'));assert(!fs.existsSync(path.join(q,'manifest.json.gz')));
+ }
+});
+test('per-fixture plans are registered before records and have independently verified hash',async()=>{
+ const q=fresh(),w=await createTableManifestWriter(q);
+ w.planFiles([sample[0].file]);await w.append(sample[0]);w.planFiles([sample[1].file]);await w.append(sample[1]);
+ const proof=await w.finish();
+ assert.equal(proof.plannedRecords,2);assert.equal(proof.plannedFilesSHA256,sha(JSON.stringify(sample.map(r=>r.file))+'\n'));
+ assert.deepEqual(JSON.parse(fs.readFileSync(path.join(q,'manifest-plan.json'))),sample.map(r=>r.file));
+});
+test('plan registration cannot conceal earlier omission or duplicate scheduled identity',async()=>{
+ const q=fresh(),w=await createTableManifestWriter(q,{expectedFiles:['a','b']});
+ await w.append({file:'a'});assert.throws(()=>w.planFiles(['c']),/previous planned files incomplete/);await w.abort(Error('missing b'));
+ const d=fresh(),v=await createTableManifestWriter(d);assert.throws(()=>v.planFiles(['a','a']),/duplicate planned file/);await v.abort(Error('duplicate plan'));
+});
+test('requested operations and save formats are planned independently of execution counts',()=>{
+ const operations=[{name:'edit',kind:'input'},{name:'nav',kind:'navigation'},{name:'seq',kind:'sequence'}];
+ const selected=selectPlannedOperations(operations,['seq','edit']);
+ assert.deepEqual(selected.map(o=>o.name),['edit','seq']);
+ const fixture={label:'fixture',ext:'hwpx'};
+ assert.deepEqual(plannedTableSaveFiles('/qa',fixture,selected).map(p=>path.basename(p)),
+  ['fixture-hwpx-edit.hwp','fixture-hwpx-edit.hwpx','fixture-hwpx-seq.hwp','fixture-hwpx-seq.hwpx']);
+ assert.equal(plannedTableSaveFiles('/qa',fixture,operations).length,4);
+ assert.equal(plannedTableSaveFiles('/qa',{...fixture,verifyUnchangedSaveReopen:true},operations).length,6);
+ assert.throws(()=>selectPlannedOperations(operations,['absent']),/planned operation unavailable/);
+ assert.throws(()=>selectPlannedOperations(operations,['edit'],'seq'),/selected operation unavailable/);
+});
+test('independent fixture list rejects omission, reordering, and duplicates',()=>{
+ assert.doesNotThrow(()=>assertPlannedFixtures(['a','b'],['a','b']));
+ assert.throws(()=>assertPlannedFixtures(['a','b'],['a']),/fixture plan/);
+ assert.throws(()=>assertPlannedFixtures(['a','b'],['b','a']),/fixture plan/);
+ assert.throws(()=>assertPlannedFixtures(['a','a'],['a','a']),/duplicate planned fixture/);
+});
+
+test('planned-file hash rejects changed disk schedule before canonical completion',async()=>{
+ const q=fresh(),w=await createTableManifestWriter(q,{expectedFiles:[sample[0].file]});await w.append(sample[0]);
+ fs.writeFileSync(path.join(q,'manifest-plan.json'),'["replacement"]\n');
+ await assert.rejects(w.finish(),/disk planned file list changed/);await w.abort(Error('plan changed'));
+ assert.equal(status(q).incomplete,true);assert(!fs.existsSync(path.join(q,'manifest.json.gz')));
 });

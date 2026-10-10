@@ -64,3 +64,24 @@ Unicode/줄 경계/Native 범위, 작은 배치 순서·중도 실패를 확인�
 앞선 읽기 전용 공간 조사에서는 고정 121개 파일 SHA 보존을 확인했다.
 이번 도구 변경 뒤에는 보호 목록 22개, 기존 dirty 소스·도구 6개, PR15의
 source/boundary proof 고정 목록을 다시 hash해 확인했다.
+
+## 독립 검토 P2 후속 수정
+
+기준 QA 커밋 baaef69047436e4b9b526c791f8b6aa8faac24c6에서 강제 종료한 running
+phase가 정상으로 계산되어 다음 실패 예약을 허용하는 P2가 재현됐다. 다음 시작을
+거절하는 단일 writer 정책으로 수정했다. 다른 running marker, 확인되지 않은 partial,
+미완료 manifest status가 있으면 시작을 거절한다. 현재 인스턴스가 begin한 phase만
+진행 중 검사에서 제외하며, 새 인스턴스는 이전 phase를 인수하거나 mark하지 못한다.
+명시적 failed phase의 partial은 실패 예산으로 누적한다. 과거 marker를 자동 변경하거나
+증거를 삭제해 재시작하지 않는다. 시작 거절 시 harness도 failure/lifecycle를 쓰지 않는다.
+
+실행 전에 fixture 목록과 설정된 operation 목록을 확인하고, 실제 operation 수행 전에
+예정 저장 파일 identity와 순서를 manifest-plan.json에 등록한다. 수행 카운터 reopens와
+기본 sequence만으로 완료를 결정하지 않는다. 마지막 파일 누락, 중간 파일 건너뛰기,
+다른 파일 대체, 전체 fixture 누락, 사용할 수 없는 요청 operation을 거절한다. 계획의
+디스크 SHA도 완료 전에 확인한다. 계획은 파일명만 저장하며 전체 SVG를 누적하지 않는다.
+
+추가 합성 검증을 포함해 33개 통과(기존 21개 포함). 강제 중단 상태를 작은 marker/partial
+파일로 재현한 뒤 다음 시작·반복 시도 거절, 기존 marker 불변, 명시적 실패 누적, 독립
+예정 목록·hash 검사를 확인했다. 실제 프로세스 kill, 앱 실행·엔진 빌드·대규모 회귀는
+하지 않았다. 앞선 21개 결과와 과거 QA 증거는 변경하지 않았다.
