@@ -7,6 +7,10 @@ export function operationEvidencePrefix(fixture, operation) {
  assert(safeName(fixture) && safeName(operation), 'safe fixture and operation names required');
  return fixture + '-' + operation;
 }
+export function undoSvgDiagnosticName(fixture, operation, cycle) {
+ assert(Number.isSafeInteger(cycle) && cycle >= 0, 'nonnegative undo cycle required');
+ return operationEvidencePrefix(fixture, operation) + '-undo' + cycle + '-svg-diff.json';
+}
 export function writeImmutableEvidence(directory, name, data) {
  assert(safeName(name), 'safe immutable evidence basename required');
  fs.writeFileSync(path.join(directory, name), data, {flag: 'wx'});
