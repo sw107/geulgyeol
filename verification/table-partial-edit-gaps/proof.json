@@ -1,0 +1,1459 @@
+{
+  "schema": 1,
+  "verifiedUTC": "2026-10-10T17:57:50.318248+00:00",
+  "baseMainSHA": "f437dd87b58ac51f4d9634604c6f2ba495816b62",
+  "productSourceChanged": false,
+  "sourceCompiledSHA256": {
+    "engine/src/renderer/float_placement.rs": "9fa2ba99a1d3afee49a8d5547cdbef894f91002de11aadd05f7c4839b21cb202",
+    "engine/src/wasm_api.rs": "38611ae9d727af419caf7db25225ddeaa156e80994a4442491998f3f9d1517e2",
+    "engine/src/document_core/commands/text_editing.rs": "d22fff42cd7569088da758666c787bddb1545ab0e4a8545d77656bc3d4ca947e",
+    "engine/src/renderer/layout.rs": "3269c12c26c7b0e795eb11bd8ffd63eb3f8d714e25b1b751f5a062733cdbd92e"
+  },
+  "wasmSHA256": "444e1a45faad4f7c88aaa12b8ba30b6fd7e60174a612c6b54ae657213c8ac988",
+  "nativeSHA256": "1801e456363aa79de62e96f60d846a30d8d37251e0bfef72bb2a2dff686ad250",
+  "hostElectronBinarySHA256": "588478afc5f2bc73b6433d6e565a214dc830144be39a3d79805723292754ccd8",
+  "currentSourceRuntimeSHA256": "b7eb305b39bafd720dab6a0911c75771a36bd1c364e6f48a96f4019d08c9c2dd",
+  "baselineRuntimeSHA256": "36335f7bd47e506fdf5fdfa76da956a076f417b34122a339dd69efedbae9b4cb",
+  "actualMacElectron": true,
+  "electronVersion": "44.3.0",
+  "supportedFlows": 23,
+  "exactUndoRedoPairs": 144,
+  "savedReopens": 46,
+  "nativeSavedComparisons": 46,
+  "supportPaintChecks": 89,
+  "supportPaintPages": 935,
+  "observedPaintChecksIncludingScopeExit": 92,
+  "observedPaintPagesIncludingScopeExit": 971,
+  "observedHidden": 0,
+  "observedPartial": 0,
+  "borderAndInkTolerancePx": 2,
+  "supportedPhases": [
+    {
+      "phase": "smoke",
+      "flows": 4,
+      "undoRedoPairs": 28,
+      "savedReopens": 8,
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourceSHA256": "d6ad182ef262ca807791df8df40510dd7c8be031bd304ecc9b28b6839898ec8e",
+      "qaSourceBeforeSHA256": {
+        "run-electron-edit-gaps-qa.py": "1140c57c8aeef7f54ec0b9294feeb0a3c698bab8c30f49aa912f07e2fe49a1d7",
+        "check-electron-stored-edit-gaps.mjs": "d6ad182ef262ca807791df8df40510dd7c8be031bd304ecc9b28b6839898ec8e",
+        "write-electron-table-manifest.mjs": "f96484695aab2184eb3b006381d9d837faee07f42ba54ad081207c3b74e54ad1",
+        "qa-evidence-budget.mjs": "1778e951d5a00a4fe2f482155f87ab687c9f7c84cca8a970addc4e6ba71ebd4d",
+        "qa-table-save-plan.mjs": "87f6c384eb4c1d5f6cceba5636f4d99aa761d2b6d651f688c3b6b7deb4deff70",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourcesUnchanged": true,
+      "sourceSeedsSHA256": "4fe87fe157d8d899ade34ecfe01194677433f8e82a7ade4666184468a2c0b096",
+      "sourceSeedsUnchanged": true,
+      "proofSHA256": "4e0bf973fc9dd29da1ba55446098033fb946ed9210fc8585ce354c999b7de129",
+      "processSHA256": "c8cf7e79893fed58c652b3f9674b8660d4b0fc556c02bd85b186234cb0039754",
+      "manifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "records": 8,
+        "plannedRecords": 8,
+        "plannedFilesSHA256": "15ef90b0eff98cff098ba239bb55b79b093f6e1420d519221d9c0df4b39a5740",
+        "uncompressedBytes": 49087173,
+        "uncompressedSHA256": "1d03e18051df5d787f72eedbeb45a860037e7c29fbb7022a2c55e7b49f9b461b",
+        "fileBytes": 1058067,
+        "fileSHA256": "919c474f6a88df5b5523f2c57077ea478388ef644ad7bdbac7d25700dd05dda6",
+        "diskReadBackVerified": true
+      },
+      "operations": [
+        {
+          "label": "partial-middle-left",
+          "ext": "hwpx",
+          "operation": "direct-delete-0",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 1,
+              "x": 120.2,
+              "y": 356.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 354.2,
+                "w": 186.7,
+                "h": 648.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwpx",
+          "operation": "shift-enter-1",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 31
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 4,
+              "x": 120.2,
+              "y": 513.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 835.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwpx",
+          "operation": "mixed-text-history",
+          "burst": false,
+          "observations": [],
+          "steps": [
+            "text",
+            "shift-enter",
+            "delete",
+            "backspace",
+            "enter",
+            "after-enter-text"
+          ],
+          "historyPairs": 12,
+          "beforePages": 10,
+          "afterPages": 10,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwpx",
+          "operation": "mixed-burst-history",
+          "burst": true,
+          "observations": [
+            {
+              "pending": true,
+              "undo": 1
+            },
+            {
+              "pending": false,
+              "undo": 2
+            },
+            {
+              "pending": true,
+              "undo": 3
+            },
+            {
+              "pending": true,
+              "undo": 4
+            },
+            {
+              "pending": false,
+              "undo": 5
+            },
+            {
+              "pending": true,
+              "undo": 6
+            }
+          ],
+          "steps": [
+            "text",
+            "shift-enter",
+            "delete",
+            "backspace",
+            "enter",
+            "after-enter-text"
+          ],
+          "historyPairs": 12,
+          "beforePages": 10,
+          "afterPages": 10,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        }
+      ]
+    },
+    {
+      "phase": "hwp-full",
+      "flows": 8,
+      "undoRedoPairs": 36,
+      "savedReopens": 16,
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourceSHA256": "d6ad182ef262ca807791df8df40510dd7c8be031bd304ecc9b28b6839898ec8e",
+      "qaSourceBeforeSHA256": {
+        "run-electron-edit-gaps-qa.py": "1140c57c8aeef7f54ec0b9294feeb0a3c698bab8c30f49aa912f07e2fe49a1d7",
+        "check-electron-stored-edit-gaps.mjs": "d6ad182ef262ca807791df8df40510dd7c8be031bd304ecc9b28b6839898ec8e",
+        "write-electron-table-manifest.mjs": "f96484695aab2184eb3b006381d9d837faee07f42ba54ad081207c3b74e54ad1",
+        "qa-evidence-budget.mjs": "1778e951d5a00a4fe2f482155f87ab687c9f7c84cca8a970addc4e6ba71ebd4d",
+        "qa-table-save-plan.mjs": "87f6c384eb4c1d5f6cceba5636f4d99aa761d2b6d651f688c3b6b7deb4deff70",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourcesUnchanged": true,
+      "sourceSeedsSHA256": "be14e4b21a3c27fc2cffdf0a91a8824a3f078a5ce5956c4662141ebe8e6a044c",
+      "sourceSeedsUnchanged": true,
+      "proofSHA256": "e1b4aa1c09f01351bcad87c763f60609889c22599edebfd395449ba09ba1a851",
+      "processSHA256": "07e723647e67f846eeea3e2dbbd0ee528cfd0774bda80c603bde4c9ddedd97e2",
+      "manifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "records": 16,
+        "plannedRecords": 16,
+        "plannedFilesSHA256": "7bb917c20f78d9a44f25332646678c8da0eb682cc3e024ca6c173de8e6ed8cb1",
+        "uncompressedBytes": 98149927,
+        "uncompressedSHA256": "3784a57d37b85895880e2a2ef834c40b782b0952ffdc70d2428b8af195648250",
+        "fileBytes": 2115386,
+        "fileSHA256": "eccac68dd4e76e538f982715350dac1fb9d61a90714abea90d119b1de15a9ea6",
+        "diskReadBackVerified": true
+      },
+      "operations": [
+        {
+          "label": "partial-middle-left",
+          "ext": "hwp",
+          "operation": "shift-enter-0",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 1,
+              "x": 120.2,
+              "y": 356.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 354.2,
+                "w": 186.7,
+                "h": 648.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwp",
+          "operation": "direct-delete-0",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 1,
+              "x": 120.2,
+              "y": 356.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 354.2,
+                "w": 186.7,
+                "h": 648.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwp",
+          "operation": "shift-enter-1",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 31
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 4,
+              "x": 120.2,
+              "y": 513.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 835.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwp",
+          "operation": "direct-delete-1",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 31
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 31,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 31,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 31
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 4,
+              "x": 120.2,
+              "y": 513.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 835.8
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwp",
+          "operation": "shift-enter-2",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 63
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 63,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 63,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 63
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 748.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 657.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwp",
+          "operation": "direct-delete-2",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 63
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 63,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 63,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 63
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 748.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 657.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwp",
+          "operation": "mixed-text-history",
+          "burst": false,
+          "observations": [],
+          "steps": [
+            "text",
+            "shift-enter",
+            "delete",
+            "backspace",
+            "enter",
+            "after-enter-text"
+          ],
+          "historyPairs": 12,
+          "beforePages": 10,
+          "afterPages": 10,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwp",
+          "operation": "mixed-burst-history",
+          "burst": true,
+          "observations": [
+            {
+              "pending": true,
+              "undo": 1
+            },
+            {
+              "pending": false,
+              "undo": 2
+            },
+            {
+              "pending": true,
+              "undo": 3
+            },
+            {
+              "pending": true,
+              "undo": 4
+            },
+            {
+              "pending": false,
+              "undo": 5
+            },
+            {
+              "pending": true,
+              "undo": 6
+            }
+          ],
+          "steps": [
+            "text",
+            "shift-enter",
+            "delete",
+            "backspace",
+            "enter",
+            "after-enter-text"
+          ],
+          "historyPairs": 12,
+          "beforePages": 10,
+          "afterPages": 10,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        }
+      ]
+    },
+    {
+      "phase": "hwpx-tail",
+      "flows": 2,
+      "undoRedoPairs": 4,
+      "savedReopens": 4,
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourceSHA256": "e99ba19948b835e522c4798b2240bbebb0ae9e4eaca9179e37b7c71463580b98",
+      "qaSourceBeforeSHA256": {
+        "run-electron-edit-gaps-qa.py": "1140c57c8aeef7f54ec0b9294feeb0a3c698bab8c30f49aa912f07e2fe49a1d7",
+        "check-electron-stored-edit-gaps.mjs": "e99ba19948b835e522c4798b2240bbebb0ae9e4eaca9179e37b7c71463580b98",
+        "write-electron-table-manifest.mjs": "f96484695aab2184eb3b006381d9d837faee07f42ba54ad081207c3b74e54ad1",
+        "qa-evidence-budget.mjs": "1778e951d5a00a4fe2f482155f87ab687c9f7c84cca8a970addc4e6ba71ebd4d",
+        "qa-table-save-plan.mjs": "87f6c384eb4c1d5f6cceba5636f4d99aa761d2b6d651f688c3b6b7deb4deff70",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourcesUnchanged": true,
+      "sourceSeedsSHA256": "e69f2f04de452142b1b9505f5d3abcd99b9386b9ef13ee7338acb0f34baae318",
+      "sourceSeedsUnchanged": true,
+      "proofSHA256": "d0ad89948366cbaeab0543d3347da320167265b9ccd8f86bd326152b7fb61b80",
+      "processSHA256": "b278c9c59760ee44ac643caa547cad0502c283c47e5a995b94566be9ba0706e6",
+      "manifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "records": 4,
+        "plannedRecords": 4,
+        "plannedFilesSHA256": "7dbd22b89d82a9fc3ac72f80b59358cdaae30f8572ba1f990399ac3da40fac31",
+        "uncompressedBytes": 24530641,
+        "uncompressedSHA256": "fd4b170736738ee69008bded183dd5f7376af797272f1b4a0a2a58dccc6b34db",
+        "fileBytes": 529025,
+        "fileSHA256": "d72653efb7a29aabd20dae30118229e258a82b9493e1667bfda3794e2a69d574",
+        "diskReadBackVerified": true
+      },
+      "operations": [
+        {
+          "label": "partial-middle-left",
+          "ext": "hwpx",
+          "operation": "shift-enter-2",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 63
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 63,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 63,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 63
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 748.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 657.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwpx",
+          "operation": "direct-delete-2",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 63
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 63,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 63,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 63
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 748.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 657.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        }
+      ]
+    },
+    {
+      "phase": "snapshot-budget",
+      "flows": 1,
+      "undoRedoPairs": 50,
+      "savedReopens": 2,
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourceSHA256": "e99ba19948b835e522c4798b2240bbebb0ae9e4eaca9179e37b7c71463580b98",
+      "qaSourceBeforeSHA256": {
+        "run-electron-edit-gaps-qa.py": "1140c57c8aeef7f54ec0b9294feeb0a3c698bab8c30f49aa912f07e2fe49a1d7",
+        "check-electron-stored-edit-gaps.mjs": "e99ba19948b835e522c4798b2240bbebb0ae9e4eaca9179e37b7c71463580b98",
+        "write-electron-table-manifest.mjs": "f96484695aab2184eb3b006381d9d837faee07f42ba54ad081207c3b74e54ad1",
+        "qa-evidence-budget.mjs": "1778e951d5a00a4fe2f482155f87ab687c9f7c84cca8a970addc4e6ba71ebd4d",
+        "qa-table-save-plan.mjs": "87f6c384eb4c1d5f6cceba5636f4d99aa761d2b6d651f688c3b6b7deb4deff70",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourcesUnchanged": true,
+      "sourceSeedsSHA256": "18bcce364e32a82d2f58402804d4806c71ef028e37b33ec5cee246e443298e4f",
+      "sourceSeedsUnchanged": true,
+      "proofSHA256": "77d43b4ce3911252e54a764248a1d4128fd8b3db9cd1b66ed8be9ec576a8a9cd",
+      "processSHA256": "171709664a7b8a172d27d0a4c4a6acaa8910cc995fab75b252a53d63cd562a35",
+      "manifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "records": 2,
+        "plannedRecords": 2,
+        "plannedFilesSHA256": "092c1e41f21c765c2a9b73b71204fa5e1523708d382dff565449c474551ebbfb",
+        "uncompressedBytes": 12334896,
+        "uncompressedSHA256": "85ca64ffa1a4697163a14abdac0296d52a12fd2ca792f18e10739a9f0043185a",
+        "fileBytes": 264819,
+        "fileSHA256": "91407d522b71b0c330a4680b46a25a34d0b26556fdeffebd7163fa827e05cdb4",
+        "diskReadBackVerified": true
+      },
+      "operations": [
+        {
+          "label": "partial-middle-left",
+          "ext": "hwpx",
+          "operation": "snapshot-budget",
+          "created": 100,
+          "maxResources": 98,
+          "firstEvictionAt": 99,
+          "drained": 90,
+          "replayed": 49,
+          "oldestRetained": 3,
+          "finalRetained": 52,
+          "historyPairs": 50,
+          "beforePages": 10,
+          "afterPages": 10
+        }
+      ]
+    },
+    {
+      "phase": "boundary65",
+      "flows": 4,
+      "undoRedoPairs": 18,
+      "savedReopens": 8,
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourceSHA256": "41a4601e8b6fb05c0cfda71131a8d3e2ec63cbcb3286a83c36df156f0cc50a1d",
+      "qaSourceBeforeSHA256": {
+        "run-electron-edit-gaps-qa.py": "1140c57c8aeef7f54ec0b9294feeb0a3c698bab8c30f49aa912f07e2fe49a1d7",
+        "check-electron-stored-edit-gaps.mjs": "41a4601e8b6fb05c0cfda71131a8d3e2ec63cbcb3286a83c36df156f0cc50a1d",
+        "write-electron-table-manifest.mjs": "f96484695aab2184eb3b006381d9d837faee07f42ba54ad081207c3b74e54ad1",
+        "qa-evidence-budget.mjs": "1778e951d5a00a4fe2f482155f87ab687c9f7c84cca8a970addc4e6ba71ebd4d",
+        "qa-table-save-plan.mjs": "87f6c384eb4c1d5f6cceba5636f4d99aa761d2b6d651f688c3b6b7deb4deff70",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourcesUnchanged": true,
+      "sourceSeedsSHA256": "d8b8c35973307317f0427765b587e67d99695e823f9d307ed58cc2e33e7c7a9b",
+      "sourceSeedsUnchanged": true,
+      "proofSHA256": "6e595ebf55b5de6a12108e79fd3d930be283ab71f1ae8ac30c171cab53704c9e",
+      "processSHA256": "b315a588514b3f9f139b92f2aa936cac6a5aaa90b11b584fbb3fec20ac280cbc",
+      "manifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "records": 8,
+        "plannedRecords": 8,
+        "plannedFilesSHA256": "0dbb8495e4f243bc90bb5ce618d551bb294322b0b9c66f17261b72a766a9d866",
+        "uncompressedBytes": 65349097,
+        "uncompressedSHA256": "5df20266eb6d58d50766cbc6454d822aea705dea38d501d6ad959f7db8c44fef",
+        "fileBytes": 1397642,
+        "fileSHA256": "e02ca2827425231eecfc2167286cf4d0cf1a65ae3a4cb72f469469e6b8799a6e",
+        "diskReadBackVerified": true
+      },
+      "operations": [
+        {
+          "label": "partial-row65",
+          "ext": "hwpx",
+          "operation": "direct-delete-0",
+          "beforePages": 13,
+          "afterPages": 13,
+          "target": {
+            "cell": 24,
+            "para": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 1,
+              "x": 120.2,
+              "y": 356.1,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 354.2,
+                "w": 186.7,
+                "h": 648.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-row65",
+          "ext": "hwpx",
+          "operation": "shift-enter-2",
+          "beforePages": 13,
+          "afterPages": 13,
+          "target": {
+            "cell": 24,
+            "para": 97
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 97,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 97,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 97
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 11,
+              "x": 120.2,
+              "y": 321.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 230.4
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-row65",
+          "ext": "hwpx",
+          "operation": "tab-last-row",
+          "beforePages": 13,
+          "afterPages": 12,
+          "target": {
+            "cell": 97,
+            "para": 0
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 0,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 97,
+              "cellParaIndex": 0,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 97,
+                  "cellParaIndex": 0
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 12,
+              "x": 306.9,
+              "y": 607.9,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 300.1,
+                "y": 606,
+                "w": 93.3,
+                "h": 145.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-row65",
+          "ext": "hwpx",
+          "operation": "mixed-text-history",
+          "burst": false,
+          "observations": [],
+          "steps": [
+            "text",
+            "shift-enter",
+            "delete",
+            "backspace",
+            "enter",
+            "after-enter-text"
+          ],
+          "historyPairs": 12,
+          "beforePages": 13,
+          "afterPages": 13,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        }
+      ]
+    },
+    {
+      "phase": "strict-final-spot",
+      "flows": 4,
+      "undoRedoPairs": 8,
+      "savedReopens": 8,
+      "nodeHarnessExitCode": 0,
+      "appExitCode": 0,
+      "normalQuit": true,
+      "qaSourceSHA256": "345bfc74ce1fa2b14f8cb259cff4c5b3f4a0ac8d63f569c9305f5bd4629185bf",
+      "qaSourceBeforeSHA256": {
+        "run-electron-edit-gaps-qa.py": "1140c57c8aeef7f54ec0b9294feeb0a3c698bab8c30f49aa912f07e2fe49a1d7",
+        "check-electron-stored-edit-gaps.mjs": "345bfc74ce1fa2b14f8cb259cff4c5b3f4a0ac8d63f569c9305f5bd4629185bf",
+        "write-electron-table-manifest.mjs": "f96484695aab2184eb3b006381d9d837faee07f42ba54ad081207c3b74e54ad1",
+        "qa-evidence-budget.mjs": "e4fc4517e0c85bce1289a5d340d831bbc0b7ff6d65b3e626a4fcae89fb5a45fb",
+        "qa-table-save-plan.mjs": "87f6c384eb4c1d5f6cceba5636f4d99aa761d2b6d651f688c3b6b7deb4deff70",
+        "packaged-electron-qa.mjs": "a076bd4f6b825814f7f988157a4fe291796df0b892544c24ea57902031aa6039",
+        "bootstrap.cjs": "47d6da83c9db832f43b7817b2f3d9efa9202a469a97f536c6f8d2943c513c37f"
+      },
+      "qaSourcesUnchanged": true,
+      "sourceSeedsSHA256": "e69f2f04de452142b1b9505f5d3abcd99b9386b9ef13ee7338acb0f34baae318",
+      "sourceSeedsUnchanged": true,
+      "proofSHA256": "1857bbcdafba26352491231699e01b51263a8e2c97c80a1cfe6886257b3566d9",
+      "processSHA256": "58805be111cdc133324ad021fae3902e3072b61c9fd19139371e1d2017a6c4f8",
+      "manifest": {
+        "file": "manifest.json.gz",
+        "compression": "gzip",
+        "records": 8,
+        "plannedRecords": 8,
+        "plannedFilesSHA256": "57442370c36ea436207fab79aab1b1a2045ed9e040070eea1a6102926ec495ef",
+        "uncompressedBytes": 49061341,
+        "uncompressedSHA256": "82c1d49d28987abee0a0ff453a65e25182623b93fb2e9fcce7fa40bfa54b7262",
+        "fileBytes": 1057865,
+        "fileSHA256": "184273fc7777a0631191b72456aab588040d2640a04fb27c81a08efad2ea6019",
+        "diskReadBackVerified": true
+      },
+      "operations": [
+        {
+          "label": "partial-middle-left",
+          "ext": "hwpx",
+          "operation": "shift-enter-2",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 63
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 63,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 63,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 63
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 748.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 657.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwpx",
+          "operation": "direct-delete-2",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 63
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 63,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 63,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 63
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 748.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 657.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwp",
+          "operation": "shift-enter-2",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 63
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 63,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 63,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 63
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 748.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 657.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        },
+        {
+          "label": "partial-middle-left",
+          "ext": "hwp",
+          "operation": "direct-delete-2",
+          "beforePages": 10,
+          "afterPages": 10,
+          "target": {
+            "cell": 24,
+            "para": 63
+          },
+          "caret": {
+            "position": {
+              "sectionIndex": 0,
+              "paragraphIndex": 63,
+              "parentParaIndex": 0,
+              "controlIndex": 2,
+              "cellIndex": 24,
+              "cellParaIndex": 63,
+              "cellPath": [
+                {
+                  "controlIndex": 2,
+                  "cellIndex": 24,
+                  "cellParaIndex": 63
+                }
+              ],
+              "charOffset": 0
+            },
+            "rect": {
+              "pageIndex": 7,
+              "x": 120.2,
+              "y": 748.6,
+              "height": 13.3,
+              "cellBounds": {
+                "x": 113.4,
+                "y": 170.7,
+                "w": 186.7,
+                "h": 657.1
+              },
+              "cellOverflowed": false
+            }
+          },
+          "historyPairs": 2,
+          "historyAfter": {
+            "u": 0,
+            "r": 0,
+            "snapshotResources": 0
+          }
+        }
+      ]
+    }
+  ],
+  "nativePhases": [
+    {
+      "phase": "native-smoke",
+      "cases": 8,
+      "nativeExitCode": 0,
+      "wrapperExitCode": 0,
+      "overflowWarnings": 0,
+      "actualNativeLayoutComparison": true,
+      "metadataConsumerValidated": true,
+      "indexSHA256": "8ddb7eb8f26d5e5b7ede86923e23a1b2a5a6f65de38f290f4ddc62e21319ea7d",
+      "processSHA256": "2ee566bd4c0ba957a30b3f3428a5f7045db41f51dee814bcaf0097d8da5f5e4b"
+    },
+    {
+      "phase": "native-hwp-full",
+      "cases": 16,
+      "nativeExitCode": 0,
+      "wrapperExitCode": 0,
+      "overflowWarnings": 0,
+      "actualNativeLayoutComparison": true,
+      "metadataConsumerValidated": true,
+      "indexSHA256": "c02ecbbcf6b1c5639d54f8c5142a13e6be89ce429b376d0ce151494b06d5f79e",
+      "processSHA256": "062342baba5f655fa8c6bc661562c6871ea0dacb12f1c85a87639dec67f82b97"
+    },
+    {
+      "phase": "native-hwpx-tail",
+      "cases": 4,
+      "nativeExitCode": 0,
+      "wrapperExitCode": 0,
+      "overflowWarnings": 0,
+      "actualNativeLayoutComparison": true,
+      "metadataConsumerValidated": true,
+      "indexSHA256": "0302bb9d872a4644a466b1559750754cb535eefa44193039bacba0a6a0cb400c",
+      "processSHA256": "420e41dccf60c7ea138858ad0006163b236b6523ca26ba886ff9fc68e745bed1"
+    },
+    {
+      "phase": "native-snapshot-budget",
+      "cases": 2,
+      "nativeExitCode": 0,
+      "wrapperExitCode": 0,
+      "overflowWarnings": 0,
+      "actualNativeLayoutComparison": true,
+      "metadataConsumerValidated": true,
+      "indexSHA256": "c3b0998f73445ef0d65429717f625c7f31751fac5ca3576aa12ef11b50ee6a51",
+      "processSHA256": "9b75d6eaa3b877b621eeb44f8e1e384e2a55e3ee4a245bbaa494cb6882db2429"
+    },
+    {
+      "phase": "native-boundary65",
+      "cases": 8,
+      "nativeExitCode": 0,
+      "wrapperExitCode": 0,
+      "overflowWarnings": 0,
+      "actualNativeLayoutComparison": true,
+      "metadataConsumerValidated": true,
+      "indexSHA256": "db716bef4389165714f1257f090e3a4721764a5676d72a90cdfd70e01d231516",
+      "processSHA256": "fe08d41bf27bde53677c2fdd341096c01663852d2b44315a1986c6e556fd8e17"
+    },
+    {
+      "phase": "native-strict-final-spot",
+      "cases": 8,
+      "nativeExitCode": 0,
+      "wrapperExitCode": 0,
+      "overflowWarnings": 0,
+      "actualNativeLayoutComparison": true,
+      "metadataConsumerValidated": true,
+      "indexSHA256": "0957b3c84f33d0ee96c2887786d98733538752fdc5ba1449d8b20efa869f1a0d",
+      "processSHA256": "d067536e8100574f8b32fe04500a9a0b13c2d0a165ac357aefbca36206f468b5"
+    }
+  ],
+  "actualSnapshotIDBudget": {
+    "created": 100,
+    "configuredSnapshotIDBudget": 98,
+    "maxResources": 98,
+    "firstEvictionAt": 99,
+    "interleavedUndos": 8,
+    "branchBase": 92,
+    "drained": 90,
+    "replayed": 49,
+    "oldestRetained": 3,
+    "finalRetained": 52
+  },
+  "rowBoundaries": [
+    {
+      "tableRows": 4,
+      "bodySnapshotEligibleCells": 0,
+      "sourceUnchanged": true,
+      "proofSHA256": "57c1294c7f225b2f005f53cd89763b6a587e21c91021475709abccde0de1ca8c",
+      "budgetMarkedComplete": true
+    },
+    {
+      "tableRows": 65,
+      "bodySnapshotEligibleCells": 95,
+      "sourceUnchanged": true,
+      "proofSHA256": "b8bc4aa0c7b13276a082625ec92f3e656556a8f6b43ecacc054fec7b93da4ff7",
+      "budgetMarkedComplete": true
+    },
+    {
+      "tableRows": 66,
+      "bodySnapshotEligibleCells": 0,
+      "sourceUnchanged": true,
+      "proofSHA256": "9bb0f8e5c85f878197d27014ce4e2cb2381811aab771d0acb0d97f8c43d982d4",
+      "budgetMarkedComplete": true
+    }
+  ],
+  "scopeExitBothFormatsBaselineEquivalent": true,
+  "scopeExitProofSHA256": "0d4772903e626b1f84a0ee2df91d40a5d86ef5ebeb3689011624b46b72205367",
+  "excludedReadOnlyCases": 8,
+  "excludedReadOnlyProofSHA256": "e454146c7dfc81afe16ce5e6302962d2b45df2f4ff38320df7d54031c1f21e59",
+  "excludedElectronComparison": {
+    "currentEngineSHA256": "444e1a45faad4f7c88aaa12b8ba30b6fd7e60174a612c6b54ae657213c8ac988",
+    "baselineEngineSHA256": "4128c152b6503430e845f4045b0b9a3b03860ab8da5ebbaf89c914d9067e96e1",
+    "sameInputBytes": true,
+    "originalBytesPreserved": true,
+    "sourceQAHashSame": true,
+    "flowsPerEngine": 16,
+    "historyPairsObservedPerEngine": 32,
+    "savedReopensPerEngine": 32,
+    "legacyUnequalRoundTripChecks": 24,
+    "legacyDifferencesIdentical": true,
+    "physicalSupportClaimed": false,
+    "exactUndoClaimed": false
+  },
+  "excludedStateAndCaretComparisons": 96,
+  "excludedComparisonProofSHA256": "3b13b9732a87b0d03e3d41987e31e84ed1f1202f35dd89dc8e82876d382eae58",
+  "failedDiagnosticPhases": [
+    {
+      "phase": "fallback-current",
+      "nodeHarnessExitCode": 1,
+      "appExitCode": 0,
+      "appNormalQuit": true,
+      "processSHA256": "3a9a5128a5090a3fa10d546d54f92921c1b9afdecc2a1f7e3609d6ed1478e41c",
+      "rawPreserved": true,
+      "includedInSuccessfulTotals": false
+    },
+    {
+      "phase": "fallback-current-selectable",
+      "nodeHarnessExitCode": 1,
+      "appExitCode": null,
+      "appNormalQuit": null,
+      "processSHA256": "990bdf57e5994437a3f1ae8820e864bd225fad0740d060aa0a484979a8d42129",
+      "rawPreserved": true,
+      "includedInSuccessfulTotals": false
+    },
+    {
+      "phase": "fallback-current-observed",
+      "nodeHarnessExitCode": 1,
+      "appExitCode": null,
+      "appNormalQuit": null,
+      "processSHA256": "88d3e8e3a16e3f1d774520e4decf092a837eced18cc22e0a4e997a07fc4e678c",
+      "rawPreserved": true,
+      "includedInSuccessfulTotals": false
+    }
+  ],
+  "largeFailedManifestOriginalSHA256": "a3f7019e4e447638b1931f14e6bd9445e9dbccf2c548ba30deac2fb4863dc21f",
+  "largeFailedManifestBytes": 68114,
+  "largeFailedStatusSyntheticCases": 4,
+  "largeFailedStatusOriginalBytesPreserved": true,
+  "failedLargeStatusParsedOrPromoted": false,
+  "protectedFilesUnchanged": 22,
+  "pastProofsUnchanged": 23,
+  "originalDirtyUnchangedSHA256": {
+    "check-colspan-two-owner-carets.mjs": "367477219c197153dec12899885582a55e85e0ce0cca7e6aa5063e0d1f50dda9",
+    "check-partial-colspan-two-owner-snapshot-scope.mjs": "6c979f9b526bdf865951986407a663418b264ab9e4b031f85b4079ac56435549",
+    "prepare-native-cell-caret-oracle.py": "227aaca89f3097c0b34e8438c689e76140204058c036e6a2995860493cef9b7d",
+    "prepare-partial-colspan-two-owner-fixtures.mjs": "b319e32a5947013511ac9c10ae7ed3aea31a36fa14feddcc365b60393b669ad6"
+  },
+  "finalQASourceSHA256": {
+    "check-electron-stored-edit-gaps.mjs": "345bfc74ce1fa2b14f8cb259cff4c5b3f4a0ac8d63f569c9305f5bd4629185bf",
+    "check-failed-manifest-budget.mjs": "7cee772e2176d3a7e56df620bc19f6ce94d2f4ac97450ce48645919f8c2660f9",
+    "check-partial-fallback-equivalence.mjs": "1b942af40de762b27e6a4821e3c27c5ab143d419ef943683628d9f2306245cba",
+    "compare-electron-excluded-fallback.py": "eb7bfb7e38ca7835c1d9b636d528b9d942f6e788c149c25a65f0dbf856e6bc7f",
+    "prepare-electron-qa-reuse.py": "2b857dd77c42310459217421ad52c2f5578c041edf4801fc03ebb768370c0683",
+    "prepare-partial-edit-boundary-fixtures.mjs": "ce3e14a5d57c25183e576e7aebc722499a38a677550fdf9980c0df24f8c91450",
+    "prepare-partial-fallback-fixtures.mjs": "22567e40bc202b44bd03eaec17811350bb952770c99efea88293b8139e264996",
+    "run-electron-edit-gaps-qa.py": "1140c57c8aeef7f54ec0b9294feeb0a3c698bab8c30f49aa912f07e2fe49a1d7",
+    "qa-evidence-budget.mjs": "e4fc4517e0c85bce1289a5d340d831bbc0b7ff6d65b3e626a4fcae89fb5a45fb"
+  },
+  "evidenceBudget": {
+    "normalBytes": 405729280,
+    "failureBytes": 71213056,
+    "totalBytes": 476942336,
+    "incompletePhases": [],
+    "freeBytes": 44738174976,
+    "normalForecastBytes": 0,
+    "failureForecastBytes": 0,
+    "normalLimit": 805306368,
+    "failureLimit": 268435456,
+    "requiredFreeBytes": 16374562816
+  },
+  "sharedSyntheticPhysicalBytes": 14360576,
+  "sharedSyntheticLimitBytes": 32000000,
+  "cleanupPerformed": false,
+  "newBuild": false,
+  "newPackage": false,
+  "oldNative88OverallProcessRecordRetrofitted": false,
+  "limitations": [
+    "OS chooser controlled by QA",
+    "physical IME unverified",
+    "manual GUI unverified",
+    "no new packaged app",
+    "Linux unverified",
+    "CI not run",
+    "excluded legacy undo differences remain; no support expansion"
+  ]
+}
