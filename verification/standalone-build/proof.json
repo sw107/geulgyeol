@@ -1,0 +1,76 @@
+{
+  "baselineProductSourceSHA": "781cc86ac5c09bcace551853212cc271162a6a41",
+  "runtime": {
+    "actualMacPackagedElectron": true,
+    "ordinaryProductionMain": true,
+    "dialogInterception": false,
+    "QAExposures": false,
+    "engineSHA256": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69",
+    "loadedEngineSHA256": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69",
+    "asarSHA256": "95d9c3296885e17dc9b9552f44bf0259c29b45bff2eead2659a2747a6fcaef25",
+    "rows": [
+      {
+        "format": "hwp",
+        "bytes": 12800,
+        "SHA256": "ab21c6c380fdefcb457d2ffb8892ea555bf573d326493f5153d9213e3498399c",
+        "pageCount": 1,
+        "reopened": true
+      },
+      {
+        "format": "hwpx",
+        "bytes": 7414,
+        "SHA256": "505f7ee04c7b1d64631af00567b9c4323ed3f47ce876c398d57d30b4d698cf6e",
+        "pageCount": 1,
+        "reopened": true
+      }
+    ],
+    "errors": [],
+    "normalQuit": true,
+    "exitCode": 0,
+    "nativeChooserVerified": false,
+    "physicalIMEVerified": false
+  },
+  "tools": {
+    "node": "v22.18.0",
+    "electron": "44.3.0",
+    "rustc": "rustc 1.93.1 (01f6ddf75 2026-02-11)",
+    "cargo": "cargo 1.93.1 (083ac5135 2025-12-15)",
+    "wasmBindgen": "wasm-bindgen 0.2.127"
+  },
+  "desktopTests": {
+    "passed": 49,
+    "failed": 0,
+    "skipped": 1
+  },
+  "installationGuardTests": {
+    "passed": 2,
+    "failed": 0
+  },
+  "bundleMatchedFiles": 77,
+  "preservation": {
+    "dirtyFiles": 4,
+    "lockAndPackageFiles": 6,
+    "priorEvidenceFiles": 9859,
+    "mismatches": 0
+  },
+  "space": {
+    "normalCapBytes": 7516192768,
+    "failureCapBytes": 1073741824,
+    "freeFloorBytes": 16374562816,
+    "trackedAdditionalBytes": 2516742144,
+    "sharedCacheAdditionalBytes": 53760000,
+    "filesystemUsedDeltaBytes": 3656597504,
+    "peakTrackedAdditionalBytes": 2516742144,
+    "peakFilesystemUsedDeltaBytes": 3807383552,
+    "minimumObservedFreeBytes": 40638132224,
+    "failureDiagnosticsAllocatedBytes": 4415488
+  },
+  "cleanup": {
+    "candidateFiles": 41,
+    "candidateAllocatedBytes": 1731923968,
+    "deleted": 0,
+    "movedToTrash": 0,
+    "liveUseUnconfirmed": true
+  },
+  "printWork": "Checkpoint preserved; suspended before product edits/app launch."
+}
