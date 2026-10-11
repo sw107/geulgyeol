@@ -12,7 +12,12 @@ const control = () => JSON.parse(fs.readFileSync(path.join(q, 'control.json'), '
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 // This suite uses public programmatic edits. Keep its visible window from
 // taking the user's keyboard while they work in another app.
-BrowserWindow.prototype.show = function () { this.showInactive(); audit('qa-show-inactive',{id:this.id}); };
+const originalShow=BrowserWindow.prototype.show;
+BrowserWindow.prototype.show = function () {
+  if(process.env.GEULGYEOL_QA_NATIVE_PRINT_CANCEL==='1'){
+    originalShow.call(this);audit('qa-native-print-show',{id:this.id});
+  }else{this.showInactive();audit('qa-show-inactive',{id:this.id});}
+};
 let dialogCount = 0, saveCount = 0, closePlan, crashPlan;
 dialog.showSaveDialog = async (win, options) => {
   const c = control(), id = ++dialogCount;
@@ -51,7 +56,9 @@ ipcMain.handle = (channel, handler) => originalHandle(channel, async (event, ...
 });
 ipcMain.on('baram:dirty',(_event,dirty)=>audit('dirty-ipc',{dirty}));
 app.on('browser-window-created', (_e,win)=>{
-  win.setFocusable(false);
+  // Native OS sheet QA requires ordinary focus. This opt-in applies only to
+  // the dedicated synthetic QA app; product security/preferences are intact.
+  if(process.env.GEULGYEOL_QA_NATIVE_PRINT_CANCEL!=='1')win.setFocusable(false);
   const exec=win.webContents.executeJavaScript.bind(win.webContents);
   win.webContents.executeJavaScript=async(code,...args)=>{
     audit('renderer-evaluate',{code});
