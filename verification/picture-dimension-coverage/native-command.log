@@ -1,0 +1,4 @@
+   Compiling rhwp v0.8.6 (<REPO>/engine)
+    Finished `dev` profile [unoptimized] target(s) in 28.83s
+     Running `engine/target/debug/examples/picture_dimension_check <REPO>/.geulgyeol-local/qa/picture-dimension-final-20261011/native`
+Picture dimensions: 16 exports, 4 return chains, 2 binary faults, crop sensitivity; passed=true
