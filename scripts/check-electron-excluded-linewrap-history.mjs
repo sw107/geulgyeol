@@ -222,6 +222,42 @@ async function ownerRedoNavigation(f,op,source,hist){
  rows.push({label:f.label,ext:f.ext,operation:op.name,steps:steps.map(s=>s.name),lastPara,lastOffset,initialUndoExact:true,redoAfterNavigationExact:true,undoAfterRedoExact:true,navigationDirty:undoObservation.dirty,resourceSequence:[editHistory.snapshotResources,undoHistory.snapshotResources,redoHistory.snapshotResources,undoAgainHistory.snapshotResources]});console.log('PASS '+f.name+' '+op.name);
 }
 
+// New input replaces one retained redo entry and releases its snapshot IDs.
+async function ownerRedoBranch(f,op,source,hist){
+ const observe=()=>frame.evaluate(()=>{const h=window.__inputHandler,record=c=>{const fields=JSON.stringify(c);if(fields.length>16384)throw Error('bounded history entry required');return {fields,resources:c.snapshotResourceCount?.()||0};};return {cursor:h.cursor.getPosition(),dirty:window.rhwpStudio.automation.getContext().isDirty,entries:{undo:h.history.undoStack.map(record),redo:h.history.redoStack.map(record)}};});
+ const initialObservation=await observe();assert.equal(initialObservation.dirty,false);assert.deepEqual(hist,{u:0,r:0,snapshotResources:0});
+ await page.keyboard.sendCharacter('OLD_REDO🙂');await settle();const oldEdited=await state();assert.equal(oldEdited.cells[24].paras[0].text,'OLD_REDO🙂'+source.cells[24].paras[0].text);
+ await key(false);const undone=await state(),oldObservation=await observe(),oldHistory=await history();
+ write(f.name+'-'+op.name+'-old-state.json',{source,oldEdited,undone,initialObservation,oldObservation,oldHistory});
+ assert.deepEqual(comparable(undone),comparable(source));assert.deepEqual(oldHistory,{u:0,r:1,snapshotResources:2});
+ const oldFields=JSON.parse(oldObservation.entries.redo[0].fields),oldIDs=[oldFields.beforeId,oldFields.afterId];assert(oldIDs.every(id=>Number.isInteger(id)));
+ const oldHandle=await frame.evaluateHandle(()=>window.__inputHandler.history.peekRedoTop());
+ try{
+  await page.keyboard.sendCharacter('NEW_BRANCH🙂');await settle();const branch=await state(),branchObservation=await observe(),branchHistory=await history();
+  const discarded=await oldHandle.evaluate(c=>({fields:JSON.stringify(c),resources:c.snapshotResourceCount?.()||0}));
+  write(f.name+'-'+op.name+'-branch-state.json',{source,branch,branchObservation,branchHistory,oldIDs,discarded});
+  assert.equal(branch.cells[24].paras[0].text,'NEW_BRANCH🙂'+source.cells[24].paras[0].text);assert.deepEqual(branchHistory,{u:1,r:0,snapshotResources:1});assert.equal(branchObservation.dirty,true);assert.notDeepEqual(comparable(branch),comparable(oldEdited));
+  const discardedFields=JSON.parse(discarded.fields);assert.equal(discarded.resources,0);assert.equal(discardedFields.beforeId,null);assert.equal(discardedFields.afterId,null);
+  const probes=await frame.evaluate(ids=>ids.map(id=>{try{window.__wasm.doc.restoreSnapshot(id);return {id,rejected:false};}catch(e){return {id,rejected:true,error:String(e)};}}),oldIDs);
+  const afterProbe=await state(),probeObservation=await observe(),probeHistory=await history();
+  write(f.name+'-'+op.name+'-discard-probe-state.json',{reference:branch,after:afterProbe,probes,observation:probeObservation,history:probeHistory});
+  assert(probes.every(p=>p.rejected&&p.error.includes('스냅샷')&&p.error.includes('없음')),'discarded WASM snapshot IDs reject before mutation');assert.deepEqual(afterProbe,branch);assert.deepEqual(probeObservation,branchObservation);assert.deepEqual(probeHistory,branchHistory);
+  await key(true);const blocked=await state(),blockedObservation=await observe(),blockedHistory=await history();
+  write(f.name+'-'+op.name+'-blocked-old-redo-state.json',{reference:branch,after:blocked,referenceObservation:branchObservation,observation:blockedObservation,history:blockedHistory});
+  assert.deepEqual(blocked,branch);assert.deepEqual(blockedObservation,branchObservation);assert.deepEqual(blockedHistory,branchHistory,'old redo cannot execute after new input');
+  await key(false);const branchUndo=await state(),undoObservation=await observe(),undoHistory=await history();
+  write(f.name+'-'+op.name+'-undo-state.json',{reference:source,after:branchUndo,observation:undoObservation,history:undoHistory});
+  assert.deepEqual(comparable(branchUndo),comparable(source),'new branch undo restores source full SVG/model');assert.deepEqual(undoHistory,{u:0,r:1,snapshotResources:2});assert.deepEqual(undoObservation.cursor,initialObservation.cursor);
+  await key(true);const branchRedo=await state(),redoObservation=await observe(),redoHistory=await history();
+  write(f.name+'-'+op.name+'-redo-state.json',{reference:branch,after:branchRedo,observation:redoObservation,history:redoHistory});
+  assert.deepEqual(comparable(branchRedo),comparable(branch),'new branch redo restores new full SVG/model');assert.notDeepEqual(comparable(branchRedo),comparable(oldEdited));assert.deepEqual(redoHistory,{u:1,r:0,snapshotResources:1});assert.deepEqual(redoObservation.cursor,branchObservation.cursor);
+  await key(true);const exhausted=await state(),exhaustedObservation=await observe(),exhaustedHistory=await history();
+  write(f.name+'-'+op.name+'-exhausted-redo-state.json',{reference:branchRedo,after:exhausted,referenceObservation:redoObservation,observation:exhaustedObservation,history:exhaustedHistory});
+  assert.deepEqual(exhausted,branchRedo);assert.deepEqual(exhaustedObservation,redoObservation);assert.deepEqual(exhaustedHistory,redoHistory,'old redo is not retained below new branch');pairs++;
+  rows.push({label:f.label,ext:f.ext,operation:op.name,discardedOldIDs:oldIDs,discardedWasmIDRejections:probes.length,emptyRedoChecks:2,newBranchUndoRedoExact:true,resourceSequence:[oldHistory.snapshotResources,branchHistory.snapshotResources,undoHistory.snapshotResources,redoHistory.snapshotResources]});console.log('PASS '+f.name+' '+op.name);
+ }finally{await oldHandle.dispose();}
+}
+
 async function snapshotBudgetHistory(f,op,before){
  assert(before.cells[op.target.cell].needsTextSnapshot,'real source snapshot path required');
  const signature=v=>sha(JSON.stringify(comparable(v))),references=[signature(before)],observations=[];
@@ -294,6 +330,7 @@ write(f.name+'-initial-state.json',initial);assert(initial.pageCount>=1);await v
    ops.push({name:'owner-shift-tab',kind:'navigation',target:{cell:25,para:0}});
    ops.push({name:'owner-edited-navigation',kind:'navigation',target});
    ops.push({name:'owner-redo-navigation',kind:'navigation',target});
+   ops.push({name:'owner-redo-branch',kind:'navigation',target});
   }
   if(f.merged){
    const owners=f.mergedOwners?initial.cells.flatMap((c,i)=>c.info.rowSpan>1||c.info.colSpan>1?[i]:[]):[initial.cells.findIndex(c=>c.info.rowSpan>1||c.info.colSpan>1)];
@@ -336,7 +373,7 @@ write(f.name+'-initial-state.json',initial);assert(initial.pageCount>=1);await v
   if(f.label!=='numbered')for(const mm of [30,2])ops.push({name:'height-'+mm,kind:'height',run:()=>height(positions[1].cell,mm)});
   const selectedOps=selectPlannedOperations(ops,f.operations,process.env.GEULGYEOL_FRAGMENT_OPERATION);
   manifestWriter.planFiles(plannedTableSaveFiles(q,f,selectedOps));plannedFixtures.push(f.name);
-  for(const op of selectedOps){await load(f.name);if(op.name==='height-2')await height(positions[1].cell,30);if(op.target)await selectCell(op.target.cell,op.target.para,op.target.charOffset??0);else if(op.kind==='height'||op.kind==='noop')await selectCell(positions[1].cell,0);if(op.prepare)await op.prepare();const before=await state(),hist=await history();if(op.name==='owner-tab'){await ownerTabNavigation(f,op,before,hist);continue;}if(['owner-shift-tab','owner-edited-navigation'].includes(op.name)){await ownerReverseNavigation(f,op,before,hist);continue;}if(op.name==='owner-redo-navigation'){await ownerRedoNavigation(f,op,before,hist);continue;}if(op.kind==='sequence'){await mixedTextHistory(f,op,before,hist);continue;}if(op.kind==='budget'){await snapshotBudgetHistory(f,op,before);continue;}const caret=await op.run();const after=await state();const afterHistory=await history();if(f.repairExpected){assert.equal(afterHistory.snapshotResources,hist.snapshotResources+1,'one bounded history-only source snapshot');}write(f.name+'-'+op.name+'-state.json',{before,after,caret,historyBefore:hist,historyAfterEdit:afterHistory});if(op.kind==='noop'||op.kind==='navigation'){assert.deepEqual(comparable(after),comparable(before));assert.deepEqual(await history(),hist);ownership(after);if(op.kind==='navigation'){const cursor=await frame.evaluate(()=>window.__inputHandler.cursor.getPosition());assert.equal(cursor.cellIndex,1,'Tab navigates into next cell without text or history mutation');}if(f.verifyUnchangedSaveReopen){await verifyPaint(f.name+'-'+op.name,after);await saveAndReopen(f.label+'-'+f.ext+'-'+op.name,after);}rows.push({label:f.label,ext:f.ext,operation:op.name,noChange:true});console.log('PASS '+f.name+' '+op.name);continue;}if(op.kind==='row-insert'){
+  for(const op of selectedOps){await load(f.name);if(op.name==='height-2')await height(positions[1].cell,30);if(op.target)await selectCell(op.target.cell,op.target.para,op.target.charOffset??0);else if(op.kind==='height'||op.kind==='noop')await selectCell(positions[1].cell,0);if(op.prepare)await op.prepare();const before=await state(),hist=await history();if(op.name==='owner-tab'){await ownerTabNavigation(f,op,before,hist);continue;}if(['owner-shift-tab','owner-edited-navigation'].includes(op.name)){await ownerReverseNavigation(f,op,before,hist);continue;}if(op.name==='owner-redo-navigation'){await ownerRedoNavigation(f,op,before,hist);continue;}if(op.name==='owner-redo-branch'){await ownerRedoBranch(f,op,before,hist);continue;}if(op.kind==='sequence'){await mixedTextHistory(f,op,before,hist);continue;}if(op.kind==='budget'){await snapshotBudgetHistory(f,op,before);continue;}const caret=await op.run();const after=await state();const afterHistory=await history();if(f.repairExpected){assert.equal(afterHistory.snapshotResources,hist.snapshotResources+1,'one bounded history-only source snapshot');}write(f.name+'-'+op.name+'-state.json',{before,after,caret,historyBefore:hist,historyAfterEdit:afterHistory});if(op.kind==='noop'||op.kind==='navigation'){assert.deepEqual(comparable(after),comparable(before));assert.deepEqual(await history(),hist);ownership(after);if(op.kind==='navigation'){const cursor=await frame.evaluate(()=>window.__inputHandler.cursor.getPosition());assert.equal(cursor.cellIndex,1,'Tab navigates into next cell without text or history mutation');}if(f.verifyUnchangedSaveReopen){await verifyPaint(f.name+'-'+op.name,after);await saveAndReopen(f.label+'-'+f.ext+'-'+op.name,after);}rows.push({label:f.label,ext:f.ext,operation:op.name,noChange:true});console.log('PASS '+f.name+' '+op.name);continue;}if(op.kind==='row-insert'){
     assert.equal(after.dims.rowCount,before.dims.rowCount+1,'last-cell Tab adds one row');if(f.expectedLeaveScope){assert.equal(after.dims.rowCount,66);assert(after.cells.every(c=>!c.needsTextSnapshot),'66-row edit exits guarded snapshot scope');}assert.equal(after.dims.colCount,before.dims.colCount);assert.deepEqual(after.cells.slice(0,before.cells.length).map(c=>c.paras),before.cells.map(c=>c.paras),'Tab preserves all original cell text and styles');assert.deepEqual(after.body,before.body);
    }else if(op.kind==='height'){
     // Cell size is a minimum. Long content can keep the same physical rows
