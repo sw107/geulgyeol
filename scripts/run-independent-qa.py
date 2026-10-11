@@ -71,7 +71,7 @@ def capacity(strict=True):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--recipe", choices=["empty-roundtrip", "table-ledger", "wasm-build", "encrypted-save"], required=True)
+    parser.add_argument("--recipe", choices=["empty-roundtrip", "table-ledger", "wasm-build", "encrypted-save", "encrypted-complex"], required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--input", type=Path)
     parser.add_argument("--dry-run", action="store_true")
@@ -114,6 +114,33 @@ def main():
         evidence_inputs["input"] = sha(args.input)
         for p in ["three_column_owner_check.rs", "mixed_table_owner_probe.rs", "horizontal_table_saved_check.rs"]:
             evidence_inputs[f"engine/examples/{p}"] = sha(ROOT / "engine/examples" / p)
+    elif args.recipe == "encrypted-complex":
+        if args.input is None:
+            raise RuntimeError("encrypted-complex requires an owned synthetic manifest")
+        manifest = args.input.absolute()
+        if (manifest.is_symlink() or not manifest.is_file()
+                or not manifest.resolve().is_relative_to(ROOT / ".geulgyeol-local/qa")
+                or manifest.stat().st_size > 256 * 1024):
+            raise RuntimeError("owned bounded synthetic manifest required")
+        records = json.loads(manifest.read_text())
+        schema = records.get("schema")
+        if schema not in ["geulgyeol-encrypted-complex-fixtures-v1", "geulgyeol-encrypted-complex-host-v1"]:
+            raise RuntimeError("encrypted-complex synthetic schema required")
+        if len(records.get("rows", [])) != (3 if schema == "geulgyeol-encrypted-complex-fixtures-v1" else 12):
+            raise RuntimeError("complete bounded synthetic matrix required")
+        for index, row in enumerate(records["rows"]):
+            for key in ["file", "reference"]:
+                if key not in row:
+                    continue
+                item = Path(row[key])
+                if (item.is_symlink() or not item.is_file()
+                        or not item.resolve().is_relative_to(ROOT / ".geulgyeol-local/qa")
+                        or item.stat().st_size > 64 * 1024 * 1024):
+                    raise RuntimeError("owned bounded synthetic file required")
+                evidence_inputs[f"complex-{index}-{key}"] = sha(item)
+        command += ["encrypted_complex_check", "--", str(output / "native"), str(manifest)]
+        evidence_inputs["manifest"] = sha(manifest)
+        evidence_inputs["engine/examples/encrypted_complex_check.rs"] = sha(ROOT / "engine/examples/encrypted_complex_check.rs")
     elif args.recipe == "encrypted-save":
         command += ["encrypted_save_check", "--", str(output / "native")]
         evidence_inputs["engine/examples/encrypted_save_check.rs"] = sha(ROOT / "engine/examples/encrypted_save_check.rs")
@@ -187,6 +214,11 @@ def main():
             oracle = dict(pages=len(oracle["pages"]), sourceOwners=len(oracle["owners"]), rows=oracle["rows"], cols=oracle["cols"])
             if not oracle["pages"] or not oracle["sourceOwners"]:
                 error = "Native table ledger is empty"
+        elif args.recipe == "encrypted-complex":
+            oracle = json.loads((output / "native/proof.json").read_text())
+            if (not oracle.get("syntheticOnly") or not oracle.get("NativeExecuted")
+                    or len(oracle.get("rows", [])) != 12):
+                error = "Native complex matrix is missing bounded synthetic evidence"
         elif args.recipe == "encrypted-save":
             oracle = json.loads((output / "native/proof.json").read_text())
             covered = oracle.get("verifiedHostOutputs") if args.input is not None else len(oracle.get("rows", []))

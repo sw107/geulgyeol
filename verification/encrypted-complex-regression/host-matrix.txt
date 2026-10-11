@@ -1,0 +1,1 @@
+Host complex encrypted matrix: 12 saved, 0 matrix loss rejections, 2 injected DTO loss-gate checks, 0 unexpected failures
