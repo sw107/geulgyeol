@@ -1,0 +1,1308 @@
+{
+  "basePR40SHA": "582e1404c9efd5002c203418eee5e744084ac9d2",
+  "branch": "dev/encrypted-complex-regression",
+  "sourceSHA256": {
+    "engine/examples/encrypted_complex_check.rs": "56c039a262ed211a96a3d7837fcb1d8417fd5005cf366dbbd4f298be70974ae7",
+    "scripts/check-host-encrypted-complex.mjs": "5a871973e0c93ab38fcc0ecbfd2c72aab5c1a4b412ff334459647d2258b3860d",
+    "scripts/run-independent-qa.py": "7b3cacfb8c3322acfd95ad49f508e6790be65c0daee9f17e3c213426e6cc5f8a"
+  },
+  "preservedPins": {
+    "desktop/web/baram.js": "48f63d0d91724f4b6516021191f178488c1d2b891c21a4ce067bf4f771c3be7d",
+    "rhwp-studio/src/main.ts": "3baa8bcfa0e46a613e8a7b94f3de3c6d2ea97cac17bbdfcb8ef7d00096a41b2c",
+    "rhwp-studio/src/command/host-save-export.ts": "195b580204b29f8be771dc15a8b90436f6fd9d627e51ffe5e7a0e2b1d170632b",
+    "rhwp-studio/src/ui/hwp-password-dialog.ts": "4f0c9fda0b1b7c9f0289a76fb4911db8f34f1f30560de414cf26b68936bade9e",
+    "rhwp-studio/src/ui/save-password-validation.ts": "82bdb1c391fb3b08cf0ca4d364248a7e020d4d30195c065cb9c3e77f9150d5e0",
+    "scripts/check-host-save.cjs": "619db9fcbb2c61c18bce9f5cda7aabdea3358a6a8ca94141decf1e3687f38be9",
+    "scripts/check-host-encrypted-save.mjs": "1857c4c85bdbd88c95ad19eb1c678d9eb506f27f01c28ae3d6e10e2339caeafd",
+    "scripts/tests/host-encrypted-save.test.mjs": "299aea2179e94ce9c94d91468bddc429e8b2ef13039a37be033ae130c2cc4ab1",
+    "engine/examples/encrypted_save_check.rs": "e33645a83ea7a0608cc8fa26f847a87dc3b3655c3aa97e933703c5c212adacb8",
+    "scripts/check-colspan-two-owner-carets.mjs": "367477219c197153dec12899885582a55e85e0ce0cca7e6aa5063e0d1f50dda9",
+    "scripts/check-partial-colspan-two-owner-snapshot-scope.mjs": "6c979f9b526bdf865951986407a663418b264ab9e4b031f85b4079ac56435549",
+    "scripts/prepare-native-cell-caret-oracle.py": "227aaca89f3097c0b34e8438c689e76140204058c036e6a2995860493cef9b7d",
+    "scripts/prepare-partial-colspan-two-owner-fixtures.mjs": "b319e32a5947013511ac9c10ae7ed3aea31a36fa14feddcc365b60393b669ad6",
+    "engine/Cargo.lock": "c9a2176f14b99a5b9db657be4c3b985cf12ab3e7b6c380ab15cc5644f3a60af8",
+    "desktop/package-lock.json": "3abe1dd8cfe321e737fb04cfd2760a9edfc1c65504ae5d82fd65903669b1d401",
+    "rhwp-studio/package-lock.json": "2857a04491b9bc789d4e229ec0101cf21b99c421fe2d8eff462189bf710217d1",
+    "pkg/rhwp_bg.wasm": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69"
+  },
+  "expectedChangedPR40File": "scripts/run-independent-qa.py (QA recipe only)",
+  "fixtures": [
+    {
+      "label": "repeat-table",
+      "original": "horizontal-table-fragment-qa/edited-source.hwpx",
+      "sha256": "81e8ea5db121c36516b991e58b8e321b26b40f557f731be2975d2cc1d60331cd"
+    },
+    {
+      "label": "merged-repeat-table",
+      "original": "table-stored-merged-fragments-qa/seeds-5/partial-middle-rowspan.hwpx",
+      "sha256": "27c6477122aec1311b26113aa2684a2c124abb947bbad797cb37ce79f0dd0506"
+    },
+    {
+      "label": "caption-pictures",
+      "original": "caption-text-qa/fixtures/existing.hwpx",
+      "sha256": "2e899e4fa6f1171498349df9f5213f3df62d8bfa65cdad915aa3f0a254df6dd3"
+    }
+  ],
+  "summary": {
+    "nativePreparedInputs": 6,
+    "nativeOutputRows": 12,
+    "nativeSourceProjectionExact": 6,
+    "nativeFormatRepresentationDifferences": 6,
+    "encryptionPlainParityPassed": 12,
+    "hostFilesSaved": 12,
+    "hostMatrixLossRejections": 0,
+    "hostFilesIndependentlyNativeVerified": 12,
+    "nativeWasmFullSVGMatched": 12,
+    "nativeInjectedResourceLossChecks": 2,
+    "hostInjectedLossDTOGateChecks": 2,
+    "unitAndHostRegressionPassed": 20,
+    "criticalChecks": {
+      "encryptedPlainParity": true,
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "tableHeaderAndGeometryEqual": true,
+      "pictureGeometryAttributesEqual": true,
+      "completeImageBytesEqual": true,
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true
+    }
+  },
+  "nativeMatrixRows": [
+    {
+      "binData": [],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "repeat-table",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 3,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwp",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [],
+      "status": "passed",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwp",
+      "wrongPasswordRejected": true,
+      "file": "repeat-table-hwp-to-hwp.hwp",
+      "formatDifferencePaths": []
+    },
+    {
+      "binData": [],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "repeat-table",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 3,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwp",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [
+        "paraDefinitions"
+      ],
+      "status": "format-roundtrip-limit",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": true,
+      "file": "repeat-table-hwp-to-hwpx.hwpx",
+      "formatDifferencePaths": [
+        "/paraDefinitions/*/attr1",
+        "/paraDefinitions/*/break_latin_word"
+      ]
+    },
+    {
+      "binData": [],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "repeat-table",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 3,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwpx",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [
+        "paraDefinitions"
+      ],
+      "status": "format-roundtrip-limit",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwp",
+      "wrongPasswordRejected": true,
+      "file": "repeat-table-hwpx-to-hwp.hwp",
+      "formatDifferencePaths": [
+        "/paraDefinitions/*/attr1",
+        "/paraDefinitions/*/break_latin_word"
+      ]
+    },
+    {
+      "binData": [],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "repeat-table",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 3,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwpx",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [],
+      "status": "passed",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": true,
+      "file": "repeat-table-hwpx-to-hwpx.hwpx",
+      "formatDifferencePaths": []
+    },
+    {
+      "binData": [],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "merged-repeat-table",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 11,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwp",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [],
+      "status": "passed",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwp",
+      "wrongPasswordRejected": true,
+      "file": "merged-repeat-table-hwp-to-hwp.hwp",
+      "formatDifferencePaths": []
+    },
+    {
+      "binData": [],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "merged-repeat-table",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 11,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwp",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [
+        "paraDefinitions"
+      ],
+      "status": "format-roundtrip-limit",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": true,
+      "file": "merged-repeat-table-hwp-to-hwpx.hwpx",
+      "formatDifferencePaths": [
+        "/paraDefinitions/*/attr1",
+        "/paraDefinitions/*/break_latin_word"
+      ]
+    },
+    {
+      "binData": [],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "merged-repeat-table",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 11,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwpx",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [
+        "paraDefinitions"
+      ],
+      "status": "format-roundtrip-limit",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwp",
+      "wrongPasswordRejected": true,
+      "file": "merged-repeat-table-hwpx-to-hwp.hwp",
+      "formatDifferencePaths": [
+        "/paraDefinitions/*/attr1",
+        "/paraDefinitions/*/break_latin_word"
+      ]
+    },
+    {
+      "binData": [],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "merged-repeat-table",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 11,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwpx",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [],
+      "status": "passed",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": true,
+      "file": "merged-repeat-table-hwpx-to-hwpx.hwpx",
+      "formatDifferencePaths": []
+    },
+    {
+      "binData": [
+        {
+          "extension": "png",
+          "id": 1,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        },
+        {
+          "extension": "png",
+          "id": 2,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        }
+      ],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "caption-pictures",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 1,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwp",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [],
+      "status": "passed",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwp",
+      "wrongPasswordRejected": true,
+      "file": "caption-pictures-hwp-to-hwp.hwp",
+      "formatDifferencePaths": []
+    },
+    {
+      "binData": [
+        {
+          "extension": "png",
+          "id": 1,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        },
+        {
+          "extension": "png",
+          "id": 2,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        }
+      ],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "caption-pictures",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 1,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwp",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [
+        "paraDefinitions",
+        "paragraphsControls"
+      ],
+      "status": "format-roundtrip-limit",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": true,
+      "file": "caption-pictures-hwp-to-hwpx.hwpx",
+      "formatDifferencePaths": [
+        "/paraDefinitions/*/attr1",
+        "/paraDefinitions/*/break_latin_word",
+        "/paragraphsControls/*/*/controls/*/Field/ctrl_data_name",
+        "/paragraphsControls/*/*/controls/*/Field/ctrl_id",
+        "/paragraphsControls/*/*/controls/*/Field/hwp_memo_control",
+        "/paragraphsControls/*/*/controls/*/Field/memo_text_direction",
+        "/paragraphsControls/*/*/controls/*/Field/parameters/items",
+        "/paragraphsControls/*/*/controls/*/Field/parameters/name",
+        "/paragraphsControls/*/*/controls/*/Picture/shape_attr/ctrl_id",
+        "/paragraphsControls/*/*/controls/*/Picture/shape_attr/is_two_ctrl_id"
+      ]
+    },
+    {
+      "binData": [
+        {
+          "extension": "png",
+          "id": 1,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        },
+        {
+          "extension": "png",
+          "id": 2,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        }
+      ],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "caption-pictures",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 1,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwpx",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [
+        "paraDefinitions",
+        "paragraphsControls"
+      ],
+      "status": "format-roundtrip-limit",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwp",
+      "wrongPasswordRejected": true,
+      "file": "caption-pictures-hwpx-to-hwp.hwp",
+      "formatDifferencePaths": [
+        "/paraDefinitions/*/attr1",
+        "/paraDefinitions/*/break_latin_word",
+        "/paragraphsControls/*/*/controls/*/Field/ctrl_data_name",
+        "/paragraphsControls/*/*/controls/*/Field/ctrl_id",
+        "/paragraphsControls/*/*/controls/*/Field/hwp_memo_control",
+        "/paragraphsControls/*/*/controls/*/Field/memo_text_direction",
+        "/paragraphsControls/*/*/controls/*/Field/parameters/items",
+        "/paragraphsControls/*/*/controls/*/Field/parameters/name",
+        "/paragraphsControls/*/*/controls/*/Picture/common/numbering_type",
+        "/paragraphsControls/*/*/controls/*/Picture/img_dim/*",
+        "/paragraphsControls/*/*/controls/*/Picture/shape_attr/ctrl_id",
+        "/paragraphsControls/*/*/controls/*/Picture/shape_attr/is_two_ctrl_id"
+      ]
+    },
+    {
+      "binData": [
+        {
+          "extension": "png",
+          "id": 1,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        },
+        {
+          "extension": "png",
+          "id": 2,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        }
+      ],
+      "bodyCellCaptionTextAndFormatEqual": true,
+      "completeImageBytesEqual": true,
+      "correctPasswordReopen": true,
+      "encryptedPlainParity": true,
+      "label": "caption-pictures",
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "pages": 1,
+      "pictureGeometryAttributesEqual": true,
+      "previousPasswordRejected": true,
+      "source": "hwpx",
+      "sourceFullSVGEqual": true,
+      "sourceModelPreserved": true,
+      "sourceSemanticDifferences": [],
+      "status": "passed",
+      "tableHeaderAndGeometryEqual": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": true,
+      "file": "caption-pictures-hwpx-to-hwpx.hwpx",
+      "formatDifferencePaths": []
+    }
+  ],
+  "hostRows": [
+    {
+      "label": "repeat-table",
+      "source": "hwp",
+      "target": "hwp",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwp",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "repeat-table-hwp-to-hwp.hwp",
+      "reference": "repeat-table-hwp-to-hwp.hwp",
+      "sha256": "b9744c9639863c6f93c2846460e2b2f7be68734f61fe39392c514053e1247a1a",
+      "nativeReferenceStatus": "passed",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 3,
+      "wasmSvgSHA256": [
+        "37936741670f9c491d462896a8c6042dbbd449144686a49df48742e0d254bc69",
+        "556373e71e8c3e4409ddb2ef1f2227e95303173b21a793302fb1ea460d02dadf",
+        "1792ab37b4cde784e2b95c50f873ebded3bb225a5efe222ed877b3c83bea420f"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    },
+    {
+      "label": "repeat-table",
+      "source": "hwp",
+      "target": "hwpx",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwpx",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "repeat-table-hwp-to-hwpx.hwpx",
+      "reference": "repeat-table-hwp-to-hwpx.hwpx",
+      "sha256": "141b4a99cbabc85691b8b16fb31b3a911f3fe800073d721c7cd323fbbfec9b65",
+      "nativeReferenceStatus": "format-roundtrip-limit",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 3,
+      "wasmSvgSHA256": [
+        "37936741670f9c491d462896a8c6042dbbd449144686a49df48742e0d254bc69",
+        "556373e71e8c3e4409ddb2ef1f2227e95303173b21a793302fb1ea460d02dadf",
+        "1792ab37b4cde784e2b95c50f873ebded3bb225a5efe222ed877b3c83bea420f"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    },
+    {
+      "label": "repeat-table",
+      "source": "hwpx",
+      "target": "hwp",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwp",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "repeat-table-hwpx-to-hwp.hwp",
+      "reference": "repeat-table-hwpx-to-hwp.hwp",
+      "sha256": "a9b16caf8fd85c44f555fa78c6e036050284409ae33453a1ccf19f1dce324891",
+      "nativeReferenceStatus": "format-roundtrip-limit",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 3,
+      "wasmSvgSHA256": [
+        "37936741670f9c491d462896a8c6042dbbd449144686a49df48742e0d254bc69",
+        "556373e71e8c3e4409ddb2ef1f2227e95303173b21a793302fb1ea460d02dadf",
+        "1792ab37b4cde784e2b95c50f873ebded3bb225a5efe222ed877b3c83bea420f"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    },
+    {
+      "label": "repeat-table",
+      "source": "hwpx",
+      "target": "hwpx",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwpx",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "repeat-table-hwpx-to-hwpx.hwpx",
+      "reference": "repeat-table-hwpx-to-hwpx.hwpx",
+      "sha256": "eb5e7e29325f7a34a9969e6f966ff6ee2633fd1ea41db6ddda305cce1beaded4",
+      "nativeReferenceStatus": "passed",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 3,
+      "wasmSvgSHA256": [
+        "37936741670f9c491d462896a8c6042dbbd449144686a49df48742e0d254bc69",
+        "556373e71e8c3e4409ddb2ef1f2227e95303173b21a793302fb1ea460d02dadf",
+        "1792ab37b4cde784e2b95c50f873ebded3bb225a5efe222ed877b3c83bea420f"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    },
+    {
+      "label": "merged-repeat-table",
+      "source": "hwp",
+      "target": "hwp",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwp",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "merged-repeat-table-hwp-to-hwp.hwp",
+      "reference": "merged-repeat-table-hwp-to-hwp.hwp",
+      "sha256": "e8bfd4764369d79ce6f761c59c908ebf756e8fbf67f2195e3900d36176940268",
+      "nativeReferenceStatus": "passed",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 11,
+      "wasmSvgSHA256": [
+        "f879eefdf86326e6771d9b4ae2291ee7b4f3c1fe56e129e5064b53af0f610d63",
+        "4c4c55e8bf0922fd2be1825b74c31bd4fcc4777576565a0daac82fc89da59f84",
+        "5a8b3ffc8d3e39f3aa98da92fdf60f601147af126c14e27b2e18a08de82a0971",
+        "65992e31500c7a77f1bd1e7c3f3d0635471974c1b49434e1313e0f02ab5bf51c",
+        "c69f49cbbb87bd63bce0ff553d68f76cf903cd29e3b9815bb3bc1aebf28bc9ee",
+        "fe473ac782cc1ac4ec30ba3617f584bfe931b096cc6049b470375bf16a4aa712",
+        "14d044c53b6d7edefba2c331f70da8232d1f4878e5a2856c25b46c43b345c4bb",
+        "e07f983d472f9da83e1b9cdd5db89a0570f4eea0bba9cb0e78859950399d989e",
+        "4925de0c0254a188f516da685bc426821400af7ec835b11553b810251bc967ed",
+        "368763e566b259eaf8bdeedd2ee50f413188bb155629e6dff6bec1daeabe9c0f",
+        "3d285cebbe664b20fd84eafecd07654a569a6de2976f9f7b7683335eaa560b6e"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    },
+    {
+      "label": "merged-repeat-table",
+      "source": "hwp",
+      "target": "hwpx",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwpx",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "merged-repeat-table-hwp-to-hwpx.hwpx",
+      "reference": "merged-repeat-table-hwp-to-hwpx.hwpx",
+      "sha256": "d0e4084139e929cc277a085fc910dd2ed19a49d9aa58a07d10ee2417e01b3281",
+      "nativeReferenceStatus": "format-roundtrip-limit",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 11,
+      "wasmSvgSHA256": [
+        "f879eefdf86326e6771d9b4ae2291ee7b4f3c1fe56e129e5064b53af0f610d63",
+        "4c4c55e8bf0922fd2be1825b74c31bd4fcc4777576565a0daac82fc89da59f84",
+        "5a8b3ffc8d3e39f3aa98da92fdf60f601147af126c14e27b2e18a08de82a0971",
+        "65992e31500c7a77f1bd1e7c3f3d0635471974c1b49434e1313e0f02ab5bf51c",
+        "c69f49cbbb87bd63bce0ff553d68f76cf903cd29e3b9815bb3bc1aebf28bc9ee",
+        "fe473ac782cc1ac4ec30ba3617f584bfe931b096cc6049b470375bf16a4aa712",
+        "14d044c53b6d7edefba2c331f70da8232d1f4878e5a2856c25b46c43b345c4bb",
+        "e07f983d472f9da83e1b9cdd5db89a0570f4eea0bba9cb0e78859950399d989e",
+        "4925de0c0254a188f516da685bc426821400af7ec835b11553b810251bc967ed",
+        "368763e566b259eaf8bdeedd2ee50f413188bb155629e6dff6bec1daeabe9c0f",
+        "3d285cebbe664b20fd84eafecd07654a569a6de2976f9f7b7683335eaa560b6e"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    },
+    {
+      "label": "merged-repeat-table",
+      "source": "hwpx",
+      "target": "hwp",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwp",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "merged-repeat-table-hwpx-to-hwp.hwp",
+      "reference": "merged-repeat-table-hwpx-to-hwp.hwp",
+      "sha256": "6a8af48f6c854505aed64ed55f79ffe21de4e25e3e5ac13aa51bb75ee48cb6ea",
+      "nativeReferenceStatus": "format-roundtrip-limit",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 11,
+      "wasmSvgSHA256": [
+        "f879eefdf86326e6771d9b4ae2291ee7b4f3c1fe56e129e5064b53af0f610d63",
+        "4c4c55e8bf0922fd2be1825b74c31bd4fcc4777576565a0daac82fc89da59f84",
+        "5a8b3ffc8d3e39f3aa98da92fdf60f601147af126c14e27b2e18a08de82a0971",
+        "65992e31500c7a77f1bd1e7c3f3d0635471974c1b49434e1313e0f02ab5bf51c",
+        "c69f49cbbb87bd63bce0ff553d68f76cf903cd29e3b9815bb3bc1aebf28bc9ee",
+        "fe473ac782cc1ac4ec30ba3617f584bfe931b096cc6049b470375bf16a4aa712",
+        "14d044c53b6d7edefba2c331f70da8232d1f4878e5a2856c25b46c43b345c4bb",
+        "e07f983d472f9da83e1b9cdd5db89a0570f4eea0bba9cb0e78859950399d989e",
+        "4925de0c0254a188f516da685bc426821400af7ec835b11553b810251bc967ed",
+        "368763e566b259eaf8bdeedd2ee50f413188bb155629e6dff6bec1daeabe9c0f",
+        "3d285cebbe664b20fd84eafecd07654a569a6de2976f9f7b7683335eaa560b6e"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    },
+    {
+      "label": "merged-repeat-table",
+      "source": "hwpx",
+      "target": "hwpx",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwpx",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "merged-repeat-table-hwpx-to-hwpx.hwpx",
+      "reference": "merged-repeat-table-hwpx-to-hwpx.hwpx",
+      "sha256": "3c36cd73a6ac6e6114f030c1625232c2b23a2faab1b3a2450b6cf62226da71bb",
+      "nativeReferenceStatus": "passed",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 11,
+      "wasmSvgSHA256": [
+        "f879eefdf86326e6771d9b4ae2291ee7b4f3c1fe56e129e5064b53af0f610d63",
+        "4c4c55e8bf0922fd2be1825b74c31bd4fcc4777576565a0daac82fc89da59f84",
+        "5a8b3ffc8d3e39f3aa98da92fdf60f601147af126c14e27b2e18a08de82a0971",
+        "65992e31500c7a77f1bd1e7c3f3d0635471974c1b49434e1313e0f02ab5bf51c",
+        "c69f49cbbb87bd63bce0ff553d68f76cf903cd29e3b9815bb3bc1aebf28bc9ee",
+        "fe473ac782cc1ac4ec30ba3617f584bfe931b096cc6049b470375bf16a4aa712",
+        "14d044c53b6d7edefba2c331f70da8232d1f4878e5a2856c25b46c43b345c4bb",
+        "e07f983d472f9da83e1b9cdd5db89a0570f4eea0bba9cb0e78859950399d989e",
+        "4925de0c0254a188f516da685bc426821400af7ec835b11553b810251bc967ed",
+        "368763e566b259eaf8bdeedd2ee50f413188bb155629e6dff6bec1daeabe9c0f",
+        "3d285cebbe664b20fd84eafecd07654a569a6de2976f9f7b7683335eaa560b6e"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    },
+    {
+      "label": "caption-pictures",
+      "source": "hwp",
+      "target": "hwp",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwp",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "caption-pictures-hwp-to-hwp.hwp",
+      "reference": "caption-pictures-hwp-to-hwp.hwp",
+      "sha256": "cf06261912036e855e77b9405281f0bb9e722d365b9aaaa7d1da50ec275435ad",
+      "nativeReferenceStatus": "passed",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 1,
+      "wasmSvgSHA256": [
+        "c532b3c0c29c87264bc7ced45b78ee6ac8577db39421ba8465ee427f5bcc25f2"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    },
+    {
+      "label": "caption-pictures",
+      "source": "hwp",
+      "target": "hwpx",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwpx",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "caption-pictures-hwp-to-hwpx.hwpx",
+      "reference": "caption-pictures-hwp-to-hwpx.hwpx",
+      "sha256": "1e88734591ccdbbcd8ef84eccdc1a892cb8f4f090fd59ddc227871e3d59a61af",
+      "nativeReferenceStatus": "format-roundtrip-limit",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 1,
+      "wasmSvgSHA256": [
+        "c532b3c0c29c87264bc7ced45b78ee6ac8577db39421ba8465ee427f5bcc25f2"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    },
+    {
+      "label": "caption-pictures",
+      "source": "hwpx",
+      "target": "hwp",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwp",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "caption-pictures-hwpx-to-hwp.hwp",
+      "reference": "caption-pictures-hwpx-to-hwp.hwp",
+      "sha256": "a3cbeb0e62f15c4cd2f9d65a54af0617486a13697c3cf4fffb2ac640e183009c",
+      "nativeReferenceStatus": "format-roundtrip-limit",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 1,
+      "wasmSvgSHA256": [
+        "c532b3c0c29c87264bc7ced45b78ee6ac8577db39421ba8465ee427f5bcc25f2"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    },
+    {
+      "label": "caption-pictures",
+      "source": "hwpx",
+      "target": "hwpx",
+      "loss": {
+        "schemaVersion": 1,
+        "outputFormat": "hwpx",
+        "count": 0,
+        "losses": []
+      },
+      "ipcCalls": 1,
+      "inputPreserved": true,
+      "sourceViewPreserved": true,
+      "sourceSVGPreserved": true,
+      "status": "saved",
+      "file": "caption-pictures-hwpx-to-hwpx.hwpx",
+      "reference": "caption-pictures-hwpx-to-hwpx.hwpx",
+      "sha256": "50545007d84b75bc9f363771ef5d92c29ef69054348e25948b137e84bc17e534",
+      "nativeReferenceStatus": "passed",
+      "sourceViewEqual": true,
+      "sourceFullSVGEqual": true,
+      "pages": 1,
+      "wasmSvgSHA256": [
+        "c532b3c0c29c87264bc7ced45b78ee6ac8577db39421ba8465ee427f5bcc25f2"
+      ],
+      "noPasswordRejected": true,
+      "wrongPasswordRejected": true,
+      "previousPasswordRejected": true,
+      "correctPasswordReopen": true,
+      "selectedFilePreserved": false
+    }
+  ],
+  "independentNativeRows": [
+    {
+      "binData": [],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "repeat-table",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 3,
+      "semanticDifferences": [],
+      "source": "hwp",
+      "status": "passed",
+      "target": "hwp",
+      "wrongPasswordRejected": true
+    },
+    {
+      "binData": [],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "repeat-table",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 3,
+      "semanticDifferences": [],
+      "source": "hwp",
+      "status": "passed",
+      "target": "hwpx",
+      "wrongPasswordRejected": true
+    },
+    {
+      "binData": [],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "repeat-table",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 3,
+      "semanticDifferences": [],
+      "source": "hwpx",
+      "status": "passed",
+      "target": "hwp",
+      "wrongPasswordRejected": true
+    },
+    {
+      "binData": [],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "repeat-table",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 3,
+      "semanticDifferences": [],
+      "source": "hwpx",
+      "status": "passed",
+      "target": "hwpx",
+      "wrongPasswordRejected": true
+    },
+    {
+      "binData": [],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "merged-repeat-table",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 11,
+      "semanticDifferences": [],
+      "source": "hwp",
+      "status": "passed",
+      "target": "hwp",
+      "wrongPasswordRejected": true
+    },
+    {
+      "binData": [],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "merged-repeat-table",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 11,
+      "semanticDifferences": [],
+      "source": "hwp",
+      "status": "passed",
+      "target": "hwpx",
+      "wrongPasswordRejected": true
+    },
+    {
+      "binData": [],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "merged-repeat-table",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 11,
+      "semanticDifferences": [],
+      "source": "hwpx",
+      "status": "passed",
+      "target": "hwp",
+      "wrongPasswordRejected": true
+    },
+    {
+      "binData": [],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "merged-repeat-table",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 11,
+      "semanticDifferences": [],
+      "source": "hwpx",
+      "status": "passed",
+      "target": "hwpx",
+      "wrongPasswordRejected": true
+    },
+    {
+      "binData": [
+        {
+          "extension": "png",
+          "id": 1,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        },
+        {
+          "extension": "png",
+          "id": 2,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        }
+      ],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "caption-pictures",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 1,
+      "semanticDifferences": [],
+      "source": "hwp",
+      "status": "passed",
+      "target": "hwp",
+      "wrongPasswordRejected": true
+    },
+    {
+      "binData": [
+        {
+          "extension": "png",
+          "id": 1,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        },
+        {
+          "extension": "png",
+          "id": 2,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        }
+      ],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "caption-pictures",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 1,
+      "semanticDifferences": [],
+      "source": "hwp",
+      "status": "passed",
+      "target": "hwpx",
+      "wrongPasswordRejected": true
+    },
+    {
+      "binData": [
+        {
+          "extension": "png",
+          "id": 1,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        },
+        {
+          "extension": "png",
+          "id": 2,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        }
+      ],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "caption-pictures",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 1,
+      "semanticDifferences": [],
+      "source": "hwpx",
+      "status": "passed",
+      "target": "hwp",
+      "wrongPasswordRejected": true
+    },
+    {
+      "binData": [
+        {
+          "extension": "png",
+          "id": 1,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        },
+        {
+          "extension": "png",
+          "id": 2,
+          "length": 68,
+          "sha256": "fb504796dfd4e004d40220c159e744aa03df34b3d8f93e22a48561136b464198"
+        }
+      ],
+      "correctPasswordReopen": true,
+      "fullNativeSVGEqual": true,
+      "label": "caption-pictures",
+      "nativeWasmFullSVGEqual": true,
+      "noPasswordRejected": true,
+      "pages": 1,
+      "semanticDifferences": [],
+      "source": "hwpx",
+      "status": "passed",
+      "target": "hwpx",
+      "wrongPasswordRejected": true
+    }
+  ],
+  "nativeResourceLossFaults": [
+    {
+      "boundedResourceFaultInjected": true,
+      "liveResourceBytesPreserved": true,
+      "loss": {
+        "count": 1,
+        "losses": [
+          {
+            "code": "binaryContentEmptied",
+            "path": "/BinData/BIN0001.png",
+            "reason": "rawPassthroughUnavailable",
+            "resourceId": 1,
+            "subject": "binaryData"
+          }
+        ],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "lossyBytesSaved": false,
+      "plaintextFallback": false,
+      "target": "hwp"
+    },
+    {
+      "boundedResourceFaultInjected": true,
+      "liveResourceBytesPreserved": true,
+      "loss": {
+        "count": 1,
+        "losses": [
+          {
+            "code": "binaryContentEmptied",
+            "path": "BinData/image1.png",
+            "reason": "resourceReadFailedOrLimitExceeded",
+            "resourceId": 1,
+            "subject": "binaryData"
+          }
+        ],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "lossyBytesSaved": false,
+      "plaintextFallback": false,
+      "target": "hwpx"
+    }
+  ],
+  "hostLossDTOGateChecks": [
+    {
+      "target": "hwp",
+      "actualNativeLossDTOInjected": true,
+      "actualWASMLossFaultInjected": false,
+      "loss": {
+        "count": 1,
+        "losses": [
+          {
+            "code": "binaryContentEmptied",
+            "path": "/BinData/BIN0001.png",
+            "reason": "rawPassthroughUnavailable",
+            "resourceId": 1,
+            "subject": "binaryData"
+          }
+        ],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "ipcCalls": 0,
+      "dirtyPreserved": true,
+      "selectedSyntheticFilePreserved": true,
+      "plaintextFallback": false
+    },
+    {
+      "target": "hwpx",
+      "actualNativeLossDTOInjected": true,
+      "actualWASMLossFaultInjected": false,
+      "loss": {
+        "count": 1,
+        "losses": [
+          {
+            "code": "binaryContentEmptied",
+            "path": "BinData/image1.png",
+            "reason": "resourceReadFailedOrLimitExceeded",
+            "resourceId": 1,
+            "subject": "binaryData"
+          }
+        ],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "ipcCalls": 0,
+      "dirtyPreserved": true,
+      "selectedSyntheticFilePreserved": true,
+      "plaintextFallback": false
+    }
+  ],
+  "privateEvidencePins": {
+    ".geulgyeol-local/qa/encrypted-complex-pinned-native-20261011/native/proof.json": "252d1cda73771ac64a580247b21d7ca8cca84f78929b3fedc369b0e4efab0c60",
+    ".geulgyeol-local/qa/encrypted-complex-pinned-native-20261011/plan.json": "cd2b5a9e5e59685a8c246a2c342caefe0aa9b3ac4a022a65a8c5cf81f1d8e3b1",
+    ".geulgyeol-local/qa/encrypted-complex-pinned-native-20261011/result.json": "bca4933841069433bd45b88d220ccb7213909aaed4dc5df917f5ef54adfcb11c",
+    ".geulgyeol-local/qa/encrypted-complex-20261011/host-pinned/proof.json": "7bf8c2aa48759879fb98708d0acc22403e7569f1217b2454f206472824f90de4",
+    ".geulgyeol-local/qa/encrypted-complex-20261011/host-pinned/native-manifest.json": "58ebe8e4f2ef87fbaa1d5eaf496fe12d70104723f6932e529260b880966fe8b1",
+    ".geulgyeol-local/qa/encrypted-complex-pinned-reopen-20261011/native/proof.json": "626950cdd299bb5a2762538a1f45bfc7cb02f4a2b4b97e88670389296bd4f4d0",
+    ".geulgyeol-local/qa/encrypted-complex-pinned-reopen-20261011/plan.json": "9e5a644e6fc997b0eed2482a253e7e351cc34750beb505569c0be8a6381337bd",
+    ".geulgyeol-local/qa/encrypted-complex-pinned-reopen-20261011/result.json": "b1b914f07ca31707625d9bc0cf87461e59357a6d3187bb682e43966b1a737077"
+  },
+  "scope": {
+    "syntheticOnly": true,
+    "productSourceChanged": false,
+    "originalFixturesPreserved": true,
+    "actualHostSaveFunction": true,
+    "registeredIPCHandlerWithAdapters": true,
+    "actualNodeFilesystem": true,
+    "actualWASMSerializers": true,
+    "actualNativeEngine": true,
+    "ElectronUIExecuted": false,
+    "actualIPCTransportExecuted": false,
+    "OSChooserExecuted": false,
+    "actualWASMResourceFailureInjected": false,
+    "actualUndoRedoHistoryVerified": false,
+    "allTypedIRPreservedAcrossFormats": false,
+    "userDocumentsUsed": false,
+    "userPasswordsUsed": false,
+    "plaintextFallbackUsed": false,
+    "plaintextDocumentsSaved": false,
+    "wasmRebuilt": false,
+    "appPackaged": false,
+    "printingResumed": false
+  },
+  "capacityBefore": {
+    "ownedAllocatedBytes": 3369488384,
+    "diagnosticAllocatedBytes": 86380544,
+    "freeBytes": 40121847808,
+    "filesystemUsedDeltaBytes": 4323667968,
+    "normalCapBytes": 7516192768,
+    "diagnosticCapBytes": 1073741824,
+    "freeFloorBytes": 16374562816,
+    "withinLimits": true
+  },
+  "capacityAfter": {
+    "ownedAllocatedBytes": 3449233408,
+    "diagnosticAllocatedBytes": 88604672,
+    "freeBytes": 40061935616,
+    "filesystemUsedDeltaBytes": 4383580160,
+    "normalCapBytes": 7516192768,
+    "diagnosticCapBytes": 1073741824,
+    "freeFloorBytes": 16374562816,
+    "withinLimits": true
+  },
+  "ownedGrowthBytes": 79745024,
+  "diagnosticGrowthBytes": 2224128,
+  "normalForecastBytes": 268435456,
+  "diagnosticForecastBytes": 33554432,
+  "logSHA256": {
+    "native-matrix.txt": "3b06f999e9e98591b84cc4d2b20bc471cfd7a4cd4d4e97a3fcee876d58775fe7",
+    "host-matrix.txt": "b23a2f474a7ae642a931058c307d1c5c6de187999d2ff1bbffbab276340e7e4e",
+    "native-host-reopen.txt": "4b8913a5deeeb7531f5ee561d50cff728d448fb73233cdae3b16f3ee7057b0f2",
+    "regression20.txt": "c0b5c8af7769477ee7c046dacdf3adecfeff3bd764ef4f631db5bde897b02168"
+  }
+}

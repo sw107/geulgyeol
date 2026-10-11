@@ -1,0 +1,3 @@
+    Finished `dev` profile [unoptimized] target(s) in 0.12s
+     Running `engine/target/debug/examples/encrypted_complex_check <repository>/.geulgyeol-local/qa/encrypted-complex-pinned-reopen-20261011/native <repository>/.geulgyeol-local/qa/encrypted-complex-20261011/host-pinned/native-manifest.json`
+Native complex host reopen: 12 rows, 0 preservation failures

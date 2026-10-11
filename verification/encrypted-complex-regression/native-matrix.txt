@@ -1,0 +1,4 @@
+   Compiling rhwp v0.8.6 (<repository>/engine)
+    Finished `dev` profile [unoptimized] target(s) in 2.29s
+     Running `engine/target/debug/examples/encrypted_complex_check <repository>/.geulgyeol-local/qa/encrypted-complex-pinned-native-20261011/native <repository>/.geulgyeol-local/qa/encrypted-complex-20261011/fixtures.json`
+Native complex encrypted matrix: 6 prepared/rejected inputs, 12 output rows, 0 encryption failures
