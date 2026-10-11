@@ -160,6 +160,35 @@ async function ownerTabNavigation(f,op,before,hist){
  console.log('PASS '+f.name+' '+op.name);
 }
 
+// Reverse navigation must reach the owner's last Unicode scalar position.
+async function ownerReverseNavigation(f,op,source,hist){
+ const observe=()=>frame.evaluate(()=>{const h=window.__inputHandler,record=c=>{const fields=JSON.stringify(c);if(fields.length>16384)throw Error('bounded history entry required');return {className:c.constructor.name,fields,resources:c.snapshotResourceCount?.()||0};};return {cursor:h.cursor.getPosition(),dirty:window.rhwpStudio.automation.getContext().isDirty,entries:{undo:h.history.undoStack.map(record),redo:h.history.redoStack.map(record)}};});
+ const edited=op.name==='owner-edited-navigation',start=await observe();
+ assert.equal(start.dirty,false);assert.deepEqual(hist,{u:0,r:0,snapshotResources:0});
+ assert.deepEqual(source.cells[24].info,{row:8,col:0,rowSpan:32,colSpan:2});
+ const lastPara=source.cells[24].paras.length-1,lastOffset=[...source.cells[24].paras[lastPara].text].length;
+ assert.equal(lastPara,63);assert.equal(lastOffset,66);
+ let reference=source,expectedHistory=hist,expectedObservation=start;
+ if(edited){
+  await page.keyboard.sendCharacter('NAV_EDIT🙂');await settle();reference=await state();expectedHistory=await history();expectedObservation=await observe();
+  assert.deepEqual(expectedHistory,{u:1,r:0,snapshotResources:1});assert.equal(expectedObservation.dirty,true);
+  assert.equal(reference.cells[24].paras[0].text,'NAV_EDIT🙂'+source.cells[24].paras[0].text);
+  assert.deepEqual(reference.body,source.body);assert.deepEqual(reference.bodyFormats,source.bodyFormats);assert.deepEqual(reference.props,source.props);assert.deepEqual(reference.pageDef,source.pageDef);assert.deepEqual(reference.styles,source.styles);
+  for(let i=0;i<source.cells.length;i++)if(i!==24)assert.deepEqual(reference.cells[i],source.cells[i]);
+  write(f.name+'-'+op.name+'-edited-state.json',{source,reference,observation:expectedObservation,history:expectedHistory});
+ }
+ const steps=edited?[{name:'tab',shift:false,cell:25,para:0,offset:0},{name:'shift-tab',shift:true,cell:24,para:lastPara,offset:lastOffset}]:[{name:'shift-tab',shift:true,cell:24,para:lastPara,offset:lastOffset}];
+ for(const step of steps){
+  const navigationStart=await observe();assert.equal(navigationStart.cursor.cellIndex,step.shift?25:24,'actual source cell before key');
+  if(step.shift)await page.keyboard.down('Shift');try{await page.keyboard.press('Tab');}finally{if(step.shift)await page.keyboard.up('Shift');}await settle();
+  const after=await state(),end=await observe(),now=await history();
+  write(f.name+'-'+op.name+'-'+step.name+'-state.json',{reference,after,start:expectedObservation,navigationStart,end,historyBefore:expectedHistory,historyAfter:now,expected:{cell:step.cell,para:step.para,charOffset:step.offset}});
+  assert.deepEqual(after,reference,'navigation preserves full model/SVG and both export bytes');assert.deepEqual(now,expectedHistory,'history counts and snapshot resources unchanged');assert.deepEqual(end.entries,expectedObservation.entries,'retained command fields and snapshot IDs unchanged');assert.equal(end.dirty,expectedObservation.dirty);
+  assert.equal(end.cursor.cellIndex,step.cell);assert.equal(end.cursor.cellParaIndex,step.para);assert.equal(end.cursor.paragraphIndex,step.para);assert.equal(end.cursor.charOffset,step.offset);assert.equal(end.cursor.parentParaIndex,expectedObservation.cursor.parentParaIndex);assert.equal(end.cursor.controlIndex,expectedObservation.cursor.controlIndex);assert.deepEqual(end.cursor.cellPath,[{controlIndex:end.cursor.controlIndex,cellIndex:step.cell,cellParaIndex:step.para}]);
+ }
+ rows.push({label:f.label,ext:f.ext,operation:op.name,edited,steps:steps.map(s=>s.name),lastPara,lastOffset,historyBeforeNavigation:expectedHistory,dirtyBeforeNavigation:expectedObservation.dirty,noChangeDuringNavigation:true});console.log('PASS '+f.name+' '+op.name);
+}
+
 async function snapshotBudgetHistory(f,op,before){
  assert(before.cells[op.target.cell].needsTextSnapshot,'real source snapshot path required');
  const signature=v=>sha(JSON.stringify(comparable(v))),references=[signature(before)],observations=[];
@@ -229,6 +258,8 @@ write(f.name+'-initial-state.json',initial);assert(initial.pageCount>=1);await v
    const target={cell:f.historyCell,para:0};
    ops.push({name:'history-input',kind:'input',target,run:()=>type(target.cell,target.para,'EDIT🙂')});
    ops.push({name:'owner-tab',kind:'navigation',target});
+   ops.push({name:'owner-shift-tab',kind:'navigation',target:{cell:25,para:0}});
+   ops.push({name:'owner-edited-navigation',kind:'navigation',target});
   }
   if(f.merged){
    const owners=f.mergedOwners?initial.cells.flatMap((c,i)=>c.info.rowSpan>1||c.info.colSpan>1?[i]:[]):[initial.cells.findIndex(c=>c.info.rowSpan>1||c.info.colSpan>1)];
@@ -271,7 +302,7 @@ write(f.name+'-initial-state.json',initial);assert(initial.pageCount>=1);await v
   if(f.label!=='numbered')for(const mm of [30,2])ops.push({name:'height-'+mm,kind:'height',run:()=>height(positions[1].cell,mm)});
   const selectedOps=selectPlannedOperations(ops,f.operations,process.env.GEULGYEOL_FRAGMENT_OPERATION);
   manifestWriter.planFiles(plannedTableSaveFiles(q,f,selectedOps));plannedFixtures.push(f.name);
-  for(const op of selectedOps){await load(f.name);if(op.name==='height-2')await height(positions[1].cell,30);if(op.target)await selectCell(op.target.cell,op.target.para,op.target.charOffset??0);else if(op.kind==='height'||op.kind==='noop')await selectCell(positions[1].cell,0);if(op.prepare)await op.prepare();const before=await state(),hist=await history();if(op.name==='owner-tab'){await ownerTabNavigation(f,op,before,hist);continue;}if(op.kind==='sequence'){await mixedTextHistory(f,op,before,hist);continue;}if(op.kind==='budget'){await snapshotBudgetHistory(f,op,before);continue;}const caret=await op.run();const after=await state();const afterHistory=await history();if(f.repairExpected){assert.equal(afterHistory.snapshotResources,hist.snapshotResources+1,'one bounded history-only source snapshot');}write(f.name+'-'+op.name+'-state.json',{before,after,caret,historyBefore:hist,historyAfterEdit:afterHistory});if(op.kind==='noop'||op.kind==='navigation'){assert.deepEqual(comparable(after),comparable(before));assert.deepEqual(await history(),hist);ownership(after);if(op.kind==='navigation'){const cursor=await frame.evaluate(()=>window.__inputHandler.cursor.getPosition());assert.equal(cursor.cellIndex,1,'Tab navigates into next cell without text or history mutation');}if(f.verifyUnchangedSaveReopen){await verifyPaint(f.name+'-'+op.name,after);await saveAndReopen(f.label+'-'+f.ext+'-'+op.name,after);}rows.push({label:f.label,ext:f.ext,operation:op.name,noChange:true});console.log('PASS '+f.name+' '+op.name);continue;}if(op.kind==='row-insert'){
+  for(const op of selectedOps){await load(f.name);if(op.name==='height-2')await height(positions[1].cell,30);if(op.target)await selectCell(op.target.cell,op.target.para,op.target.charOffset??0);else if(op.kind==='height'||op.kind==='noop')await selectCell(positions[1].cell,0);if(op.prepare)await op.prepare();const before=await state(),hist=await history();if(op.name==='owner-tab'){await ownerTabNavigation(f,op,before,hist);continue;}if(['owner-shift-tab','owner-edited-navigation'].includes(op.name)){await ownerReverseNavigation(f,op,before,hist);continue;}if(op.kind==='sequence'){await mixedTextHistory(f,op,before,hist);continue;}if(op.kind==='budget'){await snapshotBudgetHistory(f,op,before);continue;}const caret=await op.run();const after=await state();const afterHistory=await history();if(f.repairExpected){assert.equal(afterHistory.snapshotResources,hist.snapshotResources+1,'one bounded history-only source snapshot');}write(f.name+'-'+op.name+'-state.json',{before,after,caret,historyBefore:hist,historyAfterEdit:afterHistory});if(op.kind==='noop'||op.kind==='navigation'){assert.deepEqual(comparable(after),comparable(before));assert.deepEqual(await history(),hist);ownership(after);if(op.kind==='navigation'){const cursor=await frame.evaluate(()=>window.__inputHandler.cursor.getPosition());assert.equal(cursor.cellIndex,1,'Tab navigates into next cell without text or history mutation');}if(f.verifyUnchangedSaveReopen){await verifyPaint(f.name+'-'+op.name,after);await saveAndReopen(f.label+'-'+f.ext+'-'+op.name,after);}rows.push({label:f.label,ext:f.ext,operation:op.name,noChange:true});console.log('PASS '+f.name+' '+op.name);continue;}if(op.kind==='row-insert'){
     assert.equal(after.dims.rowCount,before.dims.rowCount+1,'last-cell Tab adds one row');if(f.expectedLeaveScope){assert.equal(after.dims.rowCount,66);assert(after.cells.every(c=>!c.needsTextSnapshot),'66-row edit exits guarded snapshot scope');}assert.equal(after.dims.colCount,before.dims.colCount);assert.deepEqual(after.cells.slice(0,before.cells.length).map(c=>c.paras),before.cells.map(c=>c.paras),'Tab preserves all original cell text and styles');assert.deepEqual(after.body,before.body);
    }else if(op.kind==='height'){
     // Cell size is a minimum. Long content can keep the same physical rows

@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "finishedUTC": "2026-10-11T04:12:47.993388+00:00",
+  "baseApprovedPR27HEAD": "88cd905130cb3b0e5eb84c428798f5788d7d45b8",
+  "productSourceChanged": false,
+  "actualMacElectron": true,
+  "scenarioCases": 4,
+  "exactNavigationTransitions": 6,
+  "cleanShiftTabCases": 2,
+  "editedHistoryRoundTrips": 2,
+  "newAppAndHarnessExitCode": 0,
+  "normalQuit": true,
+  "sourceOwner": {
+    "cell": 24,
+    "row": 8,
+    "col": 0,
+    "rowSpan": 32,
+    "colSpan": 2
+  },
+  "squeezeGeneralCell": 3,
+  "ownerEnd": {
+    "cell": 24,
+    "paragraph": 63,
+    "charOffset": 66
+  },
+  "navigationHistoryEntriesAdded": 0,
+  "undoRedoPairsExecuted": 0,
+  "savedReopens": 0,
+  "nativeExecutions": 0,
+  "newBuild": false,
+  "newPackage": false,
+  "firstRunRetainedSeparately": true,
+  "firstRunAddedToFinalCounts": false,
+  "runtimeTreeSHA256": "128b829706711da03fc26bcc456d915c562e9bc85970549e9e7370a3240c9dbd",
+  "runtimeFilesVerified": 52,
+  "engineSHA256": "143713ea4cb939ac15db2b411891ffdcff551a40146a21dee182cac324fff651",
+  "retainedOriginalUIBuildChildExitCode": 0,
+  "retainedOriginalBuildCoordinatorPostCompleteExitCode": 1,
+  "priorPinnedFilesUnchanged": 7440,
+  "crossFormatLayoutJudged": false,
+  "guardedLayoutScopePromoted": false,
+  "physicalIMEVerified": false,
+  "manualGUIVerified": false,
+  "checks": [
+    {
+      "format": "hwpx",
+      "operation": "owner-shift-tab",
+      "step": "shift-tab",
+      "cell": 24,
+      "paragraph": 63,
+      "charOffset": 66,
+      "fullSVGModelAndBothExportDigestsExact": true,
+      "dirty": false,
+      "history": {
+        "u": 0,
+        "r": 0,
+        "snapshotResources": 0
+      },
+      "retainedCommandFieldsAndSnapshotIDsExact": true
+    },
+    {
+      "format": "hwpx",
+      "operation": "owner-edited-navigation",
+      "step": "tab",
+      "cell": 25,
+      "paragraph": 0,
+      "charOffset": 0,
+      "fullSVGModelAndBothExportDigestsExact": true,
+      "dirty": true,
+      "history": {
+        "u": 1,
+        "r": 0,
+        "snapshotResources": 1
+      },
+      "retainedCommandFieldsAndSnapshotIDsExact": true
+    },
+    {
+      "format": "hwpx",
+      "operation": "owner-edited-navigation",
+      "step": "shift-tab",
+      "cell": 24,
+      "paragraph": 63,
+      "charOffset": 66,
+      "fullSVGModelAndBothExportDigestsExact": true,
+      "dirty": true,
+      "history": {
+        "u": 1,
+        "r": 0,
+        "snapshotResources": 1
+      },
+      "retainedCommandFieldsAndSnapshotIDsExact": true
+    },
+    {
+      "format": "hwp",
+      "operation": "owner-shift-tab",
+      "step": "shift-tab",
+      "cell": 24,
+      "paragraph": 63,
+      "charOffset": 66,
+      "fullSVGModelAndBothExportDigestsExact": true,
+      "dirty": false,
+      "history": {
+        "u": 0,
+        "r": 0,
+        "snapshotResources": 0
+      },
+      "retainedCommandFieldsAndSnapshotIDsExact": true
+    },
+    {
+      "format": "hwp",
+      "operation": "owner-edited-navigation",
+      "step": "tab",
+      "cell": 25,
+      "paragraph": 0,
+      "charOffset": 0,
+      "fullSVGModelAndBothExportDigestsExact": true,
+      "dirty": true,
+      "history": {
+        "u": 1,
+        "r": 0,
+        "snapshotResources": 1
+      },
+      "retainedCommandFieldsAndSnapshotIDsExact": true
+    },
+    {
+      "format": "hwp",
+      "operation": "owner-edited-navigation",
+      "step": "shift-tab",
+      "cell": 24,
+      "paragraph": 63,
+      "charOffset": 66,
+      "fullSVGModelAndBothExportDigestsExact": true,
+      "dirty": true,
+      "history": {
+        "u": 1,
+        "r": 0,
+        "snapshotResources": 1
+      },
+      "retainedCommandFieldsAndSnapshotIDsExact": true
+    }
+  ],
+  "inputEvidenceSHA256": {
+    "excluded-owner-shift-tab/seeds.json": "fdeb73cf1b02dcc91c0b2ab00a5a37f8e60e7479b0b26193dd0c364bb3d3e986",
+    "excluded-owner-shift-tab/electron-final/harness-process.json": "79381bb7a99c04a1f441d6590a1ac95af8b713763c3c8b3cffd6b4d1f9921645",
+    "excluded-owner-shift-tab/electron-final/qa-evidence-status.json": "5e55be7d5ccf44fae9330ac093f98f4425be0ea8daeacb3949f589c340db7b95",
+    "excluded-owner-shift-tab/electron-final/proof.json": "c7f1ea626fe2cd36f7a5653b2de42dce3ef23d9d1e2b60ac91b60e1440873f83",
+    "excluded-owner-shift-tab/electron-final/fallback-lineWrap-input.hwpx-owner-shift-tab-shift-tab-state.json.gz": "b258da9f8090a2ca5803bd19d1edff52733ebd8734c8e14e80993244d0bfa2ae",
+    "excluded-owner-shift-tab/electron-final/fallback-lineWrap-input.hwpx-owner-edited-navigation-edited-state.json.gz": "aa39f3dbb802f67941e51131ad8fe5ce2331b8c6b2d908fc376505d2cf1cfc93",
+    "excluded-owner-shift-tab/electron-final/fallback-lineWrap-input.hwpx-owner-edited-navigation-tab-state.json.gz": "b73094818cc7e06d8cf6e3b9885b0e93db062ecd3b4b3aacba85a5e4dc857120",
+    "excluded-owner-shift-tab/electron-final/fallback-lineWrap-input.hwpx-owner-edited-navigation-shift-tab-state.json.gz": "de19d0b33335659928cfbe5670bb1a956107fd04f483e46ac134410cef9e5c24",
+    "excluded-owner-shift-tab/electron-final/fallback-lineWrap-input.hwp-owner-shift-tab-shift-tab-state.json.gz": "a8880336ed24baf6b923ceb73b7f3c37f18e43d4d580f231a3b7a406e4b2531b",
+    "excluded-owner-shift-tab/electron-final/fallback-lineWrap-input.hwp-owner-edited-navigation-edited-state.json.gz": "12619e82c7dc21136f5c46a562adedfa688dd82b4f8a839a2a7c622c42c1e5ed",
+    "excluded-owner-shift-tab/electron-final/fallback-lineWrap-input.hwp-owner-edited-navigation-tab-state.json.gz": "c9c881b9f2aed3d1e78461fef23191d097a4a5c7a2cc4f5c5de3b877ce1811b3",
+    "excluded-owner-shift-tab/electron-final/fallback-lineWrap-input.hwp-owner-edited-navigation-shift-tab-state.json.gz": "639e22644dab05805f55f3dfce6897be1c83e215334d8930af2fb81b4f01bc35",
+    "excluded-owner-shift-tab/electron-final/manifest.json.gz": "b49153039ab3d17e6eb1256bc1076131c306b30f3b77e951232beb47748fa564",
+    "excluded-owner-shift-tab/electron-final/manifest-status.json": "29a29c82f83824424de889380d5f281a39b09307538924b1b382ade82a1cf897",
+    "excluded-owner-tab/build-runtime/runtime-pin-verified.json": "4fe397edc732c9e78a431bcf8c769e3eb9843151f40fece338d93ca0fe654b5f",
+    "excluded-owner-shift-tab/electron-final/runtime-pin.json": "4fe397edc732c9e78a431bcf8c769e3eb9843151f40fece338d93ca0fe654b5f",
+    "excluded-owner-tab/build-runtime/ui-source-proof.json": "66c7751328c3fb581b1c1d613e9fa545d33f79bf9a20d5a97b0d25187043999d",
+    "excluded-owner-tab/build-runtime/build-wrapper-finalization.json": "0dd5ebbc2e37fbba638567f220db1180829ff3c12d9010261a12d2e206486e3c",
+    "excluded-owner-shift-tab/electron-final/reuse-proof.json": "b9dae166abedcba17d61e527638318dfb31609e40c8177dd4086e2d1918a099f",
+    "excluded-owner-shift-tab/first-source-pins.json": "f8996fbe4028e7620132f4582630808b1febf59e4c0e111fb91cd059e92b8e72",
+    "excluded-owner-shift-tab/electron/harness-process.json": "8675c2fa158f2af13169dfdff5b4aa5016d7e34643b1d64cd873bfecb172e087",
+    "excluded-owner-shift-tab/comparison/proof.json": "11c478aa80915cb3430721dd757a9dbe52785e1f0b401ff20bd1a8acd2671cf8",
+    "excluded-owner-shift-tab/prior-pins.json": "7c8690f98180bba74784fec3991c0189cf6b3a621f717212395f19b28736648b"
+  },
+  "comparisonProofSHA256": "68961ab18f2aef1a3aad9b12b6bd6ec957b950ccb7a0f280d870ab580886ac37",
+  "finalBudget": {
+    "normalBytes": 607744000,
+    "failureBytes": 75276288,
+    "totalBytes": 683020288,
+    "incompletePhases": [],
+    "freeBytes": 45672665088,
+    "normalForecastBytes": 1048576,
+    "failureForecastBytes": 16384,
+    "normalLimit": 805306368,
+    "failureLimit": 268435456,
+    "requiredFreeBytes": 16374562816
+  },
+  "globalSyntheticBudget": {
+    "bytes": 15126528,
+    "limit": 32000000,
+    "inodeDeduplicated": true,
+    "symlinksFollowed": false
+  }
+}
