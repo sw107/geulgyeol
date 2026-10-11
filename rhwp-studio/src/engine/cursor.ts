@@ -1215,7 +1215,9 @@ export class CursorState {
   private getCellReadingOrder(): number[] {
     const pos = this.position;
     const { sectionIndex: sec, parentParaIndex: ppi, controlIndex: ci, cellPath } = pos;
-    const useCellPath = (cellPath?.length ?? 0) > 1 || ((cellPath?.length ?? 0) > 0 && !this.isInTextBox());
+    // A single-entry path still refers to a top-level table. Its bbox query
+    // preserves model cell IDs across page fragments; the nested query does not.
+    const useCellPath = (cellPath?.length ?? 0) > 1;
 
     let bboxes: { cellIdx: number; row: number; col: number }[];
     if (useCellPath && cellPath) {
