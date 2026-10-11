@@ -1,0 +1,133 @@
+{
+  "baseSourceSHA": "60bd52c8b36d20609571d2ea6c1318c80a82cd0f",
+  "sourceFilesSHA256": {
+    "scripts/qa-independent.sh": "b881db7a0e449a505cd1aa5ac7f0f03e15b9681169848cf50b7656ec95009589",
+    "scripts/run-independent-qa.py": "431502c59a18431b1a3f718ab7799347096d4e880c0bb8eff25ad885e5c1ae2d",
+    "scripts/prepare-independent-qa-cache.py": "d4781e31aa55f0e7071824522351561d4bc34ba0a63746caf6141eb090bcbd5e",
+    "scripts/independent-qa-crates.json": "f77c77acca344d2c97351685b13d0b315d1cb279a1e9c7278504ca888f0bdcc8"
+  },
+  "officialCrateArchiveCount": 26,
+  "officialCrateDownloadedBytes": 1570221,
+  "lockSHA256": "c9a2176f14b99a5b9db657be4c3b985cf12ab3e7b6c380ab15cc5644f3a60af8",
+  "idempotentDownloadedCount": 0,
+  "fixedGitDependencySHA": "2caeb0a038f9128b79833d803b94c2667565c4da",
+  "ownedLockedCrateArchivesVerified": 220,
+  "runs": {
+    "nativeEmpty": {
+      "run": "native-empty-final-20261011",
+      "exitCode": 0,
+      "offline": true,
+      "oracle": {
+        "danglingId42StillRejectedWithoutMutation": true,
+        "nativeFactoryAndTemplateCases": 6,
+        "nativeThreeSaveChainReopens": 60
+      },
+      "runnerSHA256": "431502c59a18431b1a3f718ab7799347096d4e880c0bb8eff25ad885e5c1ae2d",
+      "capacityAfter": {
+        "ownedAllocatedBytes": 3278987264,
+        "diagnosticAllocatedBytes": 72192000,
+        "freeBytes": 40332963840,
+        "filesystemUsedDeltaBytes": 4112551936,
+        "normalCapBytes": 7516192768,
+        "diagnosticCapBytes": 1073741824,
+        "freeFloorBytes": 16374562816,
+        "withinLimits": true
+      }
+    },
+    "tableHwp": {
+      "run": "native-table-hwp-20261011-2",
+      "exitCode": 0,
+      "offline": true,
+      "oracle": {
+        "pages": 1,
+        "sourceOwners": 9,
+        "rows": 4,
+        "cols": 3
+      },
+      "runnerSHA256": "25c302f46b1e869c18d2ce14d9d431398b05991467df5f46326eee7b965942ae",
+      "capacityAfter": {
+        "ownedAllocatedBytes": 3278450688,
+        "diagnosticAllocatedBytes": 71655424,
+        "freeBytes": 40340299776,
+        "filesystemUsedDeltaBytes": 4105216000,
+        "normalCapBytes": 7516192768,
+        "diagnosticCapBytes": 1073741824,
+        "freeFloorBytes": 16374562816,
+        "withinLimits": true
+      }
+    },
+    "tableHwpx": {
+      "run": "native-table-hwpx-20261011",
+      "exitCode": 0,
+      "offline": true,
+      "oracle": {
+        "pages": 1,
+        "sourceOwners": 9,
+        "rows": 4,
+        "cols": 3
+      },
+      "runnerSHA256": "25c302f46b1e869c18d2ce14d9d431398b05991467df5f46326eee7b965942ae",
+      "capacityAfter": {
+        "ownedAllocatedBytes": 3278958592,
+        "diagnosticAllocatedBytes": 72163328,
+        "freeBytes": 40336121856,
+        "filesystemUsedDeltaBytes": 4109393920,
+        "normalCapBytes": 7516192768,
+        "diagnosticCapBytes": 1073741824,
+        "freeFloorBytes": 16374562816,
+        "withinLimits": true
+      }
+    },
+    "afterLegacyTrash": {
+      "run": "native-after-legacy-trash-20261011",
+      "exitCode": 0,
+      "offline": true,
+      "oracle": {
+        "danglingId42StillRejectedWithoutMutation": true,
+        "nativeFactoryAndTemplateCases": 6,
+        "nativeThreeSaveChainReopens": 60
+      },
+      "runnerSHA256": "431502c59a18431b1a3f718ab7799347096d4e880c0bb8eff25ad885e5c1ae2d",
+      "capacityAfter": {
+        "ownedAllocatedBytes": 3292712960,
+        "diagnosticAllocatedBytes": 85917696,
+        "freeBytes": 40324624384,
+        "filesystemUsedDeltaBytes": 4120891392,
+        "normalCapBytes": 7516192768,
+        "diagnosticCapBytes": 1073741824,
+        "freeFloorBytes": 16374562816,
+        "withinLimits": true
+      }
+    }
+  },
+  "guardChecks": {
+    "existingRunRefusedWithoutOverwrite": true,
+    "pathTraversalRunIDRefused": true
+  },
+  "legacyTrash": {
+    "directoryCount": 4,
+    "symlinkCount": 2,
+    "movedCount": 6,
+    "taskActualGitCacheRetained": true,
+    "permanentDeletes": 0,
+    "observedFreeBytesDelta": 7548928,
+    "doesNotReclaimStorage": true
+  },
+  "separateApproved42Deletion": {
+    "count": 42,
+    "allApprovedPathsAbsent": true,
+    "retainedNativeExecutables": 39,
+    "installedToolsReverified": true,
+    "observedFreeBytesDelta": 11636736
+  },
+  "scope": {
+    "macArm64": true,
+    "engineSourceChanged": false,
+    "newElectronUIRun": false,
+    "printRun": false,
+    "newWasmBuild": false,
+    "newPackage": false,
+    "linuxVerified": false,
+    "processInventoryQueried": false
+  }
+}

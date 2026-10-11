@@ -1,0 +1,109 @@
+{
+  "description": "Bounded additional native/test crates absent from the initial release-only owned cache. SHA pins come from engine/Cargo.lock.",
+  "packages": [
+    {
+      "name": "async-trait",
+      "version": "0.1.92"
+    },
+    {
+      "name": "bit-set",
+      "version": "0.8.0"
+    },
+    {
+      "name": "bit-vec",
+      "version": "0.8.0"
+    },
+    {
+      "name": "cast",
+      "version": "0.3.0"
+    },
+    {
+      "name": "errno",
+      "version": "0.3.14"
+    },
+    {
+      "name": "fastrand",
+      "version": "2.5.0"
+    },
+    {
+      "name": "getrandom",
+      "version": "0.3.4"
+    },
+    {
+      "name": "nu-ansi-term",
+      "version": "0.50.3"
+    },
+    {
+      "name": "oorandom",
+      "version": "11.1.5"
+    },
+    {
+      "name": "ppv-lite86",
+      "version": "0.2.21"
+    },
+    {
+      "name": "proptest",
+      "version": "1.11.0"
+    },
+    {
+      "name": "quick-error",
+      "version": "1.2.3"
+    },
+    {
+      "name": "rand",
+      "version": "0.9.5"
+    },
+    {
+      "name": "rand_chacha",
+      "version": "0.9.0"
+    },
+    {
+      "name": "rand_core",
+      "version": "0.9.5"
+    },
+    {
+      "name": "rand_xorshift",
+      "version": "0.4.0"
+    },
+    {
+      "name": "regex-syntax",
+      "version": "0.8.11"
+    },
+    {
+      "name": "rustix",
+      "version": "1.1.4"
+    },
+    {
+      "name": "rusty-fork",
+      "version": "0.3.1"
+    },
+    {
+      "name": "tempfile",
+      "version": "3.27.0"
+    },
+    {
+      "name": "unarray",
+      "version": "0.1.4"
+    },
+    {
+      "name": "wait-timeout",
+      "version": "0.2.1"
+    },
+    {
+      "name": "wasm-bindgen-futures",
+      "version": "0.4.77"
+    },
+    {
+      "name": "wasm-bindgen-test",
+      "version": "0.3.77"
+    },
+    {
+      "name": "wasm-bindgen-test-macro",
+      "version": "0.3.77"
+    },
+    {
+      "name": "wasm-bindgen-test-shared",
+      "version": "0.2.127"
+    }
+  ]
+}
