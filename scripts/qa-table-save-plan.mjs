@@ -16,7 +16,7 @@ export function selectPlannedOperations(operations, requested, singleOperation) 
 export function plannedTableSaveFiles(q, fixture, operations) {
  return operations.flatMap(op=>
   ['noop','navigation'].includes(op.kind)&&!fixture.verifyUnchangedSaveReopen?[]:
-   ['hwp','hwpx'].map(ext=>path.join(q,'files',fixture.label+'-'+fixture.ext+'-'+op.name+'.'+ext)));
+   (fixture.sameFormatSaveReopen?[fixture.ext]:['hwp','hwpx']).map(ext=>path.join(q,'files',fixture.label+'-'+fixture.ext+'-'+op.name+'.'+ext)));
 }
 
 export function assertPlannedFixtures(expected,actual) {
