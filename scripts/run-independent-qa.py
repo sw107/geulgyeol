@@ -71,7 +71,7 @@ def capacity(strict=True):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--recipe", choices=["empty-roundtrip", "table-ledger", "wasm-build"], required=True)
+    parser.add_argument("--recipe", choices=["empty-roundtrip", "table-ledger", "wasm-build", "encrypted-save"], required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--input", type=Path)
     parser.add_argument("--dry-run", action="store_true")
@@ -114,6 +114,28 @@ def main():
         evidence_inputs["input"] = sha(args.input)
         for p in ["three_column_owner_check.rs", "mixed_table_owner_probe.rs", "horizontal_table_saved_check.rs"]:
             evidence_inputs[f"engine/examples/{p}"] = sha(ROOT / "engine/examples" / p)
+    elif args.recipe == "encrypted-save":
+        command += ["encrypted_save_check", "--", str(output / "native")]
+        evidence_inputs["engine/examples/encrypted_save_check.rs"] = sha(ROOT / "engine/examples/encrypted_save_check.rs")
+        if args.input is not None:
+            manifest = args.input.absolute()
+            if (manifest.is_symlink() or not manifest.is_file() or manifest.suffix != ".json"
+                    or not manifest.resolve().is_relative_to(ROOT / ".geulgyeol-local/qa")
+                    or manifest.stat().st_size > 256 * 1024):
+                raise RuntimeError("encrypted-save input must be a bounded owned synthetic manifest")
+            records = json.loads(manifest.read_text())
+            if records.get("schema") != "geulgyeol-synthetic-encrypted-save-v1" or len(records.get("rows", [])) != 4:
+                raise RuntimeError("synthetic encrypted-save manifest required")
+            for index, row in enumerate(records["rows"]):
+                for key in ["file", "reference"]:
+                    item = Path(row[key])
+                    if (item.is_symlink() or not item.is_file()
+                            or not item.resolve().is_relative_to(ROOT / ".geulgyeol-local/qa")
+                            or item.stat().st_size > 64 * 1024 * 1024):
+                        raise RuntimeError("owned bounded synthetic encrypted file required")
+                    evidence_inputs[f"host-{index}-{key}"] = sha(item)
+            command.append(str(manifest))
+            evidence_inputs["manifest"] = sha(manifest)
     else:
         if args.input is not None:
             raise RuntimeError("wasm-build takes no input")
@@ -165,6 +187,11 @@ def main():
             oracle = dict(pages=len(oracle["pages"]), sourceOwners=len(oracle["owners"]), rows=oracle["rows"], cols=oracle["cols"])
             if not oracle["pages"] or not oracle["sourceOwners"]:
                 error = "Native table ledger is empty"
+        elif args.recipe == "encrypted-save":
+            oracle = json.loads((output / "native/proof.json").read_text())
+            covered = oracle.get("verifiedHostOutputs") if args.input is not None else len(oracle.get("rows", []))
+            if not oracle.get("syntheticOnly") or not oracle.get("NativeExecuted") or covered != 4:
+                error = "Native encrypted-save oracle did not cover four synthetic format pairs"
         else:
             oracle = dict(wasmSHA256=sha(ROOT / "engine/target/wasm32-unknown-unknown/release/rhwp.wasm"))
     result = dict(exitCode=code, passed=code == 0 and not error, error=error, elapsedSeconds=time.monotonic()-started,

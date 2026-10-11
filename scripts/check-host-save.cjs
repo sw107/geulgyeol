@@ -62,7 +62,7 @@ function storageWithFaults(file,fault){
  return {...context.module.exports,counters:()=>({closes,opens})};
 }
 
-async function uiController(save,bytes){
+async function uiController(save,bytes,{configureHost}={}){
  const elements=new Map(),get=id=>{if(!elements.has(id))elements.set(id,{
   hidden:false,disabled:false,textContent:'',value:'hwpx',showModal(){this.open=true;}});return elements.get(id);};
  let state={dirty:true,fileName:'synthetic.hwpx',documentEpoch:1,changeSeq:1};
@@ -71,6 +71,7 @@ async function uiController(save,bytes){
   if(state.documentEpoch!==expected.documentEpoch||state.changeSeq!==expected.changeSeq)return {ok:false};
   notified.push(name);state={...state,dirty:false,fileName:name};return {ok:true};
  }}},addEventListener(){}};
+ configureHost?.(frame.contentWindow.baramHost,get);
  get('editor').querySelector=()=>frame;
  const editor={getDocumentState:async()=>({...state}),notifySaved:async name=>{
   notified.push(name);state={...state,dirty:false,fileName:name};
@@ -81,7 +82,7 @@ async function uiController(save,bytes){
   location:{href:'http://127.0.0.1/',origin:'http://127.0.0.1'},URL,Uint8Array,
   createStudio:async()=>editor,observeComposition(){},confirm:()=>true,
  });
- return {get,notified,reported,edit:()=>state={...state,dirty:true,changeSeq:state.changeSeq+1}};
+ return {get,notified,reported,host:frame.contentWindow.baramHost,state:()=>({...state}),edit:()=>state={...state,dirty:true,changeSeq:state.changeSeq+1}};
 }
 
 async function main(){

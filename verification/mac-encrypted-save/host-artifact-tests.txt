@@ -1,0 +1,1 @@
+PASS host encrypted save: 4 protected format pairs and 4 cancel/failure/version branches
