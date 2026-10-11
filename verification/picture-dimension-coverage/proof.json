@@ -1,0 +1,768 @@
+{
+  "MacUIExecuted": false,
+  "NativeExecuted": true,
+  "binaryFaults": [
+    {
+      "actualNativeReport": {
+        "count": 1,
+        "losses": [
+          {
+            "code": "binaryContentEmptied",
+            "path": "BinData/image1.png",
+            "reason": "resourceReadFailedOrLimitExceeded",
+            "resourceId": 1,
+            "subject": "binaryData"
+          }
+        ],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "lossyBytesSaved": false,
+      "outputResourceEmptied": true,
+      "passed": true,
+      "sourceResourcePreserved": true,
+      "target": "hwpx"
+    },
+    {
+      "actualNativeReport": {
+        "count": 1,
+        "losses": [
+          {
+            "code": "binaryContentEmptied",
+            "path": "/BinData/BIN0001.png",
+            "reason": "rawPassthroughUnavailable",
+            "resourceId": 1,
+            "subject": "binaryData"
+          }
+        ],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "lossyBytesSaved": false,
+      "outputResourceEmptied": true,
+      "passed": true,
+      "sourceResourcePreserved": true,
+      "target": "hwp"
+    }
+  ],
+  "bytesMemoryOnly": true,
+  "chains": [
+    {
+      "case": "one-pixel-full",
+      "completeImageBytesEqual": true,
+      "effectiveReferenceEqual": true,
+      "fullSVGEqual": true,
+      "imgDimAfterHwpToHwpx": [
+        0,
+        0
+      ],
+      "literalMetadataEqual": false,
+      "lossCount": 0,
+      "passed": true
+    },
+    {
+      "case": "non-75-full",
+      "completeImageBytesEqual": true,
+      "effectiveReferenceEqual": true,
+      "fullSVGEqual": true,
+      "imgDimAfterHwpToHwpx": [
+        0,
+        0
+      ],
+      "literalMetadataEqual": false,
+      "lossCount": 0,
+      "passed": true
+    },
+    {
+      "case": "shortened-crop",
+      "completeImageBytesEqual": true,
+      "effectiveReferenceEqual": true,
+      "fullSVGEqual": true,
+      "imgDimAfterHwpToHwpx": [
+        200,
+        300
+      ],
+      "literalMetadataEqual": true,
+      "lossCount": 0,
+      "passed": true
+    },
+    {
+      "case": "left-top-crop",
+      "completeImageBytesEqual": true,
+      "effectiveReferenceEqual": true,
+      "fullSVGEqual": true,
+      "imgDimAfterHwpToHwpx": [
+        0,
+        0
+      ],
+      "literalMetadataEqual": false,
+      "lossCount": 0,
+      "passed": true
+    }
+  ],
+  "cropSensitivity": [
+    {
+      "case": "shortened-crop",
+      "zeroReferenceChangesEffectiveCoordinates": true,
+      "zeroReferenceChangesSVG": true
+    }
+  ],
+  "passed": true,
+  "rows": [
+    {
+      "case": "one-pixel-full",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        1,
+        1
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 70,
+      "imageSHA256": "ada429c7deaa9414da5e35a3ad970a048d4d784351d69ecb53a311628e383029",
+      "literalMetadataEqual": true,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": null,
+      "outputImgDim": [
+        75,
+        75
+      ],
+      "passed": true,
+      "protected": false,
+      "rawExtraDims": null,
+      "sourceImgDim": [
+        75,
+        75
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": null
+    },
+    {
+      "case": "one-pixel-full",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        1,
+        1
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 70,
+      "imageSHA256": "ada429c7deaa9414da5e35a3ad970a048d4d784351d69ecb53a311628e383029",
+      "literalMetadataEqual": true,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "outputImgDim": [
+        75,
+        75
+      ],
+      "passed": true,
+      "protected": true,
+      "rawExtraDims": null,
+      "sourceImgDim": [
+        75,
+        75
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": true
+    },
+    {
+      "case": "one-pixel-full",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        1,
+        1
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 70,
+      "imageSHA256": "ada429c7deaa9414da5e35a3ad970a048d4d784351d69ecb53a311628e383029",
+      "literalMetadataEqual": false,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": null,
+      "outputImgDim": [
+        0,
+        0
+      ],
+      "passed": true,
+      "protected": false,
+      "rawExtraDims": [
+        0,
+        0
+      ],
+      "sourceImgDim": [
+        75,
+        75
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwp",
+      "wrongPasswordRejected": null
+    },
+    {
+      "case": "one-pixel-full",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        1,
+        1
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 70,
+      "imageSHA256": "ada429c7deaa9414da5e35a3ad970a048d4d784351d69ecb53a311628e383029",
+      "literalMetadataEqual": false,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "outputImgDim": [
+        0,
+        0
+      ],
+      "passed": true,
+      "protected": true,
+      "rawExtraDims": [
+        0,
+        0
+      ],
+      "sourceImgDim": [
+        75,
+        75
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwp",
+      "wrongPasswordRejected": true
+    },
+    {
+      "case": "non-75-full",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": true,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": null,
+      "outputImgDim": [
+        200,
+        300
+      ],
+      "passed": true,
+      "protected": false,
+      "rawExtraDims": null,
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": null
+    },
+    {
+      "case": "non-75-full",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": true,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "outputImgDim": [
+        200,
+        300
+      ],
+      "passed": true,
+      "protected": true,
+      "rawExtraDims": null,
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": true
+    },
+    {
+      "case": "non-75-full",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": false,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": null,
+      "outputImgDim": [
+        0,
+        0
+      ],
+      "passed": true,
+      "protected": false,
+      "rawExtraDims": [
+        0,
+        0
+      ],
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwp",
+      "wrongPasswordRejected": null
+    },
+    {
+      "case": "non-75-full",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": false,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "outputImgDim": [
+        0,
+        0
+      ],
+      "passed": true,
+      "protected": true,
+      "rawExtraDims": [
+        0,
+        0
+      ],
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwp",
+      "wrongPasswordRejected": true
+    },
+    {
+      "case": "shortened-crop",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": true,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": null,
+      "outputImgDim": [
+        200,
+        300
+      ],
+      "passed": true,
+      "protected": false,
+      "rawExtraDims": null,
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": null
+    },
+    {
+      "case": "shortened-crop",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": true,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "outputImgDim": [
+        200,
+        300
+      ],
+      "passed": true,
+      "protected": true,
+      "rawExtraDims": null,
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": true
+    },
+    {
+      "case": "shortened-crop",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": true,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": null,
+      "outputImgDim": [
+        200,
+        300
+      ],
+      "passed": true,
+      "protected": false,
+      "rawExtraDims": [
+        200,
+        300
+      ],
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwp",
+      "wrongPasswordRejected": null
+    },
+    {
+      "case": "shortened-crop",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": true,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "outputImgDim": [
+        200,
+        300
+      ],
+      "passed": true,
+      "protected": true,
+      "rawExtraDims": [
+        200,
+        300
+      ],
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwp",
+      "wrongPasswordRejected": true
+    },
+    {
+      "case": "left-top-crop",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": true,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": null,
+      "outputImgDim": [
+        200,
+        300
+      ],
+      "passed": true,
+      "protected": false,
+      "rawExtraDims": null,
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": null
+    },
+    {
+      "case": "left-top-crop",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": true,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwpx",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "outputImgDim": [
+        200,
+        300
+      ],
+      "passed": true,
+      "protected": true,
+      "rawExtraDims": null,
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwpx",
+      "wrongPasswordRejected": true
+    },
+    {
+      "case": "left-top-crop",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": false,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": null,
+      "outputImgDim": [
+        0,
+        0
+      ],
+      "passed": true,
+      "protected": false,
+      "rawExtraDims": [
+        0,
+        0
+      ],
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwp",
+      "wrongPasswordRejected": null
+    },
+    {
+      "case": "left-top-crop",
+      "completeImageBytesEqual": true,
+      "decodedPixels": [
+        2,
+        2
+      ],
+      "effectiveReferenceEqual": true,
+      "encryptedPlainParity": true,
+      "fullSVGEqual": true,
+      "geometryEqual": true,
+      "imageLength": 77,
+      "imageSHA256": "127a1c01b40992d3c78a944fa69c69fd98ed5cbe8a366de2cb127dc1682ad286",
+      "literalMetadataEqual": false,
+      "loss": {
+        "count": 0,
+        "losses": [],
+        "outputFormat": "hwp",
+        "schemaVersion": 1
+      },
+      "noPasswordRejected": true,
+      "outputImgDim": [
+        0,
+        0
+      ],
+      "passed": true,
+      "protected": true,
+      "rawExtraDims": [
+        0,
+        0
+      ],
+      "sourceImgDim": [
+        200,
+        300
+      ],
+      "sourceModelPreserved": true,
+      "target": "hwp",
+      "wrongPasswordRejected": true
+    }
+  ],
+  "schema": "geulgyeol-picture-dimension-v1",
+  "syntheticOnly": true,
+  "baseSHA": "b09300c4cbd68f2851aa2ddacbdfdbf0f34b75cd",
+  "testedSourceSHA256": {
+    "engine/examples/picture_dimension_check.rs": "3413fe20a4008c6a4ec89eb88ca684afd0f91c0e583b1b50d068a7ec447a5949",
+    "scripts/run-independent-qa.py": "648779d5169c428373ebdfe0619927bb3b4ce09eac5c540d92784ff615753ec8",
+    "engine/src/model/image.rs": "b2fe01105fd40ed6475a21adb6d4544965294c3b0547f7d78d88b94cba62fbe3",
+    "engine/src/serializer/content_loss.rs": "d987cdd4899f18f586fca94bc1520c008e88b64d4b9f6a84daa1d947d31f1772"
+  },
+  "preservedPinsSHA256": {
+    "scripts/check-colspan-two-owner-carets.mjs": "367477219c197153dec12899885582a55e85e0ce0cca7e6aa5063e0d1f50dda9",
+    "scripts/check-partial-colspan-two-owner-snapshot-scope.mjs": "6c979f9b526bdf865951986407a663418b264ab9e4b031f85b4079ac56435549",
+    "scripts/prepare-native-cell-caret-oracle.py": "227aaca89f3097c0b34e8438c689e76140204058c036e6a2995860493cef9b7d",
+    "scripts/prepare-partial-colspan-two-owner-fixtures.mjs": "b319e32a5947013511ac9c10ae7ed3aea31a36fa14feddcc365b60393b669ad6",
+    "pkg/rhwp_bg.wasm": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69",
+    "engine/Cargo.lock": "c9a2176f14b99a5b9db657be4c3b985cf12ab3e7b6c380ab15cc5644f3a60af8",
+    "desktop/package-lock.json": "3abe1dd8cfe321e737fb04cfd2760a9edfc1c65504ae5d82fd65903669b1d401",
+    "rhwp-studio/package-lock.json": "2857a04491b9bc789d4e229ec0101cf21b99c421fe2d8eff462189bf710217d1"
+  },
+  "capacity": {
+    "before": {
+      "ownedAllocatedBytes": 3449282560,
+      "diagnosticAllocatedBytes": 88653824,
+      "freeBytes": 40058109952,
+      "filesystemUsedDeltaBytes": 4387405824,
+      "normalCapBytes": 7516192768,
+      "diagnosticCapBytes": 1073741824,
+      "freeFloorBytes": 16374562816,
+      "withinLimits": true
+    },
+    "after": {
+      "ownedAllocatedBytes": 3524956160,
+      "diagnosticAllocatedBytes": 88793088,
+      "freeBytes": 40034246656,
+      "filesystemUsedDeltaBytes": 4411269120,
+      "normalCapBytes": 7516192768,
+      "diagnosticCapBytes": 1073741824,
+      "freeFloorBytes": 16374562816,
+      "withinLimits": true
+    },
+    "peakOwnedAllocatedBytes": 3626405888,
+    "peakDiagnosticAllocatedBytes": 88793088,
+    "measuredOwnedPeakDeltaBytes": 177123328,
+    "measuredDiagnosticPeakDeltaBytes": 139264,
+    "allRunsWithinLimits": true,
+    "initialForecastNormalBytes": 268435456,
+    "libraryCommentBuildForecastNormalBytes": 536870912,
+    "forecastDiagnosticBytes": 16777216
+  },
+  "officialOwpmlCommit": "1453388472c703a4b299a0834f425cdac16644b9",
+  "serializerBehaviorChanged": false,
+  "reportCountZeroGuaranteesAllMetadata": false,
+  "offline": true,
+  "locked": true,
+  "newPackageCreated": false
+}

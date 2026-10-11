@@ -42,10 +42,13 @@ pub struct Picture {
     pub effects: PictureEffects,
     /// 캡션
     pub caption: Option<super::shape::Caption>,
-    /// HWPX `<hp:imgDim>` 원본 이미지 픽셀 크기 (#1389).
+    /// 그림 자르기가 기준으로 삼는 원본 이미지의 논리 좌표 범위 (#1389).
     ///
-    /// imgClip extent 와 독립(전수 측정: 불일치 24/170) — 원본 이미지 픽셀 크기를
-    /// verbatim 보존한다. (dimwidth, dimheight). HWPX 파서만 적재.
+    /// HWPX `<hp:imgDim>`의 (dimwidth, dimheight) 및 HWP picture extra의
+    /// 크기 칸에서 적재한다. 디코딩된 비트맵의 픽셀 수와 구별하며 imgClip extent와
+    /// 독립이다. HWPX 파서/직렬화기는 이 필드를 그대로 보존한다. HWPX→HWP
+    /// 어댑터는 전체 범위를 crop.right/bottom에서 복원할 수 있으면 extra에 0을
+    /// 쓰므로 변환 뒤 literal img_dim이 같다는 보장은 없다.
     pub img_dim: (u32, u32),
     /// HWPX `<hp:pic reverse="...">` 값 — 그림 좌우 반전(한컴 Automation
     /// `InsertPicture`의 `reverse` 옵션과 동일 개념). 파서가 읽지 않고 직렬화기가

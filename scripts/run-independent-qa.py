@@ -71,7 +71,7 @@ def capacity(strict=True):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--recipe", choices=["empty-roundtrip", "table-ledger", "wasm-build", "encrypted-save", "encrypted-complex"], required=True)
+    parser.add_argument("--recipe", choices=["empty-roundtrip", "table-ledger", "wasm-build", "encrypted-save", "encrypted-complex", "picture-dimension"], required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--input", type=Path)
     parser.add_argument("--dry-run", action="store_true")
@@ -114,6 +114,11 @@ def main():
         evidence_inputs["input"] = sha(args.input)
         for p in ["three_column_owner_check.rs", "mixed_table_owner_probe.rs", "horizontal_table_saved_check.rs"]:
             evidence_inputs[f"engine/examples/{p}"] = sha(ROOT / "engine/examples" / p)
+    elif args.recipe == "picture-dimension":
+        if args.input is not None:
+            raise RuntimeError("picture-dimension synthesizes its own tiny PNGs")
+        command += ["picture_dimension_check", "--", str(output / "native")]
+        evidence_inputs["engine/examples/picture_dimension_check.rs"] = sha(ROOT / "engine/examples/picture_dimension_check.rs")
     elif args.recipe == "encrypted-complex":
         if args.input is None:
             raise RuntimeError("encrypted-complex requires an owned synthetic manifest")
@@ -214,6 +219,12 @@ def main():
             oracle = dict(pages=len(oracle["pages"]), sourceOwners=len(oracle["owners"]), rows=oracle["rows"], cols=oracle["cols"])
             if not oracle["pages"] or not oracle["sourceOwners"]:
                 error = "Native table ledger is empty"
+        elif args.recipe == "picture-dimension":
+            oracle = json.loads((output / "native/proof.json").read_text())
+            if (not oracle.get("syntheticOnly") or not oracle.get("NativeExecuted") or not oracle.get("passed")
+                    or len(oracle.get("rows", [])) != 16 or len(oracle.get("chains", [])) != 4
+                    or len(oracle.get("binaryFaults", [])) != 2 or len(oracle.get("cropSensitivity", [])) != 1):
+                error = "Native picture-dimension oracle is missing bounded coverage"
         elif args.recipe == "encrypted-complex":
             oracle = json.loads((output / "native/proof.json").read_text())
             if (not oracle.get("syntheticOnly") or not oracle.get("NativeExecuted")
