@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "finishedUTC": "2026-10-11T03:42:09.068916+00:00",
+  "operation": "history-input",
+  "exactUndoRedoPairs": 4,
+  "sameFormatSavedReopens": 2,
+  "actualMacElectron": true,
+  "electronAndHarnessExitCode": 0,
+  "normalQuit": true,
+  "nativeExactSavedCases": 2,
+  "nativeOverallExitCode": 0,
+  "nativeOverflowWarnings": 0,
+  "engineSHA256": "143713ea4cb939ac15db2b411891ffdcff551a40146a21dee182cac324fff651",
+  "runtimeSHA256": "4040dd9fad254b5bdebaa9fbe91522f00bee5c03eed7fe3faa632c6f5941dce6",
+  "nativeSHA256": "1801e456363aa79de62e96f60d846a30d8d37251e0bfef72bb2a2dff686ad250",
+  "sourceSeedSHA256": "9abb73e8b2232de2bce5116a480f0f2a13a8e2b6a4b0d77e2d8692525eb9fff8",
+  "priorPinnedFilesUnchanged": 6761,
+  "crossFormatLayoutJudged": false,
+  "guardedLayoutScopePromoted": false,
+  "cases": [
+    {
+      "format": "hwpx",
+      "sourceSHA256": "db0aa861037377793e26cdb53338ccc184c8a4db5f626d75d94d354ba8e96a55",
+      "savedSHA256": "78a2ed0dece477e3590df895d68ce913f3ae69eb5fde538ed21aaabfc08d37d4",
+      "targetCell": 24,
+      "exactHistoryPairs": 2,
+      "sameFormatReopens": 1,
+      "sourceSnapshotResources": 1,
+      "pageCounts": [
+        9,
+        9
+      ]
+    },
+    {
+      "format": "hwp",
+      "sourceSHA256": "be3bd4a5a1808ecaa6d789b112bd221ffd0eb760ad111465598397267c3fc0b6",
+      "savedSHA256": "d72d80fdbd1232c028e593254182f7f34fab50006bbc51755c631386f81e98b1",
+      "targetCell": 24,
+      "exactHistoryPairs": 2,
+      "sameFormatReopens": 1,
+      "sourceSnapshotResources": 1,
+      "pageCounts": [
+        9,
+        9
+      ]
+    }
+  ],
+  "savedScope": [
+    {
+      "file": "fallback-lineWrap-hwpx-history-input.hwpx",
+      "rows": 48,
+      "guardedEligible": [],
+      "historyEligible": [
+        24
+      ]
+    },
+    {
+      "file": "fallback-lineWrap-hwp-history-input.hwp",
+      "rows": 48,
+      "guardedEligible": [],
+      "historyEligible": [
+        24
+      ]
+    }
+  ],
+  "inputEvidenceSHA256": {
+    "seeds.json": "9abb73e8b2232de2bce5116a480f0f2a13a8e2b6a4b0d77e2d8692525eb9fff8",
+    "electron/harness-process.json": "136f4325c8ab70adccb58ea75584b8ff8edb5a7bfa29f4631f4934dd879dcfd1",
+    "electron/qa-evidence-status.json": "5e55be7d5ccf44fae9330ac093f98f4425be0ea8daeacb3949f589c340db7b95",
+    "electron/proof.json": "5b520bef2660b4fa79ba1aa9c1c64522a8954034340a16488784443f65285b99",
+    "electron/fallback-lineWrap-input.hwpx-history-input-state.json.gz": "6ede9b6f6ceb9cba8d9bc425228b5038575ce80125ffa73026a6a7b9f5df568d",
+    "electron/fallback-lineWrap-input.hwpx-history-input-undo0.json.gz": "76152d120ef3461855e60f3ff20bf7d34514859492d71db1dcef9f4a10990ce0",
+    "electron/fallback-lineWrap-input.hwpx-history-input-redo0.json.gz": "6b51e4dd504082cabe4aefff8eb234f1efed022952f9ca38d467d490636ef2b0",
+    "electron/fallback-lineWrap-input.hwpx-history-input-undo1.json.gz": "76152d120ef3461855e60f3ff20bf7d34514859492d71db1dcef9f4a10990ce0",
+    "electron/fallback-lineWrap-input.hwpx-history-input-redo1.json.gz": "6b51e4dd504082cabe4aefff8eb234f1efed022952f9ca38d467d490636ef2b0",
+    "electron/files/fallback-lineWrap-hwpx-history-input.hwpx": "78a2ed0dece477e3590df895d68ce913f3ae69eb5fde538ed21aaabfc08d37d4",
+    "electron/fallback-lineWrap-input.hwp-history-input-state.json.gz": "866adbaa6077de13deb7e4c0b90ebef07604e74bc992c92ed7d86940d6b06a80",
+    "electron/fallback-lineWrap-input.hwp-history-input-undo0.json.gz": "11f7f900cebbc744acc1bdfb4e690f8684b3c5229a5300671be19c0cf56a90e4",
+    "electron/fallback-lineWrap-input.hwp-history-input-redo0.json.gz": "b306c5a7af3f91d6f75277bec59444190650b7ce5ae9e3e199decf4e14a2b55a",
+    "electron/fallback-lineWrap-input.hwp-history-input-undo1.json.gz": "11f7f900cebbc744acc1bdfb4e690f8684b3c5229a5300671be19c0cf56a90e4",
+    "electron/fallback-lineWrap-input.hwp-history-input-redo1.json.gz": "b306c5a7af3f91d6f75277bec59444190650b7ce5ae9e3e199decf4e14a2b55a",
+    "electron/files/fallback-lineWrap-hwp-history-input.hwp": "d72d80fdbd1232c028e593254182f7f34fab50006bbc51755c631386f81e98b1",
+    "electron/manifest.json.gz": "40c5f3fadd917e6c96584cbd52e903b759393246db9b939227522ecf14ca6087",
+    "electron/manifest-status.json": "7cafeefb18b337b65278b72ab5634ac1ef94e2b6d61b0e9d114c2fb2da2f8be5",
+    "native/native-process.json": "8a506c6fcff818accc590437cebdc661868929c76b0b6ca281b5392f7e3dc689",
+    "native/index.json": "37e1809c25782a341bae59ec9942a10da2e59aae8d2eaaeb87e56fc31a879ff8",
+    "prior-pins.json": "f16612fe75ed4a5b983baba3130605eb0c4be99d9c03f470a3d24255054fed6c"
+  },
+  "budget": {
+    "normalBytes": 580939776,
+    "failureBytes": 71172096,
+    "totalBytes": 652111872,
+    "incompletePhases": [],
+    "freeBytes": 46717186048,
+    "normalForecastBytes": 1048576,
+    "failureForecastBytes": 16384,
+    "normalLimit": 805306368,
+    "failureLimit": 268435456,
+    "requiredFreeBytes": 16374562816
+  },
+  "physicalIMEVerified": false,
+  "manualGUIVerified": false,
+  "comparisonProofSHA256": "e52988b162983f43eef3bef587261c2865a6981210cef0a556136807ff8a7e74",
+  "qaEvidenceToolsTests": {
+    "passed": 33,
+    "failed": 0
+  },
+  "globalSyntheticBudget": {
+    "bytes": 14938112,
+    "limit": 32000000,
+    "directories": 46,
+    "inodeDeduplicated": true,
+    "symlinksFollowed": false
+  }
+}
