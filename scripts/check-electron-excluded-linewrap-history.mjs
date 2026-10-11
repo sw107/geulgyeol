@@ -137,6 +137,29 @@ async function mixedTextHistory(f,op,before,hist){
  await saveAndReopen(f.label+'-'+f.ext+'-'+op.name,stages.at(-1));rows.push({label:f.label,ext:f.ext,operation:op.name,burst,observations,steps:steps.map(s=>s.name),historyPairs:steps.length*2,beforePages:before.pageCount,afterPages:stages.at(-1).pageCount,historyAfter:await history()});console.log('PASS '+f.name+' '+op.name);
 }
 
+// The owner is not the last reading-order cell: Tab is navigation only.
+async function ownerTabNavigation(f,op,before,hist){
+ const observe=()=>frame.evaluate(()=>({cursor:window.__inputHandler.cursor.getPosition(),dirty:window.rhwpStudio.automation.getContext().isDirty}));
+ const start=await observe();assert.equal(start.dirty,false,'fresh source is clean');
+ const control=await state();assert.deepEqual(comparable(control),comparable(before),'no-input control preserves full model/SVG');
+ const queries=await frame.evaluate(()=>{const w=window.__wasm,p=window.__inputHandler.cursor.getPosition();return {direct:w.getTableCellBboxes(p.sectionIndex,p.parentParaIndex,p.controlIndex),byPath:w.getTableCellBboxesByPath(p.sectionIndex,p.parentParaIndex,JSON.stringify(p.cellPath))};});
+ assert.deepEqual(before.cells[24].info,{row:8,col:0,rowSpan:32,colSpan:2});
+ assert.deepEqual(before.cells[25].info,{row:8,col:2,rowSpan:1,colSpan:1});
+ const order=before.cells.map((c,i)=>({i,...c.info})).sort((a,b)=>a.row-b.row||a.col-b.col).map(c=>c.i);
+ assert.equal(order[order.indexOf(24)+1],25,'declared next reading-order cell');
+ await page.keyboard.press('Tab');await settle();
+ const after=await state(),end=await observe(),nextHistory=await history();
+ write(f.name+'-'+op.name+'-state.json',{before,control,after,start,end,queries,historyBefore:hist,historyAfter:nextHistory});
+ assert.deepEqual(after,before,'navigation preserves complete model, SVG and both exports');
+ assert.deepEqual(nextHistory,hist,'navigation creates no history or snapshot resources');
+ assert.equal(end.dirty,start.dirty,'navigation does not mark dirty');
+ assert.equal(end.cursor.cellIndex,25);assert.equal(end.cursor.cellParaIndex,0);assert.equal(end.cursor.charOffset,0);
+ assert.equal(end.cursor.parentParaIndex,start.cursor.parentParaIndex);assert.equal(end.cursor.controlIndex,start.cursor.controlIndex);
+ assert.deepEqual(end.cursor.cellPath,[{controlIndex:start.cursor.controlIndex,cellIndex:25,cellParaIndex:0}]);
+ rows.push({label:f.label,ext:f.ext,operation:op.name,fromCell:24,toCell:25,noChange:true,historyBefore:hist,historyAfter:nextHistory,dirtyBefore:start.dirty,dirtyAfter:end.dirty});
+ console.log('PASS '+f.name+' '+op.name);
+}
+
 async function snapshotBudgetHistory(f,op,before){
  assert(before.cells[op.target.cell].needsTextSnapshot,'real source snapshot path required');
  const signature=v=>sha(JSON.stringify(comparable(v))),references=[signature(before)],observations=[];
@@ -205,6 +228,7 @@ write(f.name+'-initial-state.json',initial);assert(initial.pageCount>=1);await v
    assert(f.fallbackExactHistory,'history-only input requires strict comparison');
    const target={cell:f.historyCell,para:0};
    ops.push({name:'history-input',kind:'input',target,run:()=>type(target.cell,target.para,'EDIT🙂')});
+   ops.push({name:'owner-tab',kind:'navigation',target});
   }
   if(f.merged){
    const owners=f.mergedOwners?initial.cells.flatMap((c,i)=>c.info.rowSpan>1||c.info.colSpan>1?[i]:[]):[initial.cells.findIndex(c=>c.info.rowSpan>1||c.info.colSpan>1)];
@@ -247,7 +271,7 @@ write(f.name+'-initial-state.json',initial);assert(initial.pageCount>=1);await v
   if(f.label!=='numbered')for(const mm of [30,2])ops.push({name:'height-'+mm,kind:'height',run:()=>height(positions[1].cell,mm)});
   const selectedOps=selectPlannedOperations(ops,f.operations,process.env.GEULGYEOL_FRAGMENT_OPERATION);
   manifestWriter.planFiles(plannedTableSaveFiles(q,f,selectedOps));plannedFixtures.push(f.name);
-  for(const op of selectedOps){await load(f.name);if(op.name==='height-2')await height(positions[1].cell,30);if(op.target)await selectCell(op.target.cell,op.target.para,op.target.charOffset??0);else if(op.kind==='height'||op.kind==='noop')await selectCell(positions[1].cell,0);if(op.prepare)await op.prepare();const before=await state(),hist=await history();if(op.kind==='sequence'){await mixedTextHistory(f,op,before,hist);continue;}if(op.kind==='budget'){await snapshotBudgetHistory(f,op,before);continue;}const caret=await op.run();const after=await state();const afterHistory=await history();if(f.repairExpected){assert.equal(afterHistory.snapshotResources,hist.snapshotResources+1,'one bounded history-only source snapshot');}write(f.name+'-'+op.name+'-state.json',{before,after,caret,historyBefore:hist,historyAfterEdit:afterHistory});if(op.kind==='noop'||op.kind==='navigation'){assert.deepEqual(comparable(after),comparable(before));assert.deepEqual(await history(),hist);ownership(after);if(op.kind==='navigation'){const cursor=await frame.evaluate(()=>window.__inputHandler.cursor.getPosition());assert.equal(cursor.cellIndex,1,'Tab navigates into next cell without text or history mutation');}if(f.verifyUnchangedSaveReopen){await verifyPaint(f.name+'-'+op.name,after);await saveAndReopen(f.label+'-'+f.ext+'-'+op.name,after);}rows.push({label:f.label,ext:f.ext,operation:op.name,noChange:true});console.log('PASS '+f.name+' '+op.name);continue;}if(op.kind==='row-insert'){
+  for(const op of selectedOps){await load(f.name);if(op.name==='height-2')await height(positions[1].cell,30);if(op.target)await selectCell(op.target.cell,op.target.para,op.target.charOffset??0);else if(op.kind==='height'||op.kind==='noop')await selectCell(positions[1].cell,0);if(op.prepare)await op.prepare();const before=await state(),hist=await history();if(op.name==='owner-tab'){await ownerTabNavigation(f,op,before,hist);continue;}if(op.kind==='sequence'){await mixedTextHistory(f,op,before,hist);continue;}if(op.kind==='budget'){await snapshotBudgetHistory(f,op,before);continue;}const caret=await op.run();const after=await state();const afterHistory=await history();if(f.repairExpected){assert.equal(afterHistory.snapshotResources,hist.snapshotResources+1,'one bounded history-only source snapshot');}write(f.name+'-'+op.name+'-state.json',{before,after,caret,historyBefore:hist,historyAfterEdit:afterHistory});if(op.kind==='noop'||op.kind==='navigation'){assert.deepEqual(comparable(after),comparable(before));assert.deepEqual(await history(),hist);ownership(after);if(op.kind==='navigation'){const cursor=await frame.evaluate(()=>window.__inputHandler.cursor.getPosition());assert.equal(cursor.cellIndex,1,'Tab navigates into next cell without text or history mutation');}if(f.verifyUnchangedSaveReopen){await verifyPaint(f.name+'-'+op.name,after);await saveAndReopen(f.label+'-'+f.ext+'-'+op.name,after);}rows.push({label:f.label,ext:f.ext,operation:op.name,noChange:true});console.log('PASS '+f.name+' '+op.name);continue;}if(op.kind==='row-insert'){
     assert.equal(after.dims.rowCount,before.dims.rowCount+1,'last-cell Tab adds one row');if(f.expectedLeaveScope){assert.equal(after.dims.rowCount,66);assert(after.cells.every(c=>!c.needsTextSnapshot),'66-row edit exits guarded snapshot scope');}assert.equal(after.dims.colCount,before.dims.colCount);assert.deepEqual(after.cells.slice(0,before.cells.length).map(c=>c.paras),before.cells.map(c=>c.paras),'Tab preserves all original cell text and styles');assert.deepEqual(after.body,before.body);
    }else if(op.kind==='height'){
     // Cell size is a minimum. Long content can keep the same physical rows
