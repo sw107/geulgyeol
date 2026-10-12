@@ -3,13 +3,6 @@
   "baseMainSHA": "a6d9cfec2add44dd1fee97ee905478de02667e0d",
   "originalSyntheticSVGProductSHA": "0fcd046e30f23831222dac9621bad197dce67661",
   "productCodeChanged": false,
-  "sourceSHA256": {
-    "scripts/check-electron-pdf-font-isolation.cjs": "c68879470428bb05e434baf235ef4bc87f18e9b725aeecf8c2a0ae2eea8ead4b",
-    "scripts/compare-pdf-font-isolation.py": "227d901343b3678bd1a17f8ab930003fe089a0bcccf0277ebaf5b7dae3891fe0",
-    "scripts/prepare-pdf-font-isolation.py": "6e08db65bf25945af5f8ac002c6c161ddefb27ef39c1e3d1beba103bca8e557f",
-    "scripts/prepare-tt-pdf-font-isolation.py": "9c1717b84e6cfb9192b59ddb7cc2f96e4d346b3247404dc6bc0d981b16901f76",
-    "scripts/tests/pdf-font-isolation.test.py": "eff390bbce4dabbf57a8bcb4acb0a551961fe02700553c449214b62429bcc35e"
-  },
   "electron": "44.3.0",
   "chromium": "152.0.7977.78",
   "skiaRevision": "b6d106297ff9ef2ff8094033695d045e87775581",
@@ -173,7 +166,10 @@
         "exactOwnedSession": 8055,
         "exitConfirmed": true,
         "exitCode": 0
-      }
+      },
+      "executedDriverSHA256": "b14c30277a789f9ca7c20fb59a33e8bc4a0833570d51222d24d3ac05ba51894c",
+      "executedBeforeSerialPollingFix": true,
+      "matchesCurrentSerialPollingDriver": false
     },
     {
       "matrix": "true-type-control-20261012",
@@ -284,7 +280,10 @@
         "exactOwnedSession": 93793,
         "exitConfirmed": true,
         "exitCode": 0
-      }
+      },
+      "executedDriverSHA256": "c68879470428bb05e434baf235ef4bc87f18e9b725aeecf8c2a0ae2eea8ead4b",
+      "executedBeforeSerialPollingFix": true,
+      "matchesCurrentSerialPollingDriver": false
     }
   ],
   "nativeViewer": {
@@ -348,5 +347,38 @@
     }
   },
   "productCandidate": "webfont-style copy candidate preserved locally and restored; not adopted as a CFF fix",
-  "wholeProductionDocumentRegressionCompleted": false
+  "wholeProductionDocumentRegressionCompleted": false,
+  "preReviewSourceSHA256": {
+    "scripts/check-electron-pdf-font-isolation.cjs": "c68879470428bb05e434baf235ef4bc87f18e9b725aeecf8c2a0ae2eea8ead4b",
+    "scripts/compare-pdf-font-isolation.py": "227d901343b3678bd1a17f8ab930003fe089a0bcccf0277ebaf5b7dae3891fe0",
+    "scripts/prepare-pdf-font-isolation.py": "6e08db65bf25945af5f8ac002c6c161ddefb27ef39c1e3d1beba103bca8e557f",
+    "scripts/prepare-tt-pdf-font-isolation.py": "9c1717b84e6cfb9192b59ddb7cc2f96e4d346b3247404dc6bc0d981b16901f76",
+    "scripts/tests/pdf-font-isolation.test.py": "eff390bbce4dabbf57a8bcb4acb0a551961fe02700553c449214b62429bcc35e"
+  },
+  "currentQASourceSHA256": {
+    "scripts/check-electron-pdf-font-isolation.cjs": "f394e4dd52df60468d84c7e61c9c6987e90e80ae7d6767c32aeddb1f9e41b055",
+    "scripts/compare-pdf-font-isolation.py": "227d901343b3678bd1a17f8ab930003fe089a0bcccf0277ebaf5b7dae3891fe0",
+    "scripts/prepare-pdf-font-isolation.py": "6e08db65bf25945af5f8ac002c6c161ddefb27ef39c1e3d1beba103bca8e557f",
+    "scripts/prepare-tt-pdf-font-isolation.py": "52f34a6cb943b98b46ff18d45bb0cc6d8f2bc94ddec668017f0ac785706b33a1",
+    "scripts/tests/pdf-font-isolation.test.py": "eff390bbce4dabbf57a8bcb4acb0a551961fe02700553c449214b62429bcc35e",
+    "scripts/electron-qa-serial-poll.cjs": "e26e6b5922ce4aad92dfcdc1fe7e16ead353645a84e5030787e0bc4b87c914ed",
+    "scripts/tests/electron-qa-serial-poll.test.cjs": "c4d68f29a1770fac2425d46fb87cb95f8ba560979bb2b8b80734254e3cba8ad8"
+  },
+  "reviewLimitations": {
+    "notFormatOnlyCausalControl": true,
+    "fontDesignMetricsFallbackAlsoDiffer": true,
+    "QuartzInternalCauseNotProven": true,
+    "notAllCFFGeneralLaw": true,
+    "directPrintToPDFReadingOrderDifferencesRemain": true,
+    "allSixTrueTypeOSCasesReadingOrderMismatchIgnoringWhitespace": true,
+    "selectedWordCopyOnly": true,
+    "wholeLineCopyNotProven": true,
+    "PreviewCloseToolConfirmation": false
+  },
+  "serialPollingRepair": {
+    "finalSourceVMTests": 8,
+    "actualElectronDriverRerun": false,
+    "newOSPDFs": 0,
+    "newPrintToPDFs": 0
+  }
 }

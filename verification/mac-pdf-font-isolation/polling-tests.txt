@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: slow task schedules only after completion and ignores overlapping/stale ticks
+ok 1 - slow task schedules only after completion and ignores overlapping/stale ticks
+  ---
+  duration_ms: 1.149417
+  type: 'test'
+  ...
+# Subtest: stop during a pending task prevents rescheduling
+ok 2 - stop during a pending task prevents rescheduling
+  ---
+  duration_ms: 0.10525
+  type: 'test'
+  ...
+# Subtest: task rejection reports once and stops polling
+ok 3 - task rejection reports once and stops polling
+  ---
+  duration_ms: 0.143167
+  type: 'test'
+  ...
+# Subtest: final driver performs one renderer query and one completion write under overlapping ticks
+ok 4 - final driver performs one renderer query and one completion write under overlapping ticks
+  ---
+  duration_ms: 7.324208
+  type: 'test'
+  ...
+# Subtest: final driver captures proof-write failure and quits once without retrying the completion
+ok 5 - final driver captures proof-write failure and quits once without retrying the completion
+  ---
+  duration_ms: 1.110875
+  type: 'test'
+  ...
+# Subtest: final driver captures async renderer rejection through the shared failure path
+ok 6 - final driver captures async renderer rejection through the shared failure path
+  ---
+  duration_ms: 0.799208
+  type: 'test'
+  ...
+# Subtest: failure-record write error still quits and does not escape the polling callback
+ok 7 - failure-record write error still quits and does not escape the polling callback
+  ---
+  duration_ms: 0.771959
+  type: 'test'
+  ...
+# Subtest: normal quit during slow renderer lookup prevents a late proof write
+ok 8 - normal quit during slow renderer lookup prevents a late proof write
+  ---
+  duration_ms: 0.911292
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 52.772125
