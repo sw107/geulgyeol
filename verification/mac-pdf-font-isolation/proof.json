@@ -1,0 +1,352 @@
+{
+  "schema": "geulgyeol-native-pdf-font-diagnosis-v1",
+  "baseMainSHA": "a6d9cfec2add44dd1fee97ee905478de02667e0d",
+  "originalSyntheticSVGProductSHA": "0fcd046e30f23831222dac9621bad197dce67661",
+  "productCodeChanged": false,
+  "sourceSHA256": {
+    "scripts/check-electron-pdf-font-isolation.cjs": "c68879470428bb05e434baf235ef4bc87f18e9b725aeecf8c2a0ae2eea8ead4b",
+    "scripts/compare-pdf-font-isolation.py": "227d901343b3678bd1a17f8ab930003fe089a0bcccf0277ebaf5b7dae3891fe0",
+    "scripts/prepare-pdf-font-isolation.py": "6e08db65bf25945af5f8ac002c6c161ddefb27ef39c1e3d1beba103bca8e557f",
+    "scripts/prepare-tt-pdf-font-isolation.py": "9c1717b84e6cfb9192b59ddb7cc2f96e4d346b3247404dc6bc0d981b16901f76",
+    "scripts/tests/pdf-font-isolation.test.py": "eff390bbce4dabbf57a8bcb4acb0a551961fe02700553c449214b62429bcc35e"
+  },
+  "electron": "44.3.0",
+  "chromium": "152.0.7977.78",
+  "skiaRevision": "b6d106297ff9ef2ff8094033695d045e87775581",
+  "appleFont": [
+    {
+      "postscriptName": "AppleSDGothicNeo-Regular",
+      "sfntVersion": "OTTO",
+      "tables": [
+        "GlyphOrder",
+        "head",
+        "hhea",
+        "maxp",
+        "OS/2",
+        "name",
+        "cmap",
+        "post",
+        "CFF ",
+        "BASE",
+        "GPOS",
+        "GSUB",
+        "VORG",
+        "hmtx",
+        "meta",
+        "vhea",
+        "vmtx"
+      ],
+      "fsType": 8,
+      "glyf": false,
+      "CFF": true,
+      "CFF2": false
+    }
+  ],
+  "matrices": [
+    {
+      "matrix": "controls-run-20261012",
+      "outputs": [
+        {
+          "route": "printToPDF",
+          "originalFilename": "printToPDF-controls.pdf",
+          "sha256": "9bdc1ddb553a9d3223f7ed382ca00c1a5e02fcf39fe7b31e240e0e6e8ae83b08",
+          "bytes": 68947,
+          "rendererControlStatePreserved": true,
+          "inspection": {
+            "attributes": {
+              "CreationDate": "2026-10-12 13:24:49 +0000",
+              "Creator": "Chromium",
+              "ModDate": "2026-10-12 13:24:49 +0000",
+              "Producer": "Skia/PDF m152",
+              "Title": "Geulgyeol synthetic text print isolation"
+            },
+            "dpi": 144,
+            "pageCount": 1,
+            "pages": [
+              {
+                "cropBox": {
+                  "height": 841.91998,
+                  "width": 594.95996,
+                  "x": 0,
+                  "y": 0
+                },
+                "mediaBox": {
+                  "height": 841.91998,
+                  "width": 594.95996,
+                  "x": 0,
+                  "y": 0
+                },
+                "page": 1,
+                "pixelHeight": 1684,
+                "pixelWidth": 1190,
+                "png": "page-1.png",
+                "rotation": 0,
+                "text": "Visible synthetic controls: candidate changes only\nCASE_00 engine-original\nPRINT_ 00 한글\n미\n보기 ABC 123 é\n리\nCASE_01 remove-length-attributes\nPRINT_ 00 한글\n미\n보기 ABC 1 23 é\n리\nCASE_02 spacing-only\nPRINT_ 00 한글\n미\n보기 ABC 1 23 é\n리\nCASE_03 font-Arial\nPRINT\n보기 ABC 123 é\n리\n_\n00 한글\n미\nCASE_04 font-Apple-SD-Gothic-Neo\nPRINT_ 00 한글\n미\n리\n보기 ABC 123 é\nCASE_05 svg-single-run\nPRINT_00 한글\n미리보기 ABC 123 é\nCASE_06 html-single-run\nPRINT_00 한글\n미리보기 ABC 123 é",
+                "tokens": [
+                  {
+                    "bounds": {
+                      "height": 17.69293228210364,
+                      "width": 72.75786482943643,
+                      "x": 49.38901894212414,
+                      "y": 276.3244915385257
+                    },
+                    "label": "PRINT_00"
+                  }
+                ]
+              }
+            ],
+            "renderer": "macOS PDFKit/CoreGraphics"
+          },
+          "renderSHA256": "f8e4813864278cce81dfd972f338c7b654718aa1b68d4a6a98a2ea59bce07d68"
+        },
+        {
+          "route": "os",
+          "originalFilename": "os-native-controls.pdf",
+          "sha256": "82a69f5f47fcafc952239e732d3eba44a7a8c8942a98be15c8458be479cfbd91",
+          "bytes": 73658,
+          "rendererControlStatePreserved": true,
+          "inspection": {
+            "attributes": {
+              "CreationDate": "2026-10-12 13:26:10 +0000",
+              "Creator": "Electron Helper",
+              "ModDate": "2026-10-12 13:26:10 +0000",
+              "Producer": "macOS Version 27.0.1 (Build 26A434) Quartz PDFContext",
+              "Title": "Geulgyeol synthetic text print isolation"
+            },
+            "dpi": 144,
+            "pageCount": 1,
+            "pages": [
+              {
+                "cropBox": {
+                  "height": 842,
+                  "width": 595,
+                  "x": 0,
+                  "y": 0
+                },
+                "mediaBox": {
+                  "height": 842,
+                  "width": 595,
+                  "x": 0,
+                  "y": 0
+                },
+                "page": 1,
+                "pixelHeight": 1684,
+                "pixelWidth": 1190,
+                "png": "page-1.png",
+                "rotation": 0,
+                "text": "Visible synthetic controls: candidate changes only\nCASE_00 engine-original\nCASE_01 remove-length-attributes\nCASE_02 spacing-only\nCASE_03 font-Arial\nPRINT\n00 ABC 123 é\n_\nCASE_04 font-Apple-SD-Gothic-Neo\né\nCASE_05 svg-single-run\nPRINT_00 ABC 123 é\nCASE_06 html-single-run\nPRINT_00 ABC 123 é",
+                "tokens": [
+                  {
+                    "bounds": {
+                      "height": 17.400218929456003,
+                      "width": 72.72108061996795,
+                      "x": 49.38165532864001,
+                      "y": 276.18587857385603
+                    },
+                    "label": "PRINT_00"
+                  }
+                ]
+              }
+            ],
+            "renderer": "macOS PDFKit/CoreGraphics"
+          },
+          "renderSHA256": "9d416a6df5543b1f859d498b8074c3d819f57c6ba694a680bcdd905573d94c01"
+        }
+      ],
+      "nativeReceipt": {
+        "nativeDialogObserved": true,
+        "PDFSaveMenuInvoked": true,
+        "OSSavePanelObserved": true,
+        "SaveButtonInvoked": true,
+        "noPrinterOutput": true,
+        "observer": "cua_repl",
+        "printerSelected": false,
+        "paper": "A4",
+        "scalePercent": 100,
+        "AllPages": true,
+        "authorCleared": true,
+        "outputFilename": "os-native-controls.pdf"
+      },
+      "lifecycle": {
+        "normalQuit": true,
+        "willQuitObserved": true,
+        "exactOwnedSession": 8055,
+        "exitConfirmed": true,
+        "exitCode": 0
+      }
+    },
+    {
+      "matrix": "true-type-control-20261012",
+      "outputs": [
+        {
+          "route": "printToPDF",
+          "originalFilename": "printToPDF-controls.pdf",
+          "sha256": "ca66bcd0be16112c84483881736000438c495eea845b061d4c6a61552295ecde",
+          "bytes": 52482,
+          "rendererControlStatePreserved": true,
+          "inspection": {
+            "attributes": {
+              "CreationDate": "2026-10-12 13:42:18 +0000",
+              "Creator": "Chromium",
+              "ModDate": "2026-10-12 13:42:18 +0000",
+              "Producer": "Skia/PDF m152",
+              "Title": "Geulgyeol TrueType print isolation"
+            },
+            "dpi": 144,
+            "pageCount": 1,
+            "pages": [
+              {
+                "cropBox": {
+                  "height": 841.91998,
+                  "width": 594.95996,
+                  "x": 0,
+                  "y": 0
+                },
+                "mediaBox": {
+                  "height": 841.91998,
+                  "width": 594.95996,
+                  "x": 0,
+                  "y": 0
+                },
+                "page": 1,
+                "pixelHeight": 1684,
+                "pixelWidth": 1190,
+                "png": "page-1.png",
+                "rotation": 0,
+                "text": "Visible font-format and length controls; no product substitution\nCASE_00 CFF-original\nPRINT_ 00 한글\n미\n보기 ABC 123 é\n리\nCASE_01 TT-original-length\nPRINT\n00 한글 미리보기 ABC 123 é\n_\nCASE_02 TT-no-length\nPRINT\n00 한글 미리보기 ABC 123 é\n_\nCASE_03 TT-spacing-only\nPRINT\n00 한글 미리보기 ABC 123 é\n_\nCASE_04 TT-length-075\nP R IN T\n0 0 한글 미리보기 A B C 1 2 3 é\n_\nCASE_05 TT-length-125\nPRINT\n00 한글 미리보기 ABC 123 é\n_\nCASE_06 TT-html\nPRINT\n00 한글 미리보기 ABC 123 é_",
+                "tokens": []
+              }
+            ],
+            "renderer": "macOS PDFKit/CoreGraphics"
+          },
+          "renderSHA256": "b6cc77219646725b4688bf4b2999418e57b751f733935c4e59639fc445fed31e"
+        },
+        {
+          "route": "os",
+          "originalFilename": "os-native-controls.pdf",
+          "sha256": "ba799a91217747833f5c0bcb46fdbd7756d23ff41cd2d806bb793ca40e0f3ed6",
+          "bytes": 46220,
+          "rendererControlStatePreserved": true,
+          "inspection": {
+            "attributes": {
+              "CreationDate": "2026-10-12 13:44:01 +0000",
+              "Creator": "Electron Helper",
+              "ModDate": "2026-10-12 13:44:01 +0000",
+              "Producer": "macOS Version 27.0.1 (Build 26A434) Quartz PDFContext",
+              "Title": "Geulgyeol TrueType print isolation"
+            },
+            "dpi": 144,
+            "pageCount": 1,
+            "pages": [
+              {
+                "cropBox": {
+                  "height": 842,
+                  "width": 595,
+                  "x": 0,
+                  "y": 0
+                },
+                "mediaBox": {
+                  "height": 842,
+                  "width": 595,
+                  "x": 0,
+                  "y": 0
+                },
+                "page": 1,
+                "pixelHeight": 1684,
+                "pixelWidth": 1190,
+                "png": "page-1.png",
+                "rotation": 0,
+                "text": "Visible font-format and length controls; no product substitution\nCASE_00 CFF-original\né\nCASE_01 TT-original-length\nPRINT\n00 한글 미리보기 ABC 123 é\n_\nCASE_02 TT-no-length\nPRINT\n00 한글 미리보기 ABC 123 é\n_\nCASE_03 TT-spacing-only\nPRINT\n00 한글 미리보기 ABC 123 é\n_\nCASE_04 TT-length-075\nP R IN T\n0 0 한글 미리보기 A B C 1 2 3 é\n_\nCASE_05 TT-length-125\nPRINT\n00 한글 미리보기 ABC 123 é\n_\nCASE_06 TT-html\nPRINT\n00 한글 미리보기 ABC 123 é_",
+                "tokens": []
+              }
+            ],
+            "renderer": "macOS PDFKit/CoreGraphics"
+          },
+          "renderSHA256": "74315c437d031798005018765bb2939ba6d4fd23a7f47b2e02fa437c2c6aee74"
+        }
+      ],
+      "nativeReceipt": {
+        "nativeDialogObserved": true,
+        "PDFSaveMenuInvoked": true,
+        "OSSavePanelObserved": true,
+        "SaveButtonInvoked": true,
+        "noPrinterOutput": true,
+        "observer": "cua_repl",
+        "paper": "A4",
+        "scalePercent": 100,
+        "AllPages": true,
+        "printerSelected": false,
+        "authorCleared": true
+      },
+      "lifecycle": {
+        "normalQuit": true,
+        "willQuitObserved": true,
+        "exactOwnedSession": 93793,
+        "exitConfirmed": true,
+        "exitCode": 0
+      }
+    }
+  ],
+  "nativeViewer": {
+    "viewer": "macOS Preview",
+    "route": "actual OS native PDF",
+    "queryResults": {
+      "한글": 6,
+      "ABC": 5,
+      "PRINT_00": 0
+    },
+    "selectedFromActualPDFViaAXDoubleClick": "미리보기",
+    "copiedToEmptyTextSearchField": "미리보기",
+    "copyPassed": true,
+    "CFFKoreanNotSearchable": true,
+    "exactWholeLineOrderNotClaimed": true,
+    "coordinateDragFirstAttemptCopiedNoText": true,
+    "closeButtonInvoked": true,
+    "afterCloseAX": "timeoutReached",
+    "QAWindowCloseConfirmedByTool": false,
+    "userIncidentalInputExcluded": true,
+    "noPDFEditOrSave": true
+  },
+  "genericGenerators": [
+    {
+      "generator": "prepare-pdf-font-isolation.py",
+      "htmlExactlyMatchesExecutedControl": true,
+      "sha256": "32aca7df2bb2313a00472a20698a1e59ede6c3297e4e0655ac0d005ba889f654"
+    },
+    {
+      "generator": "prepare-tt-pdf-font-isolation.py",
+      "htmlExactlyMatchesExecutedControl": true,
+      "sha256": "91da5fa58532847313a6040988c65ba6876e8c501b9fc15eae8a0d63ba0590a8"
+    }
+  ],
+  "preservation": {
+    "dirty4": true,
+    "lock3": true,
+    "wasm": true,
+    "PR40to42Pins": true,
+    "oldEvidence273": true,
+    "oldSwiftCache133": true,
+    "original2PDFs": true
+  },
+  "resources": {
+    "combinedOwnedBytes": 4682051584,
+    "normalCapBytes": 7516192768,
+    "newCompilations": 0,
+    "newAppPackages": 0,
+    "physicalPrinterOutput": false,
+    "wholeEvidenceBudgetFinal": {
+      "normalBytes": 706359296,
+      "failureBytes": 153559040,
+      "totalBytes": 859918336,
+      "incompletePhases": [],
+      "freeBytes": 47951134720,
+      "normalForecastBytes": 0,
+      "failureForecastBytes": 0,
+      "normalLimit": 805306368,
+      "failureLimit": 268435456,
+      "requiredFreeBytes": 16374562816
+    }
+  },
+  "productCandidate": "webfont-style copy candidate preserved locally and restored; not adopted as a CFF fix",
+  "wholeProductionDocumentRegressionCompleted": false
+}
