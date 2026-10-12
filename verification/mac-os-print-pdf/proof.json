@@ -1,0 +1,278 @@
+{
+  "productSHA": "0fcd046e30f23831222dac9621bad197dce67661",
+  "actualMac": true,
+  "syntheticOnly": true,
+  "OSNativePDFSave": true,
+  "ElectronPrintToPDF": false,
+  "normalQuit": true,
+  "exitCode": 0,
+  "errors": [],
+  "engineSHA256": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69",
+  "sourcePins": {
+    "scripts/check-electron-os-print-pdf.mjs": "8b35f0f61b6f23d378f30c459edca34a7f2b509f072a85d3774096122eb0c17d",
+    "scripts/compare-os-print-pdf.py": "04337a4aaf9b5f9875b43a7dcdf84acce2a8bc995222e8c2334375fe50b40356",
+    "scripts/tests/os-print-pdf-comparison.test.py": "c3db238d49aa03ee929f63ec448b3af0d789873d8257d75b0f405c3cba0b7260",
+    "scripts/inspect-os-print-pdf.swift": "f30480e30f0918370f73ee0fad3293025de8e379c20039d66b51348c2c771487",
+    "scripts/ocr-os-print-pages.swift": "6edc2bf6bd1ec8d538093f3f06e0a91aae3fff422fab0513f368f4c8ab351863"
+  },
+  "runtimePins": {
+    "desktop/main.cjs": "1d5cc1cab1e61b8b90853cd1ad4cd3aab8edf096816b63d383f5c84033478490",
+    "desktop/preload.cjs": "b85220910bb09d3894bf928e1d14e5d5d82e8162f1d3e5cb803febc6d7b17fe8",
+    "desktop/storage.cjs": "d212624214bbae40863f09159ff17a1db6ade8c051785ec4a7c4060400edebab",
+    "desktop/print-preview.cjs": "1c058177c71f5ec172af45913f76dfd74df4960f11edde4cdf15f0f1bcd49a02",
+    "desktop/profile-server.cjs": "697f496c1862453c419ab29e7bf6a10c4959ec0bc3270550f56bf590cd0364b0"
+  },
+  "rows": [
+    {
+      "ext": "hwp",
+      "sha256": "71d120ed29a8ebd00507a4762df190a29f2665df5ba72c070fb7dc4c39abd224",
+      "bytes": 196904,
+      "route": "macOS print panel PDF save",
+      "nativeCallObserved": true,
+      "liveStatePreserved": true,
+      "originalFilename": "os-original-hwp.pdf",
+      "before": {
+        "host": {
+          "dirty": false,
+          "fileName": "print-input.hwp"
+        },
+        "text": "\"PRINT_00 한글 미리보기 ABC 123 &#233;\\nPRINT_01 한글 미리보기 ABC 123 &#233;\\nPRINT_02 한글 미리보기 ABC 123 &#233;\\nPRINT_03 한글 미리보기 ABC 123 &#233;\\nPRINT_04 한글 미리보기 ABC 123 &#233;\\nPRINT_05 한글 미리보기 ABC 123 &#233;\\nPRINT_06 한글 미리보기 ABC 123 &#233;\\nPRINT_07 한글 미리보기 ABC 123 &#233;\\nPRINT_08 한글 미리보기 ABC 123 &#233;\\nPRINT_09 한글 미리보기 ABC 123 &#233;\\nPRINT_10 한글 미리보기 ABC 123 &#233;\\nPRINT_11 한글 미리보기 ABC 123 &#233;\\nPRINT_12 한글 미리보기 ABC 123 &#233;\\nPRINT_13 한글 미리보기 ABC 123 &#233;\\nPRINT_14 한글 미리보기 ABC 123 &#233;\\nPRINT_15 한글 미리보기 ABC 123 &#233;\\nPRINT_16 한글 미리보기 ABC 123 &#233;\\nPRINT_17 한글 미리보기 ABC 123 &#233;\\nPRINT_18 한글 미리보기 ABC 123 &#233;\\nPRINT_19 한글 미리보기 ABC 123 &#233;\\nPRINT_20 한글 미리보기 ABC 123 &#233;\\nPRINT_21 한글 미리보기 ABC 123 &#233;\\nPRINT_22 한글 미리보기 ABC 123 &#233;\\nPRINT_23 한글 미리보기 ABC 123 &#233;\\nPRINT_24 한글 미리보기 ABC 123 &#233;\\nPRINT_25 한글 미리보기 ABC 123 &#233;\\nPRINT_26 한글 미리보기 ABC 123 &#233;\\nPRINT_27 한글 미리보기 ABC 123 &#233;\\nPRINT_28 한글 미리보기 ABC 123 &#233;\\nPRINT_29 한글 미리보기 ABC 123 &#233;\\nPRINT_30 한글 미리보기 ABC 123 &#233;\\nPRINT_31 한글 미리보기 ABC 123 &#233;\\nPRINT_32 한글 미리보기 ABC 123 &#233;\\nPRINT_33 한글 미리보기 ABC 123 &#233;\\nPRINT_34 한글 미리보기 ABC 123 &#233;\\nPRINT_35 한글 미리보기 ABC 123 &#233;\\nPRINT_36 한글 미리보기 ABC 123 &#233;\\nPRINT_37 한글 미리보기 ABC 123 &#233;\\nPRINT_38 한글 미리보기 ABC 123 &#233;\\nPRINT_39 한글 미리보기 ABC 123 &#233;\\nPRINT_40 한글 미리보기 ABC 123 &#233;\\nPRINT_41 한글 미리보기 ABC 123 &#233;\\nPRINT_42 한글 미리보기 ABC 123 &#233;\\nPRINT_43 한글 미리보기 ABC 123 &#233;\\nPRINT_44 한글 미리보기 ABC 123 &#233;\\nPRINT_45 한글 미리보기 ABC 123 &#233;\\nPRINT_46 한글 미리보기 ABC 123 &#233;\\nPRINT_47 한글 미리보기 ABC 123 &#233;\\nPRINT_48 한글 미리보기 ABC 123 &#233;\\nPRINT_49 한글 미리보기 ABC 123 &#233;\\nPRINT_50 한글 미리보기 ABC 123 &#233;\\nPRINT_51 한글 미리보기 ABC 123 &#233;\"",
+        "pages": 2,
+        "hwp": "209cbfd19f2c04de569edac66e67d9a9456bb365f642f2b34ec9b395ddea6a4d",
+        "hwpx": "7412ac46d00fd1171360a858daa83bada493f4e8c9d58f95c9effabbddca621b",
+        "history": {
+          "u": 0,
+          "r": 0
+        },
+        "svg": [
+          "28f6b236abfad51d8e2808e51bbae594da42ff2fdae0b4bd451bebc5b92ad5f7",
+          "3119d2eda9b847d78a8a9b94ff29766b1139dca79b4c476b7fcef898872b104f"
+        ],
+        "printSvg": [
+          "28f6b236abfad51d8e2808e51bbae594da42ff2fdae0b4bd451bebc5b92ad5f7",
+          "3119d2eda9b847d78a8a9b94ff29766b1139dca79b4c476b7fcef898872b104f"
+        ]
+      },
+      "nativeReceipt": {
+        "nativeDialogObserved": true,
+        "PDFSaveMenuInvoked": true,
+        "OSSavePanelObserved": true,
+        "SaveButtonInvoked": true,
+        "noPrinterOutput": true,
+        "observer": "cua_repl",
+        "nativePageLabel": "1페이지 모두",
+        "paper": "A4",
+        "printerSelected": false,
+        "authorCleared": true
+      },
+      "inspection": {
+        "attributes": {
+          "CreationDate": "2026-10-12 07:43:24 +0000",
+          "Creator": "Electron Helper",
+          "ModDate": "2026-10-12 07:43:24 +0000",
+          "Producer": "macOS Version 27.0.1 (Build 26A434) Quartz PDFContext",
+          "Title": "print-input.hwp — 인쇄 미리보기"
+        },
+        "dpi": 144,
+        "pageCount": 2,
+        "pages": [
+          {
+            "cropBox": {
+              "height": 842,
+              "width": 595,
+              "x": 0,
+              "y": 0
+            },
+            "mediaBox": {
+              "height": 842,
+              "width": 595,
+              "x": 0,
+              "y": 0
+            },
+            "page": 1,
+            "pixelHeight": 1684,
+            "pixelWidth": 1190,
+            "png": "page-1.png",
+            "rotation": 0,
+            "text": "",
+            "tokens": []
+          },
+          {
+            "cropBox": {
+              "height": 842,
+              "width": 595,
+              "x": 0,
+              "y": 0
+            },
+            "mediaBox": {
+              "height": 842,
+              "width": 595,
+              "x": 0,
+              "y": 0
+            },
+            "page": 2,
+            "pixelHeight": 1684,
+            "pixelWidth": 1190,
+            "png": "page-2.png",
+            "rotation": 0,
+            "text": "",
+            "tokens": []
+          }
+        ],
+        "renderer": "macOS PDFKit/CoreGraphics"
+      },
+      "renders": [
+        {
+          "page": 1,
+          "sha256": "0812c96d95403a6748edc49b9eacd40bc61355f2b39da352855775ad5bba815d"
+        },
+        {
+          "page": 2,
+          "sha256": "7de23e6d5577b1083993b7aa3ea8478006242d7b5235ceb0b513aabec3ac0486"
+        }
+      ]
+    },
+    {
+      "ext": "hwpx",
+      "sha256": "e869471c9b928ffd0b755cb0e9b8d97679c11d9503dedd7fc7b78bdfd33134fb",
+      "bytes": 196909,
+      "route": "macOS print panel PDF save",
+      "nativeCallObserved": true,
+      "liveStatePreserved": true,
+      "originalFilename": "os-original-hwpx.pdf",
+      "before": {
+        "host": {
+          "dirty": false,
+          "fileName": "print-input.hwpx"
+        },
+        "text": "\"PRINT_00 한글 미리보기 ABC 123 &#233;\\nPRINT_01 한글 미리보기 ABC 123 &#233;\\nPRINT_02 한글 미리보기 ABC 123 &#233;\\nPRINT_03 한글 미리보기 ABC 123 &#233;\\nPRINT_04 한글 미리보기 ABC 123 &#233;\\nPRINT_05 한글 미리보기 ABC 123 &#233;\\nPRINT_06 한글 미리보기 ABC 123 &#233;\\nPRINT_07 한글 미리보기 ABC 123 &#233;\\nPRINT_08 한글 미리보기 ABC 123 &#233;\\nPRINT_09 한글 미리보기 ABC 123 &#233;\\nPRINT_10 한글 미리보기 ABC 123 &#233;\\nPRINT_11 한글 미리보기 ABC 123 &#233;\\nPRINT_12 한글 미리보기 ABC 123 &#233;\\nPRINT_13 한글 미리보기 ABC 123 &#233;\\nPRINT_14 한글 미리보기 ABC 123 &#233;\\nPRINT_15 한글 미리보기 ABC 123 &#233;\\nPRINT_16 한글 미리보기 ABC 123 &#233;\\nPRINT_17 한글 미리보기 ABC 123 &#233;\\nPRINT_18 한글 미리보기 ABC 123 &#233;\\nPRINT_19 한글 미리보기 ABC 123 &#233;\\nPRINT_20 한글 미리보기 ABC 123 &#233;\\nPRINT_21 한글 미리보기 ABC 123 &#233;\\nPRINT_22 한글 미리보기 ABC 123 &#233;\\nPRINT_23 한글 미리보기 ABC 123 &#233;\\nPRINT_24 한글 미리보기 ABC 123 &#233;\\nPRINT_25 한글 미리보기 ABC 123 &#233;\\nPRINT_26 한글 미리보기 ABC 123 &#233;\\nPRINT_27 한글 미리보기 ABC 123 &#233;\\nPRINT_28 한글 미리보기 ABC 123 &#233;\\nPRINT_29 한글 미리보기 ABC 123 &#233;\\nPRINT_30 한글 미리보기 ABC 123 &#233;\\nPRINT_31 한글 미리보기 ABC 123 &#233;\\nPRINT_32 한글 미리보기 ABC 123 &#233;\\nPRINT_33 한글 미리보기 ABC 123 &#233;\\nPRINT_34 한글 미리보기 ABC 123 &#233;\\nPRINT_35 한글 미리보기 ABC 123 &#233;\\nPRINT_36 한글 미리보기 ABC 123 &#233;\\nPRINT_37 한글 미리보기 ABC 123 &#233;\\nPRINT_38 한글 미리보기 ABC 123 &#233;\\nPRINT_39 한글 미리보기 ABC 123 &#233;\\nPRINT_40 한글 미리보기 ABC 123 &#233;\\nPRINT_41 한글 미리보기 ABC 123 &#233;\\nPRINT_42 한글 미리보기 ABC 123 &#233;\\nPRINT_43 한글 미리보기 ABC 123 &#233;\\nPRINT_44 한글 미리보기 ABC 123 &#233;\\nPRINT_45 한글 미리보기 ABC 123 &#233;\\nPRINT_46 한글 미리보기 ABC 123 &#233;\\nPRINT_47 한글 미리보기 ABC 123 &#233;\\nPRINT_48 한글 미리보기 ABC 123 &#233;\\nPRINT_49 한글 미리보기 ABC 123 &#233;\\nPRINT_50 한글 미리보기 ABC 123 &#233;\\nPRINT_51 한글 미리보기 ABC 123 &#233;\"",
+        "pages": 2,
+        "hwp": "d45f7b5a64638344e51a10d747ccf80f93beb2b2b3753e62c021af2e8dbec5dd",
+        "hwpx": "7412ac46d00fd1171360a858daa83bada493f4e8c9d58f95c9effabbddca621b",
+        "history": {
+          "u": 0,
+          "r": 0
+        },
+        "svg": [
+          "28f6b236abfad51d8e2808e51bbae594da42ff2fdae0b4bd451bebc5b92ad5f7",
+          "3119d2eda9b847d78a8a9b94ff29766b1139dca79b4c476b7fcef898872b104f"
+        ],
+        "printSvg": [
+          "28f6b236abfad51d8e2808e51bbae594da42ff2fdae0b4bd451bebc5b92ad5f7",
+          "3119d2eda9b847d78a8a9b94ff29766b1139dca79b4c476b7fcef898872b104f"
+        ]
+      },
+      "nativeReceipt": {
+        "nativeDialogObserved": true,
+        "PDFSaveMenuInvoked": true,
+        "OSSavePanelObserved": true,
+        "SaveButtonInvoked": true,
+        "noPrinterOutput": true,
+        "observer": "cua_repl",
+        "nativePageLabel": "1페이지 모두",
+        "paper": "A4",
+        "printerSelected": false,
+        "authorCleared": true
+      },
+      "inspection": {
+        "attributes": {
+          "CreationDate": "2026-10-12 07:47:23 +0000",
+          "Creator": "Electron Helper",
+          "ModDate": "2026-10-12 07:47:23 +0000",
+          "Producer": "macOS Version 27.0.1 (Build 26A434) Quartz PDFContext",
+          "Title": "print-input.hwpx — 인쇄 미리보기"
+        },
+        "dpi": 144,
+        "pageCount": 2,
+        "pages": [
+          {
+            "cropBox": {
+              "height": 842,
+              "width": 595,
+              "x": 0,
+              "y": 0
+            },
+            "mediaBox": {
+              "height": 842,
+              "width": 595,
+              "x": 0,
+              "y": 0
+            },
+            "page": 1,
+            "pixelHeight": 1684,
+            "pixelWidth": 1190,
+            "png": "page-1.png",
+            "rotation": 0,
+            "text": "",
+            "tokens": []
+          },
+          {
+            "cropBox": {
+              "height": 842,
+              "width": 595,
+              "x": 0,
+              "y": 0
+            },
+            "mediaBox": {
+              "height": 842,
+              "width": 595,
+              "x": 0,
+              "y": 0
+            },
+            "page": 2,
+            "pixelHeight": 1684,
+            "pixelWidth": 1190,
+            "png": "page-2.png",
+            "rotation": 0,
+            "text": "",
+            "tokens": []
+          }
+        ],
+        "renderer": "macOS PDFKit/CoreGraphics"
+      },
+      "renders": [
+        {
+          "page": 1,
+          "sha256": "0812c96d95403a6748edc49b9eacd40bc61355f2b39da352855775ad5bba815d"
+        },
+        {
+          "page": 2,
+          "sha256": "7de23e6d5577b1083993b7aa3ea8478006242d7b5235ceb0b513aabec3ac0486"
+        }
+      ]
+    }
+  ],
+  "lifecycle": {
+    "exitConfirmed": true,
+    "exitCode": 0,
+    "signalCode": null,
+    "terminationUnconfirmed": false,
+    "terminationRequested": false,
+    "normalQuit": true
+  },
+  "resources": {
+    "combinedOwnedBytes": 4676820992,
+    "normalCapBytes": 7516192768,
+    "extraSwiftModuleCacheGrowthBytes": 192872448,
+    "previous133CacheFilesPreserved": true,
+    "priorFilePinsPreserved": 273,
+    "preservationCheckedAgain": true,
+    "combinedOwnedBytesAfterDocumentation": 4676833280
+  },
+  "comparisonPassed": true,
+  "maxAbsoluteBaselineDeltaPixels": 0.6331543687947487,
+  "printSourcePins": {},
+  "frozenPrintAssetSHA256": "930907863afbafcc76099d386f6a995bc6c69387cb56838b18e4cdaf6eea6b79",
+  "evidenceBudgetFinal": {
+    "normalBytes": 701173760,
+    "failureBytes": 153493504,
+    "totalBytes": 854667264,
+    "incompletePhases": [],
+    "freeBytes": 56051793920,
+    "normalForecastBytes": 0,
+    "failureForecastBytes": 0,
+    "normalLimit": 805306368,
+    "failureLimit": 268435456,
+    "requiredFreeBytes": 16374562816
+  }
+}

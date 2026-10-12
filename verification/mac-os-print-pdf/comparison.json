@@ -1,0 +1,1974 @@
+{
+  "schema": "geulgyeol-os-pdf-comparison-v1",
+  "productSHA": "0fcd046e30f23831222dac9621bad197dce67661",
+  "route": "actual macOS print panel PDF save",
+  "ElectronPrintToPDFExecuted": false,
+  "PDFsModified": false,
+  "baselineTolerancePixels": 2,
+  "dpi": 144,
+  "OCRAccentsAcceptedWithoutInkEvidence": false,
+  "strictOCRAccentDifferences": 104,
+  "formats": [
+    {
+      "format": "hwp",
+      "pageCount": 2,
+      "all52RowsInOriginalOrder": true,
+      "pages": [
+        {
+          "page": 1,
+          "mediaBox": {
+            "height": 842,
+            "width": 595,
+            "x": 0,
+            "y": 0
+          },
+          "sourceSvgWidth": 793.7066666666667,
+          "sourceSvgHeight": 1122.5066666666667,
+          "renderWidth": 1190,
+          "renderHeight": 1684,
+          "rows": [
+            {
+              "label": "PRINT_00",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                198,
+                510,
+                216
+              ],
+              "baselineDeltaPixels": 0.5492944362616754,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_01",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                230,
+                510,
+                248
+              ],
+              "baselineDeltaPixels": 0.5447332161352563,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_02",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                262,
+                510,
+                280
+              ],
+              "baselineDeltaPixels": 0.540171996008894,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_03",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                294,
+                510,
+                312
+              ],
+              "baselineDeltaPixels": 0.5356107758824464,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_04",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                326,
+                510,
+                344
+              ],
+              "baselineDeltaPixels": 0.5310495557560557,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_05",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                358,
+                510,
+                376
+              ],
+              "baselineDeltaPixels": 0.526488335629665,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_06",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                390,
+                510,
+                408
+              ],
+              "baselineDeltaPixels": 0.5219271155033312,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_07",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                422,
+                510,
+                440
+              ],
+              "baselineDeltaPixels": 0.5173658953769973,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_08",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                454,
+                510,
+                472
+              ],
+              "baselineDeltaPixels": 0.5128046752506634,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_09",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                486,
+                510,
+                504
+              ],
+              "baselineDeltaPixels": 0.5082434551242727,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_10",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                518,
+                510,
+                536
+              ],
+              "baselineDeltaPixels": 0.503682234997882,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_11",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                550,
+                510,
+                568
+              ],
+              "baselineDeltaPixels": 0.49912101487154814,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_12",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                582,
+                510,
+                600
+              ],
+              "baselineDeltaPixels": 0.4945597947452143,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_13",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                614,
+                510,
+                632
+              ],
+              "baselineDeltaPixels": 0.4899985746188804,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_14",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                646,
+                510,
+                664
+              ],
+              "baselineDeltaPixels": 0.48543735449254655,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_15",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                678,
+                510,
+                696
+              ],
+              "baselineDeltaPixels": 0.480876134366099,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_16",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                710,
+                510,
+                728
+              ],
+              "baselineDeltaPixels": 0.47631491423976513,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_17",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                742,
+                510,
+                760
+              ],
+              "baselineDeltaPixels": 0.47175369411343127,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_18",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                774,
+                510,
+                792
+              ],
+              "baselineDeltaPixels": 0.46719247398687,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_19",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                806,
+                510,
+                824
+              ],
+              "baselineDeltaPixels": 0.4626312538604225,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_20",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                838,
+                510,
+                856
+              ],
+              "baselineDeltaPixels": 0.4580700337339749,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_21",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                870,
+                510,
+                888
+              ],
+              "baselineDeltaPixels": 0.4535088136075274,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_22",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                902,
+                510,
+                919
+              ],
+              "baselineDeltaPixels": -0.5510524065189202,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_23",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                934,
+                510,
+                951
+              ],
+              "baselineDeltaPixels": -0.5556136266453677,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_24",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                966,
+                510,
+                983
+              ],
+              "baselineDeltaPixels": -0.5601748467718153,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_25",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                998,
+                510,
+                1015
+              ],
+              "baselineDeltaPixels": -0.5647360668982628,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_26",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1030,
+                510,
+                1047
+              ],
+              "baselineDeltaPixels": -0.5692972870247104,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_27",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1062,
+                510,
+                1079
+              ],
+              "baselineDeltaPixels": -0.5738585071510443,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_28",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1094,
+                510,
+                1111
+              ],
+              "baselineDeltaPixels": -0.5784197272776055,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_29",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1126,
+                510,
+                1143
+              ],
+              "baselineDeltaPixels": -0.5829809474039394,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_30",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1158,
+                510,
+                1175
+              ],
+              "baselineDeltaPixels": -0.5875421675305006,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_31",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1190,
+                510,
+                1207
+              ],
+              "baselineDeltaPixels": -0.5921033876568345,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_32",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1222,
+                510,
+                1239
+              ],
+              "baselineDeltaPixels": -0.5966646077833957,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_33",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1254,
+                510,
+                1271
+              ],
+              "baselineDeltaPixels": -0.6012258279097296,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_34",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1286,
+                510,
+                1303
+              ],
+              "baselineDeltaPixels": -0.6057870480362908,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_35",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1318,
+                510,
+                1335
+              ],
+              "baselineDeltaPixels": -0.6103482681626247,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_36",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1350,
+                510,
+                1367
+              ],
+              "baselineDeltaPixels": -0.6149094882891859,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_37",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1382,
+                510,
+                1399
+              ],
+              "baselineDeltaPixels": -0.6194707084155198,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_38",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1414,
+                510,
+                1431
+              ],
+              "baselineDeltaPixels": -0.6240319285418536,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_39",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1446,
+                510,
+                1463
+              ],
+              "baselineDeltaPixels": -0.6285931486684149,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_40",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1478,
+                510,
+                1495
+              ],
+              "baselineDeltaPixels": -0.6331543687947487,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        {
+          "page": 2,
+          "mediaBox": {
+            "height": 842,
+            "width": 595,
+            "x": 0,
+            "y": 0
+          },
+          "sourceSvgWidth": 793.7066666666667,
+          "sourceSvgHeight": 1122.5066666666667,
+          "renderWidth": 1190,
+          "renderHeight": 1684,
+          "rows": [
+            {
+              "label": "PRINT_41",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                198,
+                510,
+                216
+              ],
+              "baselineDeltaPixels": 0.5492944362616754,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_42",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                230,
+                510,
+                248
+              ],
+              "baselineDeltaPixels": 0.5447332161352563,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_43",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                262,
+                510,
+                280
+              ],
+              "baselineDeltaPixels": 0.540171996008894,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_44",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                294,
+                510,
+                312
+              ],
+              "baselineDeltaPixels": 0.5356107758824464,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_45",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                326,
+                510,
+                344
+              ],
+              "baselineDeltaPixels": 0.5310495557560557,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_46",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                358,
+                510,
+                376
+              ],
+              "baselineDeltaPixels": 0.526488335629665,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_47",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                390,
+                510,
+                408
+              ],
+              "baselineDeltaPixels": 0.5219271155033312,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_48",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                422,
+                510,
+                440
+              ],
+              "baselineDeltaPixels": 0.5173658953769973,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_49",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                454,
+                510,
+                472
+              ],
+              "baselineDeltaPixels": 0.5128046752506634,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_50",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                486,
+                510,
+                504
+              ],
+              "baselineDeltaPixels": 0.5082434551242727,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_51",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                518,
+                510,
+                536
+              ],
+              "baselineDeltaPixels": 0.503682234997882,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            }
+          ],
+          "passed": true
+        }
+      ]
+    },
+    {
+      "format": "hwpx",
+      "pageCount": 2,
+      "all52RowsInOriginalOrder": true,
+      "pages": [
+        {
+          "page": 1,
+          "mediaBox": {
+            "height": 842,
+            "width": 595,
+            "x": 0,
+            "y": 0
+          },
+          "sourceSvgWidth": 793.7066666666667,
+          "sourceSvgHeight": 1122.5066666666667,
+          "renderWidth": 1190,
+          "renderHeight": 1684,
+          "rows": [
+            {
+              "label": "PRINT_00",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                198,
+                510,
+                216
+              ],
+              "baselineDeltaPixels": 0.5492944362616754,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_01",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                230,
+                510,
+                248
+              ],
+              "baselineDeltaPixels": 0.5447332161352563,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_02",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                262,
+                510,
+                280
+              ],
+              "baselineDeltaPixels": 0.540171996008894,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_03",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                294,
+                510,
+                312
+              ],
+              "baselineDeltaPixels": 0.5356107758824464,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_04",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                326,
+                510,
+                344
+              ],
+              "baselineDeltaPixels": 0.5310495557560557,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_05",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                358,
+                510,
+                376
+              ],
+              "baselineDeltaPixels": 0.526488335629665,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_06",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                390,
+                510,
+                408
+              ],
+              "baselineDeltaPixels": 0.5219271155033312,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_07",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                422,
+                510,
+                440
+              ],
+              "baselineDeltaPixels": 0.5173658953769973,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_08",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                454,
+                510,
+                472
+              ],
+              "baselineDeltaPixels": 0.5128046752506634,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_09",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                486,
+                510,
+                504
+              ],
+              "baselineDeltaPixels": 0.5082434551242727,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_10",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                518,
+                510,
+                536
+              ],
+              "baselineDeltaPixels": 0.503682234997882,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_11",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                550,
+                510,
+                568
+              ],
+              "baselineDeltaPixels": 0.49912101487154814,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_12",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                582,
+                510,
+                600
+              ],
+              "baselineDeltaPixels": 0.4945597947452143,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_13",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                614,
+                510,
+                632
+              ],
+              "baselineDeltaPixels": 0.4899985746188804,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_14",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                646,
+                510,
+                664
+              ],
+              "baselineDeltaPixels": 0.48543735449254655,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_15",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                678,
+                510,
+                696
+              ],
+              "baselineDeltaPixels": 0.480876134366099,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_16",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                710,
+                510,
+                728
+              ],
+              "baselineDeltaPixels": 0.47631491423976513,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_17",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                742,
+                510,
+                760
+              ],
+              "baselineDeltaPixels": 0.47175369411343127,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_18",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                774,
+                510,
+                792
+              ],
+              "baselineDeltaPixels": 0.46719247398687,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_19",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                806,
+                510,
+                824
+              ],
+              "baselineDeltaPixels": 0.4626312538604225,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_20",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                838,
+                510,
+                856
+              ],
+              "baselineDeltaPixels": 0.4580700337339749,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_21",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                870,
+                510,
+                888
+              ],
+              "baselineDeltaPixels": 0.4535088136075274,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_22",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                902,
+                510,
+                919
+              ],
+              "baselineDeltaPixels": -0.5510524065189202,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_23",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                934,
+                510,
+                951
+              ],
+              "baselineDeltaPixels": -0.5556136266453677,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_24",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                966,
+                510,
+                983
+              ],
+              "baselineDeltaPixels": -0.5601748467718153,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_25",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                998,
+                510,
+                1015
+              ],
+              "baselineDeltaPixels": -0.5647360668982628,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_26",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1030,
+                510,
+                1047
+              ],
+              "baselineDeltaPixels": -0.5692972870247104,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_27",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1062,
+                510,
+                1079
+              ],
+              "baselineDeltaPixels": -0.5738585071510443,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_28",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1094,
+                510,
+                1111
+              ],
+              "baselineDeltaPixels": -0.5784197272776055,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_29",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1126,
+                510,
+                1143
+              ],
+              "baselineDeltaPixels": -0.5829809474039394,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_30",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1158,
+                510,
+                1175
+              ],
+              "baselineDeltaPixels": -0.5875421675305006,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_31",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1190,
+                510,
+                1207
+              ],
+              "baselineDeltaPixels": -0.5921033876568345,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_32",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1222,
+                510,
+                1239
+              ],
+              "baselineDeltaPixels": -0.5966646077833957,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_33",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1254,
+                510,
+                1271
+              ],
+              "baselineDeltaPixels": -0.6012258279097296,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_34",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1286,
+                510,
+                1303
+              ],
+              "baselineDeltaPixels": -0.6057870480362908,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_35",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1318,
+                510,
+                1335
+              ],
+              "baselineDeltaPixels": -0.6103482681626247,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_36",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1350,
+                510,
+                1367
+              ],
+              "baselineDeltaPixels": -0.6149094882891859,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_37",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1382,
+                510,
+                1399
+              ],
+              "baselineDeltaPixels": -0.6194707084155198,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_38",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1414,
+                510,
+                1431
+              ],
+              "baselineDeltaPixels": -0.6240319285418536,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_39",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1446,
+                510,
+                1463
+              ],
+              "baselineDeltaPixels": -0.6285931486684149,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_40",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                1478,
+                510,
+                1495
+              ],
+              "baselineDeltaPixels": -0.6331543687947487,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            }
+          ],
+          "passed": true
+        },
+        {
+          "page": 2,
+          "mediaBox": {
+            "height": 842,
+            "width": 595,
+            "x": 0,
+            "y": 0
+          },
+          "sourceSvgWidth": 793.7066666666667,
+          "sourceSvgHeight": 1122.5066666666667,
+          "renderWidth": 1190,
+          "renderHeight": 1684,
+          "rows": [
+            {
+              "label": "PRINT_41",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                198,
+                510,
+                216
+              ],
+              "baselineDeltaPixels": 0.5492944362616754,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_42",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                230,
+                510,
+                248
+              ],
+              "baselineDeltaPixels": 0.5447332161352563,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_43",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                262,
+                510,
+                280
+              ],
+              "baselineDeltaPixels": 0.540171996008894,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_44",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                294,
+                510,
+                312
+              ],
+              "baselineDeltaPixels": 0.5356107758824464,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_45",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                326,
+                510,
+                344
+              ],
+              "baselineDeltaPixels": 0.5310495557560557,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_46",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                358,
+                510,
+                376
+              ],
+              "baselineDeltaPixels": 0.526488335629665,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_47",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                390,
+                510,
+                408
+              ],
+              "baselineDeltaPixels": 0.5219271155033312,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_48",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                422,
+                510,
+                440
+              ],
+              "baselineDeltaPixels": 0.5173658953769973,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_49",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                454,
+                510,
+                472
+              ],
+              "baselineDeltaPixels": 0.5128046752506634,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_50",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                486,
+                510,
+                504
+              ],
+              "baselineDeltaPixels": 0.5082434551242727,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            },
+            {
+              "label": "PRINT_51",
+              "OCRBodyExact": false,
+              "OCRAccentOnlyDifference": true,
+              "accentInkAboveBody": true,
+              "bodyVerifiedWithGlyphEvidence": true,
+              "inkBox": [
+                172,
+                518,
+                510,
+                536
+              ],
+              "baselineDeltaPixels": 0.503682234997882,
+              "leftBearingPixels": 2.0,
+              "insideSourceFontEnvelope": true,
+              "insidePaper": true,
+              "passed": true
+            }
+          ],
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "crossFormatRenderComparison": [
+    {
+      "page": 1,
+      "allPixelsEqual": true
+    },
+    {
+      "page": 2,
+      "allPixelsEqual": true
+    }
+  ],
+  "passed": true
+}
