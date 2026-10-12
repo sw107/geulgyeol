@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {createHash} from 'node:crypto';
 const root=process.env.GEULGYEOL_QA_SOURCE_ROOT||path.resolve(import.meta.dirname,'..');
+const {installNativePrintObserver}=await import(path.join(root,'scripts/native-print-observer.mjs'));
 const {finishOwnedQA}=await import(path.join(root,'scripts/electron-qa-exit.mjs'));
 const {default:puppeteer}=await import(path.join(root,'rhwp-studio/node_modules/puppeteer-core/lib/puppeteer/puppeteer-core.js'));
 const {EvidenceBudget}=await import(path.join(root,'scripts/qa-evidence-budget.mjs'));
@@ -73,30 +74,33 @@ try{
    // Compare all parsed SVG nodes, not just page count or selected tokens.
    const expected=await frame.evaluate(()=>{const tree=n=>n.nodeType===1?{name:n.nodeName,attrs:[...n.attributes].map(a=>[a.name,a.value]).sort((a,b)=>a[0].localeCompare(b[0])),children:[...n.childNodes].map(tree)}:{type:n.nodeType,text:n.textContent};return Array.from({length:window.__wasm.pageCount},(_,i)=>JSON.stringify(tree(new DOMParser().parseFromString(window.__wasm.renderPageSvgWithProfile(i,'print'),'image/svg+xml').documentElement)));});
    const actual=await child.evaluate(()=>[...document.querySelectorAll('.page svg')].map((e,i)=>{const prefix='rhwp-print-page-'+(i+1)+'-',tree=n=>n.nodeType===1?{name:n.nodeName,attrs:[...n.attributes].map(a=>[a.name,a.value.replaceAll(prefix,'')]).sort((a,b)=>a[0].localeCompare(b[0])),children:[...n.childNodes].map(tree)}:{type:n.nodeType,text:n.textContent};return JSON.stringify(tree(e));}));assert.deepEqual(actual.map(sha),expected.map(sha),'all SVG nodes, attributes and text');
-   await child.screenshot({path:path.join(q,'preview-'+ext+'.png')});
+   // Native UI observations are captured by the allowed observer.
    if(process.env.GEULGYEOL_QA_NATIVE_PRINT_CANCEL==='1'){
-    write('before-native-print-'+ext+'.json',before);
+    for(const attempt of [1,2]){const nativeKey=ext+'-'+attempt;
+    write('before-native-print-'+nativeKey+'.json',before);
     // Observe entry into the real print function without changing its behavior.
-    await child.evaluate(ext=>{const print=window.print;window.print=function(...args){console.info('[qa-native-print-called] '+ext);return print.apply(this,args);};},ext);
-    nativeStage(ext,'prepared');
-    write('native-print-ready-'+ext+'.json',{ext,ownedQA:true});console.log('WAIT native print cancel '+ext);
+    await child.evaluate(installNativePrintObserver,nativeKey);
+    nativeStage(nativeKey,'prepared');
+    write('native-print-ready-'+nativeKey+'.json',{ext,attempt,ownedQA:true,documentName:'print-input.'+ext});console.log('WAIT native print cancel '+ext);
     // A UI observer must bind this exact QA preview first. A prepared marker
     // proves neither that print was called nor that an OS sheet appeared.
-    await until(()=>fs.existsSync(path.join(q,'native-print-observer-ready-'+ext+'.json')),'exact QA UI observer '+ext,60000);
-    nativeStage(ext,'callRequested');
-    child.on('console',message=>{if(message.text()==='[qa-native-print-called] '+ext)nativeStage(ext,'called');});
+    await until(()=>fs.existsSync(path.join(q,'native-print-observer-ready-'+nativeKey+'.json')),'exact QA UI observer '+nativeKey,900000);
+    nativeStage(nativeKey,'callRequested');
+    child.on('console',message=>{if(message.text()==='[qa-native-print-called] '+nativeKey)nativeStage(nativeKey,'called');});
     // Modal window.print may hold CDP until cancellation. Handle rejection
     // immediately; neither its pending state nor timeout proves sheet creation.
-    child.evaluate(()=>document.querySelector('#print-btn').click()).then(
-      ()=>nativeStage(ext,'dispatchReply','returned'),
-      error=>nativeStage(ext,'dispatchReply',String(error)));
-    await until(()=>fs.existsSync(path.join(q,'native-print-canceled-'+ext+'.json')),'observed native print cancel '+ext,180000);
-    const receipt=JSON.parse(fs.readFileSync(path.join(q,'native-print-canceled-'+ext+'.json')));
+    // Native UI observer clicks the exact preview's real print button.
+    // Do not dispatch a modal print through a pending CDP request.
+    write('native-print-call-ready-'+nativeKey+'.json',{ext,attempt,documentName:'print-input.'+ext,ownedQA:true});
+    await until(()=>fs.existsSync(path.join(q,'native-print-canceled-'+nativeKey+'.json')),'observed native print cancel '+nativeKey,900000);
+    const receipt=JSON.parse(fs.readFileSync(path.join(q,'native-print-canceled-'+nativeKey+'.json')));
     assert(receipt.nativeDialogObserved&&receipt.cancelButtonInvoked&&receipt.noPrinterOutput);
     assert.equal(receipt.documentName,'print-input.'+ext,'UI receipt belongs to this synthetic QA document');
-    nativeStage(ext,'sheetObserved');nativeStage(ext,'canceled');
+    await until(()=>nativeStages[nativeKey].called===true,'real print entry '+nativeKey,5000);
+    nativeStage(nativeKey,'sheetObserved');nativeStage(nativeKey,'canceled');
     assert(await child.evaluate(()=>!!document.querySelector('#close-btn')),'renderer returned after native cancellation');
-    await preserved(before);nativeStage(ext,'rendererReturned');nativePrintCanceled=true;
+    await preserved(before);nativeStage(nativeKey,'rendererReturned');nativePrintCanceled=true;
+    }
    }
    // Child navigation and child popups remain blocked, including a local URL.
    assert.equal(await child.evaluate(()=>window.open('/studio/print.html','_blank')===null),true);
@@ -111,9 +115,17 @@ try{
    rows.push({ext,visible,fullPrintSVG:true,before,closePreserves:true,replacementPreserves:true,nativePrintCanceled});
   }
   assert((await command('edit:redo')).ok);await settle();assert.equal((await state()).hwp,second.hwp,'retained redo works');assert((await command('edit:undo')).ok);await settle();assert.equal((await state()).hwp,first.hwp,'retained undo works');
+  if(process.env.GEULGYEOL_QA_NATIVE_PRINT_CANCEL==='1'){
+   const savedState=await state();control({id:'preserve-synthetic-'+ext,canceled:false,file:'native-preserved-'+ext+'.'+ext,choice:'cancel'});
+   write('native-save-ready-'+ext+'.json',{ext,documentName:'print-input.'+ext});console.log('WAIT owned synthetic save '+ext);
+   await until(()=>fs.existsSync(path.join(q,'native-save-clicked-'+ext+'.json')),'UI synthetic save '+ext,900000);
+   await until(()=>frame.evaluate(()=>!window.baramHost.state().dirty),'durable clean after synthetic save');
+   const saved=fs.readFileSync(path.join(q,'files','native-preserved-'+ext+'.'+ext));assert.equal(sha(saved),savedState[ext],'save preserves edited synthetic bytes');
+   write('native-saved-'+ext+'.json',{ext,sha256:sha(saved),dirtyAfterSave:false,actualIPCAndFilesystem:true});
+  }
   write('progress.json',rows);budget.check();console.log('PASS '+mode+' '+ext);
  }
- assert.deepEqual(errors,[]);await page.screenshot({path:path.join(q,'editor.png')});
+ assert.deepEqual(errors,[]);
  await frame.evaluate(()=>window.rhwpStudio.notifySaved());control({id:'normal-quit',quit:true,choice:'cancel'});await until(()=>p.exitCode!==null,'normal quit');assert.equal(p.exitCode,0);normalQuit=true;
  write('proof.json',{mode,rows,dialogs,errors,receivedEngineSHA256,actualMacElectron:true,electron:'44.3.0',instrumentedReadHandles:true,syntheticFixturesOnly:true,nativeFileChooserControlled:true,OSPrintDialogVerified:rows.every(r=>r.nativePrintCanceled===true),physicalPrinterOutput:false,normalQuit,exitCode:p.exitCode,budget:budget.check()});
 }catch(e){failure=String(e);write('failure.json',{failure,stack:e.stack,rows,dialogs,errors});throw e;}
