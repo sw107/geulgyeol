@@ -6,6 +6,7 @@ const {startProfileServer}=require('./profile-server.cjs');
 const {validateDocumentBytes,atomicWrite,MAX_BYTES}=require('./storage.cjs');
 const {installCloseController}=require('./close-controller.cjs');
 const {installDocumentShortcuts}=require('./document-shortcuts.cjs');
+const {installPrintPreview}=require('./print-preview.cjs');
 let win,origin,server,dirty=false,saving=false,rendererFailed=false;
 function trusted(event){return win&&!win.isDestroyed()&&event.sender===win.webContents&&event.senderFrame===win.webContents.mainFrame&&event.senderFrame.url===origin+'/';}
 function action(name){if(win&&!win.isDestroyed())win.webContents.send('baram:action',name);}
@@ -27,7 +28,7 @@ app.whenReady().then(async()=>{
   win=new BrowserWindow({width:1280,height:860,minWidth:900,minHeight:620,title:'글결 베타 0.4.4-beta.3',show:false,
     webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
   installDocumentShortcuts(win.webContents,action);
-  win.webContents.setWindowOpenHandler(()=>({action:'deny'}));
+  installPrintPreview(win,origin,BrowserWindow);
   win.webContents.on('will-navigate',(e,url)=>{if(url!==origin+'/')e.preventDefault();});
   win.webContents.on('render-process-gone',()=>{rendererFailed=true;});
   async function confirmUnavailableClose(){

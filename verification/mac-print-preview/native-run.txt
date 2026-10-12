@@ -1,0 +1,8 @@
+WAIT native print cancel hwp
+WAIT native print cancel hwp
+WAIT owned synthetic save hwp
+PASS fixed hwp
+WAIT native print cancel hwpx
+WAIT native print cancel hwpx
+WAIT owned synthetic save hwpx
+PASS fixed hwpx

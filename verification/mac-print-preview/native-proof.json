@@ -1,0 +1,286 @@
+{
+  "productSHA": "e8d227504d53e6f23060a6cd2b29a366966a1680",
+  "preservedWorkspaceSHA": "c493dac44c0a263c3ae74fbc04a2d683e9e8f13f",
+  "actualMacElectron": true,
+  "electron": "44.3.0",
+  "syntheticOnly": true,
+  "nativeFileChooserControlled": true,
+  "UIObserver": "cua_repl",
+  "productSourceSHA256": {
+    "desktop/main.cjs": "1d5cc1cab1e61b8b90853cd1ad4cd3aab8edf096816b63d383f5c84033478490",
+    "desktop/print-preview.cjs": "1c058177c71f5ec172af45913f76dfd74df4960f11edde4cdf15f0f1bcd49a02",
+    "desktop/preload.cjs": "b85220910bb09d3894bf928e1d14e5d5d82e8162f1d3e5cb803febc6d7b17fe8",
+    "desktop/close-controller.cjs": "b17fd29233f4e1445e3fd3c429e7738561db2d2fdd7530b57a70ea52b52a68f4",
+    "desktop/web/baram.js": "6be65df69a00ef12646b5f48da3bb52476f30e08af2e8c573908ca7b5b4c9e94"
+  },
+  "testedQASourceSHA256": {
+    "scripts/check-electron-print-preview.mjs": "40dcc63a2ce23ec816aac886b0e4ced147f18988877ad00baf3ecee5604efe76",
+    "scripts/native-print-observer.mjs": "8c9b312c1b58aa6cf8bf008177e7197aa0fac54a0a5fc0812d1ec973cb25a732",
+    "scripts/tests/native-print-observer.test.mjs": "0fdebc40d9ffd3e63cb4971b7b86e90a35849581e7ab346113c555bbd9c3f699",
+    "scripts/electron-qa-exit.mjs": "fe9b835079b1d9be0a384ff64395668d3cdbd1d2fcf261f3aae162c2ca554a06",
+    "scripts/electron-document-lifecycle-bootstrap.cjs": "c1a71b65b5193d45ea3b6922961a1f9beed1588574f7e65002da719a0897caa3"
+  },
+  "engineWasmSHA256": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69",
+  "rows": [
+    {
+      "format": "hwp",
+      "pages": 2,
+      "beforeDocumentSHA256": {
+        "hwp": "92cc8f9db433e6ddee235755e7967cd364416109ef7ca44ef0ed87746aae5d38",
+        "hwpx": "79558fafc75c088512be5d7f77c3ec5a717db846815fa448f9e1f1701d46dcdb"
+      },
+      "beforeFullTextSHA256": "ee3b8c47ef784be23b825c6e4a3e3dee5bdad3e5f12162ad2c1e6583912714a7",
+      "editorSVG_SHA256": [
+        "28f6b236abfad51d8e2808e51bbae594da42ff2fdae0b4bd451bebc5b92ad5f7",
+        "c1cdeb5e33cdd69b474762538c17f32128d31a6430472d25b569aa2a695cee37"
+      ],
+      "printSVG_SHA256": [
+        "28f6b236abfad51d8e2808e51bbae594da42ff2fdae0b4bd451bebc5b92ad5f7",
+        "c1cdeb5e33cdd69b474762538c17f32128d31a6430472d25b569aa2a695cee37"
+      ],
+      "beforeDirty": true,
+      "history": {
+        "u": 1,
+        "r": 1
+      },
+      "fullPreviewSVGEqual": true,
+      "nativeCancelTwice": true,
+      "allStateEqualAfterEachCancel": true,
+      "actualEditorUIReturned": true,
+      "closePreserves": true,
+      "replacementPreserves": true,
+      "retainedRedoUndoCommandsWorked": true,
+      "actualSaveButtonObserved": true,
+      "saved": {
+        "ext": "hwp",
+        "sha256": "92cc8f9db433e6ddee235755e7967cd364416109ef7ca44ef0ed87746aae5d38",
+        "dirtyAfterSave": false,
+        "actualIPCAndFilesystem": true
+      }
+    },
+    {
+      "format": "hwpx",
+      "pages": 2,
+      "beforeDocumentSHA256": {
+        "hwp": "8ac4818d05a526c3fdaaf354ea3398d15ac5b5101f668d98b58f045bf549e4ff",
+        "hwpx": "8485f933f41246c44ef71b9b610df5b6181ec137d2269efe6b724eaf26580f5f"
+      },
+      "beforeFullTextSHA256": "26232b8c529bff704579436dff70907dcd57236aa522c4f481c3733394ad8859",
+      "editorSVG_SHA256": [
+        "b59d25bd62c183de6a7af821690311bb8eaf97da9682d42ae1374619d7d2c218",
+        "3119d2eda9b847d78a8a9b94ff29766b1139dca79b4c476b7fcef898872b104f"
+      ],
+      "printSVG_SHA256": [
+        "b59d25bd62c183de6a7af821690311bb8eaf97da9682d42ae1374619d7d2c218",
+        "3119d2eda9b847d78a8a9b94ff29766b1139dca79b4c476b7fcef898872b104f"
+      ],
+      "beforeDirty": true,
+      "history": {
+        "u": 1,
+        "r": 1
+      },
+      "fullPreviewSVGEqual": true,
+      "nativeCancelTwice": true,
+      "allStateEqualAfterEachCancel": true,
+      "actualEditorUIReturned": true,
+      "closePreserves": true,
+      "replacementPreserves": true,
+      "retainedRedoUndoCommandsWorked": true,
+      "actualSaveButtonObserved": true,
+      "saved": {
+        "ext": "hwpx",
+        "sha256": "8485f933f41246c44ef71b9b610df5b6181ec137d2269efe6b724eaf26580f5f",
+        "dirtyAfterSave": false,
+        "actualIPCAndFilesystem": true
+      }
+    }
+  ],
+  "nativeAttempts": {
+    "hwp-1": {
+      "stage": {
+        "called": true,
+        "sheetObserved": true,
+        "canceled": true,
+        "rendererReturned": true,
+        "prepared": true,
+        "callRequested": true
+      },
+      "UIReceipt": {
+        "documentName": "print-input.hwp",
+        "nativeDialogObserved": true,
+        "cancelButtonInvoked": true,
+        "noPrinterOutput": true,
+        "observer": "cua_repl",
+        "dialogAXID": "PDPrintPanel",
+        "cancelAXID": "PDCancel",
+        "rendererReturned": true,
+        "nativePageLabel": "1페이지 모두",
+        "printerSelected": false
+      }
+    },
+    "hwp-2": {
+      "stage": {
+        "called": true,
+        "sheetObserved": true,
+        "canceled": true,
+        "rendererReturned": true,
+        "prepared": true,
+        "callRequested": true
+      },
+      "UIReceipt": {
+        "documentName": "print-input.hwp",
+        "nativeDialogObserved": true,
+        "cancelButtonInvoked": true,
+        "noPrinterOutput": true,
+        "observer": "cua_repl",
+        "dialogAXID": "PDPrintPanel",
+        "cancelAXID": "PDCancel",
+        "rendererReturned": true,
+        "nativePageLabel": "1페이지 모두",
+        "printerSelected": false
+      }
+    },
+    "hwpx-1": {
+      "stage": {
+        "called": true,
+        "sheetObserved": true,
+        "canceled": true,
+        "rendererReturned": true,
+        "prepared": true,
+        "callRequested": true
+      },
+      "UIReceipt": {
+        "documentName": "print-input.hwpx",
+        "nativeDialogObserved": true,
+        "cancelButtonInvoked": true,
+        "noPrinterOutput": true,
+        "observer": "cua_repl",
+        "dialogAXID": "PDPrintPanel",
+        "cancelAXID": "PDCancel",
+        "rendererReturned": true,
+        "nativePageLabel": "1페이지 모두",
+        "printerSelected": false
+      }
+    },
+    "hwpx-2": {
+      "stage": {
+        "called": true,
+        "sheetObserved": true,
+        "canceled": true,
+        "rendererReturned": true,
+        "prepared": true,
+        "callRequested": true
+      },
+      "UIReceipt": {
+        "documentName": "print-input.hwpx",
+        "nativeDialogObserved": true,
+        "cancelButtonInvoked": true,
+        "noPrinterOutput": true,
+        "observer": "cua_repl",
+        "dialogAXID": "PDPrintPanel",
+        "cancelAXID": "PDCancel",
+        "rendererReturned": true,
+        "nativePageLabel": "1페이지 모두",
+        "printerSelected": false
+      }
+    }
+  },
+  "OSPrintDialogVerified": true,
+  "actualOutputPageCountVerified": false,
+  "physicalPrinterOutput": false,
+  "PDFOutputExecuted": false,
+  "errors": [],
+  "lifecycle": {
+    "exitConfirmed": true,
+    "exitCode": 0,
+    "signalCode": null,
+    "terminationUnconfirmed": false,
+    "terminationRequested": false,
+    "normalQuit": true,
+    "nativeStages": {
+      "hwp-1": {
+        "called": true,
+        "sheetObserved": true,
+        "canceled": true,
+        "rendererReturned": true,
+        "prepared": true,
+        "callRequested": true
+      },
+      "hwp-2": {
+        "called": true,
+        "sheetObserved": true,
+        "canceled": true,
+        "rendererReturned": true,
+        "prepared": true,
+        "callRequested": true
+      },
+      "hwpx-1": {
+        "called": true,
+        "sheetObserved": true,
+        "canceled": true,
+        "rendererReturned": true,
+        "prepared": true,
+        "callRequested": true
+      },
+      "hwpx-2": {
+        "called": true,
+        "sheetObserved": true,
+        "canceled": true,
+        "rendererReturned": true,
+        "prepared": true,
+        "callRequested": true
+      }
+    }
+  },
+  "UIInventoryAfterQuit": {
+    "ElectronRunning": false,
+    "IndependentRunning": false
+  },
+  "savedStandaloneEngineReopen": {
+    "standaloneWasmEngine": true,
+    "MacUIReopen": false,
+    "rows": [
+      {
+        "format": "hwp",
+        "pages": 2,
+        "fullTextEqual": true,
+        "textSHA256": "ee3b8c47ef784be23b825c6e4a3e3dee5bdad3e5f12162ad2c1e6583912714a7",
+        "fileSHA256": "92cc8f9db433e6ddee235755e7967cd364416109ef7ca44ef0ed87746aae5d38",
+        "engineWasmSHA256": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69"
+      },
+      {
+        "format": "hwpx",
+        "pages": 2,
+        "fullTextEqual": true,
+        "textSHA256": "26232b8c529bff704579436dff70907dcd57236aa522c4f481c3733394ad8859",
+        "fileSHA256": "8485f933f41246c44ef71b9b610df5b6181ec137d2269efe6b724eaf26580f5f",
+        "engineWasmSHA256": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69"
+      }
+    ]
+  },
+  "desktopTestsPassed": 8,
+  "QATestsPassed": 6,
+  "preservedExistingFilePins": 270,
+  "previousFixedFinalTermination": "unconfirmed",
+  "priorFailuresPreserved": true,
+  "permissionBypass": false,
+  "newAppOrWasmBuild": false,
+  "newPackaging": false,
+  "finalWholeEvidenceBudget": {
+    "normalBytes": 694734848,
+    "failureBytes": 150188032,
+    "totalBytes": 844922880,
+    "incompletePhases": [],
+    "freeBytes": 56333836288,
+    "normalForecastBytes": 0,
+    "failureForecastBytes": 0,
+    "normalLimit": 805306368,
+    "failureLimit": 268435456,
+    "requiredFreeBytes": 16374562816
+  },
+  "finalPhaseForecastBytes": {
+    "normal": 50331648,
+    "failure": 50331648
+  },
+  "wholeEvidenceIncreaseSincePriorPrintProofBytes": 12541952
+}
