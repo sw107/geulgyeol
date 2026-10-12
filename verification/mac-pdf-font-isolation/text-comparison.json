@@ -1,0 +1,559 @@
+{
+  "schema": "geulgyeol-pdf-font-isolation-v1",
+  "matrices": [
+    {
+      "routes": [
+        {
+          "route": "printToPDF",
+          "pageCount": 1,
+          "mediaBox": {
+            "height": 841.91998,
+            "width": 594.95996,
+            "x": 0,
+            "y": 0
+          },
+          "cases": [
+            {
+              "index": 0,
+              "case": "engine-original",
+              "extractedText": "PRINT_ 00 한글\n미\n보기 ABC 123 é\n리\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 1,
+              "case": "remove-length-attributes",
+              "extractedText": "PRINT_ 00 한글\n미\n보기 ABC 1 23 é\n리\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 2,
+              "case": "spacing-only",
+              "extractedText": "PRINT_ 00 한글\n미\n보기 ABC 1 23 é\n리\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 3,
+              "case": "font-Arial",
+              "extractedText": "PRINT\n보기 ABC 123 é\n리\n_\n00 한글\n미\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 4,
+              "case": "font-Apple-SD-Gothic-Neo",
+              "extractedText": "PRINT_ 00 한글\n미\n리\n보기 ABC 123 é\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": true,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 5,
+              "case": "svg-single-run",
+              "extractedText": "PRINT_00 한글\n미리보기 ABC 123 é\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": true,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 6,
+              "case": "html-single-run",
+              "extractedText": "PRINT_00 한글\n미리보기 ABC 123 é",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": true,
+              "koreanPhrasePresent": true
+            }
+          ],
+          "originalSHA256": "9bdc1ddb553a9d3223f7ed382ca00c1a5e02fcf39fe7b31e240e0e6e8ae83b08",
+          "fileBytes": 68947,
+          "fontDictionaries": [
+            {
+              "object": 19,
+              "subtype": "CIDFontType2",
+              "baseFont": "AAAAAA+Arial-BoldMT",
+              "ToUnicode": false
+            },
+            {
+              "object": 4,
+              "subtype": "Type0",
+              "baseFont": "AAAAAA+Arial-BoldMT",
+              "ToUnicode": true
+            },
+            {
+              "object": 23,
+              "subtype": "CIDFontType2",
+              "baseFont": "BAAAAA+Arial-BoldMT",
+              "ToUnicode": false
+            },
+            {
+              "object": 5,
+              "subtype": "Type0",
+              "baseFont": "BAAAAA+Arial-BoldMT",
+              "ToUnicode": true
+            },
+            {
+              "object": 6,
+              "subtype": "Type3",
+              "baseFont": null,
+              "ToUnicode": true
+            },
+            {
+              "object": 7,
+              "subtype": "Type3",
+              "baseFont": null,
+              "ToUnicode": true
+            },
+            {
+              "object": 8,
+              "subtype": "Type3",
+              "baseFont": null,
+              "ToUnicode": true
+            },
+            {
+              "object": 9,
+              "subtype": "Type3",
+              "baseFont": null,
+              "ToUnicode": true
+            },
+            {
+              "object": 10,
+              "subtype": "Type3",
+              "baseFont": null,
+              "ToUnicode": true
+            },
+            {
+              "object": 11,
+              "subtype": "Type3",
+              "baseFont": null,
+              "ToUnicode": true
+            },
+            {
+              "object": 61,
+              "subtype": "CIDFontType2",
+              "baseFont": "EAAAAA+ArialMT",
+              "ToUnicode": false
+            },
+            {
+              "object": 12,
+              "subtype": "Type0",
+              "baseFont": "EAAAAA+ArialMT",
+              "ToUnicode": true
+            },
+            {
+              "object": 65,
+              "subtype": "CIDFontType2",
+              "baseFont": "FAAAAA+Helvetica",
+              "ToUnicode": false
+            },
+            {
+              "object": 13,
+              "subtype": "Type0",
+              "baseFont": "FAAAAA+Helvetica",
+              "ToUnicode": true
+            }
+          ],
+          "subtypeCounts": {
+            "CIDFontType2": 4,
+            "Type0": 4,
+            "Type3": 6
+          }
+        },
+        {
+          "route": "os",
+          "pageCount": 1,
+          "mediaBox": {
+            "height": 842,
+            "width": 595,
+            "x": 0,
+            "y": 0
+          },
+          "cases": [
+            {
+              "index": 0,
+              "case": "engine-original",
+              "extractedText": "",
+              "allExpectedCharactersRetained": false,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 1,
+              "case": "remove-length-attributes",
+              "extractedText": "",
+              "allExpectedCharactersRetained": false,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 2,
+              "case": "spacing-only",
+              "extractedText": "",
+              "allExpectedCharactersRetained": false,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 3,
+              "case": "font-Arial",
+              "extractedText": "PRINT\n00 ABC 123 é\n_\n",
+              "allExpectedCharactersRetained": false,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 4,
+              "case": "font-Apple-SD-Gothic-Neo",
+              "extractedText": "é\n",
+              "allExpectedCharactersRetained": false,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 5,
+              "case": "svg-single-run",
+              "extractedText": "PRINT_00 ABC 123 é\n",
+              "allExpectedCharactersRetained": false,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 6,
+              "case": "html-single-run",
+              "extractedText": "PRINT_00 ABC 123 é",
+              "allExpectedCharactersRetained": false,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            }
+          ],
+          "originalSHA256": "82a69f5f47fcafc952239e732d3eba44a7a8c8942a98be15c8458be479cfbd91",
+          "fileBytes": 73658,
+          "fontDictionaries": [
+            {
+              "object": 6,
+              "subtype": "Type0",
+              "baseFont": "AAAAAB+Arial-BoldMT",
+              "ToUnicode": true
+            },
+            {
+              "object": 12,
+              "subtype": "CIDFontType2",
+              "baseFont": "AAAAAB+Arial-BoldMT",
+              "ToUnicode": false
+            },
+            {
+              "object": 7,
+              "subtype": "Type0",
+              "baseFont": "AAAAAC+Arial-BoldMT",
+              "ToUnicode": true
+            },
+            {
+              "object": 17,
+              "subtype": "CIDFontType2",
+              "baseFont": "AAAAAC+Arial-BoldMT",
+              "ToUnicode": false
+            },
+            {
+              "object": 8,
+              "subtype": "Type0",
+              "baseFont": "AAAAAD+ArialMT",
+              "ToUnicode": true
+            },
+            {
+              "object": 22,
+              "subtype": "CIDFontType2",
+              "baseFont": "AAAAAD+ArialMT",
+              "ToUnicode": false
+            },
+            {
+              "object": 9,
+              "subtype": "Type0",
+              "baseFont": "AAAAAE+font00000000307d1772",
+              "ToUnicode": true
+            },
+            {
+              "object": 27,
+              "subtype": "CIDFontType2",
+              "baseFont": "AAAAAE+font00000000307d1772",
+              "ToUnicode": false
+            }
+          ],
+          "subtypeCounts": {
+            "Type0": 4,
+            "CIDFontType2": 4
+          }
+        }
+      ],
+      "PDFsModified": false,
+      "exactWordSearchNotInferredFromCharacterInventory": true,
+      "fullProductionDocumentRegression": false
+    },
+    {
+      "routes": [
+        {
+          "route": "printToPDF",
+          "pageCount": 1,
+          "mediaBox": {
+            "height": 841.91998,
+            "width": 594.95996,
+            "x": 0,
+            "y": 0
+          },
+          "cases": [
+            {
+              "index": 0,
+              "case": "CFF-original",
+              "extractedText": "PRINT_ 00 한글\n미\n보기 ABC 123 é\n리\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 1,
+              "case": "TT-original-length",
+              "extractedText": "PRINT\n00 한글 미리보기 ABC 123 é\n_\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 2,
+              "case": "TT-no-length",
+              "extractedText": "PRINT\n00 한글 미리보기 ABC 123 é\n_\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 3,
+              "case": "TT-spacing-only",
+              "extractedText": "PRINT\n00 한글 미리보기 ABC 123 é\n_\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 4,
+              "case": "TT-length-075",
+              "extractedText": "P R IN T\n0 0 한글 미리보기 A B C 1 2 3 é\n_\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 5,
+              "case": "TT-length-125",
+              "extractedText": "PRINT\n00 한글 미리보기 ABC 123 é\n_\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 6,
+              "case": "TT-html",
+              "extractedText": "PRINT\n00 한글 미리보기 ABC 123 é_",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            }
+          ],
+          "originalSHA256": "ca66bcd0be16112c84483881736000438c495eea845b061d4c6a61552295ecde",
+          "fileBytes": 52482,
+          "fontDictionaries": [
+            {
+              "object": 17,
+              "subtype": "CIDFontType2",
+              "baseFont": "AAAAAA+Arial-BoldMT",
+              "ToUnicode": false
+            },
+            {
+              "object": 4,
+              "subtype": "Type0",
+              "baseFont": "AAAAAA+Arial-BoldMT",
+              "ToUnicode": true
+            },
+            {
+              "object": 21,
+              "subtype": "CIDFontType2",
+              "baseFont": "BAAAAA+Arial-BoldMT",
+              "ToUnicode": false
+            },
+            {
+              "object": 5,
+              "subtype": "Type0",
+              "baseFont": "BAAAAA+Arial-BoldMT",
+              "ToUnicode": true
+            },
+            {
+              "object": 6,
+              "subtype": "Type3",
+              "baseFont": null,
+              "ToUnicode": true
+            },
+            {
+              "object": 7,
+              "subtype": "Type3",
+              "baseFont": null,
+              "ToUnicode": true
+            },
+            {
+              "object": 8,
+              "subtype": "Type3",
+              "baseFont": null,
+              "ToUnicode": true
+            },
+            {
+              "object": 9,
+              "subtype": "Type3",
+              "baseFont": null,
+              "ToUnicode": true
+            },
+            {
+              "object": 10,
+              "subtype": "Type3",
+              "baseFont": null,
+              "ToUnicode": true
+            },
+            {
+              "object": 55,
+              "subtype": "CIDFontType2",
+              "baseFont": "DAAAAA+NotoSansKR-Regular",
+              "ToUnicode": false
+            },
+            {
+              "object": 11,
+              "subtype": "Type0",
+              "baseFont": "DAAAAA+NotoSansKR-Regular",
+              "ToUnicode": true
+            }
+          ],
+          "subtypeCounts": {
+            "CIDFontType2": 3,
+            "Type0": 3,
+            "Type3": 5
+          }
+        },
+        {
+          "route": "os",
+          "pageCount": 1,
+          "mediaBox": {
+            "height": 842,
+            "width": 595,
+            "x": 0,
+            "y": 0
+          },
+          "cases": [
+            {
+              "index": 0,
+              "case": "CFF-original",
+              "extractedText": "é\n",
+              "allExpectedCharactersRetained": false,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": false
+            },
+            {
+              "index": 1,
+              "case": "TT-original-length",
+              "extractedText": "PRINT\n00 한글 미리보기 ABC 123 é\n_\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 2,
+              "case": "TT-no-length",
+              "extractedText": "PRINT\n00 한글 미리보기 ABC 123 é\n_\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 3,
+              "case": "TT-spacing-only",
+              "extractedText": "PRINT\n00 한글 미리보기 ABC 123 é\n_\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 4,
+              "case": "TT-length-075",
+              "extractedText": "P R IN T\n0 0 한글 미리보기 A B C 1 2 3 é\n_\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 5,
+              "case": "TT-length-125",
+              "extractedText": "PRINT\n00 한글 미리보기 ABC 123 é\n_\n",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            },
+            {
+              "index": 6,
+              "case": "TT-html",
+              "extractedText": "PRINT\n00 한글 미리보기 ABC 123 é_",
+              "allExpectedCharactersRetained": true,
+              "expectedReadingOrderExactIgnoringWhitespace": false,
+              "koreanPhrasePresent": true
+            }
+          ],
+          "originalSHA256": "ba799a91217747833f5c0bcb46fdbd7756d23ff41cd2d806bb793ca40e0f3ed6",
+          "fileBytes": 46220,
+          "fontDictionaries": [
+            {
+              "object": 6,
+              "subtype": "Type0",
+              "baseFont": "AAAAAB+Arial-BoldMT",
+              "ToUnicode": true
+            },
+            {
+              "object": 11,
+              "subtype": "CIDFontType2",
+              "baseFont": "AAAAAB+Arial-BoldMT",
+              "ToUnicode": false
+            },
+            {
+              "object": 7,
+              "subtype": "Type0",
+              "baseFont": "AAAAAC+Arial-BoldMT",
+              "ToUnicode": true
+            },
+            {
+              "object": 16,
+              "subtype": "CIDFontType2",
+              "baseFont": "AAAAAC+Arial-BoldMT",
+              "ToUnicode": false
+            },
+            {
+              "object": 8,
+              "subtype": "Type0",
+              "baseFont": "AAAAAD+NotoSansKR-Regular",
+              "ToUnicode": true
+            },
+            {
+              "object": 21,
+              "subtype": "CIDFontType2",
+              "baseFont": "AAAAAD+NotoSansKR-Regular",
+              "ToUnicode": false
+            }
+          ],
+          "subtypeCounts": {
+            "Type0": 3,
+            "CIDFontType2": 3
+          }
+        }
+      ],
+      "PDFsModified": false,
+      "exactWordSearchNotInferredFromCharacterInventory": true,
+      "fullProductionDocumentRegression": false
+    }
+  ]
+}

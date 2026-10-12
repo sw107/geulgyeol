@@ -1,0 +1,20 @@
+{
+  "testsPassed": 8,
+  "actualFinalDriverEvaluatedInVM": true,
+  "slowQueryAndOverlappingTicks": true,
+  "wxWriteFailureCaptured": true,
+  "failureRecordWriteFailureStillQuits": true,
+  "noLateProofAfterNormalQuit": true,
+  "generatorCopiesFinalDriverAndHelper": true,
+  "generatorHTMLUnchanged": true,
+  "newElectronRuns": 0,
+  "newOSPDFs": 0,
+  "newPrintToPDFs": 0,
+  "finalDriverNativeRerun": false,
+  "dirty4Lock3WASMPreserved": true,
+  "PR40to42PinsPreserved": true,
+  "prior273Cache133Preserved": true,
+  "originalPDF6Preserved": true,
+  "historicalDriver2Preserved": true,
+  "combinedOwnedBytes": 4682153984
+}

@@ -1,0 +1,7 @@
+Final public QA source validation:
+python3 -B scripts/tests/pdf-font-isolation.test.py
+Ran 7 tests in 0.001s
+OK
+node --check scripts/check-electron-pdf-font-isolation.cjs: pass
+git diff --check: pass
+Both generic generators reproduced their executed controls.html byte-for-byte.
