@@ -1,0 +1,425 @@
+
+> geulgyeol-beta@0.4.4-beta.3 test
+> node --test tests/*.test.cjs
+
+TAP version 13
+# Subtest: memory recovery keeps the last saved ID when every other timestamp is future
+ok 1 - memory recovery keeps the last saved ID when every other timestamp is future
+  ---
+  duration_ms: 80.609583
+  type: 'test'
+  ...
+# Subtest: multiple cell equations preserve their neighbors and body across history and native format exports
+ok 2 - multiple cell equations preserve their neighbors and body across history and native format exports
+  ---
+  duration_ms: 144.622958
+  type: 'test'
+  ...
+# Subtest: discard destroys window without reentering renderer unload
+ok 3 - discard destroys window without reentering renderer unload
+  ---
+  duration_ms: 3.356667
+  type: 'test'
+  ...
+# Subtest: cancel and failed prompt permit a later close attempt
+ok 4 - cancel and failed prompt permit a later close attempt
+  ---
+  duration_ms: 1.5395
+  type: 'test'
+  ...
+# Subtest: clean window closes without prompting
+ok 5 - clean window closes without prompting
+  ---
+  duration_ms: 0.093459
+  type: 'test'
+  ...
+# Subtest: discard waits for cleanup and cleanup failure permits retry
+ok 6 - discard waits for cleanup and cleanup failure permits retry
+  ---
+  duration_ms: 2.06075
+  type: 'test'
+  ...
+# Subtest: authoritative renderer close overrides stale clean cache and deduplicates requests
+ok 7 - authoritative renderer close overrides stale clean cache and deduplicates requests
+  ---
+  duration_ms: 2.451875
+  type: 'test'
+  ...
+# Subtest: failed or busy authoritative close preserves window and permits retry
+ok 8 - failed or busy authoritative close preserves window and permits retry
+  ---
+  duration_ms: 0.616166
+  type: 'test'
+  ...
+# Subtest: split table renders each of eleven pictures once across eight pages
+ok 9 - split table renders each of eleven pictures once across eight pages # SKIP
+  ---
+  duration_ms: 0.426834
+  type: 'test'
+  ...
+# Subtest: mac document shortcuts intercept embedded file access exactly once and respect composition
+ok 10 - mac document shortcuts intercept embedded file access exactly once and respect composition
+  ---
+  duration_ms: 3.923708
+  type: 'test'
+  ...
+# Subtest: legacy object edits invalidate document revision even when only document-changed is emitted
+ok 11 - legacy object edits invalidate document revision even when only document-changed is emitted
+  ---
+  duration_ms: 2.7265
+  type: 'test'
+  ...
+# Subtest: paired text and pagination rendering notifications count each mutation once
+ok 12 - paired text and pagination rendering notifications count each mutation once
+  ---
+  duration_ms: 1.499875
+  type: 'test'
+  ...
+# Subtest: document replacement resets revision and disposal removes both event subscriptions
+ok 13 - document replacement resets revision and disposal removes both event subscriptions
+  ---
+  duration_ms: 0.175791
+  type: 'test'
+  ...
+# Subtest: guard preserves instance identity and method receivers; captured writers obey later lock
+ok 14 - guard preserves instance identity and method receivers; captured writers obey later lock
+  ---
+  duration_ms: 5.7855
+  type: 'test'
+  ...
+# Subtest: locked guard refuses unknown operations, snapshot changes, release and property writes
+ok 15 - locked guard refuses unknown operations, snapshot changes, release and property writes
+  ---
+  duration_ms: 0.215333
+  type: 'test'
+  ...
+# Subtest: native history waits for IME completion without replaying stale requests
+ok 16 - native history waits for IME completion without replaying stale requests
+  ---
+  duration_ms: 2.280958
+  type: 'test'
+  ...
+# Subtest: history routes document input to engine and dialog fields to their own history
+ok 17 - history routes document input to engine and dialog fields to their own history
+  ---
+  duration_ms: 0.400042
+  type: 'test'
+  ...
+# Subtest: Korean text survives HWP and HWPX export and reopen
+ok 18 - Korean text survives HWP and HWPX export and reopen
+  ---
+  duration_ms: 85.378875
+  type: 'test'
+  ...
+# Subtest: cell equation property and deletion routes distinguish all inner indices and cells
+ok 19 - cell equation property and deletion routes distinguish all inner indices and cells
+  ---
+  duration_ms: 1.327125
+  type: 'test'
+  ...
+# Subtest: both cell path encodings and explicit flat coordinates normalize to the same address
+ok 20 - both cell path encodings and explicit flat coordinates normalize to the same address
+  ---
+  duration_ms: 0.866708
+  type: 'test'
+  ...
+# Subtest: ambiguous, invalid and nested cell addresses reject before touching any document
+ok 21 - ambiguous, invalid and nested cell addresses reject before touching any document
+  ---
+  duration_ms: 1.017583
+  type: 'test'
+  ...
+# Subtest: body equation properties and deletion keep the body address
+ok 22 - body equation properties and deletion keep the body address
+  ---
+  duration_ms: 0.588167
+  type: 'test'
+  ...
+# Subtest: actual host completion and cancel control UI dirty state
+ok 23 - actual host completion and cancel control UI dirty state
+  ---
+  duration_ms: 37.230125
+  type: 'test'
+  ...
+# Subtest: real temp write plus close fault reports primary error and leaves original, then permits retry
+ok 24 - real temp write plus close fault reports primary error and leaves original, then permits retry
+  ---
+  duration_ms: 12.351041
+  type: 'test'
+  ...
+# Subtest: IPC rejects duplicate through pending filesystem write and releases guard after completion
+ok 25 - IPC rejects duplicate through pending filesystem write and releases guard after completion
+  ---
+  duration_ms: 11.862792
+  type: 'test'
+  ...
+# Subtest: exclusive temp collision never removes a pre-existing file
+ok 26 - exclusive temp collision never removes a pre-existing file
+  ---
+  duration_ms: 4.931916
+  type: 'test'
+  ...
+# Subtest: inline pictures share lines, wrap and paginate without loss or duplicate emission after both exports
+ok 27 - inline pictures share lines, wrap and paginate without loss or duplicate emission after both exports
+  ---
+  duration_ms: 442.104791
+  type: 'test'
+  ...
+# Subtest: permanent SDK startup failure permits explicit native unavailable-close handling
+ok 28 - permanent SDK startup failure permits explicit native unavailable-close handling
+  ---
+  duration_ms: 3.045208
+  type: 'test'
+  ...
+# Subtest: file actions and native close wait for startup document initialization
+ok 29 - file actions and native close wait for startup document initialization
+  ---
+  duration_ms: 8.284
+  type: 'test'
+  ...
+# Subtest: host keeps new document inert until initialization completes and restores on error
+ok 30 - host keeps new document inert until initialization completes and restores on error
+  ---
+  duration_ms: 5.39
+  type: 'test'
+  ...
+# Subtest: completed open preserves authoritative dirty state instead of clearing it
+ok 31 - completed open preserves authoritative dirty state instead of clearing it
+  ---
+  duration_ms: 1.956334
+  type: 'test'
+  ...
+# Subtest: only exact bundled print surface with a live Studio document is eligible
+ok 32 - only exact bundled print surface with a live Studio document is eligible
+  ---
+  duration_ms: 0.449
+  type: 'test'
+  ...
+# Subtest: single child lifecycle, hardened preferences and navigation fences
+ok 33 - single child lifecycle, hardened preferences and navigation fences
+  ---
+  duration_ms: 0.9385
+  type: 'test'
+  ...
+# Subtest: readonly preview unload cannot block replacement or owner cleanup
+ok 34 - readonly preview unload cannot block replacement or owner cleanup
+  ---
+  duration_ms: 0.334792
+  type: 'test'
+  ...
+# Subtest: closing a preview allows a fresh hardened preview on the next request
+ok 35 - closing a preview allows a fresh hardened preview on the next request
+  ---
+  duration_ms: 0.480541
+  type: 'test'
+  ...
+# (node:29460) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: success restores the displaced normal message and disconnects observation
+ok 36 - success restores the displaced normal message and disconnects observation
+  ---
+  duration_ms: 44.895458
+  type: 'test'
+  ...
+# Subtest: a successful retry replaces the retained print error with its original normal status
+ok 37 - a successful retry replaces the retained print error with its original normal status
+  ---
+  duration_ms: 2.472584
+  type: 'test'
+  ...
+# Subtest: repeated failures preserve the original normal message for the later successful retry
+ok 38 - repeated failures preserve the original normal message for the later successful retry
+  ---
+  duration_ms: 0.946167
+  type: 'test'
+  ...
+# Subtest: a newer same-turn message survives later progress, failure and final cleanup
+ok 39 - a newer same-turn message survives later progress, failure and final cleanup
+  ---
+  duration_ms: 7.808417
+  type: 'test'
+  ...
+# Subtest: an identical external rewrite of progress is preserved instead of restoring older text
+ok 40 - an identical external rewrite of progress is preserved instead of restoring older text
+  ---
+  duration_ms: 0.88375
+  type: 'test'
+  ...
+# Subtest: a newer message between attempts replaces the stored failure restore target
+ok 41 - a newer message between attempts replaces the stored failure restore target
+  ---
+  duration_ms: 0.817917
+  type: 'test'
+  ...
+# Subtest: an identical external rewrite of a retained error relinquishes the old failure ownership
+ok 42 - an identical external rewrite of a retained error relinquishes the old failure ownership
+  ---
+  duration_ms: 0.731666
+  type: 'test'
+  ...
+# Subtest: delivered external mutations relinquish ownership and release the observer
+ok 43 - delivered external mutations relinquish ownership and release the observer
+  ---
+  duration_ms: 11.692291
+  type: 'test'
+  ...
+# Subtest: failure tracking is isolated by element and a missing status surface remains optional
+ok 44 - failure tracking is isolated by element and a missing status surface remains optional
+  ---
+  duration_ms: 3.358416
+  type: 'test'
+  ...
+# (node:29461) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: readiness waits for fonts and two paints before measuring, then removes owner timers
+ok 45 - readiness waits for fonts and two paints before measuring, then removes owner timers
+  ---
+  duration_ms: 73.473375
+  type: 'test'
+  ...
+# Subtest: closing a child with a discarded paint callback rejects and cancels that callback
+ok 46 - closing a child with a discarded paint callback rejects and cancels that callback
+  ---
+  duration_ms: 4.348459
+  type: 'test'
+  ...
+# Subtest: closing while fonts never resolve also releases readiness and all owner timers
+ok 47 - closing while fonts never resolve also releases readiness and all owner timers
+  ---
+  duration_ms: 2.704375
+  type: 'test'
+  ...
+# Subtest: an open child with stalled readiness times out and removes the pending callback
+ok 48 - an open child with stalled readiness times out and removes the pending callback
+  ---
+  duration_ms: 12.134791
+  type: 'test'
+  ...
+# Subtest: profile origin survives restart, other profiles differ, busy origin does not silently change
+ok 49 - profile origin survives restart, other profiles differ, busy origin does not silently change
+  ---
+  duration_ms: 66.150667
+  type: 'test'
+  ...
+# Subtest: asset server restricts host, methods, traversal and symlinks
+ok 50 - asset server restricts host, methods, traversal and symlinks
+  ---
+  duration_ms: 35.64175
+  type: 'test'
+  ...
+# Subtest: reject mismatched formats and empty exports
+ok 51 - reject mismatched formats and empty exports
+  ---
+  duration_ms: 0.477333
+  type: 'test'
+  ...
+# Subtest: atomic replacement and failed rename cleanup
+ok 52 - atomic replacement and failed rename cleanup
+  ---
+  duration_ms: 15.870583
+  type: 'test'
+  ...
+# (node:29465) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: style manager deletes through the format-preserving API and refreshes current style in one snapshot
+ok 53 - style manager deletes through the format-preserving API and refreshes current style in one snapshot
+  ---
+  duration_ms: 63.123959
+  type: 'test'
+  ...
+# Subtest: an unsupported or malformed reference keeps the selected style and exposes the rejection reason
+ok 54 - an unsupported or malformed reference keeps the selected style and exposes the rejection reason
+  ---
+  duration_ms: 3.8775
+  type: 'test'
+  ...
+# Subtest: a disabled editing mode leaves the selected style intact when the operation router skips execution
+ok 55 - a disabled editing mode leaves the selected style intact when the operation router skips execution
+  ---
+  duration_ms: 1.990125
+  type: 'test'
+  ...
+# Subtest: style lifecycle preserves nested paragraph and next-style references when deleting a style
+ok 56 - style lifecycle preserves nested paragraph and next-style references when deleting a style
+  ---
+  duration_ms: 248.625583
+  type: 'test'
+  ...
+# (node:29467) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: style editor commits metadata and propagation in one snapshot and releases its rollback snapshot
+ok 57 - style editor commits metadata and propagation in one snapshot and releases its rollback snapshot
+  ---
+  duration_ms: 72.405167
+  type: 'test'
+  ...
+# Subtest: unsupported propagation rolls back edit (history)
+ok 58 - unsupported propagation rolls back edit (history)
+  ---
+  duration_ms: 3.548917
+  type: 'test'
+  ...
+# Subtest: unsupported propagation rolls back create (history)
+ok 59 - unsupported propagation rolls back create (history)
+  ---
+  duration_ms: 19.746959
+  type: 'test'
+  ...
+# Subtest: unsupported propagation rolls back edit (fallback)
+ok 60 - unsupported propagation rolls back edit (fallback)
+  ---
+  duration_ms: 5.053125
+  type: 'test'
+  ...
+# Subtest: unsupported propagation rolls back create (fallback)
+ok 61 - unsupported propagation rolls back create (fallback)
+  ---
+  duration_ms: 2.642583
+  type: 'test'
+  ...
+# Subtest: disabled editing routes leave style metadata and shapes untouched
+ok 62 - disabled editing routes leave style metadata and shapes untouched
+  ---
+  duration_ms: 2.197167
+  type: 'test'
+  ...
+# {"runtime":"darwin","fixtureCases":0,"twoFormatReopens":0,"snapshotUndoRedo":0,"nativeGUIVerified":false}
+# Subtest: style shape propagation across saved nested/header/note scopes preserves references and snapshot history
+ok 63 - style shape propagation across saved nested/header/note scopes preserves references and snapshot history
+  ---
+  duration_ms: 111.343458
+  type: 'test'
+  ...
+# Subtest: table outer-margin edits survive HWP/HWPX origins, snapshots and both save formats
+ok 64 - table outer-margin edits survive HWP/HWPX origins, snapshots and both save formats
+  ---
+  duration_ms: 198.286167
+  type: 'test'
+  ...
+# Subtest: signed table margins reject invalid mixed patches before any mutation
+ok 65 - signed table margins reject invalid mixed patches before any mutation
+  ---
+  duration_ms: 338.388417
+  type: 'test'
+  ...
+# Subtest: app blank template preserves table edits through HWP and HWPX
+ok 66 - app blank template preserves table edits through HWP and HWPX
+  ---
+  duration_ms: 175.848208
+  type: 'test'
+  ...
+# Subtest: minimal engine document preserves table edits through HWP and HWPX
+ok 67 - minimal engine document preserves table edits through HWP and HWPX
+  ---
+  duration_ms: 5.859875
+  type: 'test'
+  ...
+1..67
+# tests 67
+# suites 0
+# pass 66
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 1042.264375

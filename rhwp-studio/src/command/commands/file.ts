@@ -61,6 +61,7 @@ import {
   type FileSystemWindowLike,
 } from '@/command/file-system-access';
 import { openDocumentViaPicker } from '../file-open-picker';
+import { PrintStatus } from '@/command/print-status';
 import { PdfPrintDialog } from '@/ui/pdf-print-dialog';
 import { userSettings } from '@/core/user-settings';
 import { showToast } from '@/ui/toast';
@@ -607,10 +608,9 @@ async function runPdfPrint(services: CommandServices): Promise<void> {
 
   const wasm = services.wasm;
   const statusEl = document.getElementById('sb-message');
-  const originalStatus = statusEl?.textContent || '';
+  let status: PrintStatus | null = null;
   let dialog: PdfPrintDialog | null = null;
   let surface: PrintSurface | null = null;
-  let restoreStatus = true;
   let dialogVisible = false;
   let originalDocumentTitle: string | null = null;
 
@@ -633,19 +633,20 @@ async function runPdfPrint(services: CommandServices): Promise<void> {
     }
 
     const initialProgress = printProgressText('pdf', 0, pageCount);
-    if (statusEl) statusEl.textContent = initialProgress;
+    status = new PrintStatus(statusEl);
+    status.update(initialProgress);
     dialog.updateProgress(0);
     await waitForHostPaint();
 
     surface = await createPrintSurface();
     const printPages = await preparePrintPages(services, 'pdf', (current, total) => {
-      if (statusEl) statusEl.textContent = printProgressText('pdf', current, total);
+      status?.update(printProgressText('pdf', current, total));
       dialog?.updateProgress(current);
     });
 
     setupPrintDocument(surface.document, wasm.fileName, printPages);
     await waitForPrintSurfaceReady(surface);
-    if (statusEl) statusEl.textContent = printReadyText('pdf');
+    status?.update(printReadyText('pdf'));
 
     dialog.closeBeforePrint();
     dialogVisible = false;
@@ -661,10 +662,10 @@ async function runPdfPrint(services: CommandServices): Promise<void> {
     document.title = pdfPrintTitle(wasm.fileName);
     surface.window.print();
   } catch (err) {
-    restoreStatus = false;
     const msg = err instanceof Error ? err.message : String(err);
     console.error('[file:print-to-pdf]', msg);
-    if (statusEl) statusEl.textContent = `PDF 준비 실패: ${msg}`;
+    status ??= new PrintStatus(statusEl);
+    status.fail(`PDF 준비 실패: ${msg}`);
     if (dialogVisible && dialog) {
       dialog.showError(msg);
     } else {
@@ -676,7 +677,7 @@ async function runPdfPrint(services: CommandServices): Promise<void> {
     }
     surface?.dispose();
     printJobActive = false;
-    if (restoreStatus && statusEl) statusEl.textContent = originalStatus;
+    status?.finish();
   }
 }
 
@@ -685,10 +686,9 @@ async function runPrintPreview(services: CommandServices): Promise<void> {
 
   const wasm = services.wasm;
   const statusEl = document.getElementById('sb-message');
-  const originalStatus = statusEl?.textContent || '';
+  let status: PrintStatus | null = null;
   let surface: PrintPreviewSurface | null = null;
   let keepPreviewOpen = false;
-  let restoreStatus = true;
 
   try {
     flushDeferredPaginationBeforeExplicitOutput(services, 'print');
@@ -698,7 +698,8 @@ async function runPrintPreview(services: CommandServices): Promise<void> {
     // popup 허용을 위해 사용자 클릭에서 첫 await 전에 창을 연다.
     const surfacePromise = createPrintPreviewSurface();
     const initialProgress = printProgressText('print', 0, pageCount);
-    if (statusEl) statusEl.textContent = initialProgress;
+    status = new PrintStatus(statusEl);
+    status.update(initialProgress);
 
     surface = await surfacePromise;
     if (!surface) return;
@@ -706,13 +707,13 @@ async function runPrintPreview(services: CommandServices): Promise<void> {
 
     const printPages = await preparePrintPages(services, 'print', (current, total) => {
       const progressText = printProgressText('print', current, total);
-      if (statusEl) statusEl.textContent = progressText;
+      status?.update(progressText);
       if (surface) setPrintPreviewLoading(surface, progressText);
     });
 
     setupPrintDocument(surface.document, wasm.fileName, printPages, surface.window);
     await waitForPrintSurfaceReady(surface);
-    if (statusEl) statusEl.textContent = printReadyText('print');
+    status?.update(printReadyText('print'));
     keepPreviewOpen = true;
 
     console.info(
@@ -721,10 +722,10 @@ async function runPrintPreview(services: CommandServices): Promise<void> {
     );
   } catch (err) {
     if (err instanceof PrintSurfaceClosedError) return;
-    restoreStatus = false;
     const msg = err instanceof Error ? err.message : String(err);
     console.error('[file:print]', msg);
-    if (statusEl) statusEl.textContent = `인쇄 미리보기 실패: ${msg}`;
+    status ??= new PrintStatus(statusEl);
+    status.fail(`인쇄 미리보기 실패: ${msg}`);
     if (err instanceof PrintPreviewBlockedError) {
       alert('인쇄 미리보기 팝업이 차단되었습니다. 팝업 허용 후 다시 시도해주세요.');
     } else {
@@ -733,7 +734,7 @@ async function runPrintPreview(services: CommandServices): Promise<void> {
   } finally {
     if (!keepPreviewOpen) surface?.close();
     printJobActive = false;
-    if (restoreStatus && statusEl) statusEl.textContent = originalStatus;
+    status?.finish();
   }
 }
 

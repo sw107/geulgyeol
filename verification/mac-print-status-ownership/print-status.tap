@@ -1,0 +1,66 @@
+TAP version 13
+# (node:29472) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: success restores the displaced normal message and disconnects observation
+ok 1 - success restores the displaced normal message and disconnects observation
+  ---
+  duration_ms: 31.549834
+  type: 'test'
+  ...
+# Subtest: a successful retry replaces the retained print error with its original normal status
+ok 2 - a successful retry replaces the retained print error with its original normal status
+  ---
+  duration_ms: 0.990875
+  type: 'test'
+  ...
+# Subtest: repeated failures preserve the original normal message for the later successful retry
+ok 3 - repeated failures preserve the original normal message for the later successful retry
+  ---
+  duration_ms: 0.806792
+  type: 'test'
+  ...
+# Subtest: a newer same-turn message survives later progress, failure and final cleanup
+ok 4 - a newer same-turn message survives later progress, failure and final cleanup
+  ---
+  duration_ms: 0.813291
+  type: 'test'
+  ...
+# Subtest: an identical external rewrite of progress is preserved instead of restoring older text
+ok 5 - an identical external rewrite of progress is preserved instead of restoring older text
+  ---
+  duration_ms: 0.7535
+  type: 'test'
+  ...
+# Subtest: a newer message between attempts replaces the stored failure restore target
+ok 6 - a newer message between attempts replaces the stored failure restore target
+  ---
+  duration_ms: 0.703667
+  type: 'test'
+  ...
+# Subtest: an identical external rewrite of a retained error relinquishes the old failure ownership
+ok 7 - an identical external rewrite of a retained error relinquishes the old failure ownership
+  ---
+  duration_ms: 1.41625
+  type: 'test'
+  ...
+# Subtest: delivered external mutations relinquish ownership and release the observer
+ok 8 - delivered external mutations relinquish ownership and release the observer
+  ---
+  duration_ms: 4.444541
+  type: 'test'
+  ...
+# Subtest: failure tracking is isolated by element and a missing status surface remains optional
+ok 9 - failure tracking is isolated by element and a missing status surface remains optional
+  ---
+  duration_ms: 1.334
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 83.080166
