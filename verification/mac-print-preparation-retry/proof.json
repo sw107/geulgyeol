@@ -1,0 +1,120 @@
+{
+  "schema": "geulgyeol-print-preparation-retry-v1",
+  "baseCommit": "153ac9caba3c92e6cdd0e0a388ec3aade9069e98",
+  "testedSourceSHA256": {
+    "rhwp-studio/src/command/commands/file.ts": "33ea6a85f1d1871dff8c3870be816ad63d59b1cdc1b7aa2e537ec6328be83de7",
+    "rhwp-studio/src/command/print-surface.ts": "044dcfc0f561c8ad9c030826eae2b26ee34249a0cdf8de1b8f7b1c34f1c1a261",
+    "rhwp-studio/src/command/print-pages.ts": "b16aa902f12c9227d669f98cb4c2695e0d10056f57ba5de449510d94472801ce",
+    "rhwp-studio/src/ui/pdf-print-dialog.ts": "6cb34b895b2ccc58e6c392951b5649a015562df0a05f8d3c452859db1dadca01",
+    "desktop/tests/print-surface-readiness.test.cjs": "3f802ce42e860505ac153ca6ded0d510d6d53ce04263a49139c7f5a65bc47742"
+  },
+  "runnerSHA256": "8d90d26998d2fc5f6d4fba7d9f8b1ac1b4f7d9d60a83127f5e986413cbc7b336",
+  "hostElectronBinarySHA256": "588478afc5f2bc73b6433d6e565a214dc830144be39a3d79805723292754ccd8",
+  "bootstrapSHA256": "ebbb1898080bd475e6845c8e742e79605c991a4ab8d60550b41f0713629f87e6",
+  "wasmSHA256": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69",
+  "runtimeBuild": {
+    "reused": 13,
+    "written": 3,
+    "newEngineBuild": false,
+    "newPackage": false,
+    "QAHandleExposures": true
+  },
+  "rawLocalEvidenceSHA256": {
+    "baseline-proof": "3ad0782664601f005beb0249417eab6b5b6e05cdae4be035f09e65c5405fd4b1",
+    "baseline-lifecycle": "286ce06c9231af7f1af267ac94295b78bc3182952ae38cff572f6b6fae9890b4",
+    "fixed-proof": "8a80ad255ba2fa8149e49f77ac619402f1f82a4e575e58dacb805b78ab9e4229",
+    "fixed-lifecycle": "286ce06c9231af7f1af267ac94295b78bc3182952ae38cff572f6b6fae9890b4",
+    "fixed-audit": "cf08d7572f71ffa737f3954f166f067a50bbe132fcfd020f4e8eaf735531f7cb",
+    "fixed-console-events": "102acf75612556720243b58176fe3875b6e158e64114ea2f590b08db4de9b272"
+  },
+  "baseline": {
+    "format": "hwp",
+    "actualReadinessFrameIntercepted": true,
+    "subsequentPdfGuidanceBlocked": true,
+    "busyToastObserved": true,
+    "normalQuit": true
+  },
+  "fixed": {
+    "formats": [
+      "hwp",
+      "hwpx"
+    ],
+    "renderFailureAfterFirstPage": true,
+    "pdfGuidanceCancel": true,
+    "pdfPreparationRenderFailure": true,
+    "earlyPreviewCloseRecovers": true,
+    "completeSvgTreeComparison": true,
+    "bytesTextDirtyUndoRedoPreserved": true,
+    "retainedRedoAndUndoExecuted": true,
+    "normalQuit": true,
+    "OSPrintAttempts": 0
+  },
+  "nodeChecks": {
+    "baseCommit": "153ac9caba3c92e6cdd0e0a388ec3aade9069e98",
+    "results": [
+      {
+        "name": "desktop",
+        "argv": [
+          "npm",
+          "test",
+          "--prefix",
+          "desktop"
+        ],
+        "exitCode": 0,
+        "stdoutSHA256": "a97bac063a9744bee51b901e6c10dd432803d3ca25ac0b8ef1ecea5183228e50",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "print-readiness",
+        "argv": [
+          "node",
+          "--test",
+          "desktop/tests/print-surface-readiness.test.cjs"
+        ],
+        "exitCode": 0,
+        "stdoutSHA256": "b20a9c60c2d96bbddb671fdd8bbfd50184d8d7b6f998b8b9eda97261272f8e17",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "typecheck",
+        "argv": [
+          "node",
+          "node_modules/typescript/bin/tsc",
+          "--noEmit"
+        ],
+        "exitCode": 0,
+        "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "sourceAndRuntimePinsUnchanged": true,
+    "pinnedFiles": 67
+  },
+  "preservation": {
+    "dirtyFiles4": true,
+    "lockFiles3": true,
+    "wasm": true,
+    "priorEvidenceFiles": 273,
+    "compilerCacheFiles": 133,
+    "combinedOwnedBytes": 4698558464,
+    "runtimePinAfterMatchesBefore": true
+  },
+  "finalEvidenceBudget": {
+    "normalBytes": 718155776,
+    "failureBytes": 158240768,
+    "totalBytes": 876396544,
+    "freeBytes": 40371548160,
+    "normalForecastBytes": 0,
+    "failureForecastBytes": 0,
+    "normalLimit": 805306368,
+    "failureLimit": 268435456,
+    "requiredFreeBytes": 16374562816
+  },
+  "limits": [
+    "Synthetic two-page fixtures, controlled native file chooser; no user originals.",
+    "Actual Electron BrowserWindows and HWP/WASM, not an OS print-dialog verification.",
+    "Fonts/timeout cleanup is unit-tested; actual native close case pauses a readiness animation frame.",
+    "Successful retry restores the previous status text, including a prior error; separate existing status-message issue.",
+    "Preparatory failed runs remain in private QA evidence; no claim of their passing or confirmed initial normal quit."
+  ]
+}

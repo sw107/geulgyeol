@@ -48,6 +48,7 @@ import {
   createPrintPreviewSurface,
   createPrintSurface,
   PrintPreviewBlockedError,
+  PrintSurfaceClosedError,
   waitForPrintSurfaceReady,
   type PrintPreviewSurface,
   type PrintSurface,
@@ -719,6 +720,7 @@ async function runPrintPreview(services: CommandServices): Promise<void> {
       + `(surface=window, pages=${pageCount}, profile=print)`,
     );
   } catch (err) {
+    if (err instanceof PrintSurfaceClosedError) return;
     restoreStatus = false;
     const msg = err instanceof Error ? err.message : String(err);
     console.error('[file:print]', msg);

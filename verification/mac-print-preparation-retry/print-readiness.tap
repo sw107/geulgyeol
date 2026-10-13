@@ -1,0 +1,36 @@
+TAP version 13
+# (node:9829) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: readiness waits for fonts and two paints before measuring, then removes owner timers
+ok 1 - readiness waits for fonts and two paints before measuring, then removes owner timers
+  ---
+  duration_ms: 36.310959
+  type: 'test'
+  ...
+# Subtest: closing a child with a discarded paint callback rejects and cancels that callback
+ok 2 - closing a child with a discarded paint callback rejects and cancels that callback
+  ---
+  duration_ms: 3.314417
+  type: 'test'
+  ...
+# Subtest: closing while fonts never resolve also releases readiness and all owner timers
+ok 3 - closing while fonts never resolve also releases readiness and all owner timers
+  ---
+  duration_ms: 2.421791
+  type: 'test'
+  ...
+# Subtest: an open child with stalled readiness times out and removes the pending callback
+ok 4 - an open child with stalled readiness times out and removes the pending callback
+  ---
+  duration_ms: 12.0625
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 87.552458
