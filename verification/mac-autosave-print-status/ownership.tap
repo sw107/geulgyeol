@@ -1,0 +1,110 @@
+TAP version 13
+# (node:48319) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: autosave inherits the normal status underneath an active print instead of retaining its progress
+ok 1 - autosave inherits the normal status underneath an active print instead of retaining its progress
+  ---
+  duration_ms: 29.479041
+  type: 'test'
+  ...
+# Subtest: a newer message survives the saved notification and delayed restore after autosave starts
+ok 2 - a newer message survives the saved notification and delayed restore after autosave starts
+  ---
+  duration_ms: 1.688334
+  type: 'test'
+  ...
+# Subtest: a canceled older restore callback cannot finish or clear the newer autosave session
+ok 3 - a canceled older restore callback cannot finish or clear the newer autosave session
+  ---
+  duration_ms: 2.75225
+  type: 'test'
+  ...
+# Subtest: an autosave restore delivered during a later print does not overwrite its progress
+ok 4 - an autosave restore delivered during a later print does not overwrite its progress
+  ---
+  duration_ms: 4.12625
+  type: 'test'
+  ...
+# Subtest: an identical external rewrite of the completed notice survives the restore timer
+ok 5 - an identical external rewrite of the completed notice survives the restore timer
+  ---
+  duration_ms: 4.204625
+  type: 'test'
+  ...
+# Subtest: background notices keep a retained print failure and its successful-retry target intact
+ok 6 - background notices keep a retained print failure and its successful-retry target intact
+  ---
+  duration_ms: 2.347042
+  type: 'test'
+  ...
+# Subtest: blocked and failed background notices use their existing duration and restore only owned messages
+ok 7 - blocked and failed background notices use their existing duration and restore only owned messages
+  ---
+  duration_ms: 1.314042
+  type: 'test'
+  ...
+# (node:48320) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: success restores the displaced normal message and disconnects observation
+ok 8 - success restores the displaced normal message and disconnects observation
+  ---
+  duration_ms: 32.620833
+  type: 'test'
+  ...
+# Subtest: a successful retry replaces the retained print error with its original normal status
+ok 9 - a successful retry replaces the retained print error with its original normal status
+  ---
+  duration_ms: 1.16
+  type: 'test'
+  ...
+# Subtest: repeated failures preserve the original normal message for the later successful retry
+ok 10 - repeated failures preserve the original normal message for the later successful retry
+  ---
+  duration_ms: 0.9115
+  type: 'test'
+  ...
+# Subtest: a newer same-turn message survives later progress, failure and final cleanup
+ok 11 - a newer same-turn message survives later progress, failure and final cleanup
+  ---
+  duration_ms: 0.824167
+  type: 'test'
+  ...
+# Subtest: an identical external rewrite of progress is preserved instead of restoring older text
+ok 12 - an identical external rewrite of progress is preserved instead of restoring older text
+  ---
+  duration_ms: 0.798709
+  type: 'test'
+  ...
+# Subtest: a newer message between attempts replaces the stored failure restore target
+ok 13 - a newer message between attempts replaces the stored failure restore target
+  ---
+  duration_ms: 1.719625
+  type: 'test'
+  ...
+# Subtest: an identical external rewrite of a retained error relinquishes the old failure ownership
+ok 14 - an identical external rewrite of a retained error relinquishes the old failure ownership
+  ---
+  duration_ms: 1.301917
+  type: 'test'
+  ...
+# Subtest: delivered external mutations relinquish ownership and release the observer
+ok 15 - delivered external mutations relinquish ownership and release the observer
+  ---
+  duration_ms: 3.353417
+  type: 'test'
+  ...
+# Subtest: failure tracking is isolated by element and a missing status surface remains optional
+ok 16 - failure tracking is isolated by element and a missing status surface remains optional
+  ---
+  duration_ms: 3.193709
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 91.9125
