@@ -69,6 +69,7 @@ import {
   resolveLocalFont,
 } from '@/core/local-fonts';
 import { userSettings } from '@/core/user-settings';
+import { AutosaveStatusDisplay } from '@/ui/autosave-status';
 import { AutosaveManager, type AutosaveScheduleSettings, type AutosaveStatus } from '@/recovery/autosave-manager';
 import { clearAutosaveDrafts, listAutosaveDrafts, type AutosaveDraft } from '@/recovery/autosave-store';
 import { recoveryFileName } from '@/recovery/recovery-format';
@@ -450,8 +451,9 @@ const sbMessage = () => document.getElementById('sb-message')!;
 const sbPage = () => document.getElementById('sb-page')!;
 const sbSection = () => document.getElementById('sb-section')!;
 const sbZoomVal = () => document.getElementById('sb-zoom-val')!;
-let autosaveStatusRestoreTimer: ReturnType<typeof setTimeout> | null = null;
-let autosavePreviousMessage: string | null = null;
+const autosaveStatusDisplay = new AutosaveStatusDisplay(
+  () => document.getElementById('sb-message'), formatBytes,
+);
 
 function autosaveScheduleFromUserSettings(): AutosaveScheduleSettings {
   const settings = userSettings.getAutosaveSettings();
@@ -464,42 +466,7 @@ function autosaveScheduleFromUserSettings(): AutosaveScheduleSettings {
 }
 
 function handleAutosaveStatus(status: AutosaveStatus): void {
-  const message = document.getElementById('sb-message');
-  if (!message) return;
-  if (autosaveStatusRestoreTimer) {
-    clearTimeout(autosaveStatusRestoreTimer);
-    autosaveStatusRestoreTimer = null;
-  }
-
-  if (status.state === 'saving') {
-    if (autosavePreviousMessage === null) {
-      autosavePreviousMessage = message.textContent ?? '';
-    }
-    message.textContent = '복구용 자동 저장 중...';
-    return;
-  }
-
-  const restoreTarget = autosavePreviousMessage
-    ?? (status.state === 'blocked' ? message.textContent ?? '' : null);
-  autosavePreviousMessage = null;
-  let nextMessage: string;
-  if (status.state === 'saved') {
-    nextMessage = `복구용 자동 저장 완료 (${formatBytes(status.byteLength)})`;
-  } else if (status.state === 'blocked') {
-    // 실패가 아니라 의도된 차단이므로 구분해서 알린다 (#5992).
-    nextMessage = '보호 문서는 복구용 자동 저장을 하지 않습니다';
-  } else {
-    nextMessage = '복구용 자동 저장 실패';
-  }
-  message.textContent = nextMessage;
-  if (restoreTarget !== null && restoreTarget !== nextMessage) {
-    autosaveStatusRestoreTimer = setTimeout(() => {
-      if (message.textContent === nextMessage) {
-        message.textContent = restoreTarget;
-      }
-      autosaveStatusRestoreTimer = null;
-    }, status.state === 'saved' ? 1_600 : 4_000);
-  }
+  autosaveStatusDisplay.update(status);
 }
 
 function formatBytes(bytes: number): string {

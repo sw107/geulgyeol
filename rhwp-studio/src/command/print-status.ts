@@ -1,6 +1,6 @@
-// A retained print error remembers the message it displaced, but only while
-// no other writer has changed that status element (including identical text).
-const failedStatuses = new WeakMap<HTMLElement, PrintStatus>();
+// Temporary status writers share the displaced normal message. Retained print
+// errors keep that target only while no external writer changes the element.
+const ownedStatuses = new WeakMap<HTMLElement, PrintStatus>();
 
 export class PrintStatus {
   private readonly originalStatus: string;
@@ -10,8 +10,13 @@ export class PrintStatus {
   private failed = false;
   private finished = false;
 
+  static hasRetainedFailure(element: HTMLElement): boolean {
+    const owner = ownedStatuses.get(element);
+    return !!(owner?.failed && owner.finished && owner.hasOwnership());
+  }
+
   constructor(private readonly element: HTMLElement | null) {
-    const previous = element ? failedStatuses.get(element) : undefined;
+    const previous = element ? ownedStatuses.get(element) : undefined;
     this.originalStatus = previous?.hasOwnership()
       ? previous.originalStatus : element?.textContent ?? '';
     previous?.release();
@@ -26,8 +31,8 @@ export class PrintStatus {
   private release(): void {
     this.owned = false;
     this.observer?.disconnect();
-    if (this.element && failedStatuses.get(this.element) === this) {
-      failedStatuses.delete(this.element);
+    if (this.element && ownedStatuses.get(this.element) === this) {
+      ownedStatuses.delete(this.element);
     }
   }
 
@@ -45,6 +50,7 @@ export class PrintStatus {
     // were consumed above; later external mutations relinquish ownership.
     this.observer?.takeRecords();
     this.wrote = true;
+    ownedStatuses.set(this.element, this);
     return true;
   }
 
@@ -55,7 +61,7 @@ export class PrintStatus {
   finish(): void {
     if (this.finished) return;
     if (this.failed && this.element && this.hasOwnership()) {
-      failedStatuses.set(this.element, this);
+      ownedStatuses.set(this.element, this);
       // Observe until another writer supersedes the failure or a retry starts.
     } else {
       if (this.wrote && this.hasOwnership()) this.update(this.originalStatus);
