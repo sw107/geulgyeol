@@ -1,0 +1,2536 @@
+{
+  "baseCommit": "eb501dc8d4adf2fbd79c329834e457b77ad5740f",
+  "sourceFix": "rhwp-studio/src/ui/find-dialog.ts",
+  "baseline": [
+    {
+      "ext": "hwp",
+      "cases": [
+        {
+          "kind": "query-change",
+          "beforeText": "APRE needle POST second Needle end&#128578;",
+          "afterText": "APRE Q POST second Needle end&#128578;",
+          "beforeHistory": {
+            "u": 1,
+            "r": 1
+          },
+          "afterHistory": {
+            "u": 2,
+            "r": 0
+          },
+          "wrongMutationReproduced": true
+        },
+        {
+          "kind": "case-change",
+          "beforeText": "APRE needle POST second Needle end&#128578;",
+          "afterText": "APRE Q POST second Needle end&#128578;",
+          "beforeHistory": {
+            "u": 1,
+            "r": 1
+          },
+          "afterHistory": {
+            "u": 2,
+            "r": 0
+          },
+          "wrongMutationReproduced": true
+        },
+        {
+          "kind": "empty-query",
+          "beforeText": "APRE needle POST second Needle end&#128578;",
+          "afterText": "APRE Q POST second Needle end&#128578;",
+          "beforeHistory": {
+            "u": 1,
+            "r": 1
+          },
+          "afterHistory": {
+            "u": 2,
+            "r": 0
+          },
+          "wrongMutationReproduced": true
+        },
+        {
+          "kind": "body-edit",
+          "beforeText": "XYZAPRE needle POST second Needle end&#128578;",
+          "afterText": "XYZAPQdle POST second Needle end&#128578;",
+          "beforeHistory": {
+            "u": 2,
+            "r": 0
+          },
+          "afterHistory": {
+            "u": 3,
+            "r": 0
+          },
+          "wrongMutationReproduced": true
+        },
+        {
+          "kind": "document-replace",
+          "beforeText": "OTHER safe content&#128578;",
+          "afterText": "OTHERQcontent&#128578;",
+          "beforeHistory": {
+            "u": 0,
+            "r": 0
+          },
+          "afterHistory": {
+            "u": 1,
+            "r": 0
+          },
+          "wrongMutationReproduced": true
+        }
+      ]
+    }
+  ],
+  "fixed": {
+    "mode": "fixed",
+    "rows": [
+      {
+        "ext": "hwp",
+        "cases": [
+          {
+            "kind": "query-change",
+            "staleActionPreserved": true,
+            "dirtyBefore": true,
+            "historyBefore": {
+              "u": 1,
+              "r": 1
+            },
+            "pendingRedoVerified": true,
+            "newMatchOnly": true,
+            "undoRedoVerified": true,
+            "fullBytesAtSameCaretVerified": true,
+            "productionCaretVerified": true,
+            "caretStages": [
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 41
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "hwp": "57a56dfaf9076abfdd9a3947b0eef8b360ba134d3379c274eaa94525a1b4e948",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              }
+            ],
+            "savedReopened": [
+              {
+                "name": "find-hwp-query-change-hwp.hwp",
+                "format": "hwp",
+                "sha256": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+                "sourceFormatFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              },
+              {
+                "name": "find-hwp-query-change-hwpx.hwpx",
+                "format": "hwpx",
+                "sha256": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+                "crossFormatCoreFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              }
+            ]
+          },
+          {
+            "kind": "case-change",
+            "staleActionPreserved": true,
+            "dirtyBefore": true,
+            "historyBefore": {
+              "u": 1,
+              "r": 1
+            },
+            "pendingRedoVerified": true,
+            "newMatchOnly": true,
+            "undoRedoVerified": true,
+            "fullBytesAtSameCaretVerified": true,
+            "productionCaretVerified": true,
+            "caretStages": [
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 41
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "hwp": "57a56dfaf9076abfdd9a3947b0eef8b360ba134d3379c274eaa94525a1b4e948",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              }
+            ],
+            "savedReopened": [
+              {
+                "name": "find-hwp-case-change-hwp.hwp",
+                "format": "hwp",
+                "sha256": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+                "sourceFormatFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              },
+              {
+                "name": "find-hwp-case-change-hwpx.hwpx",
+                "format": "hwpx",
+                "sha256": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+                "crossFormatCoreFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              }
+            ]
+          },
+          {
+            "kind": "empty-query",
+            "staleActionPreserved": true,
+            "dirtyBefore": true,
+            "historyBefore": {
+              "u": 1,
+              "r": 1
+            },
+            "pendingRedoVerified": true,
+            "newMatchOnly": true,
+            "undoRedoVerified": true,
+            "fullBytesAtSameCaretVerified": true,
+            "productionCaretVerified": true,
+            "caretStages": [
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 41
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "hwp": "57a56dfaf9076abfdd9a3947b0eef8b360ba134d3379c274eaa94525a1b4e948",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              }
+            ],
+            "savedReopened": [
+              {
+                "name": "find-hwp-empty-query-hwp.hwp",
+                "format": "hwp",
+                "sha256": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+                "sourceFormatFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              },
+              {
+                "name": "find-hwp-empty-query-hwpx.hwpx",
+                "format": "hwpx",
+                "sha256": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+                "crossFormatCoreFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              }
+            ]
+          },
+          {
+            "kind": "body-edit",
+            "staleActionPreserved": true,
+            "dirtyBefore": true,
+            "historyBefore": {
+              "u": 2,
+              "r": 0
+            },
+            "pendingRedoVerified": false,
+            "newMatchOnly": true,
+            "undoRedoVerified": true,
+            "fullBytesAtSameCaretVerified": true,
+            "productionCaretVerified": true,
+            "caretStages": [
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 30
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "hwp": "f9287a1a12be7d4d44197a05300da58d0ac1a950c9716e306d70afa763df1469",
+                "hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 28
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 44
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 28
+                },
+                "hwp": "586ef9ef75fc1fc1d67514ec913c44b126c419f11062d0304fd1534059cfb3cb",
+                "hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 30
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "hwp": "f9287a1a12be7d4d44197a05300da58d0ac1a950c9716e306d70afa763df1469",
+                "hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 30
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "hwp": "d8099274d978891a21ca150ead4fb319d14a1758fc95dab3bc1c4bfd9b47b496",
+                "hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8"
+              }
+            ],
+            "savedReopened": [
+              {
+                "name": "find-hwp-body-edit-hwp.hwp",
+                "format": "hwp",
+                "sha256": "d8099274d978891a21ca150ead4fb319d14a1758fc95dab3bc1c4bfd9b47b496",
+                "sourceFormatFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              },
+              {
+                "name": "find-hwp-body-edit-hwpx.hwpx",
+                "format": "hwpx",
+                "sha256": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+                "crossFormatCoreFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              }
+            ]
+          },
+          {
+            "kind": "document-replace",
+            "staleActionPreserved": true,
+            "dirtyBefore": false,
+            "historyBefore": {
+              "u": 0,
+              "r": 0
+            },
+            "pendingRedoVerified": false,
+            "newMatchOnly": true,
+            "undoRedoVerified": true,
+            "fullBytesAtSameCaretVerified": true,
+            "productionCaretVerified": true,
+            "caretStages": [
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 26
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "hwp": "71f5bbc57f9f6e00e0b34b43b18926583f09abbce93b9b2f85be12953126b64d",
+                "hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 26
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "hwp": "3b8ad38079256f24d347492e1dbe7d29333506afdccf166a605e66c2ffbe72c7",
+                "hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 26
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "hwp": "71f5bbc57f9f6e00e0b34b43b18926583f09abbce93b9b2f85be12953126b64d",
+                "hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 26
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "hwp": "3b8ad38079256f24d347492e1dbe7d29333506afdccf166a605e66c2ffbe72c7",
+                "hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a"
+              }
+            ],
+            "savedReopened": [
+              {
+                "name": "find-hwp-document-replace-hwp.hwp",
+                "format": "hwp",
+                "sha256": "3b8ad38079256f24d347492e1dbe7d29333506afdccf166a605e66c2ffbe72c7",
+                "sourceFormatFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              },
+              {
+                "name": "find-hwp-document-replace-hwpx.hwpx",
+                "format": "hwpx",
+                "sha256": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+                "crossFormatCoreFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "ext": "hwpx",
+        "cases": [
+          {
+            "kind": "query-change",
+            "staleActionPreserved": true,
+            "dirtyBefore": true,
+            "historyBefore": {
+              "u": 1,
+              "r": 1
+            },
+            "pendingRedoVerified": true,
+            "newMatchOnly": true,
+            "undoRedoVerified": true,
+            "fullBytesAtSameCaretVerified": true,
+            "productionCaretVerified": true,
+            "caretStages": [
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 41
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "hwp": "77c7b094c8c4c64feccd907da4978a1af03cc64d923ebdb56a45dd89e7e5d0a1",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              }
+            ],
+            "savedReopened": [
+              {
+                "name": "find-hwpx-query-change-hwp.hwp",
+                "format": "hwp",
+                "sha256": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+                "crossFormatCoreFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": false
+              },
+              {
+                "name": "find-hwpx-query-change-hwpx.hwpx",
+                "format": "hwpx",
+                "sha256": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+                "sourceFormatFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              }
+            ]
+          },
+          {
+            "kind": "case-change",
+            "staleActionPreserved": true,
+            "dirtyBefore": true,
+            "historyBefore": {
+              "u": 1,
+              "r": 1
+            },
+            "pendingRedoVerified": true,
+            "newMatchOnly": true,
+            "undoRedoVerified": true,
+            "fullBytesAtSameCaretVerified": true,
+            "productionCaretVerified": true,
+            "caretStages": [
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 41
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "hwp": "77c7b094c8c4c64feccd907da4978a1af03cc64d923ebdb56a45dd89e7e5d0a1",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              }
+            ],
+            "savedReopened": [
+              {
+                "name": "find-hwpx-case-change-hwp.hwp",
+                "format": "hwp",
+                "sha256": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+                "crossFormatCoreFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": false
+              },
+              {
+                "name": "find-hwpx-case-change-hwpx.hwpx",
+                "format": "hwpx",
+                "sha256": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+                "sourceFormatFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              }
+            ]
+          },
+          {
+            "kind": "empty-query",
+            "staleActionPreserved": true,
+            "dirtyBefore": true,
+            "historyBefore": {
+              "u": 1,
+              "r": 1
+            },
+            "pendingRedoVerified": true,
+            "newMatchOnly": true,
+            "undoRedoVerified": true,
+            "fullBytesAtSameCaretVerified": true,
+            "productionCaretVerified": true,
+            "caretStages": [
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 41
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 25
+                },
+                "hwp": "77c7b094c8c4c64feccd907da4978a1af03cc64d923ebdb56a45dd89e7e5d0a1",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+                "hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 27
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 11
+                },
+                "hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+                "hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9"
+              }
+            ],
+            "savedReopened": [
+              {
+                "name": "find-hwpx-empty-query-hwp.hwp",
+                "format": "hwp",
+                "sha256": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+                "crossFormatCoreFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": false
+              },
+              {
+                "name": "find-hwpx-empty-query-hwpx.hwpx",
+                "format": "hwpx",
+                "sha256": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+                "sourceFormatFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              }
+            ]
+          },
+          {
+            "kind": "body-edit",
+            "staleActionPreserved": true,
+            "dirtyBefore": true,
+            "historyBefore": {
+              "u": 2,
+              "r": 0
+            },
+            "pendingRedoVerified": false,
+            "newMatchOnly": true,
+            "undoRedoVerified": true,
+            "fullBytesAtSameCaretVerified": true,
+            "productionCaretVerified": true,
+            "caretStages": [
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 30
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "hwp": "fe0151afad681270275df186bb317a7bdf52ccfa66aef1cc514b5c34bb4f91cf",
+                "hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 28
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 44
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 28
+                },
+                "hwp": "cce16e8fd0d402555df51166cef3aa99805d78ebfb148eb79ef0dfe526c6149f",
+                "hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 30
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "hwp": "fe0151afad681270275df186bb317a7bdf52ccfa66aef1cc514b5c34bb4f91cf",
+                "hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 30
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 14
+                },
+                "hwp": "b18796c257fb95ada71940aa5f0fc2e3c7c671ab9b8b9911088dad13a4f65096",
+                "hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8"
+              }
+            ],
+            "savedReopened": [
+              {
+                "name": "find-hwpx-body-edit-hwp.hwp",
+                "format": "hwp",
+                "sha256": "b18796c257fb95ada71940aa5f0fc2e3c7c671ab9b8b9911088dad13a4f65096",
+                "crossFormatCoreFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": false
+              },
+              {
+                "name": "find-hwpx-body-edit-hwpx.hwpx",
+                "format": "hwpx",
+                "sha256": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+                "sourceFormatFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              }
+            ]
+          },
+          {
+            "kind": "document-replace",
+            "staleActionPreserved": true,
+            "dirtyBefore": false,
+            "historyBefore": {
+              "u": 0,
+              "r": 0
+            },
+            "pendingRedoVerified": false,
+            "newMatchOnly": true,
+            "undoRedoVerified": true,
+            "fullBytesAtSameCaretVerified": true,
+            "productionCaretVerified": true,
+            "caretStages": [
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 26
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "hwp": "98db95ec86110e98f3687605d2e2bb0ceb09f9b640ea800670e4ff1d5815f355",
+                "hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 26
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "hwp": "210a19034e4ef43a7134ac173c19941a4f7002f28a241827aabd397c17e76e55",
+                "hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 26
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "hwp": "98db95ec86110e98f3687605d2e2bb0ceb09f9b640ea800670e4ff1d5815f355",
+                "hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed"
+              },
+              {
+                "cursor": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "stored": {
+                  "list": 0,
+                  "para": 0,
+                  "pos": 26
+                },
+                "interpreted": {
+                  "sectionIndex": 0,
+                  "paragraphIndex": 0,
+                  "charOffset": 10
+                },
+                "hwp": "210a19034e4ef43a7134ac173c19941a4f7002f28a241827aabd397c17e76e55",
+                "hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a"
+              }
+            ],
+            "savedReopened": [
+              {
+                "name": "find-hwpx-document-replace-hwp.hwp",
+                "format": "hwp",
+                "sha256": "210a19034e4ef43a7134ac173c19941a4f7002f28a241827aabd397c17e76e55",
+                "crossFormatCoreFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": false
+              },
+              {
+                "name": "find-hwpx-document-replace-hwpx.hwpx",
+                "format": "hwpx",
+                "sha256": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+                "sourceFormatFullBytesEqual": true,
+                "rawRoundtripFullBytesEqual": true
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "dialogs": [],
+    "errors": [],
+    "receivedEngineSHA256": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69",
+    "actualMacElectron": true,
+    "electron": "44.3.0",
+    "instrumentedReadHandles": true,
+    "syntheticFixturesOnly": true,
+    "nativeFileChooserControlled": true,
+    "OSPrintDialogVerified": false,
+    "OSPrintCallsBlocked": true,
+    "scope": "actual modeless find/replace stale hit, editing, save/reopen and history",
+    "physicalPrinterOutput": false,
+    "normalQuit": true,
+    "exitCode": 0,
+    "budget": {
+      "normalBytes": 785813504,
+      "failureBytes": 163991552,
+      "totalBytes": 949805056,
+      "incompletePhases": [
+        "mac-find-stale-hit/final-core-roundtrip-20261013"
+      ],
+      "freeBytes": 41220345856,
+      "normalForecastBytes": 0,
+      "failureForecastBytes": 0,
+      "normalLimit": 805306368,
+      "failureLimit": 268435456,
+      "requiredFreeBytes": 16374562816
+    }
+  },
+  "serializerAnalysis": {
+    "actualStoredCaretMatchesDocumentProperties": 90,
+    "caretCheckpoints": [
+      "hwp-body-edit-original",
+      "hwp-body-edit-redone",
+      "hwp-body-edit-reopened-hwp",
+      "hwp-body-edit-reopened-hwpx",
+      "hwp-body-edit-replaced",
+      "hwp-body-edit-save-before",
+      "hwp-body-edit-stale-after",
+      "hwp-body-edit-stale-before",
+      "hwp-body-edit-undone",
+      "hwp-case-change-original",
+      "hwp-case-change-redone",
+      "hwp-case-change-reopened-hwp",
+      "hwp-case-change-reopened-hwpx",
+      "hwp-case-change-replaced",
+      "hwp-case-change-save-before",
+      "hwp-case-change-stale-after",
+      "hwp-case-change-stale-before",
+      "hwp-case-change-undone",
+      "hwp-document-replace-original",
+      "hwp-document-replace-redone",
+      "hwp-document-replace-reopened-hwp",
+      "hwp-document-replace-reopened-hwpx",
+      "hwp-document-replace-replaced",
+      "hwp-document-replace-save-before",
+      "hwp-document-replace-stale-after",
+      "hwp-document-replace-stale-before",
+      "hwp-document-replace-undone",
+      "hwp-empty-query-original",
+      "hwp-empty-query-redone",
+      "hwp-empty-query-reopened-hwp",
+      "hwp-empty-query-reopened-hwpx",
+      "hwp-empty-query-replaced",
+      "hwp-empty-query-save-before",
+      "hwp-empty-query-stale-after",
+      "hwp-empty-query-stale-before",
+      "hwp-empty-query-undone",
+      "hwp-query-change-original",
+      "hwp-query-change-redone",
+      "hwp-query-change-reopened-hwp",
+      "hwp-query-change-reopened-hwpx",
+      "hwp-query-change-replaced",
+      "hwp-query-change-save-before",
+      "hwp-query-change-stale-after",
+      "hwp-query-change-stale-before",
+      "hwp-query-change-undone",
+      "hwpx-body-edit-original",
+      "hwpx-body-edit-redone",
+      "hwpx-body-edit-reopened-hwp",
+      "hwpx-body-edit-reopened-hwpx",
+      "hwpx-body-edit-replaced",
+      "hwpx-body-edit-save-before",
+      "hwpx-body-edit-stale-after",
+      "hwpx-body-edit-stale-before",
+      "hwpx-body-edit-undone",
+      "hwpx-case-change-original",
+      "hwpx-case-change-redone",
+      "hwpx-case-change-reopened-hwp",
+      "hwpx-case-change-reopened-hwpx",
+      "hwpx-case-change-replaced",
+      "hwpx-case-change-save-before",
+      "hwpx-case-change-stale-after",
+      "hwpx-case-change-stale-before",
+      "hwpx-case-change-undone",
+      "hwpx-document-replace-original",
+      "hwpx-document-replace-redone",
+      "hwpx-document-replace-reopened-hwp",
+      "hwpx-document-replace-reopened-hwpx",
+      "hwpx-document-replace-replaced",
+      "hwpx-document-replace-save-before",
+      "hwpx-document-replace-stale-after",
+      "hwpx-document-replace-stale-before",
+      "hwpx-document-replace-undone",
+      "hwpx-empty-query-original",
+      "hwpx-empty-query-redone",
+      "hwpx-empty-query-reopened-hwp",
+      "hwpx-empty-query-reopened-hwpx",
+      "hwpx-empty-query-replaced",
+      "hwpx-empty-query-save-before",
+      "hwpx-empty-query-stale-after",
+      "hwpx-empty-query-stale-before",
+      "hwpx-empty-query-undone",
+      "hwpx-query-change-original",
+      "hwpx-query-change-redone",
+      "hwpx-query-change-reopened-hwp",
+      "hwpx-query-change-reopened-hwpx",
+      "hwpx-query-change-replaced",
+      "hwpx-query-change-save-before",
+      "hwpx-query-change-stale-after",
+      "hwpx-query-change-stale-before",
+      "hwpx-query-change-undone"
+    ],
+    "comparisons": [
+      {
+        "case": "hwp-query-change",
+        "pair": [
+          "original",
+          "undone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwp-query-change",
+        "pair": [
+          "replaced",
+          "redone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [
+          "DocInfo"
+        ],
+        "onlyDocumentPropertiesCaretChanged": true,
+        "changedRecords": [
+          {
+            "index": 0,
+            "beforeTagLevel": [
+              16,
+              0
+            ],
+            "afterTagLevel": [
+              16,
+              0
+            ],
+            "payload": {
+              "beforeLength": 26,
+              "afterLength": 26,
+              "beforeSHA256": "c9c7db327b6a72c868692e9a74df683c74f158ad406f2b737a435a14cda67bfd",
+              "afterSHA256": "2822f8e4b42f632a4bdff6b11512eb822943dc48f8bf386ea11fc6859a30d827",
+              "offsets": [
+                22
+              ],
+              "beforeHex": "0100010001000100010001000100000000000000000029000000",
+              "afterHex": "010001000100010001000100010000000000000000001b000000"
+            }
+          }
+        ],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwp-case-change",
+        "pair": [
+          "original",
+          "undone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwp-case-change",
+        "pair": [
+          "replaced",
+          "redone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [
+          "DocInfo"
+        ],
+        "onlyDocumentPropertiesCaretChanged": true,
+        "changedRecords": [
+          {
+            "index": 0,
+            "beforeTagLevel": [
+              16,
+              0
+            ],
+            "afterTagLevel": [
+              16,
+              0
+            ],
+            "payload": {
+              "beforeLength": 26,
+              "afterLength": 26,
+              "beforeSHA256": "c9c7db327b6a72c868692e9a74df683c74f158ad406f2b737a435a14cda67bfd",
+              "afterSHA256": "2822f8e4b42f632a4bdff6b11512eb822943dc48f8bf386ea11fc6859a30d827",
+              "offsets": [
+                22
+              ],
+              "beforeHex": "0100010001000100010001000100000000000000000029000000",
+              "afterHex": "010001000100010001000100010000000000000000001b000000"
+            }
+          }
+        ],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwp-empty-query",
+        "pair": [
+          "original",
+          "undone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwp-empty-query",
+        "pair": [
+          "replaced",
+          "redone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [
+          "DocInfo"
+        ],
+        "onlyDocumentPropertiesCaretChanged": true,
+        "changedRecords": [
+          {
+            "index": 0,
+            "beforeTagLevel": [
+              16,
+              0
+            ],
+            "afterTagLevel": [
+              16,
+              0
+            ],
+            "payload": {
+              "beforeLength": 26,
+              "afterLength": 26,
+              "beforeSHA256": "c9c7db327b6a72c868692e9a74df683c74f158ad406f2b737a435a14cda67bfd",
+              "afterSHA256": "2822f8e4b42f632a4bdff6b11512eb822943dc48f8bf386ea11fc6859a30d827",
+              "offsets": [
+                22
+              ],
+              "beforeHex": "0100010001000100010001000100000000000000000029000000",
+              "afterHex": "010001000100010001000100010000000000000000001b000000"
+            }
+          }
+        ],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwp-body-edit",
+        "pair": [
+          "original",
+          "undone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwp-body-edit",
+        "pair": [
+          "replaced",
+          "redone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [
+          "DocInfo"
+        ],
+        "onlyDocumentPropertiesCaretChanged": true,
+        "changedRecords": [
+          {
+            "index": 0,
+            "beforeTagLevel": [
+              16,
+              0
+            ],
+            "afterTagLevel": [
+              16,
+              0
+            ],
+            "payload": {
+              "beforeLength": 26,
+              "afterLength": 26,
+              "beforeSHA256": "f72f569cee6581403def74e71236906c09d38d7b080b805249a052bde3274e25",
+              "afterSHA256": "c32e6b1da242140b9ac0f83109df66dd817660f6d65a217286e8f70d640eecc2",
+              "offsets": [
+                22
+              ],
+              "beforeHex": "010001000100010001000100010000000000000000002c000000",
+              "afterHex": "010001000100010001000100010000000000000000001e000000"
+            }
+          }
+        ],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwp-body-edit",
+        "pair": [
+          "stale-before",
+          "stale-after"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [
+          "DocInfo"
+        ],
+        "onlyDocumentPropertiesCaretChanged": true,
+        "changedRecords": [
+          {
+            "index": 0,
+            "beforeTagLevel": [
+              16,
+              0
+            ],
+            "afterTagLevel": [
+              16,
+              0
+            ],
+            "payload": {
+              "beforeLength": 26,
+              "afterLength": 26,
+              "beforeSHA256": "8a0b543eb1cc77bcc20606e17270d2d9f5fab93dd3420690e7af973fecb27dae",
+              "afterSHA256": "c32e6b1da242140b9ac0f83109df66dd817660f6d65a217286e8f70d640eecc2",
+              "offsets": [
+                22
+              ],
+              "beforeHex": "0100010001000100010001000100000000000000000013000000",
+              "afterHex": "010001000100010001000100010000000000000000001e000000"
+            }
+          }
+        ],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwp-document-replace",
+        "pair": [
+          "original",
+          "undone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwp-document-replace",
+        "pair": [
+          "replaced",
+          "redone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwpx-query-change",
+        "pair": [
+          "original",
+          "undone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwpx-query-change",
+        "pair": [
+          "replaced",
+          "redone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [
+          "DocInfo"
+        ],
+        "onlyDocumentPropertiesCaretChanged": true,
+        "changedRecords": [
+          {
+            "index": 0,
+            "beforeTagLevel": [
+              16,
+              0
+            ],
+            "afterTagLevel": [
+              16,
+              0
+            ],
+            "payload": {
+              "beforeLength": 26,
+              "afterLength": 26,
+              "beforeSHA256": "c9c7db327b6a72c868692e9a74df683c74f158ad406f2b737a435a14cda67bfd",
+              "afterSHA256": "2822f8e4b42f632a4bdff6b11512eb822943dc48f8bf386ea11fc6859a30d827",
+              "offsets": [
+                22
+              ],
+              "beforeHex": "0100010001000100010001000100000000000000000029000000",
+              "afterHex": "010001000100010001000100010000000000000000001b000000"
+            }
+          }
+        ],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwpx-case-change",
+        "pair": [
+          "original",
+          "undone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwpx-case-change",
+        "pair": [
+          "replaced",
+          "redone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [
+          "DocInfo"
+        ],
+        "onlyDocumentPropertiesCaretChanged": true,
+        "changedRecords": [
+          {
+            "index": 0,
+            "beforeTagLevel": [
+              16,
+              0
+            ],
+            "afterTagLevel": [
+              16,
+              0
+            ],
+            "payload": {
+              "beforeLength": 26,
+              "afterLength": 26,
+              "beforeSHA256": "c9c7db327b6a72c868692e9a74df683c74f158ad406f2b737a435a14cda67bfd",
+              "afterSHA256": "2822f8e4b42f632a4bdff6b11512eb822943dc48f8bf386ea11fc6859a30d827",
+              "offsets": [
+                22
+              ],
+              "beforeHex": "0100010001000100010001000100000000000000000029000000",
+              "afterHex": "010001000100010001000100010000000000000000001b000000"
+            }
+          }
+        ],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwpx-empty-query",
+        "pair": [
+          "original",
+          "undone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwpx-empty-query",
+        "pair": [
+          "replaced",
+          "redone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [
+          "DocInfo"
+        ],
+        "onlyDocumentPropertiesCaretChanged": true,
+        "changedRecords": [
+          {
+            "index": 0,
+            "beforeTagLevel": [
+              16,
+              0
+            ],
+            "afterTagLevel": [
+              16,
+              0
+            ],
+            "payload": {
+              "beforeLength": 26,
+              "afterLength": 26,
+              "beforeSHA256": "c9c7db327b6a72c868692e9a74df683c74f158ad406f2b737a435a14cda67bfd",
+              "afterSHA256": "2822f8e4b42f632a4bdff6b11512eb822943dc48f8bf386ea11fc6859a30d827",
+              "offsets": [
+                22
+              ],
+              "beforeHex": "0100010001000100010001000100000000000000000029000000",
+              "afterHex": "010001000100010001000100010000000000000000001b000000"
+            }
+          }
+        ],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwpx-body-edit",
+        "pair": [
+          "original",
+          "undone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwpx-body-edit",
+        "pair": [
+          "replaced",
+          "redone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [
+          "DocInfo"
+        ],
+        "onlyDocumentPropertiesCaretChanged": true,
+        "changedRecords": [
+          {
+            "index": 0,
+            "beforeTagLevel": [
+              16,
+              0
+            ],
+            "afterTagLevel": [
+              16,
+              0
+            ],
+            "payload": {
+              "beforeLength": 26,
+              "afterLength": 26,
+              "beforeSHA256": "f72f569cee6581403def74e71236906c09d38d7b080b805249a052bde3274e25",
+              "afterSHA256": "c32e6b1da242140b9ac0f83109df66dd817660f6d65a217286e8f70d640eecc2",
+              "offsets": [
+                22
+              ],
+              "beforeHex": "010001000100010001000100010000000000000000002c000000",
+              "afterHex": "010001000100010001000100010000000000000000001e000000"
+            }
+          }
+        ],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwpx-body-edit",
+        "pair": [
+          "stale-before",
+          "stale-after"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [
+          "DocInfo"
+        ],
+        "onlyDocumentPropertiesCaretChanged": true,
+        "changedRecords": [
+          {
+            "index": 0,
+            "beforeTagLevel": [
+              16,
+              0
+            ],
+            "afterTagLevel": [
+              16,
+              0
+            ],
+            "payload": {
+              "beforeLength": 26,
+              "afterLength": 26,
+              "beforeSHA256": "8a0b543eb1cc77bcc20606e17270d2d9f5fab93dd3420690e7af973fecb27dae",
+              "afterSHA256": "c32e6b1da242140b9ac0f83109df66dd817660f6d65a217286e8f70d640eecc2",
+              "offsets": [
+                22
+              ],
+              "beforeHex": "0100010001000100010001000100000000000000000013000000",
+              "afterHex": "010001000100010001000100010000000000000000001e000000"
+            }
+          }
+        ],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwpx-document-replace",
+        "pair": [
+          "original",
+          "undone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      },
+      {
+        "case": "hwpx-document-replace",
+        "pair": [
+          "replaced",
+          "redone"
+        ],
+        "allHwpStreamNamesEqual": true,
+        "rawChangedHwpStreams": [],
+        "onlyDocumentPropertiesCaretChanged": false,
+        "changedRecords": [],
+        "allHwpxEntriesAndZipMetadataEqual": true,
+        "canonicalEntireHwpAndHwpxBytesEqual": true
+      }
+    ],
+    "baselineVsFixedAllRawDiagnosticComparisonsExactlyEqual": true,
+    "baselineVsFixedFileSHA256": {
+      "baseline": "619ad1f91fa836eead737ce267d86cedc43887b5e664f379f0269e6fc75d8f9f",
+      "fixed": "619ad1f91fa836eead737ce267d86cedc43887b5e664f379f0269e6fc75d8f9f"
+    },
+    "baselineCrossFormat": {
+      "baselineInputEqualsFixed": true,
+      "baselineCrossFormatFirstHwpEqualsFixed": true,
+      "baselineHwpReopenEqualsFixed": true,
+      "baselineHwpxReexportEqualsFixed": true,
+      "firstHwpSHA256": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+      "reopenedHwpSHA256": "83c434e672102edcbf9feb16d156f17ec39a76abf5da53a9c12cebf65399af89",
+      "reopenedHwpxSHA256": "210aafd23329e939e150eb14c99446882de12d840402db9744083c3e45be3f11",
+      "engineUnchanged": true
+    }
+  },
+  "preservation": {
+    "dirtyFiles4": true,
+    "lockFiles3": true,
+    "wasm": true,
+    "priorEvidenceFiles": 273,
+    "compilerCacheFiles": 133,
+    "combinedOwnedBytes": 4772098048,
+    "runtimePinAfterMatchesBefore": true,
+    "PR48HeadPreserved": "e00a5060d34a20ca6eb5f3ba3ec5892fa9a7acc4",
+    "PR48PublicEvidenceFiles": 9,
+    "PR48RuntimeFiles": 53,
+    "mainFastForwardChangedPrintSources": false,
+    "finalMainBase": "eb501dc8d4adf2fbd79c329834e457b77ad5740f",
+    "autosaveManagerAndStoreSourcesUnchanged": true
+  },
+  "runtimeFilesPinned": 53,
+  "executedRunnerMatchesSource": true,
+  "nativeSourceMatches": {
+    "rhwp-studio/src/ui/find-dialog.ts": "3b45920a1da63621344563a89484923e704b1294f3e360b150c5c90322e4180d",
+    "rhwp-studio/src/engine/input-handler.ts": "d0a76863f8db0ba3a2c2af9e2444ed782f191d1d8898f9630c534917f74b605e",
+    "rhwp-studio/src/core/wasm-bridge.ts": "aa304b58d27fcb150b6dc5661a4664e3a1e5bcaed564dfc0cbea83cb20a03deb",
+    "desktop/tests/find-stale-hit.test.cjs": "5d33233af5e47501c0bfe76786a04899131fff180b969eda76eccf7464dc80ae",
+    "scripts/prepare-find-stale-hit-fixtures.mjs": "94272300eb3eb5ae6df6fe4776bde2852c4e8f5d5bdc312367ebc0ff8ff1c94d"
+  },
+  "fixtureProofSHA256": "bfa05e3ba46e4f19bb97eedd3b0efe83def862b388eaef9f76c645575e900fbb",
+  "buildProof": {
+    "instrumentedQAReadOnlyExposures": true,
+    "sourceProductUnmodifiedByInstrumentation": true,
+    "reused": 13,
+    "written": 3
+  },
+  "phases": [
+    {
+      "phase": "baseline-20261013",
+      "outcome": "failed",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "770970f02cf68cd57438be91d678637cf7b7c74b84c452a85ffcd5a524e1c6f7",
+      "failureEvidencePreserved": true
+    },
+    {
+      "phase": "baseline-coordinates-20261013",
+      "outcome": "failed",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "07c555959dbe0829c3f5ac046e620bc7ec8dada748ac83b7860f3be43f94c414",
+      "failureEvidencePreserved": true
+    },
+    {
+      "phase": "baseline-ready-20261013",
+      "outcome": "failed",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "7af0356bfe8cd4ddf785d5ac132fc69887ccf3fba477abb290c4c3549efd4056",
+      "failureEvidencePreserved": true
+    },
+    {
+      "phase": "baseline-snapshot-20261013",
+      "outcome": "complete",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "286ce06c9231af7f1af267ac94295b78bc3182952ae38cff572f6b6fae9890b4",
+      "failureEvidencePreserved": false
+    },
+    {
+      "phase": "final-20261013",
+      "outcome": "failed",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "edcaccdb6b5f02f4b9167b575639b2551268544de4100719e4495be99296ace1",
+      "failureEvidencePreserved": true
+    },
+    {
+      "phase": "final-core-roundtrip-20261013",
+      "outcome": "complete",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "286ce06c9231af7f1af267ac94295b78bc3182952ae38cff572f6b6fae9890b4",
+      "failureEvidencePreserved": false
+    },
+    {
+      "phase": "final-native-format-20261013",
+      "outcome": "failed",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "26e73b33767f364c430a976f7c64e67acfa9531d4523599146f85aa50b2cfcc4",
+      "failureEvidencePreserved": true
+    },
+    {
+      "phase": "final-reopen-20261013",
+      "outcome": "failed",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "0cc4c2582645111df1c7c7e4f08057373e37d439e9aa9f2b15022317cf830b9b",
+      "failureEvidencePreserved": true
+    },
+    {
+      "phase": "final-roundtrip-20261013",
+      "outcome": "failed",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "d0ec8b52ae2584e3484ba8912265239fdb78932f5c679f190cf666e637220056",
+      "failureEvidencePreserved": true
+    },
+    {
+      "phase": "final-search-selection-20261013",
+      "outcome": "failed",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "d0ec8b52ae2584e3484ba8912265239fdb78932f5c679f190cf666e637220056",
+      "failureEvidencePreserved": true
+    },
+    {
+      "phase": "fixed-20261013",
+      "outcome": "failed",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "c0919c6ca73d9125200889626e6503095a5e18eee3094a0af278b0b0cc77c71c",
+      "failureEvidencePreserved": true
+    },
+    {
+      "phase": "fixed-checkpoint-20261013",
+      "outcome": "failed",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "fb3b73a95c5041025d05338e35b84b71999f7d8ad22e2a6e68ac45b49356c8a7",
+      "failureEvidencePreserved": true
+    },
+    {
+      "phase": "history-baseline-20261013",
+      "outcome": "complete",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "286ce06c9231af7f1af267ac94295b78bc3182952ae38cff572f6b6fae9890b4",
+      "failureEvidencePreserved": false
+    },
+    {
+      "phase": "history-fixed-20261013",
+      "outcome": "failed",
+      "normalQuit": true,
+      "exitCode": 0,
+      "lifecycleSHA256": "b3905625aa56c55ae09836c306a16c94c8b6d61aa1809c5ef6bfa7ad2ddcb3e7",
+      "failureEvidencePreserved": true
+    }
+  ],
+  "rawEvidenceSHA256": {
+    "final-core-roundtrip-20261013/qa/audit.jsonl": "79d11dea0a034bbcf01e823d0139229817b22548fb6c706d18c712db44a75fc2",
+    "final-core-roundtrip-20261013/qa/control.json": "5355bd3a7c833b15019a86c15e8ea2d04dde7ff874fe2ed1c111bfde3827e6c7",
+    "final-core-roundtrip-20261013/qa/executed-runner.mjs": "369a802071a267e002cec9ebbe16537927f31150b9456dbde3f550380b2a62ca",
+    "final-core-roundtrip-20261013/qa/hwp-body-edit-original.json": "98b5c43cfc26105a25d858859d4951eb5dabcb8948a1d11ef76feddf2329fde1",
+    "final-core-roundtrip-20261013/qa/hwp-body-edit-redone.json": "a145610bf2fa3db581cb2997decdf31a5e9405f5a454a5f9ce2dcba5a4eab058",
+    "final-core-roundtrip-20261013/qa/hwp-body-edit-reopened-hwp.json": "4bc01da47b2a1507572c8cfbcee93409e970d6a715ae8c9927e47dfc60a7e570",
+    "final-core-roundtrip-20261013/qa/hwp-body-edit-reopened-hwpx.json": "d6ec9cc6fbf7f5d6dc3ece0146095eb1dc7ca5ddf7c958029519b269a9dde069",
+    "final-core-roundtrip-20261013/qa/hwp-body-edit-replaced.json": "784b49f956b682c32a341f1fae71b58ac1f13f0d074c696812cd02c99ed425c7",
+    "final-core-roundtrip-20261013/qa/hwp-body-edit-save-before.json": "a145610bf2fa3db581cb2997decdf31a5e9405f5a454a5f9ce2dcba5a4eab058",
+    "final-core-roundtrip-20261013/qa/hwp-body-edit-stale-after.json": "98b5c43cfc26105a25d858859d4951eb5dabcb8948a1d11ef76feddf2329fde1",
+    "final-core-roundtrip-20261013/qa/hwp-body-edit-stale-before.json": "5c188552f63f6316825af233c968df236972f7c2768de1e0e48dc3614e9834cb",
+    "final-core-roundtrip-20261013/qa/hwp-body-edit-undone.json": "5693fa16db2bfbf71473ab98116d7844bcb47d742310871040ebc80b1146c6a1",
+    "final-core-roundtrip-20261013/qa/hwp-case-change-original.json": "42627cd2d4adc8dd361cfc9ae9028e76fda9d71e5c078f25236857cf44ac284a",
+    "final-core-roundtrip-20261013/qa/hwp-case-change-redone.json": "ddf143979928ca9335ec180c8fe1f3ee9239aabc8b03cdf4edbe3feabf6a7e48",
+    "final-core-roundtrip-20261013/qa/hwp-case-change-reopened-hwp.json": "9e5bb2db89d455921ffb65e78bd365876505845aa102076f4426e94cfcf852f5",
+    "final-core-roundtrip-20261013/qa/hwp-case-change-reopened-hwpx.json": "8dd5a17b4dda642d89b1d6594460ded39785b4558de4944f2ea6fa4db0a5f88f",
+    "final-core-roundtrip-20261013/qa/hwp-case-change-replaced.json": "957a24caf3c2cc8b1698fb053850dab051b6c74dc1a0ec52d18f9084ef16c37f",
+    "final-core-roundtrip-20261013/qa/hwp-case-change-save-before.json": "ddf143979928ca9335ec180c8fe1f3ee9239aabc8b03cdf4edbe3feabf6a7e48",
+    "final-core-roundtrip-20261013/qa/hwp-case-change-stale-after.json": "42627cd2d4adc8dd361cfc9ae9028e76fda9d71e5c078f25236857cf44ac284a",
+    "final-core-roundtrip-20261013/qa/hwp-case-change-stale-before.json": "42627cd2d4adc8dd361cfc9ae9028e76fda9d71e5c078f25236857cf44ac284a",
+    "final-core-roundtrip-20261013/qa/hwp-case-change-undone.json": "eab493231b4a1350d8fb989a3d2bc62fa29c9e3825ad5cd6d594b902218cc355",
+    "final-core-roundtrip-20261013/qa/hwp-document-replace-original.json": "a03854d628b78ce789952ee79e89e71b7c3cbfef379e64abd87ebcce64c49a27",
+    "final-core-roundtrip-20261013/qa/hwp-document-replace-redone.json": "31f03ce3bd9e52c966d69f6d91a5f58aa6e03f72b55d39d968bf537950aea4e4",
+    "final-core-roundtrip-20261013/qa/hwp-document-replace-reopened-hwp.json": "83a2e4934d264c0add0fce9af3e96bbac5a3b826a8011df7d516ebcca52ecc33",
+    "final-core-roundtrip-20261013/qa/hwp-document-replace-reopened-hwpx.json": "5dc915c610e2cb4f31ecfc886c077c65b6708929398c89848927c92ecab9dbc0",
+    "final-core-roundtrip-20261013/qa/hwp-document-replace-replaced.json": "d418191853db32ed338d5495d582bb23ce99818aeb711c9615cfb0c180e063fd",
+    "final-core-roundtrip-20261013/qa/hwp-document-replace-save-before.json": "31f03ce3bd9e52c966d69f6d91a5f58aa6e03f72b55d39d968bf537950aea4e4",
+    "final-core-roundtrip-20261013/qa/hwp-document-replace-stale-after.json": "4f3cd7509a10ff383491ea23db3d80c12861b2e586a7955a0d9368eeac9443f0",
+    "final-core-roundtrip-20261013/qa/hwp-document-replace-stale-before.json": "4f3cd7509a10ff383491ea23db3d80c12861b2e586a7955a0d9368eeac9443f0",
+    "final-core-roundtrip-20261013/qa/hwp-document-replace-undone.json": "897a0557df8aefd029ed60b1742ccaef4de1b8b765cd8efc06aa7aa8d6f077d9",
+    "final-core-roundtrip-20261013/qa/hwp-empty-query-original.json": "42627cd2d4adc8dd361cfc9ae9028e76fda9d71e5c078f25236857cf44ac284a",
+    "final-core-roundtrip-20261013/qa/hwp-empty-query-redone.json": "ddf143979928ca9335ec180c8fe1f3ee9239aabc8b03cdf4edbe3feabf6a7e48",
+    "final-core-roundtrip-20261013/qa/hwp-empty-query-reopened-hwp.json": "3a2e13c9d2718525631bec9a34815adf79e6043daca9deb19f363ae93dcb841d",
+    "final-core-roundtrip-20261013/qa/hwp-empty-query-reopened-hwpx.json": "81aa91fde73e7368a9a325f40c31100d49e7a1a8d0e08d53c315dfd111ddba25",
+    "final-core-roundtrip-20261013/qa/hwp-empty-query-replaced.json": "957a24caf3c2cc8b1698fb053850dab051b6c74dc1a0ec52d18f9084ef16c37f",
+    "final-core-roundtrip-20261013/qa/hwp-empty-query-save-before.json": "ddf143979928ca9335ec180c8fe1f3ee9239aabc8b03cdf4edbe3feabf6a7e48",
+    "final-core-roundtrip-20261013/qa/hwp-empty-query-stale-after.json": "42627cd2d4adc8dd361cfc9ae9028e76fda9d71e5c078f25236857cf44ac284a",
+    "final-core-roundtrip-20261013/qa/hwp-empty-query-stale-before.json": "42627cd2d4adc8dd361cfc9ae9028e76fda9d71e5c078f25236857cf44ac284a",
+    "final-core-roundtrip-20261013/qa/hwp-empty-query-undone.json": "eab493231b4a1350d8fb989a3d2bc62fa29c9e3825ad5cd6d594b902218cc355",
+    "final-core-roundtrip-20261013/qa/hwp-query-change-original.json": "42627cd2d4adc8dd361cfc9ae9028e76fda9d71e5c078f25236857cf44ac284a",
+    "final-core-roundtrip-20261013/qa/hwp-query-change-redone.json": "ddf143979928ca9335ec180c8fe1f3ee9239aabc8b03cdf4edbe3feabf6a7e48",
+    "final-core-roundtrip-20261013/qa/hwp-query-change-reopened-hwp.json": "e18ee552529fdca671941afba22bd220e1f9ce1448d737d287a54df28530fb68",
+    "final-core-roundtrip-20261013/qa/hwp-query-change-reopened-hwpx.json": "cfc6bb3a3b059ca5e87f60ed2922c2e5295f91241ddece6cff8411a027c5729b",
+    "final-core-roundtrip-20261013/qa/hwp-query-change-replaced.json": "957a24caf3c2cc8b1698fb053850dab051b6c74dc1a0ec52d18f9084ef16c37f",
+    "final-core-roundtrip-20261013/qa/hwp-query-change-save-before.json": "ddf143979928ca9335ec180c8fe1f3ee9239aabc8b03cdf4edbe3feabf6a7e48",
+    "final-core-roundtrip-20261013/qa/hwp-query-change-stale-after.json": "42627cd2d4adc8dd361cfc9ae9028e76fda9d71e5c078f25236857cf44ac284a",
+    "final-core-roundtrip-20261013/qa/hwp-query-change-stale-before.json": "42627cd2d4adc8dd361cfc9ae9028e76fda9d71e5c078f25236857cf44ac284a",
+    "final-core-roundtrip-20261013/qa/hwp-query-change-undone.json": "eab493231b4a1350d8fb989a3d2bc62fa29c9e3825ad5cd6d594b902218cc355",
+    "final-core-roundtrip-20261013/qa/hwpx-body-edit-original.json": "73102683889ef70dcdd2ed8b426b7149dcfa467f8e0950931f34d8c38550b084",
+    "final-core-roundtrip-20261013/qa/hwpx-body-edit-redone.json": "d2f91269b22e88a2278a3bd29cb1a45d48a809057781f91a42192b3c1340e6ce",
+    "final-core-roundtrip-20261013/qa/hwpx-body-edit-reopened-hwp.json": "cb43981c63f3e90e9ae0b4c7ca2ae4407c6fd8ffb648217a44ac6963719d81fd",
+    "final-core-roundtrip-20261013/qa/hwpx-body-edit-reopened-hwpx.json": "da1a0ec58d0c51c13281bd792a9af13234158ddf1fc210369284dcdaa3ca0246",
+    "final-core-roundtrip-20261013/qa/hwpx-body-edit-replaced.json": "3f6cccf176b63c7edf69a6bea934e4c96f76b425a87e38274a6d17db360c8918",
+    "final-core-roundtrip-20261013/qa/hwpx-body-edit-save-before.json": "d2f91269b22e88a2278a3bd29cb1a45d48a809057781f91a42192b3c1340e6ce",
+    "final-core-roundtrip-20261013/qa/hwpx-body-edit-stale-after.json": "73102683889ef70dcdd2ed8b426b7149dcfa467f8e0950931f34d8c38550b084",
+    "final-core-roundtrip-20261013/qa/hwpx-body-edit-stale-before.json": "78af0a5effe278269bbcbd754d4b13df0d55e1705af8c0bcbf33fa1260eab1fa",
+    "final-core-roundtrip-20261013/qa/hwpx-body-edit-undone.json": "e2e03b8dd4adb97c30424fa93e7e0b36d58de6d3e9dc875485bbfc34ab4362af",
+    "final-core-roundtrip-20261013/qa/hwpx-case-change-original.json": "9c4fb2c53ca2828a4a3bd197a950a49df7782a97be6f18e93cbcd06d837865c2",
+    "final-core-roundtrip-20261013/qa/hwpx-case-change-redone.json": "b9c9cc2dc63b6bdd1c121ce7fed0fe3287d62d2bee0d85554c907dc302f27ee8",
+    "final-core-roundtrip-20261013/qa/hwpx-case-change-reopened-hwp.json": "b738186f5073403c8a593febb082adfaf7f9f3098dca3929bf098e4d7c107628",
+    "final-core-roundtrip-20261013/qa/hwpx-case-change-reopened-hwpx.json": "5f60e673ae864cfcaf1082b821ff291d6ceb383a68639339477f8a58acc8a226",
+    "final-core-roundtrip-20261013/qa/hwpx-case-change-replaced.json": "8b5f60daed6d80c3f3dee27bb003e36c9a19299eee995b229e6b5789b0fa9613",
+    "final-core-roundtrip-20261013/qa/hwpx-case-change-save-before.json": "b9c9cc2dc63b6bdd1c121ce7fed0fe3287d62d2bee0d85554c907dc302f27ee8",
+    "final-core-roundtrip-20261013/qa/hwpx-case-change-stale-after.json": "9c4fb2c53ca2828a4a3bd197a950a49df7782a97be6f18e93cbcd06d837865c2",
+    "final-core-roundtrip-20261013/qa/hwpx-case-change-stale-before.json": "9c4fb2c53ca2828a4a3bd197a950a49df7782a97be6f18e93cbcd06d837865c2",
+    "final-core-roundtrip-20261013/qa/hwpx-case-change-undone.json": "b9195bb781c9fe112fc8f6d966cb0c7d67f5e8628d52952b6bb3d2606df0555e",
+    "final-core-roundtrip-20261013/qa/hwpx-document-replace-original.json": "f3578b972230c11f7e0d9e1cb58a26cea12047ad641c426761e928c248fe8f79",
+    "final-core-roundtrip-20261013/qa/hwpx-document-replace-redone.json": "0e83ddf881a8446b9495fc3f81b969a261d08da7ae08f7c429ddded1464dc333",
+    "final-core-roundtrip-20261013/qa/hwpx-document-replace-reopened-hwp.json": "155828182d26a9fea24f087c446659d13b49ee950f89c30ea6fc8ac876d529ce",
+    "final-core-roundtrip-20261013/qa/hwpx-document-replace-reopened-hwpx.json": "a0119e22c95e2658014e9773f30bc847f9b03d3ea681670fc39f1f88e4ccd6ae",
+    "final-core-roundtrip-20261013/qa/hwpx-document-replace-replaced.json": "5f02162081321ff4cd861397bea1d268f46e21621eaf27e6d6a6e26c1c1a2cb3",
+    "final-core-roundtrip-20261013/qa/hwpx-document-replace-save-before.json": "0e83ddf881a8446b9495fc3f81b969a261d08da7ae08f7c429ddded1464dc333",
+    "final-core-roundtrip-20261013/qa/hwpx-document-replace-stale-after.json": "239295d534a2defec8c94fb9bf911599cac4c1161946d08d8e01f2a4dddf288d",
+    "final-core-roundtrip-20261013/qa/hwpx-document-replace-stale-before.json": "239295d534a2defec8c94fb9bf911599cac4c1161946d08d8e01f2a4dddf288d",
+    "final-core-roundtrip-20261013/qa/hwpx-document-replace-undone.json": "cb78430cc84713eea5a2e2770937f2c361d37b90a13209d57c1e9c09d75cde0a",
+    "final-core-roundtrip-20261013/qa/hwpx-empty-query-original.json": "9c4fb2c53ca2828a4a3bd197a950a49df7782a97be6f18e93cbcd06d837865c2",
+    "final-core-roundtrip-20261013/qa/hwpx-empty-query-redone.json": "b9c9cc2dc63b6bdd1c121ce7fed0fe3287d62d2bee0d85554c907dc302f27ee8",
+    "final-core-roundtrip-20261013/qa/hwpx-empty-query-reopened-hwp.json": "a8a8ab2371132cafce4f776cfa9c4ba101353df3b54728c9281e59110b77e13e",
+    "final-core-roundtrip-20261013/qa/hwpx-empty-query-reopened-hwpx.json": "c40ae9773142d4d20632bd1769982974ac1533a1e6a4c33c8bc701ec04a092dc",
+    "final-core-roundtrip-20261013/qa/hwpx-empty-query-replaced.json": "8b5f60daed6d80c3f3dee27bb003e36c9a19299eee995b229e6b5789b0fa9613",
+    "final-core-roundtrip-20261013/qa/hwpx-empty-query-save-before.json": "b9c9cc2dc63b6bdd1c121ce7fed0fe3287d62d2bee0d85554c907dc302f27ee8",
+    "final-core-roundtrip-20261013/qa/hwpx-empty-query-stale-after.json": "9c4fb2c53ca2828a4a3bd197a950a49df7782a97be6f18e93cbcd06d837865c2",
+    "final-core-roundtrip-20261013/qa/hwpx-empty-query-stale-before.json": "9c4fb2c53ca2828a4a3bd197a950a49df7782a97be6f18e93cbcd06d837865c2",
+    "final-core-roundtrip-20261013/qa/hwpx-empty-query-undone.json": "b9195bb781c9fe112fc8f6d966cb0c7d67f5e8628d52952b6bb3d2606df0555e",
+    "final-core-roundtrip-20261013/qa/hwpx-query-change-original.json": "9c4fb2c53ca2828a4a3bd197a950a49df7782a97be6f18e93cbcd06d837865c2",
+    "final-core-roundtrip-20261013/qa/hwpx-query-change-redone.json": "b9c9cc2dc63b6bdd1c121ce7fed0fe3287d62d2bee0d85554c907dc302f27ee8",
+    "final-core-roundtrip-20261013/qa/hwpx-query-change-reopened-hwp.json": "57edd22532b012d52af183b9ce319746b00644941adbc4acd09f7ed1e2f6fe0e",
+    "final-core-roundtrip-20261013/qa/hwpx-query-change-reopened-hwpx.json": "70c9bcda62638726cfd8229ba8f9a1daa39c381056cc664e42e6ffcfa5f78d6d",
+    "final-core-roundtrip-20261013/qa/hwpx-query-change-replaced.json": "8b5f60daed6d80c3f3dee27bb003e36c9a19299eee995b229e6b5789b0fa9613",
+    "final-core-roundtrip-20261013/qa/hwpx-query-change-save-before.json": "b9c9cc2dc63b6bdd1c121ce7fed0fe3287d62d2bee0d85554c907dc302f27ee8",
+    "final-core-roundtrip-20261013/qa/hwpx-query-change-stale-after.json": "9c4fb2c53ca2828a4a3bd197a950a49df7782a97be6f18e93cbcd06d837865c2",
+    "final-core-roundtrip-20261013/qa/hwpx-query-change-stale-before.json": "9c4fb2c53ca2828a4a3bd197a950a49df7782a97be6f18e93cbcd06d837865c2",
+    "final-core-roundtrip-20261013/qa/hwpx-query-change-undone.json": "b9195bb781c9fe112fc8f6d966cb0c7d67f5e8628d52952b6bb3d2606df0555e",
+    "final-core-roundtrip-20261013/qa/launch.log": "45281e82d41b145c5b376df05e12aef34781a5c6da223f8e0dde99ee8efabebf",
+    "final-core-roundtrip-20261013/qa/lifecycle.json": "286ce06c9231af7f1af267ac94295b78bc3182952ae38cff572f6b6fae9890b4",
+    "final-core-roundtrip-20261013/qa/progress.json": "13597b593638abdd14bf41a64bbaf3cba7cce812c0e53cd5df554e0765ecb923",
+    "final-core-roundtrip-20261013/qa/proof.json": "949eb4b5b23bc03123a09b154ecea7f40a7e8e4d0831d76d7b59825206428e59",
+    "final-core-roundtrip-20261013/qa/serializer-analysis.json": "44bed5e1f3de858f8fb9b2408484770f4501ce94d23408001f332c67c2df174a",
+    "final-core-roundtrip-20261013/qa/source-runtime-pin.json": "18c8f9951153fa1bcb619f945ecbf403e48c261575a2f26a93ee5366a102bf14"
+  },
+  "rawDocumentEvidenceSHA256": {
+    "final-core-roundtrip-20261013/qa/files/alternate-input.hwp": "b883d52f85860495dd17ad9aeaa9c690b4fefc5598d1745534e422b84c46a889",
+    "final-core-roundtrip-20261013/qa/files/alternate-input.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/before-document-replace-hwp.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/before-document-replace-hwpx.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/find-hwp-body-edit-hwp.hwp": "d8099274d978891a21ca150ead4fb319d14a1758fc95dab3bc1c4bfd9b47b496",
+    "final-core-roundtrip-20261013/qa/files/find-hwp-body-edit-hwpx.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/find-hwp-case-change-hwp.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/find-hwp-case-change-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/find-hwp-document-replace-hwp.hwp": "3b8ad38079256f24d347492e1dbe7d29333506afdccf166a605e66c2ffbe72c7",
+    "final-core-roundtrip-20261013/qa/files/find-hwp-document-replace-hwpx.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/find-hwp-empty-query-hwp.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/find-hwp-empty-query-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/find-hwp-query-change-hwp.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/find-hwp-query-change-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/find-hwpx-body-edit-hwp.hwp": "b18796c257fb95ada71940aa5f0fc2e3c7c671ab9b8b9911088dad13a4f65096",
+    "final-core-roundtrip-20261013/qa/files/find-hwpx-body-edit-hwpx.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/find-hwpx-case-change-hwp.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/find-hwpx-case-change-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/find-hwpx-document-replace-hwp.hwp": "210a19034e4ef43a7134ac173c19941a4f7002f28a241827aabd397c17e76e55",
+    "final-core-roundtrip-20261013/qa/files/find-hwpx-document-replace-hwpx.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/find-hwpx-empty-query-hwp.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/find-hwpx-empty-query-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/find-hwpx-query-change-hwp.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/find-hwpx-query-change-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/find-input.hwp": "f590c255a6d91b77ae435fc264de3b3e156e8792e1c9348c0c2c01ef31c1a4c0",
+    "final-core-roundtrip-20261013/qa/files/find-input.hwpx": "491fab0d5520f12da9c255afd622c917cfb352f2fab0eab2e331f3a1a51ff9d2",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-original.canonical.hwp": "2a890d6450d75c338f2e56112fbd61be0d129af8bdf73c7447726fec0c1febfe",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-original.canonical.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-original.hwp": "f9287a1a12be7d4d44197a05300da58d0ac1a950c9716e306d70afa763df1469",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-original.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-redone.canonical.hwp": "d48ce5765aced5d835880af0c4e86c90c93283ee2bbe957693d3646b24038f06",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-redone.canonical.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-redone.hwp": "d8099274d978891a21ca150ead4fb319d14a1758fc95dab3bc1c4bfd9b47b496",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-redone.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-reopened-hwp.canonical.hwp": "d48ce5765aced5d835880af0c4e86c90c93283ee2bbe957693d3646b24038f06",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-reopened-hwp.canonical.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-reopened-hwp.hwp": "d8099274d978891a21ca150ead4fb319d14a1758fc95dab3bc1c4bfd9b47b496",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-reopened-hwp.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-reopened-hwpx.canonical.hwp": "9503c727028a6f2858b5ddbbfc308a75f70e471c4ee638372c173fb01bb59672",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-reopened-hwpx.canonical.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-reopened-hwpx.hwp": "9503c727028a6f2858b5ddbbfc308a75f70e471c4ee638372c173fb01bb59672",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-reopened-hwpx.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-replaced.canonical.hwp": "d48ce5765aced5d835880af0c4e86c90c93283ee2bbe957693d3646b24038f06",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-replaced.canonical.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-replaced.hwp": "586ef9ef75fc1fc1d67514ec913c44b126c419f11062d0304fd1534059cfb3cb",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-replaced.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-save-before.canonical.hwp": "d48ce5765aced5d835880af0c4e86c90c93283ee2bbe957693d3646b24038f06",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-save-before.canonical.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-save-before.hwp": "d8099274d978891a21ca150ead4fb319d14a1758fc95dab3bc1c4bfd9b47b496",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-save-before.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-stale-after.canonical.hwp": "2a890d6450d75c338f2e56112fbd61be0d129af8bdf73c7447726fec0c1febfe",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-stale-after.canonical.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-stale-after.hwp": "f9287a1a12be7d4d44197a05300da58d0ac1a950c9716e306d70afa763df1469",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-stale-after.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-stale-before.canonical.hwp": "2a890d6450d75c338f2e56112fbd61be0d129af8bdf73c7447726fec0c1febfe",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-stale-before.canonical.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-stale-before.hwp": "2f59ae336e0f38f954827078a182c137d13cc0d073b69da68f4b630e9dee915a",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-stale-before.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-undone.canonical.hwp": "2a890d6450d75c338f2e56112fbd61be0d129af8bdf73c7447726fec0c1febfe",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-undone.canonical.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-undone.hwp": "f9287a1a12be7d4d44197a05300da58d0ac1a950c9716e306d70afa763df1469",
+    "final-core-roundtrip-20261013/qa/files/hwp-body-edit-undone.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-original.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-original.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-original.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-original.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-redone.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-redone.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-redone.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-redone.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-reopened-hwp.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-reopened-hwp.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-reopened-hwp.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-reopened-hwp.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-reopened-hwpx.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-reopened-hwpx.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-reopened-hwpx.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-reopened-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-replaced.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-replaced.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-replaced.hwp": "57a56dfaf9076abfdd9a3947b0eef8b360ba134d3379c274eaa94525a1b4e948",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-replaced.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-save-before.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-save-before.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-save-before.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-save-before.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-stale-after.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-stale-after.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-stale-after.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-stale-after.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-stale-before.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-stale-before.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-stale-before.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-stale-before.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-undone.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-undone.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-undone.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-case-change-undone.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-original.canonical.hwp": "e1fa06b42305e0017246aa08dc62686057189d85da3e478f060f34151b7c7987",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-original.canonical.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-original.hwp": "71f5bbc57f9f6e00e0b34b43b18926583f09abbce93b9b2f85be12953126b64d",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-original.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-redone.canonical.hwp": "d8da5d273771ad1ea69c28ea6f8d4c7f3f9b6dc646cc00e686b8fb89511e89fa",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-redone.canonical.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-redone.hwp": "3b8ad38079256f24d347492e1dbe7d29333506afdccf166a605e66c2ffbe72c7",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-redone.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-reopened-hwp.canonical.hwp": "d8da5d273771ad1ea69c28ea6f8d4c7f3f9b6dc646cc00e686b8fb89511e89fa",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-reopened-hwp.canonical.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-reopened-hwp.hwp": "3b8ad38079256f24d347492e1dbe7d29333506afdccf166a605e66c2ffbe72c7",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-reopened-hwp.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-reopened-hwpx.canonical.hwp": "5011cd1ef64367c120d0b8d369939516a5273eb687c8ce9b1cbf29f156328abb",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-reopened-hwpx.canonical.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-reopened-hwpx.hwp": "5011cd1ef64367c120d0b8d369939516a5273eb687c8ce9b1cbf29f156328abb",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-reopened-hwpx.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-replaced.canonical.hwp": "d8da5d273771ad1ea69c28ea6f8d4c7f3f9b6dc646cc00e686b8fb89511e89fa",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-replaced.canonical.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-replaced.hwp": "3b8ad38079256f24d347492e1dbe7d29333506afdccf166a605e66c2ffbe72c7",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-replaced.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-save-before.canonical.hwp": "d8da5d273771ad1ea69c28ea6f8d4c7f3f9b6dc646cc00e686b8fb89511e89fa",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-save-before.canonical.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-save-before.hwp": "3b8ad38079256f24d347492e1dbe7d29333506afdccf166a605e66c2ffbe72c7",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-save-before.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-stale-after.canonical.hwp": "e1fa06b42305e0017246aa08dc62686057189d85da3e478f060f34151b7c7987",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-stale-after.canonical.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-stale-after.hwp": "9cba576cf1dbe0f078d7ac49e027a222ab20f53fec79fdec321c5c808cf3b36f",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-stale-after.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-stale-before.canonical.hwp": "e1fa06b42305e0017246aa08dc62686057189d85da3e478f060f34151b7c7987",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-stale-before.canonical.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-stale-before.hwp": "9cba576cf1dbe0f078d7ac49e027a222ab20f53fec79fdec321c5c808cf3b36f",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-stale-before.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-undone.canonical.hwp": "e1fa06b42305e0017246aa08dc62686057189d85da3e478f060f34151b7c7987",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-undone.canonical.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-undone.hwp": "71f5bbc57f9f6e00e0b34b43b18926583f09abbce93b9b2f85be12953126b64d",
+    "final-core-roundtrip-20261013/qa/files/hwp-document-replace-undone.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-original.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-original.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-original.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-original.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-redone.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-redone.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-redone.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-redone.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-reopened-hwp.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-reopened-hwp.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-reopened-hwp.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-reopened-hwp.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-reopened-hwpx.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-reopened-hwpx.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-reopened-hwpx.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-reopened-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-replaced.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-replaced.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-replaced.hwp": "57a56dfaf9076abfdd9a3947b0eef8b360ba134d3379c274eaa94525a1b4e948",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-replaced.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-save-before.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-save-before.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-save-before.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-save-before.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-stale-after.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-stale-after.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-stale-after.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-stale-after.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-stale-before.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-stale-before.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-stale-before.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-stale-before.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-undone.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-undone.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-undone.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-empty-query-undone.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-original.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-original.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-original.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-original.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-redone.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-redone.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-redone.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-redone.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-reopened-hwp.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-reopened-hwp.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-reopened-hwp.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-reopened-hwp.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-reopened-hwpx.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-reopened-hwpx.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-reopened-hwpx.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-reopened-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-replaced.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-replaced.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-replaced.hwp": "57a56dfaf9076abfdd9a3947b0eef8b360ba134d3379c274eaa94525a1b4e948",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-replaced.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-save-before.canonical.hwp": "a8585119e2334f74ce8751eb16156abaed52215089b568c3cdce85a12e75543c",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-save-before.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-save-before.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-save-before.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-stale-after.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-stale-after.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-stale-after.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-stale-after.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-stale-before.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-stale-before.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-stale-before.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-stale-before.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-undone.canonical.hwp": "ea1a46aa71ab5f9ba35eb5d06bfdd31f1b2838dea50730801c8959698eb51ac1",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-undone.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-undone.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98",
+    "final-core-roundtrip-20261013/qa/files/hwp-query-change-undone.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-original.canonical.hwp": "c0f36c8cca1bbbe0e5b38d6e24ceb5da15b58d182dcdcc2e26685e7dd0961af8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-original.canonical.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-original.hwp": "fe0151afad681270275df186bb317a7bdf52ccfa66aef1cc514b5c34bb4f91cf",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-original.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-redone.canonical.hwp": "9503c727028a6f2858b5ddbbfc308a75f70e471c4ee638372c173fb01bb59672",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-redone.canonical.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-redone.hwp": "b18796c257fb95ada71940aa5f0fc2e3c7c671ab9b8b9911088dad13a4f65096",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-redone.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-reopened-hwp.canonical.hwp": "e60749a40f7bda3aed09e336b59b1c7e6206b2c22547ad0e90c5ec6976c8fb63",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-reopened-hwp.canonical.hwpx": "58edbe095d56b3adc82101e62ec8937ffc98d133499c6595f2b06a782bd08b61",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-reopened-hwp.hwp": "3f9eb22f0f249309c2d5eb0bd919a76356cb3209c1d5c7f7108899018793c8a4",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-reopened-hwp.hwpx": "58edbe095d56b3adc82101e62ec8937ffc98d133499c6595f2b06a782bd08b61",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-reopened-hwpx.canonical.hwp": "9503c727028a6f2858b5ddbbfc308a75f70e471c4ee638372c173fb01bb59672",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-reopened-hwpx.canonical.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-reopened-hwpx.hwp": "9503c727028a6f2858b5ddbbfc308a75f70e471c4ee638372c173fb01bb59672",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-reopened-hwpx.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-replaced.canonical.hwp": "9503c727028a6f2858b5ddbbfc308a75f70e471c4ee638372c173fb01bb59672",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-replaced.canonical.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-replaced.hwp": "cce16e8fd0d402555df51166cef3aa99805d78ebfb148eb79ef0dfe526c6149f",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-replaced.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-save-before.canonical.hwp": "9503c727028a6f2858b5ddbbfc308a75f70e471c4ee638372c173fb01bb59672",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-save-before.canonical.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-save-before.hwp": "b18796c257fb95ada71940aa5f0fc2e3c7c671ab9b8b9911088dad13a4f65096",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-save-before.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-stale-after.canonical.hwp": "c0f36c8cca1bbbe0e5b38d6e24ceb5da15b58d182dcdcc2e26685e7dd0961af8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-stale-after.canonical.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-stale-after.hwp": "fe0151afad681270275df186bb317a7bdf52ccfa66aef1cc514b5c34bb4f91cf",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-stale-after.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-stale-before.canonical.hwp": "c0f36c8cca1bbbe0e5b38d6e24ceb5da15b58d182dcdcc2e26685e7dd0961af8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-stale-before.canonical.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-stale-before.hwp": "b08c391d3a4180ef5326073968c0bcc50c754591906d665a0be7d2f33c0b77c7",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-stale-before.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-undone.canonical.hwp": "c0f36c8cca1bbbe0e5b38d6e24ceb5da15b58d182dcdcc2e26685e7dd0961af8",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-undone.canonical.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-undone.hwp": "fe0151afad681270275df186bb317a7bdf52ccfa66aef1cc514b5c34bb4f91cf",
+    "final-core-roundtrip-20261013/qa/files/hwpx-body-edit-undone.hwpx": "8c45eb0e1a65aa2e93c572c4747e9959d8f10141a437b94c35322bbc7900c76f",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-original.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-original.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-original.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-original.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-redone.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-redone.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-redone.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-redone.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-reopened-hwp.canonical.hwp": "83c434e672102edcbf9feb16d156f17ec39a76abf5da53a9c12cebf65399af89",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-reopened-hwp.canonical.hwpx": "210aafd23329e939e150eb14c99446882de12d840402db9744083c3e45be3f11",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-reopened-hwp.hwp": "a944eb865fe1480d1ae408139220ab6a96afcdebc28ac0b2242ba176d79ceae5",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-reopened-hwp.hwpx": "210aafd23329e939e150eb14c99446882de12d840402db9744083c3e45be3f11",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-reopened-hwpx.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-reopened-hwpx.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-reopened-hwpx.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-reopened-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-replaced.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-replaced.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-replaced.hwp": "77c7b094c8c4c64feccd907da4978a1af03cc64d923ebdb56a45dd89e7e5d0a1",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-replaced.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-save-before.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-save-before.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-save-before.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-save-before.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-stale-after.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-stale-after.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-stale-after.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-stale-after.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-stale-before.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-stale-before.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-stale-before.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-stale-before.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-undone.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-undone.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-undone.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-case-change-undone.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-original.canonical.hwp": "364a55e62aeaab91d9b9942282c3b95cd5938952f577834552755c410c71bcc3",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-original.canonical.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-original.hwp": "98db95ec86110e98f3687605d2e2bb0ceb09f9b640ea800670e4ff1d5815f355",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-original.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-redone.canonical.hwp": "5011cd1ef64367c120d0b8d369939516a5273eb687c8ce9b1cbf29f156328abb",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-redone.canonical.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-redone.hwp": "210a19034e4ef43a7134ac173c19941a4f7002f28a241827aabd397c17e76e55",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-redone.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-reopened-hwp.canonical.hwp": "5efd9fd0aa1eaf6211c5b9facca771644e5b1d45f3a160fd385f6ddfa9aa5e75",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-reopened-hwp.canonical.hwpx": "eecc01a9e9b4bb11ca8caa9d9f7d0232c9210239d0b61e2f2a7020471f63ba8b",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-reopened-hwp.hwp": "7237b8112ec8a67fd84d7f180dba08dc4c2251d458c11d87abf2d572a79f58dc",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-reopened-hwp.hwpx": "eecc01a9e9b4bb11ca8caa9d9f7d0232c9210239d0b61e2f2a7020471f63ba8b",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-reopened-hwpx.canonical.hwp": "5011cd1ef64367c120d0b8d369939516a5273eb687c8ce9b1cbf29f156328abb",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-reopened-hwpx.canonical.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-reopened-hwpx.hwp": "5011cd1ef64367c120d0b8d369939516a5273eb687c8ce9b1cbf29f156328abb",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-reopened-hwpx.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-replaced.canonical.hwp": "5011cd1ef64367c120d0b8d369939516a5273eb687c8ce9b1cbf29f156328abb",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-replaced.canonical.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-replaced.hwp": "210a19034e4ef43a7134ac173c19941a4f7002f28a241827aabd397c17e76e55",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-replaced.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-save-before.canonical.hwp": "5011cd1ef64367c120d0b8d369939516a5273eb687c8ce9b1cbf29f156328abb",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-save-before.canonical.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-save-before.hwp": "210a19034e4ef43a7134ac173c19941a4f7002f28a241827aabd397c17e76e55",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-save-before.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-stale-after.canonical.hwp": "364a55e62aeaab91d9b9942282c3b95cd5938952f577834552755c410c71bcc3",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-stale-after.canonical.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-stale-after.hwp": "364a55e62aeaab91d9b9942282c3b95cd5938952f577834552755c410c71bcc3",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-stale-after.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-stale-before.canonical.hwp": "364a55e62aeaab91d9b9942282c3b95cd5938952f577834552755c410c71bcc3",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-stale-before.canonical.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-stale-before.hwp": "364a55e62aeaab91d9b9942282c3b95cd5938952f577834552755c410c71bcc3",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-stale-before.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-undone.canonical.hwp": "364a55e62aeaab91d9b9942282c3b95cd5938952f577834552755c410c71bcc3",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-undone.canonical.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-undone.hwp": "98db95ec86110e98f3687605d2e2bb0ceb09f9b640ea800670e4ff1d5815f355",
+    "final-core-roundtrip-20261013/qa/files/hwpx-document-replace-undone.hwpx": "31cb559ea756a9f197c907a64165bfb1dc3fc1d3019f19e313b57dced29ca8ed",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-original.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-original.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-original.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-original.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-redone.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-redone.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-redone.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-redone.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-reopened-hwp.canonical.hwp": "83c434e672102edcbf9feb16d156f17ec39a76abf5da53a9c12cebf65399af89",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-reopened-hwp.canonical.hwpx": "210aafd23329e939e150eb14c99446882de12d840402db9744083c3e45be3f11",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-reopened-hwp.hwp": "a944eb865fe1480d1ae408139220ab6a96afcdebc28ac0b2242ba176d79ceae5",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-reopened-hwp.hwpx": "210aafd23329e939e150eb14c99446882de12d840402db9744083c3e45be3f11",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-reopened-hwpx.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-reopened-hwpx.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-reopened-hwpx.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-reopened-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-replaced.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-replaced.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-replaced.hwp": "77c7b094c8c4c64feccd907da4978a1af03cc64d923ebdb56a45dd89e7e5d0a1",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-replaced.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-save-before.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-save-before.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-save-before.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-save-before.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-stale-after.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-stale-after.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-stale-after.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-stale-after.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-stale-before.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-stale-before.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-stale-before.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-stale-before.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-undone.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-undone.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-undone.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-empty-query-undone.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-original.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-original.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-original.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-original.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-redone.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-redone.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-redone.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-redone.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-reopened-hwp.canonical.hwp": "83c434e672102edcbf9feb16d156f17ec39a76abf5da53a9c12cebf65399af89",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-reopened-hwp.canonical.hwpx": "210aafd23329e939e150eb14c99446882de12d840402db9744083c3e45be3f11",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-reopened-hwp.hwp": "a944eb865fe1480d1ae408139220ab6a96afcdebc28ac0b2242ba176d79ceae5",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-reopened-hwp.hwpx": "210aafd23329e939e150eb14c99446882de12d840402db9744083c3e45be3f11",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-reopened-hwpx.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-reopened-hwpx.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-reopened-hwpx.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-reopened-hwpx.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-replaced.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-replaced.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-replaced.hwp": "77c7b094c8c4c64feccd907da4978a1af03cc64d923ebdb56a45dd89e7e5d0a1",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-replaced.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-save-before.canonical.hwp": "2763f9af6868843a8fd9e7c7988d18261e031d7a8f2031ab3514047680a8fcb9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-save-before.canonical.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-save-before.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-save-before.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-stale-after.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-stale-after.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-stale-after.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-stale-after.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-stale-before.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-stale-before.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-stale-before.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-stale-before.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-undone.canonical.hwp": "9e015c83c9786fb31360eed081fad11d8d58430bf55cbf5feb58ea9b8ef61d7c",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-undone.canonical.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-undone.hwp": "ebd26f579a49309945294a12171093d738aeaa657e92bce9355c4f07f30f7600",
+    "final-core-roundtrip-20261013/qa/files/hwpx-query-change-undone.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-1.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-10.hwp": "3b8ad38079256f24d347492e1dbe7d29333506afdccf166a605e66c2ffbe72c7",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-11.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-12.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-13.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-14.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-15.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-16.hwp": "18c1770237057966f34e154ca028e4c342431852b952b04ddabdd324711fb891",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-17.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-18.hwp": "b18796c257fb95ada71940aa5f0fc2e3c7c671ab9b8b9911088dad13a4f65096",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-19.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-2.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-20.hwpx": "42793dcf74a4dae03f47f113a4747d6d635c503273c80203fb5f127d60006be6",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-21.hwp": "210a19034e4ef43a7134ac173c19941a4f7002f28a241827aabd397c17e76e55",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-22.hwpx": "6e38a5b26fc5c36b0fc29dca30359fb91ea143128d19ae02230f9dfa23c4d12a",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-3.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-4.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-5.hwp": "b34d12b9ab7acc2c8df9a67adbd2131e7763193df62356c61d4a9f86926fe80c",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-6.hwpx": "013afd8574a98eb981c14c39287a768fbb87a393280b25421eebc5e1633938c9",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-7.hwp": "d8099274d978891a21ca150ead4fb319d14a1758fc95dab3bc1c4bfd9b47b496",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-8.hwpx": "f8838f7e00772483d3848b466fba3215624136d9bb37acf419f37c2e1af6d9b8",
+    "final-core-roundtrip-20261013/qa/files/ipc-payload-9.hwp": "69c0fd723bcf64899e7090a8931b871384ff1bc1edebaeef0cc867ca860d0a98"
+  },
+  "crossFormatLimit": {
+    "HwpToHwpxDropsHwpOnlyMetadata": true,
+    "HwpxToHwpReopenRegeneratesPreviewText": true,
+    "numberingAttributesChangedOnCrossFormat": [
+      "autoIndent",
+      "useInstWidth"
+    ],
+    "baselineProducesExactlySameBytes": true,
+    "fixedByThisChange": false
+  },
+  "remainingUnverified": [
+    "complex table/nested-cell search and replace",
+    "multilingual query/IME and formatted-list cross-format behavior",
+    "Linux runtime",
+    "OS print dialog and independent PDF search"
+  ],
+  "finalBudget": {
+    "normalBytes": 785944576,
+    "failureBytes": 163991552,
+    "totalBytes": 949936128,
+    "incompletePhases": [],
+    "freeBytes": 41139519488,
+    "normalForecastBytes": 0,
+    "failureForecastBytes": 0,
+    "normalLimit": 805306368,
+    "failureLimit": 268435456,
+    "requiredFreeBytes": 16374562816
+  }
+}

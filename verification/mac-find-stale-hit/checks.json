@@ -1,0 +1,54 @@
+{
+  "baseCommit": "eb501dc8d4adf2fbd79c329834e457b77ad5740f",
+  "results": [
+    {
+      "name": "desktop",
+      "argv": [
+        "npm",
+        "test",
+        "--prefix",
+        "desktop"
+      ],
+      "exitCode": 0,
+      "stdoutSHA256": "7557faed0945482b98d12136f6d22125b772556df147e877de0784a8a2e7a667",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "find-stale-hit",
+      "argv": [
+        "node",
+        "--test",
+        "desktop/tests/find-stale-hit.test.cjs"
+      ],
+      "exitCode": 0,
+      "stdoutSHA256": "0af90de9c26a6adb4889c23419ca878ca6b6cbf4acac197ffe6f6bf913ddf1a9",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "typecheck",
+      "argv": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceAndRuntimePinsUnchanged": true,
+  "pinnedFiles": 80,
+  "desktopSummary": {
+    "tests": 83,
+    "pass": 82,
+    "fail": 0,
+    "skip": 1,
+    "skipReason": "existing complex-picture fixture unavailable"
+  },
+  "findRegressionSummary": {
+    "tests": 9,
+    "pass": 9,
+    "fail": 0
+  },
+  "typecheckPassed": true
+}
