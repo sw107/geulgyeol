@@ -48,7 +48,8 @@ import { showHmlImportWarning } from '@/ui/hml-import-warning';
 import { showToast } from '@/ui/toast';
 import { addRecentDoc, listRecentDocs } from '@/recent/recent-store';
 import { showDropConfirmDialog } from '@/ui/drop-confirm-dialog';
-import { showHwpPasswordDialog } from '@/ui/hwp-password-dialog';
+import { showHwpPasswordDialog, showHwpSavePasswordDialog } from '@/ui/hwp-password-dialog';
+import { exportHostDocumentForSave } from '@/command/host-save-export';
 import {
   EMBED_HIDDEN_EDIT_COMMAND_IDS,
   EMBED_HIDDEN_FILE_COMMAND_IDS,
@@ -189,6 +190,11 @@ function baramState() { return { dirty: documentState.isDirty(), fileName: wasm.
     eventBus.emit('local-fonts-changed', { fonts, source: 'options-dialog' });
     return fonts.length;
   },
+
+  requiresPasswordForSave: () => wasm.requiresPasswordForSave,
+  exportForSave: (format: string, expected: HostDocumentVersion) => exportHostDocumentForSave(
+    wasm, format, () => assertHostDocumentVersion(expected), showHwpSavePasswordDialog,
+  ),
 
   export: (format: string) => {
     if (wasm.requiresPasswordForSave) throw new Error('암호 문서는 현재 바람 저장에서 지원하지 않습니다.');

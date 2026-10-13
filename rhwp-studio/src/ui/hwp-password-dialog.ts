@@ -1,4 +1,5 @@
 import { ModalDialog } from './dialog';
+import { validateSavePassword } from './save-password-validation.ts';
 
 class HwpPasswordDialog extends ModalDialog {
   private input!: HTMLInputElement;
@@ -147,12 +148,13 @@ class HwpSavePasswordDialog extends ModalDialog {
 
   protected onConfirm(): boolean {
     const password = this.passwordInput.value;
-    if (password.length < 5) {
+    const invalid = validateSavePassword(password, this.confirmationInput.value);
+    if (invalid === 'short') {
       this.showError('암호는 5자 이상으로 입력하세요.');
       this.passwordInput.focus();
       return false;
     }
-    if (password !== this.confirmationInput.value) {
+    if (invalid === 'mismatch') {
       this.showError('새 암호와 암호 확인이 일치하지 않습니다.');
       this.confirmationInput.focus();
       return false;

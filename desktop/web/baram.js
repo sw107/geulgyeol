@@ -69,7 +69,17 @@ async function saveCurrent(){
   status('저장 데이터를 만들고 있습니다…');
   const fileHost=host();
   if(!fileHost)throw new Error('로컬 저장 검증 모듈이 준비되지 않았습니다.');
-  const bytes=fileHost.export(format);
+  let bytes;
+  if(fileHost.exportForSave){
+    const needsPassword=fileHost.requiresPasswordForSave?.()===true;
+    // The renderer owns its password dialog. Keep it interactive while host
+    // actions remain busy; version checks reject edits made during the prompt.
+    if(needsPassword){$('editor').inert=false;$('busy').hidden=true;}
+    try{bytes=await fileHost.exportForSave(format,before);}
+    finally{if(needsPassword){$('editor').inert=true;$('busy').hidden=false;}}
+    if(bytes===null){status('저장을 취소했습니다.');return false;}
+    if(!sameVersion(before,await editor.getDocumentState()))throw new Error('암호 입력 또는 내보내기 중 문서가 변경되었습니다. 다시 저장해 주세요.');
+  }else{bytes=fileHost.export(format);}
   if(window.baram){
     const saved=await window.baram.save(bytes,name,format);
     if(!saved){status('저장을 취소했습니다.');return false;}

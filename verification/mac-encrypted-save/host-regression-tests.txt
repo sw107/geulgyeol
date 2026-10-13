@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: legacy object edits invalidate document revision even when only document-changed is emitted
+ok 1 - legacy object edits invalidate document revision even when only document-changed is emitted
+  ---
+  duration_ms: 0.920666
+  type: 'test'
+  ...
+# Subtest: paired text and pagination rendering notifications count each mutation once
+ok 2 - paired text and pagination rendering notifications count each mutation once
+  ---
+  duration_ms: 0.796333
+  type: 'test'
+  ...
+# Subtest: document replacement resets revision and disposal removes both event subscriptions
+ok 3 - document replacement resets revision and disposal removes both event subscriptions
+  ---
+  duration_ms: 0.13975
+  type: 'test'
+  ...
+# Subtest: guard preserves instance identity and method receivers; captured writers obey later lock
+ok 4 - guard preserves instance identity and method receivers; captured writers obey later lock
+  ---
+  duration_ms: 1.062667
+  type: 'test'
+  ...
+# Subtest: locked guard refuses unknown operations, snapshot changes, release and property writes
+ok 5 - locked guard refuses unknown operations, snapshot changes, release and property writes
+  ---
+  duration_ms: 0.188625
+  type: 'test'
+  ...
+# Subtest: actual host completion and cancel control UI dirty state
+ok 6 - actual host completion and cancel control UI dirty state
+  ---
+  duration_ms: 25.612333
+  type: 'test'
+  ...
+# Subtest: real temp write plus close fault reports primary error and leaves original, then permits retry
+ok 7 - real temp write plus close fault reports primary error and leaves original, then permits retry
+  ---
+  duration_ms: 12.817208
+  type: 'test'
+  ...
+# Subtest: IPC rejects duplicate through pending filesystem write and releases guard after completion
+ok 8 - IPC rejects duplicate through pending filesystem write and releases guard after completion
+  ---
+  duration_ms: 8.069333
+  type: 'test'
+  ...
+# Subtest: exclusive temp collision never removes a pre-existing file
+ok 9 - exclusive temp collision never removes a pre-existing file
+  ---
+  duration_ms: 2.671875
+  type: 'test'
+  ...
+# Subtest: reject mismatched formats and empty exports
+ok 10 - reject mismatched formats and empty exports
+  ---
+  duration_ms: 0.523333
+  type: 'test'
+  ...
+# Subtest: atomic replacement and failed rename cleanup
+ok 11 - atomic replacement and failed rename cleanup
+  ---
+  duration_ms: 20.158375
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 97.47425

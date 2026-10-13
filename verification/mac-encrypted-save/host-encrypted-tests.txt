@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: protected HWP/HWPX always select reported password serializers
+ok 1 - protected HWP/HWPX always select reported password serializers
+  ---
+  duration_ms: 1.50475
+  type: 'test'
+  ...
+# Subtest: plain document does not request a password or change output format
+ok 2 - plain document does not request a password or change output format
+  ---
+  duration_ms: 0.159083
+  type: 'test'
+  ...
+# Subtest: cancel and short input never serialize; confirmation mismatch remains invalid
+ok 3 - cancel and short input never serialize; confirmation mismatch remains invalid
+  ---
+  duration_ms: 0.372375
+  type: 'test'
+  ...
+# Subtest: edit while password is pending fails before serialization
+ok 4 - edit while password is pending fails before serialization
+  ---
+  duration_ms: 0.079458
+  type: 'test'
+  ...
+# Subtest: protected serializer failure is sanitized and never falls back
+ok 5 - protected serializer failure is sanitized and never falls back
+  ---
+  duration_ms: 0.080292
+  type: 'test'
+  ...
+# Subtest: content loss and invalid formats stop before any write
+ok 6 - content loss and invalid formats stop before any write
+  ---
+  duration_ms: 0.13525
+  type: 'test'
+  ...
+# Subtest: actual host UI exposes only the password prompt and keeps duplicate save busy
+ok 7 - actual host UI exposes only the password prompt and keeps duplicate save busy
+  ---
+  duration_ms: 4.809292
+  type: 'test'
+  ...
+# Subtest: actual host rejects a document version changed during export before IPC
+ok 8 - actual host rejects a document version changed during export before IPC
+  ---
+  duration_ms: 1.88275
+  type: 'test'
+  ...
+# Subtest: save chooser cancellation, filesystem failure and late edits preserve dirty state
+ok 9 - save chooser cancellation, filesystem failure and late edits preserve dirty state
+  ---
+  duration_ms: 27.959708
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 142.745875

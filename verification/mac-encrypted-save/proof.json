@@ -1,0 +1,246 @@
+{
+  "baseMain": "8199830da1706535aa8965865a5d832a4269eac5",
+  "branch": "dev/mac-encrypted-save-independent",
+  "printPR39PreservedSHA": "e8d227504d53e6f23060a6cd2b29a366966a1680",
+  "sourceSHA256": {
+    "desktop/web/baram.js": "48f63d0d91724f4b6516021191f178488c1d2b891c21a4ce067bf4f771c3be7d",
+    "rhwp-studio/src/main.ts": "3baa8bcfa0e46a613e8a7b94f3de3c6d2ea97cac17bbdfcb8ef7d00096a41b2c",
+    "rhwp-studio/src/command/host-save-export.ts": "195b580204b29f8be771dc15a8b90436f6fd9d627e51ffe5e7a0e2b1d170632b",
+    "rhwp-studio/src/ui/hwp-password-dialog.ts": "4f0c9fda0b1b7c9f0289a76fb4911db8f34f1f30560de414cf26b68936bade9e",
+    "rhwp-studio/src/ui/save-password-validation.ts": "82bdb1c391fb3b08cf0ca4d364248a7e020d4d30195c065cb9c3e77f9150d5e0",
+    "scripts/check-host-save.cjs": "619db9fcbb2c61c18bce9f5cda7aabdea3358a6a8ca94141decf1e3687f38be9",
+    "scripts/check-host-encrypted-save.mjs": "1857c4c85bdbd88c95ad19eb1c678d9eb506f27f01c28ae3d6e10e2339caeafd",
+    "scripts/tests/host-encrypted-save.test.mjs": "299aea2179e94ce9c94d91468bddc429e8b2ef13039a37be033ae130c2cc4ab1",
+    "scripts/run-independent-qa.py": "78f0b4947aac8a43f8fb82fb702f8dbfe115b8c1ef5711a9461675e117f06a0b",
+    "engine/examples/encrypted_save_check.rs": "e33645a83ea7a0608cc8fa26f847a87dc3b3655c3aa97e933703c5c212adacb8"
+  },
+  "preservedPins": {
+    "scripts/check-colspan-two-owner-carets.mjs": "367477219c197153dec12899885582a55e85e0ce0cca7e6aa5063e0d1f50dda9",
+    "scripts/check-partial-colspan-two-owner-snapshot-scope.mjs": "6c979f9b526bdf865951986407a663418b264ab9e4b031f85b4079ac56435549",
+    "scripts/prepare-native-cell-caret-oracle.py": "227aaca89f3097c0b34e8438c689e76140204058c036e6a2995860493cef9b7d",
+    "scripts/prepare-partial-colspan-two-owner-fixtures.mjs": "b319e32a5947013511ac9c10ae7ed3aea31a36fa14feddcc365b60393b669ad6",
+    "engine/Cargo.lock": "c9a2176f14b99a5b9db657be4c3b985cf12ab3e7b6c380ab15cc5644f3a60af8",
+    "desktop/package-lock.json": "3abe1dd8cfe321e737fb04cfd2760a9edfc1c65504ae5d82fd65903669b1d401",
+    "rhwp-studio/package-lock.json": "2857a04491b9bc789d4e229ec0101cf21b99c421fe2d8eff462189bf710217d1",
+    "pkg/rhwp_bg.wasm": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69"
+  },
+  "tests": {
+    "newUnitPassed": 9,
+    "existingHostRegressionPassed": 11,
+    "typecheckExitCode": 0,
+    "inMemoryDesktopBuildPassed": true,
+    "nativeSyntheticFormatPairs": 4,
+    "hostEncryptedFormatPairs": 4,
+    "hostCancelFailureVersionBranches": 4,
+    "nativeReopenedHostOutputs": 4,
+    "nativeWasmFullSVGCompared": true
+  },
+  "host": {
+    "syntheticOnly": true,
+    "actualHostUIFunction": true,
+    "actualHostIPCHandler": true,
+    "actualFilesystem": true,
+    "actualWASMSerializers": true,
+    "encryptedOutputs": 4,
+    "inputPins": {
+      "hwp": "77201e76e19c3fc5c233ee8895d0710fa74c848706bb0ccabb912abf653ad54c",
+      "hwpx": "463fb3117502146b907f968abb68da29b997b23747bf769794fc4922b8ba7656"
+    },
+    "rows": [
+      {
+        "source": "hwp",
+        "target": "hwp",
+        "file": "saved-hwp-to-hwp.hwp",
+        "reference": "saved-hwp-to-hwp.hwp",
+        "sha256": "121aaa9fcdef2504c901388da005ae7fbda21405f91c982ed6760bd24f584558",
+        "modelPreserved": true,
+        "encryptedReopen": true,
+        "originalPreserved": true
+      },
+      {
+        "source": "hwp",
+        "target": "hwpx",
+        "file": "saved-hwp-to-hwpx.hwpx",
+        "reference": "saved-hwp-to-hwpx.hwpx",
+        "sha256": "1d3367faba5dc48d3ae86f0ad928a16e68496752067ae5bf154bf1299a323d9b",
+        "modelPreserved": true,
+        "encryptedReopen": true,
+        "originalPreserved": true
+      },
+      {
+        "source": "hwpx",
+        "target": "hwp",
+        "file": "saved-hwpx-to-hwp.hwp",
+        "reference": "saved-hwpx-to-hwp.hwp",
+        "sha256": "fec159a244d9f25ef1a630c870e5f2bf4ec1f6374325b4c6e5bb4c2abc81948a",
+        "modelPreserved": true,
+        "encryptedReopen": true,
+        "originalPreserved": true
+      },
+      {
+        "source": "hwpx",
+        "target": "hwpx",
+        "file": "saved-hwpx-to-hwpx.hwpx",
+        "reference": "saved-hwpx-to-hwpx.hwpx",
+        "sha256": "83917fcb371bd3a140cd34cda66408f4dd58b1605aa324d3a909b711303aef99",
+        "modelPreserved": true,
+        "encryptedReopen": true,
+        "originalPreserved": true
+      }
+    ],
+    "checks": [
+      {
+        "mode": "password-cancel",
+        "dirtyPreserved": true,
+        "sourceModelPreserved": true,
+        "originalPreserved": true
+      },
+      {
+        "mode": "chooser-cancel",
+        "dirtyPreserved": true,
+        "sourceModelPreserved": true,
+        "originalPreserved": true
+      },
+      {
+        "mode": "filesystem-failure",
+        "dirtyPreserved": true,
+        "sourceModelPreserved": true,
+        "originalPreserved": true
+      },
+      {
+        "mode": "late-edit",
+        "dirtyPreserved": true,
+        "sourceModelPreserved": true,
+        "originalPreserved": false
+      }
+    ],
+    "engineSHA256": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69",
+    "ElectronExecuted": false,
+    "MacUIVerified": false,
+    "nativeChooserControlled": true,
+    "passwordsLogged": false,
+    "passwordsPassedToMainProcess": false
+  },
+  "nativeSynthetic": {
+    "MacUIExecuted": false,
+    "NativeExecuted": true,
+    "maxPages": 2,
+    "passwordsLogged": false,
+    "rows": [
+      {
+        "correctPasswordReopen": true,
+        "explicitNewPasswordApplied": true,
+        "file": "saved-hwp-to-hwp.hwp",
+        "fullNativeSVG": true,
+        "originalPreserved": true,
+        "pages": 1,
+        "plaintextOpenRejected": true,
+        "source": "hwp",
+        "sourceModelPreserved": true,
+        "target": "hwp",
+        "wrongPasswordRejected": true
+      },
+      {
+        "correctPasswordReopen": true,
+        "explicitNewPasswordApplied": true,
+        "file": "saved-hwp-to-hwpx.hwpx",
+        "fullNativeSVG": true,
+        "originalPreserved": true,
+        "pages": 1,
+        "plaintextOpenRejected": true,
+        "source": "hwp",
+        "sourceModelPreserved": true,
+        "target": "hwpx",
+        "wrongPasswordRejected": true
+      },
+      {
+        "correctPasswordReopen": true,
+        "explicitNewPasswordApplied": true,
+        "file": "saved-hwpx-to-hwp.hwp",
+        "fullNativeSVG": true,
+        "originalPreserved": true,
+        "pages": 1,
+        "plaintextOpenRejected": true,
+        "source": "hwpx",
+        "sourceModelPreserved": true,
+        "target": "hwp",
+        "wrongPasswordRejected": true
+      },
+      {
+        "correctPasswordReopen": true,
+        "explicitNewPasswordApplied": true,
+        "file": "saved-hwpx-to-hwpx.hwpx",
+        "fullNativeSVG": true,
+        "originalPreserved": true,
+        "pages": 1,
+        "plaintextOpenRejected": true,
+        "source": "hwpx",
+        "sourceModelPreserved": true,
+        "target": "hwpx",
+        "wrongPasswordRejected": true
+      }
+    ],
+    "syntheticOnly": true,
+    "userDocumentsUsed": false
+  },
+  "nativeHostReopen": {
+    "MacUIExecuted": false,
+    "NativeExecuted": true,
+    "correctPasswordReopen": true,
+    "fullNativeSVG": true,
+    "nativeWasmFullSVG": true,
+    "passwordsLogged": false,
+    "plaintextOpenRejected": true,
+    "syntheticOnly": true,
+    "verifiedHostOutputs": 4,
+    "wrongPasswordRejected": true
+  },
+  "scope": {
+    "syntheticOnly": true,
+    "actualNodeFilesystem": true,
+    "actualRegisteredHostSaveHandler": true,
+    "ElectronUIExecuted": false,
+    "actualIPCTransportExecuted": false,
+    "MacOSChooserExecuted": false,
+    "physicalPasswordInputExecuted": false,
+    "actualUndoRedoHistoryVerified": false,
+    "userPasswordsUsed": false,
+    "userDocumentsUsed": false,
+    "newAppPackaged": false,
+    "wasmRebuilt": false,
+    "engineProductCodeChanged": false,
+    "printingResumed": false
+  },
+  "capacityBefore": {
+    "ownedAllocatedBytes": 3292606464,
+    "diagnosticAllocatedBytes": 85925888,
+    "freeBytes": 40162816000,
+    "filesystemUsedDeltaBytes": 4282699776,
+    "normalCapBytes": 7516192768,
+    "diagnosticCapBytes": 1073741824,
+    "freeFloorBytes": 16374562816,
+    "withinLimits": true
+  },
+  "capacityAfter": {
+    "ownedAllocatedBytes": 3369431040,
+    "diagnosticAllocatedBytes": 86323200,
+    "freeBytes": 40105590784,
+    "filesystemUsedDeltaBytes": 4339924992,
+    "normalCapBytes": 7516192768,
+    "diagnosticCapBytes": 1073741824,
+    "freeFloorBytes": 16374562816,
+    "withinLimits": true
+  },
+  "normalForecastBytes": 268435456,
+  "diagnosticForecastBytes": 16777216,
+  "ownedGrowthBytes": 76824576,
+  "diagnosticGrowthBytes": 397312,
+  "logSHA256": {
+    "host-encrypted-tests.txt": "46c35a0c6d1fd67232b5d3755fdd063776ff5bfcb510b5272ebb1451099c5842",
+    "host-regression-tests.txt": "47c1be18e3909406d8e5b9be676adac39c4b27b19eea47dcddd2fdad5204fc4d",
+    "host-artifact-tests.txt": "b96bb0a248ec93b00cd2c12aa3df9a0fd597960fc537b9939188bb90e480afe4",
+    "memory-build.txt": "6879e1ea3d6488c96aea7e58fa900224357010315abfb3bc6888443ad339eb85",
+    "native-synthetic.txt": "16338d1fb3cae86b4583b16b938f152bb7b611be4e6959ec51769f73a355f339",
+    "native-host-reopen.txt": "801945042bcc9a68ea735eb37de26c92abe48d1af7934949da7a14578d55df68"
+  }
+}

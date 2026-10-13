@@ -1,0 +1,4 @@
+   Compiling rhwp v0.8.6 (<repository>/engine)
+    Finished `dev` profile [unoptimized] target(s) in 2.00s
+     Running `engine/target/debug/examples/encrypted_save_check <repository>/.geulgyeol-local/qa/mac-encrypted-native-final-20261011/native`
+PASS Native encrypted save: 4 format pairs, protected reopen and source preservation
