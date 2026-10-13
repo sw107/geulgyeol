@@ -188,21 +188,64 @@ export function createPrintPreviewSurface(
   });
 }
 
-function waitForAnimationFrame(windowLike: Window): Promise<void> {
-  return new Promise((resolve) => {
-    windowLike.requestAnimationFrame(() => resolve());
+export class PrintSurfaceClosedError extends Error {
+  constructor() {
+    super('인쇄 미리보기 창이 닫혔습니다.');
+    this.name = 'PrintSurfaceClosedError';
+  }
+}
+
+function waitForAnimationFrame(windowLike: Window, signal: AbortSignal): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (signal.aborted) { reject(signal.reason); return; }
+    const onAbort = () => {
+      windowLike.cancelAnimationFrame(frameId);
+      reject(signal.reason);
+    };
+    const frameId = windowLike.requestAnimationFrame(() => {
+      signal.removeEventListener('abort', onAbort);
+      resolve();
+    });
+    signal.addEventListener('abort', onAbort, { once: true });
   });
 }
 
-export async function waitForPrintSurfaceReady(surface: PrintDocumentSurface): Promise<void> {
-  const fontSet = surface.document.fonts;
-  if (fontSet) {
-    await fontSet.ready;
+export async function waitForPrintSurfaceReady(
+  surface: PrintDocumentSurface,
+  options: { hostWindow?: Window; timeoutMs?: number } = {},
+): Promise<void> {
+  // A closed child never delivers its queued animation frames. The owner must
+  // release the print job even when fonts or painting stop in that child.
+  const hostWindow = options.hostWindow ?? window;
+  const controller = new AbortController();
+  const { signal } = controller;
+  const canceled = new Promise<never>((_, reject) => {
+    signal.addEventListener('abort', () => reject(signal.reason), { once: true });
+  });
+  // Cancellation can happen during a frame wait, when this promise is unused.
+  void canceled.catch(() => {});
+  const checkClosed = () => {
+    if (surface.window.closed) controller.abort(new PrintSurfaceClosedError());
+  };
+  const closeTimer = hostWindow.setInterval(checkClosed, 50);
+  const timeout = hostWindow.setTimeout(
+    () => controller.abort(new Error('인쇄 surface 준비 시간이 초과되었습니다.')),
+    options.timeoutMs ?? DEFAULT_PRINT_SURFACE_TIMEOUT_MS,
+  );
+
+  try {
+    checkClosed();
+    signal.throwIfAborted();
+    const fontSet = surface.document.fonts;
+    if (fontSet) await Promise.race([fontSet.ready, canceled]);
+    signal.throwIfAborted();
+    await waitForAnimationFrame(surface.window, signal);
+    await waitForAnimationFrame(surface.window, signal);
+    signal.throwIfAborted();
+    // 인쇄 호출 직전에 style/layout 계산을 완료시킨다.
+    void surface.document.documentElement.getBoundingClientRect();
+  } finally {
+    hostWindow.clearInterval(closeTimer);
+    hostWindow.clearTimeout(timeout);
   }
-
-  await waitForAnimationFrame(surface.window);
-  await waitForAnimationFrame(surface.window);
-
-  // 인쇄 호출 직전에 style/layout 계산을 완료시킨다.
-  void surface.document.documentElement.getBoundingClientRect();
 }

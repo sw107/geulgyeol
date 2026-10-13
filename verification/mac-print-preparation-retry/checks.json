@@ -1,0 +1,41 @@
+{
+  "baseCommit": "153ac9caba3c92e6cdd0e0a388ec3aade9069e98",
+  "results": [
+    {
+      "name": "desktop",
+      "argv": [
+        "npm",
+        "test",
+        "--prefix",
+        "desktop"
+      ],
+      "exitCode": 0,
+      "stdoutSHA256": "a97bac063a9744bee51b901e6c10dd432803d3ca25ac0b8ef1ecea5183228e50",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "print-readiness",
+      "argv": [
+        "node",
+        "--test",
+        "desktop/tests/print-surface-readiness.test.cjs"
+      ],
+      "exitCode": 0,
+      "stdoutSHA256": "b20a9c60c2d96bbddb671fdd8bbfd50184d8d7b6f998b8b9eda97261272f8e17",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "typecheck",
+      "argv": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "exitCode": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceAndRuntimePinsUnchanged": true,
+  "pinnedFiles": 67
+}
