@@ -19,7 +19,7 @@ async function bootHost(mainFile,storage,choose){
  class Window{
   constructor(){win=this;this.webContents={mainFrame:{url:origin+'/'},on(){},send(){},
    setWindowOpenHandler(){}};}
-  isDestroyed(){return false;}on(){}setDocumentEdited(){}show(){ready.resolve();}
+  isDestroyed(){return false;}on(){}once(){}setDocumentEdited(){}show(){ready.resolve();}
   async loadURL(url){assert.equal(url,origin+'/');}
  }
  const forbidden=()=>{throw Error('OS dialog/window action forbidden in host QA');};
