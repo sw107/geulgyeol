@@ -1,0 +1,66 @@
+TAP version 13
+# (node:21848) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: document-mutated invalidates the cached hit before replacing and does not record history
+ok 1 - document-mutated invalidates the cached hit before replacing and does not record history
+  ---
+  duration_ms: 36.6965
+  type: 'test'
+  ...
+# Subtest: document-changed invalidates the cached hit before replacing and does not record history
+ok 2 - document-changed invalidates the cached hit before replacing and does not record history
+  ---
+  duration_ms: 2.939083
+  type: 'test'
+  ...
+# Subtest: history-jumped invalidates the cached hit before replacing and does not record history
+ok 3 - history-jumped invalidates the cached hit before replacing and does not record history
+  ---
+  duration_ms: 4.068959
+  type: 'test'
+  ...
+# Subtest: new query is checked at replace time even without an input event
+ok 4 - new query is checked at replace time even without an input event
+  ---
+  duration_ms: 2.768833
+  type: 'test'
+  ...
+# Subtest: case option is checked at replace time even without an input event
+ok 5 - case option is checked at replace time even without an input event
+  ---
+  duration_ms: 2.438875
+  type: 'test'
+  ...
+# Subtest: empty query is checked at replace time even without an input event
+ok 6 - empty query is checked at replace time even without an input event
+  ---
+  duration_ms: 2.148666
+  type: 'test'
+  ...
+# Subtest: a document swap generation cannot reuse an old range without a fresh search
+ok 7 - a document swap generation cannot reuse an old range without a fresh search
+  ---
+  duration_ms: 2.295084
+  type: 'test'
+  ...
+# Subtest: a fresh unchanged hit replaces once through the real snapshot routing contract
+ok 8 - a fresh unchanged hit replaces once through the real snapshot routing contract
+  ---
+  duration_ms: 2.191708
+  type: 'test'
+  ...
+# Subtest: dialog subscriptions do not duplicate on focus and all release on hide/reopen
+ok 9 - dialog subscriptions do not duplicate on focus and all release on hide/reopen
+  ---
+  duration_ms: 3.009667
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 97.35675

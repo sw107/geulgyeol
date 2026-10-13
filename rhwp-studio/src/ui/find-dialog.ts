@@ -77,9 +77,12 @@ export class FindDialog {
 
   /** 현재 검색 결과 (바꾸기 시 위치 참조용) */
   private currentHit: SearchResult | null = null;
+  private currentHitQuery: string | null = null;
+  private currentHitCaseSensitive = false;
+  private currentHitGeneration: number | null = null;
 
-  /** [Task #2339] history-jumped 구독 해제 핸들 (열려 있는 동안만 구독). */
-  private historyJumpOff: (() => void) | null = null;
+  /** Modeless editing can invalidate the matched range while this dialog stays open. */
+  private hitInvalidationOff: (() => void)[] = [];
 
   constructor(services: CommandServices, mode: FindMode) {
     this.services = services;
@@ -91,23 +94,24 @@ export class FindDialog {
   show(): void {
     if (this._open) { this.focusInput(); return; }
     this._open = true;
+    this.invalidateHit();
     this.build();
     document.body.appendChild(this.wrap);
     this.queryInput.value = FindDialog.lastQuery;
     this.caseSensitiveCheck.checked = FindDialog.lastCaseSensitive;
     this.applyMode();
     this.installKeyCaptureHandler();
-    // [Task #2339] undo/redo 로 문서가 되돌려지면 currentHit(sec/para/charOffset)이 stale 이
-    // 되어 바꾸기가 엉뚱한 위치를 치환한다 → history-jumped 구독으로 무효화(열려 있는 동안만).
-    this.historyJumpOff = this.services.eventBus.on('history-jumped', () => { this.currentHit = null; });
+    this.hitInvalidationOff = ['history-jumped', 'document-mutated', 'document-changed']
+      .map(event => this.services.eventBus.on(event, () => this.invalidateHit()));
     this.focusInput();
   }
 
   hide(): void {
     this._open = false;
     this.removeKeyCaptureHandler();
-    this.historyJumpOff?.();
-    this.historyJumpOff = null;
+    for (const off of this.hitInvalidationOff) off();
+    this.hitInvalidationOff = [];
+    this.invalidateHit();
     this.wrap?.remove();
   }
 
@@ -160,6 +164,7 @@ export class FindDialog {
     this.queryInput = document.createElement('input');
     this.queryInput.type = 'text';
     this.queryInput.className = 'find-dialog-input';
+    this.queryInput.addEventListener('input', () => this.invalidateHit());
     this.queryInput.addEventListener('keydown', (e) => e.stopPropagation());
     this.queryInput.addEventListener('keyup', (e) => e.stopPropagation());
     this.queryInput.addEventListener('keypress', (e) => e.stopPropagation());
@@ -189,6 +194,7 @@ export class FindDialog {
     this.caseSensitiveCheck = document.createElement('input');
     this.caseSensitiveCheck.type = 'checkbox';
     this.caseSensitiveCheck.id = 'find-case-sensitive';
+    this.caseSensitiveCheck.addEventListener('change', () => this.invalidateHit());
     const caseLabel = document.createElement('label');
     caseLabel.htmlFor = 'find-case-sensitive';
     caseLabel.textContent = ' 대소문자 구분';
@@ -282,9 +288,15 @@ export class FindDialog {
     this.replaceButtonRow.style.display = isReplace ? '' : 'none';
   }
 
+  private invalidateHit(): void {
+    this.currentHit = null;
+    this.currentHitQuery = null;
+    this.currentHitGeneration = null;
+  }
+
   private doSearch(forward: boolean): void {
     const query = this.queryInput.value;
-    if (!query) { this.statusLabel.textContent = ''; return; }
+    if (!query) { this.invalidateHit(); this.statusLabel.textContent = ''; return; }
 
     FindDialog.lastQuery = query;
     FindDialog.lastCaseSensitive = this.caseSensitiveCheck.checked;
@@ -319,6 +331,9 @@ export class FindDialog {
 
     if (result.found) {
       this.currentHit = result;
+      this.currentHitQuery = query;
+      this.currentHitCaseSensitive = this.caseSensitiveCheck.checked;
+      this.currentHitGeneration = this.services.wasm.documentGeneration;
       this.navigateToHit(result);
       if (result.wrapped) {
         this.statusLabel.style.color = '#0066cc';
@@ -327,7 +342,7 @@ export class FindDialog {
         this.statusLabel.textContent = '';
       }
     } else {
-      this.currentHit = null;
+      this.invalidateHit();
       this.statusLabel.style.color = '#c00';
       this.statusLabel.textContent = '검색 결과 없음';
     }
@@ -338,7 +353,11 @@ export class FindDialog {
   }
 
   private doReplace(): void {
-    if (!this.currentHit || !this.currentHit.found) {
+    if (!this.currentHit || !this.currentHit.found
+        || this.currentHitQuery !== this.queryInput.value
+        || this.currentHitCaseSensitive !== this.caseSensitiveCheck.checked
+        || this.currentHitGeneration !== this.services.wasm.documentGeneration) {
+      this.invalidateHit();
       this.doSearch(true);
       return;
     }
@@ -383,7 +402,7 @@ export class FindDialog {
 
     if (result.ok) {
       // 바꾼 뒤 다음 검색
-      this.currentHit = null;
+      this.invalidateHit();
       this.doSearch(true);
     }
   }
@@ -412,7 +431,7 @@ export class FindDialog {
 
     if (result.ok) {
       this.statusLabel.textContent = `${result.count}개 바꿈`;
-      this.currentHit = null;
+      this.invalidateHit();
     }
   }
 
