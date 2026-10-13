@@ -1,0 +1,135 @@
+{
+  "schema": "geulgyeol-print-status-ownership-v1",
+  "baseCommit": "618794939ad0415c7c1ef83d078b31465224149f",
+  "nativeRunBaseCommit": "1e190a09875e3ef4aca30a42957ebd2b799f08a2",
+  "nativeRunPrintSourcesUnchangedByMainFastForward": true,
+  "protectedPR46Head": "1e190a09875e3ef4aca30a42957ebd2b799f08a2",
+  "testedSourceSHA256": {
+    "rhwp-studio/src/command/commands/file.ts": "ab02995272677e0d665ac554c0aa60e0efabb55ffd582df27c555bafe23d71a2",
+    "rhwp-studio/src/command/print-surface.ts": "044dcfc0f561c8ad9c030826eae2b26ee34249a0cdf8de1b8f7b1c34f1c1a261",
+    "rhwp-studio/src/command/print-status.ts": "8dd73ca9727484542e31c34fa334aedc95c9ebce54dd98a1ec67e21e8ae16834",
+    "rhwp-studio/src/ui/pdf-print-dialog.ts": "6cb34b895b2ccc58e6c392951b5649a015562df0a05f8d3c452859db1dadca01",
+    "desktop/tests/print-status.test.cjs": "558d7b1487ea8d0c756415540c87a2219d54cb1b600a08e94555260901e486ec"
+  },
+  "runnerSHA256": "d8b7e99b2eaec9f7c74f664af2e934327202e30b96442e53a7c7cb1690de46a6",
+  "hostElectronBinarySHA256": "588478afc5f2bc73b6433d6e565a214dc830144be39a3d79805723292754ccd8",
+  "bootstrapSHA256": "ebbb1898080bd475e6845c8e742e79605c991a4ab8d60550b41f0713629f87e6",
+  "wasmSHA256": "ac622053d7e8fa16d3474f8c3c9a4b252e4d735fa6e4d132884ed5b7885ffc69",
+  "runtimeBuild": {
+    "reused": 13,
+    "written": 3,
+    "newEngineBuild": false,
+    "newPackage": false,
+    "QAHandleExposures": true
+  },
+  "rawLocalEvidenceSHA256": {
+    "baseline-proof": "e6a63a417068039175fc3c86158839e81e885c4c4593f70420177251ef3ab825",
+    "baseline-lifecycle": "286ce06c9231af7f1af267ac94295b78bc3182952ae38cff572f6b6fae9890b4",
+    "baseline-executed-runner": "6d4b599852fd84d8641b298b5e7605b6a7bbcc84bc4a55c912e85c2ff14a6ce4",
+    "fixed-proof": "a9e8428319ce0a0f431030923f691335854d6c918126783aeb37e72f6bcc6786",
+    "fixed-lifecycle": "286ce06c9231af7f1af267ac94295b78bc3182952ae38cff572f6b6fae9890b4",
+    "fixed-audit": "502e9f92708d90ce57f206cc026a4ce9a3becb7013f4a9030daa075e1c3d1080",
+    "fixed-console-events": "bd0a252901f878ae0046242b0d6a1ace3bf42fafca6e539aaeee539822fe33cb",
+    "fixed-executed-runner": "d8b7e99b2eaec9f7c74f664af2e934327202e30b96442e53a7c7cb1690de46a6"
+  },
+  "baseline": {
+    "format": "hwp",
+    "cases": 8,
+    "staleErrorRestoredAfterSuccess": true,
+    "newerStatusOverwritten": true,
+    "actualFormModeCommandMessageOverwritten": true,
+    "normalQuit": true
+  },
+  "fixed": {
+    "formats": [
+      "hwp",
+      "hwpx"
+    ],
+    "casesPerFormat": 9,
+    "stalePrintAndPdfErrorsClearOnSuccessfulPreview": true,
+    "guidanceCancelPreservesPriorFailure": true,
+    "newerExternalAndIdenticalWritesPreserved": true,
+    "actualFormModeCommandPreserved": true,
+    "duplicateRequestAndLateCompletionPreservesNewerMessage": true,
+    "singleChildOnDuplicate": true,
+    "completeSvgTreeComparison": true,
+    "bytesTextDirtyUndoRedoPreserved": true,
+    "retainedRedoAndUndoExecuted": true,
+    "normalQuit": true,
+    "OSPrintAttempts": 0
+  },
+  "nodeChecks": {
+    "baseCommit": "618794939ad0415c7c1ef83d078b31465224149f",
+    "results": [
+      {
+        "name": "desktop",
+        "argv": [
+          "npm",
+          "test",
+          "--prefix",
+          "desktop"
+        ],
+        "exitCode": 0,
+        "stdoutSHA256": "4e245ab841bf81008d6c5a95d1997cfb3e2a032cbe4ecc5a990ecdb20c9c3137",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "print-status",
+        "argv": [
+          "node",
+          "--test",
+          "desktop/tests/print-status.test.cjs"
+        ],
+        "exitCode": 0,
+        "stdoutSHA256": "c2cf354a401ce5124d3c14ba15f2ead227e0d3b509525b8576a6938d0cad9654",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "typecheck",
+        "argv": [
+          "node",
+          "node_modules/typescript/bin/tsc",
+          "--noEmit"
+        ],
+        "exitCode": 0,
+        "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "sourceAndRuntimePinsUnchanged": true,
+    "pinnedFiles": 69
+  },
+  "preservation": {
+    "dirtyFiles4": true,
+    "lockFiles3": true,
+    "wasm": true,
+    "priorEvidenceFiles": 273,
+    "compilerCacheFiles": 133,
+    "combinedOwnedBytes": 4708065280,
+    "runtimePinAfterMatchesBefore": true,
+    "PR46HeadPreserved": "1e190a09875e3ef4aca30a42957ebd2b799f08a2",
+    "PR46PublicEvidenceFiles": 11,
+    "PR46RuntimeFiles": 53,
+    "mainFastForwardChangedPrintSources": false,
+    "finalMainBase": "618794939ad0415c7c1ef83d078b31465224149f"
+  },
+  "finalEvidenceBudget": {
+    "normalBytes": 727662592,
+    "failureBytes": 158240768,
+    "totalBytes": 885903360,
+    "incompletePhases": [],
+    "freeBytes": 40328192000,
+    "normalForecastBytes": 0,
+    "failureForecastBytes": 0,
+    "normalLimit": 805306368,
+    "failureLimit": 268435456,
+    "requiredFreeBytes": 16374562816
+  },
+  "limits": [
+    "Synthetic two-page HWP/HWPX inputs, controlled native file chooser.",
+    "Actual Electron/WASM and real DOM MutationObserver; Node unit observer uses a deterministic DOM record adapter.",
+    "OS print and native PDF trailing-search verification remain unverified.",
+    "No Linux, packaging, engine rebuild or printer output.",
+    "Other status writers are preserved; their own delayed restore policies are not changed."
+  ]
+}
