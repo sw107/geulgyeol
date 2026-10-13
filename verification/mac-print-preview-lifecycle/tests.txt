@@ -1,0 +1,6 @@
+node --test desktop/tests/print-preview.test.cjs: 4 pass
+Same tests with pre-change main module injected in isolated require cache: 3 pass, 1 fail (replacement unload veto)
+npm test --prefix desktop with authorized localhost execution: 54 tests, 53 pass, 0 fail, 1 existing fixture skip
+Actual Mac Electron 44.3.0 final source: replacementClosed, parentClosed, reopenAfterClose, hardenedChildren, ownerStatePreserved, cleanupClosed all true; proof.error absent; normal app quit exit 0
+node --check scripts/check-electron-print-preview-lifecycle.cjs: pass
+git diff --check: pass

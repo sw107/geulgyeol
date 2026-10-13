@@ -37,6 +37,9 @@ function installPrintPreview(win, origin, BrowserWindow) {
         preview = child;
         child.setMenu(null);
         child.webContents.setWindowOpenHandler(() => ({action:'deny'}));
+        // This child contains a read-only print snapshot, never unsaved edits.
+        // Its beforeunload handler must not veto replacement or owner cleanup.
+        child.webContents.on('will-prevent-unload', event => event.preventDefault());
         const fence = (event, url) => {
           if ((url || event.url) !== origin + '/studio/print.html') event.preventDefault();
         };

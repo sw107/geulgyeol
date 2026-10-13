@@ -40,3 +40,36 @@ test('single child lifecycle, hardened preferences and navigation fences',()=>{
  assert.equal(children[1].options.parent,nextOwner);assert.equal(children[1].menu,null);children[1].emit('ready-to-show');assert(children[1].shown);
  nextOwner.close();assert(children[1].dead);
 });
+
+test('readonly preview unload cannot block replacement or owner cleanup',()=>{
+ const owner=new Window();owner.webContents.mainFrame={frames:[{url:studio}]};owner.webContents.session={};
+ const children=[];
+ class UnloadWindow extends Window {
+  constructor(options){super(options);children.push(this);}
+  close(){
+   let allowed=false;
+   this.webContents.emit('will-prevent-unload',{preventDefault(){allowed=true;}});
+   if(allowed)super.close();
+  }
+ }
+ installPrintPreview(owner,origin,UnloadWindow);
+ owner.webContents.open(request).createWindow({});
+ owner.webContents.open(request).createWindow({});
+ assert(children[0].dead,'previous readonly snapshot cannot veto replacement');
+ assert(!children[1].dead);
+ assert.equal(owner.webContents.listenerCount('will-prevent-unload'),0,'editable owner retains its own unload policy');
+ children[0].emit('ready-to-show');assert(!children[0].shown,'a closed preview is never shown late');
+ owner.close();assert(children[1].dead,'readonly snapshot cannot veto owner cleanup');
+});
+test('closing a preview allows a fresh hardened preview on the next request',()=>{
+ const owner=new Window();owner.webContents.mainFrame={frames:[{url:studio}]};owner.webContents.session={};
+ const children=[];class Recorded extends Window {constructor(options){super(options);children.push(this);}}
+ installPrintPreview(owner,origin,Recorded);
+ owner.webContents.open(request).createWindow({});children[0].close();
+ owner.webContents.open(request).createWindow({webPreferences:{preload:'/untrusted',nodeIntegration:true}});
+ assert(children[0].dead);assert(!children[1].dead);
+ assert.equal(children[1].options.webPreferences.preload,undefined);
+ assert.equal(children[1].options.webPreferences.nodeIntegration,false);
+ assert.equal(children[1].webContents.open(request).action,'deny');
+ owner.close();assert(children[1].dead);
+});

@@ -1,0 +1,126 @@
+{
+  "schema": "geulgyeol-print-preview-unload-lifecycle-v1",
+  "baseMainSHA": "2a8116a3c2e884e85d7942fe39e405f40b9d9b9b",
+  "sourceSHA256": {
+    "desktop/print-preview.cjs": "ca8c30845c52016de950c34f586da320c196be986cd9c754b9d8aed39bc56f29",
+    "desktop/tests/print-preview.test.cjs": "7a7a29666725de1b0d31fcb04b00557feebac283b8742d94b7cb06892cb35185",
+    "scripts/check-host-save.cjs": "d24ee0b2d276c2f3ac996e10560a68b757e3ae403ab5f9815b5a05e36b59d92c",
+    "scripts/check-electron-print-preview-lifecycle.cjs": "4848f980cbd26cbc3326c385c3d50a5f170f9c13813d6ba4ed43afce229925e1"
+  },
+  "nativeBaseline": {
+    "mode": "baseline-event",
+    "electron": "44.3.0",
+    "platform": "darwin",
+    "moduleSHA256": "1c058177c71f5ec172af45913f76dfd74df4960f11edde4cdf15f0f1bcd49a02",
+    "syntheticOnly": true,
+    "actualBrowserWindowAPIs": true,
+    "physicalPrintInvoked": false,
+    "windowsShown": false,
+    "childrenCreated": 2,
+    "willPreventUnload": [
+      0
+    ],
+    "showRequestsSuppressed": [
+      0,
+      1
+    ],
+    "replacementClosed": false,
+    "parentClosed": false,
+    "reopenAfterClose": false,
+    "hardenedChildren": true,
+    "ownerStatePreserved": true,
+    "cleanupClosed": true,
+    "error": "Error: Timeout previous print child closed"
+  },
+  "nativeFixed": {
+    "mode": "fixed-final",
+    "electron": "44.3.0",
+    "platform": "darwin",
+    "moduleSHA256": "ca8c30845c52016de950c34f586da320c196be986cd9c754b9d8aed39bc56f29",
+    "syntheticOnly": true,
+    "actualBrowserWindowAPIs": true,
+    "physicalPrintInvoked": false,
+    "windowsShown": false,
+    "childrenCreated": 3,
+    "willPreventUnload": [
+      0,
+      1
+    ],
+    "showRequestsSuppressed": [
+      0,
+      1,
+      2
+    ],
+    "replacementClosed": true,
+    "parentClosed": true,
+    "reopenAfterClose": true,
+    "hardenedChildren": true,
+    "ownerStatePreserved": true,
+    "cleanupClosed": true
+  },
+  "nativeBaselineExecutedHarnessSHA256": "fc56afac442fa9957588dad6d3a3df1809ecbf6a827ebef82b7d7e6dfc789103",
+  "nativeFinalExecutedHarnessSHA256": "4848f980cbd26cbc3326c385c3d50a5f170f9c13813d6ba4ed43afce229925e1",
+  "baselineSourceDifference": "final adds fresh-trace refusal; baseline-event and fixed-event used the preceding preserved source; product lifecycle body is the same",
+  "nativeAppExitCode": 0,
+  "exitCodeAloneProvesPass": false,
+  "positiveProofAssertionsPassed": true,
+  "tests": {
+    "desktop": {
+      "tests": 54,
+      "pass": 53,
+      "fail": 0,
+      "skipped": 1,
+      "skippedCase": "existing complex-layout picture fixture not supplied"
+    },
+    "printPreview": {
+      "tests": 4,
+      "pass": 4,
+      "fail": 0
+    },
+    "sameRegressionAgainstBaseline": {
+      "tests": 4,
+      "pass": 3,
+      "fail": 1,
+      "failure": "readonly preview unload cannot block replacement or owner cleanup"
+    },
+    "syntaxAndDiffCheck": true
+  },
+  "initialFullSuiteFailures": {
+    "hostAdapter": 3,
+    "reason": "bootHost Window lacked once() required by main print installation; no-op adapter method added",
+    "loopbackSandbox": 2,
+    "resolvedBy": "authorized localhost test execution; no security settings changed"
+  },
+  "nativePreparationFailuresPreserved": [
+    "first launch exited before proof because test did not retain window-all-closed lifecycle",
+    "host-frame open rejected; corrected to execute from actual Studio frame"
+  ],
+  "scope": {
+    "actualMacBrowserWindowAPI": true,
+    "physicalPrinting": false,
+    "realOSPrintDialog": false,
+    "visibleGUIClicks": false,
+    "productionHWPHistoryThroughPrint": false,
+    "syntheticOwnerStateOnly": true,
+    "oneReusedIsolatedProfile": true,
+    "sourceOnlyNoPackaging": true
+  },
+  "preservation": {
+    "dirty4": true,
+    "lock3": true,
+    "WASM": true,
+    "previousEvidence273": true,
+    "previousCache133": true,
+    "originalPDF3": true,
+    "PR40to42": {
+      "dev/mac-encrypted-save-independent": "582e1404c9efd5002c203418eee5e744084ac9d2",
+      "dev/encrypted-complex-regression": "b09300c4cbd68f2851aa2ddacbdfdbf0f34b75cd",
+      "dev/picture-dimension-coverage": "c493dac44c0a263c3ae74fbc04a2d683e9e8f13f"
+    }
+  },
+  "remaining": [
+    "PDF end-search independent viewer compatibility and product PDF adoption remain on hold",
+    "OS print sheet and complete HWP/HWPX document lifecycle were not rerun in this bounded module regression",
+    "Linux native behavior not tested"
+  ]
+}
