@@ -2168,6 +2168,11 @@ fn parse_numbering_para_head_attrs(
                 head.number_format = parse_numbering_format_code(&attr_str(&attr));
                 head.attr = (head.attr & !(0x0f << 5)) | ((head.number_format as u32) << 5);
             }
+            // HWP table 40 bits 2/3. Raw XML preserves HWPX-only saves,
+            // but HWP export needs these explicit booleans in NumberingHead.
+            // Missing attributes keep the existing zero/default behavior.
+            b"useInstWidth" => head.attr |= u32::from(parse_bool(&attr)) << 2,
+            b"autoIndent" => head.attr |= u32::from(parse_bool(&attr)) << 3,
             b"charPrIDRef" => head.char_shape_id = parse_u32(&attr),
             b"widthAdjust" => head.width_adjust = parse_i16(&attr),
             b"textOffset" => head.text_distance = parse_i16(&attr),
@@ -2590,6 +2595,50 @@ mod tests {
         let numbering = &doc_info.numberings[0];
 
         assert_eq!(numbering.heads[0].number_format, 1);
+    }
+
+    #[test]
+    fn numbering_para_head_boolean_flags_preserve_format_zero_and_sentinel() {
+        for (inst, auto, bits) in [
+            ("0", "0", 0), ("1", "0", 4), ("0", "1", 8),
+            ("1", "1", 12), ("true", "false", 4), ("false", "true", 8),
+        ] {
+            for level in [1, 7] {
+                for reverse in [false, true] {
+                    let attrs = if reverse {
+                        format!(r#"autoIndent="{auto}" numFormat="ROMAN_CAPITAL" useInstWidth="{inst}""#)
+                    } else {
+                        format!(r#"useInstWidth="{inst}" numFormat="ROMAN_CAPITAL" autoIndent="{auto}""#)
+                    };
+                    let raw = format!(r#"<hh:paraHead level="{level}" start="0" {attrs} widthAdjust="-12" textOffset="0" charPrIDRef="4294967295">^1.</hh:paraHead>"#);
+                    let xml = format!(r#"<hh:head xmlns:hh="http://www.hancom.co.kr/hwpml/2011/head"><hh:refList><hh:numberings><hh:numbering id="1" start="0">{raw}</hh:numbering></hh:numberings></hh:refList></hh:head>"#);
+                    let (info, _) = parse_hwpx_header(&xml).unwrap();
+                    let n = &info.numberings[0];
+                    let head = n.heads[level - 1];
+                    assert_eq!(head.attr & 12, bits);
+                    assert_eq!(head.attr & !12, 2 << 5);
+                    assert_eq!(head.width_adjust, -12);
+                    assert_eq!(head.text_distance, 0);
+                    assert_eq!(head.char_shape_id, u32::MAX);
+                    assert_eq!(n.start_number, 0);
+                    assert_eq!(n.level_start_numbers[level - 1], 0);
+                    assert_eq!(n.raw_para_heads.as_deref(), Some(raw.as_str()));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn numbering_para_head_omitted_flags_keep_zero_and_out_of_range_raw_xml() {
+        for level in [0, 1, 7, 8] {
+            let raw = format!(r#"<hh:paraHead level="{level}" numFormat="DIGIT" charPrIDRef="0"/>"#);
+            let xml = format!(r#"<hh:head xmlns:hh="http://www.hancom.co.kr/hwpml/2011/head"><hh:refList><hh:numberings><hh:numbering id="1" start="0">{raw}</hh:numbering></hh:numberings></hh:refList></hh:head>"#);
+            let (info, _) = parse_hwpx_header(&xml).unwrap();
+            let n = &info.numberings[0];
+            assert!(n.heads.iter().all(|head| head.attr & 12 == 0));
+            assert_eq!(n.start_number, 0);
+            assert_eq!(n.raw_para_heads.as_deref(), Some(raw.as_str()));
+        }
     }
 
     #[test]
