@@ -46,7 +46,8 @@ globalThis.__gapCommands = commands;
 const {
   CommandHistory
 } = await load('const {NO_TEXT_MUTATION_EFFECTS}=globalThis.__gapCommands;\n' + source.history);
-let bridge = 'export class BridgeProbe{doc;documentGeneration=1;constructor(d){this.doc=d;}\n';
+globalThis.__numberingWriteFence = (await load(fs.readFileSync('rhwp-studio/src/core/document-write-fence.ts', 'utf8'))).DocumentWriteFence;
+let bridge = 'export class BridgeProbe{doc;documentGeneration=1;writeFence=new globalThis.__numberingWriteFence();constructor(d){this.doc=this.writeFence.guard(d);}assertDocumentWritable(){this.writeFence.assertWritable();}\n';
 for (const n of ['getTextRange', 'getParagraphLength', 'getParagraphCount', 'getParaPropertiesAt', 'ensureDefaultNumbering', 'createNumbering', 'getNumberingList', 'applyParaFormat', 'setParaShapeId', 'saveSnapshot', 'restoreSnapshot', 'discardSnapshot', 'runInBatch']) bridge += method(source.bridge, n);
 bridge += '}';
 const {

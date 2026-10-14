@@ -8801,7 +8801,9 @@ impl LayoutEngine {
                         // layout_partial_paragraph에 직접 전달
                         numbered.or_else(|| composed.get(*para_index).cloned())
                     } else {
-                        composed.get(*para_index).cloned()
+                        self.apply_numbering_continuation(
+                            composed.get(*para_index), para, styles, outline_numbering_id,
+                        ).or_else(|| composed.get(*para_index).cloned())
                     };
                     // [Issue #677] 같은 paragraph 의 TAC 표를 선행한 PP 는 y_offset 이
                     // 이미 표 바닥까지 누적된 상태로 진입한다. 그러나 HWP IR 는 line 1 의

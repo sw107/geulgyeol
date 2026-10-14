@@ -1994,6 +1994,7 @@ fn test_tac_leading_width_block_table_full_line() {
         para_style_id: 0,
         inline_controls: Vec::new(),
         numbering_text: None,
+        numbering_layout: None,
         tac_controls: Vec::new(), // block 취급이라 비어있음
         footnote_positions: Vec::new(),
         tab_extended: Vec::new(),
@@ -2092,6 +2093,7 @@ fn test_tac_leading_width_inline_table_partial() {
         para_style_id: 0,
         inline_controls: Vec::new(),
         numbering_text: None,
+        numbering_layout: None,
         tac_controls: vec![(2, 1000, 0)], // pos=2 (ab 뒤), control_index=0
         footnote_positions: Vec::new(),
         tab_extended: Vec::new(),

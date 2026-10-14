@@ -46,7 +46,8 @@ globalThis.__gapCommands = commands;
 const {
   CommandHistory
 } = await load('const {NO_TEXT_MUTATION_EFFECTS}=globalThis.__gapCommands;\n' + source.history);
-let bridge = 'export class BridgeProbe{doc;documentGeneration=1;constructor(d){this.doc=d;}\n';
+globalThis.__numberingWriteFence = (await load(fs.readFileSync('rhwp-studio/src/core/document-write-fence.ts', 'utf8'))).DocumentWriteFence;
+let bridge = 'export class BridgeProbe{doc;documentGeneration=1;writeFence=new globalThis.__numberingWriteFence();constructor(d){this.doc=this.writeFence.guard(d);}assertDocumentWritable(){this.writeFence.assertWritable();}\n';
 for (const n of ['getTextRange', 'getParagraphLength', 'getParagraphCount', 'getTableDimensions','getTableDimensionsByPath','getCellInfo','getCellInfoByPath','getCellParagraphCount','getCellParagraphLengthByPath','getCellParagraphCountByPath','getCellParaPropertiesAtByPath','getCellParaPropertiesAt','applyParaFormatInCell','applyParaFormatInCellsByPaths','getTextInCellByPath', 'getParaPropertiesAt', 'ensureDefaultNumbering', 'createNumbering', 'getNumberingList', 'applyParaFormat', 'setParaShapeId', 'saveSnapshot', 'restoreSnapshot', 'discardSnapshot', 'runInBatch']) bridge += method(source.bridge, n);
 bridge += '}';
 const {
@@ -75,7 +76,7 @@ h += '}';
 const {
   HandlerProbe
 } = await load(h);
-const fixtures=JSON.parse(fs.readFileSync('../nested-paragraph-qa/behavior/native/proof.json')).fixtures.filter(x=>!x.equations&&x.file.endsWith('.hwpx'));
+const fixtures=JSON.parse(fs.readFileSync(process.env.GEULGYEOL_NESTED_PARAGRAPH_PROOF || '../nested-paragraph-qa/behavior/native/proof.json')).fixtures.filter(x=>!x.equations&&x.file.endsWith('.hwpx'));
 const pathAt=(c,cell,p)=>[...c.path.slice(0,-1),{...c.path.at(-1),cellIndex:cell,cellParaIndex:p}];
 const posAt=(c,cell,p)=>{const cellPath=pathAt(c,cell,p),first=cellPath[0];return {sectionIndex:0,paragraphIndex:c.parent,parentParaIndex:c.parent,controlIndex:first.controlIndex,cellIndex:first.cellIndex,cellParaIndex:first.cellParaIndex,cellPath,charOffset:1};};
 const compact=d=>Array.from({length:d.pageCount()},(_,i)=>[...d.renderPageSvg(i).matchAll(/<(text|tspan)\b[^>]*>([^<]*)<\/\1>/g)].map(x=>x[2]).join('').replace(/\s/g,'')).join('');

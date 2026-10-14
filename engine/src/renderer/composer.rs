@@ -88,6 +88,13 @@ pub struct InlineControl {
     pub control_type: InlineControlType,
 }
 
+/// HWP numbering-head bits 2/3, resolved for line layout.
+#[derive(Debug, Clone)]
+pub(crate) struct NumberingLayout {
+    pub auto_indent: bool,
+    pub width_text: Option<String>,
+}
+
 /// 구성된 문단
 #[derive(Debug, Clone)]
 pub struct ComposedParagraph {
@@ -100,6 +107,9 @@ pub struct ComposedParagraph {
     /// 개요 번호/글머리표 등 문단 머리 텍스트 (렌더링 전용)
     /// 문서 좌표 char_offset에 포함되지 않으며 별도 TextRunNode로 렌더링된다.
     pub numbering_text: Option<String>,
+    /// Derived numbering area; stored document heads remain untouched.
+    /// None retains the legacy bullet / synthesized-outline layout.
+    pub(crate) numbering_layout: Option<NumberingLayout>,
     /// treat_as_char 컨트롤의 텍스트 위치와 HWPUNIT 너비 목록
     /// (para.text 내 절대 char 인덱스, 폭 HWPUNIT, para.controls 내 인덱스)
     pub tac_controls: Vec<(usize, i32, usize)>,
@@ -567,6 +577,7 @@ fn compose_paragraph_impl(para: &Paragraph, caption: bool) -> ComposedParagraph 
         para_style_id: para.para_shape_id,
         inline_controls,
         numbering_text: None,
+        numbering_layout: None,
         tac_controls,
         footnote_positions,
         tab_extended: para.tab_extended.clone(),
