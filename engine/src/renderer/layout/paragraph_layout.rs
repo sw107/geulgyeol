@@ -3694,21 +3694,23 @@ impl LayoutEngine {
             .get(start_line..end)
             .map_or(true, |slice| slice.iter().all(|l| l.runs.is_empty()));
 
-        // 개요 번호/글머리표 마커 폭 사전 계산 (첫 줄 가용폭 차감용)
-        let numbering_width = if start_line == 0 {
-            if let Some(ref num_text) = composed.numbering_text {
-                let num_style = numbering_marker_text_style(
-                    styles,
-                    para,
-                    composed.lines.first().and_then(|l| l.runs.first()),
-                );
-                estimate_text_width(num_text, &num_style)
-            } else {
-                0.0
-            }
-        } else {
-            0.0
-        };
+        // The numbering area also applies to a paragraph resumed on another page.
+        // A fixed area uses the format's single-number reference, independently
+        // of the actual marker glyphs (which may extend beyond that area).
+        let numbering_width = if start_line > 0 && composed.numbering_layout.is_none() {
+            0.0 // Keep legacy bullet and virtual-outline pagination unchanged.
+        } else { composed.numbering_text.as_ref().map_or(0.0, |text| {
+            let num_style = numbering_marker_text_style(
+                styles,
+                para,
+                composed.lines.first().and_then(|l| l.runs.first()),
+            );
+            let width_text = composed.numbering_layout.as_ref()
+                .and_then(|layout| layout.width_text.as_deref()).unwrap_or(text);
+            estimate_text_width(width_text, &num_style)
+        }) };
+        let numbering_auto_indent = composed.numbering_layout.as_ref()
+            .map_or(true, |layout| layout.auto_indent);
 
         // 배경/테두리 렌더링을 위한 시작 위치 기록
         // 문단 경계 = 이전 문단 끝 = y_start (spacing_before 적용 전)
@@ -4649,8 +4651,9 @@ impl LayoutEngine {
             } else {
                 0.0
             };
-            // 번호/글머리표 마커: 모든 줄에서 마커 폭만큼 가용폭 차감 (행잉 인덴트)
-            let num_offset = if numbering_width > 0.0 {
+            // Only the first line always reserves the numbering area. Further
+            // lines reserve it only when the head requests automatic indentation.
+            let num_offset = if line_idx == 0 || numbering_auto_indent {
                 numbering_width
             } else {
                 0.0
@@ -5118,7 +5121,7 @@ impl LayoutEngine {
                         BoundingBox::new(x, y, num_width, line_height),
                     );
                     line_node.children.push(num_node);
-                    x += num_width;
+                    x += numbering_width;
                 }
             }
 
@@ -8233,6 +8236,29 @@ impl LayoutEngine {
         self.apply_paragraph_numbering_with_counters(composed, para, styles, outline_numbering_id, Some(counters))
     }
 
+    /// A later page reuses the active list counter; it must not advance it or
+    /// paint another marker. Bullet / missing-definition fallbacks stay untouched.
+    pub(crate) fn apply_numbering_continuation(
+        &self,
+        composed: Option<&ComposedParagraph>,
+        para: &Paragraph,
+        styles: &ResolvedStyleSet,
+        outline_numbering_id: u16,
+    ) -> Option<ComposedParagraph> {
+        let ps = styles.para_styles.get(para.para_shape_id as usize)?;
+        if !matches!(ps.head_type, HeadType::Number | HeadType::Outline) { return None; }
+        let id = resolve_numbering_id(ps.head_type, ps.numbering_id, outline_numbering_id);
+        let numbering = styles.numberings.get(id.checked_sub(1)? as usize)?;
+        if numbering.heads[(ps.para_level as usize).min(6)].attr & (1 << 3) == 0 { return None; }
+        let counters = {
+            let state = self.numbering_state.borrow();
+            if state.current_id == Some(id) { state.counters } else { *state.history.get(&id)? }
+        };
+        self.apply_paragraph_numbering_with_counters(
+            composed, para, styles, outline_numbering_id, Some(counters),
+        )
+    }
+
     fn apply_paragraph_numbering_with_counters(
         &self,
         composed: Option<&ComposedParagraph>,
@@ -8243,6 +8269,7 @@ impl LayoutEngine {
     ) -> Option<ComposedParagraph> {
         let para_style = styles.para_styles.get(para.para_shape_id as usize)?;
 
+        let mut numbering_layout = None;
         let head_text = match para_style.head_type {
             HeadType::None => return None,
             HeadType::Outline | HeadType::Number => {
@@ -8256,12 +8283,14 @@ impl LayoutEngine {
                 // 기본 모양(전 수준 ^N)으로 fallback 한다. NUMBER 는 불변 —
                 // 정의 없는 NUMBER 는 종전대로 번호를 그리지 않는다.
                 let synthesized_default;
+                let mut stored_definition = true;
                 let numbering = match numbering_id
                     .checked_sub(1)
                     .and_then(|i| styles.numberings.get(i as usize))
                 {
                     Some(n) => n,
                     None if para_style.head_type == HeadType::Outline => {
+                        stored_definition = false;
                         synthesized_default =
                             crate::renderer::layout::utils::default_outline_numbering();
                         &synthesized_default
@@ -8297,6 +8326,33 @@ impl LayoutEngine {
                     .get(level_idx)
                     .map(|h| h.text_distance > 0)
                     .unwrap_or(false);
+                if stored_definition {
+                    let head = &numbering.heads[level_idx];
+                    // Fixed-area projection is proven for decimal references at
+                    // zero width adjustment / text distance. Other formats retain
+                    // the existing width estimate pending their own Hancom oracle.
+                    let decimal_references = format_str.as_bytes().windows(2)
+                        .filter(|pair| pair[0] == b'^').all(|pair| match pair[1] {
+                            b'1'..=b'7' => numbering.heads[(pair[1] - b'1') as usize].number_format == 0,
+                            b'n' | b'N' => numbering.heads[..=level_idx].iter().all(|h| h.number_format == 0),
+                            _ => true,
+                        });
+                    let width_text = if head.attr & (1 << 2) == 0
+                        && head.width_adjust == 0 && head.text_distance == 0 && decimal_references {
+                        // Hancom's decimal fixed area is independent of list
+                        // start / current counters; retain literals and hierarchy.
+                        let reference = expand_numbering_format(
+                            format_str, &[1; 7], numbering, &[1; 7], level_idx,
+                        );
+                        Some(if has_distance { format!("{} ", reference) } else { reference })
+                    } else {
+                        None
+                    };
+                    numbering_layout = Some(crate::renderer::composer::NumberingLayout {
+                        auto_indent: head.attr & (1 << 3) != 0,
+                        width_text,
+                    });
+                }
                 if has_distance {
                     format!("{} ", text)
                 } else {
@@ -8331,6 +8387,7 @@ impl LayoutEngine {
         let comp = composed?;
         let mut modified = comp.clone();
         modified.numbering_text = Some(head_text);
+        modified.numbering_layout = numbering_layout;
 
         Some(modified)
     }
@@ -8953,6 +9010,7 @@ mod trailing_tac_width_tests {
             para_style_id: 0,
             inline_controls: Vec::new(),
             numbering_text: None,
+            numbering_layout: None,
             tac_controls: Vec::new(),
             footnote_positions: Vec::new(),
             tab_extended: Vec::new(),

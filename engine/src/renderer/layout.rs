@@ -3367,9 +3367,19 @@ impl LayoutEngine {
 
     /// 번호 카운터를 진행시킨다 (이전 페이지 문단의 번호 재계산용).
     pub fn advance_numbering(&self, numbering_id: u16, level: u8) {
+        self.advance_numbering_with_restart(numbering_id, level, None);
+    }
+
+    /// Replay the paragraph's restart exactly as on its first rendered page.
+    pub(crate) fn advance_numbering_with_restart(
+        &self,
+        numbering_id: u16,
+        level: u8,
+        restart: Option<crate::model::paragraph::NumberingRestart>,
+    ) {
         self.numbering_state
             .borrow_mut()
-            .advance(numbering_id, level, None);
+            .advance(numbering_id, level, restart);
     }
 
     /// 잘림 보기 여부를 설정한다.
@@ -8801,7 +8811,9 @@ impl LayoutEngine {
                         // layout_partial_paragraph에 직접 전달
                         numbered.or_else(|| composed.get(*para_index).cloned())
                     } else {
-                        composed.get(*para_index).cloned()
+                        self.apply_numbering_continuation(
+                            composed.get(*para_index), para, styles, outline_numbering_id,
+                        ).or_else(|| composed.get(*para_index).cloned())
                     };
                     // [Issue #677] 같은 paragraph 의 TAC 표를 선행한 PP 는 y_offset 이
                     // 이미 표 바닥까지 누적된 상태로 진입한다. 그러나 HWP IR 는 line 1 의

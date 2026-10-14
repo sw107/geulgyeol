@@ -1,6 +1,6 @@
 # Open renderer item: numbering continuation indent
 
-Status: open, existing behavior; outside the serialization fix in PR #50. No renderer/product code was changed to address it.
+Status: partially addressed by the separate `dev/numbering-continuation-indent` renderer change. See [scoped implementation and remaining gaps](numbering-continuation-indent.md) and the [NewStart replay follow-up](numbering-restart-indent.md). The evidence below records the earlier PR #50 serialization baseline; that PR itself did not alter rendering.
 
 In the numeric synthetic first paragraph with `useInstWidth=0` and `autoIndent=0`, Hancom Office HWP 12.30.0 (6544) continues the second line at the body left margin. The production Geulgyeol QA app continues under the text after the number. Opening either the Geulgyeol HWP or HWPX output in Hancom displays the Hancom placement. A one-page result or preserved numbering bits does not imply matching line layout or glyph output.
 
@@ -8,4 +8,4 @@ Fresh evidence uses the *same bytes* for three inputs: the original numeric HWPX
 
 Local evidence: `evidence/followup-hancom/render-comparison.json`, baseline/fixed `*.svg`, `numbering-save-bits.json`, `native-ui-observations.json`, and `packaged-back/*.png`, under the `numbering-head-flags` QA root. Native Hancom screenshots are in the task's CUA tool outputs.
 
-Future renderer work should model the two bits in line layout, compare all four boolean combinations and mixed numbering levels in the installed Hancom editor, and verify both exports and fresh reopens. It requires a separate implementation and review; this item is not resolved by PR #50.
+The separate renderer change now models automatic indentation and the verified decimal fixed/actual area. Nondecimal fixed areas, general wrapping/font fidelity, and the interrupted final native-dialog/keyboard/reopen cycle remain open. This item was not resolved by PR #50, and the new scoped change still requires independent review.

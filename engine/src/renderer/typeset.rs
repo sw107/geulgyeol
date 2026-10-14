@@ -27271,6 +27271,7 @@ mod tests {
             para_style_id: 0,
             inline_controls: Vec::new(),
             numbering_text: None,
+            numbering_layout: None,
             tac_controls: vec![(0, 20000, 0)],
             footnote_positions: Vec::new(),
             tab_extended: Vec::new(),
