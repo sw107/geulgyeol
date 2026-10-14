@@ -3367,9 +3367,19 @@ impl LayoutEngine {
 
     /// 번호 카운터를 진행시킨다 (이전 페이지 문단의 번호 재계산용).
     pub fn advance_numbering(&self, numbering_id: u16, level: u8) {
+        self.advance_numbering_with_restart(numbering_id, level, None);
+    }
+
+    /// Replay the paragraph's restart exactly as on its first rendered page.
+    pub(crate) fn advance_numbering_with_restart(
+        &self,
+        numbering_id: u16,
+        level: u8,
+        restart: Option<crate::model::paragraph::NumberingRestart>,
+    ) {
         self.numbering_state
             .borrow_mut()
-            .advance(numbering_id, level, None);
+            .advance(numbering_id, level, restart);
     }
 
     /// 잘림 보기 여부를 설정한다.

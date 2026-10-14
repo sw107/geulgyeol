@@ -1,6 +1,6 @@
 # Open renderer item: numbering continuation indent
 
-Status: partially addressed by the separate `dev/numbering-continuation-indent` renderer change. See [scoped implementation and remaining gaps](numbering-continuation-indent.md). The evidence below records the earlier PR #50 serialization baseline; that PR itself did not alter rendering.
+Status: partially addressed by the separate `dev/numbering-continuation-indent` renderer change. See [scoped implementation and remaining gaps](numbering-continuation-indent.md) and the [NewStart replay follow-up](numbering-restart-indent.md). The evidence below records the earlier PR #50 serialization baseline; that PR itself did not alter rendering.
 
 In the numeric synthetic first paragraph with `useInstWidth=0` and `autoIndent=0`, Hancom Office HWP 12.30.0 (6544) continues the second line at the body left margin. The production Geulgyeol QA app continues under the text after the number. Opening either the Geulgyeol HWP or HWPX output in Hancom displays the Hancom placement. A one-page result or preserved numbering bits does not imply matching line layout or glyph output.
 

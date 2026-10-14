@@ -7391,7 +7391,9 @@ impl DocumentCore {
                                     outline_num_id,
                                 );
                                 if nid > 0 {
-                                    self.layout_engine.advance_numbering(nid, ps.para_level);
+                                    self.layout_engine.advance_numbering_with_restart(
+                                        nid, ps.para_level, para.numbering_restart,
+                                    );
                                 }
                             }
                         }

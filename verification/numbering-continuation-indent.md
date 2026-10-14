@@ -17,6 +17,8 @@ The existing renderer always used actual marker width and hung every line. It no
 
 Fixed-width projection is deliberately limited to **decimal references with zero width adjustment and zero text distance**. Roman fixed areas did not match an `I.` reference in Hancom, so that calculation remains open; nondecimal or adjusted heads retain their previous width estimate. Automatic indentation still follows bit 3. Bullets and synthesized outline definitions retain their previous layout.
 
+Latest correction: [paragraph NewStart replay and current validation](numbering-restart-indent.md).
+
 A later-page PartialParagraph formerly received an unnumbered composition. The continuation path now reads the current/history counter without advancing it, resolves the existing head and restores its automatic area. It emits no repeated marker.
 
 The HWP v5 [official format specification](https://cdn.hancom.com/link/docs/한글문서파일형식_5.0_revision1.3.pdf), table 40, defines these two bits. Hancom's [number-area help](https://help.hancom.com/hoffice/multi/ko_kr/hwp/format/numberbullet(position).htm) describes actual digit-width fitting and a fixed one-digit area. The scoped decimal reference calculation is supported additionally by the installed app observations above.
@@ -34,9 +36,9 @@ Native Hancom observations and screenshots are in this task's CUA outputs. Saved
 
 The existing body and cell numbering harnesses required the current real DocumentWriteFence to be installed in their bridge adapters. Cell fixtures can now be selected through `GEULGYEOL_NESTED_PARAGRAPH_PROOF`; no fixture is fabricated or replaced.
 
-## Final recorded checks
+## Initial PR #51 recorded checks (`82de34d`)
 
-Final WASM SHA-256: `2974efdd669b35d5bc7bd45ea3fd1d6d16ede2206f4181f3f75522a76cb69fbc`.
+Initial PR WASM SHA-256: `2974efdd669b35d5bc7bd45ea3fd1d6d16ede2206f4181f3f75522a76cb69fbc`.
 
 - Native four-combination checks: cached Hancom decimal / multilevel and cache-free decimal / multilevel; 16 HWP/HWPX reopens.
 - Real WASM: ten alternating reopens, nonnumbered wrapped control exact SVG equality, nine-page hard-break document with 190 later-page line starts and exactly four `123.` markers followed by `124.`.
@@ -46,6 +48,10 @@ Final WASM SHA-256: `2974efdd669b35d5bc7bd45ea3fd1d6d16ede2206f4181f3f75522a76cb
 - ASAR contents: 80 files matched the staged ordinary runtime; ad hoc bundle signature verified. Original dirty checkout status, binary diff hash and untracked file hashes match the preservation record.
 
 Final evidence: `evidence/matrix/wasm-pagination-delivery`, `native-pagination-*`, `body-pagination-final`, `cell-pagination-final`, `flags-pagination-final`, `packaged-pagination-final`, `final-export-bits-proof.json`, plus `validation-final.json` and `package-proof-pagination.json` in the QA root.
+
+## Cell verification scope
+
+The 78 nested-cell cases verify numbering labels, properties, history and save/reopen behavior. They are **not four-flag cell-coordinate coverage**. In `table_layout.rs`, `apply_cell_paragraph_numbering` still runs only when `start_line == 0`; a split-cell continuation with `start_line > 0` uses the unnumbered composition and does not receive the head metadata. This is an existing open limitation, separate from the corrected body-paragraph continuation and NewStart replay. Neither the initial four-flag body matrix nor the 78 cell cases closes that gap.
 
 ## Limits and remaining work
 
