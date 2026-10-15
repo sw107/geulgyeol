@@ -2,6 +2,8 @@
 
 Base: merged main `e6d8413c67609d4d10d389b040872b008047b521`. Branch: `dev/numbering-restart-persistence`. All inputs are synthetic copies. The original dirty checkout's status, binary diff SHA-256 and all untracked hashes were rechecked unchanged.
 
+This report retains the initial `f516ea3` validation. The [P2 transition/history follow-up](numbering-restart-toggle.md) records the final engine, fixes removal/bullet transitions, and completes the native Hancom roundtrip that was initially blocked.
+
 ## Cause and standard representation
 
 The replay fix rendered an in-memory `NewStart(123)` correctly, but both serializers omitted that transient paragraph attribute. With the previous WASM (`f37c7fc8c1671f415a2fd4c4ebc695fe0a8042d458d48905b9d10842323d5847`), both independent saves changed `1.,2.,123.,124.,124.1.,125.` back to `1.,2.,3.,4.,4.1.,5.` after reopening. The current baseline SDK and actual Mac Electron source-QA reproduce this loss.
@@ -29,7 +31,7 @@ Supported NewStart is **level-1 body NUMBER lists**, including following lower l
 
 QA root: `/Users/sw107/Documents/Codex/2026-10-14/task/numbering-restart-persistence`.
 
-Final WASM SHA-256: `b32f304e7235beaa10c08d707dcfa16ba416149398539a578e3894039d3f21a1`.
+Initial `f516ea3` WASM SHA-256: `b32f304e7235beaa10c08d707dcfa16ba416149398539a578e3894039d3f21a1`. See the follow-up for the final tested engine.
 
 | Check | Result and evidence under QA root |
 | --- | --- |
@@ -56,8 +58,8 @@ Earlier failed assertion/observer attempts remain in distinct evidence directori
 
 ## Remaining validation limits
 
-**Final Geulgyeol → Hancom reopen/edit/save/reopen is blocked.** After choosing HWP in Hancom's Save As format menu, File/Open/Save and document switching remained disabled, while AX and screenshots exposed only the document. Menu cancellation, Escape, Command-period, and the ordinary Open toolbar button did not restore these commands. No HWP save from this dialog or final native reopen is claimed. A user-assisted dialog cancellation was requested. No app force-quit, user-window closure, original overwrite, login, terms acceptance or activation was attempted. The earlier successful native HWPX save and its contents are verified separately above.
+**Initial native roundtrip blocker, subsequently recovered:** after choosing HWP in Hancom's Save As format menu, File/Open/Save and document switching remained disabled, while AX and screenshots exposed only the document. Menu cancellation, Escape, Command-period, and the Open toolbar button did not restore the commands. A fresh synthetic copy opened through Finder's ordinary Open With → editing Hancom restored working Open/Save commands without restarting the app or closing existing windows. No hidden modal or exact internal cause was proven. Both formats were then opened, edited, saved to new files, reopened from fresh disk copies, and reopened in the final ordinary Geulgyeol package; see the follow-up. No login, terms acceptance, activation, security change or original overwrite was performed.
 
 Full `cargo test -p rhwp --lib` exits 101 before running because this checkout lacks `engine/samples/3-09월_교육_통합_2022.hwp`, `engine/samples/hwp3-sample16-hwp5.hwp`, and `engine/samples/hwpx/aift.hwpx`. See `full-rust-lib.log`. Production Native examples compile and run, but do not substitute for a full lib-test pass. CI status must be reported separately; an empty check list is not success.
 
-Physical keyboard/IME and genuine native save chooser completion are not established by source-QA or public API tests. General wrapping/font fidelity and Roman fixed areas remain outside this change. Split cells still apply head metadata only at `start_line == 0`; later cell continuations remain an existing open gap. Merge requires independent review and resolution or explicit acceptance of the native validation gap.
+Physical keyboard/IME is not established by source-QA or public API tests. Genuine Hancom Save As completion is established separately in the follow-up. General wrapping/font fidelity and Roman fixed areas remain outside this change. Split cells still apply head metadata only at `start_line == 0`; later cell continuations remain an existing open gap. Merge requires independent review of the final head.

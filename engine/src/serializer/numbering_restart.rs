@@ -11,7 +11,13 @@ pub(crate) fn document_for_export(doc: &Document) -> Result<Cow<'_, Document>, S
         .sections
         .iter()
         .flat_map(|s| &s.paragraphs)
-        .any(|p| matches!(p.numbering_restart, Some(NumberingRestart::NewStart(_))))
+        .any(|p| {
+            matches!(p.numbering_restart, Some(NumberingRestart::NewStart(_)))
+                && doc.doc_info.para_shapes.get(p.para_shape_id as usize).map_or(
+                    true,
+                    |shape| matches!(shape.head_type, HeadType::Number | HeadType::Outline),
+                )
+        })
     {
         return Ok(Cow::Borrowed(doc));
     }
@@ -25,6 +31,12 @@ pub(crate) fn document_for_export(doc: &Document) -> Result<Cow<'_, Document>, S
                 .para_shapes
                 .get(para.para_shape_id as usize)
                 .ok_or_else(|| unsupported("missing paragraph shape"))?;
+            // Older snapshots may retain a restart on plain/bullet paragraphs.
+            // It has no rendered counter effect and must not prevent saving.
+            if !matches!(source_shape.head_type, HeadType::Number | HeadType::Outline) {
+                para.numbering_restart = None;
+                continue;
+            }
             if let Some(NumberingRestart::NewStart(value)) = para.numbering_restart {
                 // The installed Hancom oracle proves a new top-level numbered
                 // list, including following lower levels. Do not invent an

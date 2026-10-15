@@ -136,6 +136,60 @@ fn main() {
             assert_eq!(view(&reloaded), expected);
         }
     }
+    let mut toggle_reopens = 0;
+    for (name, props) in [
+        ("dialog-remove", r#"{"headType":"None","numberingId":0}"#),
+        ("toolbar-remove", r#"{"headType":"None"}"#),
+        ("bullet", r#"{"headType":"Bullet","numberingId":1,"paraLevel":0}"#),
+    ] {
+        let mut toggle = DocumentCore::from_bytes(&input).unwrap();
+        toggle.document_mut().doc_info.bullets.push(rhwp::model::style::Bullet {
+            bullet_char: '●', text_distance: 50, ..Default::default()
+        });
+        toggle.set_numbering_restart_native(0, 2, 2, 123).unwrap();
+        let restart_view = view(&toggle);
+        let undo = toggle.save_snapshot_native();
+        toggle.apply_para_format_native(0, 2, props).unwrap();
+        assert!(toggle.document().sections[0].paragraphs[2].numbering_restart.is_none());
+        let off = view(&toggle);
+        let redo = toggle.save_snapshot_native();
+        toggle.restore_snapshot_native(undo).unwrap();
+        assert_eq!(view(&toggle), restart_view);
+        toggle.restore_snapshot_native(redo).unwrap();
+        assert_eq!(view(&toggle), off);
+        for ext in ["hwpx", "hwp"] {
+            let bytes = save(&toggle, ext);
+            fs::write(out.join(format!("{name}.{ext}")), &bytes).unwrap();
+            assert_eq!(view(&DocumentCore::from_bytes(&bytes).unwrap()), off);
+            toggle_reopens += 1;
+        }
+        toggle.apply_para_format_native(0, 2, r#"{"headType":"Number","numberingId":2,"paraLevel":0}"#).unwrap();
+        let again = view(&toggle);
+        assert_eq!(again["labels"], json!(["1.","2.","3.","4.","4.1.","5."]));
+        for ext in ["hwpx", "hwp"] {
+            let bytes = save(&toggle, ext);
+            fs::write(out.join(format!("{name}-number-again.{ext}")), &bytes).unwrap();
+            assert_eq!(view(&DocumentCore::from_bytes(&bytes).unwrap()), again);
+            toggle_reopens += 1;
+        }
+    }
+    // Legacy stale snapshots are ignored without mutation, both in the
+    // borrowed fast path and while projecting a different active restart.
+    for active in [false, true] {
+        let mut stale = DocumentCore::from_bytes(&input).unwrap();
+        stale.apply_para_format_native(0, 2, r#"{"headType":"None"}"#).unwrap();
+        if active { stale.set_numbering_restart_native(0, 5, 2, 7).unwrap(); }
+        let expected = view(&stale);
+        stale.document_mut().sections[0].paragraphs[2].numbering_restart =
+            Some(rhwp::model::paragraph::NumberingRestart::NewStart(123));
+        let before = live(&stale);
+        for ext in ["hwpx", "hwp"] {
+            let bytes = save(&stale, ext);
+            assert_eq!(live(&stale), before);
+            assert_eq!(view(&DocumentCore::from_bytes(&bytes).unwrap()), expected);
+            toggle_reopens += 1;
+        }
+    }
     // Unverified lower-level / outline NewStart must fail, never invent nwno kinds.
     let mut unsupported = DocumentCore::from_bytes(&input).unwrap();
     unsupported
@@ -149,7 +203,7 @@ fn main() {
     overflow.set_numbering_restart_native(0, 2, 2, 65536).unwrap();
     assert!(overflow.export_hwpx_native_with_report().is_err());
     assert!(overflow.export_hwp_with_adapter_snapshot_with_report().is_err());
-    let result = json!({"labels":initial["labels"],"stages":stages,"saveReopens":9,"restartReappliedAfterLoad":false,"liveIRUnchangedOnExport":true,"paragraphFormattingPreserved":true,"continuePreviousAcrossListSwitch":true,"lowerLevelRestartExplicitlyBlocked":true,"outOfRangeStartExplicitlyBlocked":true,"nativeAppUI":false});
+    let result = json!({"labels":initial["labels"],"stages":stages,"saveReopens":9,"toggleAndStaleReopens":toggle_reopens,"toggleUndoRedoVerified":true,"restartReappliedAfterLoad":false,"liveIRUnchangedOnExport":true,"paragraphFormattingPreserved":true,"continuePreviousAcrossListSwitch":true,"lowerLevelRestartExplicitlyBlocked":true,"outOfRangeStartExplicitlyBlocked":true,"nativeAppUI":false});
     fs::write(
         out.join("proof.json"),
         serde_json::to_vec_pretty(&result).unwrap(),

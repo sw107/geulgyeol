@@ -1307,6 +1307,15 @@ export class ApplyParaFormatCommand implements EditCommand {
         });
         return { ...cursorBefore };
       });
+    } else if (props.headType === 'None' || props.headType === 'Bullet') {
+      // Leaving a numeric body list also clears paragraph-local restart state.
+      // A shape-ID-only undo cannot restore that state (or clear it on redo).
+      this.snapshot = new SnapshotCommand('applyBodyListHeadFormat', cursorBefore, cursorBefore, (wasm) => {
+        wasm.runInBatch(() => {
+          for (const target of targets) applyParaFormatToTarget(wasm, target, JSON.stringify(props));
+        });
+        return { ...cursorBefore };
+      });
     }
   }
 
