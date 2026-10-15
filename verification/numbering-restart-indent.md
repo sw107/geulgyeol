@@ -1,6 +1,6 @@
 # Paragraph NewStart replay across body-page continuations
 
-PR #51 follow-up from `82de34d8939cba1e4becb834348d259680fece43`. The fix remains on `dev/numbering-continuation-indent`; merge requires independent review.
+Historical PR #51 validation, merged in `e6d8413c67609d4d10d389b040872b008047b521`. The separate [NewStart persistence follow-up](numbering-restart-persistence.md) removes restart reapplication from the current fixed checks. The evidence and limitations below describe the earlier replay-only build.
 
 ## Reproducer and minimum change
 
@@ -37,6 +37,6 @@ Use `build-electron-table-qa.mjs` without production mode to prepare the isolate
 
 ## Boundaries
 
-`numbering_restart` is an editing-state attribute that the existing HWP/HWPX serializer does not retain. The restart tests explicitly apply it **after each load**, and the Mac source-QA check uses the real bridge mutation/history path. These reload checks prove restart-aware rendering on loaded documents; they do not claim NewStart persistence. That existing serialization limitation is not repaired by this replay fix.
+In this historical build, `numbering_restart` was an editing-state attribute that the HWP/HWPX serializer did not retain. Its restart tests explicitly applied it **after each load**, and the Mac source-QA check used the real bridge mutation/history path. Those reload checks proved restart-aware rendering on loaded documents; they did not establish NewStart persistence. See the linked persistence follow-up for current behavior and its narrower supported scope.
 
 The 78 nested-cell cases do **not** verify four-flag cell coordinates. Split cells still apply head metadata only for `start_line == 0`; `start_line > 0` cell continuations remain an existing open gap. General wrapping/font fidelity, Roman fixed areas, and the earlier pending physical keyboard/native chooser/Hancom-final-reopen cycle remain outside this correction. No user original or unsaved document is closed or overwritten.

@@ -67,6 +67,8 @@ fn serialize_hwp_inner(
     password: Option<&[u8]>,
     warning_mode: ContentLossWarningMode,
 ) -> Result<SerializedDocument, SerializeError> {
+    let projected = super::numbering_restart::document_for_export(doc)?;
+    let doc = projected.as_ref();
     crate::model::memo::validate(doc, false).map_err(SerializeError::UnsupportedInput)?;
     // 1. FileHeader 직렬화
     // [Task #1768] 배포용/암호화 문서 강하: IR 은 이미 복호화된 평문이고 본 직렬화는
