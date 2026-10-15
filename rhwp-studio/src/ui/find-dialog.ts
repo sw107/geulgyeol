@@ -1,5 +1,5 @@
 import type { CommandServices } from '@/command/types';
-import type { SearchResult, ReplaceResult, ReplaceAllResult } from '@/core/types';
+import type { DocumentPosition, SearchResult, ReplaceResult, ReplaceAllResult } from '@/core/types';
 
 export type FindMode = 'find' | 'replace';
 
@@ -60,6 +60,19 @@ export function navigateToSearchHit(ih: ReturnType<CommandServices['getInputHand
 export class FindDialog {
   static lastQuery = '';
   static lastCaseSensitive = false;
+
+  /** Cell edits can make paragraphIndex local; the search API needs its body owner. */
+  static searchOrigin(pos: DocumentPosition): { sec: number; para: number; charOffset: number; cellContext?: SearchResult['cellContext'] } {
+    const origin = { sec: pos.sectionIndex, para: pos.parentParaIndex ?? pos.paragraphIndex, charOffset: pos.charOffset };
+    // Nested cells and text boxes remain outside Find/F3's supported scope.
+    if (pos.isTextBox || (pos.cellPath?.length ?? 0) > 1 || pos.parentParaIndex === undefined) return origin;
+    const leaf = pos.cellPath?.[0];
+    const ctrlIdx = leaf?.controlIndex ?? pos.controlIndex;
+    const cellIdx = leaf?.cellIndex ?? pos.cellIndex;
+    const cellPara = leaf?.cellParaIndex ?? pos.cellParaIndex;
+    if (ctrlIdx === undefined || cellIdx === undefined || cellPara === undefined) return origin;
+    return { ...origin, cellContext: { parentPara: origin.para, ctrlIdx, cellIdx, cellPara } };
+  }
 
   private _open = false;
   private mode: FindMode;
@@ -310,26 +323,23 @@ export class FindDialog {
 
     // 역방향 검색 시: 현재 선택 영역의 시작 위치를 기준으로 해야
     // 현재 매치를 건너뛰고 이전 매치를 찾을 수 있다.
-    let fromSec = pos.sectionIndex;
-    let fromPara = pos.paragraphIndex;
-    let fromChar = pos.charOffset;
+    let origin = FindDialog.searchOrigin(pos);
 
     if (!forward && this.currentHit?.found) {
-      fromSec = this.currentHit.sec!;
-      fromPara = this.currentHit.para!;
-      fromChar = this.currentHit.charOffset!;
+      origin = { sec: this.currentHit.sec!, para: this.currentHit.para!, charOffset: this.currentHit.charOffset!, cellContext: this.currentHit.cellContext };
     }
 
     const result = this.services.wasm.searchText(
       query,
-      fromSec,
-      fromPara,
-      fromChar,
+      origin.sec,
+      origin.para,
+      origin.charOffset,
       forward,
       this.caseSensitiveCheck.checked,
       // [#3865] 표 셀 안 텍스트도 찾는다. 아래 navigateToHit 이 cellContext 를 셀 좌표로
       // 옮길 수 있으므로 켤 수 있다 — 못 옮기면 "찾았다는데 화면은 안 움직임"이 된다.
       true,
+      origin.cellContext,
     );
 
     if (result.found) {
