@@ -25,11 +25,16 @@ test('a document swap generation cannot reuse an old range without a fresh searc
 for(const kind of ['body','cell'])test('previous find after a document swap starts at the new cursor, not the old '+kind+' hit',()=>{
  const c=controller();c.d.currentHit={found:true,sec:2,para:7,charOffset:12,length:6,...(kind==='cell'?{cellContext:{parentPara:7,ctrlIdx:0,cellIdx:1,cellPara:0}}:{})};
  c.wasm.documentGeneration++;c.d.findPrev();
- assert.deepEqual(c.calls,[['search','needle',0,0,0,false,false,true]]);
+ assert.deepEqual(c.calls,[['search','needle',0,0,0,false,false,true,undefined]]);
  assert.equal(c.d.currentHitGeneration,c.wasm.documentGeneration);
 });
 test('previous find in the same document starts at the current match start to skip it',()=>{
- const c=controller();c.d.findPrev();assert.deepEqual(c.calls,[['search','needle',0,0,4,false,false,true]]);
+ const c=controller();c.d.findPrev();assert.deepEqual(c.calls,[['search','needle',0,0,4,false,false,true,undefined]]);
+});
+test('previous find retains the cached flat cell address in the same document',()=>{
+ const c=controller(),cell={parentPara:7,ctrlIdx:2,cellIdx:1,cellPara:3};
+ c.d.currentHit={found:true,sec:0,para:7,charOffset:4,length:6,cellContext:cell};
+ c.d.findPrev();assert.deepEqual(c.calls,[['search','needle',0,7,4,false,false,true,cell]]);
 });
 test('a fresh unchanged hit replaces once through the real snapshot routing contract',()=>{
  const c=controller();c.d.doReplace();assert.equal(c.calls.filter(x=>x[0]==='snapshot').length,1);assert.deepEqual(c.calls.find(x=>x[0]==='replace'),['replace',0,0,4,6,'Q']);

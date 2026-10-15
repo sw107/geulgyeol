@@ -6039,9 +6039,35 @@ impl HwpDocument {
         forward: bool,
         case_sensitive: bool,
         include_cells: Option<bool>,
+        from_cell_json: Option<String>,
     ) -> Result<String, JsValue> {
+        #[derive(serde::Deserialize)]
+        #[serde(rename_all = "camelCase", deny_unknown_fields)]
+        struct CellOrigin {
+            parent_para: u32,
+            ctrl_idx: u32,
+            cell_idx: u32,
+            cell_para: u32,
+        }
+        let from_cell = from_cell_json
+            .as_deref()
+            .map(|json| {
+                let cell: CellOrigin = serde_json::from_str(json)
+                    .map_err(|_| JsValue::from_str("검색 시작 셀 JSON이 잘못됨"))?;
+                if cell.parent_para != from_para {
+                    return Err(JsValue::from_str(
+                        "검색 시작 셀의 바깥 문단이 일치하지 않음",
+                    ));
+                }
+                Ok((
+                    cell.ctrl_idx as usize,
+                    cell.cell_idx as usize,
+                    cell.cell_para as usize,
+                ))
+            })
+            .transpose()?;
         self.core
-            .search_text_native(
+            .search_text_with_cell_native(
                 query,
                 from_sec as usize,
                 from_para as usize,
@@ -6050,6 +6076,7 @@ impl HwpDocument {
                 case_sensitive,
                 // [#3865] 미지정이면 종전 동작(본문만) — 인자를 6개만 넘기던 기존 호출자 무회귀.
                 include_cells.unwrap_or(false),
+                from_cell,
             )
             .map_err(|e| e.into())
     }

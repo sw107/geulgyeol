@@ -341,7 +341,6 @@ impl DocumentCore {
     /// from_sec/from_para/from_char: 검색 시작 위치
     /// forward: true=정방향, false=역방향
     /// case_sensitive: 대소문자 구분
-    /// cell_context_json: 표 셀 내부에서 시작할 경우 JSON
     ///
     /// 반환: JSON `{"found":true,"sec":0,"para":1,"charOffset":5,"length":3,"cellContext":...}`
     pub fn search_text_native(
@@ -354,6 +353,49 @@ impl DocumentCore {
         case_sensitive: bool,
         include_cells: bool,
     ) -> Result<String, HwpError> {
+        self.search_text_with_cell_native(
+            query,
+            from_sec,
+            from_para,
+            from_char,
+            forward,
+            case_sensitive,
+            include_cells,
+            None,
+        )
+    }
+
+    /// A flat table origin distinguishes identical character offsets in different
+    /// cells/paragraphs. None identifies the body paragraph, even with cells enabled.
+    pub fn search_text_with_cell_native(
+        &self,
+        query: &str,
+        from_sec: usize,
+        from_para: usize,
+        from_char: usize,
+        forward: bool,
+        case_sensitive: bool,
+        include_cells: bool,
+        from_cell: Option<(usize, usize, usize)>,
+    ) -> Result<String, HwpError> {
+        if let Some((ctrl_idx, cell_idx, cell_para)) = from_cell {
+            let valid = include_cells
+                && self
+                    .document
+                    .sections
+                    .get(from_sec)
+                    .and_then(|s| s.paragraphs.get(from_para))
+                    .and_then(|p| p.controls.get(ctrl_idx))
+                    .and_then(|c| match c {
+                        Control::Table(table) => table.cells.get(cell_idx),
+                        _ => None,
+                    })
+                    .and_then(|c| c.paragraphs.get(cell_para))
+                    .is_some();
+            if !valid {
+                return Err(HwpError::RenderError("검색 시작 셀 좌표가 잘못됨".into()));
+            }
+        }
         if query.is_empty() {
             return Ok(r#"{"found":false}"#.to_string());
         }
@@ -370,8 +412,8 @@ impl DocumentCore {
         // 기본값은 종전 동작 그대로라 기존 호출자는 무회귀다.
         //
         // 셀 히트의 sec·para 는 표가 놓인 **바깥 문단** 좌표이고, 셀 안 위치는 cellContext
-        // (parentPara·ctrlIdx·cellIdx·cellPara)로 따로 실린다. 그래서 아래 전/후 판정은
-        // 셀 히트에서도 그대로 성립한다(표가 놓인 문단 기준으로 정렬된다).
+        // (parentPara·ctrlIdx·cellIdx·cellPara)로 따로 실린다. 전/후 판정에는 셀 안 문단의
+        // 오프셋뿐 아니라 이 주소도 필요하다.
         let body_hits: Vec<&SearchHit> = if include_cells {
             // Find/F3가 이동·치환할 수 있는 것은 표 셀의 일반 텍스트뿐이다. 글상자와
             // 수식은 `cellContext`만으로는 표와 구분하거나 안전하게 편집할 수 없으므로
@@ -401,24 +443,30 @@ impl DocumentCore {
             return Ok(r#"{"found":false}"#.to_string());
         }
 
+        // Match search_all's existing container order: body text, then controls,
+        // cells and cell paragraphs. A cell offset is never a body offset.
+        let origin = (from_sec, from_para, from_cell, from_char);
+        let position = |h: &SearchHit| {
+            (
+                h.sec,
+                h.para,
+                h.cell_context
+                    .as_ref()
+                    .and_then(CellHit::flat)
+                    .map(|(_, ctrl, cell, para)| (ctrl, cell, para)),
+                h.char_offset,
+            )
+        };
         if forward {
             // The caret after a match can be the next adjacent match's start.
             // Include that boundary; reverse search still excludes the current start.
-            let after = body_hits.iter().find(|h| {
-                h.sec > from_sec
-                    || (h.sec == from_sec && h.para > from_para)
-                    || (h.sec == from_sec && h.para == from_para && h.char_offset >= from_char)
-            });
+            let after = body_hits.iter().find(|h| position(h) >= origin);
             match after {
                 Some(h) => Ok(format_search_hit(h, false)),
                 None => Ok(format_search_hit(body_hits[0], true)),
             }
         } else {
-            let before = body_hits.iter().rev().find(|h| {
-                h.sec < from_sec
-                    || (h.sec == from_sec && h.para < from_para)
-                    || (h.sec == from_sec && h.para == from_para && h.char_offset < from_char)
-            });
+            let before = body_hits.iter().rev().find(|h| position(h) < origin);
             match before {
                 Some(h) => Ok(format_search_hit(h, false)),
                 None => Ok(format_search_hit(body_hits[body_hits.len() - 1], true)),
