@@ -377,6 +377,7 @@ export class FindDialog {
     // 엉뚱한 곳이 손상된다. 찾기가 셀 매치를 반환하기 시작했으니 여기도 함께 갈라야 한다.
     const cell = hit.cellContext;
     const applyReplace = (wasm: typeof this.services.wasm): ReplaceResult => {
+      let replaced: ReplaceResult;
       if (cell) {
         // Snapshot commands do not publish deferred text-mutation effects to
         // InputHandler. Finish pagination here before cursor/render/history reads.
@@ -384,27 +385,39 @@ export class FindDialog {
           hit.sec!, cell.parentPara, cell.ctrlIdx, cell.cellIdx, cell.cellPara,
           hit.charOffset!, hit.length!, newText,
         ));
-        return { ok: r.ok };
+        replaced = { ok: r.ok };
+      } else {
+        replaced = wasm.replaceText(
+          hit.sec!, hit.para!, hit.charOffset!, hit.length!, newText,
+        );
       }
-      return wasm.replaceText(
-        hit.sec!, hit.para!, hit.charOffset!, hit.length!, newText,
-      );
+      // A failed result can follow partial mutation. Fail inside the snapshot
+      // so rollback runs before history commits or discards a pending redo.
+      if (!replaced.ok) throw new Error('replaceText failed');
+      return replaced;
     };
 
     let result: ReplaceResult = { ok: false };
     const ih = this.services.getInputHandler();
-    if (ih) {
-      ih.executeOperation({ kind: 'snapshot', operationType: 'replaceText', operation: (wasm) => {
-        result = applyReplace(wasm);
-        return ih.getCursorPosition();
-      }});
-    } else {
-      result = applyReplace(this.services.wasm);
-      this.services.eventBus.emit('document-changed');
+    try {
+      if (ih) {
+        ih.executeOperation({ kind: 'snapshot', operationType: 'replaceText', operation: (wasm) => {
+          result = applyReplace(wasm);
+          return ih.getCursorPosition();
+        }});
+      } else {
+        result = applyReplace(this.services.wasm);
+        this.services.eventBus.emit('document-changed');
+      }
+    } catch {
+      this.statusLabel.style.color = '#c00';
+      this.statusLabel.textContent = '바꾸기에 실패했습니다.';
+      return;
     }
 
     if (result.ok) {
       // 바꾼 뒤 다음 검색
+      this.statusLabel.style.color = '';
       this.invalidateHit();
       this.doSearch(true);
     }
