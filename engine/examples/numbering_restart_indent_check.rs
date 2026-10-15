@@ -103,12 +103,11 @@ fn main() {
         let b = a.into_bytes();
         fs::write(out.join(format!("reopen-{i}.{ext}")), &b).unwrap();
         d = DocumentCore::from_bytes(&b).unwrap();
-        d.set_numbering_restart_native(0, 1, 2, 123).unwrap();
         let v = observe(&d, true);
         assert_eq!(v, initial);
         stages.push(ext);
     }
-    let proof = json!({"definitionStart":1,"restart":123,"flags":12,"positions":initial,"saveReopens":stages.len(),"restartReappliedAfterEachLoad":true,"nativeAppUI":false});
+    let proof = json!({"definitionStart":1,"restart":123,"flags":12,"positions":initial,"saveReopens":stages.len(),"restartReappliedAfterEachLoad":false,"nativeAppUI":false});
     fs::write(
         out.join("proof.json"),
         serde_json::to_vec_pretty(&proof).unwrap(),
@@ -116,6 +115,6 @@ fn main() {
     .unwrap();
     println!(
         "{}",
-        json!({"pages":proof["positions"]["pages"],"laterLines":proof["positions"]["later"].as_array().unwrap().len(),"saveReopens":4,"restartReappliedAfterEachLoad":true})
+        json!({"pages":proof["positions"]["pages"],"laterLines":proof["positions"]["later"].as_array().unwrap().len(),"saveReopens":4,"restartReappliedAfterEachLoad":false})
     );
 }

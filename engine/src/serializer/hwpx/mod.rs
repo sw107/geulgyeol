@@ -53,6 +53,8 @@ pub fn serialize_hwpx(doc: &Document) -> Result<Vec<u8>, SerializeError> {
 
 /// HWPX 직렬화 바이트와 바로 그 산출물의 내용 손실을 함께 반환한다 (#4430).
 pub fn serialize_hwpx_with_report(doc: &Document) -> Result<SerializedDocument, SerializeError> {
+    let projected = super::numbering_restart::document_for_export(doc)?;
+    let doc = projected.as_ref();
     crate::model::memo::validate(doc, true).map_err(SerializeError::UnsupportedInput)?;
     use static_assets::*;
 

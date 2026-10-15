@@ -1574,6 +1574,14 @@ impl DocumentCore {
         let base_id = self.document.sections[sec_idx].paragraphs[para_idx].para_shape_id;
         let new_id = self.document.find_or_create_para_shape(base_id, &mods);
         self.document.sections[sec_idx].paragraphs[para_idx].para_shape_id = new_id;
+        // Restart belongs to numeric-list formatting. Removing numbering or
+        // applying a bullet ends it; snapshot history restores it on undo.
+        if !matches!(
+            self.document.doc_info.para_shapes[new_id as usize].head_type,
+            crate::model::style::HeadType::Number | crate::model::style::HeadType::Outline
+        ) {
+            self.document.sections[sec_idx].paragraphs[para_idx].numbering_restart = None;
+        }
 
         // 줄바꿈에 영향을 주는 변경 시 LineSeg 재계산 (compose는 LineSeg 값을 그대로
         // 사용하므로). 줄간격뿐 아니라 여백/들여쓰기/줄나눔 단위도 사용 가능 폭·토큰
