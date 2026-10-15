@@ -402,10 +402,12 @@ impl DocumentCore {
         }
 
         if forward {
+            // The caret after a match can be the next adjacent match's start.
+            // Include that boundary; reverse search still excludes the current start.
             let after = body_hits.iter().find(|h| {
                 h.sec > from_sec
                     || (h.sec == from_sec && h.para > from_para)
-                    || (h.sec == from_sec && h.para == from_para && h.char_offset > from_char)
+                    || (h.sec == from_sec && h.para == from_para && h.char_offset >= from_char)
             });
             match after {
                 Some(h) => Ok(format_search_hit(h, false)),
