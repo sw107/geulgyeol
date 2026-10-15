@@ -303,6 +303,9 @@ export class FindDialog {
 
     const ih = this.services.getInputHandler();
     if (!ih) return;
+    // A modeless dialog can outlive a document swap without a mutation event.
+    // Only a hit from this document may override the new cursor for reverse search.
+    if (this.currentHitGeneration !== this.services.wasm.documentGeneration) this.invalidateHit();
     const pos = ih.getCursorPosition();
 
     // 역방향 검색 시: 현재 선택 영역의 시작 위치를 기준으로 해야
