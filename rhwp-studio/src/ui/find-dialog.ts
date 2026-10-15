@@ -417,19 +417,32 @@ export class FindDialog {
     // 한 번에 되돌릴 수 있다.
     let result: ReplaceAllResult = { ok: false };
     const ih = this.services.getInputHandler();
-    if (ih) {
-      ih.executeOperation({ kind: 'snapshot', operationType: 'replaceAll', operation: (wasm) => {
-        result = wasm.runInBatch(() => wasm.replaceAll(query, newText, this.caseSensitiveCheck.checked));
-        return ih.getCursorPosition();
-      }});
-    } else {
-      result = this.services.wasm.runInBatch(() => this.services.wasm.replaceAll(
-        query, newText, this.caseSensitiveCheck.checked,
-      ));
-      this.services.eventBus.emit('document-changed');
+    const replaceAll = (wasm: typeof this.services.wasm): ReplaceAllResult => {
+      const replaced = wasm.runInBatch(() => wasm.replaceAll(query, newText, this.caseSensitiveCheck.checked));
+      // A failed result may follow partial mutation. Throw inside the snapshot
+      // so its existing rollback restores the document before history changes.
+      if (!replaced.ok) throw new Error('replaceAll failed');
+      return replaced;
+    };
+    try {
+      if (ih) {
+        ih.executeOperation({ kind: 'snapshot', operationType: 'replaceAll', operation: (wasm) => {
+          result = replaceAll(wasm);
+          // No matches must retain both stacks, snapshot budget and clean state.
+          return result.count ? ih.getCursorPosition() : null;
+        }});
+      } else {
+        result = replaceAll(this.services.wasm);
+        if (result.count) this.services.eventBus.emit('document-changed');
+      }
+    } catch {
+      this.statusLabel.style.color = '#c00';
+      this.statusLabel.textContent = '모두 바꾸기에 실패했습니다.';
+      return;
     }
 
     if (result.ok) {
+      this.statusLabel.style.color = '';
       this.statusLabel.textContent = `${result.count}개 바꿈`;
       this.invalidateHit();
     }
