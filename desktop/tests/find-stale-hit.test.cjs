@@ -34,6 +34,15 @@ test('previous find in the same document starts at the current match start to sk
 test('a fresh unchanged hit replaces once through the real snapshot routing contract',()=>{
  const c=controller();c.d.doReplace();assert.equal(c.calls.filter(x=>x[0]==='snapshot').length,1);assert.deepEqual(c.calls.find(x=>x[0]==='replace'),['replace',0,0,4,6,'Q']);
 });
+for(const failure of ['false','throw'])test('single replace reports '+failure+' inside the snapshot instead of committing or escaping',()=>{
+ const c=controller();c.wasm.replaceText=()=>{if(failure==='throw')throw Error('engine refused');return {ok:false};};
+ assert.doesNotThrow(()=>c.d.doReplace());assert.equal(c.d.statusLabel.textContent,'바꾸기에 실패했습니다.');
+ assert.equal(c.d.statusLabel.style.color,'#c00');
+});
+test('single replace without a handler does not publish a failed edit',()=>{
+ const c=controller(),events=[];c.d.services.getInputHandler=()=>null;c.eventBus.emit=event=>events.push(event);c.wasm.replaceText=()=>({ok:false});
+ assert.doesNotThrow(()=>c.d.doReplace());assert.deepEqual(events,[]);assert.equal(c.d.statusLabel.textContent,'바꾸기에 실패했습니다.');
+});
 test('dialog subscriptions do not duplicate on focus and all release on hide/reopen',()=>{
  const c=controller();c.d.show();for(const set of c.handlers.values())assert.equal(set.size,1);c.d.hide();for(const set of c.handlers.values())assert.equal(set.size,0);c.d.show();for(const set of c.handlers.values())assert.equal(set.size,1);
  c.calls.length=0;c.d.doReplace();assert(!c.calls.some(x=>x[0]==='replace'||x[0]==='snapshot'));c.d.hide();
