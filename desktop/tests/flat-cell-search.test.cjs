@@ -77,7 +77,7 @@ test('invalid cell origins reject without modifying bytes or falling back to bod
       JSON.stringify({ ...cell(0), ignored: 1 }),
       JSON.stringify({ ...cell(0), parentPara: 0 }),
       JSON.stringify({ ...cell(0), ctrlIdx: 99 }),
-      JSON.stringify(cell(99)), JSON.stringify(cell(0, 99)),
+      JSON.stringify(cell(99)), JSON.stringify(cell(0, 99)), JSON.stringify(cell(65534)),
     ];
     for (const json of invalid) assert.throws(() => d.searchText('needle', 0, 1, 0, true, true, true, json));
     assert.throws(() => d.searchText('needle', 0, 1, 0, true, true, false, JSON.stringify(cell(0))));

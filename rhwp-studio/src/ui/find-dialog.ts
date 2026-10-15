@@ -71,6 +71,8 @@ export class FindDialog {
     const cellIdx = leaf?.cellIndex ?? pos.cellIndex;
     const cellPara = leaf?.cellParaIndex ?? pos.cellParaIndex;
     if (ctrlIdx === undefined || cellIdx === undefined || cellPara === undefined) return origin;
+    // enterTableCaptionEditing uses 65534 for the caption, not an indexed table cell.
+    if (cellIdx === 65534) return origin;
     return { ...origin, cellContext: { parentPara: origin.para, ctrlIdx, cellIdx, cellPara } };
   }
 
