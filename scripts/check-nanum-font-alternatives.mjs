@@ -13,10 +13,12 @@ const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 const kinds = ['current-woff2', 'current-sfnt-control', 'official-full-ttf',
   'official-full-woff2-null', 'official-full-woff2-transformed'];
 const args = process.argv.slice(2);
-assert([4, 6].includes(args.length), 'Usage: --inputs prepared/inputs.json --output-root NEW_DIRECTORY');
+assert([4, 5, 6].includes(args.length), 'Usage: --inputs prepared/inputs.json --output-root NEW_DIRECTORY [--single-context]');
 assert.equal(args[0], '--inputs');
 assert.equal(args[2], '--output-root');
 if (args.length === 6) assert.equal(args[4], '--font-file');
+if (args.length === 5) assert.equal(args[4], '--single-context');
+const singleContext = args.length === 5;
 const workerFile = args.length === 6 ? args[5] : null;
 const inputPath = path.resolve(args[1]), output = path.resolve(args[3]);
 assert(!fs.existsSync(output) && !fs.lstatSync(path.dirname(output)).isSymbolicLink(), 'Use a fresh output directory');
@@ -53,7 +55,7 @@ const require = createRequire(path.join(root, 'rhwp-studio/package.json'));
 const canvasKitJS = require.resolve('canvaskit-wasm');
 const canvasKitWasm = path.join(path.dirname(canvasKitJS), 'canvaskit.wasm');
 const wasmBytes = fs.readFileSync(canvasKitWasm);
-if (!workerFile) {
+if (!workerFile && !singleContext) {
   const proofs = [], workerFailures = [];
   for (const row of input.fonts) {
     const childOutput = path.join(output, path.basename(row.file, '.woff2'));
@@ -96,8 +98,8 @@ if (!workerFile) {
     workerFailures: workerFailures.length, incompatibilities: result.incompatibilities.length, mismatches: result.mismatches.length }) + '\n');
   process.exit(workerFailures.length || result.incompatibilities.length || result.mismatches.length ? 1 : 0);
 }
-const fontsToTest = input.fonts.filter(row => row.file === workerFile);
-assert.equal(fontsToTest.length, 1);
+const fontsToTest = singleContext ? input.fonts : input.fonts.filter(row => row.file === workerFile);
+assert.equal(fontsToTest.length, singleContext ? 8 : 1);
 const ck = await require('canvaskit-wasm')({ wasmBinary: wasmBytes });
 const normal = value => ArrayBuffer.isView(value) ? Array.from(value)
   : Array.isArray(value) ? value.map(normal)
@@ -156,7 +158,7 @@ function grid(loaded, cps, pngPath) {
     const result = snapshot(surface, pngPath);
     assert(result.pixels.some((v, i) => i % 4 !== 3 && v < 250), 'Blank glyph grid');
     return result;
-  } finally { font.delete(); paint.delete(); surface.delete(); }
+  } finally { font.delete(); paint.delete(); surface.dispose(); }
 }
 
 function diff(a, b) {
@@ -199,7 +201,7 @@ function paragraph(loaded, row, text, size, width, alias = null) {
     surface = ck.MakeSurface(width + 8, Math.ceil(layout.height) + 8); assert(surface);
     surface.getCanvas().clear(ck.WHITE); surface.getCanvas().drawParagraph(para, 4, 4);
     return { layout, raster: snapshot(surface) };
-  } finally { surface?.delete(); para?.delete(); builder.delete(); }
+  } finally { surface?.dispose(); para?.delete(); builder.delete(); }
 }
 
 const corpus = [
@@ -303,7 +305,7 @@ for (const row of fontsToTest) {
 }
 const result = { sourceSHA256: sha(fs.readFileSync(fileURLToPath(import.meta.url))), inputSHA256: sha(inputBytes),
   productInventorySHA256: sha(inventoryBytes), CanvasKitJS_SHA256: sha(fs.readFileSync(canvasKitJS)), CanvasKitWASM_SHA256: sha(wasmBytes),
-  node: process.version, fontFiles: rows.length, formatLoads: fontsToTest.length * kinds.length,
+  node: process.version, perFontProcessIsolation: !singleContext, fontFiles: rows.length, formatLoads: fontsToTest.length * kinds.length,
   currentMappedCodepoints: fontsToTest.reduce((n, x) => n + x.currentCodepoints.length, 0),
   sourceMappedCodepoints: fontsToTest.reduce((n, x) => n + x.sourceCodepoints.length, 0),
   paragraphComparisons, aliasedParagraphComparisons, metricComparisons, glyphGridComparisons, fullSourceGridComparisons,

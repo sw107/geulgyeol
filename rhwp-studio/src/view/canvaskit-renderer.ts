@@ -693,7 +693,8 @@ export class CanvasKitLayerRenderer {
       this.recordRenderFailure(error);
       throw error;
     } finally {
-      surface?.delete();
+      // CanvasKit 0.42 software surfaces need dispose() to free their pixel buffer.
+      surface?.dispose();
       this.currentResources = undefined;
       this.currentFontResources = undefined;
       this.currentShowParagraphMarks = false;
