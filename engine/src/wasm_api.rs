@@ -4230,7 +4230,7 @@ impl HwpDocument {
     /// `data`: 영역 영역 binary 영역
     /// `display_path`: dialog 영역 영역 영역 영역 표시 영역 영역 path. 빈 문자열 ("") 영역
     ///                 영역 영역 fallback 영역 영역 `/samples/<basename>` 영역 사용. 한컴 viewer
-    ///                 정합 영역 영역 OS 영역 절대 경로 영역 영역 (예: "/Users/.../samples/rdb02.gif")
+    ///                 정합 영역 영역 OS 영역 절대 경로 영역 영역 (예: "/document-assets/rdb02.gif")
     #[wasm_bindgen(js_name = injectExternalImage)]
     pub fn inject_external_image(
         &mut self,
