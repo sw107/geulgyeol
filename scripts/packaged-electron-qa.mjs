@@ -8,7 +8,7 @@ const root=path.resolve(import.meta.dirname,'..');
 const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 async function until(fn,label){const end=Date.now()+30000;while(Date.now()<end){if(await fn())return;await pause(25);}throw Error('Timeout '+label);}
 
-export async function launchPackaged(executable,q){
+export async function launchPackaged(executable,q,onSpawn=()=>{}){
   assert(executable.includes('.app/Contents/MacOS/'),'An actual packaged executable is required');
   let adapter=fs.readFileSync(path.join(root,'scripts/electron-document-lifecycle-bootstrap.cjs'),'utf8');
   adapter=adapter.replace(/if \(!q \|\| !fs.existsSync\(path.join\(q,'runtime','main.cjs'\)\)\) throw[^\n]+\n/,'');
@@ -17,9 +17,17 @@ export async function launchPackaged(executable,q){
   const env={...process.env,GEULGYEOL_ELECTRON_MODULE:'electron',GEULGYEOL_QA_DIR:q,
     GEULGYEOL_PROFILE_ROOT:path.join(q,'app-data')};delete env.ELECTRON_RUN_AS_NODE;
   const p=spawn(executable,['--inspect-brk=0','--remote-debugging-port=0','--remote-debugging-address=127.0.0.1'],{env});
+  onSpawn(p);
+  let launchError;
+  p.once('error',error=>{launchError=error;});
+  const untilRunning=(fn,label)=>until(()=>{
+    if(launchError)throw launchError;
+    if(p.exitCode!==null||p.signalCode!==null)throw Error(`Owned app exited before ${label}: ${p.exitCode??p.signalCode}`);
+    return fn();
+  },label);
   let log='',paused;const launchLog=path.join(q,'launch.log');
   for(const stream of [p.stdout,p.stderr])stream.on('data',data=>{log+=data;fs.appendFileSync(launchLog,data);});
-  await until(()=>/Debugger listening on (ws:\/\/\S+)/.test(log),'main inspector');
+  await untilRunning(()=>/Debugger listening on (ws:\/\/\S+)/.test(log),'main inspector');
   const mainEndpoint=log.match(/Debugger listening on (ws:\/\/\S+)/)[1];
   const ws=new WebSocket(mainEndpoint);await new Promise((resolve,reject)=>{ws.onopen=resolve;ws.onerror=reject;});
   let seq=0;const pending=new Map();
@@ -30,9 +38,9 @@ export async function launchPackaged(executable,q){
     await send('Debugger.enable');
     const breakpoint=await send('Debugger.setBreakpointByUrl',{urlRegex:'app[.]asar/main[.]cjs$',lineNumber:0});
     await send('Runtime.runIfWaitingForDebugger');
-    await until(()=>paused,'packaged main pause');
+    await untilRunning(()=>paused,'packaged main pause');
     if(!paused.hitBreakpoints.includes(breakpoint.breakpointId)){
-      paused=null;await send('Debugger.resume');await until(()=>paused,'packaged main breakpoint');
+      paused=null;await send('Debugger.resume');await untilRunning(()=>paused,'packaged main breakpoint');
     }
     assert(paused.hitBreakpoints.includes(breakpoint.breakpointId));
     const source=await send('Debugger.getScriptSource',{scriptId:paused.callFrames[0].location.scriptId});
@@ -43,6 +51,6 @@ export async function launchPackaged(executable,q){
     await send('Debugger.removeBreakpoint',{breakpointId:breakpoint.breakpointId});
     await send('Debugger.resume');
   }finally{ws.close();}
-  await until(()=>/DevTools listening on (ws:\/\/\S+)/.test(log),'renderer endpoint');
+  await untilRunning(()=>/DevTools listening on (ws:\/\/\S+)/.test(log),'renderer endpoint');
   return {p,endpoint:log.match(/DevTools listening on (ws:\/\/\S+)/)[1],mainEndpoint};
 }
