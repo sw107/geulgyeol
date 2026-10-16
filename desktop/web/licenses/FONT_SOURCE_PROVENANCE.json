@@ -1,0 +1,1658 @@
+{
+  "schemaVersion": 1,
+  "applicationSourceMain": "65b10bd8eddfc09246c4aac4c24e3d9d8d3e34bd",
+  "auditUTCDate": "2026-10-16",
+  "fontFiles": 25,
+  "fontBytes": 15932260,
+  "officialBinaryByteMatches": 12,
+  "officialGlyphReferenceOnly": 13,
+  "mappedGlyphComparisonsForThisFollowUp": 184891,
+  "productFontBytesChanged": false,
+  "legalReleaseConclusion": false,
+  "nativeVisualAndPrintVerified": false,
+  "fullShapingEquivalenceEstablished": false,
+  "releaseHeld": true,
+  "fontToolsVersion": "4.61.1",
+  "BrotliVersion": "1.2.0",
+  "fonts": [
+    {
+      "file": "GowunBatang-Bold.woff2",
+      "bytes": 447856,
+      "sha256": "aef1b91ea9ea4688fb296044959b38dfeeaa3e1650af5d543a2b5c160fa30b36",
+      "metadataWeight": 700,
+      "copyrightNotices": [
+        "Copyright 2021 The Gowun Batang Project Authors (https://github.com/yangheeryu/Gowun-Batang)"
+      ],
+      "licenseFile": "gowunbatang-OFL.txt",
+      "licenseSHA256": "49a57cc769fa9affd6eefb9070a61e3d3f6b757c97cafb15848bc6d1c81acc78",
+      "metadataNames": {
+        "1": [
+          "Gowun Batang"
+        ],
+        "2": [
+          "Bold"
+        ],
+        "3": [
+          "2.000;RYHG;GowunBatang-Bold"
+        ],
+        "4": [
+          "Gowun Batang Bold"
+        ],
+        "6": [
+          "GowunBatang-Bold"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://fonts.gstatic.com/s/gowunbatang/v12/ijwNs5nhRMIjYsdSgcMa3wRZ4J7qz8EwBCum3g.woff2",
+        "sha256": "aef1b91ea9ea4688fb296044959b38dfeeaa3e1650af5d543a2b5c160fa30b36",
+        "CSSRequestURL": "https://fonts.googleapis.com/css?family=Gowun+Batang%3A400%2C700%7CGowun+Dodum%3A400%7CNanum+Gothic%3A400%2C700%2C800%7CNanum+Gothic+Coding%3A400%2C700%7CNanum+Myeongjo%3A400%2C700%2C800%7CNoto+Sans+KR%3A200%2C400%2C700%7CNoto+Serif+KR%3A400%2C700&display=swap&subset=korean%2Clatin",
+        "CSSUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0",
+        "observedUTCDate": "2026-10-16"
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/gowunbatang/GowunBatang-Bold.ttf",
+        "TTF_SHA256": "dbfcaa646e5831e7478524924f02906f550285a5050699b4e38c9950b3ec4b94",
+        "TTF_GitBlobSHA1": "5c89211eaffc15f718f050269e0ee8f76eefd644",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": null,
+        "unicodeMappedGlyphsCompared": 11552,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 942,
+        "nonUnicodeNotdef": {
+          "file": "GowunBatang-Bold.woff2",
+          "local": {
+            "contours": 3,
+            "hmtx": [
+              900,
+              100
+            ],
+            "outlineSHA256": "4458ee2f06e4178d9bf013bae99643d60ec6e9aa41aa15147fa584227f2b90de"
+          },
+          "reference": {
+            "contours": 3,
+            "hmtx": [
+              900,
+              100
+            ],
+            "outlineSHA256": "4458ee2f06e4178d9bf013bae99643d60ec6e9aa41aa15147fa584227f2b90de"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/yangheeryu/Gowun-Batang",
+        "commit": "4e73f5a9a004927220354f4b68a4c720da538147",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/gowunbatang/METADATA.pb",
+        "metadataSHA256": "5ab6c5630b85b7d20e8cec7a3be246f9cd5a8f247dea4993f6fb9cf1cc24478e"
+      },
+      "openReviewItems": []
+    },
+    {
+      "file": "GowunBatang-Regular.woff2",
+      "bytes": 495092,
+      "sha256": "0c6a288aa0c12081dccde769c312f71f290b353243747dd24fb8c57f94f01d72",
+      "metadataWeight": 400,
+      "copyrightNotices": [
+        "Copyright 2021 The Gowun Batang Project Authors (https://github.com/yangheeryu/Gowun-Batang)"
+      ],
+      "licenseFile": "gowunbatang-OFL.txt",
+      "licenseSHA256": "49a57cc769fa9affd6eefb9070a61e3d3f6b757c97cafb15848bc6d1c81acc78",
+      "metadataNames": {
+        "1": [
+          "Gowun Batang"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "2.000;RYHG;GowunBatang-Regular"
+        ],
+        "4": [
+          "Gowun Batang Regular"
+        ],
+        "6": [
+          "GowunBatang-Regular"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://fonts.gstatic.com/s/gowunbatang/v12/ijwSs5nhRMIjYsdSgcMa3wRRUbv_6OM9Lg.woff2",
+        "sha256": "0c6a288aa0c12081dccde769c312f71f290b353243747dd24fb8c57f94f01d72",
+        "CSSRequestURL": "https://fonts.googleapis.com/css?family=Gowun+Batang%3A400%2C700%7CGowun+Dodum%3A400%7CNanum+Gothic%3A400%2C700%2C800%7CNanum+Gothic+Coding%3A400%2C700%7CNanum+Myeongjo%3A400%2C700%2C800%7CNoto+Sans+KR%3A200%2C400%2C700%7CNoto+Serif+KR%3A400%2C700&display=swap&subset=korean%2Clatin",
+        "CSSUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0",
+        "observedUTCDate": "2026-10-16"
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/gowunbatang/GowunBatang-Regular.ttf",
+        "TTF_SHA256": "466c593e7147412e748af4856d5ad14709b5a860bdf62b9c2546f2c5874e9849",
+        "TTF_GitBlobSHA1": "f466518a681280c0d8ee1b35de520c4ea3127630",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": null,
+        "unicodeMappedGlyphsCompared": 11552,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 942,
+        "nonUnicodeNotdef": {
+          "file": "GowunBatang-Regular.woff2",
+          "local": {
+            "contours": 3,
+            "hmtx": [
+              900,
+              100
+            ],
+            "outlineSHA256": "4458ee2f06e4178d9bf013bae99643d60ec6e9aa41aa15147fa584227f2b90de"
+          },
+          "reference": {
+            "contours": 3,
+            "hmtx": [
+              900,
+              100
+            ],
+            "outlineSHA256": "4458ee2f06e4178d9bf013bae99643d60ec6e9aa41aa15147fa584227f2b90de"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/yangheeryu/Gowun-Batang",
+        "commit": "4e73f5a9a004927220354f4b68a4c720da538147",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/gowunbatang/METADATA.pb",
+        "metadataSHA256": "5ab6c5630b85b7d20e8cec7a3be246f9cd5a8f247dea4993f6fb9cf1cc24478e"
+      },
+      "openReviewItems": []
+    },
+    {
+      "file": "GowunDodum-Regular.woff2",
+      "bytes": 406476,
+      "sha256": "349c098a6181952dab564bf891b8efcacfbf855adc28d40b4aa2e5937c101c56",
+      "metadataWeight": 400,
+      "copyrightNotices": [
+        "Copyright 2021 The Gowun Dodum Project Authors (https://github.com/yangheeryu/Gowun-Dodum)"
+      ],
+      "licenseFile": "gowundodum-OFL.txt",
+      "licenseSHA256": "a7c73f9521cd646bbdfb6684c99a62311bbd7bce11898dc11ef0b3c69eda1aca",
+      "metadataNames": {
+        "1": [
+          "Gowun Dodum"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "2.000;RYHG;GowunDodum-Regular"
+        ],
+        "4": [
+          "Gowun Dodum Regular"
+        ],
+        "6": [
+          "GowunDodum-Regular"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://fonts.gstatic.com/s/gowundodum/v12/3Jn5SD_00GqwlBnWc1TUJG0IduVp0uNz.woff2",
+        "sha256": "349c098a6181952dab564bf891b8efcacfbf855adc28d40b4aa2e5937c101c56",
+        "CSSRequestURL": "https://fonts.googleapis.com/css?family=Gowun+Batang%3A400%2C700%7CGowun+Dodum%3A400%7CNanum+Gothic%3A400%2C700%2C800%7CNanum+Gothic+Coding%3A400%2C700%7CNanum+Myeongjo%3A400%2C700%2C800%7CNoto+Sans+KR%3A200%2C400%2C700%7CNoto+Serif+KR%3A400%2C700&display=swap&subset=korean%2Clatin",
+        "CSSUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0",
+        "observedUTCDate": "2026-10-16"
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/gowundodum/GowunDodum-Regular.ttf",
+        "TTF_SHA256": "a6e457933227483a11758fd0947bc74422a106d46f0bf057fdaa5af94a30067d",
+        "TTF_GitBlobSHA1": "2d87cc83583a37bd7828c638eb9bab6df3cf596c",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": null,
+        "unicodeMappedGlyphsCompared": 11552,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 942,
+        "nonUnicodeNotdef": {
+          "file": "GowunDodum-Regular.woff2",
+          "local": {
+            "contours": 3,
+            "hmtx": [
+              900,
+              100
+            ],
+            "outlineSHA256": "4458ee2f06e4178d9bf013bae99643d60ec6e9aa41aa15147fa584227f2b90de"
+          },
+          "reference": {
+            "contours": 3,
+            "hmtx": [
+              900,
+              100
+            ],
+            "outlineSHA256": "4458ee2f06e4178d9bf013bae99643d60ec6e9aa41aa15147fa584227f2b90de"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/yangheeryu/Gowun-Dodum",
+        "commit": "6d9ef10fc745cf3b0a4aba02dad1c740f94d029b",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/gowundodum/METADATA.pb",
+        "metadataSHA256": "030c76da312a2b23eb97d1a65a05a06bc13ca1a7936f26ff4b2c4fa06b39cf2d"
+      },
+      "openReviewItems": []
+    },
+    {
+      "file": "NanumGothic-Bold.woff2",
+      "bytes": 417252,
+      "sha256": "0bd36842cc218a7b0e1c0f5ec796d90152a02e4cd487b2d868f1130708fe551a",
+      "metadataWeight": 700,
+      "copyrightNotices": [
+        "Copyright © 2011 NHN Corporation. All rights reserved. Font designed by Sandoll Communications Inc."
+      ],
+      "licenseFile": "nanumgothic-OFL.txt",
+      "licenseSHA256": "eeacf16032901d0ed0456876ec77b8f0fda6b3fecec7d972f8543eb602e6c30f",
+      "metadataNames": {
+        "1": [
+          "NanumGothic"
+        ],
+        "2": [
+          "Bold"
+        ],
+        "3": [
+          "3.020;SAND;NanumGothicBold"
+        ],
+        "4": [
+          "NanumGothicBold"
+        ],
+        "6": [
+          "NanumGothicBold"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanumgothic/NanumGothic-Bold.ttf",
+        "TTF_SHA256": "f96298f9fb18e364d2370f4c3ce948ac67a2b61af992d7234bc15c42b033c674",
+        "TTF_GitBlobSHA1": "79a9bdc1fa190b5786b247bb5db6a00893e620fb",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": null,
+        "unicodeMappedGlyphsCompared": 11418,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 407,
+        "nonUnicodeNotdef": {
+          "file": "NanumGothic-Bold.woff2",
+          "local": {
+            "contours": 0,
+            "hmtx": [
+              940,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "reference": {
+            "contours": 0,
+            "hmtx": [
+              940,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "commit": "52f780bc9d197280a9f430574e179a5f233c56b6",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanumgothic/METADATA.pb",
+        "metadataSHA256": "3f58e10d125ed43d363f1730b14a29a740f61c39dfa8dc1cb7be532b0072b2e2"
+      },
+      "openReviewItems": [
+        "Character subset differs from the full official TTF; retained Nanum names require RFN review or documented authority.",
+        "No original asset-generation recipe or current-asset RFN permission was established."
+      ]
+    },
+    {
+      "file": "NanumGothic-ExtraBold.woff2",
+      "bytes": 376972,
+      "sha256": "cffea22fa5791731b3de9f9c48b58f4c9eff52581f29377d364a751e63b81ca3",
+      "metadataWeight": 800,
+      "copyrightNotices": [
+        "Copyright © 2011 NHN Corporation. All rights reserved. Font designed by Sandoll Communications Inc."
+      ],
+      "licenseFile": "nanumgothic-OFL.txt",
+      "licenseSHA256": "eeacf16032901d0ed0456876ec77b8f0fda6b3fecec7d972f8543eb602e6c30f",
+      "metadataNames": {
+        "1": [
+          "NanumGothicExtraBold"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "3.020;SAND;NanumGothicExtraBold"
+        ],
+        "4": [
+          "NanumGothicExtraBold"
+        ],
+        "6": [
+          "NanumGothicExtraBold"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanumgothic/NanumGothic-ExtraBold.ttf",
+        "TTF_SHA256": "5c4568e5295a8c52bc30e7efa1ea6d2de43556268ef42daba93540a1ece691ae",
+        "TTF_GitBlobSHA1": "71421fa852cec6dd4ebac084d5f790f933dd1b6c",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": null,
+        "unicodeMappedGlyphsCompared": 11418,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 408,
+        "nonUnicodeNotdef": {
+          "file": "NanumGothic-ExtraBold.woff2",
+          "local": {
+            "contours": 0,
+            "hmtx": [
+              940,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "reference": {
+            "contours": 0,
+            "hmtx": [
+              940,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "commit": "52f780bc9d197280a9f430574e179a5f233c56b6",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanumgothic/METADATA.pb",
+        "metadataSHA256": "3f58e10d125ed43d363f1730b14a29a740f61c39dfa8dc1cb7be532b0072b2e2"
+      },
+      "openReviewItems": [
+        "Character subset differs from the full official TTF; retained Nanum names require RFN review or documented authority.",
+        "No original asset-generation recipe or current-asset RFN permission was established."
+      ]
+    },
+    {
+      "file": "NanumGothic-Regular.woff2",
+      "bytes": 340688,
+      "sha256": "4a000e3bca1298c43c70dc97447e537a27e0a8c1585f410be57dfeff06d3f713",
+      "metadataWeight": 400,
+      "copyrightNotices": [
+        "Copyright © 2011 NHN Corporation. All rights reserved. Font designed by Sandoll Communications Inc."
+      ],
+      "licenseFile": "nanumgothic-OFL.txt",
+      "licenseSHA256": "eeacf16032901d0ed0456876ec77b8f0fda6b3fecec7d972f8543eb602e6c30f",
+      "metadataNames": {
+        "1": [
+          "NanumGothic"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "3.020;SAND;NanumGothic"
+        ],
+        "4": [
+          "NanumGothic"
+        ],
+        "6": [
+          "NanumGothic"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanumgothic/NanumGothic-Regular.ttf",
+        "TTF_SHA256": "76f45ef4a6bcff344c837c95a7dcc26e017e38b5846d5ae0cdcb5b86be2e2d31",
+        "TTF_GitBlobSHA1": "2aa2b20905b4136808a0126d8e36e5c0f576715c",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": null,
+        "unicodeMappedGlyphsCompared": 11418,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 409,
+        "nonUnicodeNotdef": {
+          "file": "NanumGothic-Regular.woff2",
+          "local": {
+            "contours": 0,
+            "hmtx": [
+              940,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "reference": {
+            "contours": 0,
+            "hmtx": [
+              940,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "commit": "52f780bc9d197280a9f430574e179a5f233c56b6",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanumgothic/METADATA.pb",
+        "metadataSHA256": "3f58e10d125ed43d363f1730b14a29a740f61c39dfa8dc1cb7be532b0072b2e2"
+      },
+      "openReviewItems": [
+        "Character subset differs from the full official TTF; retained Nanum names require RFN review or documented authority.",
+        "No original asset-generation recipe or current-asset RFN permission was established."
+      ]
+    },
+    {
+      "file": "NanumGothicCoding-Bold.woff2",
+      "bytes": 534060,
+      "sha256": "2fe66da1c9c3f8beca2c618a139e7edabd36a26dd810a324ced06f8b214b2ccd",
+      "metadataWeight": 700,
+      "copyrightNotices": [
+        "Copyright © 2009 NHN Corporation. All rights reserved. Font designed by Sandoll Communications Inc."
+      ],
+      "licenseFile": "nanumgothiccoding-OFL.txt",
+      "licenseSHA256": "eeacf16032901d0ed0456876ec77b8f0fda6b3fecec7d972f8543eb602e6c30f",
+      "metadataNames": {
+        "1": [
+          "NanumGothicCoding"
+        ],
+        "2": [
+          "Bold"
+        ],
+        "3": [
+          "NanumGothicCoding-Bold"
+        ],
+        "4": [
+          "NanumGothicCoding-Bold"
+        ],
+        "6": [
+          "NanumGothicCoding-Bold"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanumgothiccoding/NanumGothicCoding-Bold.ttf",
+        "TTF_SHA256": "77a6de97c176b76ef9a683b565a1e6f4ce40b499c72a2972c4b5bdf7c6b8e7a0",
+        "TTF_GitBlobSHA1": "9aa9ba2ad93bd8524d1996452e9f0ee6d099af92",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": null,
+        "unicodeMappedGlyphsCompared": 11507,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 970,
+        "nonUnicodeNotdef": {
+          "file": "NanumGothicCoding-Bold.woff2",
+          "local": {
+            "contours": 5,
+            "hmtx": [
+              500,
+              19
+            ],
+            "outlineSHA256": "1de417163fb5fad44c6b571b3ed33f67449dbe944ebce027b59b49f0b08cb837"
+          },
+          "reference": {
+            "contours": 5,
+            "hmtx": [
+              500,
+              19
+            ],
+            "outlineSHA256": "1de417163fb5fad44c6b571b3ed33f67449dbe944ebce027b59b49f0b08cb837"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/naver/nanumfont",
+        "commit": "770142018d7b23abe48a1ff9370adeac3bbbcd0e",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanumgothiccoding/METADATA.pb",
+        "metadataSHA256": "b8e8b14cc0f6034e473498a752c689f8dd1396522fe80d5d7073236a4c1319ea"
+      },
+      "openReviewItems": [
+        "Character subset differs from the full official TTF; retained Nanum names require RFN review or documented authority.",
+        "No original asset-generation recipe or current-asset RFN permission was established."
+      ]
+    },
+    {
+      "file": "NanumGothicCoding-Regular.woff2",
+      "bytes": 521332,
+      "sha256": "87ab32ebaf4e1f803099ad1d096744092c8f985b2e08a24e2304f5ac05d81d6a",
+      "metadataWeight": 400,
+      "copyrightNotices": [
+        "Copyright © 2009 NHN Corporation. All rights reserved. Font designed by Sandoll Communications Inc."
+      ],
+      "licenseFile": "nanumgothiccoding-OFL.txt",
+      "licenseSHA256": "eeacf16032901d0ed0456876ec77b8f0fda6b3fecec7d972f8543eb602e6c30f",
+      "metadataNames": {
+        "1": [
+          "NanumGothicCoding"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "NanumGothicCoding"
+        ],
+        "4": [
+          "NanumGothicCoding"
+        ],
+        "6": [
+          "NanumGothicCoding"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanumgothiccoding/NanumGothicCoding-Regular.ttf",
+        "TTF_SHA256": "787effd7efed2abca88ade231faa8191f4e9fcf85b1805a13ee1dc3724b72089",
+        "TTF_GitBlobSHA1": "ba77a9da2b85d24e75f95c7324ca7a69f33510bc",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": null,
+        "unicodeMappedGlyphsCompared": 11507,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 970,
+        "nonUnicodeNotdef": {
+          "file": "NanumGothicCoding-Regular.woff2",
+          "local": {
+            "contours": 5,
+            "hmtx": [
+              500,
+              19
+            ],
+            "outlineSHA256": "1de417163fb5fad44c6b571b3ed33f67449dbe944ebce027b59b49f0b08cb837"
+          },
+          "reference": {
+            "contours": 5,
+            "hmtx": [
+              500,
+              19
+            ],
+            "outlineSHA256": "1de417163fb5fad44c6b571b3ed33f67449dbe944ebce027b59b49f0b08cb837"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/naver/nanumfont",
+        "commit": "770142018d7b23abe48a1ff9370adeac3bbbcd0e",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanumgothiccoding/METADATA.pb",
+        "metadataSHA256": "b8e8b14cc0f6034e473498a752c689f8dd1396522fe80d5d7073236a4c1319ea"
+      },
+      "openReviewItems": [
+        "Character subset differs from the full official TTF; retained Nanum names require RFN review or documented authority.",
+        "No original asset-generation recipe or current-asset RFN permission was established."
+      ]
+    },
+    {
+      "file": "NanumMyeongjo-Bold.woff2",
+      "bytes": 575580,
+      "sha256": "f2c95c35d72782f71cb60e3cc537c461ae3f5ee7e7504db9653ba7a7024dd548",
+      "metadataWeight": 700,
+      "copyrightNotices": [
+        "Copyright © 2010 NHN Corporation. All rights reserved. Font designed by FONTRIX."
+      ],
+      "licenseFile": "nanummyeongjo-OFL.txt",
+      "licenseSHA256": "8eb1c1019fe7fe6d0b6e7d7bbbba1d9cbdd969d8c5f26455708f6cfb8a77284c",
+      "metadataNames": {
+        "1": [
+          "NanumMyeongjo"
+        ],
+        "2": [
+          "Bold"
+        ],
+        "3": [
+          "2.031;RIXF;NanumMyeongjoBold"
+        ],
+        "4": [
+          "NanumMyeongjoBold"
+        ],
+        "6": [
+          "NanumMyeongjoBold"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanummyeongjo/NanumMyeongjo-Bold.ttf",
+        "TTF_SHA256": "bc9ed8e60d93fe6db054b8fb988481b625f2eef8cb2317ad0e9834681b8fe3f3",
+        "TTF_GitBlobSHA1": "23b79de4816b8a302e2e1b9276d22a41ba1757c4",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": null,
+        "unicodeMappedGlyphsCompared": 11476,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 406,
+        "nonUnicodeNotdef": {
+          "file": "NanumMyeongjo-Bold.woff2",
+          "local": {
+            "contours": 0,
+            "hmtx": [
+              1024,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "reference": {
+            "contours": 0,
+            "hmtx": [
+              1024,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "commit": "52f780bc9d197280a9f430574e179a5f233c56b6",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanummyeongjo/METADATA.pb",
+        "metadataSHA256": "9b5fb78ccdc8097d94ab915a5feba1fd3436520ab620aefe73eea10e29da709f"
+      },
+      "openReviewItems": [
+        "Character subset differs from the full official TTF; retained Nanum names require RFN review or documented authority.",
+        "No original asset-generation recipe or current-asset RFN permission was established."
+      ]
+    },
+    {
+      "file": "NanumMyeongjo-ExtraBold.woff2",
+      "bytes": 694516,
+      "sha256": "b3d23b3f93f4bdad6c9b7f69b11156f90f1576b8383f6117448ee79e27609e56",
+      "metadataWeight": 800,
+      "copyrightNotices": [
+        "Copyright © 2010 NHN Corporation. All rights reserved. Font designed by FONTRIX."
+      ],
+      "licenseFile": "nanummyeongjo-OFL.txt",
+      "licenseSHA256": "8eb1c1019fe7fe6d0b6e7d7bbbba1d9cbdd969d8c5f26455708f6cfb8a77284c",
+      "metadataNames": {
+        "1": [
+          "NanumMyeongjoExtraBold"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "2.031;RIXF;NanumMyeongjoExtraBold"
+        ],
+        "4": [
+          "NanumMyeongjoExtraBold"
+        ],
+        "6": [
+          "NanumMyeongjoExtraBold"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanummyeongjo/NanumMyeongjo-ExtraBold.ttf",
+        "TTF_SHA256": "60c0077fce069ba90ae97c0a3679f6eb3712e0ca637bdd0c15b72d335ec46db7",
+        "TTF_GitBlobSHA1": "563257513ddac64b1fe1d4423bbd9cacb85bbeb3",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": null,
+        "unicodeMappedGlyphsCompared": 11476,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 408,
+        "nonUnicodeNotdef": {
+          "file": "NanumMyeongjo-ExtraBold.woff2",
+          "local": {
+            "contours": 0,
+            "hmtx": [
+              1024,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "reference": {
+            "contours": 0,
+            "hmtx": [
+              1024,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "commit": "52f780bc9d197280a9f430574e179a5f233c56b6",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanummyeongjo/METADATA.pb",
+        "metadataSHA256": "9b5fb78ccdc8097d94ab915a5feba1fd3436520ab620aefe73eea10e29da709f"
+      },
+      "openReviewItems": [
+        "Character subset differs from the full official TTF; retained Nanum names require RFN review or documented authority.",
+        "No original asset-generation recipe or current-asset RFN permission was established."
+      ]
+    },
+    {
+      "file": "NanumMyeongjo-Regular.woff2",
+      "bytes": 502068,
+      "sha256": "561e9193a6e848b3f7ce9f8f5907310a13e175bc9d69e77da2842a7517a97c16",
+      "metadataWeight": 400,
+      "copyrightNotices": [
+        "Copyright © 2010 NHN Corporation. All rights reserved. Font designed by FONTRIX."
+      ],
+      "licenseFile": "nanummyeongjo-OFL.txt",
+      "licenseSHA256": "8eb1c1019fe7fe6d0b6e7d7bbbba1d9cbdd969d8c5f26455708f6cfb8a77284c",
+      "metadataNames": {
+        "1": [
+          "NanumMyeongjo"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "2.031;RIXF;NanumMyeongjo"
+        ],
+        "4": [
+          "NanumMyeongjo"
+        ],
+        "6": [
+          "NanumMyeongjo"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanummyeongjo/NanumMyeongjo-Regular.ttf",
+        "TTF_SHA256": "7ed9e8653a8ed04285d51dc343ffea6eb3d9c73afc27383ea8929ee4ffd03205",
+        "TTF_GitBlobSHA1": "8c1bb666acfac3668c6b433b8419cd70d9140045",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": null,
+        "unicodeMappedGlyphsCompared": 11476,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 406,
+        "nonUnicodeNotdef": {
+          "file": "NanumMyeongjo-Regular.woff2",
+          "local": {
+            "contours": 0,
+            "hmtx": [
+              1024,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "reference": {
+            "contours": 0,
+            "hmtx": [
+              1024,
+              0
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+        "commit": "52f780bc9d197280a9f430574e179a5f233c56b6",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/nanummyeongjo/METADATA.pb",
+        "metadataSHA256": "9b5fb78ccdc8097d94ab915a5feba1fd3436520ab620aefe73eea10e29da709f"
+      },
+      "openReviewItems": [
+        "Character subset differs from the full official TTF; retained Nanum names require RFN review or documented authority.",
+        "No original asset-generation recipe or current-asset RFN permission was established."
+      ]
+    },
+    {
+      "file": "NotoSansKR-Bold.woff2",
+      "bytes": 559192,
+      "sha256": "dab3d492daa687386292cff1499225db580f931f800ee0d124eb0636378c6020",
+      "metadataWeight": 700,
+      "copyrightNotices": [
+        "(c) 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'."
+      ],
+      "licenseFile": "notosanskr-OFL.txt",
+      "licenseSHA256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+      "metadataNames": {
+        "1": [
+          "Noto Sans KR Thin"
+        ],
+        "2": [
+          "Bold"
+        ],
+        "3": [
+          "2.004-H2;ADBO;NotoSansKRThin-Bold"
+        ],
+        "4": [
+          "Noto Sans KR Thin Bold"
+        ],
+        "6": [
+          "NotoSansKRThin-Bold"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/notosanskr/NotoSansKR%5Bwght%5D.ttf",
+        "TTF_SHA256": "194018e6b2b293a7964f037b25c0249ce1418bc9ab3c971060a03aa57861e252",
+        "TTF_GitBlobSHA1": "b386890ba945e1f39448a6b59f20c5d194f58808",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": 700,
+        "unicodeMappedGlyphsCompared": 11541,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 11633,
+        "nonUnicodeNotdef": {
+          "file": "NotoSansKR-Bold.woff2",
+          "local": {
+            "contours": 5,
+            "hmtx": [
+              1000,
+              100
+            ],
+            "outlineSHA256": "61fed58797d07e728895a20ccfb3a83161fac18735b722dd913e3521c0046882"
+          },
+          "reference": {
+            "contours": 5,
+            "hmtx": [
+              1000,
+              100
+            ],
+            "outlineSHA256": "61fed58797d07e728895a20ccfb3a83161fac18735b722dd913e3521c0046882"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/notofonts/noto-cjk",
+        "commit": "523d033d6cb47f4a80c58a35753646f5c3608a78",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/notosanskr/METADATA.pb",
+        "metadataSHA256": "9b8b27c0dd1adbb0057d1fbe9534207ab3606114ace6755453d14668912471a1"
+      },
+      "openReviewItems": [
+        "Original instancing/subsetting/name-edit recipe and full shaping equivalence remain unestablished."
+      ]
+    },
+    {
+      "file": "NotoSansKR-ExtraLight.woff2",
+      "bytes": 592496,
+      "sha256": "3b5cac6af73fd94fa91ded10f6cfc54c7ce52189986fe7ca6fd457208f1d3673",
+      "metadataWeight": 400,
+      "copyrightNotices": [
+        "(c) 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'."
+      ],
+      "licenseFile": "notosanskr-OFL.txt",
+      "licenseSHA256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+      "metadataNames": {
+        "1": [
+          "Noto Sans KR ExtraLight"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "2.004;ADBO;NotoSansKR-ExtraLight;ADOBE"
+        ],
+        "4": [
+          "Noto Sans KR ExtraLight"
+        ],
+        "6": [
+          "NotoSansKRExtraLight"
+        ],
+        "16": [
+          "Noto Sans KR ExtraLight"
+        ],
+        "17": [
+          "Regular"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/notosanskr/NotoSansKR%5Bwght%5D.ttf",
+        "TTF_SHA256": "194018e6b2b293a7964f037b25c0249ce1418bc9ab3c971060a03aa57861e252",
+        "TTF_GitBlobSHA1": "b386890ba945e1f39448a6b59f20c5d194f58808",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": 200,
+        "unicodeMappedGlyphsCompared": 12208,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 10966,
+        "nonUnicodeNotdef": {
+          "file": "NotoSansKR-ExtraLight.woff2",
+          "local": {
+            "contours": 0,
+            "hmtx": [
+              1000,
+              100
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "reference": {
+            "contours": 5,
+            "hmtx": [
+              1000,
+              100
+            ],
+            "outlineSHA256": "61fed58797d07e728895a20ccfb3a83161fac18735b722dd913e3521c0046882"
+          },
+          "same": false
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/notofonts/noto-cjk",
+        "commit": "523d033d6cb47f4a80c58a35753646f5c3608a78",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/notosanskr/METADATA.pb",
+        "metadataSHA256": "9b8b27c0dd1adbb0057d1fbe9534207ab3606114ace6755453d14668912471a1"
+      },
+      "openReviewItems": [
+        "Original instancing/subsetting/name-edit recipe and full shaping equivalence remain unestablished.",
+        "Metadata weight is 400 while every mapped outline matches official wght=200.",
+        "The local .notdef outline is empty; the reference has five contours."
+      ]
+    },
+    {
+      "file": "NotoSansKR-Regular.woff2",
+      "bytes": 562220,
+      "sha256": "d1bf8649914a4fe9477a8735bf056383e44e466141fb3d61897252e06d900c1a",
+      "metadataWeight": 400,
+      "copyrightNotices": [
+        "(c) 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'."
+      ],
+      "licenseFile": "notosanskr-OFL.txt",
+      "licenseSHA256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+      "metadataNames": {
+        "1": [
+          "Noto Sans KR"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "2.004;ADBO;NotoSansKR-Thin;ADOBE"
+        ],
+        "4": [
+          "Noto Sans KR Regular"
+        ],
+        "6": [
+          "NotoSansKR-Regular"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/notosanskr/NotoSansKR%5Bwght%5D.ttf",
+        "TTF_SHA256": "194018e6b2b293a7964f037b25c0249ce1418bc9ab3c971060a03aa57861e252",
+        "TTF_GitBlobSHA1": "b386890ba945e1f39448a6b59f20c5d194f58808",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": 400,
+        "unicodeMappedGlyphsCompared": 11708,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 11466,
+        "nonUnicodeNotdef": {
+          "file": "NotoSansKR-Regular.woff2",
+          "local": {
+            "contours": 0,
+            "hmtx": [
+              1000,
+              100
+            ],
+            "outlineSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "reference": {
+            "contours": 5,
+            "hmtx": [
+              1000,
+              100
+            ],
+            "outlineSHA256": "61fed58797d07e728895a20ccfb3a83161fac18735b722dd913e3521c0046882"
+          },
+          "same": false
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://github.com/notofonts/noto-cjk",
+        "commit": "523d033d6cb47f4a80c58a35753646f5c3608a78",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/notosanskr/METADATA.pb",
+        "metadataSHA256": "9b8b27c0dd1adbb0057d1fbe9534207ab3606114ace6755453d14668912471a1"
+      },
+      "openReviewItems": [
+        "Original instancing/subsetting/name-edit recipe and full shaping equivalence remain unestablished.",
+        "The local .notdef outline is empty; the reference has five contours."
+      ]
+    },
+    {
+      "file": "NotoSerifKR-Bold.woff2",
+      "bytes": 1033556,
+      "sha256": "504d6af6abb882acd912d47bafa383c4512a6c8c33635e4e8fb37111d9310941",
+      "metadataWeight": 700,
+      "copyrightNotices": [
+        "(c) 2017-2024 Adobe (http://www.adobe.com/)."
+      ],
+      "licenseFile": "notoserifkr-OFL.txt",
+      "licenseSHA256": "5e0da210fb04058a8c0087985d2d456b931c2579811a49655721d3cf0c36b6d6",
+      "metadataNames": {
+        "1": [
+          "Noto Serif KR ExtraLight"
+        ],
+        "2": [
+          "Bold"
+        ],
+        "3": [
+          "2.003-H1;GOOG;NotoSerifKRExtraLight-Bold"
+        ],
+        "4": [
+          "Noto Serif KR ExtraLight Bold"
+        ],
+        "6": [
+          "NotoSerifKRExtraLight-Bold"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/notoserifkr/NotoSerifKR%5Bwght%5D.ttf",
+        "TTF_SHA256": "11f8d5de6f1b79195efba3828aaa2ec95c1178f5ae976fb23c8d53250a9938f3",
+        "TTF_GitBlobSHA1": "cc85b383766708c9291f72baeeab05760774f492",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": 700,
+        "unicodeMappedGlyphsCompared": 11541,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 11583,
+        "nonUnicodeNotdef": {
+          "file": "NotoSerifKR-Bold.woff2",
+          "local": {
+            "contours": 5,
+            "hmtx": [
+              1000,
+              100
+            ],
+            "outlineSHA256": "61fed58797d07e728895a20ccfb3a83161fac18735b722dd913e3521c0046882"
+          },
+          "reference": {
+            "contours": 5,
+            "hmtx": [
+              1000,
+              100
+            ],
+            "outlineSHA256": "61fed58797d07e728895a20ccfb3a83161fac18735b722dd913e3521c0046882"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://www.github.com/notofonts/noto-cjk",
+        "commit": "985fa52c81c1d6692ccdd82bc3656e8fb932fd89",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/notoserifkr/METADATA.pb",
+        "metadataSHA256": "11a2445e02b744e88e8ed6fd5b807da7df4628fcc6526a15ea9b111ba0458bf4"
+      },
+      "openReviewItems": [
+        "Original instancing/subsetting/name-edit recipe and full shaping equivalence remain unestablished."
+      ]
+    },
+    {
+      "file": "NotoSerifKR-Regular.woff2",
+      "bytes": 971428,
+      "sha256": "c9a1e3ac69994d680883b53b1fd83d520733b704792522a932bfaa276117de45",
+      "metadataWeight": 400,
+      "copyrightNotices": [
+        "(c) 2017-2024 Adobe (http://www.adobe.com/)."
+      ],
+      "licenseFile": "notoserifkr-OFL.txt",
+      "licenseSHA256": "5e0da210fb04058a8c0087985d2d456b931c2579811a49655721d3cf0c36b6d6",
+      "metadataNames": {
+        "1": [
+          "Noto Serif KR ExtraLight"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "2.003-H1;GOOG;NotoSerifKRExtraLight-Regular"
+        ],
+        "4": [
+          "Noto Serif KR ExtraLight Regular"
+        ],
+        "6": [
+          "NotoSerifKRExtraLight-Regular"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_TTF_glyph_reference_match_only",
+        "originalGenerationRecipeEstablished": false,
+        "officialBinaryByteIdentityEstablished": false
+      },
+      "glyphReference": {
+        "TTF_URL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/notoserifkr/NotoSerifKR%5Bwght%5D.ttf",
+        "TTF_SHA256": "11f8d5de6f1b79195efba3828aaa2ec95c1178f5ae976fb23c8d53250a9938f3",
+        "TTF_GitBlobSHA1": "cc85b383766708c9291f72baeeab05760774f492",
+        "distributorCommit": "1d0e46c7933245c8180fe83e47917961c913bbdb",
+        "instanceWeight": 400,
+        "unicodeMappedGlyphsCompared": 11541,
+        "unicodeOutlineMismatches": 0,
+        "unicodeMetricMismatches": 0,
+        "unicodeHintInstructionMismatches": 0,
+        "referenceCodepointsNotInAsset": 11583,
+        "nonUnicodeNotdef": {
+          "file": "NotoSerifKR-Regular.woff2",
+          "local": {
+            "contours": 5,
+            "hmtx": [
+              1000,
+              100
+            ],
+            "outlineSHA256": "61fed58797d07e728895a20ccfb3a83161fac18735b722dd913e3521c0046882"
+          },
+          "reference": {
+            "contours": 5,
+            "hmtx": [
+              1000,
+              100
+            ],
+            "outlineSHA256": "61fed58797d07e728895a20ccfb3a83161fac18735b722dd913e3521c0046882"
+          },
+          "same": true
+        },
+        "layoutEquivalenceEstablished": false,
+        "originalGenerationRecipeEstablished": false
+      },
+      "declaredAuthorSource": {
+        "repository": "https://www.github.com/notofonts/noto-cjk",
+        "commit": "985fa52c81c1d6692ccdd82bc3656e8fb932fd89",
+        "basis": "Google Fonts METADATA.pb; author-repository build not independently reproduced",
+        "metadataURL": "https://raw.githubusercontent.com/google/fonts/1d0e46c7933245c8180fe83e47917961c913bbdb/ofl/notoserifkr/METADATA.pb",
+        "metadataSHA256": "11a2445e02b744e88e8ed6fd5b807da7df4628fcc6526a15ea9b111ba0458bf4"
+      },
+      "openReviewItems": [
+        "Original instancing/subsetting/name-edit recipe and full shaping equivalence remain unestablished."
+      ]
+    },
+    {
+      "file": "Pretendard-Black.woff2",
+      "bytes": 800404,
+      "sha256": "c5fd0c3568fc1368a3edc0d0fbb36df029935954276e3573451b3bae09e27296",
+      "metadataWeight": 900,
+      "copyrightNotices": [
+        "Copyright © 2023 Kil Hyung-jin",
+        "Copyright © 2023 길형진"
+      ],
+      "licenseFile": "Pretendard-LICENSE.txt",
+      "licenseSHA256": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+      "metadataNames": {
+        "1": [
+          "Pretendard Black"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "1.309;CTUS;Pretendard-Black"
+        ],
+        "4": [
+          "Pretendard Black"
+        ],
+        "6": [
+          "Pretendard-Black"
+        ],
+        "16": [
+          "Pretendard"
+        ],
+        "17": [
+          "Black"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://raw.githubusercontent.com/orioncactus/pretendard/5c41199ea0024a9e0b2cb31735265056e5472d76/packages/pretendard/dist/web/static/woff2/Pretendard-Black.woff2",
+        "sha256": "c5fd0c3568fc1368a3edc0d0fbb36df029935954276e3573451b3bae09e27296",
+        "ref": "v1.3.9",
+        "commit": "5c41199ea0024a9e0b2cb31735265056e5472d76"
+      },
+      "openReviewItems": []
+    },
+    {
+      "file": "Pretendard-Bold.woff2",
+      "bytes": 791156,
+      "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362",
+      "metadataWeight": 700,
+      "copyrightNotices": [
+        "Copyright © 2023 Kil Hyung-jin",
+        "Copyright © 2023 길형진"
+      ],
+      "licenseFile": "Pretendard-LICENSE.txt",
+      "licenseSHA256": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+      "metadataNames": {
+        "1": [
+          "Pretendard"
+        ],
+        "2": [
+          "Bold"
+        ],
+        "3": [
+          "1.309;CTUS;Pretendard-Bold"
+        ],
+        "4": [
+          "Pretendard Bold"
+        ],
+        "6": [
+          "Pretendard-Bold"
+        ],
+        "16": [
+          "Pretendard"
+        ],
+        "17": [
+          "Bold"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://raw.githubusercontent.com/orioncactus/pretendard/5c41199ea0024a9e0b2cb31735265056e5472d76/packages/pretendard/dist/web/static/woff2/Pretendard-Bold.woff2",
+        "sha256": "4609c3356e536fafe38f4add0daeceb3d8595d3057bce13c428c33ddbd43d362",
+        "ref": "v1.3.9",
+        "commit": "5c41199ea0024a9e0b2cb31735265056e5472d76"
+      },
+      "openReviewItems": []
+    },
+    {
+      "file": "Pretendard-ExtraBold.woff2",
+      "bytes": 793540,
+      "sha256": "dd7c1e156f508eb962acc7a33a7a1896d1e0b71e11156fad96e731689ceb6dc3",
+      "metadataWeight": 800,
+      "copyrightNotices": [
+        "Copyright © 2023 Kil Hyung-jin",
+        "Copyright © 2023 길형진"
+      ],
+      "licenseFile": "Pretendard-LICENSE.txt",
+      "licenseSHA256": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+      "metadataNames": {
+        "1": [
+          "Pretendard ExtraBold"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "1.309;CTUS;Pretendard-ExtraBold"
+        ],
+        "4": [
+          "Pretendard ExtraBold"
+        ],
+        "6": [
+          "Pretendard-ExtraBold"
+        ],
+        "16": [
+          "Pretendard"
+        ],
+        "17": [
+          "ExtraBold"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://raw.githubusercontent.com/orioncactus/pretendard/5c41199ea0024a9e0b2cb31735265056e5472d76/packages/pretendard/dist/web/static/woff2/Pretendard-ExtraBold.woff2",
+        "sha256": "dd7c1e156f508eb962acc7a33a7a1896d1e0b71e11156fad96e731689ceb6dc3",
+        "ref": "v1.3.9",
+        "commit": "5c41199ea0024a9e0b2cb31735265056e5472d76"
+      },
+      "openReviewItems": []
+    },
+    {
+      "file": "Pretendard-ExtraLight.woff2",
+      "bytes": 734392,
+      "sha256": "df43dc9165dff4542114674bcd8b79b7daae6dec004004586d5d076fec6fe2aa",
+      "metadataWeight": 200,
+      "copyrightNotices": [
+        "Copyright © 2023 Kil Hyung-jin",
+        "Copyright © 2023 길형진"
+      ],
+      "licenseFile": "Pretendard-LICENSE.txt",
+      "licenseSHA256": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+      "metadataNames": {
+        "1": [
+          "Pretendard ExtraLight"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "1.309;CTUS;Pretendard-ExtraLight"
+        ],
+        "4": [
+          "Pretendard ExtraLight"
+        ],
+        "6": [
+          "Pretendard-ExtraLight"
+        ],
+        "16": [
+          "Pretendard"
+        ],
+        "17": [
+          "ExtraLight"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://raw.githubusercontent.com/orioncactus/pretendard/5c41199ea0024a9e0b2cb31735265056e5472d76/packages/pretendard/dist/web/static/woff2/Pretendard-ExtraLight.woff2",
+        "sha256": "df43dc9165dff4542114674bcd8b79b7daae6dec004004586d5d076fec6fe2aa",
+        "ref": "v1.3.9",
+        "commit": "5c41199ea0024a9e0b2cb31735265056e5472d76"
+      },
+      "openReviewItems": []
+    },
+    {
+      "file": "Pretendard-Light.woff2",
+      "bytes": 757000,
+      "sha256": "b7426635cce2ea2b95c9c802e43fba1c620e0dafaf25f737c069b8b4e09fa841",
+      "metadataWeight": 300,
+      "copyrightNotices": [
+        "Copyright © 2023 Kil Hyung-jin",
+        "Copyright © 2023 길형진"
+      ],
+      "licenseFile": "Pretendard-LICENSE.txt",
+      "licenseSHA256": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+      "metadataNames": {
+        "1": [
+          "Pretendard Light"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "1.309;CTUS;Pretendard-Light"
+        ],
+        "4": [
+          "Pretendard Light"
+        ],
+        "6": [
+          "Pretendard-Light"
+        ],
+        "16": [
+          "Pretendard"
+        ],
+        "17": [
+          "Light"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://raw.githubusercontent.com/orioncactus/pretendard/5c41199ea0024a9e0b2cb31735265056e5472d76/packages/pretendard/dist/web/static/woff2/Pretendard-Light.woff2",
+        "sha256": "b7426635cce2ea2b95c9c802e43fba1c620e0dafaf25f737c069b8b4e09fa841",
+        "ref": "v1.3.9",
+        "commit": "5c41199ea0024a9e0b2cb31735265056e5472d76"
+      },
+      "openReviewItems": []
+    },
+    {
+      "file": "Pretendard-Medium.woff2",
+      "bytes": 778432,
+      "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c",
+      "metadataWeight": 500,
+      "copyrightNotices": [
+        "Copyright © 2023 Kil Hyung-jin",
+        "Copyright © 2023 길형진"
+      ],
+      "licenseFile": "Pretendard-LICENSE.txt",
+      "licenseSHA256": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+      "metadataNames": {
+        "1": [
+          "Pretendard Medium"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "1.309;CTUS;Pretendard-Medium"
+        ],
+        "4": [
+          "Pretendard Medium"
+        ],
+        "6": [
+          "Pretendard-Medium"
+        ],
+        "16": [
+          "Pretendard"
+        ],
+        "17": [
+          "Medium"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://raw.githubusercontent.com/orioncactus/pretendard/5c41199ea0024a9e0b2cb31735265056e5472d76/packages/pretendard/dist/web/static/woff2/Pretendard-Medium.woff2",
+        "sha256": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c",
+        "ref": "v1.3.9",
+        "commit": "5c41199ea0024a9e0b2cb31735265056e5472d76"
+      },
+      "openReviewItems": []
+    },
+    {
+      "file": "Pretendard-Regular.woff2",
+      "bytes": 765892,
+      "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63",
+      "metadataWeight": 400,
+      "copyrightNotices": [
+        "Copyright © 2023 Kil Hyung-jin",
+        "Copyright © 2023 길형진"
+      ],
+      "licenseFile": "Pretendard-LICENSE.txt",
+      "licenseSHA256": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+      "metadataNames": {
+        "1": [
+          "Pretendard"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "1.309;CTUS;Pretendard-Regular"
+        ],
+        "4": [
+          "Pretendard Regular"
+        ],
+        "6": [
+          "Pretendard-Regular"
+        ],
+        "16": [
+          "Pretendard"
+        ],
+        "17": [
+          "Regular"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://raw.githubusercontent.com/orioncactus/pretendard/5c41199ea0024a9e0b2cb31735265056e5472d76/packages/pretendard/dist/web/static/woff2/Pretendard-Regular.woff2",
+        "sha256": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63",
+        "ref": "v1.3.9",
+        "commit": "5c41199ea0024a9e0b2cb31735265056e5472d76"
+      },
+      "openReviewItems": []
+    },
+    {
+      "file": "Pretendard-SemiBold.woff2",
+      "bytes": 785856,
+      "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0",
+      "metadataWeight": 600,
+      "copyrightNotices": [
+        "Copyright © 2023 Kil Hyung-jin",
+        "Copyright © 2023 길형진"
+      ],
+      "licenseFile": "Pretendard-LICENSE.txt",
+      "licenseSHA256": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+      "metadataNames": {
+        "1": [
+          "Pretendard SemiBold"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "1.309;CTUS;Pretendard-SemiBold"
+        ],
+        "4": [
+          "Pretendard SemiBold"
+        ],
+        "6": [
+          "Pretendard-SemiBold"
+        ],
+        "16": [
+          "Pretendard"
+        ],
+        "17": [
+          "SemiBold"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://raw.githubusercontent.com/orioncactus/pretendard/5c41199ea0024a9e0b2cb31735265056e5472d76/packages/pretendard/dist/web/static/woff2/Pretendard-SemiBold.woff2",
+        "sha256": "c863f76a7de5c1ddc1ed8b2fa794964530774592c4f31407a84e2a2ae93f17f0",
+        "ref": "v1.3.9",
+        "commit": "5c41199ea0024a9e0b2cb31735265056e5472d76"
+      },
+      "openReviewItems": []
+    },
+    {
+      "file": "Pretendard-Thin.woff2",
+      "bytes": 694804,
+      "sha256": "1539755224a64719d5b18406762c476db74fcc299b9e4641ca1e9812fbc7a09b",
+      "metadataWeight": 100,
+      "copyrightNotices": [
+        "Copyright © 2023 Kil Hyung-jin",
+        "Copyright © 2023 길형진"
+      ],
+      "licenseFile": "Pretendard-LICENSE.txt",
+      "licenseSHA256": "82e9c8a4b203261f10ddba1296422d64914ff3d4b7bd8a12896d03f0f088d70a",
+      "metadataNames": {
+        "1": [
+          "Pretendard Thin"
+        ],
+        "2": [
+          "Regular"
+        ],
+        "3": [
+          "1.309;CTUS;Pretendard-Thin"
+        ],
+        "4": [
+          "Pretendard Thin"
+        ],
+        "6": [
+          "Pretendard-Thin"
+        ],
+        "16": [
+          "Pretendard"
+        ],
+        "17": [
+          "Thin"
+        ]
+      },
+      "sourceEvidence": {
+        "kind": "official_binary_byte_identity",
+        "URL": "https://raw.githubusercontent.com/orioncactus/pretendard/5c41199ea0024a9e0b2cb31735265056e5472d76/packages/pretendard/dist/web/static/woff2/Pretendard-Thin.woff2",
+        "sha256": "1539755224a64719d5b18406762c476db74fcc299b9e4641ca1e9812fbc7a09b",
+        "ref": "v1.3.9",
+        "commit": "5c41199ea0024a9e0b2cb31735265056e5472d76"
+      },
+      "openReviewItems": []
+    }
+  ]
+}
