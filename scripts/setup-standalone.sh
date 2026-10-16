@@ -21,3 +21,7 @@ npm --prefix desktop ci --registry=https://registry.npmjs.org --ignore-scripts=f
 node desktop/node_modules/electron/install.js
 npm --prefix rhwp-studio ci --registry=https://registry.npmjs.org --ignore-scripts=false --no-audit --no-fund
 bash scripts/install-standalone-rust.sh
+# Prepare the full locked graph in the repository-owned offline-build cache;
+# target-only fetch can omit packages needed during dependency resolution.
+source scripts/standalone-env.sh
+"$CARGO_HOME/bin/cargo" fetch --locked --manifest-path engine/Cargo.toml
