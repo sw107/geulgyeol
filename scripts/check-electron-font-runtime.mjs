@@ -94,9 +94,11 @@ const rows = [], fonts = [], errors = [], networkFailures = [], consoleEvents = 
 try {
   control({ id: 'startup', canceled: true, choice: 'discard' });
   const started = Date.now();
-  const launched = await launchPackaged(path.join(app, 'Contents/MacOS/GeulgyeolBeta3'), q);
+  const launched = await launchPackaged(path.join(app, 'Contents/MacOS/GeulgyeolBeta3'), q, child => {
+    p = child; // Own the child even if startup fails before launchPackaged returns.
+    write('owned-process.json', { pid: p.pid, executable: path.join(app, 'Contents/MacOS/GeulgyeolBeta3') });
+  });
   p = launched.p;
-  write('owned-process.json', { pid: p.pid, executable: path.join(app, 'Contents/MacOS/GeulgyeolBeta3') });
   mainWS = new WebSocket(launched.mainEndpoint);
   await new Promise((resolve, reject) => { mainWS.onopen = resolve; mainWS.onerror = reject; });
   let seq = 0; const pending = new Map();

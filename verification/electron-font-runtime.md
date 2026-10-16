@@ -2,6 +2,8 @@
 
 Product main: `9a9db66bda140f65f63c7d0eba9ceb2b5dca42ba` (PR #65 merged).
 QA root: `/Users/sw107/Documents/Codex/2026-10-14/task/electron-font-runtime-qa/qa`.
+Startup-ownership follow-up: the sibling `qa-followup` directory. The original
+QA freeze remains intact; the follow-up has a separate final freeze.
 This change adds QA tools and evidence documentation. Product code, the engine,
 25 product font binaries and generated font rules are unchanged.
 
@@ -82,6 +84,9 @@ are narrow local measurements, not a cold-start, GPU, RSS or user latency
 prediction. Full standard WOFF2 is 12.26% larger than current; full TTF is
 407.70% larger despite the lower in-memory parse timing. No candidate was
 written over a product font or installed on the system.
+The table uses the first completed run (`qa/app-run-complete`, QA source
+`70210e69222944ac6900031dc8b63bea50c629dd`). The ownership follow-up reruns the
+same actual app/font/document/PDF workload and retains its own raw measurements.
 
 ## Product print preview and PDF
 
@@ -164,7 +169,12 @@ normal exit. The OFL whitespace-layout audit failure is also retained.
 
 Typecheck, Node syntax, Python AST and whitespace checks pass. Five controlled
 wrong-hash/existing-output/optimized-Python guards reject before app launch or
-output replacement. Product source is unchanged, so the old desktop/Rust suite
+output replacement. A sixth controlled startup test confirms the launcher
+reports the owned child immediately and rejects a child exiting with code17
+before Inspector readiness; it is not an actual Electron failure claim. The
+caller can therefore clean up its child even if startup rejects before returning.
+That QA-only launch callback is optional for existing callers. Product source
+is unchanged, so the old desktop/Rust suite
 was not repeated as a substitute for this runtime coverage. The prior missing
 Rust samples remain a separate full-suite limitation; CI absence is not success.
 
