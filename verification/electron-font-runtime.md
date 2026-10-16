@@ -6,6 +6,8 @@ Startup-ownership follow-up: the sibling `qa-followup` directory. The original
 QA freeze remains intact; the follow-up has a separate final freeze.
 This change adds QA tools and evidence documentation. Product code, the engine,
 25 product font binaries and generated font rules are unchanged.
+The subsequent P2 fix for incomplete comparison inputs and vacuous success is
+documented in [the runtime input/completion contract](electron-font-runtime-contract.md).
 
 ## Recovered execution scope
 
