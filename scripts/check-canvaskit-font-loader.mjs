@@ -9,8 +9,11 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
-assert(args.length === 4 && args[0] === '--inputs' && args[2] === '--output-root',
-  'Usage: --inputs prepared/inputs.json --output-root NEW_DIRECTORY');
+assert([4, 5].includes(args.length) && args[0] === '--inputs' && args[2] === '--output-root',
+  'Usage: --inputs prepared/inputs.json --output-root NEW_DIRECTORY [--geulgyeol-font-plan[-korean]]');
+if (args.length === 5) assert(['--geulgyeol-font-plan', '--geulgyeol-font-plan-korean'].includes(args[4]));
+const appFontPlan = args.length === 5, koreanRequests = args[4] === '--geulgyeol-font-plan-korean';
+if (appFontPlan) globalThis.__GEULGYEOL_BUNDLED_NANUM__ = true;
 const output = path.resolve(args[3]), inputBytes = fs.readFileSync(path.resolve(args[1]));
 assert(!fs.existsSync(output), 'Use a fresh output directory');
 const sha = b => crypto.createHash('sha256').update(b).digest('hex');
@@ -60,7 +63,9 @@ registerHooks({
   },
 });
 const { CanvasKitLayerRenderer } = await import(pathToFileURL(path.join(src, 'view/canvaskit-renderer.ts')));
-const { resolveCanvasKitFontPlanWithRules: plan } = await import(pathToFileURL(path.join(src, 'core/font-loader.ts')));
+const { resolveCanvasKitFontPlanWithRules: plan, getWebFontSupplySnapshotWithRules } = await import(pathToFileURL(path.join(src, 'core/font-loader.ts')));
+const { FONT_RULE_WEBFONT_ENTRIES } = await import(pathToFileURL(path.join(src, 'core/font-rule-runtime.ts')));
+const { analyzeDocumentFonts } = await import(pathToFileURL(path.join(src, 'core/document-font-status.ts')));
 const { CanvasKitGlyphRunFontCache, drawCanvasKitGlyphRun } = await import(pathToFileURL(path.join(src, 'view/canvaskit/glyph-run-fonts.ts')));
 const require = createRequire(path.join(root, 'rhwp-studio/package.json'));
 const { blake3 } = await import(pathToFileURL(require.resolve('@noble/hashes/blake3.js')));
@@ -112,29 +117,52 @@ const text = '글결 AVATAR office 123';
 for (const row of rows) {
   const alias = row.file.startsWith('NanumGothic-') ? 'NanumGothicExtraBold' : 'NanumMyeongjoExtraBold';
   const korean = row.file.startsWith('NanumGothic-') ? '나눔고딕 ExtraBold' : '나눔명조 ExtraBold';
+  const requestedFamily = koreanRequests ? korean : alias;
   for (const family of [alias, korean]) for (const offline of [true, false]) {
     plans.push({ family, disableExternalWebFonts: offline, decision: plan([family], { disableExternalWebFonts: offline }) });
+    if (appFontPlan) {
+      const decision = plans.at(-1).decision;
+      assert.equal(decision.unavailableFonts.length, 0); assert.equal(decision.sources.length, 1);
+      assert.equal(decision.sources[0].url, 'fonts/' + row.file);
+      assert.deepEqual(new Set(decision.sources[0].aliases), new Set([alias, korean]));
+      assert.equal(getWebFontSupplySnapshotWithRules(family).status, 'catalogued');
+      const webEntries = FONT_RULE_WEBFONT_ENTRIES.filter(entry => entry.name === family);
+      assert.equal(webEntries.length, 1); assert.equal(webEntries[0].file, 'fonts/' + row.file);
+    }
+  }
+  if (appFontPlan) {
+    assert.equal(plan([alias, korean], { disableExternalWebFonts: true }).sources.length, 1);
+    assert.deepEqual(plan([alias], { availableLocalFiles: new Set() }).unavailableFonts, [alias]);
+    assert.equal(plan([alias], { availableLocalFiles: new Set([row.file]), localFontBaseUrl: 'app://qa/fonts/' }).sources[0].url, 'app://qa/fonts/' + row.file);
+    assert.equal(plan([alias.toUpperCase()], { disableExternalWebFonts: true }).sources.length, 1);
   }
   let expectedPagePixels = null, expectedShapedPixels = null;
   for (const v of row.variants.filter(x => x.kind !== 'current-sfnt-control')) {
     const bytes = fs.readFileSync(v.path), url = 'qa:' + row.file + ':' + v.kind, r = renderer();
-    urls.set(url, bytes);
     const label = row.file + ':' + v.kind;
-    assert.equal(await r.prepareBundledFonts([{ url, aliases: [alias, korean] }]), 1);
-    const prepared = r.findPreparedTypeface(alias);
-    assert(prepared?.fontManager && prepared.typeface);
-    assert.equal(r.findPreparedTypeface(korean), prepared);
-    const style = { weight: ck.FontWeight.ExtraBold, width: ck.FontWidth.Normal, slant: ck.FontSlant.Upright };
-    const bare = prepared.fontManager.matchFamilyStyle(alias, style);
-    if (!bare) bareLookupMisses.push(label); else bare.delete();
-    const native = prepared.fontManager.matchFamilyStyle(prepared.fontFamily, style);
-    assert(native); native.delete();
     const doc = sdk.HwpDocument.createEmpty();
     try {
       doc.insertText(0, 0, 0, text);
-      const fontIds = Array.from({ length: 7 }, (_, language) => doc.findOrCreateFontIdForLang(language, alias));
+      const fontIds = Array.from({ length: 7 }, (_, language) => doc.findOrCreateFontIdForLang(language, requestedFamily));
       assert(JSON.parse(doc.applyCharFormat(0, 0, 0, text.length, JSON.stringify({ fontIds, fontSize: 1800 }))).ok);
-      const props = JSON.parse(doc.getCharPropertiesAt(0, 0, 0)); assert.equal(props.fontFamily, alias);
+      const props = JSON.parse(doc.getCharPropertiesAt(0, 0, 0)); assert.equal(props.fontFamily, requestedFamily);
+      const preflight = JSON.parse(doc.getCanvasKitDocumentPreflight('default', 'screen'));
+      assert.deepEqual(preflight.requiredFontFamilies, [requestedFamily]);
+      const documentPlan = appFontPlan ? plan(preflight.requiredFontFamilies, { disableExternalWebFonts: true })
+        : { sources: [{ url, aliases: [alias, korean] }], unavailableFonts: [] };
+      assert.equal(documentPlan.unavailableFonts.length, 0); assert.equal(documentPlan.sources.length, 1);
+      for (const source of documentPlan.sources) urls.set(source.url, bytes);
+      assert.equal(await r.prepareBundledFonts(documentPlan.sources), 1);
+      const prepared = r.findPreparedTypeface(requestedFamily);
+      assert(prepared?.fontManager && prepared.typeface);
+      assert.equal(r.findPreparedTypeface(alias), prepared); assert.equal(r.findPreparedTypeface(korean), prepared);
+      const style = { weight: ck.FontWeight.ExtraBold, width: ck.FontWidth.Normal, slant: ck.FontSlant.Upright };
+      const bare = prepared.fontManager.matchFamilyStyle(alias, style);
+      if (!bare) bareLookupMisses.push(label); else bare.delete();
+      const native = prepared.fontManager.matchFamilyStyle(prepared.fontFamily, style);
+      assert(native); native.delete();
+      const fontStatus = appFontPlan ? analyzeDocumentFonts([requestedFamily], { localFonts: [], localSupported: false }) : null;
+      if (fontStatus) assert.equal(fontStatus.fonts[0].source, 'web');
       for (let language = 0; language < 7; language++) {
         assert(JSON.parse(doc.registerExactFontSource(props.charShapeId, language, bytes, 0)).ok);
       }
@@ -151,7 +179,11 @@ for (const row of rows) {
         fs.writeFileSync(path.join(output, label.replaceAll(':', '-') + '.' + format), saved);
         const reopened = new sdk.HwpDocument(saved);
         try {
-          const p = JSON.parse(reopened.getCharPropertiesAt(0, 0, 0)); assert.equal(p.fontFamily, alias); assert.equal(p.fontSize, 1800);
+          const p = JSON.parse(reopened.getCharPropertiesAt(0, 0, 0)); assert.equal(p.fontFamily, requestedFamily); assert.equal(p.fontSize, 1800);
+          if (appFontPlan) {
+            const reopenedPreflight = JSON.parse(reopened.getCanvasKitDocumentPreflight('default', 'screen'));
+            assert.deepEqual(plan(reopenedPreflight.requiredFontFamilies, { disableExternalWebFonts: true }), documentPlan);
+          }
           const reopenedTree = JSON.parse(reopened.getPageLayerTreeWithProfile(0, 'screen', false, false));
           assert.equal(ops(reopenedTree).filter(x => x.type === 'textRun').map(x => x.text).join(''), text);
           const reopenedCanvas = new TransportCanvas(canvas.width, canvas.height);
@@ -197,7 +229,8 @@ for (const row of rows) {
         badCache.registerResources(resource, resources, () => corrupted, 0);
         assert.equal(badCache.replayStatus(run, resource).reason, 'fontBlobNotVerified');
       } finally { cache.clear(); badCache.clear(); }
-      results.push({ file: row.file, kind: v.kind, fontSHA256: sha(bytes), requestedAlias: alias, resolvedNativeFamily: prepared.fontFamily,
+      results.push({ file: row.file, kind: v.kind, fontSHA256: sha(bytes), requestedAlias: requestedFamily, resolvedNativeFamily: prepared.fontFamily,
+        preflightRequiredFontFamilies: preflight.requiredFontFamilies, documentPlan, fontStatus,
         pagePixels, shapedPixels, roundTrips, engineGlyphRunCount: ops(tree).filter(x => x.type === 'glyphRun').length,
         controlledGlyphReplay: replay.report, corruptedDigestRejected: true, diagnostics });
       // Deliberate adapter failure proves product finally cleanup, not a natural rendering failure.
@@ -212,7 +245,9 @@ const proof = { sourceSHA256: sha(fs.readFileSync(fileURLToPath(import.meta.url)
   CanvasKitJS_SHA256: sha(fs.readFileSync(ckJS)), CanvasKitWASM_SHA256: sha(ckWasm), engineSHA256: sha(engineBytes), node: process.version,
   plans, bareLookupMisses, results, cleanup, allocations, observedFrees, manuallyFreedBaselineBytes, surfaceLeakObserved: leak,
   nativeAppLaunched: false, browserBootstrapVerified: false, browserFontFaceVerified: false, osFontDetectionVerified: false,
-  fontBytesChanged: false, candidateSupply: 'controlled QA URLs via existing prepareBundledFonts; catalog unmodified', releaseHeld: true };
+  fontBytesChanged: false, appFontPlan, koreanRequests, candidateSupply: appFontPlan
+    ? 'actual Geulgyeol offline document plan; candidate responses injected at planned URLs, no product file replaced'
+    : 'controlled QA URLs via existing prepareBundledFonts; unflagged catalog', releaseHeld: true };
 fs.writeFileSync(path.join(output, 'proof.json'), JSON.stringify(proof, null, 2) + '\n');
 console.log(JSON.stringify({ syntheticDocuments: results.length, roundTrips: results.length * 2, bareLookupMisses: bareLookupMisses.length,
   controlledGlyphReplayCases: results.length, cleanupCases: cleanup.length, allocations, observedFrees, surfaceLeakObserved: leak }));

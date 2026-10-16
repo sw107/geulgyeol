@@ -9,6 +9,7 @@ import {
   FONT_RULE_CANVASKIT_SFNT_RULES,
   type GeneratedFontRuleProjection as CanvasKitRule,
 } from './generated/font-rule-projections/canvaskit-sfnt.ts';
+import { GEULGYEOL_BUNDLED_FONTS } from './geulgyeol-bundled-fonts.ts';
 
 export type ProjectedFontFormat = 'woff2' | 'woff' | 'truetype' | 'opentype';
 
@@ -214,6 +215,11 @@ export const FONT_RULE_DISPLAY_CHAIN_POLICY_IDS: Readonly<Record<string, string>
       .map(rule => [rule.relationType, rule.ruleId]),
   ));
 
+const bundledWebFontEntries: ProjectedWebFontEntry[] = GEULGYEOL_BUNDLED_FONTS.flatMap(font => (
+  font.aliases.map(name => ({ name, file: font.file, format: 'woff2', ruleId: font.ruleId }))
+));
+const bundledWebFontNames = new Set(bundledWebFontEntries.map(entry => normalizeProjectedFontFamily(entry.name)));
+
 export const FONT_RULE_WEBFONT_ENTRIES: readonly ProjectedWebFontEntry[] = Object.freeze(
   FONT_RULE_CANVAS2D_WEBFONT_RULES.map(rule => {
     if (!hasBoundary(rule, WEBFONT_BOUNDARY)) {
@@ -232,7 +238,8 @@ export const FONT_RULE_WEBFONT_ENTRIES: readonly ProjectedWebFontEntry[] = Objec
       ...(unicodeRange === null ? {} : { unicodeRange }),
       ruleId: rule.ruleId,
     });
-  }),
+  }).filter(entry => !bundledWebFontNames.has(normalizeProjectedFontFamily(entry.name)))
+    .concat(bundledWebFontEntries),
 );
 
 interface CanvasKitSnapshot {
@@ -294,6 +301,16 @@ const canvasKitSupplies = new Map<string, CanvasKitSupply>(canvasKitSupplyRules.
     ruleId: rule.ruleId,
   }];
 }));
+
+// Keep app-owned supply outside generated files, sharing aliases with Canvas2D.
+for (const font of GEULGYEOL_BUNDLED_FONTS) {
+  const snapshot = { sources: [{ url: font.file, aliases: [...font.aliases] }], unavailableFonts: [] };
+  for (const alias of font.aliases) {
+    canvasKitSupplies.set(normalizeProjectedFontFamily(alias), {
+      sourceFace: alias, declaredCapability: 'woff2', online: snapshot, offline: snapshot, ruleId: font.ruleId,
+    });
+  }
+}
 
 const canvasKitSubstitutes = new Map<string, { target: string; ruleId: string }>(
   FONT_RULE_CANVASKIT_SFNT_RULES
