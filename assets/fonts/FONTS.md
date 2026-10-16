@@ -1,8 +1,12 @@
 # 웹 폰트 목록
 
-웹 배포에 사용하는 WOFF2 폰트의 canonical source 목록이다. Git에는 36개 WOFF2,
-총 22,651,296 bytes가 포함된다. Studio와 legacy `/web`은 각각의 `fonts/` runtime URL을 유지하면서
+웹 배포에 사용하는 WOFF2 폰트의 저장소 내 기준 목록이다. Git에는 8개 계열의 WOFF2 25개,
+총 15,932,260 bytes가 포함된다. Studio와 legacy `/web`은 각각의 `fonts/` runtime URL을 유지하면서
 이 디렉토리를 참조하고, extension build는 여기에서 배포 산출물로 복사한다.
+
+이 수치는 현재 포함 파일의 목록이며, 모든 파일의 upstream 원본 출처나 배포 적합성을
+입증하는 것은 아니다. 내부 메타데이터·라이선스 및 패키지 대조 범위는
+[검토 기록](../../verification/final-package-font-audit.md)을 따른다.
 
 저작권 보호가 필요한 폰트는 Git에 포함하지 않으며, 별도로 준비해야 한다.
 
@@ -56,12 +60,11 @@
 | Pretendard-*.woff2 (9종) | Pretendard | SIL OFL 1.1 | GitHub | 맑은 고딕, 함초롬돋움 |
 | NotoSansKR-Regular.woff2 | Noto Sans KR Regular | SIL OFL 1.1 | Google Fonts | 한컴돋움(=함초롬돋움 별칭), CanvasKit 기본 typeface |
 | NotoSansKR-Bold.woff2 | Noto Sans KR Bold | SIL OFL 1.1 | Google Fonts | 돋움 Bold |
-| NotoSansKR-ExtraLight.woff2 | Noto Sans KR ExtraLight | SIL OFL 1.1 | Google Fonts (wght 200 인스턴스) | Haansoft Dotum·돋움·굴림 (Task #1224 — 한컴 돋움 획 두께 정합) |
+| NotoSansKR-ExtraLight.woff2 | Noto Sans KR ExtraLight | SIL OFL 1.1 | Google Fonts (기존 출처 표기; 정적 생성 입력은 미확인) | Haansoft Dotum·돋움·굴림 |
 | NanumGothic-Regular.woff2 | 나눔고딕 Regular | SIL OFL 1.1 | Google Fonts | 나눔고딕 (동일) |
 | NanumGothic-Bold.woff2 | 나눔고딕 Bold | SIL OFL 1.1 | Google Fonts | 나눔고딕 Bold |
 | NanumGothic-ExtraBold.woff2 | 나눔고딕 ExtraBold | SIL OFL 1.1 | Google Fonts | 나눔고딕 ExtraBold |
 | GowunDodum-Regular.woff2 | 고운돋움 Regular | SIL OFL 1.1 | Google Fonts | HY고딕 대체 |
-| SpoqaHanSans-Regular.woff2 | 스포카 한 산스 | SIL OFL 1.1 | GitHub | 보조 Sans |
 
 ### Noto Sans KR Regular 서브셋 재생성
 
@@ -71,46 +74,30 @@ CanvasKit은 브라우저 시스템 폰트 폴백을 사용하지 않으므로 `
 - `U+2500-257F`: 표 테두리용 Box Drawing
 - `U+25A0-25FF`: KS X 1001 글머리와 Geometric Shapes
 
-입력은 Google Fonts의 `ofl/notosanskr/NotoSansKR[wght].ttf`이고, `wght=400` 정적 instance를
-생성한다. 현재 재현 기준 source TTF는 `ttfs/opensource/NotoSansKR-Regular.ttf`에 커밋되어 있으므로
-일반 검증이나 CI가 인터넷 다운로드에 의존하지 않는다. 아래 `curl`은 maintainer가 새 source에서 asset을
-다시 생성할 때의 갱신 절차다. 재생성은 `fonttools[woff]` 환경에서 수행한다.
-
-```bash
-curl -L -o '/tmp/NotoSansKR[wght].ttf' \
-  https://github.com/google/fonts/raw/main/ofl/notosanskr/NotoSansKR%5Bwght%5D.ttf
-python tools/subset_noto_sans_kr_regular.py \
-  --source '/tmp/NotoSansKR[wght].ttf'
-```
-
-출력은 `ttfs/opensource/NotoSansKR-Regular.ttf`와 `assets/fonts/NotoSansKR-Regular.woff2`다.
-`npm run e2e:canvaskit-font-coverage`는 CanvasKit 실번들에서 `■`, `▪`, `□`, `○`, `─`의 glyph ID가
-`0`이 아닌지 확인한다.
-
-2026-07-11 생성 입력의 SHA-256은
-`194018e6b2b293a7964f037b25c0249ce1418bc9ab3c971060a03aa57861e252`이다.
+현재 Regular 파일의 cmap에서 `■`, `▪`, `□`, `○`, `─`가 실제 glyph로 연결되는 것은
+확인했다. 그러나 이 저장소에는 이전 안내의 `ttfs/opensource/NotoSansKR-Regular.ttf`와
+`tools/subset_noto_sans_kr_regular.py`가 없다. 기존에 적힌 입력 해시나 생성 설명만으로
+현재 파일을 재현했다고 주장할 수 없다. 생성 입력·변환 과정·이름 보존 조건을 검토하기 전에는
+폰트를 재생성하거나 교체하지 않는다. 실제 CanvasKit 및 인쇄 모양 검증도 별도다.
 
 ### Monospace (고정폭)
 
 | 파일명 | 폰트명 | 라이선스 | 출처 | 대체 대상 |
 |--------|--------|---------|------|----------|
-| D2Coding-Regular.woff2 | D2 Coding Regular | SIL OFL 1.1 | GitHub (naver) | 굴림체, 바탕체 |
-| D2Coding-Bold.woff2 | D2 Coding Bold | SIL OFL 1.1 | GitHub (naver) | 굴림체 Bold |
 | NanumGothicCoding-Regular.woff2 | 나눔고딕코딩 Regular | SIL OFL 1.1 | Google Fonts | 보조 Monospace |
 | NanumGothicCoding-Bold.woff2 | 나눔고딕코딩 Bold | SIL OFL 1.1 | Google Fonts | 보조 Monospace Bold |
 
-### 특수/장식체
+### 현재 번들에 없는 선택 글꼴
 
-| 파일명 | 폰트명 | 라이선스 | 출처 |
-|--------|--------|---------|------|
-| Cafe24Ssurround-v2.0.woff2 | 카페24 써라운드 | 무료 배포 | Cafe24 |
-| Cafe24Supermagic-Regular-v1.0.woff2 | 카페24 슈퍼매직 | 무료 배포 | Cafe24 |
-| Happiness-Sans-*.woff2 (3종) | 행복고딕 Regular/Bold/Title | 무료 배포 | 행복나눔 |
-| HappinessSansVF.woff2 | 행복고딕 Variable | 무료 배포 | 행복나눔 |
+이전 목록의 SpoqaHanSans, D2Coding, Cafe24, Happiness Sans,
+SourceHanSerifK-OldHangul-subset, LatinModernMath 파일은 현재 Git WOFF2 목록에 없다.
+라이선스 고지 파일이나 폴백 코드가 남아 있다는 사실만으로 해당 폰트가 포함됐다고 보지 않는다.
+별도 글꼴을 추가할 때는 원본 출처·정확한 파일·라이선스·변환 내역을 다시 검토해야 한다.
 
-### 문자/수식 보조
+### 내부 메타데이터 주의점
 
-| 파일명 | 폰트명 | 라이선스 | 출처 | 용도 |
-|--------|--------|---------|------|------|
-| SourceHanSerifK-OldHangul-subset.woff2 | Source Han Serif K Old Hangul subset | SIL OFL 1.1 (`SourceHanSerifK-OFL.txt`) | Adobe / Google | 옛한글 자모·합자 fallback |
-| LatinModernMath-Regular.woff2 | Latin Modern Math | GUST Font License | GUST / TeX ecosystem | 수식 fallback |
+2026-10-16에 포함 WOFF2 25개를 모두 해석했다. 파일명 ExtraLight인 Noto Sans KR의
+`OS/2.usWeightClass`는 400이며, Bold 파일의 내부 family 이름에는 `Thin`이 남아 있다.
+Regular의 unique ID에도 `Thin`이 남아 있다. 이름과 내부 값의 불일치는 기록했으며,
+글리프 두께나 렌더링 결과가 올바르다는 결론은 내리지 않았다. 이번 검토에서 폰트 바이너리는
+변경하지 않았다.
