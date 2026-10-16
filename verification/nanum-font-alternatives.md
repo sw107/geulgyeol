@@ -1,6 +1,8 @@
 # Full-source Nanum alternatives: size and renderer comparison
 
 Base main: `a36d0c9903e648303d0cdd3f1c7a5261dc1728e8` (PR #62 merged).
+These are the original comparison records. Subsequent product-loader and surface
+cleanup measurements are in [CanvasKit font-loader QA](canvaskit-font-loader.md).
 QA root: `/Users/sw107/Documents/Codex/2026-10-14/task/nanum-font-alternatives/qa`.
 Product font bytes are unchanged. The alternatives below exist only in QA.
 This comparison does not approve beta publication or close the current subset
