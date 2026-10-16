@@ -619,6 +619,27 @@ impl DocumentCore {
                 Some(hit) => vec![hit],
                 None => Vec::new(),
             };
+        } else {
+            // Find All may enumerate overlapping literals. Replace All must choose
+            // disjoint spans left-to-right before applying them in reverse: after
+            // a shrinking edit, an overlapping earlier span could delete the tail.
+            // Offsets belong to a specific text/equation container, not its owner.
+            let mut ends = std::collections::BTreeMap::new();
+            all_hits.retain(|hit| {
+                let key = (
+                    hit.sec,
+                    hit.para,
+                    hit.cell_context.as_ref().map(|cell| cell.path.clone()),
+                    hit.is_text_box,
+                    hit.equation_control,
+                );
+                let end = ends.entry(key).or_insert(0);
+                if hit.char_offset < *end {
+                    return false;
+                }
+                *end = hit.char_offset + hit.length;
+                true
+            });
         }
         // 역순 정렬: 뒤에서부터 치환하여 앞쪽 오프셋에 영향 없도록
         all_hits.reverse();
