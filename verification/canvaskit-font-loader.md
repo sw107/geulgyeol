@@ -1,6 +1,8 @@
 # CanvasKit font aliases and software surface cleanup
 
 Base main: `e3e61b9bb5af62e451c98e2771b392a92d519b55` (PR #63 merged).
+The subsequent app-owned supply change is documented in
+[Nanum document family resolution](nanum-family-resolution.md).
 Evidence root: `/Users/sw107/Documents/Codex/2026-10-14/task/font-loader-alias-qa/qa`.
 All synthetic documents and candidate fonts remain in QA. Product font bytes,
 font rules, engine source and WASM are unchanged. Beta publication stays held.
@@ -44,8 +46,10 @@ natural rendering failure.
 
 The baseline diagnostic manually frees each *recorded* orphan after recording
 the failure, keeping reproduction bounded. The proof reports those cleanup
-bytes explicitly; they are not counted as product frees. Baseline exits 1;
-both fixed runs exit 0. Normal-page and explicitly invoked product paragraph
+bytes explicitly; they are not counted as product frees. The 57,066,368 bytes
+is the accumulated sum of unreleased backing allocations over
+those cases, not a final RSS reading or simultaneously resident memory amount.
+Baseline exits 1; both fixed runs exit 0. Normal-page and explicitly invoked product paragraph
 shaping pixel hashes agree before and after the fix in all eight cases.
 
 The original large-grid readback failure is preserved. After surface cleanup,
