@@ -5,12 +5,43 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
-import {createHash} from 'node:crypto';
+import {createHash,randomUUID} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
 import puppeteer from '../rhwp-studio/node_modules/puppeteer-core/lib/puppeteer/puppeteer-core.js';
 import {observe} from './check-cell-numbering-continuation.mjs';
 import {EvidenceBudget} from './qa-evidence-budget.mjs';
 import {finishOwnedQA} from './electron-qa-exit.mjs';
+
+// Publish a complete JSON inode in the same directory; bootstrap readers see
+// either the previous plan or the new one, never a truncated destination.
+export function publishControl(file, value) {
+  const payload=JSON.stringify(value);
+  assert(payload!==undefined,'a JSON control value is required');
+  const temporary=path.join(path.dirname(file),'.'+path.basename(file)+'.'+randomUUID()+'.tmp');
+  let fd,owned=false,failure;
+  try {
+    fd=fs.openSync(temporary,'wx',0o600);owned=true;
+    fs.writeFileSync(fd,payload+'\n');
+    const descriptor=fd;fd=undefined;fs.closeSync(descriptor);
+    fs.renameSync(temporary,file);owned=false;
+  } catch(error) { failure=error;throw error; }
+  finally {
+    let cleanupError;
+    try {if(fd!==undefined)fs.closeSync(fd);}catch(error){cleanupError=error;}
+    try {if(owned)fs.unlinkSync(temporary);}catch(error){cleanupError??=error;}
+    if(!failure && cleanupError)throw cleanupError;
+  }
+}
+
+// Call after the owned main process exits, so its JSONL audit is complete.
+export function assertCleanHostAudit(text) {
+  const lines=text.trim().split('\n').filter(Boolean);
+  assert(lines.length>0,'host audit is missing');
+  const records=lines.map(line=>JSON.parse(line));
+  const unexpected=records.filter(record=>['host-error','control-error'].includes(record.kind));
+  assert.equal(unexpected.length,0,'unexpected host/control errors: '+JSON.stringify(unexpected));
+  return {records:records.length,hostErrorCount:0,controlErrorCount:0,verifiedAfterExit:true};
+}
 
 // Self-contained so Puppeteer can serialize this exact predicate into the host.
 export function reopenedHostReady({name, beforeEpoch}) {
@@ -32,7 +63,7 @@ const budget = new EvidenceBudget({root:qa,phase:output});
 budget.begin({normalForecastBytes:96*1024**2,failureForecastBytes:96*1024**2});
 const write=(name,value)=>fs.writeFileSync(path.join(output,name),JSON.stringify(value,null,2)+'\n');
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
-const control=value=>write('control.json',value), pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+const control=value=>publishControl(path.join(output,'control.json'),value), pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 async function until(fn,label){const end=Date.now()+45000;while(Date.now()<end){if(await fn())return;await pause(50);}throw Error('timeout '+label);}
 let child, browser, page, frame, failure, exitOutcome;
 const results=[],errors=[];
@@ -119,8 +150,10 @@ try {
   await page.screenshot({path:path.join(output,'final.png')});
   control({id:'done',quit:true,choice:'discard'});
   exitOutcome=await finishOwnedQA(child,{requestClose:async()=>control({id:'close',quit:true,choice:'discard'}),closeTimeoutMs:15000});assert(exitOutcome.normalQuit);
+  const hostAudit=assertCleanHostAudit(fs.readFileSync(path.join(output,'audit.jsonl'),'utf8'));
+  assert.deepEqual(errors,[]);
   write('proof.json',{actualMacElectron:true,existingQAHandles:true,controlledChooser:true,physicalIME:false,nativeChooser:false,
-    qaOnlyWasmAlias:true,engineWitness:witness,results,errors,exitOutcome});
+    qaOnlyWasmAlias:true,engineWitness:witness,results,errors,hostAudit,exitOutcome});
 } catch(error){failure=String(error);write('failure.json',{failure,stack:error.stack,results,errors});throw error;}
 finally {
   if(child&&child.exitCode===null&&child.signalCode===null)exitOutcome=await finishOwnedQA(child,{requestClose:async()=>control({id:'cleanup',quit:true,choice:'discard'}),allowTerminate:true});

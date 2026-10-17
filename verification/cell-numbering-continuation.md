@@ -105,13 +105,37 @@ before and after; none changed. Main has no intervening engine changes.
 This is an actual main-UI/PR73-engine combination check, not a merged source
 commit, rebuilt package or release.
 
-Both runs pass the same 16 layout fixtures, eight input/undo/redo cases and
+Both runs completed the same 16 layout fixtures, eight input/undo/redo cases and
 16 real host save/reopens, with the actual requested WASM serving
 `bbc48a4db3e3d6edd867f9121a7758943634e78d124e482c36c794f34349e7b6`.
 All 16 saved files are byte-identical between the runs and the earlier
 independently inspected `electron-release-retry` exports. Both owned apps quit
 normally with code 0. These are repeated checks of the same matrix, not additional
 unique coverage.
+
+Independent review of the raw `electron-main-integration/audit.jsonl` then
+found one main-process `host-error`: a timer read `control.json` after the old
+direct write had truncated it, producing `Unexpected end of JSON input`.
+The former success gate checked renderer page errors but omitted main-process
+audit errors. The matrix observations and saved bytes above remain retained;
+that run is **not a clean host-error-gated integration pass**. This is a QA P2,
+not a newly identified production renderer fault.
+
+The driver now publishes control JSON by exclusive temporary-file write, close
+and same-directory atomic rename. After the owned app has exited normally it
+parses the complete audit and rejects every `host-error` or `control-error`,
+including failures captured by the bootstrap's timer catch. Renderer errors
+are also rechecked after exit. Four new Node tests use the actual bootstrap
+reader to reproduce truncation, stress concurrent reads during 250 atomic
+publications, preserve the last plan on serialization failure, and reject host
+or control errors even with no renderer errors. Together with the four reopen
+gate cases, eight driver-only tests pass without launching Electron.
+
+Only the affected main integration run must be repeated in a fresh evidence
+phase after the PM releases the GUI slot. Fetch and record the then-current
+main and the actual UI-runtime/PR73-engine combination first; PR #74 may change
+that target. The previous results are not overwritten. Until that rerun and
+Hancom review finish, merge remains held.
 
 `main-integration-input.json` pins the main/UI relationship and reused runtime.
 `hancom-handoff-manifest.json` lists all 16 integrated app exports with hashes,
@@ -135,7 +159,7 @@ The three existing embedded library-test samples remain absent:
 `samples/3-09월_교육_통합_2022.hwp`, `samples/hwp3-sample16-hwp5.hwp`,
 `samples/hwpx/aift.hwpx`. A Native example is not the full Rust unit suite.
 No CI success is inferred from absent checks. Merge and deployment remain held
-for independent review and the outstanding Hancom gate.
+for the clean integration rerun, independent review and the outstanding Hancom gate.
 
 ## Reproduction and retained evidence
 
@@ -181,6 +205,7 @@ The driver-only check needs no GUI slot and starts no app:
 
 ```sh
 node --test scripts/check-cell-numbering-host-wait.test.mjs
+node --test scripts/check-cell-numbering-control.test.mjs
 ```
 
 The synthetic matrix is reproducible from the generator. Keep the normalized
