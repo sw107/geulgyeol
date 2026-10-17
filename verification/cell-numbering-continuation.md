@@ -30,7 +30,7 @@ Final candidate SDK SHA-256:
 - Real WASM: 16 fixtures (four head-flag combinations × one/two-column tables ×
   forced/soft line wrapping), 64 alternating HWP/HWPX save/reopens. Checks include
   4,404 later-page line starts, horizontal cell bounds, exactly-once emitted
-  text, neighboring paragraph text, cell-local markers/counters and cold
+  non-whitespace text, neighboring paragraph text, cell-local markers/counters and cold
   reverse page queries. autoIndent-disabled SVG matches the baseline exactly.
 - Eight additional controls: plain, bullet and vertical direction 1/2 for both
   table shapes. Their complete SVG and HWP/HWPX bytes match the baseline.
@@ -38,7 +38,9 @@ Final candidate SDK SHA-256:
   cold reverse queries and neighboring text/style/character-shape references.
   Sixteen additional runtime NewStart cases verify five-digit markers, the next
   paragraph counter, an independent neighbor cell, cold reverse queries and
-  snapshot restoration. No replacement samples were added to the unit suite.
+  immediate snapshot restoration without an intervening edit. NewStart is set
+  directly on the model; these are not UI undo/redo tests. No replacement samples
+  were added to the unit suite.
 - Studio TypeScript and 42 input/history/native-shortcut VM tests pass. The new
   scripts pass Node syntax checks; the Native example passes rustfmt checking.
 - Existing body indentation checks pass ten save/reopens and the later-page
@@ -55,7 +57,14 @@ Four layout-only cases and one input/undo/redo/HWP save/reopen path completed.
 The driver then clicked Save before the host's reopen transition had settled;
 its second-format save timed out. This attempt is retained as failed evidence
 and does not validate the final candidate. The driver now waits for the host
-filename and enabled Save button before continuing.
+filename and enabled Save button before continuing. A subsequent driver
+preflight additionally requires a changed document epoch: saving has already
+assigned the same filename to the old document, so filename alone does not prove
+reopening. It also rejects an open host error dialog. Four Node VM checks run
+the actual desktop host with gated adapters and the exact driver predicate:
+delayed commit, early epoch publication with host work still pending, Open
+cancel, and load failure. The next save's format is selected after the host
+finishes resetting it. These are driver checks, not Electron/OS execution.
 
 The owned app exited normally with code 0. The PM reclaimed the GUI slot for
 Hancom and UI PR #72 checks; no new Electron run is permitted until reassigned.
@@ -70,6 +79,9 @@ Cell NewStart is checked as runtime model/snapshot behavior, including a large
 counter and independent neighboring cell. Existing export lowering supports
 body NewStart only; this work does not add cell NewStart serialization or a new
 editing API. Saved cell-list identity checks use standard numbering definitions.
+The changed-case rendered-text comparison removes whitespace, so it does not
+establish whitespace placement or word-spacing equivalence. Exact paragraph
+text hashes protect stored whitespace content separately.
 General font/wrap fidelity, Roman fixed areas, vertical pagination, physical
 IME/native choosers and signed release packaging are outside this change.
 
@@ -111,6 +123,12 @@ runtime (or prepare one with `build-electron-table-qa.mjs`) and run:
 ```sh
 node scripts/check-electron-cell-numbering-continuation.mjs \
   QA_ROOT FINAL_SDK FRESH_FIXTURES FRESH_PHASE SOURCE_QA_RUNTIME
+```
+
+The driver-only check needs no GUI slot and starts no app:
+
+```sh
+node --test scripts/check-cell-numbering-host-wait.test.mjs
 ```
 
 The synthetic matrix is reproducible from the generator. Keep the normalized

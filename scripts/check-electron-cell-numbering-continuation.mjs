@@ -6,11 +6,24 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {createHash} from 'node:crypto';
+import {pathToFileURL} from 'node:url';
 import puppeteer from '../rhwp-studio/node_modules/puppeteer-core/lib/puppeteer/puppeteer-core.js';
 import {observe} from './check-cell-numbering-continuation.mjs';
 import {EvidenceBudget} from './qa-evidence-budget.mjs';
 import {finishOwnedQA} from './electron-qa-exit.mjs';
 
+// Self-contained so Puppeteer can serialize this exact predicate into the host.
+export function reopenedHostReady({name, beforeEpoch}) {
+  const save=document.getElementById('save'), label=document.getElementById('filename');
+  if(!save || save.disabled || !label || document.getElementById('error-dialog')?.open)return false;
+  const host=document.getElementById('editor')?.querySelector('iframe')?.contentWindow?.baramHost;
+  const state=host?.state();
+  return Number.isSafeInteger(beforeEpoch) && Number.isSafeInteger(state?.documentEpoch)
+    && state.documentEpoch!==beforeEpoch && state.fileName===name && !state.dirty
+    && label.textContent===name;
+}
+
+async function main() {
 const [qa, sdk, fixtureDir, phase, previousRuntime] = process.argv.slice(2), root = path.resolve(import.meta.dirname, '..');
 assert.equal(process.platform, 'darwin');
 assert(qa && sdk && fixtureDir && phase && previousRuntime);
@@ -88,11 +101,12 @@ try {
         await until(()=>fs.existsSync(path.join(output,'files',name)),'host save');
         await until(()=>frame.evaluate(()=>!window.baramHost.state().dirty),'saved state');
         await page.waitForFunction(()=>!document.querySelector('#open').disabled,{timeout:45000});
+        const beforeEpoch=await frame.evaluate(()=>window.baramHost.state().documentEpoch);
+        assert(Number.isSafeInteger(beforeEpoch));
         control({id:'open-'+name,openFile:name,choice:'discard'});await page.click('#open');
-        // Engine pagination may already be idle on the old document. Wait for
-        // the host transition and its filename before inspecting the new one.
-        await page.waitForFunction(name=>!document.querySelector('#save').disabled
-          && document.querySelector('#filename').textContent.startsWith(name),{timeout:45000},name);
+        // Save already set this filename on the old document. Require a new
+        // epoch as well as host completion before inspecting the reopened one.
+        await page.waitForFunction(reopenedHostReady,{timeout:45000},{name,beforeEpoch});
         await settled();
         assert.deepEqual(await capture(row),edited);
         saves.push({ext,file:name,sha256:sha(fs.readFileSync(path.join(output,'files',name)))});
@@ -112,3 +126,5 @@ finally {
   if(child&&child.exitCode===null&&child.signalCode===null)exitOutcome=await finishOwnedQA(child,{requestClose:async()=>control({id:'cleanup',quit:true,choice:'discard'}),allowTerminate:true});
   browser?.disconnect();write('lifecycle.json',{failure,exitOutcome});budget.mark(failure?'failed':'complete');
 }
+}
+if(process.argv[1] && import.meta.url===pathToFileURL(path.resolve(process.argv[1])).href)await main();
