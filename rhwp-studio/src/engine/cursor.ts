@@ -345,7 +345,7 @@ export class CursorState {
   }
 
   /** Caption-only restoration; ordinary selectRange keeps its verified body contract. */
-  selectPictureCaptionRange(start: DocumentPosition, end: DocumentPosition): boolean {
+  selectPictureCaptionRange(start: DocumentPosition, end: DocumentPosition, blockPhase: number | null = null): boolean {
     if (start.sectionIndex !== end.sectionIndex || start.parentParaIndex === undefined
       || start.parentParaIndex !== end.parentParaIndex || start.controlIndex !== end.controlIndex
       || start.cellIndex !== 0 || end.cellIndex !== 0 || start.cellPath?.length || end.cellPath?.length) return false;
@@ -355,9 +355,9 @@ export class CursorState {
         const paragraph = info.paragraphs[p.cellParaIndex ?? 0];
         if (!paragraph || !Number.isInteger(p.charOffset) || p.charOffset < paragraph.editFrom || p.charOffset > [...paragraph.text].length) return false;
       }
-      if (CursorState.comparePositions(start, end) > 0) return false;
+      // Both ends are valid; retain anchor/focus order for backward selections.
       this.anchor = { ...start }; this.position = { ...end };
-      this._blockSelectionMode = false; this._expandPhase = 0;
+      this._blockSelectionMode = blockPhase !== null; this._expandPhase = blockPhase ?? 0;
       this.updateRect(); return true;
     } catch { return false; }
   }

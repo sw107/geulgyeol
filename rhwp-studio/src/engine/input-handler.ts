@@ -2024,6 +2024,7 @@ export class InputHandler {
     // [#4162] getSelectionOrdered() 는 anchor 만 있어도(빈 range) non-null 을 돌려줘
     // ApplyCharFormatCommand 가 to<=from 으로 조용히 no-op 됐다. 실제 범위가 있을 때만
     // 즉시 적용하고, 그 외(선택 없음/빈 선택)는 한컴처럼 다음 삽입 런에 예약한다.
+    if (_captionText.tryFormat.call(this, props)) return;
     const sel = this.getNonEmptySelection();
     if (!sel) {
       this.stagePendingCharShape(props);
@@ -3293,7 +3294,7 @@ export class InputHandler {
     // 차단은 anchor/focus 소유자의 계약이다). 거절되면 해제된 상태 그대로 둔다.
     // 블록 단계는 범위와 같은 호출로 세운다 — `resetDerivedStateAfterHistoryJump` 의
     // `exitBlockSelectionMode()` 가 방금 0 으로 되돌린 것을 여기서 되살린다.
-    if (range.start.parentParaIndex !== undefined && this.cursor.selectPictureCaptionRange(range.start, range.end)) return;
+    if (range.start.parentParaIndex !== undefined && this.cursor.selectPictureCaptionRange(range.start, range.end, range.blockPhase)) return;
     this.cursor.selectRange(range.start, range.end, range.blockPhase);
   }
 
@@ -3305,6 +3306,8 @@ export class InputHandler {
       this.cursor.selectHeaderFooterRange(range.start, range.end, range.previewPage);
     } else if (range && 'mode' in range && range.mode === 'footnote' && this.sameFootnoteSelectionTarget(range)) {
       this.cursor.selectFootnoteRange(range.start, range.end);
+    } else if (!('mode' in range) && range.start.parentParaIndex !== undefined) {
+      this.cursor.selectPictureCaptionRange(range.start, range.end, range.blockPhase);
     }
   }
 
