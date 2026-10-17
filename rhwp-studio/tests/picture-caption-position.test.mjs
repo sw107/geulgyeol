@@ -103,7 +103,8 @@ function fixture(hasCaption = true) {
     refreshAfterOperation: () => events.push(['refresh']),
   });
   const registry = new CommandRegistry(); registry.registerAll(insertCommands);
-  const services = {wasm, getContext: () => context, getInputHandler: () => ih, eventBus: ih.eventBus};
+  const services = {wasm, getContext: () => ({...context, ...caption.pictureCaptionAvailability(ih, wasm)}),
+    getInputHandler: () => ih, eventBus: ih.eventBus};
   const dispatcher = new CommandDispatcher(registry, services, ih.eventBus);
   const run = suffix => dispatcher.dispatchWithResult(`insert:caption-${suffix}`);
   const choose = () => {selected = {...ref};};
@@ -184,18 +185,98 @@ test('excluded contexts, object types, nested refs, rotations and side captions 
     ({ref}) => {ref.cellPath = [{controlIndex: 0, cellIndex: 0, cellParaIndex: 0}];},
     ({ref}) => {ref.headerFooter = {kind: 'header', outerParaIdx: 0, outerControlIdx: 0};},
     ({ref}) => {ref.noteRef = {};},
-    ({setOutside}) => setOutside({sectionIndex: 0, paragraphIndex: 0, charOffset: 0, parentParaIndex: 0}),
   ];
   for (const guard of guards) {
     const f = fixture();
-    try {f.guard(guard); unchanged(f, () => f.run('top')); assert(!f.calls.some(c => c[0] === 'set'));}
+    try {
+      f.guard(guard);
+      for (const suffix of ['top', 'bottom', 'none']) assert.equal(f.dispatcher.isEnabled(`insert:caption-${suffix}`), false);
+      unchanged(f, () => f.run('top')); assert(!f.calls.some(c => c[0] === 'set'));
+    }
     finally {f.close();}
   }
   for (const patch of [{rotationAngle: 1}, {rotationAngle: NaN}, {captionDirection: 'Left'}, {captionDirection: 'Right'}]) {
     const f = fixture();
-    try {f.mutate(s => Object.assign(s.props, patch)); unchanged(f, () => f.run('top')); assert(!f.calls.some(c => c[0] === 'set'));}
+    try {
+      f.mutate(s => Object.assign(s.props, patch));
+      for (const suffix of ['top', 'bottom', 'none']) assert.equal(f.dispatcher.isEnabled(`insert:caption-${suffix}`), false);
+      unchanged(f, () => {assert.equal(f.run('top').reason, 'disabled');}); assert(!f.calls.some(c => c[0] === 'set'));
+    }
     finally {f.close();}
   }
+});
+
+test('availability follows current selection and properties without requiring a prior caption command', () => {
+  const f = fixture();
+  const enabled = expected => {
+    for (const suffix of ['top', 'bottom', 'none']) assert.equal(f.dispatcher.isEnabled(`insert:caption-${suffix}`), expected);
+  };
+  try {
+    enabled(true);
+    f.guard(({setMulti}) => setMulti(true)); enabled(false);
+    f.guard(({setMulti, ref}) => {setMulti(false); ref.type = 'group';}); enabled(false);
+    f.guard(({ref}) => {ref.type = 'image';}); enabled(true);
+    f.mutate(s => {s.props.rotationAngle = 90;}); enabled(false);
+    f.mutate(s => {s.props.rotationAngle = 0;}); enabled(true);
+    const getter = f.wasm.getPictureProperties;
+    f.wasm.getPictureProperties = () => {throw new Error('document changed or closed');}; enabled(false);
+    f.wasm.getPictureProperties = getter; enabled(true);
+    f.ih.getSelectedPictureRef = () => null; enabled(false);
+    assert.equal(f.history.canUndo(), false); assert.equal(f.snapshots.size, 0);
+    assert(!f.calls.some(c => c[0] === 'set')); assert.equal(f.events.length, 0);
+  } finally {f.close();}
+});
+
+test('missing live caption availability fails closed instead of enabling from generic object selection', () => {
+  const f = fixture();
+  try {
+    for (const suffix of ['top', 'bottom', 'none']) {
+      const command = insertCommands.find(c => c.id === `insert:caption-${suffix}`);
+      assert.equal(command.canExecute(f.context), false);
+    }
+    assert.deepEqual(caption.pictureCaptionAvailability(null, f.wasm), {canSetPictureCaptionPosition: false});
+  } finally {f.close();}
+});
+
+test('production main getContext forwards live caption availability into the real registered canExecute', () => {
+  const main = read('main.ts');
+  const start = main.indexOf('function getContext(): EditorContext {');
+  const end = main.indexOf('\n}\n', start);
+  assert(start >= 0 && end > start);
+  const f = fixture();
+  try {
+    const {getContext} = load(`const {inputHandler,wasm,editMode,canvasView,documentState,
+      nestedTableRowAvailability,pictureCaptionAvailability} = imports.boot;\nexport ${main.slice(start, end + 2)}`, {
+      boot: {
+        inputHandler: {...f.ih, canEditCurrentFormField: () => false,
+          hasSelection: () => false, hasCopiedFormat: () => false, isInTable: () => false,
+          getCursorPosition: f.pos, getCellTableContext: () => null,
+          isInCellSelectionMode: () => false, hasMultiCellSelection: () => false,
+          isInTableObjectSelection: () => false, isInPictureObjectSelection: () => true,
+          isInField: () => false, canUndo: () => false, canRedo: () => false},
+        wasm: {...f.wasm, pageCount: 1, hasTableTransposeClipboard: () => false,
+          getShowControlCodes: () => false, getShowParagraphMarks: () => false, getSourceFormat: () => 'hwpx'},
+        editMode: 'normal', canvasView: null, documentState: {isDirty: () => false},
+        nestedTableRowAvailability: () => ({}), pictureCaptionAvailability: caption.pictureCaptionAvailability,
+      },
+    });
+    const enabled = expected => {
+      const context = getContext();
+      assert.equal(context.canSetPictureCaptionPosition, expected);
+      for (const suffix of ['top', 'bottom', 'none']) {
+        const command = insertCommands.find(c => c.id === `insert:caption-${suffix}`);
+        assert.equal(command.canExecute(context), expected);
+      }
+    };
+    enabled(true);
+    f.guard(({ref}) => {ref.type = 'group';}); enabled(false);
+    f.guard(({ref, setMulti}) => {ref.type = 'image'; setMulti(true);}); enabled(false);
+    f.guard(({ref, setMulti}) => {setMulti(false); ref.cellIdx = 0;}); enabled(false);
+    f.guard(({ref}) => {delete ref.cellIdx;}); enabled(true);
+    f.mutate(s => {s.props.rotationAngle = 90;}); enabled(false);
+    f.mutate(s => {s.props.rotationAngle = 0;}); enabled(true);
+    assert(!f.calls.some(c => c[0] === 'set')); assert.equal(f.snapshots.size, 0);
+  } finally {f.close();}
 });
 
 for (const suffix of ['top', 'bottom', 'none']) for (const fault of ['false', 'throw', 'wrong-position', 'getter']) {
@@ -269,6 +350,16 @@ test('the real menu state updater opens the caption submenu only with an editabl
   try {
     bar.updateMenuStates(menu); assert.equal(sub.classList.contains('disabled'), false);
     assert.equal(items.filter(item => !item.classList.contains('disabled')).length, 3);
+    for (const guard of [({ref}) => {ref.type = 'group';}, ({ref, setMulti}) => {ref.type = 'image'; setMulti(true);},
+      ({ref, setMulti}) => {setMulti(false); ref.cellIdx = 0;}]) {
+      f.guard(guard); bar.updateMenuStates(menu); assert.equal(sub.classList.contains('disabled'), true);
+      assert(items.every(item => item.classList.contains('disabled')));
+    }
+    f.guard(({ref}) => {delete ref.cellIdx;});
+    f.mutate(s => {s.props.rotationAngle = 45;});
+    bar.updateMenuStates(menu); assert.equal(sub.classList.contains('disabled'), true);
+    f.mutate(s => {s.props.rotationAngle = 0;});
+    bar.updateMenuStates(menu); assert.equal(sub.classList.contains('disabled'), false);
     f.context.inPictureObjectSelection = false;
     bar.updateMenuStates(menu); assert.equal(sub.classList.contains('disabled'), true);
     f.context.inPictureObjectSelection = true; f.context.isEditable = false;
