@@ -63,6 +63,34 @@ function fixture(multi=false){
   close(){history.clear(w);assert.equal(snapshots.size,0);d.free();}};
 }
 const props={bold:true,italic:true,fontSize:1700,textColor:'#245678'};
+function mixedFixture(){
+ const f=fixture();
+ // Deliberately keep a plain first character before the styled runs. A partial
+ // change must not turn the 23pt bold pink run into the first character's style.
+ f.d.applyCharFormatInCell(0,f.r.paraIdx,f.r.controlIdx,0,0,5,6,JSON.stringify({bold:true,fontSize:2300,textColor:'#ac1256'}));
+ f.d.applyCharFormatInCell(0,f.r.paraIdx,f.r.controlIdx,0,0,7,8,JSON.stringify({underline:true,fontSize:1450,textColor:'#3465a4'}));
+ f.select({...f.end,charOffset:9},f.start,1);
+ return f;
+}
+const effective=({charShapeId,...rest})=>rest;
+for(const requested of [{italic:true},{textColor:'#789abc'},{fontSize:1900},{bold:false}])test(`partial ${Object.keys(requested)[0]} change preserves every unrequested mixed-caption property through undo/redo and both formats`,()=>{
+ const f=mixedFixture();try{
+  const before=f.data(),selection=f.cursor.getSelection();f.h.applyCharFormat(requested);const after=f.data();
+  assert.equal(f.history.undoStack.length,1);assert.equal(after.caption[0].text,before.caption[0].text);assert.deepEqual(after.body,before.body);assert.deepEqual(after.image,before.image);assert.deepEqual(after.picture,before.picture);
+  for(let i=0;i<before.caption[0].chars.length;i++)assert.deepEqual(effective(after.caption[0].chars[i]),{...effective(before.caption[0].chars[i]),...(i>=4&&i<9?requested:{})},`character ${i}: only requested properties change`);
+  const depth=f.history.undoStack.length,n=f.snapshots.size,events=f.events.length;f.h.applyCharFormat(requested);assert.equal(f.history.undoStack.length,depth);assert.equal(f.snapshots.size,n);assert.equal(f.events.length,events);assert.deepEqual(f.data(),after);
+  for(let i=0;i<3;i++){f.undo();assert.deepEqual(f.data(),before);assert.deepEqual(f.cursor.getSelection(),selection);f.redo();assert.deepEqual(f.data(),after);assert.deepEqual(f.cursor.getSelection(),selection);}
+  for(const ext of ['hwp','hwpx']){const d=new M.HwpDocument(after[ext]);try{assert.equal(d.getTextInCell(0,f.r.paraIdx,f.r.controlIdx,0,0,0,1000),after.caption[0].text);for(let i=0;i<after.caption[0].chars.length;i++)assert.deepEqual(effective(JSON.parse(d.getCellCharPropertiesAt(0,f.r.paraIdx,f.r.controlIdx,0,0,i))),effective(after.caption[0].chars[i]),`${ext} character ${i}`);assert.deepEqual(Buffer.from(d.getControlImageData(0,f.r.paraIdx,'[]',f.r.controlIdx)),after.image);}finally{d.free();}}
+ }finally{f.close();}
+});
+for(const fault of ['false','throw'])test(`later mixed-style run ${fault} restores all earlier run mutations and pending redo atomically`,()=>{
+ const f=mixedFixture();try{
+  f.h.applyCharFormat({italic:true});f.undo();const before=f.data(),selection=f.cursor.getSelection(),redo=f.history.peekRedoTop(),pending=f.pending(),dirty=f.dirty(),n=f.snapshots.size,events=f.events.length,toastCount=toasts.length;
+  const setter=f.w.applyCharFormatInCell.bind(f.w);let calls=0;
+  f.w.applyCharFormatInCell=(...args)=>{calls++;const result=setter(...args);if(calls===2){if(fault==='throw')throw Error('injected after second style run mutation');return JSON.stringify({ok:false});}return result;};
+  f.h.applyCharFormat({italic:true});assert.equal(calls,2);assert.deepEqual(f.data(),before);assert.equal(f.history.peekRedoTop(),redo);assert.equal(f.snapshots.size,n);assert.equal(f.history.undoStack.length,0);assert.deepEqual(f.cursor.getSelection(),selection);assert.deepEqual(f.pending(),pending);assert.equal(f.dirty(),dirty);assert.equal(f.events.length,events);assert.equal(toasts.length,toastCount+1);
+ }finally{f.close();}
+});
 test('the reproduced empty-path table command is replaced only at the caption handler boundary',()=>{
  const f=fixture();try{const before=f.data();assert.throws(()=>new commands.ApplyCharFormatCommand(f.start,f.end,props).execute(f.w),/경로가 비어있습니다/);assert.deepEqual(f.data(),before);f.h.applyCharFormat(props);assert.equal(f.history.peekUndoTop().constructor.name,'CaptionFormatCommand');assert(f.data().caption[0].chars.slice(4,7).every(c=>c.bold));}finally{f.close();}
 });

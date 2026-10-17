@@ -91,12 +91,28 @@ class CaptionFormatCommand extends SnapshotCommand {
     super('formatPictureCaption', before, before, w => {
       const { start, end } = range;
       const paragraphs = w.getPictureCaptionEditInfo(start.sectionIndex, start.parentParaIndex!, start.controlIndex!).paragraphs;
+      const runs: { paragraph: number; from: number; to: number }[] = [];
       for (let i = cpi(start); i <= cpi(end); i++) {
         const from = i === cpi(start) ? start.charOffset : 0;
         const to = i === cpi(end) ? end.charOffset : count(paragraphs[i].text);
-        if (from === to) continue;
-        const result = JSON.parse(w.applyCharFormatInCell(start.sectionIndex, start.parentParaIndex!, start.controlIndex!, 0, i, from, to, JSON.stringify(props)));
-        if (!result.ok) throw Error('Picture caption formatting failed');
+        let runFrom = from, previous: number | undefined;
+        // The flat setter bases a partial change on the first character's shape.
+        // Capture every original homogeneous run before mutating any paragraph.
+        for (let at = from; at < to; at++) {
+          const id = w.getCellCharPropertiesAt(start.sectionIndex, start.parentParaIndex!, start.controlIndex!, 0, i, at).charShapeId;
+          if (id === undefined || !Number.isInteger(id) || id < 0) throw Error('Unknown picture caption character shape');
+          if (at > from && id !== previous) {
+            runs.push({ paragraph: i, from: runFrom, to: at });
+            runFrom = at;
+          }
+          previous = id;
+        }
+        if (from < to) runs.push({ paragraph: i, from: runFrom, to });
+      }
+      const propsJson = JSON.stringify(props);
+      for (const run of runs) {
+        const result = JSON.parse(w.applyCharFormatInCell(start.sectionIndex, start.parentParaIndex!, start.controlIndex!, 0, run.paragraph, run.from, run.to, propsJson));
+        if (result.ok !== true) throw Error('Picture caption formatting failed');
       }
       return { ...before };
     });
