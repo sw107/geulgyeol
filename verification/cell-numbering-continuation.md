@@ -93,6 +93,32 @@ remains pending. The test runner uses a dedicated QA-only WASM alias and
 controlled chooser results; it is not signed release/package or physical
 keyboard/native chooser verification.
 
+### Latest-main combination check
+
+A further run at source HEAD `d9a56a42d95e21bf10c29fe7fbfa4eb6f0e39fc3`
+repeats the branch check in `electron-bridge-generation`. A separate
+`electron-main-integration` run combines the final PR #73 SDK with the PR #72
+UI runtime built from `6f13bd2c16ab035f2052645a56be91ca3e758999`. That source
+Git tree is exactly equal to main `e16cad657f38aa456845ab023ea315ab3c3ac5c2`.
+The pinned source files match main, and all 83 reused runtime files were hashed
+before and after; none changed. Main has no intervening engine changes.
+This is an actual main-UI/PR73-engine combination check, not a merged source
+commit, rebuilt package or release.
+
+Both runs pass the same 16 layout fixtures, eight input/undo/redo cases and
+16 real host save/reopens, with the actual requested WASM serving
+`bbc48a4db3e3d6edd867f9121a7758943634e78d124e482c36c794f34349e7b6`.
+All 16 saved files are byte-identical between the runs and the earlier
+independently inspected `electron-release-retry` exports. Both owned apps quit
+normally with code 0. These are repeated checks of the same matrix, not additional
+unique coverage.
+
+`main-integration-input.json` pins the main/UI relationship and reused runtime.
+`hancom-handoff-manifest.json` lists all 16 integrated app exports with hashes,
+original fixture paths, head flags, exact edit and expected cell-local labels.
+No documents were copied for handoff. The GUI slot is returned; these outputs
+await actual Hancom editing/save/reopen comparison.
+
 ## Other limits
 
 Cell NewStart is checked as runtime model/snapshot behavior, including a large
@@ -109,7 +135,7 @@ The three existing embedded library-test samples remain absent:
 `samples/3-09월_교육_통합_2022.hwp`, `samples/hwp3-sample16-hwp5.hwp`,
 `samples/hwpx/aift.hwpx`. A Native example is not the full Rust unit suite.
 No CI success is inferred from absent checks. Merge and deployment remain held
-for independent review and the outstanding app gate.
+for independent review and the outstanding Hancom gate.
 
 ## Reproduction and retained evidence
 
@@ -125,12 +151,15 @@ regression attempt incorrectly supplied the already-fixed PR #71 SDK to a
 historical harness mode expecting a broken body renderer; that driver assertion
 is retained separately and is not a candidate-engine failure.
 
-The existing shared toolchain/target caches were reused. The conservative
+The existing shared toolchain/target caches were reused. During Native/WASM
+verification the conservative
 build-cache-plus-evidence growth guard observed at most 363,843,584 bytes,
 below the 1.5 GiB ceiling; observed free space stayed at or above
 18,227,200,000 bytes, above the existing 16,374,562,816-byte floor. These are disk
 measurements, not peak-RSS or application RAM bounds. No new checkout or app
-package was created.
+package was created. After the two latest Electron runs, the checkpoint has
+18,186,240,000 bytes free and conservative cache/evidence growth of 327,770,112
+bytes. The whole-run evidence budget reports no unfinished phase.
 
 ```sh
 node scripts/prepare-cell-numbering-continuation.mjs BASELINE_SDK FRESH_FIXTURES
