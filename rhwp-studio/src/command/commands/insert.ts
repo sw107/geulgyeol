@@ -1,5 +1,6 @@
 import { equationCellTarget, deleteEquationSelection, type EquationCellTarget } from '@/engine/equation-target';
 import { bodyHyperlinkCommand } from './hyperlink';
+import { DEFAULT_PICTURE_CAPTION_PROPS, pictureCaptionPositionCommand } from './picture-caption';
 import { bodyCommentCommand } from './comment';
 import { bodyParagraphBandCommand, openParagraphBandObjectProperties, validateParagraphBandObjectDeletion } from './paragraph-band';
 import type { CommandDef } from '../types';
@@ -256,15 +257,15 @@ export const insertCommands: CommandDef[] = [
       fieldInsertDialog.show();
     },
   },
-  stub('insert:caption-top', '캡션 - 위'),
+  pictureCaptionPositionCommand('Top'),
   stub('insert:caption-lt', '캡션 - 왼쪽 위'),
   stub('insert:caption-lm', '캡션 - 왼쪽 가운데'),
   stub('insert:caption-lb', '캡션 - 왼쪽 아래'),
   stub('insert:caption-rt', '캡션 - 오른쪽 위'),
   stub('insert:caption-rm', '캡션 - 오른쪽 가운데'),
   stub('insert:caption-rb', '캡션 - 오른쪽 아래'),
-  stub('insert:caption-bottom', '캡션 - 아래'),
-  stub('insert:caption-none', '캡션 없음'),
+  pictureCaptionPositionCommand('Bottom'),
+  pictureCaptionPositionCommand(null),
   bodyParagraphBandCommand,
   bodyCommentCommand,
   {
@@ -462,14 +463,7 @@ export const insertCommands: CommandDef[] = [
       // 캡션 없으면 추가 (기본: 아래, 크기 30mm, 간격 3mm)
       let charOffset = 0;
       if (!props.hasCaption) {
-        const captionProps = {
-          hasCaption: true,
-          captionDirection: 'Bottom',
-          captionVertAlign: 'Top',
-          captionWidth: Math.round(30 * 283.46),
-          captionSpacing: Math.round(3 * 283.46),
-          captionIncludeMargin: false,
-        };
+        const captionProps = {...DEFAULT_PICTURE_CAPTION_PROPS};
         let inserted = false;
         const position = ih.getPosition();
         // 캡션 문단·자동 번호·원본 참조를 역속성으로 재구성하지 않고 함께 복원한다.

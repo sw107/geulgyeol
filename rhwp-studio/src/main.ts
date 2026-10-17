@@ -32,6 +32,7 @@ import { editCommands } from '@/command/commands/edit';
 import { syncClipMenu, syncTextMarkMenu, syncToolboxMenu, viewCommands } from '@/command/commands/view';
 import { formatCommands } from '@/command/commands/format';
 import { insertCommands } from '@/command/commands/insert';
+import { pictureCaptionAvailability } from '@/command/commands/picture-caption';
 import { tableCommands, nestedTableRowAvailability } from '@/command/commands/table';
 import { pageCommands } from '@/command/commands/page';
 import { toolCommands } from '@/command/commands/tool';
@@ -299,6 +300,7 @@ function getContext(): EditorContext {
     hasTableTransposeClipboard: wasm.hasTableTransposeClipboard(),
     inTableObjectSelection: inputHandler?.isInTableObjectSelection() ?? false,
     inPictureObjectSelection: inputHandler?.isInPictureObjectSelection() ?? false,
+    ...pictureCaptionAvailability(inputHandler, wasm),
     inField: inputHandler?.isInField() ?? false,
     isEditable: !isFormMode || canEditFormField,
     editMode,
