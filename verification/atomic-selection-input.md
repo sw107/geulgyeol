@@ -25,7 +25,7 @@ IME/iOS 입력과 구역을 넘는 선택은 기존 경로에 남긴다. 따라�
 
 ## 이번 실행 범위
 
-- VM 회귀 **34개 통과**: 신규 파일 29개와 기존 native edit/history 계약 5개.
+- VM 회귀 **41개 통과**: 입력 회귀 36개와 기존 native edit/history 계약 5개.
 - 수정 전 같은 VM 행동 검사는 첫 undo 뒤 빈 문서로 실패한다. 최종 후보에서는
   첫 undo 원문 복원, redo, 뒤따르는 타이핑의 독립 경계, Unicode scalar와 이웃 텍스트,
   대기 서식 및 stale 서식 배제, no-op/실패 시 redo 보존과 자원 해제를 검사했다.
@@ -62,3 +62,27 @@ cd rhwp-studio && node node_modules/typescript/bin/tsc --noEmit --incremental fa
 원시 로그·수정 전 소스·실패 시도·source/support/evidence pin은 저장소 밖
 `atomic-selection-replacement/qa/`에 보존한다. 초기 회귀의 필드 조회 실패 처리와
 대기 서식 초기화 가정에 따른 실패도 최종 통과와 구분한다. 원본 dirty checkout과 기존 증거에는 쓰지 않았다.
+
+## 독립 검토 후 방향 보존 및 엔진 실행 preflight
+
+검토 head `d835e967fdb73159e09293104b8e23ffcc7f854f`는 실패 복원에서 정렬한 start/end를
+사용해 역방향 선택의 focus를 끝으로 바꿨다. 실패 전 `getSelection()`의 anchor/focus를
+보관해 `selectRange(anchor, focus, phase)`로 복원한다. 성공 후 undo의 선택 계약은 바꾸지 않는다.
+방향별 일반/블록 0/블록 2와 여섯 실패 지점을 검사했다. 수정 전 방향 회귀는 3통과·3실패,
+최종 소스는 위 41개를 통과했다. 실제 Cursor의 `selectRange` 본문도 VM에서 확인했다.
+
+기존 SDK/WASM은 저장소의 고정 산출물이며 새 의존성/앱/빌드 없이 작은 문서의
+원문·첫 undo/redo를 메모리에서 대조할 API가 있다. raw SDK의 JSON 반환은 실제 Bridge와
+동일하게 해석해야 한다. WASM 파일은 12,240,648 bytes, 정적 memory 최소치는
+45 pages = 2,949,120 bytes다. 파일/최소 메모리 값은 실행 RSS나 peak의 측정값이 아니다.
+JS old-space 256 MiB·WASM linear memory 128 MiB 제한을 후보로 조사했지만 실제 적용/검증하지 않았다.
+
+실행 전에 기존 `EvidenceBudget`의 기본값을 그대로 사용해 정상/실패 기록 각각 65,536 bytes를
+예상했다. guard는 `insufficient free space for evidence forecast`로 차단했다.
+관측 free `13,885,440,000` < 기본 기준+예상량 `16,374,693,888` bytes다.
+SDK import와 WASM compile/instantiate는 수행하지 않았다. 이 preflight 실패를 엔진 테스트로
+집계하거나 기준을 낮춰 실행하지 않는다. 따라서 기존 실제 엔진/앱/저장·재열기/성능 차단점은 유지한다.
+
+후속 raw 로그와 소규모 pin은 `atomic-selection-direction/qa/`에 별도로 보존하며 이전
+`atomic-selection-replacement/qa/delivery-freeze.json`은 변경하지 않는다. 추가 Cursor 계약 검사의
+초기 VM realm prototype 대조 오류 기록도 보존한다.

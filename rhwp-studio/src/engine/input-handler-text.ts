@@ -532,6 +532,9 @@ function replaceBodySelectionInput(this: any, text: string): boolean {
   // Keep field boundary/guide behavior on its existing path until separately verified.
   if (this.wasm.getFieldList().length !== 0) return false;
   const start = { ...ordered.start }, end = { ...ordered.end };
+  const selection = this.cursor.getSelection();
+  if (!selection) return false;
+  const anchor = { ...selection.anchor }, focus = { ...selection.focus };
   const phase = this.cursor.blockSelectionPhase();
   const pendingShape = this.pendingCharShape, pendingAnchor = this.pendingCharShapeAnchor;
   let operationFailed = false;
@@ -565,7 +568,7 @@ function replaceBodySelectionInput(this: any, text: string): boolean {
     // SnapshotCommand rethrows the original error only after successful rollback.
     // Do not claim restoration after rollback itself fails or after a refresh error.
     if (operationFailed && error === operationError) {
-      this.cursor.selectRange(start, end, phase);
+      this.cursor.selectRange(anchor, focus, phase);
       this.pendingCharShape = pendingShape;
       this.pendingCharShapeAnchor = pendingAnchor;
     }

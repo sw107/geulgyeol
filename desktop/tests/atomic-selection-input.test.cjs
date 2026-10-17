@@ -58,13 +58,19 @@ function fixture({paragraphs=['SELECT-ALL-A','SELECT-ALL-B'],start=pos(0,0),end=
     deleteText(_s,p,off,count){const chars=Array.from(state.paragraphs[p]);chars.splice(off,count);state.paragraphs[p]=chars.join('');},
     applyCharFormat(_s,p,a,b,json){state.formats.push({p,a,b,...JSON.parse(json)});if(options.failFormat)throw Error('format failed');},
   };
-  let selection={start:clone(start),end:clone(end)},position=clone(end);
+  let selection={start:clone(start),end:clone(end)},position=clone(options.reverse?start:end);
+  let anchor=clone(options.reverse?end:start),phase=Object.hasOwn(options,'phase')?options.phase:2;
   const cursor={isInCell:()=>!!options.cell,isInTextBox:()=>!!options.textbox,
     isInHeaderFooter:()=>false,isInFootnote:()=>false,
     hasSelection:()=>selection!==null,getSelectionOrdered:()=>clone(selection),
-    getPosition:()=>clone(position),getRect:()=>null,blockSelectionPhase:()=>2,
+    getSelection:()=>selection?{anchor:clone(anchor),focus:clone(position)}:null,
+    getPosition:()=>clone(position),getRect:()=>null,blockSelectionPhase:()=>phase,
     clearSelection(){selection=null;},moveTo(p){position=clone(p);selection=null;},resetPreferredX(){},
-    selectRange(a,b){selection={start:clone(a),end:clone(b)};position=clone(b);},
+    selectRange(a,b,blockPhase=null){
+      const forward=a.sectionIndex-b.sectionIndex || a.paragraphIndex-b.paragraphIndex || a.charOffset-b.charOffset;
+      selection=forward<=0?{start:clone(a),end:clone(b)}:{start:clone(b),end:clone(a)};
+      anchor=clone(a);position=clone(b);phase=blockPhase;
+    },
   };
   const h=Object.assign(new Router(),{wasm,cursor,history:new CommandHistory(),editMode:options.form?'form':'normal',active:true,
     textarea:{value:''},isComposing:false,_isIOS:false,_lastComposedText:'',
@@ -156,6 +162,30 @@ test('refresh failure after commit does not restore a stale pre-edit selection',
   const f=fixture({failRefresh:true});assert.throws(()=>f.type('Z'),/refresh failed/);
   assert.deepEqual(f.state().paragraphs,['Z']);assert.equal(f.selection(),null);assert(f.h.history.canUndo());
   f.undo();assert.deepEqual(f.state(),f.before);f.clear();
+});
+
+for(const reverse of [false,true])for(const phase of [null,0,2])test('failed replacement preserves anchor/focus direction and block phase: '+JSON.stringify({reverse,phase}),()=>{
+  for(const failure of ['failCapture','failDelete','failInsert','failFormat','denyInsert','failSave']){
+    const f=fixture({reverse,phase,format:true});
+    const selected=f.cursor.getSelection(),position=f.cursor.getPosition();
+    f.options[failure]=true;assert.throws(()=>f.type('Q'));
+    assert.deepEqual(f.cursor.getSelection(),selected,failure);assert.deepEqual(f.cursor.getPosition(),position,failure);
+    assert.equal(f.cursor.blockSelectionPhase(),phase,failure);assert.deepEqual(f.state(),f.before,failure);
+    assert.equal(f.h.history.canUndo(),false);assert.equal(f.fragments.size+f.snapshots.size,0);
+  }
+});
+
+test('the actual cursor selectRange contract accepts a reverse anchor/focus pair',()=>{
+  const text=source('cursor.ts'),a=text.indexOf('  selectRange(\n'),b=text.indexOf('\n  /** Caption-only',a);
+  assert(a>=0&&b>a);const {CursorRange}=load('export class CursorRange {\n'+text.slice(a,b)+'\n}');
+  const c=Object.assign(new CursorRange(),{isVerifiedBodyPosition:()=>true,updateRect(){}});
+  const anchor=pos(1,12),focus=pos(0,0);
+  for(const phase of [null,0,2]){
+    assert.equal(c.selectRange(anchor,focus,phase),true);assert.deepEqual(clone(c.anchor),anchor);assert.deepEqual(clone(c.position),focus);
+    assert.equal(c._blockSelectionMode,phase!==null);assert.equal(c._expandPhase,phase??0);
+  }
+  c.isVerifiedBodyPosition=()=>false;assert.equal(c.selectRange(focus,anchor),false);
+  assert.deepEqual(clone(c.anchor),anchor);assert.deepEqual(clone(c.position),focus);
 });
 
 test('existing field and form paths retain their previous separate commands',()=>{
