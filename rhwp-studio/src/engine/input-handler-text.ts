@@ -3,6 +3,7 @@
 
 import {
   InsertTextCommand,
+  DeleteSelectionCommand,
   DeleteTextCommand,
   MergeParagraphCommand,
   MergeNextParagraphCommand,
@@ -521,6 +522,61 @@ export function getTextAt(this: any, pos: DocumentPosition, count: number): stri
   }
 }
 
+/** One history entry for ordinary body typing over a selection. */
+function replaceBodySelectionInput(this: any, text: string): boolean {
+  if (this.editMode !== 'normal' || this.cursor.isInCell() || this.cursor.isInTextBox?.()) return false;
+  const ordered = this.cursor.getSelectionOrdered();
+  if (!ordered || ordered.start.sectionIndex !== ordered.end.sectionIndex) return false;
+  if ([ordered.start, ordered.end].some(p => p.parentParaIndex !== undefined || p.cellPath?.length || p.isTextBox)) return false;
+  if (ordered.start.paragraphIndex === ordered.end.paragraphIndex && ordered.start.charOffset === ordered.end.charOffset) return false;
+  // Keep field boundary/guide behavior on its existing path until separately verified.
+  if (this.wasm.getFieldList().length !== 0) return false;
+  const start = { ...ordered.start }, end = { ...ordered.end };
+  const selection = this.cursor.getSelection();
+  if (!selection) return false;
+  const anchor = { ...selection.anchor }, focus = { ...selection.focus };
+  const phase = this.cursor.blockSelectionPhase();
+  const pendingShape = this.pendingCharShape, pendingAnchor = this.pendingCharShapeAnchor;
+  let operationFailed = false;
+  let operationError: unknown;
+  try {
+    this.executeOperation({ kind: 'snapshot', operationType: 'replaceBodySelectionInput', operation: (wasm: any) => {
+      try {
+        const deletion = new DeleteSelectionCommand(start, end, phase);
+        let position: DocumentPosition;
+        try {
+          position = deletion.execute(wasm);
+          if (deletion.isNoOp()) return null;
+        } finally {
+          // The enclosing snapshot owns undo, not this temporary delete fragment.
+          deletion.discard(wasm);
+        }
+        this.cursor.clearSelection();
+        this.cursor.moveTo(position);
+        this.cursor.resetPreferredX();
+        if (!this.canInsertTextInFormMode?.(position)) throw new Error('선택 교체 위치에 입력할 수 없습니다.');
+        const after = new InsertTextCommand(position, text, undefined, this.getPendingCharShape?.()).execute(wasm);
+        this.advancePendingCharShapeAnchor?.(position, after);
+        return after;
+      } catch (error) {
+        operationFailed = true;
+        operationError = error;
+        throw error;
+      }
+    }});
+  } catch (error) {
+    // SnapshotCommand rethrows the original error only after successful rollback.
+    // Do not claim restoration after rollback itself fails or after a refresh error.
+    if (operationFailed && error === operationError) {
+      this.cursor.selectRange(anchor, focus, phase);
+      this.pendingCharShape = pendingShape;
+      this.pendingCharShapeAnchor = pendingAnchor;
+    }
+    throw error;
+  }
+  return true;
+}
+
 export function onInput(this: any, e?: InputEvent): void {
   if (!this.active) return;
 
@@ -738,6 +794,7 @@ export function onInput(this: any, e?: InputEvent): void {
       this.textarea.value = '';
       return;
     }
+    if (replaceBodySelectionInput.call(this, text)) return;
     this.deleteSelection();
     insertPos = this.prepareClickHereInputPosition?.() ?? this.cursor.getPosition();
     refreshClickHereGuide = this.isClickHereGuidePosition?.(insertPos) === true;
