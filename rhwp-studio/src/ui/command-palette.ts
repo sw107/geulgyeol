@@ -127,23 +127,11 @@ export class CommandPalette {
 
   // ─── private ────────────────────────────────────────────────
 
-  /** 팔레트에 노출할 커맨드 목록 구성 (disabled 제외) */
+  /** 등록된 명령을 순서대로 노출한다. 활성 여부는 실행 시 dispatcher가 판단한다. */
   private buildItems(): CommandDef[] {
     const all: CommandDef[] = [];
     for (const id of this.registry.getAllIds()) {
       const def = this.registry.get(id)!;
-      // canExecute가 항상 false인 stub는 제외
-      if (def.canExecute) {
-        const ctx = {
-          hasDocument: false, hasSelection: false, hasCopiedFormat: false, inTable: false,
-          inCellSelectionMode: false, hasMultiCellSelection: false, hasTableTransposeClipboard: false, inTableObjectSelection: false,
-          inPictureObjectSelection: false, inField: false, isEditable: true,
-          editMode: 'normal' as const, isFormMode: false, canEditFormField: false,
-          canUndo: false, canRedo: false, zoom: 1.0, showControlCodes: false, showParagraphMarks: false,
-        };
-        // canExecute(ctx=hasDocument:false) → false 인 경우도 목록에는 포함
-        // (실행 시점에 dispatcher가 다시 판단)
-      }
       all.push(def);
     }
     return all;
@@ -199,7 +187,7 @@ export class CommandPalette {
 
       row.addEventListener('mousemove', () => {
         this.selectedIdx = idx;
-        this.updateSelection(filtered.length);
+        this.updateSelection();
       });
 
       this.list!.appendChild(row);
@@ -214,16 +202,15 @@ export class CommandPalette {
     const count = this.list.querySelectorAll('.cp-item').length;
     if (count === 0) return;
     this.selectedIdx = (this.selectedIdx + delta + count) % count;
-    this.updateSelection(count);
+    this.updateSelection();
     this.scrollToSelected();
   }
 
-  private updateSelection(count: number): void {
+  private updateSelection(): void {
     if (!this.list) return;
     this.list.querySelectorAll('.cp-item').forEach((el, i) => {
       el.classList.toggle('cp-item--selected', i === this.selectedIdx);
     });
-    void count; // suppress unused warning
   }
 
   private scrollToSelected(): void {
