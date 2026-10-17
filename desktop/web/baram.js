@@ -1,5 +1,5 @@
 import {createStudio} from './sdk/index.js';
-import {routeHistory,observeComposition} from './edit-history.js';
+import {routeHistory,routeSelectAll,observeComposition} from './edit-history.js';
 const $=id=>document.getElementById(id);
 let editor,busy=true,name='새 문서.hwpx',dirty=false,startupFailed=false,closeVersion=null;
 let externalOpening=false,externalPending=true;
@@ -130,7 +130,7 @@ window.addEventListener('message',event=>{
   // The queued notification may precede a more recent edit or document swap.
   syncState();if(!busy)status(dirty?'저장하지 않은 변경 사항':'준비됨');
 });
-window.baram?.onAction(action=>{if(action==='open-external'){externalPending=true;requestExternalOpen();}if(action==='open')open();if(action==='save')save();if(action==='about')$('about-dialog').showModal();if(action==='undo'||action==='redo')routeHistory(action,{document,editor,busy}).catch(error);});
+window.baram?.onAction(action=>{if(action==='open-external'){externalPending=true;requestExternalOpen();}if(action==='open')open();if(action==='save')save();if(action==='about')$('about-dialog').showModal();if(action==='undo'||action==='redo')routeHistory(action,{document,editor,busy}).catch(error);if(action==='select-all')routeSelectAll({document,editor,busy}).catch(error);});
 try{
   editor=await createStudio('#editor',{studioUrl:new URL('./studio/?desktopRecovery=1',location.href).href,renderer:'canvas2d',requestTimeoutMs:60000});
   // Startup may still be initializing its first blank document after SDK ready.

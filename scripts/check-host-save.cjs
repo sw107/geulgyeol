@@ -12,12 +12,12 @@ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const deferred=()=>{let resolve;const promise=new Promise(r=>resolve=r);return {promise,resolve};};
 
 async function bootHost(mainFile,storage,choose){
- const handlers=new Map(),ready=deferred();let win;const origin='http://127.0.0.1:39877';
+ const handlers=new Map(),ready=deferred(),actions=[];let win,menu;const origin='http://127.0.0.1:39877';
  const app={setPath(){},getPath(){return '/ADAPTER-NOT-USED';},requestSingleInstanceLock:()=>true,
   on(){},quit(){},getVersion:()=> 'source-host-test',setAboutPanelOptions(){},
   whenReady:()=>Promise.resolve()};
  class Window{
-  constructor(){win=this;this.webContents={mainFrame:{url:origin+'/'},on(){},send(){},
+  constructor(){win=this;this.webContents={mainFrame:{url:origin+'/'},on(){},send:(_channel,action)=>actions.push(action),
    setWindowOpenHandler(){}};}
   isDestroyed(){return false;}on(){}once(){}setDocumentEdited(){}show(){ready.resolve();}
   async loadURL(url){assert.equal(url,origin+'/');}
@@ -26,7 +26,7 @@ async function bootHost(mainFile,storage,choose){
  const electron={app,BrowserWindow:Window,dialog:{showSaveDialog:(_win,options)=>choose(options),
   showOpenDialog:forbidden,showMessageBox:forbidden,showErrorBox:forbidden},
   ipcMain:{handle:(name,fn)=>handlers.set(name,fn),on(){}},
-  Menu:{setApplicationMenu(){},buildFromTemplate:x=>x},session:{defaultSession:{
+  Menu:{setApplicationMenu:value=>menu=value,buildFromTemplate:x=>x},session:{defaultSession:{
    webRequest:{onBeforeRequest(){}},setPermissionRequestHandler(){},setPermissionCheckHandler(){},on(){}}}};
  const source=sync.readFileSync(mainFile,'utf8');
  vm.runInNewContext(source,{require:name=>{
@@ -38,7 +38,7 @@ async function bootHost(mainFile,storage,choose){
  },__dirname:path.join(root,'desktop'),process:{platform:process.platform},Buffer,Uint8Array},
  {filename:mainFile});
  await ready.promise;
- return {save:handlers.get('baram:save'),event:{sender:win.webContents,senderFrame:win.webContents.mainFrame}};
+ return {save:handlers.get('baram:save'),menu,actions,window:win,event:{sender:win.webContents,senderFrame:win.webContents.mainFrame}};
 }
 
 function storageWithFaults(file,fault){
