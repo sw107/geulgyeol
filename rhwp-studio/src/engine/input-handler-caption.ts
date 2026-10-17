@@ -1,6 +1,6 @@
 /** Atomic edits of simple, root picture captions. Other containers keep their editor. */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { DocumentPosition } from '@/core/types';
+import type { CharProperties, DocumentPosition } from '@/core/types';
 import { SnapshotCommand } from './command';
 import { showToast } from '@/ui/toast';
 
@@ -83,6 +83,58 @@ class CaptionCommand extends SnapshotCommand {
   constructor(before: DocumentPosition, private plan: Plan) { super('editPictureCaption', before, before, w => apply(w, plan)); }
   selectionBefore(): Range | null { return this.plan.hadSelection && ['delete', 'backspace', 'forward'].includes(this.plan.action) ? this.plan.range : null; }
 }
+
+/** Flat picture captions are not table cell paths. Preserve their full source on undo. */
+class CaptionFormatCommand extends SnapshotCommand {
+  override readonly type = 'applyCharFormat';
+  constructor(before: DocumentPosition, range: Range, props: Partial<CharProperties>, private selection: Range) {
+    super('formatPictureCaption', before, before, w => {
+      const { start, end } = range;
+      const paragraphs = w.getPictureCaptionEditInfo(start.sectionIndex, start.parentParaIndex!, start.controlIndex!).paragraphs;
+      for (let i = cpi(start); i <= cpi(end); i++) {
+        const from = i === cpi(start) ? start.charOffset : 0;
+        const to = i === cpi(end) ? end.charOffset : count(paragraphs[i].text);
+        if (from === to) continue;
+        const result = JSON.parse(w.applyCharFormatInCell(start.sectionIndex, start.parentParaIndex!, start.controlIndex!, 0, i, from, to, JSON.stringify(props)));
+        if (!result.ok) throw Error('Picture caption formatting failed');
+      }
+      return { ...before };
+    });
+  }
+  selectionBefore(): Range { return this.selection; }
+  selectionAfter(): Range { return this.selection; }
+}
+
+/** Handle selected root captions before generic table-cell formatting. Carets keep pending formatting. */
+export function tryFormat(this: any, props: Partial<CharProperties>): boolean {
+  if (!target(this)) return false;
+  if (hasComposition.call(this)) finishComposition.call(this);
+  const selected = this.cursor.getSelectionOrdered();
+  if (!selected || (cpi(selected.start) === cpi(selected.end) && selected.start.charOffset === selected.end.charOffset)) return false;
+  try {
+    const p = plan(this, 'replace', '');
+    if (!p) return true;
+    const { start, end } = p.range;
+    const paragraphs = this.wasm.getPictureCaptionEditInfo(start.sectionIndex, start.parentParaIndex, start.controlIndex).paragraphs;
+    const entries = Object.entries(props).filter(([, value]) => value !== undefined);
+    let changed = false;
+    for (let i = cpi(start); i <= cpi(end) && !changed; i++) {
+      const from = i === cpi(start) ? start.charOffset : 0;
+      const to = i === cpi(end) ? end.charOffset : count(paragraphs[i].text);
+      for (let at = from; at < to && !changed; at++) {
+        const current = this.wasm.getCellCharPropertiesAt(start.sectionIndex, start.parentParaIndex, start.controlIndex, 0, i, at);
+        changed = entries.some(([key, value]) => JSON.stringify(current[key]) !== JSON.stringify(value));
+      }
+    }
+    if (!changed) return true;
+    const raw = this.cursor.getSelection();
+    const selection = { start: { ...(raw?.anchor ?? start) }, end: { ...(raw?.focus ?? end) }, blockPhase: p.range.blockPhase };
+    this.executeOperation({ kind: 'command', command: new CaptionFormatCommand(this.cursor.getPosition(), p.range, props, selection), meta: { refresh: 'full' } });
+    this.updateCaret();
+  } catch { fail(); }
+  return true;
+}
+
 export function tryEdit(this: any, action: Action, text = ''): boolean {
   if (!target(this)) return false;
   const before = this.cursor.getPosition(), selection = this.cursor.getSelectionOrdered();
