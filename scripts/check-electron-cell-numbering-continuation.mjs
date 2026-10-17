@@ -16,10 +16,10 @@ import {finishOwnedQA} from './electron-qa-exit.mjs';
 export function reopenedHostReady({name, beforeEpoch}) {
   const save=document.getElementById('save'), label=document.getElementById('filename');
   if(!save || save.disabled || !label || document.getElementById('error-dialog')?.open)return false;
-  const host=document.getElementById('editor')?.querySelector('iframe')?.contentWindow?.baramHost;
-  const state=host?.state();
-  return Number.isSafeInteger(beforeEpoch) && Number.isSafeInteger(state?.documentEpoch)
-    && state.documentEpoch!==beforeEpoch && state.fileName===name && !state.dirty
+  const studio=document.getElementById('editor')?.querySelector('iframe')?.contentWindow;
+  const state=studio?.baramHost?.state(), epoch=studio?.__wasm?.documentGeneration;
+  return Number.isSafeInteger(beforeEpoch) && Number.isSafeInteger(epoch)
+    && epoch!==beforeEpoch && state?.fileName===name && !state.dirty
     && label.textContent===name;
 }
 
@@ -101,7 +101,7 @@ try {
         await until(()=>fs.existsSync(path.join(output,'files',name)),'host save');
         await until(()=>frame.evaluate(()=>!window.baramHost.state().dirty),'saved state');
         await page.waitForFunction(()=>!document.querySelector('#open').disabled,{timeout:45000});
-        const beforeEpoch=await frame.evaluate(()=>window.baramHost.state().documentEpoch);
+        const beforeEpoch=await frame.evaluate(()=>window.__wasm.documentGeneration);
         assert(Number.isSafeInteger(beforeEpoch));
         control({id:'open-'+name,openFile:name,choice:'discard'});await page.click('#open');
         // Save already set this filename on the old document. Require a new

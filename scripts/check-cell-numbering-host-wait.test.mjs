@@ -13,7 +13,13 @@ async function host({cancel=false,fail=false,earlyEpoch=false}={}) {
   };
   const started=deferred(),gate=deferred(),saves=[];
   let state={dirty:true,fileName:'same.hwp',documentEpoch:1,changeSeq:1};
-  const fileHost={state:()=>({...state}),export:()=>new Uint8Array([1]),setFileActions(){},focus(){},
+  // Execute the real presentation-state function: it deliberately has no epoch.
+  const main=fs.readFileSync(new URL('../rhwp-studio/src/main.ts',import.meta.url),'utf8');
+  const stateSource=main.match(/function baramState\(\) \{[^\n]+\}/)?.[0];assert(stateSource);
+  const presentationState=vm.runInNewContext('('+stateSource+')',{
+    documentState:{isDirty:()=>state.dirty},wasm:{get fileName(){return state.fileName;}},
+  });
+  const fileHost={state:presentationState,export:()=>new Uint8Array([1]),setFileActions(){},focus(){},
     completeSavedSnapshot:async name=>{state={...state,dirty:false,fileName:name};return {ok:true};},
     loadDocument:async()=>{
       if(earlyEpoch)state={...state,documentEpoch:2,changeSeq:0};
@@ -22,7 +28,8 @@ async function host({cancel=false,fail=false,earlyEpoch=false}={}) {
       state={...state,documentEpoch:2,changeSeq:0};return {pageCount:3};
     },
   };
-  const frame={contentWindow:{baramHost:fileHost},addEventListener(){}};
+  assert.deepEqual(Object.keys(fileHost.state()).sort(),['dirty','fileName']);
+  const frame={contentWindow:{baramHost:fileHost,__wasm:{get documentGeneration(){return state.documentEpoch;}}},addEventListener(){}};
   get('editor').querySelector=()=>frame;
   const context={document:{getElementById:get},window:{addEventListener(){},baram:{
     onAction(){},setDirty(){},save:async(_bytes,_name,format)=>{saves.push(format);return {name:'same.hwp',size:1};},

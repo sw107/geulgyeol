@@ -60,18 +60,38 @@ and does not validate the final candidate. The driver now waits for the host
 filename and enabled Save button before continuing. A subsequent driver
 preflight additionally requires a changed document epoch: saving has already
 assigned the same filename to the old document, so filename alone does not prove
-reopening. It also rejects an open host error dialog. Four Node VM checks run
-the actual desktop host with gated adapters and the exact driver predicate:
+reopening. It also rejects an open host error dialog. The first epoch driver
+incorrectly read `baramHost.state().documentEpoch`; the actual presentation-state
+API only returns dirty/filename. Its real Electron attempt failed the driver's
+integer assertion and exited normally. The driver now reads the existing QA
+bridge's `documentGeneration`, without changing a product API. Four Node VM checks run
+the actual desktop host and the real `baramState` function with gated adapters and the exact driver predicate:
 delayed commit, early epoch publication with host work still pending, Open
 cancel, and load failure. The next save's format is selected after the host
 finishes resetting it. These are driver checks, not Electron/OS execution.
 
-The owned app exited normally with code 0. The PM reclaimed the GUI slot for
-Hancom and UI PR #72 checks; no new Electron run is permitted until reassigned.
-Final-candidate app input/history/save/reopen and actual Hancom comparison are
-pending. The final SDK must be validated by its actual requested asset URL and
-SHA, not by assuming the checkout's ignored `pkg` is current. The test runner
-uses a dedicated QA-only WASM alias; it is not a production bundle.
+After the PM reassigned the GUI slot, the corrected driver passed actual Mac
+Electron source-QA on the final SDK: 16 layout fixtures, eight noncomposing CDP
+input/real native-menu undo/redo cases, 16 host IPC saves and 16 host reopens.
+Each input creates one history entry; undo restores the initial observation,
+redo restores the edited observation, and saved/reopened documents pass the
+clean-state and changed-generation gates. Host IPC dirty notifications remain
+true across the 16 undo/redo callbacks and become false after saving/reopening;
+this audit is not a separate internal-state sample after every undo.
+
+The actual requested asset URL served the final SDK SHA above. Independent
+binary/XML inspection checks all seven numbering heads in the 16 app exports.
+Re-reading those exports verifies exact stored text including whitespace, with
+only the expected X insertion in cell 0's long paragraph. It does not establish
+rendered whitespace placement. Four `c2-hard` flag representatives retain both
+HWP and HWPX outputs for the separate Hancom comparison, with path/hash metadata
+in `electron-handoff/hancom-four-flags.json`; no document copies were made.
+
+The owned app exited normally with code 0 and the GUI slot was returned. The
+already-open Hancom PR #72 document was not touched. Actual Hancom comparison
+remains pending. The test runner uses a dedicated QA-only WASM alias and
+controlled chooser results; it is not signed release/package or physical
+keyboard/native chooser verification.
 
 ## Other limits
 
@@ -97,6 +117,9 @@ Local QA root: `/Users/sw107/Documents/Codex/2026-10-14/task/cell-numbering-cont
 `final-engine-source.json` links the three renderer source hashes to the final
 SDK. `baseline`, `wasm-release-matrix/checks` and `native-release/checks` contain
 the scoped results; preliminary build phases are not final-source validation.
+`electron-release-retry` contains the passing final Electron run;
+`electron-release` retains the failed presentation-state epoch assertion.
+`electron-handoff` contains independent saved-head/text and host-state audits.
 `regressions-fixed` contains the current body/cursor regressions. The first
 regression attempt incorrectly supplied the already-fixed PR #71 SDK to a
 historical harness mode expecting a broken body renderer; that driver assertion
