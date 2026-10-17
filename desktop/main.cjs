@@ -7,10 +7,18 @@ const {validateDocumentBytes,atomicWrite,MAX_BYTES}=require('./storage.cjs');
 const {installCloseController}=require('./close-controller.cjs');
 const {installDocumentShortcuts}=require('./document-shortcuts.cjs');
 const {installPrintPreview}=require('./print-preview.cjs');
+const {createExternalOpenQueue}=require('./external-open.cjs');
 let win,origin,server,dirty=false,saving=false,rendererFailed=false;
 function trusted(event){return win&&!win.isDestroyed()&&event.sender===win.webContents&&event.senderFrame===win.webContents.mainFrame&&event.senderFrame.url===origin+'/';}
 function action(name){if(win&&!win.isDestroyed())win.webContents.send('baram:action',name);}
+const externalOpen=createExternalOpenQueue(()=>action('open-external'));
 if(!app.requestSingleInstanceLock()){app.quit();}else{
+// macOS can send this before app.whenReady() or before the editor initializes.
+app.on('open-file',(event,target)=>{
+  event.preventDefault();
+  try{externalOpen.enqueue(target);}
+  catch(error){dialog.showErrorBox('문서 열기 실패',String(error.message||error));}
+});
 app.on('second-instance',()=>{if(win){if(win.isMinimized())win.restore();win.show();win.focus();}});
 app.whenReady().then(async()=>{
   ({server,origin}=await startProfileServer(path.join(__dirname,'web'),app.getPath('userData')));
@@ -62,6 +70,7 @@ app.whenReady().then(async()=>{
   Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
   app.setAboutPanelOptions({applicationName:'글결 문서 편집기',applicationVersion:app.getVersion(),copyright:'문서 엔진: RHWP © Edward Kim · MIT License'});
   ipcMain.handle('baram:info',event=>{if(!trusted(event))throw new Error('허용되지 않은 요청');return {version:app.getVersion(),platform:process.platform};});
+  ipcMain.handle('baram:take-open-file',event=>{if(!trusted(event))throw new Error('허용되지 않은 요청');return externalOpen.take();});
   ipcMain.on('baram:dirty',(event,value)=>{if(trusted(event)){dirty=Boolean(value);win.setDocumentEdited(dirty);}});
   ipcMain.handle('baram:confirm-unsaved',async(event,action)=>{
     if(!trusted(event)||!['new','open','close'].includes(action))throw new Error('허용되지 않은 요청');

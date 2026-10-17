@@ -2,10 +2,11 @@ import {createStudio} from './sdk/index.js';
 import {routeHistory,observeComposition} from './edit-history.js';
 const $=id=>document.getElementById(id);
 let editor,busy=true,name='새 문서.hwpx',dirty=false,startupFailed=false,closeVersion=null;
+let externalOpening=false,externalPending=true;
 function status(message){$('status').textContent=message;}
 function error(error){$('error-text').textContent=String(error?.message||error);$('error-dialog').showModal();status('작업 실패 · 문서 상태를 확인하세요.');}
 function lockCloseEditing(value){const doc=$('editor').querySelector('iframe')?.contentDocument;if(doc){doc.documentElement.inert=value;if(value)doc.activeElement?.blur?.();}}
-function setBusy(value){if(!value)lockCloseEditing(false);busy=value;$('busy').hidden=!value;$('editor').inert=value;for(const id of ['new','open','save'])$(id).disabled=value||!editor;}
+function setBusy(value){if(!value)lockCloseEditing(false);busy=value;$('busy').hidden=!value;$('editor').inert=value;for(const id of ['new','open','save'])$(id).disabled=value||!editor;if(!value)requestExternalOpen();}
 function setDirty(value){dirty=Boolean(value);window.baram?.setDirty(dirty);$('filename').textContent=name+(dirty?' · 수정됨':'');}
 const host=()=>$('editor').querySelector('iframe')?.contentWindow?.baramHost;
 const sameVersion=(a,b)=>a.documentEpoch===b.documentEpoch&&a.changeSeq===b.changeSeq;
@@ -49,6 +50,25 @@ async function open(){
   if(busy||!editor)return;
   if(window.baram){await run(async()=>{const expected=await approveTransition('open');if(!expected)return false;const file=await window.baram.open();if(file)await load(file.data,file.name,expected);});}
   else $('browser-file').click();
+}
+function requestExternalOpen(){void drainExternalOpen().catch(error);}
+async function drainExternalOpen(){
+  if(!externalPending||externalOpening||busy||!editor||!window.baram?.takeOpenFile||$('error-dialog').open||$('about-dialog').open)return;
+  externalOpening=true;
+  try{
+    while(externalPending&&!busy&&!$('error-dialog').open&&!$('about-dialog').open){
+      externalPending=false;
+      await run(async()=>{
+        let file;
+        try{file=await window.baram.takeOpenFile();}
+        catch(e){externalPending=true;throw e;}
+        if(!file)return;
+        externalPending=true;
+        const expected=await approveTransition('open');
+        if(expected)await load(file.data,file.name,expected);
+      });
+    }
+  }finally{externalOpening=false;}
 }
 async function load(data,fileName,expected){
   if(data.byteLength>64*1024*1024)throw new Error('64 MB보다 큰 문서는 지원하지 않습니다.');
@@ -100,7 +120,8 @@ $('new').onclick=async()=>{
   });
   if(created)$('editor').querySelector('iframe')?.contentWindow?.baramHost?.focus();
 };
-$('error-dialog').onclose=()=>{if(!busy)$('editor').querySelector('iframe')?.contentWindow?.baramHost?.focus();};
+$('error-dialog').onclose=()=>{if(!busy)$('editor').querySelector('iframe')?.contentWindow?.baramHost?.focus();requestExternalOpen();};
+$('about-dialog').onclose=requestExternalOpen;
 $('open').onclick=open;$('save').onclick=save;$('about').onclick=()=>$('about-dialog').showModal();
 $('browser-file').onchange=()=>{const file=$('browser-file').files[0];$('browser-file').value='';if(file)run(async()=>{const expected=await approveTransition('open');if(expected)await load(new Uint8Array(await file.arrayBuffer()),file.name,expected);});};
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
@@ -109,7 +130,7 @@ window.addEventListener('message',event=>{
   // The queued notification may precede a more recent edit or document swap.
   syncState();if(!busy)status(dirty?'저장하지 않은 변경 사항':'준비됨');
 });
-window.baram?.onAction(action=>{if(action==='open')open();if(action==='save')save();if(action==='about')$('about-dialog').showModal();if(action==='undo'||action==='redo')routeHistory(action,{document,editor,busy}).catch(error);});
+window.baram?.onAction(action=>{if(action==='open-external'){externalPending=true;requestExternalOpen();}if(action==='open')open();if(action==='save')save();if(action==='about')$('about-dialog').showModal();if(action==='undo'||action==='redo')routeHistory(action,{document,editor,busy}).catch(error);});
 try{
   editor=await createStudio('#editor',{studioUrl:new URL('./studio/?desktopRecovery=1',location.href).href,renderer:'canvas2d',requestTimeoutMs:60000});
   // Startup may still be initializing its first blank document after SDK ready.

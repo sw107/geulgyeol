@@ -1,6 +1,7 @@
 const {contextBridge,ipcRenderer}=require('electron');
 contextBridge.exposeInMainWorld('baram',Object.freeze({
   open:()=>ipcRenderer.invoke('baram:open'),
+  takeOpenFile:()=>ipcRenderer.invoke('baram:take-open-file'),
   save:(data,name,format)=>ipcRenderer.invoke('baram:save',{data,name,format}),
   confirmUnsaved:action=>ipcRenderer.invoke('baram:confirm-unsaved',action),
   onAction:(callback)=>{const fn=(_event,action)=>callback(action);ipcRenderer.on('baram:action',fn);return()=>ipcRenderer.removeListener('baram:action',fn);},
