@@ -385,11 +385,231 @@ impl DocumentCore {
         });
     }
 
+    /// Prune only pages that cannot contain a paragraph-end caret.
+    /// The remaining pages retain legacy order and use the same render-tree query.
+    /// No geometry is cached here; ambiguous layouts keep the original candidates.
+    fn body_cursor_page_candidates(
+        &self,
+        section_idx: usize,
+        para_idx: usize,
+        char_offset: usize,
+        pages: &[u32],
+    ) -> Vec<u32> {
+        use crate::renderer::pagination::PageItem;
+
+        let original = || pages.to_vec();
+        if pages.len() < 2 || char_offset == 0 {
+            return original();
+        }
+        let Ok(para) = self.get_render_paragraph_ref(section_idx, para_idx) else {
+            return original();
+        };
+        let Some(composed) = self.composed.get(section_idx).and_then(|s| s.get(para_idx)) else {
+            return original();
+        };
+        // Stored rows can be reflowed again by the renderer. Keep the first
+        // optimization narrow: one plain paragraph, one uniform body frame.
+        let Some(section) = self.document.sections.get(section_idx) else {
+            return original();
+        };
+        let Some(body_style) = self.styles.para_styles.get(para.para_shape_id as usize) else {
+            return original();
+        };
+        if self.show_control_codes
+            || body_style.head_type != crate::model::style::HeadType::None
+            || section.paragraphs.len() != 1
+            || section.section_def.text_direction != 0
+            || self
+                .effective_layout_profile()
+                .legacy_hwp3_stored_geometry()
+            || composed.lines.is_empty()
+            || composed.numbering_text.is_some()
+            || para
+                .controls
+                .iter()
+                .any(|c| !matches!(c, Control::SectionDef(_) | Control::ColumnDef(_)))
+        {
+            return original();
+        }
+        let text_len = para.text.chars().count();
+        // Early offsets already hit a cheap first page. Do not add the full
+        // frame qualification cost to ordinary typing or partial-selection undo.
+        if char_offset != text_len || para.text.chars().any(char::is_control) {
+            return original();
+        }
+        // Require an exact, contiguous scalar partition of the render paragraph.
+        // This rejects projected/expanded text, control gaps and uncertain offsets.
+        let mut end = 0usize;
+        for line in &composed.lines {
+            if line.char_start != end {
+                return original();
+            }
+            for run in &line.runs {
+                let Some(next) = end.checked_add(run.text.chars().count()) else {
+                    return original();
+                };
+                end = next;
+            }
+        }
+        if end != text_len || char_offset > text_len {
+            return original();
+        }
+        let Some(pagination) = self.pagination.get(section_idx) else {
+            return original();
+        };
+        let mut column_width = None;
+        for page in &pagination.pages {
+            if page.layout.column_areas.len() != 1
+                || page
+                    .column_contents
+                    .iter()
+                    .any(|c| c.zone_layout.is_some() || !c.wrap_around_paras.is_empty())
+            {
+                return original();
+            }
+            let width = page.layout.column_areas[0].width;
+            if column_width.is_some_and(|previous| previous != width) {
+                return original();
+            }
+            column_width = Some(width);
+        }
+        let Some(width) = column_width else {
+            return original();
+        };
+        let Some(first_run) = composed.lines.iter().flat_map(|l| &l.runs).next() else {
+            return original();
+        };
+        if composed.lines.iter().flat_map(|l| &l.runs).any(|r| {
+            r.char_style_id != first_run.char_style_id
+                || r.display_text.is_some()
+                || r.char_overlap.is_some()
+                || r.footnote_marker.is_some()
+        }) {
+            return original();
+        }
+        // Use the renderer's row resolver with its exact frame/profile inputs.
+        // A dense composed partition alone does not prove the rendered ranges
+        // (e.g. a split paragraph with stale stored rows). Prune only if the
+        // renderer keeps every scalar line boundary unchanged.
+        let style = self.styles.para_styles.get(composed.para_style_id as usize);
+        let inner_width = width - style.map_or(0.0, |s| s.margin_left + s.margin_right);
+        if inner_width <= 0.0 {
+            return original();
+        }
+        let frame = crate::renderer::composer::ParagraphBox::body_for_style(width, style, self.dpi);
+        let evidence = crate::renderer::float_placement::paper_or_page_float_carve_evidence(
+            &section.paragraphs,
+        );
+        if let Some(rendered) = crate::renderer::composer::recompose_stored_lines_in_frame(
+            composed,
+            para,
+            frame,
+            inner_width,
+            &self.styles,
+            self.dpi,
+            self.effective_layout_profile()
+                .legacy_hwp3_stored_geometry(),
+            crate::renderer::composer::StoredRowMissPolicy::Reflow,
+            &evidence,
+        ) {
+            let range = |l: &crate::renderer::composer::ComposedLine| {
+                (
+                    l.char_start,
+                    l.runs.iter().map(|r| r.text.chars().count()).sum::<usize>(),
+                )
+            };
+            if rendered.lines.len() != composed.lines.len()
+                || rendered
+                    .lines
+                    .iter()
+                    .zip(&composed.lines)
+                    .any(|(a, b)| range(a) != range(b))
+            {
+                return original();
+            }
+        }
+        let global_offset: u32 = self.pagination[..section_idx]
+            .iter()
+            .map(|p| p.pages.len() as u32)
+            .sum();
+        let can_contain = |global_page: u32| {
+            let Some(page) = global_page
+                .checked_sub(global_offset)
+                .and_then(|p| pagination.pages.get(p as usize))
+            else {
+                return true;
+            };
+            let mut known_partial = false;
+            for column in &page.column_contents {
+                if column
+                    .wrap_around_paras
+                    .iter()
+                    .any(|p| p.para_index == para_idx || p.table_para_index == para_idx)
+                {
+                    return true;
+                }
+                for item in &column.items {
+                    match item {
+                        PageItem::PartialParagraph {
+                            para_index,
+                            start_line,
+                            end_line,
+                        } if *para_index == para_idx => {
+                            if start_line >= end_line || *end_line > composed.lines.len() {
+                                return true;
+                            }
+                            let lower = composed.lines[*start_line].char_start;
+                            let upper = composed
+                                .lines
+                                .get(*end_line)
+                                .map_or(text_len, |line| line.char_start);
+                            // Both pages stay eligible at a shared line boundary.
+                            if (lower..=upper).contains(&char_offset) {
+                                return true;
+                            }
+                            known_partial = true;
+                        }
+                        PageItem::FullParagraph { para_index }
+                        | PageItem::Table { para_index, .. }
+                        | PageItem::PartialTable { para_index, .. }
+                        | PageItem::Shape { para_index, .. }
+                            if *para_index == para_idx =>
+                        {
+                            return true;
+                        }
+                        _ => {}
+                    }
+                }
+            }
+            !known_partial
+        };
+        let filtered: Vec<_> = pages.iter().copied().filter(|p| can_contain(*p)).collect();
+        if filtered.is_empty() {
+            original()
+        } else {
+            filtered
+        }
+    }
+
     pub fn get_cursor_rect_native(
         &self,
         section_idx: usize,
         para_idx: usize,
         char_offset: usize,
+    ) -> Result<String, HwpError> {
+        let pages = self.find_text_scan_pages_for_paragraph(section_idx, para_idx)?;
+        let fallback_page = pages[0];
+        let pages = self.body_cursor_page_candidates(section_idx, para_idx, char_offset, &pages);
+        self.get_cursor_rect_on_pages(section_idx, para_idx, char_offset, &pages, fallback_page)
+    }
+
+    fn get_cursor_rect_on_pages(
+        &self,
+        section_idx: usize,
+        para_idx: usize,
+        char_offset: usize,
+        pages: &[u32],
+        fallback_page: u32,
     ) -> Result<String, HwpError> {
         use crate::renderer::layout::{
             compute_char_positions, estimate_text_width, resolved_to_text_style,
@@ -398,7 +618,6 @@ impl DocumentCore {
 
         // 문단이 포함된 페이지 찾기 — [#4179] 텍스트가 렌더될 수 없는
         // 순수-중간 연속 컷 페이지는 후보에서 제외 (스캔 순서·결과 좌표 불변)
-        let pages = self.find_text_scan_pages_for_paragraph(section_idx, para_idx)?;
 
         let footnote_marker_positions: Vec<(usize, usize)> = self
             .get_render_paragraph_ref(section_idx, para_idx)
@@ -1031,7 +1250,7 @@ impl DocumentCore {
         // 후보 페이지를 순회하며 커서 위치 탐색
         // 1차: 정확한 앵커(zero-width 노드) 우선 검색, 2차: 일반 검색
         if para_page_scan_can_hit {
-            for &page_num in &pages {
+            for &page_num in pages {
                 let tree = self.build_page_tree_cached(page_num)?;
                 if !self.show_control_codes {
                     if let Ok(para) = self.get_render_paragraph_ref(section_idx, para_idx) {
@@ -1112,7 +1331,7 @@ impl DocumentCore {
 
                 if let Some((ci, _ctrl)) = inline_ctrl.or(beyond_ctrl) {
                     // inline_shape_positions에서 Shape 좌표 조회
-                    let first_page = pages[0];
+                    let first_page = fallback_page;
                     let tree = self.build_page_tree(first_page)?;
                     if let Some((sx, sy)) =
                         tree.get_inline_shape_position(section_idx, para_idx, ci, None)
@@ -1140,7 +1359,7 @@ impl DocumentCore {
         }
 
         // TextRun에서 찾지 못한 경우 (빈 문단 등): 첫 페이지에서 문단 위치 추정
-        let first_page = pages[0];
+        let first_page = fallback_page;
         let tree = self.build_page_tree(first_page)?;
 
         #[derive(Clone, Copy)]
@@ -6126,6 +6345,129 @@ impl DocumentCore {
 #[cfg(test)]
 mod tests {
     use super::{clamp_cursor_to_cell_bounds, resolve_x_on_line, CellCursorBounds, LineRunView};
+
+    fn body_cursor_candidate_document() -> crate::document_core::DocumentCore {
+        let mut core = crate::document_core::DocumentCore::new_empty();
+        core.create_blank_document_native().unwrap();
+        core.show_control_codes = false;
+        core.insert_text_native(0, 0, 0, &"body 한글🙂 words ".repeat(1200))
+            .unwrap();
+        core
+    }
+
+    fn assert_body_cursor_matches_unfiltered(
+        core: &crate::document_core::DocumentCore,
+        offsets: &[usize],
+    ) {
+        let pages = core.find_text_scan_pages_for_paragraph(0, 0).unwrap();
+        for &offset in offsets {
+            let legacy = core
+                .get_cursor_rect_on_pages(0, 0, offset, &pages, pages[0])
+                .unwrap();
+            let actual = core.get_cursor_rect_native(0, 0, offset).unwrap();
+            assert_eq!(actual, legacy, "scalar offset {offset}");
+        }
+    }
+
+    #[test]
+    fn body_cursor_candidates_preserve_unicode_and_page_boundary_rects() {
+        use crate::renderer::pagination::PageItem;
+        let core = body_cursor_candidate_document();
+        let pages = core.find_text_scan_pages_for_paragraph(0, 0).unwrap();
+        assert!(pages.len() > 2);
+        let len = core.document.sections[0].paragraphs[0].text.chars().count();
+        let mut offsets = vec![0, 1, 5, 6, 7, 8, 103, len / 2, len - 1, len, len + 1];
+        for page in &core.pagination[0].pages {
+            for column in &page.column_contents {
+                for item in &column.items {
+                    if let PageItem::PartialParagraph {
+                        para_index: 0,
+                        start_line,
+                        ..
+                    } = item
+                    {
+                        let offset = core.composed[0][0].lines[*start_line].char_start;
+                        offsets.extend([offset.saturating_sub(1), offset, offset + 1]);
+                    }
+                }
+            }
+        }
+        assert_body_cursor_matches_unfiltered(&core, &offsets);
+        let candidates = core.body_cursor_page_candidates(0, 0, len, &pages);
+        assert_eq!(candidates, vec![*pages.last().unwrap()]);
+        core.invalidate_page_tree_cache();
+        core.get_cursor_rect_native(0, 0, len).unwrap();
+        let built = core
+            .page_tree_cache
+            .borrow()
+            .iter()
+            .filter(|p| p.is_some())
+            .count();
+        assert_eq!(built, 1, "end lookup must not rebuild preceding pages");
+    }
+
+    #[test]
+    fn body_cursor_candidates_preserve_mixed_format_rects() {
+        let mut core = body_cursor_candidate_document();
+        core.apply_char_format_native(0, 0, 2, 420, r#"{"bold":true,"fontSize":1800}"#)
+            .unwrap();
+        let len = core.document.sections[0].paragraphs[0].text.chars().count();
+        let offsets: Vec<_> = (0..len).step_by(79).chain([len]).collect();
+        assert_body_cursor_matches_unfiltered(&core, &offsets);
+    }
+
+    #[test]
+    fn body_cursor_candidates_split_stored_rows_keep_legacy_geometry() {
+        let core = crate::document_core::DocumentCore::from_bytes(include_bytes!(
+            "../../../tests/fixtures/body-cursor-mixed-split.hwpx"
+        ))
+        .unwrap();
+        let pages = core.find_text_scan_pages_for_paragraph(0, 1).unwrap();
+        assert_eq!(core.body_cursor_page_candidates(0, 1, 103, &pages), pages);
+        for offset in [0, 1, 103, 200, 500] {
+            let legacy = core
+                .get_cursor_rect_on_pages(0, 1, offset, &pages, pages[0])
+                .unwrap();
+            assert_eq!(core.get_cursor_rect_native(0, 1, offset).unwrap(), legacy);
+        }
+    }
+
+    #[test]
+    fn body_cursor_candidates_keep_uncertain_and_excluded_paths() {
+        use crate::model::control::{Control, PageHide};
+        let mut core = body_cursor_candidate_document();
+        let pages = core.find_text_scan_pages_for_paragraph(0, 0).unwrap();
+        let len = core.document.sections[0].paragraphs[0].text.chars().count();
+        core.show_control_codes = true;
+        assert_eq!(core.body_cursor_page_candidates(0, 0, len, &pages), pages);
+        core.show_control_codes = false;
+        core.composed[0][0].numbering_text = Some("1.".into());
+        assert_eq!(core.body_cursor_page_candidates(0, 0, len, &pages), pages);
+        core.composed[0][0].numbering_text = None;
+        core.apply_para_format_native(0, 0, r#"{"headType":"Number","numberingId":1}"#)
+            .unwrap();
+        assert_eq!(core.body_cursor_page_candidates(0, 0, len, &pages), pages);
+        core.apply_para_format_native(0, 0, r#"{"headType":"None"}"#)
+            .unwrap();
+        core.document.sections[0].paragraphs[0]
+            .controls
+            .push(Control::PageHide(PageHide::default()));
+        assert_eq!(core.body_cursor_page_candidates(0, 0, len, &pages), pages);
+        core.document.sections[0].paragraphs[0].controls.pop();
+        core.composed[0][0].lines[0].char_start = 1;
+        assert_eq!(core.body_cursor_page_candidates(0, 0, len, &pages), pages);
+    }
+
+    #[test]
+    fn body_cursor_candidates_keep_soft_breaks_on_legacy_path() {
+        let mut core = crate::document_core::DocumentCore::new_empty();
+        core.create_blank_document_native().unwrap();
+        core.insert_text_native(0, 0, 0, &"한🙂\t둘\n셋 words ".repeat(100))
+            .unwrap();
+        let pages = core.find_text_scan_pages_for_paragraph(0, 0).unwrap();
+        assert_eq!(core.body_cursor_page_candidates(0, 0, 120, &pages), pages);
+        assert_body_cursor_matches_unfiltered(&core, &[0, 1, 2, 3, 4, 120]);
+    }
 
     #[test]
     fn cell_cursor_bounds_clamp_coordinates_and_height() {
