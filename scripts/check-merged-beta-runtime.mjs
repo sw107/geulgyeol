@@ -44,7 +44,7 @@ const encoded = JSON.parse(execFileSync(python, ['-c', unpack, source + '/script
 const files = Object.fromEntries(Object.entries(encoded).map(([k, v]) => [k, Buffer.from(v, 'base64')]));
 assert(Object.values(files).every(b => !b.includes(Buffer.from(sentinel))), 'tracked private/test/dependency canaries must not enter ASAR');
 assert(Object.keys(files).every(n => !n.split('/').some(p => ['tests', 'node_modules', '.git', '.env'].includes(p))));
-for (const name of ['main.cjs', 'preload.cjs', 'profile-server.cjs', 'server.cjs', 'storage.cjs', 'close-controller.cjs', 'document-shortcuts.cjs']) {
+for (const name of ['main.cjs', 'preload.cjs', 'profile-server.cjs', 'server.cjs', 'storage.cjs', 'close-controller.cjs', 'document-shortcuts.cjs', 'external-open.cjs']) {
   assert.deepEqual(files[name], fs.readFileSync(root + '/desktop/' + name), name + ': exact current source');
 }
 const packageProof = JSON.parse(raw), build = JSON.parse(files['build-info.json']);

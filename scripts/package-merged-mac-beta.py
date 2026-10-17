@@ -53,7 +53,7 @@ def main():
     # Current tracked desktop code, SDK and licenses; old Studio is excluded.
     tracked = subprocess.check_output(['git', 'ls-files', '-z', 'desktop'], cwd=root).split(b'\0')
     required = {'main.cjs', 'preload.cjs', 'close-controller.cjs',
-                'document-shortcuts.cjs', 'print-preview.cjs', 'server.cjs', 'profile-server.cjs', 'storage.cjs',
+                'document-shortcuts.cjs', 'print-preview.cjs', 'external-open.cjs', 'server.cjs', 'profile-server.cjs', 'storage.cjs',
                 'package.json', 'LICENSE', 'THIRD_PARTY_NOTICES.md'}
     for raw in tracked:
         if not raw:
