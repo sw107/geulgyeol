@@ -1768,7 +1768,13 @@ impl LayoutEngine {
                             numbering_counters[cp_idx],
                         )
                     } else {
-                        None
+                        self.apply_cell_numbering_continuation(
+                            composed,
+                            para,
+                            styles,
+                            outline_numbering_id,
+                            numbering_counters[cp_idx],
+                        )
                     };
                     let composed_for_layout = numbered_comp.as_ref().unwrap_or(composed);
                     // [Task #1728 v2] 셀-내 continuation 조각(cut su>0)의 첫 가시 문단
