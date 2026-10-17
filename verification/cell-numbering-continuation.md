@@ -131,17 +131,61 @@ publications, preserve the last plan on serialization failure, and reject host
 or control errors even with no renderer errors. Together with the four reopen
 gate cases, eight driver-only tests pass without launching Electron.
 
-Only the affected main integration run must be repeated in a fresh evidence
-phase after the PM releases the GUI slot. Fetch and record the then-current
-main and the actual UI-runtime/PR73-engine combination first; PR #74 may change
-that target. The previous results are not overwritten. Until that rerun and
-Hancom review finish, merge remains held.
+The affected main integration run was required to repeat in a fresh evidence
+phase after the PM released the GUI slot. Its completed replacement and the
+separate Hancom review are recorded below; previous results are not overwritten.
 
 `main-integration-input.json` pins the main/UI relationship and reused runtime.
 `hancom-handoff-manifest.json` lists all 16 integrated app exports with hashes,
 original fixture paths, head flags, exact edit and expected cell-local labels.
 No documents were copied for handoff. The GUI slot is returned; these outputs
 await actual Hancom editing/save/reopen comparison.
+
+### Clean integration on main 18b3ca4 and Hancom return import
+
+After GUI reassignment, source HEAD
+`a58a38222813f19ade6b06bfb7d8b77e95a80489` executed the atomic-control driver
+against main `18b3ca4ba04e4284d25dceba6d057a5eb6ecec4f` (including PR #75).
+The previous UI bundle was not reused as current main: 438 tracked UI/shared/
+npm/desktop inputs were pinned from main, and a fresh Vite QA runtime was built.
+Only the QA builder's Git file enumeration was adapted to a pinned source
+manifest; the usual QA handle exposure remains explicit. All 437 other source
+files and all 83 runtime files match their recorded before/after hashes. The
+main engine tree still equals PR #71; it is overlaid with the unchanged final
+PR #73 SDK. This is a runtime combination, not a merged-source release build.
+
+In `final-main18b-qa/electron-main18b-atomic`, all 16 layout fixtures, eight
+noncomposing input/native-menu undo/redo cases and 16 host save/reopens pass.
+The actual requested asset `rhwp_bg-BtXWOt0I.wasm` serves the final SDK hash.
+After owned-app normal exit 0, the complete 153-record audit contains **zero
+host errors and zero control errors**; renderer errors are also zero. The strict
+post-exit gate ran in this execution. The earlier integration's QA P2 result is
+retained separately. One initial UI build could not hardlink a read-only source
+asset; the successful fresh phase writes its generated assets locally instead.
+
+The separate native-screen task records 24 warning-free Hancom opens: eight
+baseline documents and 16 app outputs. The one-column four-flag samples match
+baseline indentation. Two-column later text is clipped in both baseline and
+output; visibility of every later line/label remains unverified. A representative
+one-column flags-12 document was edited, saved and reopened in Hancom as both HWP
+and HWPX. Bundle metadata reads Hancom Office HWP 12.30.0 (6544); the native task
+did not independently capture an About-version screen.
+
+The final real WASM then imports those two Hancom-edited files. Exact comparison
+against the pre-Hancom copies identifies the native addition as one leading
+space plus `[HANCOM_PR73_HWP_OK]` or `[HANCOM_PR73_HWPX_OK]`; all other stored
+text, including whitespace and neighboring paragraphs, is unchanged. Both
+imports have six pages, labels `123.`, `124.`, `125.` once, and later long-paragraph
+line starts at x=146.2. Four further engine HWP/HWPX save/reopens retain the exact
+stored text and scoped coordinates with zero reported content loss. This is
+engine reimport/export verification, not another physical-IME or native-chooser
+run. The first marker-only expectation omitted the native-added leading space;
+its failed Node phase is retained, and the exact-edit check uses a new phase.
+
+The two unique native-edited inputs, their two comparison baselines and native
+manifest are retained under `final-main18b-qa`; no source input was modified.
+The owned Electron app exited normally and the GUI slot was returned before
+the Node-only return-import checks. Merge/deployment remain for the parent.
 
 ## Other limits
 
@@ -158,8 +202,8 @@ IME/native choosers and signed release packaging are outside this change.
 The three existing embedded library-test samples remain absent:
 `samples/3-09월_교육_통합_2022.hwp`, `samples/hwp3-sample16-hwp5.hwp`,
 `samples/hwpx/aift.hwpx`. A Native example is not the full Rust unit suite.
-No CI success is inferred from absent checks. Merge and deployment remain held
-for the clean integration rerun, independent review and the outstanding Hancom gate.
+No CI success is inferred from absent checks. Parent independent review and
+merge/deployment decisions remain outstanding; this task performs no merge.
 
 ## Reproduction and retained evidence
 
