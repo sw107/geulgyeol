@@ -4,13 +4,26 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { stripTypeScriptTypes } from 'node:module';
 import assert from 'node:assert/strict';
+
+export async function loadTransparentFillModel(uiSource = new URL('../rhwp-studio/src/ui/picture-props-apply-model.ts', import.meta.url)) {
+  const url = uiSource instanceof URL ? uiSource : pathToFileURL(path.resolve(uiSource));
+  let source = stripTypeScriptTypes(fs.readFileSync(url, 'utf8'));
+  // A data URL has no directory against which to resolve the model's helper.
+  // Resolve it beside the selected UI source, including historical/custom inputs.
+  source = source.replace(/from\s+(['"])\.\/color-ref\.ts\1/g, () => {
+    const colors = stripTypeScriptTypes(fs.readFileSync(new URL('./color-ref.ts', url), 'utf8'));
+    return "from 'data:text/javascript;base64," + Buffer.from(colors).toString('base64') + "'";
+  });
+  return import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
+}
+
+async function main() {
 const [engineDir, qaDir, mode, uiSource, label] = process.argv.slice(2);
 const output = path.resolve(qaDir, label || mode);
 fs.mkdirSync(output);
 const M = await import(pathToFileURL(path.resolve(engineDir, 'rhwp.js')));
 M.initSync({ module: fs.readFileSync(path.join(engineDir, 'rhwp_bg.wasm')) });
-const src = fs.readFileSync(uiSource || new URL('../rhwp-studio/src/ui/picture-props-apply-model.ts', import.meta.url), 'utf8');
-const UI = await import('data:text/javascript;base64,' + Buffer.from(stripTypeScriptTypes(src)).toString('base64'));
+const UI = await loadTransparentFillModel(uiSource || undefined);
 const svg = d => Array.from({ length: d.pageCount() }, (_, p) => d.renderPageSvg(p));
 const save = (d, format) => {
   const report = d[format === 'hwp' ? 'exportHwpWithReport' : 'exportHwpxWithReport']();
@@ -137,3 +150,6 @@ const proof = { mode, cases: cases.length, savedFiles: rows.length, reopens, und
   actualShapeDialogPatchBuilderExecuted: true, cellDialogFillBranchMirroredFromSource: true, actualGUIVerified: false };
 fs.writeFileSync(path.join(output, 'proof.json'), JSON.stringify(proof, null, 2));
 console.log(JSON.stringify({ ...proof, issues: issues.length }));
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) await main();

@@ -6,18 +6,30 @@ import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 import {stripTypeScriptTypes} from 'node:module';
 import {pathToFileURL} from 'node:url';
+const load=async(s,preamble='')=>import('data:text/javascript;base64,'+Buffer.from(preamble+stripTypeScriptTypes(s,{mode:'transform'}).replace(/^import[\s\S]*?;\s*$/gm,'')).toString('base64'));
+
+export async function loadCaptionModel(
+  modelSource = fs.readFileSync(new URL('../rhwp-studio/src/ui/picture-props-apply-model.ts', import.meta.url), 'utf8'),
+  colorSource = fs.readFileSync(new URL('../rhwp-studio/src/ui/color-ref.ts', import.meta.url), 'utf8'),
+) {
+  // The probe loader strips ordinary imports. Bind the model's real helper
+  // explicitly after stripping, rather than losing hexToColorRef at runtime.
+  const colors = 'data:text/javascript;base64,' + Buffer.from(stripTypeScriptTypes(colorSource)).toString('base64');
+  return load(modelSource, `import {hexToColorRef} from '${colors}';\n`);
+}
+
+async function main() {
 const [pkg,fixtures,out]=process.argv.slice(2);
 fs.mkdirSync(out,{recursive:true});
 const parse=JSON.parse,sha=b=>crypto.createHash('sha256').update(b).digest('hex');
-const source=Object.fromEntries(Object.entries({insert:'command/commands/insert.ts',objects:'engine/object-props.ts',bridge:'core/wasm-bridge.ts',input:'engine/input-handler.ts',command:'engine/command.ts',history:'engine/history.ts',registry:'command/registry.ts',dispatcher:'command/dispatcher.ts',dialog:'ui/picture-props-dialog.ts',model:'ui/picture-props-apply-model.ts'}).map(([k,p])=>[k,fs.readFileSync('rhwp-studio/src/'+p,'utf8')]));
-const load=async s=>import('data:text/javascript;base64,'+Buffer.from(stripTypeScriptTypes(s,{mode:'transform'}).replace(/^import[\s\S]*?;\s*$/gm,'')).toString('base64'));
+const source=Object.fromEntries(Object.entries({insert:'command/commands/insert.ts',objects:'engine/object-props.ts',bridge:'core/wasm-bridge.ts',input:'engine/input-handler.ts',command:'engine/command.ts',history:'engine/history.ts',registry:'command/registry.ts',dispatcher:'command/dispatcher.ts',dialog:'ui/picture-props-dialog.ts',model:'ui/picture-props-apply-model.ts',colors:'ui/color-ref.ts'}).map(([k,p])=>[k,fs.readFileSync('rhwp-studio/src/'+p,'utf8')]));
 function method(s,n){let a=s.indexOf('  '+n+'(');if(a<0)a=s.indexOf('  private '+n+'(');let b=s.indexOf('\n  }\n',a);assert(a>=0&&b>a,n);return s.slice(a,b+4)+'\n';}
 const command=await load('const MAX_PAGE_LOCAL_TEXT_EDIT_CHARS=10000;\n'+source.command);
 globalThis.__captionCommands=command;
 const {CommandHistory}=await load('const {NO_TEXT_MUTATION_EFFECTS}=globalThis.__captionCommands;\n'+source.history);
 const {BridgeProbe}=await load('export class BridgeProbe{doc;documentGeneration=1;constructor(d){this.doc=d;}\n'+['getPictureProperties','setPictureProperties','getCellParagraphLength','insertTextInCell','insertTextInCellDeferredPagination','deleteTextInCell','applyCharFormatInCell','saveSnapshot','restoreSnapshot','discardSnapshot','deletePictureControl','getFieldList','getShapeProperties','setShapeProperties','deleteShapeControl'].map(n=>method(source.bridge,n)).join('')+'}');
 const {HandlerProbe}=await load('const {SnapshotCommand,SubmodeSnapshotCommand,SubmodeSelectionSnapshotCommand,IMMEDIATE_TEXT_MUTATION_EFFECTS}=globalThis.__captionCommands;\nexport class HandlerProbe{\n'+['executeOperation','isOperationAllowedInEditMode','handleUndo','handleRedo','restoreEditContextAfterHistory','resetDerivedStateAfterHistoryJump','restoreSelectionAfterUndo','restoreSelectionAfterRedo','enterInlineEditing','exitPictureObjectSelectionAndAfterEdit','getPositionOutsideSelectedPicture','getPosition'].map(n=>method(source.input,n)).join('')+'}');
-const model=await load(source.model);globalThis.__captionModel=model;
+const model=await loadCaptionModel(source.model,source.colors);globalThis.__captionModel=model;
 const dialogs=[];globalThis.__captionDialogs=dialogs;
 const {DialogProbe}=await load('const {buildPicturePropsPatch,resolvePicturePropsApplyTarget}=globalThis.__captionModel;const dialogs=globalThis.__captionDialogs;const MAX_OBJECT_DESCRIPTION_LEN=4000;export class DialogProbe{constructor(w,e,s){this.wasm=w;this.eventBus=e;this.services=s;}open(sec,para,ci,type,hf,path,inner){Object.assign(this,{sec,para,ci,objectType:type,headerFooter:hf,cellPath:path,innerControlIdx:inner??ci,props:this.wasm.getPictureProperties(sec,para,ci),shapeProps:null,descInput:{value:this.wasm.getPictureProperties(sec,para,ci).description??""}});dialogs.push(this);}captureApplyForm(){return this.form;}hide(){}\n'+['applyPropertyPatchToWasm','applyPropertyPatch','handleOk'].map(n=>method(source.dialog,n)).join('')+'}');
 globalThis.__captionDialog=DialogProbe;
@@ -70,3 +82,6 @@ function stateFromInput(s){const d=new HwpDocument(fs.readFileSync(s.input));try
 const s=await make('guards','plain-comments.hwpx');try{for(const key of ['isEditable','hasDocument']){s.choose();s.ctx[key]=false;unchanged(s,()=>s.dispatcher.dispatch('insert:caption-toggle'));s.ctx[key]=true;}s.choose();s.ctx.isFormMode=true;unchanged(s,()=>s.dispatcher.dispatch('insert:caption-toggle'));s.ctx.isFormMode=false;s.choose();s.multi(true);unchanged(s,()=>s.dispatcher.dispatch('insert:caption-toggle'));s.multi(false);s.ih.editMode='form';s.choose();unchanged(s,()=>s.dispatcher.dispatch('insert:caption-toggle'));s.ih.editMode='normal';for(const type of ['equation','group']){s.choose();s.ih.getSelectedPictureRef=()=>({...s.ref,type});unchanged(s,()=>s.dispatcher.dispatch('insert:caption-toggle'));}s.ih.getSelectedPictureRef=()=>s.ref;s.choose();const setter=s.wasm.setPictureProperties;s.wasm.setPictureProperties=function(...a){setter.apply(this,a);throw Error('Injected failure after caption creation');};unchanged(s,()=>{assert.equal(s.dispatcher.dispatchWithResult('insert:caption-toggle').reason,'threw');});}finally{s.close();}
 fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
 const proof={wasmSHA256:sha(bytes),actualRegistryDispatcherInputHandlerBridgeHistory:true,actualPropertyDialogApplyAndPatchModel:true,DOMCursorRepaintAdapters:true,operations,saves,undoRedoPairs:pairs,atomicRefusalsOrNoOps:refusals,repeatedCaptionNavigationNoHistory:repeats,bodyCommentsFieldsFormattingAndImagePreserved:true,savedCaptionReferencesAndRenderedGlyphStylesCompared:true,historyFullSVGExact:true,savedReopenedFullSVGExact:true,captionParagraphPropertiesNativeOnly:true,rows,GUIVerified:false,physicalIMEVerified:false,sourceSHA256:Object.fromEntries(Object.entries(source).map(([k,v])=>[k,sha(v)]))};fs.writeFileSync(path.join(out,'proof.json'),JSON.stringify(proof,null,2)+'\n');console.log(JSON.stringify({...proof,sourceSHA256:undefined}));
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) await main();

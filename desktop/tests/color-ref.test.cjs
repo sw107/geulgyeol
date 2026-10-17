@@ -47,8 +47,7 @@ function form() {
   };
 }
 
-test('picture property patches retain unchanged fill flags and convert edited border, fill and shadow colors', async () => {
-  const {buildPicturePropsPatch} = await ui('picture-props-apply-model.ts');
+function checkColorPatches({buildPicturePropsPatch}) {
   const props = {sizeProtect: true, treatAsChar: true};
   const shape = {fillType: 'solid', fillBgColor: 0x80563412, fillPatColor: -1};
   const input = form();
@@ -62,4 +61,36 @@ test('picture property patches retain unchanged fill flags and convert edited bo
     borderColor: 0x563412, fillBgColor: 0xefcdab, fillPatColor: 0xff0000,
     shadowType: 1, shadowColor: 0xff, shadowOffsetX: 0, shadowOffsetY: 0,
   });
+}
+
+test('picture property patches retain unchanged fill flags and convert edited border, fill and shadow colors', async () => {
+  checkColorPatches(await ui('picture-props-apply-model.ts'));
+});
+
+test('transparent-fill QA data URL loader imports the real model and applies color patches', async () => {
+  const {loadTransparentFillModel} = await import('../../scripts/check-transparent-fill.mjs');
+  checkColorPatches(await loadTransparentFillModel());
+});
+
+test('caption-history QA source-strip loader binds the real color helper for color patches', async () => {
+  const {loadCaptionModel} = await import('../../scripts/check-caption-history.mjs');
+  checkColorPatches(await loadCaptionModel());
+});
+
+test('transparent-fill QA resolves helpers beside a selected source and supports sources without imports', async () => {
+  const fs = require('node:fs/promises');
+  const os = require('node:os');
+  const {loadTransparentFillModel} = await import('../../scripts/check-transparent-fill.mjs');
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'geulgyeol-color-loader-'));
+  const source = path.join(root, 'model.ts');
+  try {
+    await fs.writeFile(source, "import {hexToColorRef} from './color-ref.ts';\nexport const color = hexToColorRef('#123456');\n");
+    await fs.writeFile(path.join(root, 'color-ref.ts'), 'export function hexToColorRef(hex: string): number { return 42; }\n');
+    assert.equal((await loadTransparentFillModel(source)).color, 42);
+    await fs.unlink(path.join(root, 'color-ref.ts'));
+    await fs.writeFile(source, 'export const color = 7;\n');
+    assert.equal((await loadTransparentFillModel(source)).color, 7);
+  } finally {
+    await fs.rm(root, {recursive: true, force: true});
+  }
 });
