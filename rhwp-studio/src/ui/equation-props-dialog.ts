@@ -5,6 +5,7 @@ import type { EquationProperties, NoteControlRef } from '@/core/types';
 import type { CommandServices } from '@/command/types';
 import { EquationEditorDialog } from './equation-editor-dialog';
 import { enableDialogDrag } from './dialog-drag';
+import { colorRefToHex, hexToColorRef } from './color-ref.ts';
 
 type TabName = '기본' | '여백/캡션' | '수식';
 
@@ -16,21 +17,6 @@ function hwpunitToMm(hu: number): number {
 
 function formatMm(hu: number | undefined): string {
   return typeof hu === 'number' && Number.isFinite(hu) ? hwpunitToMm(hu).toFixed(2) : '';
-}
-
-function colorRefToHex(colorRef: number): string {
-  const r = colorRef & 0xFF;
-  const g = (colorRef >> 8) & 0xFF;
-  const b = (colorRef >> 16) & 0xFF;
-  return '#' + [r, g, b].map(c => c.toString(16).padStart(2, '0')).join('');
-}
-
-function hexToColorRef(hex: string): number {
-  const clean = hex.replace('#', '');
-  const r = parseInt(clean.substring(0, 2), 16);
-  const g = parseInt(clean.substring(2, 4), 16);
-  const b = parseInt(clean.substring(4, 6), 16);
-  return (b << 16) | (g << 8) | r;
 }
 
 export class EquationPropertiesDialog {
