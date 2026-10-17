@@ -5095,6 +5095,14 @@ impl LayoutEngine {
                         outline_numbering_id,
                         numbering_counters[cp_idx],
                     )
+                } else if start_line > 0 {
+                    self.apply_cell_numbering_continuation(
+                        composed,
+                        para,
+                        styles,
+                        outline_numbering_id,
+                        numbering_counters[cp_idx],
+                    )
                 } else {
                     None
                 };

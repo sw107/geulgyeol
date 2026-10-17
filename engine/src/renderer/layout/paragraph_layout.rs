@@ -8236,6 +8236,29 @@ impl LayoutEngine {
         self.apply_paragraph_numbering_with_counters(composed, para, styles, outline_numbering_id, Some(counters))
     }
 
+    /// Keep a split cell paragraph's automatic number area, using its own
+    /// precomputed counters rather than the body-list state. The layout caller
+    /// suppresses marker painting when start_line > 0. Missing/synthesized heads,
+    /// bullets and autoIndent=0 retain their previous continuation composition.
+    pub(crate) fn apply_cell_numbering_continuation(
+        &self,
+        composed: &ComposedParagraph,
+        para: &Paragraph,
+        styles: &ResolvedStyleSet,
+        outline_numbering_id: u16,
+        counters: [u32; 7],
+    ) -> Option<ComposedParagraph> {
+        let ps = styles.para_styles.get(para.para_shape_id as usize)?;
+        if !matches!(ps.head_type, HeadType::Number | HeadType::Outline) { return None; }
+        let id = resolve_numbering_id(ps.head_type, ps.numbering_id, outline_numbering_id);
+        let numbering = styles.numberings.get(id.checked_sub(1)? as usize)?;
+        if numbering.heads[(ps.para_level as usize).min(6)].attr & (1 << 3) == 0 { return None; }
+        // Reject legacy paths before cloning a possibly large composition.
+        self.apply_cell_paragraph_numbering(
+            Some(composed), para, styles, outline_numbering_id, counters,
+        )
+    }
+
     /// A later page reuses the active list counter; it must not advance it or
     /// paint another marker. Bullet / missing-definition fallbacks stay untouched.
     pub(crate) fn apply_numbering_continuation(
