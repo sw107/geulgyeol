@@ -63,7 +63,11 @@ app.whenReady().then(async()=>{
   const menu=[
     ...(process.platform==='darwin'?[{label:'글결',submenu:[{role:'about'},{type:'separator'},{role:'quit'}]}]:[]),
     {label:'파일',submenu:[{label:'열기…',accelerator:'CmdOrCtrl+O',click:()=>action('open')},{label:'다른 이름으로 저장…',accelerator:'CmdOrCtrl+Shift+S',click:()=>action('save')},{type:'separator'},{role:'close'}]},
-    {label:'편집',submenu:[{label:'실행 취소',accelerator:'CmdOrCtrl+Z',click:()=>action('undo')},{label:'다시 실행',accelerator:'CmdOrCtrl+Shift+Z',click:()=>action('redo')},{type:'separator'},{role:'cut'},{role:'copy'},{role:'paste'},{role:'selectAll'}]},
+    {label:'편집',submenu:[{label:'실행 취소',accelerator:'CmdOrCtrl+Z',click:()=>action('undo')},{label:'다시 실행',accelerator:'CmdOrCtrl+Shift+Z',click:()=>action('redo')},{type:'separator'},{role:'cut'},{role:'copy'},{role:'paste'},
+      {id:'document-select-all',label:'모두 선택',accelerator:'CmdOrCtrl+A',click:(_item,focusedWindow)=>{
+        if(focusedWindow&&focusedWindow!==win){if(!focusedWindow.isDestroyed())focusedWindow.webContents.selectAll();return;}
+        action('select-all');
+      }}]},
     {label:'보기',submenu:[{role:'togglefullscreen'}]},
     {label:'도움말',submenu:[{label:'버전과 라이선스',click:()=>action('about')}]}
   ];

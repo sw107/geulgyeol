@@ -10,7 +10,16 @@ export function observeComposition(document) {
 }
 
 export async function routeHistory(action, {document, editor, busy = false}) {
-  if (!['undo', 'redo'].includes(action) || busy || !editor) return;
+  if (!['undo', 'redo'].includes(action)) return;
+  return routeEditingAction(action, {document, editor, busy});
+}
+
+export async function routeSelectAll(options) {
+  return routeEditingAction('select-all', options);
+}
+
+async function routeEditingAction(action, {document, editor, busy = false}) {
+  if (busy || !editor) return;
   let focusedDocument = document;
   let active = focusedDocument.activeElement;
   while (active?.tagName === 'IFRAME' && active.contentDocument) {
@@ -24,7 +33,7 @@ export async function routeHistory(action, {document, editor, busy = false}) {
   const isDocumentInput = active?.getAttribute?.('aria-label') === '문서 편집 입력';
   const isField = active && (['INPUT', 'TEXTAREA'].includes(active.tagName) || active.isContentEditable);
   if (isField && !isDocumentInput) {
-    focusedDocument.execCommand(action);
+    focusedDocument.execCommand(action === 'select-all' ? 'selectAll' : action);
     return;
   }
   // A modal must not allow an unrelated document edit behind it.
