@@ -16,6 +16,7 @@ import type { EventBus } from '@/core/event-bus';
 import type { CommandServices } from '@/command/types';
 import { userSettings } from '@/core/user-settings';
 import { enableDialogDrag } from './dialog-drag';
+import { colorRefToHex } from './color-ref.ts';
 import {
   buildPicturePropsPatch,
   resolvePicturePropsApplyTarget,
@@ -29,14 +30,6 @@ const HWP_PER_MM = 7200 / 25.4; // ≈ 283.46
 
 function hwpToMm(hwp: number): number {
   return hwp / HWP_PER_MM;
-}
-
-/** HWP ColorRef (BGR u32) → HTML hex (#rrggbb) */
-function colorRefToHex(c: number): string {
-  const b = (c >> 16) & 0xFF;
-  const g = (c >> 8) & 0xFF;
-  const r = c & 0xFF;
-  return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
 }
 
 /** 탭 이름 — 그림용 */

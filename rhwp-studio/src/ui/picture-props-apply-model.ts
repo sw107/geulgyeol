@@ -1,4 +1,5 @@
 import type { CellPathLike, PictureProperties, ShapeProperties } from '@/core/types';
+import { hexToColorRef } from './color-ref.ts';
 
 export type PicturePropsObjectType = 'image' | 'shape' | 'line' | 'group' | 'ole';
 
@@ -169,14 +170,6 @@ function integerOr(raw: string | undefined, fallback: number): number {
 
 function mmToHwp(raw: string | undefined): number {
   return Math.round(numberOr(raw, 0) * HWP_PER_MM);
-}
-
-function hexToColorRef(hex: string): number {
-  const value = hex.replace('#', '');
-  const red = parseInt(value.substring(0, 2), 16);
-  const green = parseInt(value.substring(2, 4), 16);
-  const blue = parseInt(value.substring(4, 6), 16);
-  return (blue << 16) | (green << 8) | red;
 }
 
 function addChanged(
