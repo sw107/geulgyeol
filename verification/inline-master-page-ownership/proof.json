@@ -1,0 +1,119 @@
+{
+  "baseCommit": "d45b704442e60b9470a9c57f877a5b1cca0940bf",
+  "scope": "Engine parser/serializer only; synthetic source-byte fixtures; Draft review required",
+  "native": {
+    "positiveInputs": 19,
+    "rejectedAmbiguousInputs": 8,
+    "native": {
+      "loads": 19,
+      "reopens": 68,
+      "snapshotRestores": 38
+    },
+    "unchangedExportGuards": {
+      "unchangedRefusals": 5
+    },
+    "sourceSHA256": "de5af42b9fe6579de23fc322dc0f2bdf67823afe5804b66a359f877e915b112f",
+    "binarySHA256": "8d49571f830dfe2f72ba84140e0cfce5531c5a13c3b1ad5d5abac2f12efc9dae",
+    "GUIVerified": false
+  },
+  "wasm": {
+    "engineSHA256": "835556446e08a7d618ee006359cb99dae936c8d7ccb361dedde0bcd6ef81be95",
+    "loads": 19,
+    "rejectedAmbiguousInputs": 8,
+    "exportRefusals": 8,
+    "wasmReopens": 68,
+    "snapshotRestores": 38,
+    "nativeVerification": {
+      "loads": 68,
+      "reopens": 256,
+      "snapshotRestores": 136
+    },
+    "GUIVerified": false
+  },
+  "release": {
+    "remappedAtCompilation": true,
+    "offlineLocked": true,
+    "versions": {
+      "cargo": "cargo 1.93.1 (083ac5135 2025-12-15)",
+      "rustc": "rustc 1.93.1 (01f6ddf75 2026-02-11)",
+      "wasm-bindgen": "wasm-bindgen 0.2.127"
+    },
+    "audit": {
+      "clean": true,
+      "filesChecked": 4,
+      "findings": []
+    },
+    "files": {
+      "rhwp.js": "6d90a9c2eb8d3f54e0660c377a22e3b68cb9e571d7e2df39ce65a33db472908b",
+      "rhwp.d.ts": "6e3190f1bc68b0474bd8826219b33d30a589d934099e4372cae22384a7d6c8cd",
+      "rhwp_bg.wasm": "835556446e08a7d618ee006359cb99dae936c8d7ccb361dedde0bcd6ef81be95",
+      "rhwp_bg.wasm.d.ts": "658ae260e5979667cbc59fde32e8d22c4f14480cd77b59dfaf6115d28e2dc880"
+    }
+  },
+  "cargoCheck": {
+    "exitCode": 0,
+    "scope": "--lib --example inline_master_pages_check"
+  },
+  "sdkTypes": {
+    "exitCode": 0,
+    "strict": true,
+    "noEmit": true,
+    "module": "nodenext",
+    "target": "es2022",
+    "scope": "generated release SDK declarations and typed export/snapshot consumer",
+    "consumerSHA256": "d9b4d4ffa112f81433d4107e0c49670c20712e44659452ed553bd31ab6cc06c4",
+    "tscSHA256": "2219f428a7e55aaf1f7ad85b9b0f0cf5078aeb76ccc9a7c6036c92d48f492ffd"
+  },
+  "regressions": {
+    "namedField": {
+      "cases": 54,
+      "readChecks": 216,
+      "rejections": 276,
+      "legacyChecks": 6,
+      "protectedChecks": 2,
+      "reopens": 216,
+      "snapshotRestores": 108
+    },
+    "singleComment": {
+      "mode": "fixed",
+      "cases": 72,
+      "controls": 8,
+      "rejections": 36,
+      "successes": 36,
+      "observedDefects": 0,
+      "reopens": 144
+    }
+  },
+  "sourceSHA256": {
+    "engine/src/parser/body_text.rs": "a168f71fff6e42bab0cdb5b0e85931061ba5ccc5bdc3fb24b9b144df4503b080",
+    "engine/src/parser/hwpx/mod.rs": "2e7dbf46b482d1d90409b66427464cb2dad4b47f8db3725af4b66f0eea3b5845",
+    "engine/src/serializer/hwpx/context.rs": "e817b2d019ad7492ac50b8e35cc21b1c6995607311be554b8088af6159dd82a5",
+    "engine/src/serializer/hwpx/section.rs": "15b2f349d39a33fe1fc0863306ecde2bbcd406709f00c2f2cad4a5c925375a37",
+    "engine/src/serializer/hwpx/mod.rs": "b9a4efd5dea9e6ebe526804ca13d8609fd4be5bf2d48295a44f6bef05e4b5067",
+    "engine/src/serializer/hwpx/table.rs": "3eb8c781d6ac5ecfd7c0bf0eed9a9fe6521de036fb998af6071abe9e6983c91c",
+    "engine/src/serializer/cfb_writer.rs": "f9e83f70210c9e3dad1dff336d9795849614b299d8f89f5df78fab59b809248a",
+    "engine/src/serializer/hwpx/master_page.rs": "2b376c047f663bf82fe26814143bae7457b350d80f221f5f54475149a20f27ac",
+    "engine/src/parser/hwpx/inline_master_pages.rs": "a3ae4bf3b9cd5ab02c6ab3a8b5c6c136852a600b2f4c46753f2c3e3d0f614de8",
+    "engine/examples/inline_master_pages_check.rs": "4ec003f9de007f75e99530926e291366a89f65c851d579ce920772a730010123",
+    "scripts/check-inline-master-pages.py": "de5af42b9fe6579de23fc322dc0f2bdf67823afe5804b66a359f877e915b112f",
+    "scripts/check-inline-master-pages.mjs": "ed7b1e68b07212ccbefcda86ea13b47d04d634de56447f2ddc2e74faf59edc6f"
+  },
+  "originalDirtyCheckoutUnchanged": true,
+  "limitations": {
+    "fullLibTests": {
+      "exitCode": 101,
+      "stage": "compile before test execution",
+      "missingFiles": [
+        "engine/mydocs/tech/agent_runtime/version_policy.md",
+        "engine/samples/3-09월_교육_통합_2022.hwp",
+        "engine/samples/hwp3-sample16-hwp5.hwp",
+        "engine/samples/hwpx/aift.hwpx"
+      ]
+    },
+    "clippy": "Unavailable in pinned toolchain: no such command",
+    "GUI": "No screen-control tool; no Hancom or Electron QA for this patch",
+    "CI": "Not certified; local checks do not imply CI or app success",
+    "HWP": "New sparse/multiple/extension inline projections are refused; HWPX preserves supported explicit owners",
+    "orphanParts": "Not assigned by manifest order; retention of unreferenced parts is not certified"
+  }
+}

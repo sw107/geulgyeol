@@ -56,6 +56,7 @@ pub fn serialize_hwpx_with_report(doc: &Document) -> Result<SerializedDocument, 
     let projected = super::numbering_restart::document_for_export(doc)?;
     let doc = projected.as_ref();
     crate::model::memo::validate(doc, true).map_err(SerializeError::UnsupportedInput)?;
+    master_page::validate_nested_owners(doc)?;
     use static_assets::*;
 
     // 1-pass: ID 풀 구성
@@ -88,20 +89,16 @@ pub fn serialize_hwpx_with_report(doc: &Document) -> Result<SerializedDocument, 
         z.write_deflated(&section_hrefs[i], &xml)?;
     }
 
-    // 4b. Contents/masterpage{N}.xml — 바탕쪽 (전 섹션 누적 전역 인덱스).
-    //     id/href 의 인덱스는 section.rs 의 idRef 인덱스와 동일 규칙(전역 누적)이라
-    //     별도 공유 상태 없이 정합한다.
+    // 4b. Emit exactly the masters registered by their actual secPr owners.
     let mut master_items: Vec<(String, String)> = Vec::new();
     let mut mp_global = 0usize;
-    for sec in &doc.sections {
-        for mp in &sec.section_def.master_pages {
-            let id = format!("masterpage{}", mp_global);
-            let href = format!("Contents/masterpage{}.xml", mp_global);
-            let xml = master_page::render_master_page_xml(mp, &id, &mut ctx);
-            z.write_deflated(&href, xml.as_bytes())?;
-            master_items.push((id, href));
-            mp_global += 1;
-        }
+    while let Some(mp) = ctx.master_pages.get(mp_global).cloned() {
+        let id = format!("masterpage{}", mp_global);
+        let href = format!("Contents/masterpage{}.xml", mp_global);
+        let xml = master_page::render_master_page_xml(&mp, &id, &mut ctx);
+        z.write_deflated(&href, xml.as_bytes())?;
+        master_items.push((id, href));
+        mp_global += 1;
     }
 
     // 5. Preview/PrvText.txt + Preview/PrvImage.png — 원본 보존 우선.

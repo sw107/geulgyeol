@@ -14,6 +14,7 @@ pub mod content;
 mod contract_streams;
 mod crypto;
 pub mod header;
+mod inline_master_pages;
 pub mod reader;
 pub mod section;
 pub mod utils;
@@ -502,6 +503,18 @@ pub fn parse_hwpx(data: &[u8]) -> Result<Document, HwpxError> {
         };
         match section::parse_hwpx_section(&section_xml) {
             Ok(mut section) => {
+                if (!master_page_refs.is_empty() || !package_info.master_page_items.is_empty())
+                    && inline_master_pages::attach(
+                        &mut reader,
+                        &mut section,
+                        &section_xml,
+                        &package_info.master_page_items,
+                        &package_info.bin_data_items,
+                    )?
+                {
+                    sections.push(section);
+                    continue;
+                }
                 let (master_page_hrefs, missing_master_page_refs) =
                     resolve_master_page_hrefs(&master_page_refs, &package_info.master_page_items);
                 for missing_ref in missing_master_page_refs {
@@ -539,6 +552,18 @@ pub fn parse_hwpx(data: &[u8]) -> Result<Document, HwpxError> {
                             }
                         }
                     }
+                }
+                // Keep the first-paragraph mirror coherent for single owners
+                // too. HWP-origin HWPX skips the HWPX export adapter, so leaving
+                // this control stale would drop that physical section's masters.
+                if let Some(crate::model::control::Control::SectionDef(sd)) =
+                    section.paragraphs.first_mut().and_then(|p| {
+                        p.controls
+                            .iter_mut()
+                            .find(|c| matches!(c, crate::model::control::Control::SectionDef(_)))
+                    })
+                {
+                    sd.master_pages = section.section_def.master_pages.clone();
                 }
                 sections.push(section);
             }

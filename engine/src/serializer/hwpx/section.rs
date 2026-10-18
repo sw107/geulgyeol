@@ -500,9 +500,47 @@ const TAB_NO_DATA_WIDTH_MARKER: u32 = 0;
 pub fn write_section(
     section: &Section,
     doc: &Document,
-    index: usize,
+    _index: usize,
     ctx: &mut SerializeContext,
 ) -> Result<Vec<u8>, SerializeError> {
+    let has_masters = !section.section_def.master_pages.is_empty()
+        || section
+            .paragraphs
+            .iter()
+            .flat_map(|p| &p.controls)
+            .any(|c| matches!(c, Control::SectionDef(sd) if !sd.master_pages.is_empty()));
+    if has_masters
+        && section.paragraphs.iter().any(|p| {
+            p.controls
+                .iter()
+                .filter(|c| matches!(c, Control::SectionDef(_)))
+                .count()
+                > 1
+        })
+    {
+        return Err(SerializeError::UnsupportedInput(
+            "multiple secPr controls in one paragraph have no supported master-page owner path"
+                .into(),
+        ));
+    }
+    if doc.provenance.format == crate::model::provenance::SourceFormat::Hwp5
+        && section
+            .section_def
+            .master_pages
+            .iter()
+            .any(|mp| mp.is_extension)
+        && section
+            .paragraphs
+            .iter()
+            .flat_map(|p| &p.controls)
+            .filter(|c| matches!(c, Control::SectionDef(_)))
+            .count()
+            > 1
+    {
+        return Err(SerializeError::UnsupportedInput(
+            "a physical HWP extension master-page tail has no explicit inline owner".into(),
+        ));
+    }
     // Only a complete, freshly attested one-page picture chain may publish
     // editor-produced rows. Generic synthetic caches still follow #5847's
     // omission rule; accumulated multi-page vertical positions are excluded.
@@ -581,16 +619,10 @@ pub fn write_section(
 
     // 바탕쪽(masterPage) — secPr 의 masterPageCnt 치환 + secPr 내부 끝에 idRef 참조 삽입.
     // 누락 시 라운드트립에서 바탕쪽 전체(그 안의 그림/표/문단 노드 포함)가 소실된다.
-    // id 인덱스는 전 섹션 누적 전역값으로, mod.rs 의 파일 생성 인덱스와 정합한다.
+    // Register the actual owner, including any inline definitions, in one queue.
     let master_pages = &section.section_def.master_pages;
     if !master_pages.is_empty() {
-        let base: usize = doc.sections[..index]
-            .iter()
-            .map(|s| s.section_def.master_pages.len())
-            .sum();
-        let ids: Vec<String> = (0..master_pages.len())
-            .map(|k| format!("masterpage{}", base + k))
-            .collect();
+        let ids = ctx.register_master_pages(master_pages);
         out = out.replacen(
             r#"masterPageCnt="0""#,
             &format!(r#"masterPageCnt="{}""#, master_pages.len()),
@@ -693,7 +725,7 @@ pub fn write_section(
                 .iter()
                 .find(|c| matches!(c, Control::SectionDef(_)))
             {
-                extra.push_str(&build_secpr_run(sd, first_run_char_shape_id(p)));
+                extra.push_str(&build_secpr_run(sd, first_run_char_shape_id(p), ctx)?);
             }
             extra.push_str(&runs);
             extra.push_str(&linesegs);
@@ -750,12 +782,21 @@ pub(super) fn first_run_char_shape_id(p: &Paragraph) -> u32 {
 ///
 /// secPr 템플릿(`EMPTY_SECTION_XML`)에서 secPr 블록만 잘라 IR 값으로 치환한다 —
 /// 커스터마이즈 앵커(pagePr·visibility·scalars·footNotePr·pageBorderFill)가 모두 secPr
-/// 내부라 첫 구역과 같은 함수를 재사용한다. 바탕쪽(masterPage)은 이 경로에서 미지원
-/// (`masterPageCnt="0"` 유지) — 후속 구역의 바탕쪽은 드물다.
+/// 내부라 첫 구역과 같은 함수를 재사용한다. 바탕쪽은 실제 소유 secPr가 참조와
+/// package part를 같은 context queue에 등록한다.
 ///
 /// [#5873] 표 셀(subList) 안 문단도 같은 보완이 필요하다 —
 /// `table.rs::write_sub_list_paragraphs` 가 이 함수를 재사용한다.
-pub(super) fn build_secpr_run(sd: &SectionDef, first_cs: u32) -> String {
+pub(super) fn build_secpr_run(
+    sd: &SectionDef,
+    first_cs: u32,
+    ctx: &mut SerializeContext,
+) -> Result<String, SerializeError> {
+    if ctx.sub_list_depth > 0 && !sd.master_pages.is_empty() {
+        return Err(SerializeError::UnsupportedInput(
+            "nested secPr master pages need an explicit supported owner path".into(),
+        ));
+    }
     let start = EMPTY_SECTION_XML
         .find("<hp:secPr ")
         .expect("템플릿에 secPr 열기 태그가 있어야 함");
@@ -769,7 +810,20 @@ pub(super) fn build_secpr_run(sd: &SectionDef, first_cs: u32) -> String {
     secpr = replace_visibility(&secpr, sd);
     secpr = replace_secpr_scalars(&secpr, sd);
     secpr = replace_footnote_shape(&secpr, sd);
-    format!(r#"<hp:run charPrIDRef="{}">{}</hp:run>"#, first_cs, secpr)
+    if !sd.master_pages.is_empty() {
+        let ids = ctx.register_master_pages(&sd.master_pages);
+        secpr = secpr.replacen(
+            r#"masterPageCnt="0""#,
+            &format!(r#"masterPageCnt="{}""#, ids.len()),
+            1,
+        );
+        let refs = super::master_page::render_master_page_refs(&ids);
+        secpr = secpr.replacen("</hp:secPr>", &format!("{refs}</hp:secPr>"), 1);
+    }
+    Ok(format!(
+        r#"<hp:run charPrIDRef="{}">{}</hp:run>"#,
+        first_cs, secpr
+    ))
 }
 
 /// Paragraph 하나를 (완전한 `<hp:run>` 시퀀스 XML, `<hp:linesegarray>` 요소 XML,
@@ -2830,7 +2884,12 @@ fn render_shape(shape: &ShapeObject, ctx: &mut SerializeContext) -> String {
         // 설명(#1392)은 캡션 직후 (write_container_close 내부)
         match writer_to_string(|w| {
             let display_common = crate::renderer::float_placement::oriented_picture_group_common(g);
-            super::shape::write_container_close(w, g.caption.as_ref(), display_common.as_ref().unwrap_or(&g.common), ctx)
+            super::shape::write_container_close(
+                w,
+                g.caption.as_ref(),
+                display_common.as_ref().unwrap_or(&g.common),
+                ctx,
+            )
         }) {
             Ok(close) => xml.push_str(&close),
             Err(e) => eprintln!("[hwpx] Shape::Group 닫기 실패: {e}"),
@@ -2931,7 +2990,8 @@ fn render_shape(shape: &ShapeObject, ctx: &mut SerializeContext) -> String {
         ShapeObject::Arc(a) => format!(r#" type="{}""#, arc_type_hwpx_str(a.arc_type)),
         ShapeObject::Ellipse(e) => format!(
             r#" intervalDirty="{}" hasArcPr="{}" arcType="{}""#,
-            e.attr & 1 != 0, e.attr & 2 != 0,
+            e.attr & 1 != 0,
+            e.attr & 2 != 0,
             arc_type_hwpx_str(((e.attr >> 8) & 3) as u8),
         ),
         _ => String::new(),

@@ -383,7 +383,7 @@ fn write_sub_list_paragraphs<W: Write>(
             .iter()
             .find(|c| matches!(c, crate::model::control::Control::SectionDef(_)))
         {
-            p_xml.push_str(&build_secpr_run(sd, first_run_char_shape_id(para)));
+            p_xml.push_str(&build_secpr_run(sd, first_run_char_shape_id(para), ctx)?);
         }
         p_xml.push_str(&runs);
         p_xml.push_str(&linesegs);

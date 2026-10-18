@@ -12,6 +12,85 @@ use crate::model::header_footer::{HeaderFooterApply, MasterPage};
 use super::context::SerializeContext;
 use super::section::{render_hp_p_open, render_paragraph_parts};
 
+/// Refuse unsupported nested owners before rendering: local control errors may
+/// otherwise become content-loss reports, dropping a table instead of failing.
+pub(super) fn validate_nested_owners(
+    doc: &crate::model::document::Document,
+) -> Result<(), crate::serializer::SerializeError> {
+    use crate::model::{control::Control, shape::ShapeObject};
+    let mut pending = Vec::new();
+    for section in &doc.sections {
+        pending.extend(section.paragraphs.iter().map(|p| (p, false)));
+        for mp in &section.section_def.master_pages {
+            pending.extend(mp.paragraphs.iter().map(|p| (p, true)));
+        }
+    }
+    while let Some((paragraph, nested)) = pending.pop() {
+        for control in &paragraph.controls {
+            match control {
+                Control::SectionDef(sd) => {
+                    if nested && !sd.master_pages.is_empty() {
+                        return Err(crate::serializer::SerializeError::UnsupportedInput(
+                            "nested secPr master pages need an explicit supported owner path"
+                                .into(),
+                        ));
+                    }
+                    for mp in &sd.master_pages {
+                        pending.extend(mp.paragraphs.iter().map(|p| (p, true)));
+                    }
+                }
+                Control::Table(table) => {
+                    for cell in &table.cells {
+                        pending.extend(cell.paragraphs.iter().map(|p| (p, true)));
+                    }
+                    if let Some(caption) = &table.caption {
+                        pending.extend(caption.paragraphs.iter().map(|p| (p, true)));
+                    }
+                }
+                Control::Shape(shape) => {
+                    let mut shapes = vec![shape.as_ref()];
+                    while let Some(shape) = shapes.pop() {
+                        if let Some(drawing) = shape.drawing() {
+                            if let Some(text_box) = &drawing.text_box {
+                                pending.extend(text_box.paragraphs.iter().map(|p| (p, true)));
+                            }
+                            if let Some(caption) = &drawing.caption {
+                                pending.extend(caption.paragraphs.iter().map(|p| (p, true)));
+                            }
+                        }
+                        let caption = match shape {
+                            ShapeObject::Group(group) => {
+                                shapes.extend(&group.children);
+                                group.caption.as_ref()
+                            }
+                            ShapeObject::Picture(p) => p.caption.as_ref(),
+                            ShapeObject::Chart(c) => c.caption.as_ref(),
+                            ShapeObject::Ole(o) => o.caption.as_ref(),
+                            _ => None,
+                        };
+                        if let Some(caption) = caption {
+                            pending.extend(caption.paragraphs.iter().map(|p| (p, true)));
+                        }
+                    }
+                }
+                Control::Picture(picture) => {
+                    if let Some(caption) = &picture.caption {
+                        pending.extend(caption.paragraphs.iter().map(|p| (p, true)));
+                    }
+                }
+                Control::Header(h) => pending.extend(h.paragraphs.iter().map(|p| (p, true))),
+                Control::Footer(f) => pending.extend(f.paragraphs.iter().map(|p| (p, true))),
+                Control::Footnote(f) => pending.extend(f.paragraphs.iter().map(|p| (p, true))),
+                Control::Endnote(e) => pending.extend(e.paragraphs.iter().map(|p| (p, true))),
+                Control::HiddenComment(h) => pending.extend(h.paragraphs.iter().map(|p| (p, true))),
+                Control::Field(f) => pending.extend(f.memo_paragraphs.iter().map(|p| (p, true))),
+                _ => {}
+            }
+        }
+    }
+    Ok(())
+}
+
 /// `<masterPage>`/section XML 공용 네임스페이스 블록 (empty_section0.xml 와 동일).
 const XMLNS: &str = r#"xmlns:ha="http://www.hancom.co.kr/hwpml/2011/app" xmlns:hp="http://www.hancom.co.kr/hwpml/2011/paragraph" xmlns:hp10="http://www.hancom.co.kr/hwpml/2016/paragraph" xmlns:hs="http://www.hancom.co.kr/hwpml/2011/section" xmlns:hc="http://www.hancom.co.kr/hwpml/2011/core" xmlns:hh="http://www.hancom.co.kr/hwpml/2011/head" xmlns:hhs="http://www.hancom.co.kr/hwpml/2011/history" xmlns:hm="http://www.hancom.co.kr/hwpml/2011/master-page" xmlns:hpf="http://www.hancom.co.kr/schema/2011/hpf" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf/" xmlns:ooxmlchart="http://www.hancom.co.kr/hwpml/2016/ooxmlchart" xmlns:hwpunitchar="http://www.hancom.co.kr/hwpml/2016/HwpUnitChar" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0""#;
 
