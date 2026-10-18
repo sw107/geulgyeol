@@ -27,6 +27,7 @@ export class ViewportManager {
   private resizeObserver: ResizeObserver | null = null;
   private resizeAnimationFrame: number | null = null;
   private scrollAnimationFrame: number | null = null;
+  private scrollUpdateEpoch = 0;
   private zoomAnimationFrame: number | null = null;
   private zoomAnimationTimestamp: number | null = null;
   private zoomAnimating = false;
@@ -93,10 +94,7 @@ export class ViewportManager {
       clearTimeout(this.resizeAnimationFrame);
       this.resizeAnimationFrame = null;
     }
-    if (this.scrollAnimationFrame !== null) {
-      cancelAnimationFrame(this.scrollAnimationFrame);
-      this.scrollAnimationFrame = null;
-    }
+    this.cancelPendingScrollUpdate();
     this.cancelZoomAnimation();
     this.container = null;
   }
@@ -116,10 +114,21 @@ export class ViewportManager {
     if (this.scrollAnimationFrame !== null) return;
 
     // 스크롤 중에는 최신 좌표만 다음 프레임에 반영해 렌더가 입력 이벤트를 막지 않게 한다.
+    const epoch = this.scrollUpdateEpoch;
     this.scrollAnimationFrame = requestAnimationFrame(() => {
+      if (epoch !== this.scrollUpdateEpoch || !this.container) return;
       this.scrollAnimationFrame = null;
       this.eventBus.emit('viewport-scroll', this.scrollY, this.scrollX);
     });
+  }
+
+  /** 문서 교체/연결 해제 전의 scroll 알림이 다음 문서로 넘어가지 않게 한다. */
+  cancelPendingScrollUpdate(): void {
+    this.scrollUpdateEpoch++;
+    if (this.scrollAnimationFrame !== null) {
+      cancelAnimationFrame(this.scrollAnimationFrame);
+      this.scrollAnimationFrame = null;
+    }
   }
 
   /** Ctrl+휠: 브라우저 줌 대신 문서 줌 */
