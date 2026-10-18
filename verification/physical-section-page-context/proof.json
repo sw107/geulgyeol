@@ -1,0 +1,345 @@
+{
+  "baseCommit": "84d05eb011f6ff65eec9ccd1515fb23ab3d5ee66",
+  "scope": "Existing physical-section live page-number, parity and decoration cache P2. PR81 already merged; this separate correction remains Draft pending independent review and actual-app QA.",
+  "mergedPR81": {
+    "PR": {
+      "baseRefOid": "bbc2c4d25b015b571068e4e9f38a5d1689021e6f",
+      "headRefOid": "99f55331e0a337a114a63b8323b932067feea390",
+      "isDraft": false,
+      "mergeCommit": {
+        "oid": "84d05eb011f6ff65eec9ccd1515fb23ab3d5ee66"
+      },
+      "mergedAt": "2026-10-18T16:21:45Z",
+      "state": "MERGED",
+      "statusCheckRollup": [],
+      "url": "https://github.com/sw107/geulgyeol/pull/81"
+    },
+    "remoteMain": "84d05eb011f6ff65eec9ccd1515fb23ab3d5ee66",
+    "treeIDs": {
+      "84d05eb011f6ff65eec9ccd1515fb23ab3d5ee66": "a982414aa49ff68b4fd8d8794566b600d98defd7",
+      "99f55331e0a337a114a63b8323b932067feea390": "a982414aa49ff68b4fd8d8794566b600d98defd7"
+    },
+    "reviewedWASMSHA256": "0b8659cdacd1aca5dd8f29322ad6ff41c28946f26ffa2517655f796c33047ece",
+    "reviewedWASMUnchanged": true,
+    "mainContainsMerge": true,
+    "deployed": false
+  },
+  "baseline": {
+    "native": {
+      "GUIVerified": false,
+      "cases": 13,
+      "comparisons": 65,
+      "fullRebuilds": 65,
+      "mismatches": 20,
+      "mode": "baseline",
+      "reopens": 65,
+      "snapshotRestores": 13
+    },
+    "wasm": {
+      "mode": "baseline",
+      "engineSHA256": "0b8659cdacd1aca5dd8f29322ad6ff41c28946f26ffa2517655f796c33047ece",
+      "cases": 13,
+      "comparisons": 65,
+      "mismatches": 20,
+      "reopens": 65,
+      "hwpReopens": 30,
+      "snapshotRestores": 13,
+      "crossFormatHwpExcluded": [
+        "three-physical",
+        "edit-middle-physical",
+        "restart-with-following",
+        "odd-even",
+        "two-inline-masters",
+        "extension-0",
+        "extension-1"
+      ],
+      "crossFormatLimit": "Three-physical-section shared-master HWP conversion differs already in the merged baseline; not certified or repaired by this cache change. Exact reviewer fixtures test HWPX only.",
+      "GUIVerified": false
+    },
+    "nativeBinarySHA256": "b2e69d8bd910b9db00352d24f7936f9b8ee9bfd6df5e625291c94e4b3f8a439e",
+    "nativeInstrumentation": "Frozen baseline helper checks HWPX and direct in-memory rebuild; final helper additionally checks the public HWP adapter."
+  },
+  "fixed": {
+    "native": {
+      "GUIVerified": false,
+      "cases": 13,
+      "comparisons": 65,
+      "fullRebuilds": 65,
+      "hwpReopens": 30,
+      "mismatches": 0,
+      "mode": "fixed",
+      "reopens": 65,
+      "snapshotRestores": 13
+    },
+    "wasm": {
+      "mode": "fixed",
+      "engineSHA256": "4f2cf2a84cffcc62d3abae8bfd8aa56d82393bd1f6dd4914a1df75d07bd64ace",
+      "cases": 13,
+      "comparisons": 65,
+      "mismatches": 0,
+      "reopens": 65,
+      "hwpReopens": 30,
+      "snapshotRestores": 13,
+      "crossFormatHwpExcluded": [
+        "three-physical",
+        "edit-middle-physical",
+        "restart-with-following",
+        "odd-even",
+        "two-inline-masters",
+        "extension-0",
+        "extension-1"
+      ],
+      "crossFormatLimit": "Three-physical-section shared-master HWP conversion differs already in the merged baseline; not certified or repaired by this cache change. Exact reviewer fixtures test HWPX only.",
+      "GUIVerified": false
+    },
+    "nativeBinarySHA256": "944a52a6af0dbddfc6f3ddadc60315f7ff61aea56787192f37fa0046c35e1772"
+  },
+  "release": {
+    "remappedAtCompilation": true,
+    "offlineLocked": true,
+    "versions": {
+      "cargo": "cargo 1.93.1 (083ac5135 2025-12-15)",
+      "rustc": "rustc 1.93.1 (01f6ddf75 2026-02-11)",
+      "wasm-bindgen": "wasm-bindgen 0.2.127"
+    },
+    "audit": {
+      "clean": true,
+      "filesChecked": 4,
+      "findings": []
+    },
+    "files": {
+      "rhwp.js": "6d90a9c2eb8d3f54e0660c377a22e3b68cb9e571d7e2df39ce65a33db472908b",
+      "rhwp.d.ts": "6e3190f1bc68b0474bd8826219b33d30a589d934099e4372cae22384a7d6c8cd",
+      "rhwp_bg.wasm": "4f2cf2a84cffcc62d3abae8bfd8aa56d82393bd1f6dd4914a1df75d07bd64ace",
+      "rhwp_bg.wasm.d.ts": "658ae260e5979667cbc59fde32e8d22c4f14480cd77b59dfaf6115d28e2dc880"
+    }
+  },
+  "regressions": {
+    "native-storage-output": {
+      "positiveInputs": 23,
+      "rejectedAmbiguousInputs": 10,
+      "native": {
+        "loads": 23,
+        "reopens": 84,
+        "snapshotRestores": 46
+      },
+      "unchangedExportGuards": {
+        "unchangedRefusals": 5
+      },
+      "sourceSHA256": "6e1a79ea0aba10644473010ed97d774f19e08bed8aace731c5f2cbfc08ff5275",
+      "binarySHA256": "e3b37ad64d514ea207cab398f190fc55b897f56093a5385891620263f6db301f",
+      "GUIVerified": false
+    },
+    "wasm-storage-output": {
+      "engineSHA256": "4f2cf2a84cffcc62d3abae8bfd8aa56d82393bd1f6dd4914a1df75d07bd64ace",
+      "loads": 23,
+      "rejectedAmbiguousInputs": 10,
+      "exportRefusals": 8,
+      "wasmReopens": 84,
+      "snapshotRestores": 46,
+      "nativeVerification": {
+        "loads": 84,
+        "reopens": 320,
+        "snapshotRestores": 168
+      },
+      "GUIVerified": false
+    },
+    "native-inline-render-output": {
+      "mode": "native",
+      "documents": 76,
+      "pageChecks": 204,
+      "hitChecks": 168,
+      "reopens": 56,
+      "snapshotRestores": 4,
+      "physicalEquivalenceChecks": 7,
+      "fixtures": 12,
+      "longTextMetricScope": "Long line geometry must equal a same-width physical-root control. Existing shared font-metric overhang is not repaired or certified here.",
+      "engineSHA256": "e3b37ad64d514ea207cab398f190fc55b897f56093a5385891620263f6db301f",
+      "GUIVerified": false
+    },
+    "wasm-inline-render-output": {
+      "mode": "wasm",
+      "documents": 114,
+      "pageChecks": 286,
+      "hitChecks": 250,
+      "reopens": 56,
+      "snapshotRestores": 28,
+      "physicalEquivalenceChecks": 6,
+      "fixtures": 12,
+      "longTextMetricScope": "Long line geometry must equal a same-width physical-root control. Existing shared font-metric overhang is not repaired or certified here.",
+      "engineSHA256": "4f2cf2a84cffcc62d3abae8bfd8aa56d82393bd1f6dd4914a1df75d07bd64ace",
+      "GUIVerified": false
+    },
+    "named-field-output": {
+      "engineSHA256": "4f2cf2a84cffcc62d3abae8bfd8aa56d82393bd1f6dd4914a1df75d07bd64ace",
+      "cases": 54,
+      "readChecks": 216,
+      "rejections": 276,
+      "legacyChecks": 6,
+      "protectedChecks": 2,
+      "reopens": 216,
+      "snapshotRestores": 108,
+      "limits": [
+        "Engine-only SDK API; no OCX token routing, source UI or native Hancom claim.",
+        "Occurrence order is the current document getFieldList order. Callers must refresh it after structural edits."
+      ]
+    },
+    "comment-output": {
+      "mode": "fixed",
+      "engineSHA256": "4f2cf2a84cffcc62d3abae8bfd8aa56d82393bd1f6dd4914a1df75d07bd64ace",
+      "cases": 72,
+      "controls": 8,
+      "rejections": 36,
+      "successes": 36,
+      "observedDefects": 0,
+      "reopens": 144,
+      "snapshotRestores": 144,
+      "limits": [
+        "Headless WASM engine only; no native app, physical input, UI history or Hancom validation.",
+        "Scope is the existing single body replacement APIs; Replace All policy is unchanged."
+      ]
+    }
+  },
+  "checks": {
+    "cargo-check": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 14217,
+      "minFreeBytes": 32358400000,
+      "maxAdditionalAllocatedBytes": 381620224,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "check",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--example",
+        "physical_section_context_check",
+        "--example",
+        "inline_master_pages_check"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "wasm-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 146385,
+      "minFreeBytes": 32399360000,
+      "maxAdditionalAllocatedBytes": 251666432,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/build-wasm-release.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr81-merge-and-physical-page-cache/wasm-release/pkg"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    }
+  },
+  "ui": {
+    "result": [
+      {
+        "argv": [
+          "node",
+          "--test",
+          "rhwp-studio/tests/picture-caption-position.test.mjs",
+          "rhwp-studio/tests/bookmark-navigation.test.mjs",
+          "rhwp-studio/tests/bookmark-suggestion.test.mjs",
+          "rhwp-studio/tests/document-scroll-boundary.test.mjs",
+          "rhwp-studio/tests/picture-caption-format.test.mjs"
+        ],
+        "code": 0
+      },
+      {
+        "argv": [
+          "node",
+          "rhwp-studio/node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "-p",
+          "rhwp-studio"
+        ],
+        "code": 0
+      }
+    ],
+    "testsPassed": 78,
+    "testsFailed": 0
+  },
+  "sdkTypes": {
+    "argv": [
+      "node",
+      "rhwp-studio/node_modules/typescript/bin/tsc",
+      "--noEmit",
+      "--strict",
+      "--skipLibCheck",
+      "--target",
+      "es2022",
+      "--module",
+      "nodenext",
+      "--moduleResolution",
+      "nodenext",
+      "/Users/sw107/Documents/Codex/2026-10-14/task/pr81-merge-and-physical-page-cache/sdk-consumer.mts"
+    ],
+    "code": 0,
+    "consumerSHA256": "7bbfba3a2d7dc3f2f773f9206e2c75d44b55f092763212c18c32c3b8cb37f5f0"
+  },
+  "sourceSHA256": {
+    "engine/src/document_core/queries/rendering.rs": "2ae5c5d4f3301af5f84d5fc54c9681920af7b9db1acdeec5824c407477ac3dca",
+    "engine/examples/physical_section_context_check.rs": "46056fb795d41c6c08540941bebe1602dddefc32b69eb5316be6518992f62322",
+    "scripts/check-physical-section-page-context.mjs": "0e4c86dd3b308c7325988ca1f350a3045bc75b594576c3819cd22482657dd4f7",
+    "scripts/prepare-physical-section-page-context.py": "a406f06f86462ba9586ed1e461c940a380e1e722810070cb338d7561dc507306"
+  },
+  "fixtureManifestSHA256": "2b1fe899b5d338ae985685da1bb216f5a2a0fa25a2ab9e34dcef31c22d62f272",
+  "preservation": {
+    "originalStatusMatches": true,
+    "originalDiffSHA256": "f2f6bdfc26ca55571d8f2ef55e31633aa6e190e2c9e6107ae066dc36c660da88",
+    "originalUntrackedMatch": true,
+    "originalUntrackedCount": 9,
+    "priorEvidenceFiles": 3894,
+    "priorEvidenceMismatches": [],
+    "priorIndexSHA256": "64840ac22ea647db80b8b848a9ae5afa9958e944c8f007c31fdd31aad55cb756"
+  },
+  "cleanup": {
+    "toolInventory": "Shell available; no GUI control tool. Voice-only capture not applicable.",
+    "processInventory": "No Geulgyeol/Electron test process present. Licensed Hancom Office HWP process remains.",
+    "windowsClosed": 0,
+    "userApplicationsClosed": 0,
+    "testWindowsOpenedHere": 0,
+    "reason": "No test windows to close; user Hancom process preserved."
+  },
+  "GUIVerified": false,
+  "mergeBlocked": true,
+  "deployed": false,
+  "limitations": {
+    "fullLibTests": {
+      "exitCode": 101,
+      "stage": "Compile before tests; no full-suite execution",
+      "missingFiles": [
+        "engine/mydocs/tech/agent_runtime/version_policy.md",
+        "engine/samples/3-09월_교육_통합_2022.hwp",
+        "engine/samples/hwp3-sample16-hwp5.hwp",
+        "engine/samples/hwpx/aift.hwpx"
+      ]
+    },
+    "clippy": "Not installed in pinned toolchain; no download attempted",
+    "CI": "No registered checks on merged PR81; not a CI-pass claim",
+    "GUI": "New cache fix has not received actual-app/Hancom QA or independent review",
+    "performance": "Repaginates the following physical-section suffix after a dirty section; cached composition/measurements retained; no large-document benchmark",
+    "HWPConversion": "Three physical sections sharing masters can differ after HWP conversion in the merged baseline. Preserved baseline-wasm-both-formats/command.log; only the six explicitly flagged fixtures receive cross-format HWP equality certification. Exact reviewer extension fixtures test HWPX here.",
+    "testInstrumentation": "Initial Native HWP assertion used the low-level serializer instead of the public HWPX-to-HWP adapter. The failed log is retained; final Native helper uses the same adapter as the WASM public API."
+  },
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/pr81-merge-and-physical-page-cache",
+  "evidenceProofSHA256": {
+    "baseline-native-complete-output/proof.json": "da4730b536200d1f919f8eb337f40e6bb671336d9914787db964e73b6f790eb0",
+    "baseline-wasm-complete-output/proof.json": "a9193b869f35de9646e19b5130821f1c9defa985edc13d2cf9ed735ec1987a5e",
+    "fixed-native-adapter-output/proof.json": "25ae2cd35e278ce960bc36a1e31fe5b08fdffc6703c0ad89d3b9209c81272f4f",
+    "fixed-wasm-complete-output/proof.json": "8cd24b3fd387e2bcef2586d2525c65b8459b8eddcbd327e7af4dc5ac10c28402",
+    "native-storage-output/proof.json": "ae365a8fae4f204ea37158ea435028b4bd540157fb5562cc8d4a9fa6b6a64569",
+    "wasm-storage-output/proof.json": "2ad6884fdfee6ebc8041ccd39a28d75d1e482d3865d17463234d02dbb3687440",
+    "native-inline-render-output/proof.json": "fcbd36b7e0bdfb285e6f385e544f06ca89b881e35d681231829ae2a391987ef6",
+    "wasm-inline-render-output/proof.json": "7d9f40a334fa6d8756d3cd04a09e80ed58fffd6a1121df1abd860753f44ed1cc",
+    "named-field-output/proof.json": "0442a71f9638bda598f1ea97d4499e7aa7505ebb73e8594a71a25fbd44149d57",
+    "comment-output/proof.json": "7666d226de803f4bf636aac238a19dca7bd317c0a9c06019b45e192c11bc6bce",
+    "merge-verification.json": "901176bb04448f63a5b04768430d86483a3352c67ba721c142f742928a9dd598",
+    "preservation.json": "b6efc6f8be43ec6a2ef0af4cb746e3a69a7b7c6959fd03b9eb752f9188c56830"
+  }
+}

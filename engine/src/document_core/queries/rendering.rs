@@ -4836,8 +4836,14 @@ impl DocumentCore {
         let mut issue2424_measure_elapsed = std::time::Duration::ZERO;
         let mut issue2424_typeset_elapsed = std::time::Duration::ZERO;
         let mut issue2424_postprocess_elapsed = std::time::Duration::ZERO;
+        // A clean physical section still depends on preceding pagination: page
+        // numbers, facing margins and inherited odd/even decorations may change.
+        // Reprocess the suffix after the first dirty section, retaining its cached
+        // paragraph measurements and composition when its own source is clean.
+        let mut preceding_pagination_dirty = false;
         for (idx, section) in self.document.sections.iter().enumerate() {
-            if !self.dirty_sections[idx] {
+            preceding_pagination_dirty |= self.dirty_sections[idx];
+            if !preceding_pagination_dirty {
                 // dirty가 아닌 구역에서도 carry를 업데이트
                 if let Some(pages) = self.pagination.get(idx) {
                     if let Some(last) = pages.pages.last() {
