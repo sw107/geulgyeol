@@ -272,6 +272,10 @@ pub(crate) struct SectionPaginationContext {
     pub footer_even: Option<HeaderFooterRef>,
     pub master_odd: Option<MasterPageRef>,
     pub master_even: Option<MasterPageRef>,
+    /// Earlier document-end note owners consumed by the last physical section.
+    /// Source revisions cover note text, formatting, numbering and owner moves
+    /// without cloning or hashing the potentially large note bodies for the key.
+    pub document_endnote_sources: Vec<(usize, u64)>,
 }
 
 /// 표 셀 안에 중첩된 Header/Footer 컨트롤을 재귀적으로 수집한다.
