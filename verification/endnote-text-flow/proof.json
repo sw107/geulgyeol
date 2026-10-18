@@ -18,7 +18,7 @@
   },
   "after": {
     "GUIVerified": false,
-    "wasmSHA256": "8c051920c42cdb2ec53d6cce64b26571fcc05750057d2932662559e507999c07",
+    "wasmSHA256": "66c457f40a101cc40578dc539062fc95b3a5486920a3b1ae0f320cef94c42fc5",
     "cases": 18,
     "stages": 90,
     "sourceTextAndScalarCoverage": true,
@@ -52,15 +52,16 @@
   "finalRuntimePins": {
     "source": [],
     "binary": {
-      "document_endnote_flow_check": "17eb70713f7dbc0d050529cc5c557cb07646d37b93bcdb0996513798c1624f8e",
-      "document_endnote_cache_check": "b5f1b4846c3ba7afffcf3fbe5ea272aafe72c0384c4e7cd703bebe195d731bf6",
-      "physical_section_context_check": "c8044ced4c2eabb87aca40557f700be329dbef29f0b16cce43dab9ae4ffd4e0c"
+      "document_endnote_flow_check": "def93c4734a47c1fad442932e316a1feb984f46e714c34d31d33c037530ea89e",
+      "document_endnote_cache_check": "f0934e8e2f65a99244bf01319bf6050030e65910134739ea01c207d7519d327f",
+      "physical_section_context_check": "2db7dd167a1477b49c1e6cf460d73254031fbe2c6bd2e2570c03efb6709f1b72",
+      "endnote_cursor_fragment_check": "a73897e80f75fcf851c4d3564d53473c4197986047e44647a907a35cc2694c8b"
     },
     "sdk": {
       "package.json": "1239d4d885dcad42201a27ed9324f8f0f760b78700d8db9ced39a511cffe7eae",
       "rhwp.d.ts": "6e3190f1bc68b0474bd8826219b33d30a589d934099e4372cae22384a7d6c8cd",
       "rhwp.js": "6d90a9c2eb8d3f54e0660c377a22e3b68cb9e571d7e2df39ce65a33db472908b",
-      "rhwp_bg.wasm": "8c051920c42cdb2ec53d6cce64b26571fcc05750057d2932662559e507999c07",
+      "rhwp_bg.wasm": "66c457f40a101cc40578dc539062fc95b3a5486920a3b1ae0f320cef94c42fc5",
       "rhwp_bg.wasm.d.ts": "658ae260e5979667cbc59fde32e8d22c4f14480cd77b59dfaf6115d28e2dc880"
     }
   },
@@ -71,7 +72,10 @@
     "engine/src/renderer/layout.rs": "94103a80e75fc0cefaff7f97f5bf06c26fd51beb285ffe4da5b6ba21f41b388c",
     "engine/src/renderer/layout/paragraph_layout.rs": "be8acdc4da065799f43dae575e6c33e2ac793b607e6421572bf5573119fc4d79",
     "engine/src/renderer/typeset.rs": "f1e3d2cdcb5a1fe72171d22b3b12002f931652c61d10ccf431aff6073e6cc3aa",
-    "engine/examples/document_endnote_flow_check.rs": "87ca61d320f8b71601eda825272d2948af5c22828a77c9d37c1304100e8157c7"
+    "engine/examples/document_endnote_flow_check.rs": "87ca61d320f8b71601eda825272d2948af5c22828a77c9d37c1304100e8157c7",
+    "engine/src/document_core/queries/cursor_rect.rs": "b669a0777d2214645c4431693c5bb102b7a97e0fa6f6c1543f785a03e3b33afe",
+    "engine/examples/endnote_cursor_fragment_check.rs": "01df55d9ca796481b0212e4937f2909ee856ac77acbc92579d9e571c9af8817f",
+    "scripts/check-endnote-cursor-fragments.mjs": "246d4c626241ea964d8eb9a86fb6a911688573f181c7a82bf1e8ad6fc0352d78"
   },
   "legacy": {
     "legacy-notes-native": {
@@ -86,7 +90,7 @@
     },
     "legacy-notes-wasm": {
       "mode": "fixed",
-      "engineSHA256": "8c051920c42cdb2ec53d6cce64b26571fcc05750057d2932662559e507999c07",
+      "engineSHA256": "66c457f40a101cc40578dc539062fc95b3a5486920a3b1ae0f320cef94c42fc5",
       "cases": 9,
       "comparisons": 67,
       "mismatches": 0,
@@ -107,13 +111,22 @@
     },
     "legacy-physical-wasm": {
       "mode": "fixed",
-      "engineSHA256": "8c051920c42cdb2ec53d6cce64b26571fcc05750057d2932662559e507999c07",
+      "engineSHA256": "66c457f40a101cc40578dc539062fc95b3a5486920a3b1ae0f320cef94c42fc5",
       "cases": 13,
       "comparisons": 65,
       "mismatches": 0,
       "reopens": 65,
       "hwpReopens": 30,
       "snapshotRestores": 13,
+      "crossFormatHwpExcluded": [
+        "three-physical",
+        "edit-middle-physical",
+        "restart-with-following",
+        "odd-even",
+        "two-inline-masters",
+        "extension-0",
+        "extension-1"
+      ],
       "crossFormatLimit": "Three-physical-section shared-master HWP conversion differs already in the merged baseline; not certified or repaired by this cache change. Exact reviewer fixtures test HWPX only.",
       "GUIVerified": false
     },
@@ -130,7 +143,7 @@
     },
     "legacy-carry-wasm": {
       "mode": "fixed",
-      "engineSHA256": "8c051920c42cdb2ec53d6cce64b26571fcc05750057d2932662559e507999c07",
+      "engineSHA256": "66c457f40a101cc40578dc539062fc95b3a5486920a3b1ae0f320cef94c42fc5",
       "cases": 5,
       "comparisons": 45,
       "mismatches": 0,
@@ -141,8 +154,8 @@
     }
   },
   "checks": {
-    "cargoCheck": "passed: lib and three standalone producers",
-    "nativeBuild": "passed: three standalone producers",
+    "cargoCheck": "passed: lib and four standalone producers",
+    "nativeBuild": "passed: four standalone producers",
     "wasmReleaseBuild": "passed: offline locked, runtime path audit clean",
     "studioTypeScript": "passed",
     "finalSDKTypeScriptSurface": "passed",
@@ -181,11 +194,11 @@
   "HancomVerified": false,
   "crossThreadMessagesSent": 0,
   "deploymentPerformed": false,
-  "runtimePackage": "/Users/sw107/Documents/Codex/2026-10-14/task/endnote-text-continuations/wasm-release-final/pkg",
-  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/endnote-text-continuations",
+  "runtimePackage": "/Users/sw107/Documents/Codex/2026-10-14/task/pr88-cursor-fragments/wasm-release/pkg",
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/pr88-cursor-fragments",
   "preservedMinimalInputs": {
     "GUIVerified": false,
-    "wasmSHA256": "8c051920c42cdb2ec53d6cce64b26571fcc05750057d2932662559e507999c07",
+    "wasmSHA256": "66c457f40a101cc40578dc539062fc95b3a5486920a3b1ae0f320cef94c42fc5",
     "cases": 3,
     "stages": 15,
     "sourceTextAndScalarCoverage": true,
@@ -202,5 +215,11 @@
       "preserved-single-section-control-1200": 5
     },
     "sourceManifestSHA256": "03ac289abe12150f117a3349247b63af6499b8a71d30e07d39a14d12d607bea9"
+  },
+  "initialEvidenceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/endnote-text-continuations",
+  "cursorContinuationProof": "cursor-proof.json",
+  "approvedRenderTreesUnchanged": {
+    "native-final": true,
+    "wasm-final": true
   }
 }

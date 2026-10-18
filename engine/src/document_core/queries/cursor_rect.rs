@@ -5761,6 +5761,7 @@ impl DocumentCore {
         section_idx: usize,
         para_idx: usize,
         char_offset: usize,
+        clamp_to_last_run: bool,
     ) -> Result<Option<String>, HwpError> {
         use crate::renderer::layout::compute_char_positions;
         use crate::renderer::render_tree::{RenderNode, RenderNodeType};
@@ -5823,23 +5824,40 @@ impl DocumentCore {
             return Ok(None);
         }
 
-        for run in &runs {
-            if char_offset >= run.char_start && char_offset <= run.char_start + run.char_count {
-                let local_idx = char_offset - run.char_start;
-                let cursor_x = if local_idx < run.char_positions.len() {
-                    run.bbox_x + run.char_positions[local_idx]
-                } else if !run.char_positions.is_empty() {
-                    run.bbox_x + run.char_positions.last().copied().unwrap_or(0.0)
-                } else {
-                    run.bbox_x
-                };
-                let ascent = run.font_size * 0.8;
-                let cursor_y = run.bbox_y + run.baseline - ascent;
-                return Ok(Some(format!(
-                    "{{\"pageIndex\":{},\"x\":{:.1},\"y\":{:.1},\"height\":{:.1}}}",
-                    page_num, cursor_x, cursor_y, run.font_size
-                )));
-            }
+        // A wrap boundary belongs to the downstream run. In particular, do not
+        // keep the caret at the preceding line/column's right edge.
+        let target = runs
+            .iter()
+            .find(|r| r.char_start == char_offset)
+            .or_else(|| {
+                runs.iter().find(|r| {
+                    char_offset >= r.char_start && char_offset < r.char_start + r.char_count
+                })
+            })
+            .or_else(|| {
+                runs.iter()
+                    .rev()
+                    .find(|r| char_offset == r.char_start + r.char_count)
+            });
+        if let Some(run) = target {
+            let local_idx = char_offset - run.char_start;
+            let cursor_x = if local_idx < run.char_positions.len() {
+                run.bbox_x + run.char_positions[local_idx]
+            } else if !run.char_positions.is_empty() {
+                run.bbox_x + run.char_positions.last().copied().unwrap_or(0.0)
+            } else {
+                run.bbox_x
+            };
+            let ascent = run.font_size * 0.8;
+            let cursor_y = run.bbox_y + run.baseline - ascent;
+            return Ok(Some(format!(
+                "{{\"pageIndex\":{},\"x\":{:.1},\"y\":{:.1},\"height\":{:.1}}}",
+                page_num, cursor_x, cursor_y, run.font_size
+            )));
+        }
+
+        if !clamp_to_last_run {
+            return Ok(None);
         }
 
         let last = runs.last().unwrap();
@@ -5912,6 +5930,95 @@ impl DocumentCore {
             }
         }
         None
+    }
+
+    /// Resolve a source note caret through the render owner's fragment space.
+    /// The entry-info helper above intentionally remains independent (PR86).
+    fn cursor_rect_for_endnote_source(
+        &self,
+        section_idx: usize,
+        para_idx: usize,
+        control_idx: usize,
+        note_para_idx: usize,
+        render_offset: usize,
+    ) -> Result<Option<String>, HwpError> {
+        use crate::renderer::pagination::PageItem;
+        let mut page_base = 0;
+        let mut last_target = None;
+        for (owner, pr) in self.pagination.iter().enumerate() {
+            if let Some(local) = pr.endnote_para_sources.iter().position(|s| {
+                s.section_index == section_idx
+                    && s.para_index == para_idx
+                    && s.control_index == control_idx
+                    && s.note_para_index == note_para_idx
+            }) {
+                let virtual_para = self.document.sections[owner].paragraphs.len() + local;
+                let para = &pr.endnote_paragraphs[local];
+                for (pi, page) in pr.pages.iter().enumerate().rev() {
+                    let mut present = false;
+                    let mut candidate = false;
+                    for item in page.column_contents.iter().flat_map(|c| &c.items) {
+                        if item.para_index() != virtual_para {
+                            continue;
+                        }
+                        present = true;
+                        // Canonical rows share their line space with replay.
+                        // Translate stored UTF-16 starts through char_offsets;
+                        // supplementary scalars must not shift page selection.
+                        let fits = if let PageItem::PartialParagraph {
+                            start_line,
+                            end_line,
+                            ..
+                        } = item
+                        {
+                            if para.sequential_endnote.is_some()
+                                && *start_line < para.line_segs.len()
+                                && *end_line <= para.line_segs.len()
+                            {
+                                let scalar = |line: usize| {
+                                    if line < para.line_segs.len() {
+                                        let raw = para.line_seg_text_start(line);
+                                        para.char_offsets.partition_point(|pos| *pos < raw)
+                                    } else {
+                                        para.text.chars().count()
+                                    }
+                                };
+                                render_offset >= scalar(*start_line)
+                                    && render_offset <= scalar(*end_line)
+                            } else {
+                                true
+                            }
+                        } else {
+                            true
+                        };
+                        candidate |= fits;
+                    }
+                    if !present {
+                        continue;
+                    }
+                    let page_num = page_base + pi as u32;
+                    // Reverse page order gives a shared boundary to the next
+                    // fragment. Clamp only after every candidate has declined.
+                    last_target.get_or_insert((page_num, owner, virtual_para));
+                    if candidate {
+                        if let Some(rect) = self.cursor_rect_for_render_paragraph(
+                            page_num,
+                            owner,
+                            virtual_para,
+                            render_offset,
+                            false,
+                        )? {
+                            return Ok(Some(rect));
+                        }
+                    }
+                }
+            }
+            page_base += pr.pages.len() as u32;
+        }
+        if let Some((page, owner, para)) = last_target {
+            return self.cursor_rect_for_render_paragraph(page, owner, para, render_offset, true);
+        }
+        Ok(None)
     }
 
     pub fn get_note_edit_info_native(
@@ -5994,11 +6101,16 @@ impl DocumentCore {
                 )
             }
             Control::Endnote(endnote) => {
-                let (page_num, _, virtual_para_idx) = self
-                    .find_endnote_edit_target(section_idx, para_idx, control_idx, note_para_idx)
+                let source_len = endnote
+                    .paragraphs
+                    .get(note_para_idx)
                     .ok_or_else(|| {
-                        HwpError::RenderError("미주 렌더 위치를 찾을 수 없습니다".to_string())
-                    })?;
+                        HwpError::RenderError("미주 문단을 찾을 수 없습니다".to_string())
+                    })?
+                    .text
+                    .chars()
+                    .count();
+                let char_offset = char_offset.min(source_len);
                 let render_char_offset = if note_para_idx == 0 {
                     char_offset
                         + note_marker_text(
@@ -6013,10 +6125,11 @@ impl DocumentCore {
                 } else {
                     char_offset
                 };
-                self.cursor_rect_for_render_paragraph(
-                    page_num,
+                self.cursor_rect_for_endnote_source(
                     section_idx,
-                    virtual_para_idx,
+                    para_idx,
+                    control_idx,
+                    note_para_idx,
                     render_char_offset,
                 )?
                 .ok_or_else(|| {

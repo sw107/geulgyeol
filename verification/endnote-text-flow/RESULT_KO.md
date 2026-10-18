@@ -26,7 +26,8 @@ Draft와 병합 보류를 유지한다.
 원본 문단, source 주소, 저장 줄 캐시는 바꾸지 않는다. `sequential_endnote`는
 렌더용 복사본에만 설정하는 내부 표식이며 HWP/HWPX·IR dump에 직렬화하지 않는다.
 미주의 source map은 기존 물리 구역/문단/control/note paragraph 주소를 유지한다.
-캐시 키나 미주 진입·커서 라우팅은 수정하지 않는다.
+캐시 키와 미주 진입 정보 조회는 바꾸지 않는다. 후속 P2 수정은 아래와 같이
+source offset에 맞는 미주 커서 조각을 별도로 찾는다.
 
 ## 회귀 계약과 재현
 
@@ -69,11 +70,60 @@ oracle의 마지막 인자도 `baseline`이다. 최종 18문서·90상태에서 
 15상태를 Native/WASM에서 확인했으며 문자·줄 구간·경계 위반은 0이다.
 
 기존 미주67·물리구역65·carry45회 비교도 Native/WASM 모두 통과했다. Cargo check와
-세 standalone producer 빌드, Studio 및 새 SDK surface TypeScript 검사도 통과했다.
+네 standalone producer 빌드, Studio 및 새 SDK surface TypeScript 검사도 통과했다.
 전체 Rust unit 컴파일은 main에서부터 누락된 include 4개로 차단됐으며 실행 성공을
-주장하지 않는다. SDK는 `8c051920c42cdb2ec53d6cce64b26571fcc05750057d2932662559e507999c07`이다.
+주장하지 않는다. 현재 SDK는 `66c457f40a101cc40578dc539062fc95b3a5486920a3b1ae0f320cef94c42fc5`이다.
 JS·두 선언 파일은 main SDK와 byte 단위로 동일하다. 정확한 계수·해시·범위는
 `proof.json`에 기록한다.
+
+## P2: continuation의 source offset과 커서
+
+초기 head `1b488f4bb6bd09b5475a0ebd6230b8a9b4e6586e`는 위 렌더 계약을
+통과했지만 `getCursorRectInNote`가 첫 쪽을 고른 뒤 요청 offset을 찾지 못하면
+그 쪽 마지막 run으로 대체했다. 독립 검토의 `(0,0,2,0)` 미주 offset 10806은
+실제로 0-based page 1에 있는데 page 0의 끝 좌표를 반환했다. HWPX 재열기와
+snapshot redo에서도 재현됐다. 이전 렌더 검증은 이 커서 결함을 검출하지 않았다.
+
+현재는 기존 source map에서 실제 렌더 소유 구역을 찾고, 해당 미주 문단이 있는
+쪽의 실제 run 범위에 요청 offset이 들어가는지 확인한다. 순차 조판 문단의 줄
+시작은 UTF-16에서 scalar 위치로 바꿔 후보를 줄인다. 경계 offset은 다음
+줄·단·쪽의 시작 run을 우선하며, 전체 후보 조회 전에 첫 쪽 끝으로 대체하지
+않는다. 번호 접두사 변환을 유지하고 다른 미주 문단의 접두사는 더하지 않는다.
+
+PR86의 `getNoteEditInfo` 진입 정보 수정이나 PR87 코드는 포함하지 않았다.
+커서 조회는 별도 helper로 소유 구역과 offset을 함께 해결하므로 PR86 커밋에
+의존하지 않는다. 두 PR은 기존 커서 호출부가 겹쳐 병합 때 조정이 필요할 수 있다.
+구역을 넘는 UI 미주 진입·dispatch의 인증은 여전히 PR86 및 실제 앱 QA 범위다.
+
+`endnote_cursor_fragment_check.rs`와 `check-endnote-cursor-fragments.mjs`는
+독립된 실제 render run으로 예상 쪽·문자 구간·좌표를 구한다. 분할 앞/경계/뒤,
+문단 끝, 여러 문단·미주, 물리 구역 폭 차이, 두 단, 빈 문단, 번호 접두사,
+한글·이모지를 before/확장/undo/redo에서 검사한다. 각 상태에서 Native live,
+HWPX 재열기, 전체 모델 재구성 및 WASM live·재열기를 비교한다. 커서 좌표의
+hit-test가 같은 render owner·문단·scalar offset으로 돌아오는지도 확인한다.
+hit-test의 render 주소는 producer가 수집한 source map을 통해 검증하며 UI 진입
+정보 API를 예상값으로 사용하지 않는다. 빈 문단의 전체 폭 placeholder는 글자
+끝 좌표로 간주하지 않는다.
+
+초기 head와 SDK `8c051920...`에서 같은 oracle은 18문서·72상태의 2,810건
+실패를 검출했다. 전달받은 재열기 재현 파일(sha256 `694ebbf7c584989e06899fb3c1a8d21acc826f8990d61981d3778765ea490431`)을
+추가한 현재 19문서·76상태는 Native 5,682건·WASM 3,788건에서 실패·상태 차이
+0이다. 해당 offset 10806은 page 1을 반환하고 hit-test는 번호 접두사 3글자를
+포함한 render offset 10809로 되돌아온다. 두 런타임의 커서·hit 결과도 동일하다.
+
+```sh
+cargo build --offline --locked --manifest-path engine/Cargo.toml \
+  --example endnote_cursor_fragment_check
+"$CURSOR_BINARY" "$MANIFEST" "$FRESH_NATIVE"
+node scripts/check-endnote-cursor-fragments.mjs wasm "$WASM_PKG" \
+  "$MANIFEST" "$FRESH_NATIVE/raw.json" "$FRESH_WASM"
+node scripts/check-endnote-cursor-fragments.mjs verify "$FRESH_NATIVE/raw.json" \
+  "$FRESH_WASM/raw.json" "$FRESH_PROOF" fixed
+```
+
+이 절의 기계 판독 기록은 `cursor-proof.json`이다. 이전 실패·검토 근거는
+덮어쓰지 않고 별도 동결 경로에 보존했다. 기존 90상태 및 최소 입력 15상태의
+텍스트·줄·기하 계약도 현재 SDK로 다시 통과했다.
 
 ## 지원 범위와 남은 검증
 
