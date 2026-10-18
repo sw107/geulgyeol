@@ -1,0 +1,675 @@
+{
+  "baseCommit": "84d05eb011f6ff65eec9ccd1515fb23ab3d5ee66",
+  "previousRejectedHead": "0876c377247cb1470a99a131d029869cc759e6e5",
+  "scope": "Physical-section input dependency cache and complete inherited header/footer slots. Independent review and actual-app QA pending; Draft/merge blocked.",
+  "review": {
+    "source": "/Users/sw107/Documents/Codex/2026-10-14/task/physical-section-context-review-p2/review-result.json",
+    "sha256": "18e3cbe67acdaafc328e605c4391809cbbb1db1e11988456f659030d490de4af",
+    "finding": "Recover both inherited header/footer slots before repaginating a clean suffix",
+    "classification": "New following-section regression in rejected0876; existing dirty-middle carry defect also addressed by the shared source-definition walk",
+    "locallyResolved": true,
+    "independentReReview": "Pending"
+  },
+  "carryBaseline": {
+    "native": {
+      "GUIVerified": false,
+      "cases": 5,
+      "comparisons": 45,
+      "fullRebuilds": 45,
+      "hwpReopens": 0,
+      "mismatches": 5,
+      "mode": "baseline",
+      "reopens": 45,
+      "snapshotRestores": 25
+    },
+    "wasm": {
+      "mode": "baseline",
+      "engineSHA256": "4f2cf2a84cffcc62d3abae8bfd8aa56d82393bd1f6dd4914a1df75d07bd64ace",
+      "cases": 5,
+      "comparisons": 45,
+      "mismatches": 5,
+      "reopens": 45,
+      "snapshotRestores": 25,
+      "parityChecks": 598,
+      "GUIVerified": false
+    },
+    "nativeFrozenLibrary": {
+      "sha256": "bcd01c19a525695d373a65218ed58fd10b0c7c4c1eb7930eb228ea4249cead39",
+      "sourceHead": "0876c377247cb1470a99a131d029869cc759e6e5"
+    },
+    "nativeBinarySHA256": "11e50ea2fa92a576e83e03f59dc540d54c3fa5b117705a94590c8c4b8af4251f"
+  },
+  "carryFixed": {
+    "native": {
+      "GUIVerified": false,
+      "cases": 5,
+      "comparisons": 45,
+      "fullRebuilds": 45,
+      "hwpReopens": 0,
+      "mismatches": 0,
+      "mode": "fixed",
+      "reopens": 45,
+      "snapshotRestores": 25
+    },
+    "wasm": {
+      "mode": "fixed",
+      "engineSHA256": "2f59070b66d62f1294598bc3769a641063c993dd89fe4478c81aab53f845c3d7",
+      "cases": 5,
+      "comparisons": 45,
+      "mismatches": 0,
+      "reopens": 45,
+      "snapshotRestores": 25,
+      "parityChecks": 1196,
+      "GUIVerified": false
+    },
+    "nativeBinarySHA256": "8a712769e225479fab18bbc8c520823ae6c089eef71306fc32dc6cfe2885c221"
+  },
+  "existingMatrix": {
+    "native": {
+      "GUIVerified": false,
+      "cases": 13,
+      "comparisons": 65,
+      "fullRebuilds": 65,
+      "hwpReopens": 30,
+      "mismatches": 0,
+      "mode": "fixed",
+      "reopens": 65,
+      "snapshotRestores": 13
+    },
+    "wasm": {
+      "mode": "fixed",
+      "engineSHA256": "2f59070b66d62f1294598bc3769a641063c993dd89fe4478c81aab53f845c3d7",
+      "cases": 13,
+      "comparisons": 65,
+      "mismatches": 0,
+      "reopens": 65,
+      "hwpReopens": 30,
+      "snapshotRestores": 13,
+      "crossFormatHwpExcluded": [
+        "three-physical",
+        "edit-middle-physical",
+        "restart-with-following",
+        "odd-even",
+        "two-inline-masters",
+        "extension-0",
+        "extension-1"
+      ],
+      "crossFormatLimit": "Three-physical-section shared-master HWP conversion differs already in the merged baseline; not certified or repaired by this cache change. Exact reviewer fixtures test HWPX only.",
+      "GUIVerified": false
+    },
+    "oldBaseMismatches": 20,
+    "rejectedHeadExistingMatrixMismatches": 0
+  },
+  "reviewExact": {
+    "inputSHA256": "4e4d7d283728c301b920295095d8bbcaaec2b4dee51a11aeec9c8e32c4569bd9",
+    "oneCharacterPageCountUnchanged": true,
+    "finalLiveMatchesCold": true,
+    "tailBefore": {
+      "info": {
+        "pageIndex": 0,
+        "pageNumber": 6,
+        "width": 560,
+        "height": 1122.5,
+        "sectionIndex": 2,
+        "marginLeft": 113.4,
+        "marginRight": 113.4,
+        "marginTop": 75.6,
+        "marginBottom": 56.7,
+        "marginHeader": 56.7,
+        "marginFooter": 56.7,
+        "headerArea": {
+          "x": 113.4,
+          "y": 75.6,
+          "width": 333.2,
+          "height": 56.7
+        },
+        "footerArea": {
+          "x": 113.4,
+          "y": 1009.1,
+          "width": 333.2,
+          "height": 56.7
+        },
+        "bodyLeft": 113.4,
+        "bodyRight": 446.6,
+        "marginGutter": 0,
+        "bindingMirrored": false,
+        "pageBorderLeft": 94.5,
+        "pageBorderRight": 94.5,
+        "pageBorderTop": 113.4,
+        "pageBorderBottom": 94.5,
+        "columns": [
+          {
+            "x": 113.4,
+            "width": 333.2
+          }
+        ]
+      },
+      "decorations": [
+        {
+          "type": "MasterPage",
+          "text": "MASTER_0"
+        },
+        {
+          "type": "Header",
+          "text": "HEADER_EVEN"
+        },
+        {
+          "type": "Footer",
+          "text": "FOOTER_EVEN"
+        }
+      ]
+    },
+    "tailLive": {
+      "info": {
+        "pageIndex": 0,
+        "pageNumber": 6,
+        "width": 560,
+        "height": 1122.5,
+        "sectionIndex": 2,
+        "marginLeft": 113.4,
+        "marginRight": 113.4,
+        "marginTop": 75.6,
+        "marginBottom": 56.7,
+        "marginHeader": 56.7,
+        "marginFooter": 56.7,
+        "headerArea": {
+          "x": 113.4,
+          "y": 75.6,
+          "width": 333.2,
+          "height": 56.7
+        },
+        "footerArea": {
+          "x": 113.4,
+          "y": 1009.1,
+          "width": 333.2,
+          "height": 56.7
+        },
+        "bodyLeft": 113.4,
+        "bodyRight": 446.6,
+        "marginGutter": 0,
+        "bindingMirrored": false,
+        "pageBorderLeft": 94.5,
+        "pageBorderRight": 94.5,
+        "pageBorderTop": 113.4,
+        "pageBorderBottom": 94.5,
+        "columns": [
+          {
+            "x": 113.4,
+            "width": 333.2
+          }
+        ]
+      },
+      "decorations": [
+        {
+          "type": "MasterPage",
+          "text": "MASTER_0"
+        },
+        {
+          "type": "Header",
+          "text": "HEADER_EVEN"
+        },
+        {
+          "type": "Footer",
+          "text": "FOOTER_EVEN"
+        }
+      ]
+    },
+    "tailCold": {
+      "info": {
+        "pageIndex": 0,
+        "pageNumber": 6,
+        "width": 560,
+        "height": 1122.5,
+        "sectionIndex": 2,
+        "marginLeft": 113.4,
+        "marginRight": 113.4,
+        "marginTop": 75.6,
+        "marginBottom": 56.7,
+        "marginHeader": 56.7,
+        "marginFooter": 56.7,
+        "headerArea": {
+          "x": 113.4,
+          "y": 75.6,
+          "width": 333.2,
+          "height": 56.7
+        },
+        "footerArea": {
+          "x": 113.4,
+          "y": 1009.1,
+          "width": 333.2,
+          "height": 56.7
+        },
+        "bodyLeft": 113.4,
+        "bodyRight": 446.6,
+        "marginGutter": 0,
+        "bindingMirrored": false,
+        "pageBorderLeft": 94.5,
+        "pageBorderRight": 94.5,
+        "pageBorderTop": 113.4,
+        "pageBorderBottom": 94.5,
+        "columns": [
+          {
+            "x": 113.4,
+            "width": 333.2
+          }
+        ]
+      },
+      "decorations": [
+        {
+          "type": "MasterPage",
+          "text": "MASTER_0"
+        },
+        {
+          "type": "Header",
+          "text": "HEADER_EVEN"
+        },
+        {
+          "type": "Footer",
+          "text": "FOOTER_EVEN"
+        }
+      ]
+    },
+    "multiDirtyBatch": {
+      "liveEqualsCold": true,
+      "snapshotUndoCorrect": true,
+      "snapshotRedoCorrect": true,
+      "dirtyOwners": [
+        0,
+        2
+      ]
+    }
+  },
+  "performance": {
+    "base": {
+      "timings": [
+        {
+          "sections": 3,
+          "target": 0,
+          "insertDeleteMedianMs": 0.026709000000010974,
+          "maxMs": 0.07066699999998605,
+          "samples": 7
+        },
+        {
+          "sections": 3,
+          "target": 2,
+          "insertDeleteMedianMs": 0.02791699999997377,
+          "maxMs": 0.02983399999999392,
+          "samples": 7
+        },
+        {
+          "sections": 8,
+          "target": 0,
+          "insertDeleteMedianMs": 0.02766699999997968,
+          "maxMs": 0.17970800000000509,
+          "samples": 7
+        },
+        {
+          "sections": 8,
+          "target": 7,
+          "insertDeleteMedianMs": 0.028290999999995847,
+          "maxMs": 0.029624999999981583,
+          "samples": 7
+        },
+        {
+          "sections": 32,
+          "target": 0,
+          "insertDeleteMedianMs": 0.02812499999998863,
+          "maxMs": 0.0287919999999815,
+          "samples": 7
+        },
+        {
+          "sections": 32,
+          "target": 31,
+          "insertDeleteMedianMs": 0.03362500000000068,
+          "maxMs": 0.03895900000000552,
+          "samples": 7
+        }
+      ],
+      "performanceLimit": "Tiny synthetic sections; synchronous WASM insert+delete wall time, not a GUI or large real-document benchmark."
+    },
+    "rejectedHead": {
+      "timings": [
+        {
+          "sections": 3,
+          "target": 0,
+          "insertDeleteMedianMs": 0.06825000000000614,
+          "maxMs": 0.10795799999999645,
+          "samples": 7
+        },
+        {
+          "sections": 3,
+          "target": 2,
+          "insertDeleteMedianMs": 0.026416000000011763,
+          "maxMs": 0.027124999999983856,
+          "samples": 7
+        },
+        {
+          "sections": 8,
+          "target": 0,
+          "insertDeleteMedianMs": 0.16345799999999144,
+          "maxMs": 0.1661670000000015,
+          "samples": 7
+        },
+        {
+          "sections": 8,
+          "target": 7,
+          "insertDeleteMedianMs": 0.02708300000000463,
+          "maxMs": 0.02791700000000219,
+          "samples": 7
+        },
+        {
+          "sections": 32,
+          "target": 0,
+          "insertDeleteMedianMs": 0.7037499999999852,
+          "maxMs": 1.296291999999994,
+          "samples": 7
+        },
+        {
+          "sections": 32,
+          "target": 31,
+          "insertDeleteMedianMs": 0.03350000000000364,
+          "maxMs": 0.0342499999999859,
+          "samples": 7
+        }
+      ],
+      "performanceLimit": "Tiny synthetic sections; synchronous WASM insert+delete wall time, not a GUI or large real-document benchmark."
+    },
+    "final": {
+      "timings": [
+        {
+          "sections": 3,
+          "target": 0,
+          "insertDeleteMedianMs": 0.02637500000000159,
+          "maxMs": 0.07800000000000296,
+          "samples": 7
+        },
+        {
+          "sections": 3,
+          "target": 2,
+          "insertDeleteMedianMs": 0.06529100000000199,
+          "maxMs": 0.06570800000000077,
+          "samples": 7
+        },
+        {
+          "sections": 8,
+          "target": 0,
+          "insertDeleteMedianMs": 0.024957999999998037,
+          "maxMs": 0.025708000000008724,
+          "samples": 7
+        },
+        {
+          "sections": 8,
+          "target": 7,
+          "insertDeleteMedianMs": 0.028833000000020093,
+          "maxMs": 0.031416000000007216,
+          "samples": 7
+        },
+        {
+          "sections": 32,
+          "target": 0,
+          "insertDeleteMedianMs": 0.031165999999984706,
+          "maxMs": 0.03670900000000188,
+          "samples": 7
+        },
+        {
+          "sections": 32,
+          "target": 31,
+          "insertDeleteMedianMs": 0.03708300000002396,
+          "maxMs": 0.038250000000005,
+          "samples": 7
+        }
+      ],
+      "performanceLimit": "Tiny synthetic sections; synchronous WASM insert+delete wall time, not a GUI or large real-document benchmark."
+    }
+  },
+  "release": {
+    "remappedAtCompilation": true,
+    "offlineLocked": true,
+    "versions": {
+      "cargo": "cargo 1.93.1 (083ac5135 2025-12-15)",
+      "rustc": "rustc 1.93.1 (01f6ddf75 2026-02-11)",
+      "wasm-bindgen": "wasm-bindgen 0.2.127"
+    },
+    "audit": {
+      "clean": true,
+      "filesChecked": 4,
+      "findings": []
+    },
+    "files": {
+      "rhwp.js": "6d90a9c2eb8d3f54e0660c377a22e3b68cb9e571d7e2df39ce65a33db472908b",
+      "rhwp.d.ts": "6e3190f1bc68b0474bd8826219b33d30a589d934099e4372cae22384a7d6c8cd",
+      "rhwp_bg.wasm": "2f59070b66d62f1294598bc3769a641063c993dd89fe4478c81aab53f845c3d7",
+      "rhwp_bg.wasm.d.ts": "658ae260e5979667cbc59fde32e8d22c4f14480cd77b59dfaf6115d28e2dc880"
+    }
+  },
+  "regressions": {
+    "native-storage-output": {
+      "positiveInputs": 23,
+      "rejectedAmbiguousInputs": 10,
+      "native": {
+        "loads": 23,
+        "reopens": 84,
+        "snapshotRestores": 46
+      },
+      "unchangedExportGuards": {
+        "unchangedRefusals": 5
+      },
+      "sourceSHA256": "6e1a79ea0aba10644473010ed97d774f19e08bed8aace731c5f2cbfc08ff5275",
+      "binarySHA256": "8eb72ffe50fcabe83652444430a6655083c3685940b7fa9c8ceae4de3ec85a11",
+      "GUIVerified": false
+    },
+    "wasm-storage-output": {
+      "engineSHA256": "2f59070b66d62f1294598bc3769a641063c993dd89fe4478c81aab53f845c3d7",
+      "loads": 23,
+      "rejectedAmbiguousInputs": 10,
+      "exportRefusals": 8,
+      "wasmReopens": 84,
+      "snapshotRestores": 46,
+      "nativeVerification": {
+        "loads": 84,
+        "reopens": 320,
+        "snapshotRestores": 168
+      },
+      "GUIVerified": false
+    },
+    "native-inline-render-output": {
+      "mode": "native",
+      "documents": 76,
+      "pageChecks": 204,
+      "hitChecks": 168,
+      "reopens": 56,
+      "snapshotRestores": 4,
+      "physicalEquivalenceChecks": 7,
+      "fixtures": 12,
+      "longTextMetricScope": "Long line geometry must equal a same-width physical-root control. Existing shared font-metric overhang is not repaired or certified here.",
+      "engineSHA256": "8eb72ffe50fcabe83652444430a6655083c3685940b7fa9c8ceae4de3ec85a11",
+      "GUIVerified": false
+    },
+    "wasm-inline-render-output": {
+      "mode": "wasm",
+      "documents": 114,
+      "pageChecks": 286,
+      "hitChecks": 250,
+      "reopens": 56,
+      "snapshotRestores": 28,
+      "physicalEquivalenceChecks": 6,
+      "fixtures": 12,
+      "longTextMetricScope": "Long line geometry must equal a same-width physical-root control. Existing shared font-metric overhang is not repaired or certified here.",
+      "engineSHA256": "2f59070b66d62f1294598bc3769a641063c993dd89fe4478c81aab53f845c3d7",
+      "GUIVerified": false
+    },
+    "named-field-output": {
+      "engineSHA256": "2f59070b66d62f1294598bc3769a641063c993dd89fe4478c81aab53f845c3d7",
+      "cases": 54,
+      "readChecks": 216,
+      "rejections": 276,
+      "legacyChecks": 6,
+      "protectedChecks": 2,
+      "reopens": 216,
+      "snapshotRestores": 108,
+      "limits": [
+        "Engine-only SDK API; no OCX token routing, source UI or native Hancom claim.",
+        "Occurrence order is the current document getFieldList order. Callers must refresh it after structural edits."
+      ]
+    },
+    "comment-output": {
+      "mode": "fixed",
+      "engineSHA256": "2f59070b66d62f1294598bc3769a641063c993dd89fe4478c81aab53f845c3d7",
+      "cases": 72,
+      "controls": 8,
+      "rejections": 36,
+      "successes": 36,
+      "observedDefects": 0,
+      "reopens": 144,
+      "snapshotRestores": 144,
+      "limits": [
+        "Headless WASM engine only; no native app, physical input, UI history or Hancom validation.",
+        "Scope is the existing single body replacement APIs; Replace All policy is unchanged."
+      ]
+    }
+  },
+  "cargoCheck": {
+    "code": 0,
+    "signal": null,
+    "elapsedMs": 14127,
+    "minFreeBytes": 31989760000,
+    "maxAdditionalAllocatedBytes": 232189952,
+    "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+    "argv": [
+      "check",
+      "--offline",
+      "--locked",
+      "--manifest-path",
+      "engine/Cargo.toml",
+      "--lib",
+      "--example",
+      "physical_section_context_check",
+      "--example",
+      "inline_master_pages_check"
+    ],
+    "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+  },
+  "ui": {
+    "result": [
+      {
+        "argv": [
+          "node",
+          "--test",
+          "rhwp-studio/tests/picture-caption-position.test.mjs",
+          "rhwp-studio/tests/bookmark-navigation.test.mjs",
+          "rhwp-studio/tests/bookmark-suggestion.test.mjs",
+          "rhwp-studio/tests/document-scroll-boundary.test.mjs",
+          "rhwp-studio/tests/picture-caption-format.test.mjs"
+        ],
+        "code": 0
+      },
+      {
+        "argv": [
+          "node",
+          "rhwp-studio/node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "-p",
+          "rhwp-studio"
+        ],
+        "code": 0
+      }
+    ],
+    "testsPassed": 78,
+    "testsFailed": 0
+  },
+  "sdkTypes": {
+    "argv": [
+      "node",
+      "rhwp-studio/node_modules/typescript/bin/tsc",
+      "--noEmit",
+      "--strict",
+      "--skipLibCheck",
+      "--target",
+      "es2022",
+      "--module",
+      "nodenext",
+      "--moduleResolution",
+      "nodenext",
+      "/Users/sw107/Documents/Codex/2026-10-14/task/physical-section-context-review-p2/sdk-consumer.mts"
+    ],
+    "code": 0,
+    "consumerSHA256": "7bbfba3a2d7dc3f2f773f9206e2c75d44b55f092763212c18c32c3b8cb37f5f0"
+  },
+  "sourceSHA256": {
+    "engine/examples/physical_section_context_check.rs": "29728abce7feef7958d621412585f18db9afa19c005035772ed83f05db09abb1",
+    "engine/src/document_core/commands/document.rs": "2bf6d214fd496bf1769b98a3672415fe68ad24fd1188b9fef1988201b4fee89f",
+    "engine/src/document_core/mod.rs": "913052b3bea881b1ab5d5d85cf21b137c8cb69d217418cafe3925f8e250ba439",
+    "engine/src/document_core/queries/rendering.rs": "e39d324908ba99805736f47cef43976dde8f40bb024cd15173477c1ea07c6cf9",
+    "engine/src/model/control.rs": "4d7273ffbc1a089d1aba12bd07f83815c3d6990b316f5fce0d0bb3c3c0a0578d",
+    "engine/src/renderer/pagination.rs": "409a097cceab3ee6c5fac5dea7d3fde6b6eaf7c5e20ddcb30452266e4d869d9b",
+    "scripts/check-physical-section-carry.mjs": "952c2e6e1db24e80c4f6cf5bb924fb6e1f8a1d495b8287fa9543b2fc4b950d7f",
+    "scripts/check-physical-section-page-context.mjs": "0e4c86dd3b308c7325988ca1f350a3045bc75b594576c3819cd22482657dd4f7",
+    "scripts/prepare-physical-section-carry.mjs": "4b23eb87b2d21723988820880a9906e504fa09272311564882ff15eab915eeab",
+    "scripts/prepare-physical-section-page-context.py": "4c432efdc4731daec41626547f3efa5c4b4c1c4ac410e36f1d62e4a4256608ed"
+  },
+  "carryFixtureManifestSHA256": "d2c6f6d4299ec464197eb598334c2c8ee8d00f830cc09d61912715755c17a518",
+  "preservation": {
+    "originalStatusMatches": true,
+    "originalDiffSHA256": "f2f6bdfc26ca55571d8f2ef55e31633aa6e190e2c9e6107ae066dc36c660da88",
+    "originalUntrackedMatches": true,
+    "priorEvidence": [
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/pr81-merge-and-physical-page-cache",
+        "indexSHA256": "94f94bbab66445ae5e92215e3c91c0e60f313fcee120523460b8b09d2d58f003",
+        "files": 3167,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/hwp-master-inheritance-investigation",
+        "indexSHA256": "748dab77f9621e95a764b210c4e54050266c00cccb2fcdec27944480dbad3d5b",
+        "files": 334,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/inline-section-master-pages-rendering",
+        "indexSHA256": "64840ac22ea647db80b8b848a9ae5afa9958e944c8f007c31fdd31aad55cb756",
+        "files": 3894,
+        "mismatches": []
+      }
+    ],
+    "GUIWindowsOpened": 0,
+    "userApplicationsClosed": 0
+  },
+  "pausedHwpInvestigation": {
+    "receipt": "/Users/sw107/Documents/Codex/2026-10-14/task/hwp-master-inheritance-investigation/receipt.json",
+    "sha256": "788297e114dcb6ead2b3a4514690781c58b886c835d8a08c0fce2b908099207a",
+    "status": "Frozen and unresolved; no HWP converter changes in this follow-up"
+  },
+  "GUIVerified": false,
+  "mergeBlocked": true,
+  "deployed": false,
+  "limitations": {
+    "fullLibTests": {
+      "exitCode": 101,
+      "stage": "Compile before tests; no full-suite execution",
+      "missingFiles": [
+        "engine/mydocs/tech/agent_runtime/version_policy.md",
+        "engine/samples/3-09월_교육_통합_2022.hwp",
+        "engine/samples/hwp3-sample16-hwp5.hwp",
+        "engine/samples/hwpx/aift.hwpx"
+      ]
+    },
+    "clippy": "Not installed in pinned toolchain; no download attempted",
+    "CI": "No registered checks on prior Draft; not a CI-pass claim",
+    "actualApp": "New head and WASM require independent re-review and actual-app QA",
+    "performance": "Only tiny3/8/32-section synchronous WASM insert/delete medians measured; no large or real-app performance certification. Clean sections still walk source definitions to rebuild carry keys.",
+    "HWPConversion": "Three physical sections sharing masters can differ after HWP conversion in the merged baseline. Preserved baseline-wasm-both-formats/command.log; only the six explicitly flagged fixtures receive cross-format HWP equality certification. Exact reviewer extension fixtures test HWPX here."
+  },
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/physical-section-context-review-p2",
+  "proofFilesSHA256": {
+    "old-carry-native-output/proof.json": "8fd12bab2992124a8c121cf9da6eff842e260efb4271eb5c4ecb08d2cadccc0c",
+    "old-carry-wasm-output/proof.json": "5df8b4e3326ce493f2afc7b3f319182b69b0a82e8c52b6e38d9f39e1a1483098",
+    "fixed-carry-native-output/proof.json": "395591d6b749f826fc5d56045b0d0d8d4470606e0fea5017378cbda31194d219",
+    "fixed-carry-wasm-output/proof.json": "cb961b80e5876951bce5092bf3d73d67e92188131934cead8edcd1caebbb4085",
+    "fixed-existing-native-output/proof.json": "25ae2cd35e278ce960bc36a1e31fe5b08fdffc6703c0ad89d3b9209c81272f4f",
+    "fixed-existing-wasm-output/proof.json": "e697373f44891a762263ab68e4fa9a93fbcaf3067aaf36f1dc923eb2261d581d",
+    "review-qa/extra-fixed-probes.json": "27ff9417533e3a82bec074592cfae166d68bd8e0d156c96aca1b410209545c6d",
+    "preservation.json": "f27dbe9762de0da1d794bc1f210d82449649d2cc8e7002c057e8b2182cb8db13",
+    "review-result.json": "18e3cbe67acdaafc328e605c4391809cbbb1db1e11988456f659030d490de4af"
+  }
+}

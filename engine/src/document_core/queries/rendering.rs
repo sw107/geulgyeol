@@ -793,6 +793,86 @@ fn insert_hwp3_title_filler_page(result: &mut PaginationResult, section_index: u
     result.pages.insert(0, blank);
 }
 
+type HeaderFooterEntry = (usize, HeaderFooterRef, bool, HeaderFooterApply);
+
+fn collect_section_header_footer_entries(
+    section_index: usize,
+    section: &Section,
+) -> Vec<HeaderFooterEntry> {
+    let mut entries: Vec<HeaderFooterEntry> = Vec::new();
+    for (pi, para) in section.paragraphs.iter().enumerate() {
+        for (ci, ctrl) in para.controls.iter().enumerate() {
+            match ctrl {
+                Control::Header(h) => {
+                    entries.push((
+                        pi,
+                        HeaderFooterRef {
+                            para_index: pi,
+                            control_index: ci,
+                            source_section_index: section_index,
+                            table_path: Vec::new(),
+                        },
+                        true,
+                        h.apply_to,
+                    ));
+                }
+                Control::Footer(f) => {
+                    entries.push((
+                        pi,
+                        HeaderFooterRef {
+                            para_index: pi,
+                            control_index: ci,
+                            source_section_index: section_index,
+                            table_path: Vec::new(),
+                        },
+                        false,
+                        f.apply_to,
+                    ));
+                }
+                Control::Table(table) => {
+                    crate::renderer::pagination::collect_nested_header_footer_controls(
+                        table,
+                        pi,
+                        section_index,
+                        ci,
+                        &[],
+                        &mut entries,
+                    );
+                }
+                _ => {}
+            }
+        }
+    }
+    entries
+}
+
+fn update_header_footer_carry_from_section(
+    section_index: usize,
+    section: &Section,
+    header_odd: &mut Option<HeaderFooterRef>,
+    header_even: &mut Option<HeaderFooterRef>,
+    footer_odd: &mut Option<HeaderFooterRef>,
+    footer_even: &mut Option<HeaderFooterRef>,
+) {
+    for (_, reference, is_header, apply_to) in
+        collect_section_header_footer_entries(section_index, section)
+    {
+        let (odd, even) = if is_header {
+            (&mut *header_odd, &mut *header_even)
+        } else {
+            (&mut *footer_odd, &mut *footer_even)
+        };
+        match apply_to {
+            HeaderFooterApply::Both => {
+                *odd = Some(reference.clone());
+                *even = Some(reference);
+            }
+            HeaderFooterApply::Odd => *odd = Some(reference),
+            HeaderFooterApply::Even => *even = Some(reference),
+        }
+    }
+}
+
 fn assign_master_pages_for_section(
     result: &mut PaginationResult,
     section_index: usize,
@@ -4747,6 +4827,7 @@ impl DocumentCore {
 
         if self.document.sections.is_empty() {
             self.pagination.clear();
+            self.section_pagination_contexts.clear();
             self.measured_tables.clear();
             self.measured_sections.clear();
             let default_section = Section::default();
@@ -4836,8 +4917,22 @@ impl DocumentCore {
         let mut issue2424_measure_elapsed = std::time::Duration::ZERO;
         let mut issue2424_typeset_elapsed = std::time::Duration::ZERO;
         let mut issue2424_postprocess_elapsed = std::time::Duration::ZERO;
+        self.section_pagination_contexts.resize(sec_count, None);
+        self.section_pagination_contexts.truncate(sec_count);
         for (idx, section) in self.document.sections.iter().enumerate() {
-            if !self.dirty_sections[idx] {
+            let incoming = crate::renderer::pagination::SectionPaginationContext {
+                page_number_pos: carry_page_number_pos.clone(),
+                last_page_number: carry_last_page_number,
+                header_odd: carry_header_odd.clone(),
+                header_even: carry_header_even.clone(),
+                footer_odd: carry_footer_odd.clone(),
+                footer_even: carry_footer_even.clone(),
+                master_odd: carry_master_odd.clone(),
+                master_even: carry_master_even.clone(),
+            };
+            if !self.dirty_sections[idx]
+                && self.section_pagination_contexts[idx].as_ref() == Some(&incoming)
+            {
                 // dirty가 아닌 구역에서도 carry를 업데이트
                 if let Some(pages) = self.pagination.get(idx) {
                     if let Some(last) = pages.pages.last() {
@@ -4846,25 +4941,15 @@ impl DocumentCore {
                         }
                         carry_last_page_number = last.page_number;
                     }
-                    // 머리말/꼬리말 carry 업데이트 (not-dirty 구역)
-                    for page in &pages.pages {
-                        let is_odd = page.page_number % 2 == 1;
-                        if page.active_header.is_some() {
-                            if is_odd {
-                                carry_header_odd = page.active_header.clone();
-                            } else {
-                                carry_header_even = page.active_header.clone();
-                            }
-                        }
-                        if page.active_footer.is_some() {
-                            if is_odd {
-                                carry_footer_odd = page.active_footer.clone();
-                            } else {
-                                carry_footer_even = page.active_footer.clone();
-                            }
-                        }
-                    }
                 }
+                update_header_footer_carry_from_section(
+                    idx,
+                    section,
+                    &mut carry_header_odd,
+                    &mut carry_header_even,
+                    &mut carry_footer_odd,
+                    &mut carry_footer_even,
+                );
                 update_master_page_carry_from_section(
                     idx,
                     section,
@@ -4873,6 +4958,7 @@ impl DocumentCore {
                 );
                 continue;
             }
+            self.section_pagination_contexts[idx] = Some(incoming);
 
             // [#2004] render-전용 정규화본(부동 이미지 스택 인라인 재분류) 우선. 원본 무손상.
             // 직접 필드 접근으로 disjoint-borrow 유지(이후 self.measured_* 가변 대입과 공존).
@@ -5200,72 +5286,14 @@ impl DocumentCore {
                 carry_footer_odd.clone(),
                 carry_footer_even.clone(),
             );
-            // 머리말/꼬리말 carry 업데이트:
-            // 페이지 active_header뿐 아니라 구역에 정의된 머리말 컨트롤도 carry에 반영
-            // (짝수 페이지가 없어도 Even 머리말이 다음 구역에 상속되어야 함)
-            {
-                use crate::model::header_footer::HeaderFooterApply as HFA;
-                let mut entries: Vec<(usize, HeaderFooterRef, bool, HFA)> = Vec::new();
-                for (pi, para) in section.paragraphs.iter().enumerate() {
-                    for (ci, ctrl) in para.controls.iter().enumerate() {
-                        match ctrl {
-                            Control::Header(h) => {
-                                entries.push((
-                                    pi,
-                                    HeaderFooterRef {
-                                        para_index: pi,
-                                        control_index: ci,
-                                        source_section_index: idx,
-                                        table_path: Vec::new(),
-                                    },
-                                    true,
-                                    h.apply_to,
-                                ));
-                            }
-                            Control::Footer(f) => {
-                                entries.push((
-                                    pi,
-                                    HeaderFooterRef {
-                                        para_index: pi,
-                                        control_index: ci,
-                                        source_section_index: idx,
-                                        table_path: Vec::new(),
-                                    },
-                                    false,
-                                    f.apply_to,
-                                ));
-                            }
-                            Control::Table(table) => {
-                                crate::renderer::pagination::collect_nested_header_footer_controls(
-                                    table,
-                                    pi,
-                                    idx,
-                                    ci,
-                                    &[],
-                                    &mut entries,
-                                );
-                            }
-                            _ => {}
-                        }
-                    }
-                }
-
-                for (_, reference, is_header, apply_to) in entries {
-                    let (odd, even) = if is_header {
-                        (&mut carry_header_odd, &mut carry_header_even)
-                    } else {
-                        (&mut carry_footer_odd, &mut carry_footer_even)
-                    };
-                    match apply_to {
-                        HFA::Both => {
-                            *odd = Some(reference.clone());
-                            *even = Some(reference);
-                        }
-                        HFA::Odd => *odd = Some(reference),
-                        HFA::Even => *even = Some(reference),
-                    }
-                }
-            }
+            update_header_footer_carry_from_section(
+                idx,
+                section,
+                &mut carry_header_odd,
+                &mut carry_header_even,
+                &mut carry_footer_odd,
+                &mut carry_footer_even,
+            );
 
             // 구역 간 page_number_pos 상속: 이 구역에 PageNumberPos가 없으면 이전 구역 값 사용
             let section_has_own_pnp = result.pages.iter().any(|p| p.page_number_pos.is_some());
@@ -5374,56 +5402,9 @@ impl DocumentCore {
             // 규칙은 pagination 과 같은 `ActiveHeaderFooter` 를 쓴다 — 같은 규칙의 사본을
             // 여기에 따로 두면 홀짝만 보고 구체성을 놓친다 (#3234).
             {
-                use crate::model::header_footer::HeaderFooterApply as HFA;
                 use crate::renderer::pagination::{ActiveHeaderFooter, PageItem};
 
-                let mut entries: Vec<(usize, HeaderFooterRef, bool, HFA)> = Vec::new();
-                for (pi, para) in section.paragraphs.iter().enumerate() {
-                    for (ci, ctrl) in para.controls.iter().enumerate() {
-                        match ctrl {
-                            Control::Header(h) => {
-                                entries.push((
-                                    pi,
-                                    HeaderFooterRef {
-                                        para_index: pi,
-                                        control_index: ci,
-                                        source_section_index: idx,
-                                        table_path: Vec::new(),
-                                    },
-                                    true,
-                                    h.apply_to,
-                                ));
-                            }
-                            Control::Footer(f) => {
-                                entries.push((
-                                    pi,
-                                    HeaderFooterRef {
-                                        para_index: pi,
-                                        control_index: ci,
-                                        source_section_index: idx,
-                                        table_path: Vec::new(),
-                                    },
-                                    false,
-                                    f.apply_to,
-                                ));
-                            }
-                            // 표 셀 안에 중첩 정의된 머리말/꼬리말도 수집한다. (수능 수학
-                            // 선택과목 소책자의 4쪽 머리말이 제목표 셀 안에 있는 사례 — 이게
-                            // 없으면 4쪽 쪽번호가 2쪽 머리말로 대체돼 잘못 표시된다.)
-                            Control::Table(table) => {
-                                crate::renderer::pagination::collect_nested_header_footer_controls(
-                                    table,
-                                    pi,
-                                    idx,
-                                    ci,
-                                    &[],
-                                    &mut entries,
-                                );
-                            }
-                            _ => {}
-                        }
-                    }
-                }
+                let entries = collect_section_header_footer_entries(idx, section);
                 let has_header = entries.iter().any(|(_, _, is_header, _)| *is_header);
                 let has_footer = entries.iter().any(|(_, _, is_header, _)| !*is_header);
 

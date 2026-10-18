@@ -239,6 +239,7 @@ impl DocumentCore {
         let mut doc = DocumentCore {
             document,
             pagination: Vec::new(),
+            section_pagination_contexts: Vec::new(),
             styles,
             composed: Vec::new(),
             render_normalization: super::super::RenderNormalizationState::default(),
