@@ -25,7 +25,7 @@ use crate::paint::PageLayerTree;
 use crate::renderer::composer::ComposedParagraph;
 use crate::renderer::height_measurer::{MeasuredSection, MeasuredTable};
 use crate::renderer::layout::LayoutEngine;
-use crate::renderer::pagination::PaginationResult;
+use crate::renderer::pagination::{PaginationResult, SectionPaginationContext};
 use crate::renderer::render_normalization::{RenderNormalizationOverlay, RenderPath};
 use crate::renderer::render_tree::PageRenderTree;
 use crate::renderer::style_resolver::ResolvedStyleSet;
@@ -160,6 +160,8 @@ pub struct DocumentCore {
     pub(crate) document: Document,
     /// 페이지 분할 결과
     pub(crate) pagination: Vec<PaginationResult>,
+    /// Incoming cross-section dependencies used by each pagination result.
+    pub(crate) section_pagination_contexts: Vec<Option<SectionPaginationContext>>,
     /// 해소된 스타일 세트
     pub(crate) styles: ResolvedStyleSet,
     /// 구역별 구성된 문단 목록
@@ -464,6 +466,7 @@ impl DocumentCore {
         DocumentCore {
             document: Document::default(),
             pagination: Vec::new(),
+            section_pagination_contexts: Vec::new(),
             styles: ResolvedStyleSet::default(),
             composed: Vec::new(),
             render_normalization: RenderNormalizationState::default(),

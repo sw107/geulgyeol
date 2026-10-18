@@ -218,7 +218,7 @@ pub struct PageContent {
 }
 
 /// 바탕쪽 참조
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MasterPageRef {
     /// 구역 인덱스
     pub section_index: usize,
@@ -232,7 +232,7 @@ pub struct MasterPageRef {
 ///
 /// 최상위 문단 → 표 → 셀 → 셀 문단 순으로 내려간다. 여러 단계가 쌓이면
 /// 표 안의 표처럼 다중 중첩도 표현할 수 있다.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct HeaderFooterTableStep {
     /// 바깥 controls 리스트에서 Table 컨트롤의 인덱스
     pub table_control_index: usize,
@@ -243,7 +243,7 @@ pub struct HeaderFooterTableStep {
 }
 
 /// 머리말/꼬리말 참조
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct HeaderFooterRef {
     /// Header/Footer 컨트롤이 있는 (최상위) 문단 인덱스
     pub para_index: usize,
@@ -257,6 +257,21 @@ pub struct HeaderFooterRef {
     /// 제목표(1x1 표) 셀 안에 정의하기도 한다. 이 경로가 없으면 그 머리말이
     /// 수집되지 않아 4쪽 쪽번호가 2쪽 머리말로 대체돼 잘못 표시된다.
     pub table_path: Vec<HeaderFooterTableStep>,
+}
+
+/// Incoming dependencies of a physical section's cached pagination.
+/// Source edits remain covered by dirty_sections; these keys cover changes
+/// inherited from earlier sections, including slots absent from visible pages.
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub(crate) struct SectionPaginationContext {
+    pub page_number_pos: Option<crate::model::control::PageNumberPos>,
+    pub last_page_number: u32,
+    pub header_odd: Option<HeaderFooterRef>,
+    pub header_even: Option<HeaderFooterRef>,
+    pub footer_odd: Option<HeaderFooterRef>,
+    pub footer_even: Option<HeaderFooterRef>,
+    pub master_odd: Option<MasterPageRef>,
+    pub master_even: Option<MasterPageRef>,
 }
 
 /// 표 셀 안에 중첩된 Header/Footer 컨트롤을 재귀적으로 수집한다.

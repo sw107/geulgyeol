@@ -209,7 +209,7 @@ pub struct NewNumber {
 }
 
 /// 쪽 번호 위치 ('pgnp' 컨트롤, HWP 스펙 표 149)
-#[derive(Debug, Clone, Default, serde::Serialize)]
+#[derive(Debug, Clone, Default, PartialEq, Eq, serde::Serialize)]
 pub struct PageNumberPos {
     /// 번호 형식 (표 150 bit 0~7, 표 134 참조)
     pub format: u8,

@@ -76,6 +76,63 @@ fn check(d: &DocumentCore, out: &Path, case: &str, stage: &str, hwp: bool) -> Va
     json!({"case":case,"stage":stage,"equal":live==cold_frames,"live":live,"cold":cold_frames,"hwpReopened":hwp})
 }
 
+fn carry_history(
+    d: &mut DocumentCore,
+    out: &Path,
+    case: &str,
+    target: usize,
+    rows: &mut Vec<Value>,
+) -> usize {
+    let before = frames(d);
+    let initial = d.save_snapshot_native();
+    rows.push(check(d, out, case, "before", false));
+    d.insert_text_native(target, 0, 0, "X").unwrap();
+    assert_eq!(
+        d.page_count() as usize,
+        before.as_array().unwrap().len(),
+        "one character must not change page count"
+    );
+    let short = check(d, out, case, "one-character", false);
+    let short_cold = short["cold"].clone();
+    rows.push(short);
+    let short_snapshot = d.save_snapshot_native();
+    let growth = " batch-owner growth 가나다라 abcdef ".repeat(200);
+    let last = d.document().sections.len() - 1;
+    d.begin_batch_native().unwrap();
+    d.insert_text_native(0, 0, 0, &growth).unwrap();
+    d.insert_text_native(last, 0, 0, "TAIL_EDIT").unwrap();
+    d.end_batch_native().unwrap();
+    let batch = check(d, out, case, "batch-grown", false);
+    let batch_cold = batch["cold"].clone();
+    rows.push(batch);
+    let batch_snapshot = d.save_snapshot_native();
+    d.restore_snapshot_native(short_snapshot).unwrap();
+    assert_eq!(frames(d), short_cold);
+    rows.push(check(d, out, case, "undo-batch", false));
+    d.restore_snapshot_native(batch_snapshot).unwrap();
+    assert_eq!(frames(d), batch_cold);
+    rows.push(check(d, out, case, "redo-batch", false));
+    d.begin_batch_native().unwrap();
+    d.delete_text_native(0, 0, 0, growth.chars().count())
+        .unwrap();
+    d.delete_text_native(last, 0, 0, "TAIL_EDIT".chars().count())
+        .unwrap();
+    d.end_batch_native().unwrap();
+    rows.push(check(d, out, case, "batch-shrunk", false));
+    d.restore_snapshot_native(initial).unwrap();
+    assert_eq!(frames(d), before);
+    rows.push(check(d, out, case, "restored", false));
+    d.restore_snapshot_native(short_snapshot).unwrap();
+    assert_eq!(frames(d), short_cold);
+    rows.push(check(d, out, case, "redo-one-character", false));
+    d.restore_snapshot_native(initial).unwrap();
+    rows.push(check(d, out, case, "final-before", false));
+    for snapshot in [initial, short_snapshot, batch_snapshot] {
+        d.discard_snapshot_native(snapshot);
+    }
+    5
+}
+
 fn main() {
     let args: Vec<_> = std::env::args().skip(1).collect();
     let fixtures: Vec<Value> = serde_json::from_slice(&fs::read(&args[0]).unwrap()).unwrap();
@@ -89,6 +146,10 @@ fn main() {
         let hwp = fixture["crossFormatHwp"] == true;
         let mut d = DocumentCore::from_bytes(&fs::read(fixture["path"].as_str().unwrap()).unwrap())
             .unwrap();
+        if fixture["carryHistory"] == true {
+            restores += carry_history(&mut d, out, case, target, &mut rows);
+            continue;
+        }
         let start = d.document().sections[target].paragraphs[0]
             .text
             .chars()

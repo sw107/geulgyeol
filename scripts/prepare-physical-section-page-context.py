@@ -19,7 +19,8 @@ with ZipFile(out / 'seed/distinct-sections.hwpx') as z:
 rows = []
 
 
-def make(name, *, sections=2, target=0, mirrored=False, restart=False, headers=False):
+def make(name, *, sections=2, target=0, mirrored=False, restart=False, headers=False,
+         first_number=None, prefix_odd=False, latest_odd=False):
     data = dict(source)
     for mi, apply in [(0, 'EVEN'), (1, 'ODD')]:
         root = ET.fromstring(data[f'Contents/masterpage{mi}.xml'])
@@ -40,10 +41,10 @@ def make(name, *, sections=2, target=0, mirrored=False, restart=False, headers=F
             margin.set('left', '10000')
             margin.set('right', '6000')
             margin.set('gutter', '800')
-        if restart and si == 1:
+        if (restart and si == 1) or (first_number is not None and si == 0):
             run = ET.SubElement(p, f'{{{hp}}}run', {'charPrIDRef': '0'})
             ctrl = ET.SubElement(run, f'{{{hp}}}ctrl')
-            ET.SubElement(ctrl, f'{{{hp}}}newNum', {'num': '7', 'numType': 'PAGE'})
+            ET.SubElement(ctrl, f'{{{hp}}}newNum', {'num': str(first_number if si == 0 else 7), 'numType': 'PAGE'})
         if headers and si == 0:
             template = ET.fromstring(data['Contents/masterpage0.xml'])
             sub = next(e for e in template if local(e) == 'subList')
@@ -57,6 +58,17 @@ def make(name, *, sections=2, target=0, mirrored=False, restart=False, headers=F
                         if local(t) == 't':
                             t.text = f'{kind.upper()}_{apply}'
                     node.append(child)
+        if (prefix_odd and si == 1) or (latest_odd and si == 0):
+            template = ET.fromstring(data['Contents/masterpage0.xml'])
+            sub = next(e for e in template if local(e) == 'subList')
+            for kind in ['header', 'footer']:
+                run = ET.SubElement(p, f'{{{hp}}}run', {'charPrIDRef': '0'})
+                ctrl = ET.SubElement(run, f'{{{hp}}}ctrl')
+                node = ET.SubElement(ctrl, f'{{{hp}}}{kind}', {'id': '2', 'applyPageType': 'ODD'})
+                child = copy.deepcopy(sub)
+                for t in child.iter():
+                    if local(t) == 't': t.text = f'{kind.upper()}_' + ('PREFIX_ODD' if si == 1 else 'LATEST_ODD')
+                node.append(child)
         data[f'Contents/section{si}.xml'] = encode(root)
     for si in range(sections, 2):
         del data[f'Contents/section{si}.xml']
@@ -71,9 +83,9 @@ def make(name, *, sections=2, target=0, mirrored=False, restart=False, headers=F
             ref = e.get('id', e.get('idref', ''))
             if ref.startswith('section') and int(ref[7:]) >= sections:
                 parent.remove(e)
-    if sections == 3:
-        ET.SubElement(manifest, manifest[0].tag, {'id': 'section2', 'href': 'Contents/section2.xml', 'media-type': 'application/xml'})
-        ET.SubElement(spine, spine[0].tag, {'idref': 'section2', 'linear': 'yes'})
+    for si in range(2, sections):
+        ET.SubElement(manifest, manifest[0].tag, {'id': f'section{si}', 'href': f'Contents/section{si}.xml', 'media-type': 'application/xml'})
+        ET.SubElement(spine, spine[0].tag, {'idref': f'section{si}', 'linear': 'yes'})
     data['Contents/content.hpf'] = encode(content)
     # This synthetic RDF index is optional; do not retain stale section links.
     data.pop('META-INF/container.rdf', None)
@@ -98,4 +110,10 @@ file = out / 'seed/distinct-sections.hwp'
 rows.append({'case': 'hwp-source-control', 'path': str(file), 'sha256': hashlib.sha256(file.read_bytes()).hexdigest(),
              'sections': 2, 'target': 0, 'crossFormatHwp': True})
 (out / 'manifest.json').write_text(json.dumps(rows, indent=2) + '\n')
-print(json.dumps({'fixtures': len(rows)}))
+legacy_count = len(rows)
+make('middle-prefix-headers', sections=3, target=1, headers=True)
+make('even-prefix-headers', sections=3, target=1, headers=True, first_number=2)
+make('two-clean-prefixes', sections=4, target=2, headers=True, prefix_odd=True)
+make('latest-definition-order', sections=3, target=1, headers=True, latest_odd=True)
+(out / 'carry-bases.json').write_text(json.dumps(rows[legacy_count:], indent=2) + '\n')
+print(json.dumps({'fixtures': legacy_count, 'carryBases': len(rows)-legacy_count}))
