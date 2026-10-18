@@ -47,6 +47,14 @@ export class BookmarkDialog {
         this.hide(); return;
       }
       e.stopPropagation();
+      // Capture isolates the editor before target listeners can run, so submit
+      // here as well. A composition-confirming Enter must only finish the IME.
+      if (e.target === this.nameInput && e.key === 'Enter'
+        && !e.isComposing && e.keyCode !== 229
+        && !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+        e.preventDefault();
+        this.doAdd();
+      }
     };
     document.addEventListener('keydown', this.captureHandler, true);
 
@@ -106,9 +114,6 @@ export class BookmarkDialog {
     this.nameInput.type = 'text';
     this.nameInput.className = 'bm-name-input';
     this.nameInput.maxLength = MAX_BOOKMARK_NAME_LEN;
-    this.nameInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') { e.preventDefault(); this.doAdd(); }
-    });
     nameRow.appendChild(nameLabel);
     nameRow.appendChild(this.nameInput);
     body.appendChild(nameRow);
