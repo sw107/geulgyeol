@@ -111,6 +111,8 @@ pub struct SerializeContext {
     /// 원본 content.hpf 는 Chart 파트를 나열하지 않으므로 manifest·3-way
     /// 단언 대상 밖이다.
     pub chart_entries: Vec<ChartPartEntry>,
+    /// Masters queued by the secPr that actually emits their references.
+    pub master_pages: Vec<crate::model::header_footer::MasterPage>,
     /// 문서 전역 문단 ID 카운터 — `<hp:p id="...">` 에 발급한다.
     para_id_counter: u32,
     reserved_memo_para_ids: HashSet<u32>,
@@ -164,6 +166,7 @@ impl Default for SerializeContext {
             bin_data_map: HashMap::new(),
             bin_seq_to_storage: HashMap::new(),
             chart_entries: Vec::new(),
+            master_pages: Vec::new(),
             para_id_counter: 0,
             reserved_memo_para_ids: HashSet::new(),
             generated_hyperlink_id: u32::MAX,
@@ -175,6 +178,20 @@ impl Default for SerializeContext {
 }
 
 impl SerializeContext {
+    pub fn register_master_pages(
+        &mut self,
+        masters: &[crate::model::header_footer::MasterPage],
+    ) -> Vec<String> {
+        for master in masters {
+            register_border_fills_in_paragraphs(self, &master.paragraphs, 0);
+        }
+        let base = self.master_pages.len();
+        self.master_pages.extend_from_slice(masters);
+        (base..self.master_pages.len())
+            .map(|i| format!("masterpage{i}"))
+            .collect()
+    }
+
     /// HWP3 `Control::Hyperlink`용 HWPX field ID를 하나 발급한다.
     pub fn next_generated_hyperlink_id(&mut self) -> u32 {
         let id = self.generated_hyperlink_id;

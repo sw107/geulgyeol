@@ -130,6 +130,7 @@ mod tests {
             page_number: 0,
             page_number_restarted: false,
             section_index: 0,
+            logical_section_para: None,
             layout: mk_layout(),
             column_contents: vec![ColumnContent {
                 column_index: 0,

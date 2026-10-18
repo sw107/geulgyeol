@@ -70,6 +70,66 @@ fn serialize_hwp_inner(
     let projected = super::numbering_restart::document_for_export(doc)?;
     let doc = projected.as_ref();
     crate::model::memo::validate(doc, false).map_err(SerializeError::UnsupportedInput)?;
+    for section in &doc.sections {
+        if section.raw_provenance_permits_reuse() && section.raw_stream.is_some() {
+            continue;
+        }
+        let multiple_definitions = section
+            .paragraphs
+            .iter()
+            .flat_map(|p| &p.controls)
+            .filter(|c| matches!(c, crate::model::control::Control::SectionDef(_)))
+            .count()
+            > 1;
+        if multiple_definitions
+            && std::iter::once(&section.section_def)
+                .chain(
+                    section
+                        .paragraphs
+                        .iter()
+                        .flat_map(|p| &p.controls)
+                        .filter_map(|c| match c {
+                            crate::model::control::Control::SectionDef(sd) => Some(sd.as_ref()),
+                            _ => None,
+                        }),
+                )
+                .any(|sd| {
+                    let base: Vec<_> = sd
+                        .master_pages
+                        .iter()
+                        .filter(|mp| !mp.is_extension)
+                        .collect();
+                    base.len() > 1
+                        || base.iter().any(|mp| {
+                            mp.apply_to != crate::model::header_footer::HeaderFooterApply::Both
+                        })
+                })
+        {
+            return Err(SerializeError::UnsupportedInput(
+                "inline master-page owners with sparse or multiple apply slots require HWPX".into(),
+            ));
+        }
+        if multiple_definitions
+            && section
+                .section_def
+                .master_pages
+                .iter()
+                .any(|mp| mp.is_extension)
+            || section
+                .paragraphs
+                .iter()
+                .skip(1)
+                .flat_map(|p| &p.controls)
+                .any(|c| {
+                    matches!(c, crate::model::control::Control::SectionDef(sd)
+                if sd.master_pages.iter().any(|mp| mp.is_extension))
+                })
+        {
+            return Err(SerializeError::UnsupportedInput(
+                "inline section extension master pages have no supported HWP tail owner; save as HWPX".into(),
+            ));
+        }
+    }
     // 1. FileHeader 직렬화
     // [Task #1768] 배포용/암호화 문서 강하: IR 은 이미 복호화된 평문이고 본 직렬화는
     // ViewText/DISTRIBUTE_DOC_DATA 를 생성하지 않으므로, 플래그를 유지하면 산출물

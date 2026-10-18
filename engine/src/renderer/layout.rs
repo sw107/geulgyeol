@@ -5912,6 +5912,7 @@ impl LayoutEngine {
             page_number: 0,
             page_number_restarted: false,
             section_index,
+            logical_section_para: None,
             layout: layout_info.clone(),
             column_contents: Vec::new(),
             active_header: None,

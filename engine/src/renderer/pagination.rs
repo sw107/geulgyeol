@@ -184,6 +184,8 @@ pub struct PageContent {
     pub page_number: u32,
     /// 소속 구역 인덱스
     pub section_index: usize,
+    /// Direct body paragraph owning this logical section; None is the physical root.
+    pub logical_section_para: Option<usize>,
     /// 페이지 레이아웃 정보
     pub layout: PageLayoutInfo,
     /// 단별 콘텐츠
@@ -220,6 +222,8 @@ pub struct PageContent {
 pub struct MasterPageRef {
     /// 구역 인덱스
     pub section_index: usize,
+    /// Direct secPr owner within the physical section.
+    pub owner_para_index: Option<usize>,
     /// master_pages 배열 내 인덱스
     pub master_page_index: usize,
 }
@@ -897,6 +901,7 @@ impl PaginationResult {
                 page_number: old_page.page_number,
                 page_number_restarted: old_page.page_number_restarted,
                 section_index: old_page.section_index,
+                logical_section_para: old_page.logical_section_para,
                 layout: old_page.layout.clone(),
                 column_contents: old_page
                     .column_contents

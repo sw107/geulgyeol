@@ -470,7 +470,9 @@ impl DocumentCore {
             // 을 기록한다.
             let mut reflowed_paras: std::collections::HashSet<usize> =
                 std::collections::HashSet::new();
+            let logical_widths = Self::logical_column_widths(section, dpi);
             for (pi, para) in section.paragraphs.iter_mut().enumerate() {
+                let col_width = logical_widths.get(pi).copied().unwrap_or(col_width);
                 // 본문 문단 reflow
                 // [#2195 stage68] 본문 텍스트 NO_LS 확장(stage1)은 기각 — 후속 축
                 // (전각 폴백·pad 규칙·스트레치·after_for_fit)이 게이트 정합을 대체했고,
@@ -1320,7 +1322,9 @@ impl DocumentCore {
             let mut min_reflowed_idx: Option<usize> = None;
             let mut latest_non_tac_picture_host = None;
             let mut pi = 0usize;
+            let logical_widths = Self::logical_column_widths(section, dpi);
             while pi < section.paragraphs.len() {
+                let col_width = logical_widths.get(pi).copied().unwrap_or(col_width);
                 if section.paragraphs[pi].controls.iter().any(|control| {
                     matches!(control, Control::Picture(picture) if !picture.common.treat_as_char)
                 }) {

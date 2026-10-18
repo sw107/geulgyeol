@@ -109,6 +109,23 @@ pub fn parse_body_text_section(data: &[u8]) -> Result<Section, BodyTextError> {
 
     link_orphan_field_ends(&mut section.paragraphs);
 
+    // A physical BodyText stream can contain several explicit secd owners.
+    // Keep the first owner as the package-level mirror when masters are present;
+    // later owners retain their own lists in their paragraph controls.
+    let definitions: Vec<_> = section
+        .paragraphs
+        .iter()
+        .flat_map(|p| &p.controls)
+        .filter_map(|c| match c {
+            Control::SectionDef(sd) => Some(sd),
+            _ => None,
+        })
+        .collect();
+    let first_master_owner = (definitions.len() > 1
+        && definitions.iter().any(|sd| !sd.master_pages.is_empty()))
+    .then(|| (**definitions[0]).clone());
+    let mut has_global_master_tail = false;
+
     // 확장 바탕쪽 파싱: 마지막 문단 이후의 LIST_HEADER (level=1)
     // HWP 바이너리에서 확장 바탕쪽(마지막 쪽, 임의 쪽)은 Section 스트림 끝에 저장되지만,
     // level=1로 태그되어 마지막 문단의 자식으로 오인됨.
@@ -136,11 +153,20 @@ pub fn parse_body_text_section(data: &[u8]) -> Result<Section, BodyTextError> {
                         })
                         .collect();
                     let ext_mps = parse_master_pages_from_raw(&tail, 0);
+                    has_global_master_tail = !ext_mps.is_empty();
                     section.section_def.master_pages.extend(ext_mps);
                     break;
                 }
                 scan += 1;
             }
+        }
+    }
+
+    // A physical tail contains no per-secd reference. Keep that pre-existing
+    // ambiguous read path unchanged; conversion must not invent an owner for it.
+    if !has_global_master_tail {
+        if let Some(first) = first_master_owner {
+            section.section_def = first;
         }
     }
 

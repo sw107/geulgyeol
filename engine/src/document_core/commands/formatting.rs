@@ -62,14 +62,15 @@ pub(super) fn para_shape_mods_affect_text_flow(mods: &crate::model::style::ParaS
 fn body_paragraph_box_for_para_shape(
     core: &DocumentCore,
     sec_idx: usize,
+    para_idx: usize,
     para_shape_id: u16,
     styles: &ResolvedStyleSet,
 ) -> ParagraphBox {
     let Some(section) = core.document.sections.get(sec_idx) else {
         return ParagraphBox::content(0..1);
     };
-    let page_def = &section.section_def.page_def;
-    let column_def = DocumentCore::find_initial_column_def(&section.paragraphs);
+    let page_def = &section.logical_section_for_paragraph(para_idx).1.page_def;
+    let column_def = DocumentCore::find_column_def_for_paragraph(&section.paragraphs, para_idx);
     let layout = PageLayoutInfo::from_page_def(page_def, &column_def, core.dpi);
     let col_width = layout
         .column_areas
@@ -1109,29 +1110,31 @@ impl DocumentCore {
                 self.styles = styles;
                 self.publish_staged_final_picture_chain(sec_idx)?;
             } else {
-            let section = &self.document.sections[sec_idx];
-            let page_def = &section.section_def.page_def;
-            let column_def = DocumentCore::find_initial_column_def(&section.paragraphs);
-            let layout = PageLayoutInfo::from_page_def(page_def, &column_def, self.dpi);
-            let col_width = layout
-                .column_areas
-                .first()
-                .map(|a| a.width)
-                .unwrap_or(layout.body_area.width);
-            let para_shape_id = self.document.sections[sec_idx].paragraphs[para_idx].para_shape_id;
-            let para_style = styles.para_styles.get(para_shape_id as usize);
-            // 본문: 열 상자.
-            let paragraph_box = ParagraphBox::body_for_style(col_width, para_style, self.dpi);
-            // 원본 LineSeg 무효화 → reflow가 max_font_size에서 새로 계산
-            self.document.sections[sec_idx].paragraphs[para_idx]
-                .line_segs
-                .clear();
-            reflow_line_segs(
-                &mut self.document.sections[sec_idx].paragraphs[para_idx],
-                paragraph_box,
-                &styles,
-                self.dpi,
-            );
+                let section = &self.document.sections[sec_idx];
+                let page_def = &section.logical_section_for_paragraph(para_idx).1.page_def;
+                let column_def =
+                    DocumentCore::find_column_def_for_paragraph(&section.paragraphs, para_idx);
+                let layout = PageLayoutInfo::from_page_def(page_def, &column_def, self.dpi);
+                let col_width = layout
+                    .column_areas
+                    .first()
+                    .map(|a| a.width)
+                    .unwrap_or(layout.body_area.width);
+                let para_shape_id =
+                    self.document.sections[sec_idx].paragraphs[para_idx].para_shape_id;
+                let para_style = styles.para_styles.get(para_shape_id as usize);
+                // 본문: 열 상자.
+                let paragraph_box = ParagraphBox::body_for_style(col_width, para_style, self.dpi);
+                // 원본 LineSeg 무효화 → reflow가 max_font_size에서 새로 계산
+                self.document.sections[sec_idx].paragraphs[para_idx]
+                    .line_segs
+                    .clear();
+                reflow_line_segs(
+                    &mut self.document.sections[sec_idx].paragraphs[para_idx],
+                    paragraph_box,
+                    &styles,
+                    self.dpi,
+                );
             }
         }
 
@@ -1179,8 +1182,9 @@ impl DocumentCore {
         let styles = resolve_styles_for_document(&self.document, self.dpi);
         let available_box = {
             let section = &self.document.sections[sec_idx];
-            let page_def = &section.section_def.page_def;
-            let column_def = DocumentCore::find_initial_column_def(&section.paragraphs);
+            let page_def = &section.logical_section_for_paragraph(para_idx).1.page_def;
+            let column_def =
+                DocumentCore::find_column_def_for_paragraph(&section.paragraphs, para_idx);
             let layout = PageLayoutInfo::from_page_def(page_def, &column_def, self.dpi);
             let col_width = layout
                 .column_areas
@@ -1592,23 +1596,24 @@ impl DocumentCore {
                 self.styles = styles;
                 self.publish_staged_final_picture_chain(sec_idx)?;
             } else {
-            let section = &self.document.sections[sec_idx];
-            let page_def = &section.section_def.page_def;
-            let column_def = DocumentCore::find_initial_column_def(&section.paragraphs);
-            let layout = PageLayoutInfo::from_page_def(page_def, &column_def, self.dpi);
-            let col_width = layout
-                .column_areas
-                .first()
-                .map(|a| a.width)
-                .unwrap_or(layout.body_area.width);
-            let para_style = styles.para_styles.get(new_id as usize);
-            // 본문: 열 상자.
-            reflow_line_segs(
-                &mut self.document.sections[sec_idx].paragraphs[para_idx],
-                ParagraphBox::body_for_style(col_width, para_style, self.dpi),
-                &styles,
-                self.dpi,
-            );
+                let section = &self.document.sections[sec_idx];
+                let page_def = &section.logical_section_for_paragraph(para_idx).1.page_def;
+                let column_def =
+                    DocumentCore::find_column_def_for_paragraph(&section.paragraphs, para_idx);
+                let layout = PageLayoutInfo::from_page_def(page_def, &column_def, self.dpi);
+                let col_width = layout
+                    .column_areas
+                    .first()
+                    .map(|a| a.width)
+                    .unwrap_or(layout.body_area.width);
+                let para_style = styles.para_styles.get(new_id as usize);
+                // 본문: 열 상자.
+                reflow_line_segs(
+                    &mut self.document.sections[sec_idx].paragraphs[para_idx],
+                    ParagraphBox::body_for_style(col_width, para_style, self.dpi),
+                    &styles,
+                    self.dpi,
+                );
             }
         }
 
@@ -1652,8 +1657,9 @@ impl DocumentCore {
         let styles = resolve_styles_for_document(&self.document, self.dpi);
         let available_box = {
             let section = &self.document.sections[sec_idx];
-            let page_def = &section.section_def.page_def;
-            let column_def = DocumentCore::find_initial_column_def(&section.paragraphs);
+            let page_def = &section.logical_section_for_paragraph(para_idx).1.page_def;
+            let column_def =
+                DocumentCore::find_column_def_for_paragraph(&section.paragraphs, para_idx);
             let layout = PageLayoutInfo::from_page_def(page_def, &column_def, self.dpi);
             let col_width = layout
                 .column_areas
@@ -1986,7 +1992,7 @@ impl DocumentCore {
         };
         let styles = resolve_styles_for_document(&self.document, self.dpi);
         let paragraph_box =
-            body_paragraph_box_for_para_shape(self, sec_idx, para_shape_id, &styles);
+            body_paragraph_box_for_para_shape(self, sec_idx, para_idx, para_shape_id, &styles);
         if let Some(para) = self
             .document
             .sections
@@ -2501,6 +2507,7 @@ mod tests {
         let expected_box = body_paragraph_box_for_para_shape(
             &core,
             section_index,
+            paragraph_index,
             para_shape_id,
             &document_styles,
         );
