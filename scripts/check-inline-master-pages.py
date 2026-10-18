@@ -120,6 +120,9 @@ def save(name, data, error=None):
                  'expected':None if error else expected(data)})
 
 save('explicit-distinct', base())
+data = base(); root = parse(data,'Contents/section0.xml'); root.remove(root[1]); data['Contents/section0.xml'] = encode(root); remove_part(data,1)
+save('single-first-owner',data)
+pure = {n:b for n,b in data.items() if n != 'META-INF/rhwp-hwp5-origin'}; save('pure-single-first-owner',pure)
 data = dict(source); root = parse(data,'Contents/section0.xml'); sd = next(e for e in root.iter() if local(e) == 'secPr'); sd.set('masterPageCnt','0')
 for ref in list(sd):
     if local(ref) == 'masterPage': sd.remove(ref)
@@ -177,10 +180,20 @@ for run in root[0]:
     for child in list(run):
         if local(child) == 'secPr': run.remove(child)
 data['Contents/section0.xml'] = encode(root); save('missing-first-owner',data,'first secPr')
+data = base(); root = parse(data,'Contents/section0.xml')
+for run in root[0]:
+    for child in list(run):
+        if local(child) == 'secPr': run.remove(child)
+data['Contents/section0.xml'] = encode(root); save('only-later-owner',data,'first-paragraph owner')
 data = base(); append_part(data,2); save('unreferenced-part',data)
 with ZipFile(output/'guards/nested-placeholder.hwpx') as z: data = {n:z.read(n) for n in z.namelist()}
 data['Contents/masterpage1.xml'] = source['Contents/masterpage1.xml']; root = parse(data,'Contents/section0.xml'); nested = [e for e in root.iter() if local(e) == 'secPr'][1]; ref = copy.deepcopy(next(e for e in root.iter() if local(e) == 'masterPage')); ref.set('idRef','masterpage1'); nested.append(ref); nested.set('masterPageCnt','1'); data['Contents/section0.xml'] = encode(root)
 content = parse(data,'Contents/content.hpf'); manifest = next(e for e in content if local(e) == 'manifest'); item = copy.deepcopy(next(e for e in manifest if e.attrib.get('id') == 'masterpage0')); item.set('id','masterpage1'); item.set('href','Contents/masterpage1.xml'); manifest.append(item); data['Contents/content.hpf'] = encode(content); save('nested-owner',data,'nested secPr')
+root = parse(data,'Contents/section0.xml')
+for run in root[0]:
+    for child in list(run):
+        if local(child) == 'secPr': run.remove(child)
+data['Contents/section0.xml'] = encode(root); save('only-nested-owner',data,'first-paragraph owner')
 
 for n in [0,1]:
     file = output/'guards'/f'extension-{n}.hwpx'

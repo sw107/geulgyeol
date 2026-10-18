@@ -91,6 +91,7 @@ fn owners(xml: &str) -> Result<Vec<Owner>, HwpxError> {
 
 /// Returns false for the existing single-owner path, except an explicitly empty
 /// owner cannot inherit another physical section's global manifest parts.
+/// A sole explicit owner still needs a directly represented first-paragraph path.
 /// Multi-owner input needs explicit IDs, a first-paragraph root and one directly
 /// represented secPr per owner.
 pub(super) fn attach(
@@ -101,14 +102,34 @@ pub(super) fn attach(
     bins: &[PackageItem],
 ) -> Result<bool, HwpxError> {
     let groups = owners(xml)?;
+    let invalid = |message: &str| {
+        HwpxError::ConversionError(format!("inline master-page ownership: {message}"))
+    };
     if groups.len() < 2 {
+        if let Some(group) = groups.first().filter(|g| !g.refs.is_empty()) {
+            if group.paragraph != Some(0) {
+                return Err(invalid(
+                    "sole explicit secPr is not a directly represented first-paragraph owner",
+                ));
+            }
+            let count = section
+                .paragraphs
+                .first()
+                .map(|p| {
+                    p.controls
+                        .iter()
+                        .filter(|c| matches!(c, Control::SectionDef(_)))
+                        .count()
+                })
+                .unwrap_or(0);
+            if count != 1 {
+                return Err(invalid("XML owner and parsed SectionDef do not match"));
+            }
+        }
         return Ok(groups.first().is_some_and(|g| {
             g.paragraph == Some(0) && g.explicitly_empty && g.refs.is_empty() && !items.is_empty()
         }));
     }
-    let invalid = |message: &str| {
-        HwpxError::ConversionError(format!("inline master-page ownership: {message}"))
-    };
     if !groups.iter().any(|g| !g.refs.is_empty()) {
         if groups.iter().all(|g| g.explicitly_empty) {
             // Global manifest items may belong to another physical section.
