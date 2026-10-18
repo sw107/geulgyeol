@@ -5886,30 +5886,37 @@ impl DocumentCore {
         para_idx: usize,
         control_idx: usize,
         note_para_idx: usize,
-    ) -> Option<(u32, usize, usize)> {
-        let pr = self.pagination.get(section_idx)?;
-        let local_idx = pr.endnote_para_sources.iter().position(|src| {
-            src.section_index == section_idx
-                && src.para_index == para_idx
-                && src.control_index == control_idx
-                && src.note_para_index == note_para_idx
-        })?;
-        let virtual_para_idx =
-            self.document.sections.get(section_idx)?.paragraphs.len() + local_idx;
-        let page_base = self.global_page_base_for_section(section_idx);
-        for (local_page_idx, page) in pr.pages.iter().enumerate() {
-            if page
-                .column_contents
-                .iter()
-                .flat_map(|col| col.items.iter())
-                .any(|item| item.para_index() == virtual_para_idx)
-            {
-                return Some((
-                    page_base + local_page_idx as u32,
-                    local_idx,
-                    virtual_para_idx,
-                ));
+    ) -> Option<(u32, usize, usize, usize)> {
+        // The source address stays in the owning section, but document-end
+        // notes are rendered in the last section. Resolve through the stored
+        // source map and use that render owner's virtual paragraph namespace.
+        let mut page_base = 0;
+        for (render_section_idx, pr) in self.pagination.iter().enumerate() {
+            if let Some(local_idx) = pr.endnote_para_sources.iter().position(|src| {
+                src.section_index == section_idx
+                    && src.para_index == para_idx
+                    && src.control_index == control_idx
+                    && src.note_para_index == note_para_idx
+            }) {
+                let render_section = self.document.sections.get(render_section_idx)?;
+                let virtual_para_idx = render_section.paragraphs.len() + local_idx;
+                for (local_page_idx, page) in pr.pages.iter().enumerate() {
+                    if page
+                        .column_contents
+                        .iter()
+                        .flat_map(|col| col.items.iter())
+                        .any(|item| item.para_index() == virtual_para_idx)
+                    {
+                        return Some((
+                            page_base + local_page_idx as u32,
+                            local_idx,
+                            render_section_idx,
+                            virtual_para_idx,
+                        ));
+                    }
+                }
             }
+            page_base += pr.pages.len() as u32;
         }
         None
     }
@@ -5944,7 +5951,7 @@ impl DocumentCore {
                 ))
             }
             Control::Endnote(_) => {
-                let (page_num, endnote_index, virtual_para_idx) = self
+                let (page_num, endnote_index, _, virtual_para_idx) = self
                     .find_endnote_edit_target(section_idx, para_idx, control_idx, 0)
                     .ok_or_else(|| {
                         HwpError::RenderError("미주 렌더 위치를 찾을 수 없습니다".to_string())
@@ -5994,7 +6001,7 @@ impl DocumentCore {
                 )
             }
             Control::Endnote(endnote) => {
-                let (page_num, _, virtual_para_idx) = self
+                let (page_num, _, render_section_idx, virtual_para_idx) = self
                     .find_endnote_edit_target(section_idx, para_idx, control_idx, note_para_idx)
                     .ok_or_else(|| {
                         HwpError::RenderError("미주 렌더 위치를 찾을 수 없습니다".to_string())
@@ -6015,7 +6022,7 @@ impl DocumentCore {
                 };
                 self.cursor_rect_for_render_paragraph(
                     page_num,
-                    section_idx,
+                    render_section_idx,
                     virtual_para_idx,
                     render_char_offset,
                 )?
