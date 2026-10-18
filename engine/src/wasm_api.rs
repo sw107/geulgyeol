@@ -5543,6 +5543,17 @@ impl HwpDocument {
         self.get_field_value_by_name(name).map_err(|e| e.into())
     }
 
+    /// 같은 이름 필드의 N번째 값(0 기준)을 조회한다. getFieldList 문서 순서를 사용한다.
+    #[wasm_bindgen(js_name = getFieldValueByNameAt)]
+    pub fn get_field_value_by_name_at_api(
+        &self,
+        name: &str,
+        occurrence: JsValue,
+    ) -> Result<String, JsValue> {
+        self.get_field_value_by_name_at(name, field_occurrence_index(&occurrence)?)
+            .map_err(Into::into)
+    }
+
     /// field_id로 필드 값을 설정한다.
     ///
     /// 반환: `{ok, fieldId, oldValue, newValue}`
@@ -5563,6 +5574,18 @@ impl HwpDocument {
     ) -> Result<String, JsValue> {
         self.set_field_value_by_name(name, value)
             .map_err(|e| e.into())
+    }
+
+    /// 같은 이름 필드의 N번째 값(0 기준)을 설정한다. 기존 Native 소유권 검사를 따른다.
+    #[wasm_bindgen(js_name = setFieldValueByNameAt)]
+    pub fn set_field_value_by_name_at_api(
+        &mut self,
+        name: &str,
+        occurrence: JsValue,
+        value: &str,
+    ) -> Result<String, JsValue> {
+        self.set_field_value_by_name_at(name, field_occurrence_index(&occurrence)?, value)
+            .map_err(Into::into)
     }
 
     #[wasm_bindgen(js_name = getBodyCommentAt)]
@@ -9331,6 +9354,15 @@ fn nested_row_js_index(value: &JsValue) -> Result<usize, JsValue> {
         .as_f64()
         .ok_or_else(|| JsValue::from_str("안쪽 표 인덱스는 숫자 정수여야 합니다"))?;
     table_edit_index(number, u32::MAX)
+}
+
+/// Preserve the JS type until checked: null, strings and booleans are not indices.
+fn field_occurrence_index(value: &JsValue) -> Result<usize, JsValue> {
+    let number = value
+        .as_f64()
+        .filter(|n| n.is_finite() && n.fract() == 0.0 && *n >= 0.0 && *n <= u32::MAX as f64)
+        .ok_or_else(|| JsValue::from_str("필드 순번은 0 이상 u32 범위의 숫자 정수여야 합니다"))?;
+    Ok(number as usize)
 }
 
 fn hyperlink_index(value: f64) -> Result<usize, JsValue> {
