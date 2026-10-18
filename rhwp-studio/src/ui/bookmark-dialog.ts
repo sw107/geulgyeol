@@ -345,21 +345,26 @@ export class BookmarkDialog {
   private doMove(): void {
     if (this.selectedIdx < 0 || this.selectedIdx >= this.bookmarks.length) return;
     const bm = this.bookmarks[this.selectedIdx];
-    const ih = this.services.getInputHandler();
-    if (!ih) return;
-
-    const tryMove = (s: number, p: number, o: number) =>
-      ih.moveCursorTo({ sectionIndex: s, paragraphIndex: p, charOffset: o });
-
-    if (!tryMove(bm.sec, bm.para, bm.charPos)) {
-      // 표 문단 등 커서 이동 불가 → 인접 문단 탐색
-      let moved = false;
-      for (let d = 1; d <= 5 && !moved; d++) {
-        if (tryMove(bm.sec, bm.para + d, 0)) { moved = true; break; }
-        if (bm.para - d >= 0 && tryMove(bm.sec, bm.para - d, 0)) { moved = true; break; }
+    try {
+      // Navigation also needs a live owner, but remains available in read-only documents.
+      if (!this._open || !this.services.getContext().hasDocument
+        || this.documentGeneration !== this.services.wasm.documentGeneration) {
+        throw new Error('문서가 바뀌었습니다. 책갈피 목록을 다시 여세요.');
       }
+      const live = this.services.wasm.getBookmarks().some(b =>
+        b.sec === bm.sec && b.para === bm.para && b.ctrlIdx === bm.ctrlIdx
+        && b.name === bm.name && b.charPos === bm.charPos && b.editable === bm.editable);
+      if (!live) throw new Error('책갈피 위치가 바뀌었습니다. 목록을 다시 여세요.');
+      const ih = this.services.getInputHandler();
+      if (!ih) throw new Error('편집기를 찾을 수 없습니다.');
+      if (!ih.moveCursorTo({sectionIndex: bm.sec, paragraphIndex: bm.para, charOffset: bm.charPos})) {
+        throw new Error('책갈피 위치로 이동할 수 없습니다.');
+      }
+      this.hide();
+    } catch (error) {
+      this.statusLabel.style.color = '#c00';
+      this.statusLabel.textContent = String(error);
     }
-    this.hide();
   }
 
   private doDelete(): void {
