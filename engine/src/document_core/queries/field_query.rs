@@ -736,6 +736,27 @@ impl DocumentCore {
         Err(HwpError::InvalidField(format!("필드 이름 '{}' 없음", name)))
     }
 
+    /// 같은 이름을 가진 필드의 N번째 값(0 기준). 순서는 get_field_list_json과 같다.
+    pub fn get_field_value_by_name_at(
+        &self,
+        name: &str,
+        occurrence: usize,
+    ) -> Result<String, HwpError> {
+        let fields = self.collect_all_fields();
+        let field = fields
+            .iter()
+            .filter(|f| f.field.field_name() == Some(name))
+            .nth(occurrence)
+            .ok_or_else(|| {
+                HwpError::InvalidField(format!("필드 이름 '{}'[{}] 없음", name, occurrence))
+            })?;
+        Ok(format!(
+            "{{\"ok\":true,\"fieldId\":{},\"value\":{}}}",
+            field.field.field_id,
+            json_escape(&field.value),
+        ))
+    }
+
     /// setFieldValue: field_id로 필드 값 설정
     pub fn set_field_value_by_id(
         &mut self,
