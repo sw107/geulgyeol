@@ -773,6 +773,7 @@ fn insert_hwp3_title_filler_page(result: &mut PaginationResult, section_index: u
         page_number: 1,
         page_number_restarted: false,
         section_index,
+        logical_section_para: None,
         layout: first_page.layout.clone(),
         column_contents: Vec::new(),
         active_header: None,
@@ -799,14 +800,44 @@ fn assign_master_pages_for_section(
     carry_master_odd: &Option<MasterPageRef>,
     carry_master_even: &Option<MasterPageRef>,
 ) {
+    let mut odd = carry_master_odd.clone();
+    let mut even = carry_master_even.clone();
+    let mut start = 0;
+    while start < result.pages.len() {
+        let owner = result.pages[start].logical_section_para;
+        let end = (start + 1..result.pages.len())
+            .find(|&i| result.pages[i].logical_section_para != owner)
+            .unwrap_or(result.pages.len());
+        let sd = section.logical_section_def(owner);
+        assign_master_pages_for_owner(
+            &mut result.pages[start..end],
+            section_index,
+            owner,
+            sd,
+            &odd,
+            &even,
+        );
+        update_master_page_carry_for_owner(section_index, owner, sd, &mut odd, &mut even);
+        start = end;
+    }
+}
+
+fn assign_master_pages_for_owner(
+    pages: &mut [PageContent],
+    section_index: usize,
+    owner_para_index: Option<usize>,
+    section_def: &crate::model::document::SectionDef,
+    carry_master_odd: &Option<MasterPageRef>,
+    carry_master_even: &Option<MasterPageRef>,
+) {
     use crate::model::header_footer::HeaderFooterApply;
 
-    for page in &mut result.pages {
+    for page in pages.iter_mut() {
         page.active_master_page = None;
         page.extra_master_pages.clear();
     }
 
-    let mps = &section.section_def.master_pages;
+    let mps = &section_def.master_pages;
     if mps.is_empty() {
         return;
     }
@@ -841,12 +872,12 @@ fn assign_master_pages_for_section(
         .map(|(i, _)| i)
         .collect();
 
-    let section_page_count = result.pages.len();
-    for (page_idx_in_section, page) in result.pages.iter_mut().enumerate() {
+    let section_page_count = pages.len();
+    for (page_idx_in_section, page) in pages.iter_mut().enumerate() {
         let is_last = page_idx_in_section + 1 == section_page_count;
         let is_first_page = page_idx_in_section == 0;
 
-        if is_first_page && section.section_def.hide_master_page {
+        if is_first_page && section_def.hide_master_page {
             continue;
         }
 
@@ -855,12 +886,14 @@ fn assign_master_pages_for_section(
                 .or(mp_both)
                 .map(|mi| MasterPageRef {
                     section_index,
+                    owner_para_index,
                     master_page_index: mi,
                 })
                 .or_else(|| carry_master_odd.clone())
                 .or_else(|| {
                     single_base_mp.map(|mi| MasterPageRef {
                         section_index,
+                        owner_para_index,
                         master_page_index: mi,
                     })
                 })
@@ -869,12 +902,14 @@ fn assign_master_pages_for_section(
                 .or(mp_both)
                 .map(|mi| MasterPageRef {
                     section_index,
+                    owner_para_index,
                     master_page_index: mi,
                 })
                 .or_else(|| carry_master_even.clone())
                 .or_else(|| {
                     single_base_mp.map(|mi| MasterPageRef {
                         section_index,
+                        owner_para_index,
                         master_page_index: mi,
                     })
                 })
@@ -896,6 +931,7 @@ fn assign_master_pages_for_section(
             if let Some(&replace_idx) = replace_exts.last() {
                 page.active_master_page = Some(MasterPageRef {
                     section_index,
+                    owner_para_index,
                     master_page_index: replace_idx,
                 });
             }
@@ -904,7 +940,9 @@ fn assign_master_pages_for_section(
                 .active_master_page
                 .as_ref()
                 .and_then(|mp_ref| {
-                    if mp_ref.section_index == section_index {
+                    if mp_ref.section_index == section_index
+                        && mp_ref.owner_para_index == owner_para_index
+                    {
                         mps.get(mp_ref.master_page_index)
                     } else {
                         None
@@ -916,6 +954,7 @@ fn assign_master_pages_for_section(
                 if Some(mps[i].apply_to) == active_apply {
                     page.active_master_page = Some(MasterPageRef {
                         section_index,
+                        owner_para_index,
                         master_page_index: i,
                     });
                 } else {
@@ -927,6 +966,7 @@ fn assign_master_pages_for_section(
                     .iter()
                     .map(|&mi| MasterPageRef {
                         section_index,
+                        owner_para_index,
                         master_page_index: mi,
                     })
                     .collect();
@@ -941,14 +981,44 @@ fn update_master_page_carry_from_section(
     carry_master_odd: &mut Option<MasterPageRef>,
     carry_master_even: &mut Option<MasterPageRef>,
 ) {
+    update_master_page_carry_for_owner(
+        section_index,
+        None,
+        &section.section_def,
+        carry_master_odd,
+        carry_master_even,
+    );
+    for (pi, paragraph) in section.paragraphs.iter().enumerate().skip(1) {
+        for control in &paragraph.controls {
+            if let Control::SectionDef(sd) = control {
+                update_master_page_carry_for_owner(
+                    section_index,
+                    Some(pi),
+                    sd,
+                    carry_master_odd,
+                    carry_master_even,
+                );
+            }
+        }
+    }
+}
+
+fn update_master_page_carry_for_owner(
+    section_index: usize,
+    owner_para_index: Option<usize>,
+    section_def: &crate::model::document::SectionDef,
+    carry_master_odd: &mut Option<MasterPageRef>,
+    carry_master_even: &mut Option<MasterPageRef>,
+) {
     use crate::model::header_footer::HeaderFooterApply;
 
-    for (master_page_index, master_page) in section.section_def.master_pages.iter().enumerate() {
+    for (master_page_index, master_page) in section_def.master_pages.iter().enumerate() {
         if master_page.is_extension {
             continue;
         }
         let master_ref = MasterPageRef {
             section_index,
+            owner_para_index,
             master_page_index,
         };
         match master_page.apply_to {
@@ -963,8 +1033,10 @@ fn update_master_page_carry_from_section(
 }
 
 fn apply_page_number_layouts_for_section(result: &mut PaginationResult, section: &Section) {
-    let page_def = &section.section_def.page_def;
     for page in &mut result.pages {
+        let page_def = &section
+            .logical_section_def(page.logical_section_para)
+            .page_def;
         page.layout
             .apply_page_number_margins(page_def, page.page_number);
         for column in &mut page.column_contents {
@@ -1010,6 +1082,44 @@ impl DocumentCore {
         {
             self.refresh_exact_font_measurement_contexts();
         }
+    }
+
+    /// Body widths in physical paragraph order, only for inline-section documents.
+    /// Compute once per reflow pass; no model split or quadratic backward scans.
+    pub(crate) fn logical_column_widths(section: &Section, dpi: f64) -> Vec<f64> {
+        if !section.paragraphs.iter().skip(1).any(|p| {
+            p.controls
+                .iter()
+                .any(|c| matches!(c, Control::SectionDef(_)))
+        }) {
+            return Vec::new();
+        }
+        let mut sd = &section.section_def;
+        let mut cd = Self::find_initial_column_def(&section.paragraphs);
+        section
+            .paragraphs
+            .iter()
+            .enumerate()
+            .map(|(pi, p)| {
+                for control in &p.controls {
+                    match control {
+                        Control::SectionDef(next) if pi > 0 => sd = next,
+                        Control::ColumnDef(next) => cd = next.clone(),
+                        _ => {}
+                    }
+                }
+                let layout = crate::renderer::page_layout::PageLayoutInfo::from_page_def(
+                    &sd.page_def,
+                    &cd,
+                    dpi,
+                );
+                layout
+                    .column_areas
+                    .first()
+                    .map(|a| a.width)
+                    .unwrap_or(layout.body_area.width)
+            })
+            .collect()
     }
 
     pub(crate) fn recompose_all_with_horizontal_shaping(&mut self) {
@@ -2761,7 +2871,8 @@ impl DocumentCore {
         use crate::renderer::layout::body_page_border_outset;
         let (page_content, _, _) = self.find_page(page_num)?;
         let sec_idx = page_content.section_index;
-        let section_def = &self.document.sections[sec_idx].section_def;
+        let section_def =
+            self.document.sections[sec_idx].logical_section_def(page_content.logical_section_para);
         let page_def = &section_def.page_def;
         let page_border_fill = &section_def.page_border_fill;
         let ml = hwpunit_to_px(page_def.margin_left as i32, self.dpi);
@@ -3978,7 +4089,10 @@ impl DocumentCore {
 
     /// 구역의 문단들에서 초기 ColumnDef를 추출한다.
     pub(crate) fn find_initial_column_def(paragraphs: &[Paragraph]) -> ColumnDef {
-        for para in paragraphs {
+        for (pi, para) in paragraphs.iter().enumerate() {
+            if pi > 0 && para.controls.iter().any(|c| matches!(c, Control::SectionDef(_))) {
+                break;
+            }
             for ctrl in &para.controls {
                 if let Control::ColumnDef(cd) = ctrl {
                     return cd.clone();
@@ -4236,6 +4350,13 @@ impl DocumentCore {
             || self.deferred_pagination_target_status(&descriptor)
                 != DeferredPaginationTargetStatus::Current
             || self.document.sections.len() != 1
+            || self.document.sections.iter().any(|s| {
+                s.paragraphs.iter().skip(1).any(|p| {
+                    p.controls
+                        .iter()
+                        .any(|c| matches!(c, Control::SectionDef(_)))
+                })
+            })
         {
             return DeferredPaginationStepResult {
                 state: DeferredPaginationJobState::Fallback,
@@ -4779,7 +4900,58 @@ impl DocumentCore {
 
             // 증분 측정: 이전 측정 데이터가 있으면 문단/표 수준 선택적 캐싱
             let issue2424_measure_started = issue2424_profile_enabled.then(std::time::Instant::now);
-            let measured = if !self.measured_sections[idx].fallback_paragraphs.is_empty() {
+            let measured = if section.paragraphs.iter().skip(1).any(|p| {
+                p.controls
+                    .iter()
+                    .any(|c| matches!(c, Control::SectionDef(_)))
+            }) {
+                // Width-dependent measurements cannot share one physical-root frame.
+                // Keep physical paragraph addresses when merging each logical range.
+                let mut starts = vec![0];
+                starts.extend(section.paragraphs.iter().enumerate().skip(1).filter_map(
+                    |(pi, p)| {
+                        p.controls
+                            .iter()
+                            .any(|c| matches!(c, Control::SectionDef(_)))
+                            .then_some(pi)
+                    },
+                ));
+                starts.push(para_src.len());
+                let mut merged = MeasuredSection {
+                    fallback_paragraphs: Vec::new(),
+                    tables: Vec::new(),
+                };
+                for range in starts.windows(2) {
+                    let (start, end) = (range[0], range[1]);
+                    let sd = section.logical_section_for_paragraph(start).1;
+                    let cd = Self::find_column_def_for_paragraph(para_src, start);
+                    let frame = crate::renderer::page_layout::PageLayoutInfo::from_page_def(
+                        &sd.page_def,
+                        &cd,
+                        self.dpi,
+                    );
+                    let width = frame
+                        .column_areas
+                        .first()
+                        .map(|a| a.width)
+                        .unwrap_or(frame.body_area.width);
+                    let mut part = measurer.measure_section(
+                        &para_src[start..end],
+                        &composed[start..end],
+                        &self.styles,
+                        Some(width),
+                    );
+                    for p in &mut part.fallback_paragraphs {
+                        p.para_index += start;
+                    }
+                    for t in &mut part.tables {
+                        t.para_index += start;
+                    }
+                    merged.fallback_paragraphs.extend(part.fallback_paragraphs);
+                    merged.tables.extend(part.tables);
+                }
+                merged
+            } else if !self.measured_sections[idx].fallback_paragraphs.is_empty() {
                 let dirty_paras = self
                     .dirty_paragraphs
                     .get(idx)
@@ -4829,7 +5001,14 @@ impl DocumentCore {
             let use_paginator = std::env::var("RHWP_USE_PAGINATOR")
                 .map(|v| v == "1")
                 .unwrap_or(false);
-            let mut result = if use_paginator {
+            // The legacy diagnostic paginator takes a single PageDef. Logical
+            // sections use the owner-aware production typesetter even under that flag.
+            let has_inline_sections = section.paragraphs.iter().skip(1).any(|p| {
+                p.controls
+                    .iter()
+                    .any(|c| matches!(c, Control::SectionDef(_)))
+            });
+            let mut result = if use_paginator && !has_inline_sections {
                 let profile = self.document.layout_profile();
                 paginator.paginate_with_measured_profile(
                     para_src,
@@ -4952,7 +5131,14 @@ impl DocumentCore {
             // ── 수렴 감지: 이전 페이지네이션과 비교하여 변경 흡수 지점 탐색 ──
             // 판단 후 검증: 수렴으로 복사한 결과를 full pagination과 비교하여 정합성 확인
             let offset = self.para_offset.get(idx).copied().unwrap_or(0);
-            if offset != 0 {
+            if offset != 0
+                && !self.pagination[idx].pages.iter().any(|p| p.logical_section_para.is_some())
+                && !section.paragraphs.iter().skip(1).any(|p| {
+                    p.controls
+                        .iter()
+                        .any(|c| matches!(c, Control::SectionDef(_)))
+                })
+            {
                 let old_result = &self.pagination[idx];
                 if let Some(converge_page) = result.find_convergence(old_result, offset) {
                     let new_page_count = result.pages.len();
@@ -7127,7 +7313,7 @@ impl DocumentCore {
         // 구역의 각주 모양 정보
         let footnote_shape = if page_content.section_index < self.document.sections.len() {
             &self.document.sections[page_content.section_index]
-                .section_def
+                .logical_section_def(page_content.logical_section_para)
                 .footnote_shape
         } else {
             &crate::model::footnote::FootnoteShape::default()
@@ -7137,7 +7323,11 @@ impl DocumentCore {
             self.document
                 .sections
                 .get(mp_ref.section_index)
-                .and_then(|s| s.section_def.master_pages.get(mp_ref.master_page_index))
+                .and_then(|s| {
+                    s.logical_section_def(mp_ref.owner_para_index)
+                        .master_pages
+                        .get(mp_ref.master_page_index)
+                })
         });
         // 확장 바탕쪽 조회
         let extra_mps: Vec<&crate::model::header_footer::MasterPage> = page_content
@@ -7147,7 +7337,11 @@ impl DocumentCore {
                 self.document
                     .sections
                     .get(mp_ref.section_index)
-                    .and_then(|s| s.section_def.master_pages.get(mp_ref.master_page_index))
+                    .and_then(|s| {
+                        s.logical_section_def(mp_ref.owner_para_index)
+                            .master_pages
+                            .get(mp_ref.master_page_index)
+                    })
             })
             .collect();
         let sec_measured = self
@@ -7160,12 +7354,18 @@ impl DocumentCore {
             .document
             .sections
             .get(page_content.section_index)
-            .map(|s| &s.section_def.page_border_fill);
+            .map(|s| {
+                &s.logical_section_def(page_content.logical_section_para)
+                    .page_border_fill
+            });
         let outline_num_id = self
             .document
             .sections
             .get(page_content.section_index)
-            .map(|s| s.section_def.outline_numbering_id)
+            .map(|s| {
+                s.logical_section_def(page_content.logical_section_para)
+                    .outline_numbering_id
+            })
             .unwrap_or(0);
 
         // 번호 상태 리셋 후, 이 페이지 이전의 번호 문단을 재계산하여 카운터 복원
@@ -7244,7 +7444,11 @@ impl DocumentCore {
         let is_section_first_page = self
             .pagination
             .get(page_content.section_index)
-            .and_then(|pr| pr.pages.first())
+            .and_then(|pr| {
+                pr.pages
+                    .iter()
+                    .find(|p| p.logical_section_para == page_content.logical_section_para)
+            })
             .map(|first| first.page_index == page_content.page_index)
             .unwrap_or(true);
         self.layout_engine
@@ -7258,8 +7462,10 @@ impl DocumentCore {
             .get(page_content.section_index)
             .map(|s| {
                 (
-                    s.section_def.first_page_border,
-                    s.section_def.first_page_fill,
+                    s.logical_section_def(page_content.logical_section_para)
+                        .first_page_border,
+                    s.logical_section_def(page_content.logical_section_para)
+                        .first_page_fill,
                 )
             })
             .unwrap_or((false, false));

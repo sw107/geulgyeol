@@ -627,8 +627,11 @@ impl DocumentCore {
             })
         })?;
         let column_def = Self::find_column_def_for_paragraph(&section.paragraphs, host_index);
-        let layout =
-            PageLayoutInfo::from_page_def(&section.section_def.page_def, &column_def, self.dpi);
+        let layout = PageLayoutInfo::from_page_def(
+            &section.logical_section_for_paragraph(host_index).1.page_def,
+            &column_def,
+            self.dpi,
+        );
         let column_index = self
             .para_column_map
             .get(section_idx)
@@ -854,7 +857,7 @@ impl DocumentCore {
             let column_def =
                 Self::find_column_def_for_paragraph(&staged_paragraphs, released_para_idx);
             let layout =
-                PageLayoutInfo::from_page_def(&section.section_def.page_def, &column_def, self.dpi);
+                PageLayoutInfo::from_page_def(&section.logical_section_for_paragraph(released_para_idx).1.page_def, &column_def, self.dpi);
             let column_index = self
                 .para_column_map
                 .get(section_idx)
@@ -2027,7 +2030,7 @@ impl DocumentCore {
     /// 지정된 문단의 line_segs를 컬럼 너비 기반으로 재계산한다.
     pub(crate) fn reflow_paragraph(&mut self, section_idx: usize, para_idx: usize) {
         let section = &self.document.sections[section_idx];
-        let page_def = &section.section_def.page_def;
+        let page_def = &section.logical_section_for_paragraph(para_idx).1.page_def;
         // 해당 문단에 적용되는 ColumnDef를 찾음 (구역 내 다단↔단일단 전환 지원)
         let column_def = Self::find_column_def_for_paragraph(&section.paragraphs, para_idx);
         let layout = PageLayoutInfo::from_page_def(page_def, &column_def, self.dpi);

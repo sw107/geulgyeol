@@ -39,6 +39,7 @@ fn test_build_empty_page() {
         page_number: 0,
         page_number_restarted: false,
         section_index: 0,
+        logical_section_para: None,
         layout,
         column_contents: Vec::new(),
         active_header: None,
@@ -579,6 +580,7 @@ fn test_build_page_with_paragraph() {
         page_number: 0,
         page_number_restarted: false,
         section_index: 0,
+        logical_section_para: None,
         layout,
         column_contents: vec![ColumnContent {
             column_index: 0,
@@ -658,6 +660,7 @@ fn partial_paragraph_start_line_beyond_lines_does_not_panic() {
         page_number: 0,
         page_number_restarted: false,
         section_index: 0,
+        logical_section_para: None,
         layout,
         column_contents: vec![ColumnContent {
             column_index: 0,
@@ -766,6 +769,7 @@ fn test_layout_with_composed_styles() {
         page_number: 0,
         page_number_restarted: false,
         section_index: 0,
+        logical_section_para: None,
         layout,
         column_contents: vec![ColumnContent {
             column_index: 0,
@@ -899,6 +903,7 @@ fn test_layout_multi_run_x_position() {
         page_number: 0,
         page_number_restarted: false,
         section_index: 0,
+        logical_section_para: None,
         layout,
         column_contents: vec![ColumnContent {
             column_index: 0,
@@ -1280,6 +1285,7 @@ fn test_layout_table_basic() {
         page_number: 0,
         page_number_restarted: false,
         section_index: 0,
+        logical_section_para: None,
         layout,
         column_contents: vec![ColumnContent {
             column_index: 0,
@@ -1435,6 +1441,7 @@ fn test_layout_table_cell_positions() {
         page_number: 0,
         page_number_restarted: false,
         section_index: 0,
+        logical_section_para: None,
         layout,
         column_contents: vec![ColumnContent {
             column_index: 0,
@@ -2675,6 +2682,7 @@ fn render_tree_with_header_control(control: Control) -> PageRenderTree {
         page_number: 1,
         page_number_restarted: false,
         section_index: 0,
+        logical_section_para: None,
         layout,
         column_contents: Vec::new(),
         active_header: Some(HeaderFooterRef {
@@ -2781,6 +2789,7 @@ fn page_bg_color_and_image_present(is_section_first: bool) -> (bool, bool) {
         page_number: 0,
         page_number_restarted: false,
         section_index: 0,
+        logical_section_para: None,
         layout,
         column_contents: Vec::new(),
         active_header: None,

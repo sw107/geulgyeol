@@ -120,6 +120,22 @@ def save(name, data, error=None):
                  'expected':None if error else expected(data)})
 
 save('explicit-distinct', base())
+# The next logical owner's columns must not become the physical root's default.
+data = base(); root = parse(data,'Contents/section0.xml')
+for run in root[0]:
+    for child in list(run):
+        if local(child) == 'ctrl' and any(local(e) == 'colPr' for e in child.iter()): run.remove(child)
+next(e for e in root[1].iter() if local(e) == 'colPr').set('colCount','2')
+data['Contents/section0.xml'] = encode(root); save('late-column-owner',data)
+
+# A narrow physical-root control isolates existing font-metric behavior from
+# logical-owner geometry. Its second paragraph starts a page but has no secPr.
+data = base(); root = parse(data,'Contents/section0.xml'); next(e for e in root[0].iter() if local(e) == 'pagePr').set('width','42000'); root[1].set('pageBreak','1')
+for run in root[1]:
+    for child in list(run):
+        if local(child) == 'secPr': run.remove(child)
+data['Contents/section0.xml'] = encode(root); remove_part(data,1); save('narrow-physical-control',data)
+
 data = base(); root = parse(data,'Contents/section0.xml'); root.remove(root[1]); data['Contents/section0.xml'] = encode(root); remove_part(data,1)
 save('single-first-owner',data)
 pure = {n:b for n,b in data.items() if n != 'META-INF/rhwp-hwp5-origin'}; save('pure-single-first-owner',pure)

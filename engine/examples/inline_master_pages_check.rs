@@ -187,11 +187,108 @@ fn guards(out: &Path) {
     checks += 1;
     write_json(out, "guards.json", &json!({"unchangedRefusals":checks}));
 }
+fn render_dump(d: &DocumentCore, out: &Path, label: &str) {
+    let mut pages = Vec::new();
+    for page in 0..d.page_count() {
+        let info: Value = serde_json::from_str(&d.get_page_info_native(page).unwrap()).unwrap();
+        let tree: Value =
+            serde_json::from_str(&d.build_page_render_tree(page).unwrap().root.to_json()).unwrap();
+        fs::write(
+            out.join(format!("{label}-{page}.svg")),
+            d.render_page_svg_native(page).unwrap(),
+        )
+        .unwrap();
+        pages.push(json!({"page":page,"info":info,"tree":tree}));
+    }
+    let mut cursors = Vec::new();
+    for (si, section) in d.document().sections.iter().enumerate() {
+        for (pi, para) in section.paragraphs.iter().enumerate() {
+            if para.text.is_empty() {
+                continue;
+            }
+            let rect: Value =
+                serde_json::from_str(&d.get_cursor_rect_native(si, pi, 0).unwrap()).unwrap();
+            let hit: Value = serde_json::from_str(
+                &d.hit_test_native(
+                    rect["pageIndex"].as_u64().unwrap() as u32,
+                    rect["x"].as_f64().unwrap() + 0.1,
+                    rect["y"].as_f64().unwrap() + rect["height"].as_f64().unwrap() / 2.0,
+                )
+                .unwrap(),
+            )
+            .unwrap();
+            cursors.push(json!({"section":si,"para":pi,"rect":rect,"hit":hit}));
+        }
+    }
+    let axes: Vec<_> = d.document().sections.iter().map(|s| s.paragraphs.iter().map(|p|
+        json!({"count":p.char_count,"prefix":p.char_offsets.iter().take(3).collect::<Vec<_>>(),"shift":p.hwpx_axis_shift,
+            "starts":p.line_segs.iter().take(4).map(|l|l.text_start).collect::<Vec<_>>(),"controls":p.logical_control_positions()})).collect::<Vec<_>>()).collect();
+    write_json(
+        out,
+        &format!("{label}-render.json"),
+        &json!({"model":view(&d),"pages":pages,"cursors":cursors,"axes":axes}),
+    );
+}
 fn main() {
     let args: Vec<_> = std::env::args().skip(1).collect();
     let out = Path::new(&args[1]);
     fs::create_dir(out).unwrap();
-    if args[0] == "seed" {
+    if args[0] == "render" {
+        for input in &args[2..] {
+            let path = Path::new(input);
+            let label = path.file_stem().unwrap().to_str().unwrap();
+            let d = DocumentCore::from_bytes(&fs::read(path).unwrap()).unwrap();
+            render_dump(&d, out, label);
+        }
+    } else if args[0] == "render-edit" {
+        let mut d = DocumentCore::from_bytes(&fs::read(&args[2]).unwrap()).unwrap();
+        let before = state(&d);
+        let undo = d.save_snapshot_native();
+        let pi = 1;
+        let at = d.document().sections[0].paragraphs[pi].text.chars().count();
+        d.insert_text_native(0, pi, at, &" 가나다라 abcdef ".repeat(400))
+            .unwrap();
+        render_dump(&d, out, "long");
+        let long = state(&d);
+        let redo = d.save_snapshot_native();
+        for format in ["hwp", "hwpx"] {
+            let bytes = if format == "hwp" {
+                d.export_hwp_native()
+            } else {
+                d.export_hwpx_native()
+            }
+            .unwrap();
+            fs::write(out.join(format!("long.{format}")), &bytes).unwrap();
+            let reopened = DocumentCore::from_bytes(&bytes).unwrap();
+            render_dump(&reopened, out, &format!("long-{format}"));
+        }
+        d.split_paragraph_native(0, 0, 3, None).unwrap();
+        render_dump(&d, out, "split");
+        for format in ["hwp", "hwpx"] {
+            let bytes = if format == "hwp" {
+                d.export_hwp_native()
+            } else {
+                d.export_hwpx_native()
+            }
+            .unwrap();
+            fs::write(out.join(format!("split.{format}")), &bytes).unwrap();
+            let reopened = DocumentCore::from_bytes(&bytes).unwrap();
+            render_dump(&reopened, out, &format!("split-{format}"));
+        }
+        d.restore_snapshot_native(undo).unwrap();
+        assert_eq!(state(&d), before);
+        render_dump(&d, out, "undo");
+        d.restore_snapshot_native(redo).unwrap();
+        assert_eq!(state(&d), long);
+        render_dump(&d, out, "redo");
+        d.discard_snapshot_native(undo);
+        d.discard_snapshot_native(redo);
+        write_json(
+            out,
+            "edit-counts.json",
+            &json!({"reopens":4,"snapshotRestores":2}),
+        );
+    } else if args[0] == "seed" {
         let (mut d, a, b) = seed();
         install(&mut d, vec![a.clone(), b.clone()]);
         fs::write(

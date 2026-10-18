@@ -288,6 +288,34 @@ pub struct Section {
     pub memo_tail: Option<crate::model::memo::HwpMemoTail>,
 }
 
+impl Section {
+    /// Resolve a render-only logical owner without changing physical document addresses.
+    pub fn logical_section_def(&self, owner: Option<usize>) -> &SectionDef {
+        owner
+            .and_then(|pi| self.paragraphs.get(pi))
+            .and_then(|p| {
+                p.controls.iter().find_map(|c| match c {
+                    crate::model::control::Control::SectionDef(sd) => Some(sd.as_ref()),
+                    _ => None,
+                })
+            })
+            .unwrap_or(&self.section_def)
+    }
+
+    pub fn logical_section_for_paragraph(&self, para_index: usize) -> (Option<usize>, &SectionDef) {
+        let last = para_index.min(self.paragraphs.len().saturating_sub(1));
+        for pi in (1..=last).rev() {
+            if let Some(sd) = self.paragraphs[pi].controls.iter().find_map(|c| match c {
+                crate::model::control::Control::SectionDef(sd) => Some(sd.as_ref()),
+                _ => None,
+            }) {
+                return (Some(pi), sd);
+            }
+        }
+        (None, &self.section_def)
+    }
+}
+
 /// 구역 정의 (HWPTAG_CTRL_HEADER - 'secd')
 #[derive(Debug, Clone, Default, serde::Serialize)]
 pub struct SectionDef {

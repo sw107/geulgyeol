@@ -1,32 +1,32 @@
 {
-  "baseCommit": "d45b704442e60b9470a9c57f877a5b1cca0940bf",
-  "scope": "Explicit inline master-page storage owners; singleton P2 follow-up. Merge blocked by unresolved logical-section rendering.",
+  "baseCommit": "bbc2c4d25b015b571068e4e9f38a5d1689021e6f",
+  "scope": "Explicit inline master-page storage owners and per-logical-owner rendering; singleton P2 rejection preserved. Actual app QA and independent review pending; merge blocked.",
   "native": {
-    "positiveInputs": 21,
+    "positiveInputs": 23,
     "rejectedAmbiguousInputs": 10,
     "native": {
-      "loads": 21,
-      "reopens": 76,
-      "snapshotRestores": 42
+      "loads": 23,
+      "reopens": 84,
+      "snapshotRestores": 46
     },
     "unchangedExportGuards": {
       "unchangedRefusals": 5
     },
-    "sourceSHA256": "1829c5747faff6f8c754df4517b35888d2b6fb542fd6b18bb4d361d33413820f",
-    "binarySHA256": "22d6d826a4f6508139ef17d62622bcdb7cc6dc7de146e906203111c67c273031",
+    "sourceSHA256": "6e1a79ea0aba10644473010ed97d774f19e08bed8aace731c5f2cbfc08ff5275",
+    "binarySHA256": "b8d05612e73a3907b4e37691c3126c19caac82be06c1d6a5f4d33fbbc484e56a",
     "GUIVerified": false
   },
   "wasm": {
-    "engineSHA256": "35f3aac48519d119cdfda60c244e1354f557becfdbabab5078d30e14c7105d2d",
-    "loads": 21,
+    "engineSHA256": "0b8659cdacd1aca5dd8f29322ad6ff41c28946f26ffa2517655f796c33047ece",
+    "loads": 23,
     "rejectedAmbiguousInputs": 10,
     "exportRefusals": 8,
-    "wasmReopens": 76,
-    "snapshotRestores": 42,
+    "wasmReopens": 84,
+    "snapshotRestores": 46,
     "nativeVerification": {
-      "loads": 76,
-      "reopens": 288,
-      "snapshotRestores": 152
+      "loads": 84,
+      "reopens": 320,
+      "snapshotRestores": 168
     },
     "GUIVerified": false
   },
@@ -46,7 +46,7 @@
     "files": {
       "rhwp.js": "6d90a9c2eb8d3f54e0660c377a22e3b68cb9e571d7e2df39ce65a33db472908b",
       "rhwp.d.ts": "6e3190f1bc68b0474bd8826219b33d30a589d934099e4372cae22384a7d6c8cd",
-      "rhwp_bg.wasm": "35f3aac48519d119cdfda60c244e1354f557becfdbabab5078d30e14c7105d2d",
+      "rhwp_bg.wasm": "0b8659cdacd1aca5dd8f29322ad6ff41c28946f26ffa2517655f796c33047ece",
       "rhwp_bg.wasm.d.ts": "658ae260e5979667cbc59fde32e8d22c4f14480cd77b59dfaf6115d28e2dc880"
     }
   },
@@ -56,47 +56,85 @@
   },
   "sdkTypes": {
     "exitCode": 0,
-    "strict": true,
-    "noEmit": true,
-    "module": "nodenext",
-    "target": "es2022",
-    "scope": "generated release SDK declarations and typed export/snapshot consumer",
+    "argv": [
+      "node",
+      "rhwp-studio/node_modules/typescript/bin/tsc",
+      "--noEmit",
+      "--strict",
+      "--skipLibCheck",
+      "--target",
+      "es2022",
+      "--module",
+      "nodenext",
+      "--moduleResolution",
+      "nodenext",
+      "/Users/sw107/Documents/Codex/2026-10-14/task/inline-section-master-pages-rendering/sdk-consumer.mts"
+    ],
     "consumerSHA256": "7bbfba3a2d7dc3f2f773f9206e2c75d44b55f092763212c18c32c3b8cb37f5f0",
-    "tscSHA256": "2219f428a7e55aaf1f7ad85b9b0f0cf5078aeb76ccc9a7c6036c92d48f492ffd"
+    "tscSHA256": "2219f428a7e55aaf1f7ad85b9b0f0cf5078aeb76ccc9a7c6036c92d48f492ffd",
+    "strict": true,
+    "noEmit": true
   },
   "regressions": {
     "namedField": {
+      "engineSHA256": "0b8659cdacd1aca5dd8f29322ad6ff41c28946f26ffa2517655f796c33047ece",
       "cases": 54,
       "readChecks": 216,
       "rejections": 276,
       "legacyChecks": 6,
       "protectedChecks": 2,
       "reopens": 216,
-      "snapshotRestores": 108
+      "snapshotRestores": 108,
+      "limits": [
+        "Engine-only SDK API; no OCX token routing, source UI or native Hancom claim.",
+        "Occurrence order is the current document getFieldList order. Callers must refresh it after structural edits."
+      ]
     },
     "singleComment": {
       "mode": "fixed",
+      "engineSHA256": "0b8659cdacd1aca5dd8f29322ad6ff41c28946f26ffa2517655f796c33047ece",
       "cases": 72,
       "controls": 8,
       "rejections": 36,
       "successes": 36,
       "observedDefects": 0,
-      "reopens": 144
+      "reopens": 144,
+      "snapshotRestores": 144,
+      "limits": [
+        "Headless WASM engine only; no native app, physical input, UI history or Hancom validation.",
+        "Scope is the existing single body replacement APIs; Replace All policy is unchanged."
+      ]
     }
   },
   "sourceSHA256": {
+    "engine/examples/inline_master_pages_check.rs": "c8ac25dad121ab9e9220ed11b949144c55139b21ae026dc3571a08f525d7a04b",
+    "engine/src/document_core/commands/document.rs": "8a33e406aa588597f3968371fd579aed8f16c260ceabad47db8d3978460e15af",
+    "engine/src/document_core/commands/formatting.rs": "7d44a1b56333afe3c41b4cd63e47b747adb09305e28e7629034678871d5a9833",
+    "engine/src/document_core/commands/text_editing.rs": "d3c2e34f2e3a359c597525ebef5a67ceb2c6e390e17913caa9e5dd5439b1e525",
+    "engine/src/document_core/queries/rendering.rs": "6469ddae8b306b30ec3c9b2e9d2e7cdecd464653eb2521edd554dbc5a5d8e376",
+    "engine/src/model/document.rs": "a54d6093b4230af37e386b8722d177d9859a1a7a32a19871e069c45efa2a5cca",
     "engine/src/parser/body_text.rs": "a168f71fff6e42bab0cdb5b0e85931061ba5ccc5bdc3fb24b9b144df4503b080",
-    "engine/src/parser/hwpx/mod.rs": "2e7dbf46b482d1d90409b66427464cb2dad4b47f8db3725af4b66f0eea3b5845",
-    "engine/src/serializer/hwpx/context.rs": "e817b2d019ad7492ac50b8e35cc21b1c6995607311be554b8088af6159dd82a5",
-    "engine/src/serializer/hwpx/section.rs": "15b2f349d39a33fe1fc0863306ecde2bbcd406709f00c2f2cad4a5c925375a37",
-    "engine/src/serializer/hwpx/mod.rs": "b9a4efd5dea9e6ebe526804ca13d8609fd4be5bf2d48295a44f6bef05e4b5067",
-    "engine/src/serializer/hwpx/table.rs": "3eb8c781d6ac5ecfd7c0bf0eed9a9fe6521de036fb998af6071abe9e6983c91c",
-    "engine/src/serializer/cfb_writer.rs": "f9e83f70210c9e3dad1dff336d9795849614b299d8f89f5df78fab59b809248a",
-    "engine/src/serializer/hwpx/master_page.rs": "2b376c047f663bf82fe26814143bae7457b350d80f221f5f54475149a20f27ac",
     "engine/src/parser/hwpx/inline_master_pages.rs": "662b08b46d51f733093615b4307f865a6c10e07be4dc81a881c818150c502207",
-    "engine/examples/inline_master_pages_check.rs": "4ec003f9de007f75e99530926e291366a89f65c851d579ce920772a730010123",
-    "scripts/check-inline-master-pages.py": "1829c5747faff6f8c754df4517b35888d2b6fb542fd6b18bb4d361d33413820f",
-    "scripts/check-inline-master-pages.mjs": "ed7b1e68b07212ccbefcda86ea13b47d04d634de56447f2ddc2e74faf59edc6f"
+    "engine/src/parser/hwpx/mod.rs": "2e7dbf46b482d1d90409b66427464cb2dad4b47f8db3725af4b66f0eea3b5845",
+    "engine/src/renderer/composer.rs": "176a61485ab908f11429b4cd6bd2644575cfe0e4296d8886e95772732f2fe980",
+    "engine/src/renderer/layout.rs": "ac56d27b15286392f10bb9caed5e8f9398c6a59f465af015fb59211b9b5ca1dd",
+    "engine/src/renderer/layout/integration_tests.rs": "130f85fb027eb9f6e1569838bb60ea7b448d15f582b2ba616df61cbb273d025b",
+    "engine/src/renderer/layout/paragraph_layout/issue_2439_lineseg_indent_tests.rs": "0ec9e00982d8543b2366ed1dbbdc0a3366498a51a7bd4957d5b107980bb43ab4",
+    "engine/src/renderer/layout/tests.rs": "36fca9c9eb2fd68fe80f020d031c88e9525ec88ace37a87424c6d6ab1dc1c960",
+    "engine/src/renderer/page_number.rs": "7b15e4e6f80e92e984f38f6fe48dfc80faf82d4fb4e1bee0d1dde0a539c8bbe1",
+    "engine/src/renderer/pagination.rs": "e4a653bfa2e0070166a8b95e39246b9e2271db66f26ff2ec1de163449e301591",
+    "engine/src/renderer/pagination/state.rs": "4fac1a6679c0d049584019e694f13247a20fc89fb16b3b5e05e9cb2d213a9c65",
+    "engine/src/renderer/pagination/tests.rs": "5b2d083f97f1b3a31399b08b5498e66bf8181e860d31a067384ce43b1f302aac",
+    "engine/src/renderer/typeset.rs": "15ac11c9014aea5e92ebaf6d06bfcc51102ffe3ba04d49aa0f1873fc4f976809",
+    "engine/src/serializer/cfb_writer.rs": "f9e83f70210c9e3dad1dff336d9795849614b299d8f89f5df78fab59b809248a",
+    "engine/src/serializer/hwpx/context.rs": "e817b2d019ad7492ac50b8e35cc21b1c6995607311be554b8088af6159dd82a5",
+    "engine/src/serializer/hwpx/master_page.rs": "2b376c047f663bf82fe26814143bae7457b350d80f221f5f54475149a20f27ac",
+    "engine/src/serializer/hwpx/mod.rs": "b9a4efd5dea9e6ebe526804ca13d8609fd4be5bf2d48295a44f6bef05e4b5067",
+    "engine/src/serializer/hwpx/section.rs": "71bbfab8e2024e3f590d2da9aaf56edb470e89473de56ae8431959acfd2703a9",
+    "engine/src/serializer/hwpx/table.rs": "3eb8c781d6ac5ecfd7c0bf0eed9a9fe6521de036fb998af6071abe9e6983c91c",
+    "scripts/check-inline-master-pages.mjs": "ed7b1e68b07212ccbefcda86ea13b47d04d634de56447f2ddc2e74faf59edc6f",
+    "scripts/check-inline-master-pages.py": "6e1a79ea0aba10644473010ed97d774f19e08bed8aace731c5f2cbfc08ff5275",
+    "scripts/check-inline-section-rendering.mjs": "1fe6d3ee92d0b5c46b8f22f0962d7e90ecb6c41cc489776e1cd843dcc14bedc6"
   },
   "originalDirtyCheckoutUnchanged": true,
   "limitations": {
@@ -111,12 +149,13 @@
       ]
     },
     "clippy": "Unavailable in pinned toolchain: no such command",
-    "GUI": "Old PR81 app QA failed; P2 actual app/Hancom not revalidated; see appQA and RENDERING_KO.md. Merge blocked.",
+    "GUI": "No GUI control tools in this executor; no final actual app/Hancom certification. Independent review pending. Merge blocked.",
     "CI": "Not certified; local checks do not imply CI or app success",
     "HWP": "New sparse/multiple/extension inline projections are refused; HWPX preserves supported explicit owners",
-    "orphanParts": "Not assigned by manifest order; retention of unreferenced parts is not certified"
+    "orphanParts": "Not assigned by manifest order; retention of unreferenced parts is not certified",
+    "longTextFontMetrics": "Long line geometry must equal a same-width physical-root control. Existing shared font-metric overhang is not repaired or certified here."
   },
-  "previousHead": "570a37446b452a52414b09a2143d45999c64389a",
+  "previousHead": "4e036b75848463669c060035e5b976601f338ee3",
   "reviewP2": {
     "reviewResultSHA256": "231a63ddc9c2754c879bcf2fdfa02a9631cb12ee7a81d07cb1e086ace02e39ea",
     "exactInputBaseline": {
@@ -148,11 +187,12 @@
         "loads": 0,
         "reopens": 0,
         "snapshotRestores": 0
-      }
+      },
+      "binarySHA256": "b8d05612e73a3907b4e37691c3126c19caac82be06c1d6a5f4d33fbbc484e56a"
     },
     "exactInputWasmFixed": {
       "mode": "fixed",
-      "engineSHA256": "35f3aac48519d119cdfda60c244e1354f557becfdbabab5078d30e14c7105d2d",
+      "engineSHA256": "0b8659cdacd1aca5dd8f29322ad6ff41c28946f26ffa2517655f796c33047ece",
       "heldDocumentUnchanged": true,
       "rows": [
         {
@@ -178,13 +218,91 @@
     "rendererErrors": 12,
     "storageOwnersAndBodyMatch": 20,
     "mergeBlocked": true,
-    "newP2AppQA": "Not performed"
+    "newP2AppQA": "Not performed",
+    "finalAppQA": "Pending; pin UI main bbc2c4d25b015b571068e4e9f38a5d1689021e6f with WASM 0b8659cdacd1aca5dd8f29322ad6ff41c28946f26ffa2517655f796c33047ece"
   },
-  "renderingInvestigation": {
+  "rendering": {
+    "native": {
+      "mode": "native",
+      "documents": 76,
+      "pageChecks": 204,
+      "hitChecks": 168,
+      "reopens": 56,
+      "snapshotRestores": 4,
+      "physicalEquivalenceChecks": 7,
+      "fixtures": 12,
+      "longTextMetricScope": "Long line geometry must equal a same-width physical-root control. Existing shared font-metric overhang is not repaired or certified here.",
+      "engineSHA256": "b8d05612e73a3907b4e37691c3126c19caac82be06c1d6a5f4d33fbbc484e56a",
+      "GUIVerified": false
+    },
+    "wasm": {
+      "mode": "wasm",
+      "documents": 114,
+      "pageChecks": 286,
+      "hitChecks": 250,
+      "reopens": 56,
+      "snapshotRestores": 28,
+      "physicalEquivalenceChecks": 6,
+      "fixtures": 12,
+      "longTextMetricScope": "Long line geometry must equal a same-width physical-root control. Existing shared font-metric overhang is not repaired or certified here.",
+      "engineSHA256": "0b8659cdacd1aca5dd8f29322ad6ff41c28946f26ffa2517655f796c33047ece",
+      "GUIVerified": false
+    }
+  },
+  "ui": {
+    "main": "bbc2c4d25b015b571068e4e9f38a5d1689021e6f",
+    "result": [
+      {
+        "name": "tests",
+        "code": 0,
+        "args": [
+          "--test",
+          "rhwp-studio/tests/bookmark-navigation.test.mjs",
+          "rhwp-studio/tests/bookmark-suggestion.test.mjs",
+          "rhwp-studio/tests/document-scroll-boundary.test.mjs",
+          "rhwp-studio/tests/picture-caption-format.test.mjs",
+          "rhwp-studio/tests/picture-caption-position.test.mjs"
+        ]
+      },
+      {
+        "name": "types",
+        "code": 0,
+        "args": [
+          "rhwp-studio/node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "-p",
+          "rhwp-studio"
+        ]
+      }
+    ],
+    "testsPassed": 78,
+    "testsFailed": 0,
+    "actualAppVerified": false
+  },
+  "priorRenderingInvestigation": {
     "proofSHA256": "b1bb59709f0b15b477c5f4c4ce31d4a90f32737cbe1b9df96756cd7186a61864",
     "report": "RENDERING_KO.md",
     "P2ValidRenderingUnchanged": true,
     "baselineComparedFixtures": 5,
-    "unresolved": "Root-only page width and master selection; observable BODY_1 width and empty-first display regressions introduced by first-owner mirror correction; console errors unclassified"
+    "unresolved": "Root-only page width and master selection; observable BODY_1 width and empty-first display regressions introduced by first-owner mirror correction; console errors unclassified",
+    "supersededBy": "Per-owner engine rendering fix; final actual app verification still pending."
+  },
+  "evidence": {
+    "root": "/Users/sw107/Documents/Codex/2026-10-14/task/inline-section-master-pages-rendering",
+    "proofFiles": {
+      "native-complete/proof.json": "a00808ab923abc68af37d792d27887ce21146cae692e577f7ea2903380bc1c37",
+      "native-render-complete/proof.json": "2cc18bcd9078135dc20e99d462c66f372768f0511c7339c11b070de81d778b49",
+      "wasm-storage/proof.json": "dfa6c322a2c94370787386adcb6400da3811737ee5d4da08a59275c55b0da7af",
+      "wasm-render/proof.json": "040d3f03c13d04ed71eafac78512e2411832db429af9da0d923e3a95dba300a8",
+      "p2-original-native-final/proof.json": "22eac2ed0d371117016786a4443faad5e57e85ecee87687bdbf1e8b61e5b6cdc",
+      "p2-original-wasm-output/proof.json": "9d63cdae7eed2003e0bd1dbbe6f496c05adf2d6310ecfcf95808184418c2cfba",
+      "named-field-output/proof.json": "ad2a222a02571c682adedf23dbc49f6aeead206476103c0ed5c3b27e908c9f58",
+      "comment-output/proof.json": "1b6964cd73c4d6052c2882b10591773cfc9eacdd451a77e3aa46e5ab4d639082",
+      "cargo-check/result.json": "acda0be2aa112b1deb29b521443067f618057505e8f63d177e6e55144e7c2451",
+      "lib-test-compile/result.json": "7444848fbba55431457b8d0a8acac9f34abe9a80dd3172d91c11eab321fde0e0",
+      "sdk-types.json": "d5347051eb565ec8f166f1bd7759b40d5ad136daaea3cd55c395b0bc2bd6fb77",
+      "ui-checks/result.json": "a18437319aaafbc93aa5e54598ee1c039d04b01aa942488a68418cba60a5ebd9",
+      "preservation-final.json": "7e27bd38acea1d37f38dc46ff84f3b91af687fc2d862427cfbc4a11d80dfafae"
+    }
   }
 }

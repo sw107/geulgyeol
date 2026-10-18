@@ -153,20 +153,74 @@ pub(crate) fn compose_section_with_horizontal_shaping(
     styles: &ResolvedStyleSet,
     dpi: f64,
 ) -> Vec<ComposedParagraph> {
-    let mut composed: Vec<_> = section.paragraphs.iter()
-        .map(|paragraph| compose_paragraph_with_horizontal_shaping(paragraph, styles)).collect();
-    let column_def = section.paragraphs.iter().flat_map(|p| &p.controls)
-        .find_map(|c| if let Control::ColumnDef(d) = c { Some(d.clone()) } else { None })
-        .unwrap_or_else(|| crate::model::page::ColumnDef { column_count: 1, ..Default::default() });
-    let picture_count = section.paragraphs.iter().flat_map(|p| &p.controls)
-        .filter(|c| line_breaking::is_frame_float(c)).count();
-    let multiple_pictures = picture_count >= 2 || section.paragraphs.iter().flat_map(|p| &p.controls)
-        .any(|c| matches!(c, Control::Shape(_)) && line_breaking::is_frame_float(c));
+    let mut starts = vec![0];
+    starts.extend(
+        section
+            .paragraphs
+            .iter()
+            .enumerate()
+            .skip(1)
+            .filter_map(|(pi, p)| {
+                p.controls
+                    .iter()
+                    .any(|c| matches!(c, Control::SectionDef(_)))
+                    .then_some(pi)
+            }),
+    );
+    starts.push(section.paragraphs.len());
+    starts
+        .windows(2)
+        .flat_map(|range| {
+            let start = range[0];
+            let owner = if start == 0 { None } else { Some(start) };
+            compose_logical_section(
+                &section.paragraphs[start..range[1]],
+                &section.logical_section_def(owner).page_def,
+                styles,
+                dpi,
+            )
+        })
+        .collect()
+}
+
+fn compose_logical_section(
+    paragraphs: &[Paragraph],
+    page_def: &crate::model::page::PageDef,
+    styles: &ResolvedStyleSet,
+    dpi: f64,
+) -> Vec<ComposedParagraph> {
+    let mut composed: Vec<_> = paragraphs
+        .iter()
+        .map(|paragraph| compose_paragraph_with_horizontal_shaping(paragraph, styles))
+        .collect();
+    let column_def = paragraphs
+        .iter()
+        .flat_map(|p| &p.controls)
+        .find_map(|c| {
+            if let Control::ColumnDef(d) = c {
+                Some(d.clone())
+            } else {
+                None
+            }
+        })
+        .unwrap_or_else(|| crate::model::page::ColumnDef {
+            column_count: 1,
+            ..Default::default()
+        });
+    let picture_count = paragraphs
+        .iter()
+        .flat_map(|p| &p.controls)
+        .filter(|c| line_breaking::is_frame_float(c))
+        .count();
+    let multiple_pictures = picture_count >= 2
+        || paragraphs
+            .iter()
+            .flat_map(|p| &p.controls)
+            .any(|c| matches!(c, Control::Shape(_)) && line_breaking::is_frame_float(c));
     if column_def.column_count <= 1 {
-        let layout = crate::renderer::page_layout::PageLayoutInfo::from_page_def(
-            &section.section_def.page_def, &column_def, dpi,
-        );
-        for (paragraph, result) in section.paragraphs.iter().zip(&mut composed) {
+        let layout =
+            crate::renderer::page_layout::PageLayoutInfo::from_page_def(page_def, &column_def, dpi);
+        for (paragraph, result) in paragraphs.iter().zip(&mut composed) {
             let missing_trailing_host = paragraph.line_segs.is_empty()
                 && paragraph.controls.iter().all(|c| matches!(c,
                     Control::Table(_) | Control::SectionDef(_) | Control::ColumnDef(_)))
@@ -185,20 +239,32 @@ pub(crate) fn compose_section_with_horizontal_shaping(
             }
         }
     }
-    let all_missing = section.paragraphs.iter().all(|p| p.line_segs.is_empty());
+    let all_missing = paragraphs.iter().all(|p| p.line_segs.is_empty());
     if column_def.column_count <= 1 && (picture_count > 0 || all_missing) {
-        let layout = crate::renderer::page_layout::PageLayoutInfo::from_page_def(&section.section_def.page_def, &column_def, dpi);
-        if let Some(band) = line_breaking::layout_final_picture_chain(&section.paragraphs, layout.body_area.width, layout.body_area.height, styles, dpi) {
+        let layout =
+            crate::renderer::page_layout::PageLayoutInfo::from_page_def(page_def, &column_def, dpi);
+        if let Some(band) = line_breaking::layout_final_picture_chain(
+            paragraphs,
+            layout.body_area.width,
+            layout.body_area.height,
+            styles,
+            dpi,
+        ) {
             if all_missing {
-                composed = section.paragraphs.iter().zip(band.line_segs.iter()).map(|(paragraph, rows)| {
-                    let mut shadow = paragraph.clone();
-                    shadow.replace_line_segs(rows.clone());
-                    let mut result = compose_paragraph_with_horizontal_shaping(&shadow, styles);
-                    result.picture_chain_projection = Some((layout.body_area.width, std::sync::Arc::new(rows.clone())));
-                    result.use_fractional_float_advance = multiple_pictures;
-                    result
-                }).collect();
-            } else if line_breaking::picture_chain_rows_match(&section.paragraphs, &band) {
+                composed = paragraphs
+                    .iter()
+                    .zip(band.line_segs.iter())
+                    .map(|(paragraph, rows)| {
+                        let mut shadow = paragraph.clone();
+                        shadow.replace_line_segs(rows.clone());
+                        let mut result = compose_paragraph_with_horizontal_shaping(&shadow, styles);
+                        result.picture_chain_projection =
+                            Some((layout.body_area.width, std::sync::Arc::new(rows.clone())));
+                        result.use_fractional_float_advance = multiple_pictures;
+                        result
+                    })
+                    .collect();
+            } else if line_breaking::picture_chain_rows_match(paragraphs, &band) {
                 for (paragraph, rows) in composed.iter_mut().zip(band.line_segs) {
                     paragraph.use_fractional_float_advance = multiple_pictures;
                     paragraph.picture_chain_projection = Some((layout.body_area.width, std::sync::Arc::new(rows)));

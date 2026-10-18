@@ -1041,6 +1041,7 @@ struct TypesetState {
     layout: PageLayoutInfo,
     /// 구역 인덱스
     section_index: usize,
+    logical_section_para: Option<usize>,
     /// 각주 높이 누적
     /// [#4090] Square 어울림 개체가 만든 세로 배제 밴드의 바닥(쪽 기준 px).
     /// 밴드를 벗어나거나 쪽이 끝날 때 흐름을 이 값으로 끌어올린다. 0.0 = 없음.
@@ -4538,6 +4539,7 @@ impl TypesetState {
             col_count,
             layout,
             section_index,
+            logical_section_para: None,
             square_band_bottom: 0.0,
             square_band_top: None,
             current_footnote_height: 0.0,
@@ -5322,6 +5324,7 @@ impl TypesetState {
             page_number: 0,
             page_number_restarted: false,
             section_index: self.section_index,
+            logical_section_para: self.logical_section_para,
             layout: self.layout.clone(),
             column_contents,
             active_header: None,
@@ -7247,7 +7250,58 @@ impl TypesetEngine {
         }
         let issue2424_loop_started = issue2424_ts_enabled.then(std::time::Instant::now);
 
+        let mut active_section_def: Option<&crate::model::document::SectionDef> = None;
         for (para_idx, para) in paragraphs.iter().enumerate() {
+            // A direct secPr starts a logical section while physical paragraph
+            // addresses stay unchanged. Close the old page before changing its frame.
+            if para_idx > 0 {
+                if let Some(sd) = para.controls.iter().find_map(|c| match c {
+                    Control::SectionDef(sd) => Some(sd.as_ref()),
+                    _ => None,
+                }) {
+                    if !st.current_items.is_empty()
+                        || st
+                            .pages
+                            .last()
+                            .is_some_and(|p| p.column_contents.iter().any(|c| !c.items.is_empty()))
+                    {
+                        st.force_new_page();
+                    }
+                    let cd = paragraphs[..=para_idx]
+                        .iter()
+                        .rev()
+                        .flat_map(|p| &p.controls)
+                        .find_map(|c| match c {
+                            Control::ColumnDef(cd) => Some(cd),
+                            _ => None,
+                        })
+                        .unwrap_or(column_def);
+                    st.logical_section_para = Some(para_idx);
+                    st.layout = PageLayoutInfo::from_page_def(&sd.page_def, cd, self.dpi);
+                    st.col_count = cd.column_count.max(1);
+                    st.current_zone_layout = None;
+                    st.current_zone_column_type = cd.column_type;
+                    st.current_zone_y_offset = 0.0;
+                    st.hide_empty_line = sd.hide_empty_line;
+                    st.footnote_separator_overhead =
+                        footnote_separator_overhead_px(&sd.footnote_shape, self.dpi);
+                    st.footnote_between_notes_margin =
+                        footnote_between_notes_margin_px(&sd.footnote_shape, self.dpi);
+                    if let Some(page) = st.pages.last_mut() {
+                        page.layout = st.layout.clone();
+                        page.logical_section_para = st.logical_section_para;
+                    }
+                    active_section_def = Some(sd);
+                    st.prefilled_paras.remove(&para_idx);
+                }
+            }
+            let page_def = active_section_def
+                .map(|sd| &sd.page_def)
+                .unwrap_or(page_def);
+            let footnote_shape = active_section_def
+                .map(|sd| &sd.footnote_shape)
+                .unwrap_or(footnote_shape);
+
             // [Task #1753] 지연 이월 표 직전에 선행 채움(prefill)으로 이미 배치된 문단 스킵.
             if st.prefilled_paras.contains(&para_idx) {
                 continue;
@@ -28218,6 +28272,7 @@ mod tests {
             page_number: 0,
             page_number_restarted: false,
             section_index: 0,
+            logical_section_para: None,
             layout: PageLayoutInfo::from_page_def(
                 &a4_page_def(),
                 &ColumnDef::default(),

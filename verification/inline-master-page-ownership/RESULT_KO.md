@@ -57,11 +57,22 @@ node scripts/check-inline-master-pages.mjs "$WASM_PKG" "$NATIVE_OUTPUT" "$NATIVE
 
 실행 결과와 한계는 함께 커밋한 `proof.json`을 참조한다. 이 실행기에는 화면
 제어 도구가 없어 P2 수정본의 정품 한글·Electron 앱 검증은 수행하지 않았다.
-별도 앱 QA는 이전 `570a374`의 표시 실패를 확인했다. 원인 범위와 기준 SDK
-비교는 `RENDERING_KO.md`에 기록했으며 표시 실패가 해결될 때까지 병합 보류다.
+별도 앱 QA는 이전 `570a374`의 표시 실패를 확인했다. 이번 후속 수정은 논리
+구역별 프레임과 바탕쪽을 연결했고 Native/WASM 쪽별 회귀를 통과했다. 구현과
+비교는 `RENDERING_KO.md`에 기록했다. 최신 main UI와 최종 WASM을 고정한
+실제 앱 재검증·독립 검토가 끝날 때까지 병합 보류다.
 별도 한글 경고 2×2 진단과 관련 로그는 이 변경에 포함하지 않는다.
 
 독립 검토 P2의 두 원본 입력은 수정 전 SDK에서 검토 로그와 같은 저장 해시로
 재현했다. 후속 수정은 조기 반환 전 위치·제어 대응 검사와 회귀 입력만 보완한다.
 기존 19개 정상 입력·8개 거절 입력에 정상 단일 소유자 2종과 잘못된 단일
 소유자 2종을 추가했다. 두 검토 원본도 별도로 Native/WASM에서 재검사한다.
+
+최신 UI main `bbc2c4d25b015b571068e4e9f38a5d1689021e6f`를 결합했다.
+소유권·본문 저장 검사는 정상 23종·거절 10종으로 확장했고, 별도 쪽별 렌더
+검사는 12종과 긴 본문·문단 분할·재열기·복원·히트테스트를 다룬다.
+
+```sh
+node scripts/check-inline-section-rendering.mjs native "$NATIVE_BINARY" "$NATIVE_OUTPUT" "$NATIVE_RENDER_OUTPUT"
+node scripts/check-inline-section-rendering.mjs wasm "$WASM_PKG" "$NATIVE_OUTPUT" "$WASM_RENDER_OUTPUT"
+```

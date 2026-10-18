@@ -842,6 +842,24 @@ pub(crate) fn render_paragraph_parts(
     let (runs_xml, position_axis_intact, serialized_axis_end, mut hwp5_only_slot_positions) =
         render_runs(para, ctx);
 
+    // The parser treats a leading secPr + sibling colPr as two definition-only
+    // slots. An inline logical owner emits that colPr XML (unlike the physical
+    // root template), but its 8 units still do not belong to the HWPX text axis.
+    // Match the exact leading control/stream positions; ordinary colPr keeps its slot.
+    if ctx.sub_list_depth == 0
+        && matches!(para.controls.first(), Some(Control::SectionDef(_)))
+        && matches!(para.controls.get(1), Some(Control::ColumnDef(_)))
+        && para.char_offsets.first().is_some_and(|&pos| pos >= 16)
+    {
+        let positions = para.control_utf16_positions();
+        if positions.get(0) == Some(&0)
+            && positions.get(1) == Some(&8)
+            && !hwp5_only_slot_positions.contains(&8)
+        {
+            hwp5_only_slot_positions.push(8);
+        }
+    }
+
     // [#4778] 위치 축이 무너진 문단(파서가 담지 못한 8유닛 슬롯 — 예: 차례표지
     // 0x0008 — 이 있거나 mismatch 폴백으로 컨트롤을 말미에 몰아쓴 문단)에는 저장
     // lineseg 를 방출하지 않는다. 방출 텍스트와 textpos 사다리가 어긋난 lineseg 를

@@ -127,6 +127,7 @@ fn tac_picture_and_shape_require_partial_paragraph_page_routing() {
         page_number: page_index + 1,
         page_number_restarted: false,
         section_index: 0,
+        logical_section_para: None,
         layout: layout.clone(),
         column_contents: vec![ColumnContent {
             column_index: 0,

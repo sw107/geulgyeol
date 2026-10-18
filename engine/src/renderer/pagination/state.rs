@@ -283,6 +283,7 @@ impl PaginationState {
             page_number: 0,
             page_number_restarted: false,
             section_index: self.section_index,
+            logical_section_para: None,
             layout: self.layout.clone(),
             column_contents,
             active_header: None,
