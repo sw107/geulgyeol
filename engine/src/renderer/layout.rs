@@ -5873,13 +5873,17 @@ impl LayoutEngine {
         start_height: f64,
         section_index: usize,
         between_notes_hu: i32,
+        endnote_para_base: usize,
     ) -> f64 {
         self.endnote_between_notes_hu.set(between_notes_hu);
+        // Legacy callers pass locally reindexed notes (base=0). Canonical text
+        // callers retain body indices and pass the real virtual paragraph base.
+        // `endnote_para_base` enables the same normalization as replay.
         // 로컬 paras 는 전부 미주 para(0-기반 재색인). `endnote_para_base=0` 으로 미주 vpos
         // 정규화 경로(`endnote_line_vpos_base`: para_index >= base)를 활성화한다 — 미설정 시
         // usize::MAX 라 정규화가 꺼져 para 의 절대 파일-vpos 가 그대로 새어 단독 측정이
         // 폭발한다(수식 para 35px→13721px).
-        self.endnote_para_base.set(0);
+        self.endnote_para_base.set(endnote_para_base);
         let layout_info = PageLayoutInfo {
             page_width: col_area.width,
             page_height: col_area.y + col_area.height,
@@ -6483,7 +6487,17 @@ impl LayoutEngine {
                             _ => None,
                         })
                         .unwrap_or(0.0);
-                    y_offset = (y_offset - trailing_ls_px).max(0.0);
+                    let sequential = col_content.items[item_ordinal + 1..]
+                        .iter()
+                        .find_map(|it| match it {
+                            PageItem::FullParagraph { para_index }
+                            | PageItem::PartialParagraph { para_index, .. } => paragraphs.get(*para_index),
+                            _ => None,
+                        })
+                        .is_some_and(|p| p.sequential_endnote.is_some());
+                    if !sequential {
+                        y_offset = (y_offset - trailing_ls_px).max(0.0);
+                    }
                     let (new_y, _) = self.layout_column_item(
                         tree,
                         &mut col_node,
@@ -6514,6 +6528,48 @@ impl LayoutEngine {
                     continue;
                 }
             };
+            if let Some(para) = paragraphs
+                .get(item_para)
+                .filter(|p| p.sequential_endnote.is_some())
+            {
+                if let PageItem::PartialParagraph {
+                    start_line,
+                    end_line,
+                    ..
+                } = item
+                {
+                    if *start_line == 0 {
+                        y_offset += para.sequential_endnote.unwrap_or(0.0);
+                    }
+                    para_start_y.insert(item_para, y_offset);
+                    if let Some(comp) = composed.get(item_para) {
+                        y_offset = self.layout_composed_paragraph(
+                            tree,
+                            &mut col_node,
+                            comp,
+                            styles,
+                            &col_area,
+                            y_offset,
+                            *start_line,
+                            *end_line,
+                            page_content.section_index,
+                            item_para,
+                            None,
+                            false,
+                            false,
+                            0.0,
+                            multi_col_width,
+                            Some(para),
+                            Some(bin_data_content),
+                            None,
+                        );
+                    }
+                    hcursor.prev_layout_para = None;
+                    hcursor.vpos_page_base = None;
+                    hcursor.vpos_lazy_base = None;
+                    continue;
+                }
+            }
             // [#2813] 공백-only host 앵커 줄은 표 스택의 문서순을 보존하는 PageItem일
             // 뿐, 표를 측정한 뒤 다시 그 높이를 소비하는 flow 요소가 아니다. 이 줄을
             // 일반 paragraph로 layout하면 본문 하단 밖에 빈 줄을 재배치해

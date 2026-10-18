@@ -122,8 +122,8 @@ pub struct ComposedParagraph {
     /// owner로 넘기며 line breaking·layout·paint는 아직 이 값을 소비하지 않는다.
     pub(crate) horizontal_shaping:
         Option<std::sync::Arc<crate::renderer::shaping_paragraph::HorizontalShapingLineOutcome>>,
-    /// A proven multiple-picture frame keeps fractional advances at paint;
-    /// rounding a justified run to pixels can cross the carved picture edge.
+    /// Proven picture frames and canonical text endnotes keep fractional pens;
+    /// per-run pixel rounding can push justified text past the frame edge.
     pub(crate) use_fractional_float_advance: bool,
     /// Derived-only proven picture-chain rows. Missing caches share this
     /// projection across measurement/rendering; stored caches use it as proof.
@@ -648,7 +648,10 @@ fn compose_paragraph_impl(para: &Paragraph, caption: bool) -> ComposedParagraph 
         footnote_positions,
         tab_extended: para.tab_extended.clone(),
         horizontal_shaping: None,
-        use_fractional_float_advance: false,
+        // Canonical text endnotes share the fractional pen used by the frame
+        // filler. Rounding each mixed-language run separately manufactures
+        // justification slack and can push the painted line past its frame.
+        use_fractional_float_advance: para.sequential_endnote.is_some(),
         picture_chain_projection: None,
     };
 
