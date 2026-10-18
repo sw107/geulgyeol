@@ -534,6 +534,25 @@ impl DocumentCore {
         length: usize,
         new_text: &str,
     ) -> Result<String, HwpError> {
+        // Inserting a paragraph break into a comment-bearing paragraph is already
+        // rejected by insert_text_native. Check that policy before deleting the
+        // match: otherwise a failed single replacement consumes the source text.
+        if new_text.chars().any(|c| matches!(c, '\r' | '\n')) {
+            if let Some(paragraph) = self
+                .document
+                .sections
+                .get(sec)
+                .and_then(|section| section.paragraphs.get(para))
+            {
+                if crate::model::memo::validate_body_anchors(&self.document, &[paragraph])
+                    .map_err(HwpError::InvalidField)?
+                {
+                    return Err(HwpError::InvalidField(
+                        "주석 본문에 줄바꿈 문자를 직접 삽입할 수 없습니다.".into(),
+                    ));
+                }
+            }
+        }
         // 삭제 후 삽입
         self.delete_text_native(sec, para, char_offset, length)?;
         self.insert_text_native(sec, para, char_offset, new_text)?;
@@ -565,8 +584,7 @@ impl DocumentCore {
         };
 
         let new_len = new_text.chars().count();
-        self.delete_text_native(hit.sec, hit.para, hit.char_offset, hit.length)?;
-        self.insert_text_native(hit.sec, hit.para, hit.char_offset, new_text)?;
+        self.replace_text_native(hit.sec, hit.para, hit.char_offset, hit.length, new_text)?;
 
         Ok(format!(
             "{{\"ok\":true,\"sec\":{},\"para\":{},\"charOffset\":{},\"newLength\":{}}}",
