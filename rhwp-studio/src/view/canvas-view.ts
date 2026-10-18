@@ -492,6 +492,8 @@ export class CanvasView {
 
   /** 스크롤/리사이즈 시 보이는 페이지를 갱신한다 */
   private updateVisiblePages(): void {
+    // reset과 비동기 renderer 선택 사이에는 이전 가상 페이지 맵을 소비하지 않는다.
+    if (this.disposed || this.pages.length === 0) return;
     const scrollY = this.viewportManager.getScrollY();
     const scrollX = this.viewportManager.getScrollX();
     const { width: vpWidth, height: vpHeight } = this.viewportManager.getViewportSize();
@@ -1241,6 +1243,7 @@ export class CanvasView {
 
   /** 리소스를 정리한다 */
   private reset(): void {
+    this.viewportManager.cancelPendingScrollUpdate();
     const hadActivePage = this.activePageSnapshot !== null;
     const hadFocusedPage = this.editingPageIndex !== null;
     this.cancelPendingTextEditRefresh();
