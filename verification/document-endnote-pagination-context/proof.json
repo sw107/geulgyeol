@@ -1,0 +1,3759 @@
+{
+  "schema": 1,
+  "baseSHA": "e38938d813eb06bdb8a2baec2ed9281fbd0317e0",
+  "branch": "dev/document-endnote-pagination-context",
+  "scope": "Document-end endnote source revisions in the last physical section pagination key",
+  "sourceSHA256": {
+    "engine/src/document_core/queries/rendering.rs": "d50d57b3909dcfd5910c476c514dd4ae0fb39baeda6817fb964b0357b112df1e",
+    "engine/src/renderer/pagination.rs": "bb3a43c6d3131a2db56055988804cd57d281ebb09aca13de9ca33bab4363e1d0",
+    "engine/examples/document_endnote_cache_check.rs": "f738e52634dd361c6d414834c0cb3e341276dbf9208e7aebe7b83cda0472e27b",
+    "scripts/check-document-endnote-cache.mjs": "fb2485a5ca442d6fd7f4313c8f22b42469e2c77e1cb2784c8de8e0e238c59499",
+    "scripts/prepare-document-endnote-cache.py": "035dd5b6e289f7874e211c3e000aa04d43ec3de11fd606f7b546e063958e64a0"
+  },
+  "mergedPR84": {
+    "remotePR": {
+      "headRefOid": "4f467439c6c0da5c97598e0a29753f8164dab753",
+      "isDraft": false,
+      "mergeCommit": {
+        "oid": "e38938d813eb06bdb8a2baec2ed9281fbd0317e0"
+      },
+      "mergedAt": "2026-10-18T17:54:10Z",
+      "state": "MERGED",
+      "statusCheckRollup": [],
+      "url": "https://github.com/sw107/geulgyeol/pull/84"
+    },
+    "mergeSHA": "e38938d813eb06bdb8a2baec2ed9281fbd0317e0",
+    "remoteMain": "e38938d813eb06bdb8a2baec2ed9281fbd0317e0",
+    "PR83Included": true,
+    "reviewedEngineAndUIIncluded": true,
+    "combinedTreeMatchesPreview": true,
+    "engineTree": "35bc6bb1d84a75832abd063fd70c2ddc4ba181f1",
+    "UITree": "e92eb4721d1d16bdbef7df5e7bab205f6cce7e41",
+    "WASMSHA256": "2f59070b66d62f1294598bc3769a641063c993dd89fe4478c81aab53f845c3d7",
+    "merged": true,
+    "deployed": false
+  },
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache",
+  "checks": {
+    "baseline-native-matrix": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 32381,
+      "minFreeBytes": 31784960000,
+      "maxAdditionalAllocatedBytes": 117002240,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/run-native.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/bin/baseline-endnote-native",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/endnote-fixtures-2/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/baseline-native-matrix-output",
+        "baseline"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "baseline-wasm-matrix": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 2007,
+      "minFreeBytes": 31784960000,
+      "maxAdditionalAllocatedBytes": 118427648,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-document-endnote-cache.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/physical-section-context-review-p2/wasm-release/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/endnote-fixtures-2/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/baseline-wasm-matrix-output",
+        "baseline"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "fixed-native-matrix": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 31181,
+      "minFreeBytes": 31662080000,
+      "maxAdditionalAllocatedBytes": 235589632,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/run-native.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/bin/document_endnote_cache_check",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/endnote-fixtures-2/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/fixed-native-matrix-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "fixed-wasm-matrix": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 1989,
+      "minFreeBytes": 31662080000,
+      "maxAdditionalAllocatedBytes": 253464576,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-document-endnote-cache.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/wasm-release/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/endnote-fixtures-2/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/fixed-wasm-matrix-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "final-carry-native": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 12530,
+      "minFreeBytes": 31662080000,
+      "maxAdditionalAllocatedBytes": 237223936,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/run-native.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/bin/physical_section_context_check",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/physical-section-context-review-p2/carry-fixtures/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/final-carry-native-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "final-carry-wasm": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 1223,
+      "minFreeBytes": 31662080000,
+      "maxAdditionalAllocatedBytes": 255094784,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-physical-section-carry.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/wasm-release/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/physical-section-context-review-p2/carry-fixtures/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/final-carry-wasm-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "final-existing-native": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 6023,
+      "minFreeBytes": 31662080000,
+      "maxAdditionalAllocatedBytes": 238833664,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/run-native.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/bin/physical_section_context_check",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr81-merge-and-physical-page-cache/combined-fixtures.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/final-existing-native-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "final-existing-wasm": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 855,
+      "minFreeBytes": 31662080000,
+      "maxAdditionalAllocatedBytes": 256700416,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-physical-section-page-context.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/wasm-release/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr81-merge-and-physical-page-cache/combined-fixtures.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/final-existing-wasm-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "native-storage": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 2181,
+      "minFreeBytes": 31621120000,
+      "maxAdditionalAllocatedBytes": 258981888,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/run-python.mjs",
+        "scripts/check-inline-master-pages.py",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/bin/inline_master_pages_check",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/native-storage-output"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "native-inline-render": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 2834,
+      "minFreeBytes": 31580160000,
+      "maxAdditionalAllocatedBytes": 298938368,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-inline-section-rendering.mjs",
+        "native",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/bin/inline_master_pages_check",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/native-storage-output",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/native-inline-render-output"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "wasm-storage": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 4497,
+      "minFreeBytes": 31580160000,
+      "maxAdditionalAllocatedBytes": 305684480,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-inline-master-pages.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/wasm-release/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/native-storage-output",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/bin/inline_master_pages_check",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/wasm-storage-output"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "wasm-inline-render": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 1070,
+      "minFreeBytes": 31539200000,
+      "maxAdditionalAllocatedBytes": 346517504,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-inline-section-rendering.mjs",
+        "wasm",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/wasm-release/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/native-storage-output",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/wasm-inline-render-output"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "named-field": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 1223,
+      "minFreeBytes": 31539200000,
+      "maxAdditionalAllocatedBytes": 348962816,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-named-field-occurrence.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/wasm-release/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/named-field-occurrence-api/native-fixed",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/named-field-output"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "single-comment": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 792,
+      "minFreeBytes": 31539200000,
+      "maxAdditionalAllocatedBytes": 350564352,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-comment-single-replace-preflight.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/wasm-release/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/comment-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "cargo-check": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 14511,
+      "minFreeBytes": 31539200000,
+      "maxAdditionalAllocatedBytes": 350597120,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "check",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--example",
+        "document_endnote_cache_check",
+        "--example",
+        "physical_section_context_check",
+        "--example",
+        "inline_master_pages_check"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "lib-test-compile": {
+      "code": 101,
+      "signal": null,
+      "elapsedMs": 21196,
+      "minFreeBytes": 31539200000,
+      "maxAdditionalAllocatedBytes": 350617600,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--no-run"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    }
+  },
+  "results": {
+    "baseline-native-matrix": {
+      "path": "baseline-native-matrix-output/proof.json",
+      "sha256": "d01b9af962c915d56e20fd72de0dd01e175e749ce53a6c2e1a31ae0ce2d95ce8",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 9,
+        "comparisons": 67,
+        "fullRebuilds": 67,
+        "hwpxReopens": 67,
+        "mismatches": 19,
+        "mode": "baseline",
+        "snapshotRestores": 27
+      }
+    },
+    "baseline-wasm-matrix": {
+      "path": "baseline-wasm-matrix-output/proof.json",
+      "sha256": "5bf1f5f9b94d3b4a7a6e754e2bac58b3b3e6903db6ec8a6b3b568463f16c2826",
+      "summary": {
+        "mode": "baseline",
+        "engineSHA256": "2f59070b66d62f1294598bc3769a641063c993dd89fe4478c81aab53f845c3d7",
+        "cases": 9,
+        "comparisons": 67,
+        "mismatches": 19,
+        "hwpxReopens": 67,
+        "snapshotRestores": 27,
+        "GUIVerified": false
+      }
+    },
+    "fixed-native-matrix": {
+      "path": "fixed-native-matrix-output/proof.json",
+      "sha256": "2efb0053b6d02f8ea32707e463440c1f5509feec5390b4aefcc99ab320da2d05",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 9,
+        "comparisons": 67,
+        "fullRebuilds": 67,
+        "hwpxReopens": 67,
+        "mismatches": 0,
+        "mode": "fixed",
+        "snapshotRestores": 27
+      }
+    },
+    "fixed-wasm-matrix": {
+      "path": "fixed-wasm-matrix-output/proof.json",
+      "sha256": "555fcf317d870b72a092835c031a7fa75a4433d0a9ff63a1452c0dd08d6fb8ed",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+        "cases": 9,
+        "comparisons": 67,
+        "mismatches": 0,
+        "hwpxReopens": 67,
+        "snapshotRestores": 27,
+        "GUIVerified": false
+      }
+    },
+    "final-carry-native": {
+      "path": "final-carry-native-output/proof.json",
+      "sha256": "395591d6b749f826fc5d56045b0d0d8d4470606e0fea5017378cbda31194d219",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 5,
+        "comparisons": 45,
+        "fullRebuilds": 45,
+        "hwpReopens": 0,
+        "mismatches": 0,
+        "mode": "fixed",
+        "reopens": 45,
+        "snapshotRestores": 25
+      }
+    },
+    "final-carry-wasm": {
+      "path": "final-carry-wasm-output/proof.json",
+      "sha256": "01f4ffb5e3bb5521b5105ffd05f4bbd6aefd0a45ea0a5112655c94e91aead1f5",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+        "cases": 5,
+        "comparisons": 45,
+        "mismatches": 0,
+        "reopens": 45,
+        "snapshotRestores": 25,
+        "parityChecks": 1196,
+        "GUIVerified": false
+      }
+    },
+    "final-existing-native": {
+      "path": "final-existing-native-output/proof.json",
+      "sha256": "25ae2cd35e278ce960bc36a1e31fe5b08fdffc6703c0ad89d3b9209c81272f4f",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 13,
+        "comparisons": 65,
+        "fullRebuilds": 65,
+        "hwpReopens": 30,
+        "mismatches": 0,
+        "mode": "fixed",
+        "reopens": 65,
+        "snapshotRestores": 13
+      }
+    },
+    "final-existing-wasm": {
+      "path": "final-existing-wasm-output/proof.json",
+      "sha256": "87d1c4c36624a8449b215f33d44ccda789ef14e52b100a156adff1ddcf87e0c0",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+        "cases": 13,
+        "comparisons": 65,
+        "mismatches": 0,
+        "reopens": 65,
+        "hwpReopens": 30,
+        "snapshotRestores": 13,
+        "crossFormatLimit": "Three-physical-section shared-master HWP conversion differs already in the merged baseline; not certified or repaired by this cache change. Exact reviewer fixtures test HWPX only.",
+        "GUIVerified": false
+      }
+    },
+    "native-storage": {
+      "path": "native-storage-output/proof.json",
+      "sha256": "06b4623a492169a52b8d631a711f99c598d4793bfd19ea4db8547792b13f3a89",
+      "summary": {
+        "positiveInputs": 23,
+        "rejectedAmbiguousInputs": 10,
+        "native": {
+          "loads": 23,
+          "reopens": 84,
+          "snapshotRestores": 46
+        },
+        "unchangedExportGuards": {
+          "unchangedRefusals": 5
+        },
+        "sourceSHA256": "6e1a79ea0aba10644473010ed97d774f19e08bed8aace731c5f2cbfc08ff5275",
+        "binarySHA256": "21fb17535cd2689087cc6276c9ae59cb5af925e14f57d99cf0fe0b5e50d560e1",
+        "GUIVerified": false
+      }
+    },
+    "native-inline-render": {
+      "path": "native-inline-render-output/proof.json",
+      "sha256": "5b3cfb616e5ad6a4aa12dac4384c895728cb43cd616bd864b1e8765cfaaecf78",
+      "summary": {
+        "mode": "native",
+        "documents": 76,
+        "pageChecks": 204,
+        "hitChecks": 168,
+        "reopens": 56,
+        "snapshotRestores": 4,
+        "physicalEquivalenceChecks": 7,
+        "fixtures": 12,
+        "longTextMetricScope": "Long line geometry must equal a same-width physical-root control. Existing shared font-metric overhang is not repaired or certified here.",
+        "engineSHA256": "21fb17535cd2689087cc6276c9ae59cb5af925e14f57d99cf0fe0b5e50d560e1",
+        "GUIVerified": false
+      }
+    },
+    "wasm-storage": {
+      "path": "wasm-storage-output/proof.json",
+      "sha256": "6818a5e0f1f5e8b2e7a778fde3d8830980e3bc4a314ce1a13e6e219bcdb788a0",
+      "summary": {
+        "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+        "loads": 23,
+        "rejectedAmbiguousInputs": 10,
+        "exportRefusals": 8,
+        "wasmReopens": 84,
+        "snapshotRestores": 46,
+        "nativeVerification": {
+          "loads": 84,
+          "reopens": 320,
+          "snapshotRestores": 168
+        },
+        "GUIVerified": false
+      }
+    },
+    "wasm-inline-render": {
+      "path": "wasm-inline-render-output/proof.json",
+      "sha256": "50f20370dc712c33ff4669fb9e4bea5d284ed7aa5893dd72110b13ad4f5e626d",
+      "summary": {
+        "mode": "wasm",
+        "documents": 114,
+        "pageChecks": 286,
+        "hitChecks": 250,
+        "reopens": 56,
+        "snapshotRestores": 28,
+        "physicalEquivalenceChecks": 6,
+        "fixtures": 12,
+        "longTextMetricScope": "Long line geometry must equal a same-width physical-root control. Existing shared font-metric overhang is not repaired or certified here.",
+        "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+        "GUIVerified": false
+      }
+    },
+    "named-field": {
+      "path": "named-field-output/proof.json",
+      "sha256": "d670d0ee9a265c59e11d75ca9be2d429e3016d67c35905b2ec0354efb65f8356",
+      "summary": {
+        "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+        "cases": 54,
+        "readChecks": 216,
+        "rejections": 276,
+        "legacyChecks": 6,
+        "protectedChecks": 2,
+        "reopens": 216,
+        "snapshotRestores": 108
+      }
+    },
+    "single-comment": {
+      "path": "comment-output/proof.json",
+      "sha256": "bb76f1a933c4e0d2bb0b41501bb806cf5af6d08bde064e0431351b2c5a04f951",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+        "cases": 72,
+        "controls": 8,
+        "rejections": 36,
+        "successes": 36,
+        "observedDefects": 0,
+        "reopens": 144,
+        "snapshotRestores": 144
+      }
+    }
+  },
+  "release": {
+    "remappedAtCompilation": true,
+    "offlineLocked": true,
+    "versions": {
+      "cargo": "cargo 1.93.1 (083ac5135 2025-12-15)",
+      "rustc": "rustc 1.93.1 (01f6ddf75 2026-02-11)",
+      "wasm-bindgen": "wasm-bindgen 0.2.127"
+    },
+    "audit": {
+      "clean": true,
+      "filesChecked": 4,
+      "findings": []
+    },
+    "files": {
+      "rhwp.js": "6d90a9c2eb8d3f54e0660c377a22e3b68cb9e571d7e2df39ce65a33db472908b",
+      "rhwp.d.ts": "6e3190f1bc68b0474bd8826219b33d30a589d934099e4372cae22384a7d6c8cd",
+      "rhwp_bg.wasm": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+      "rhwp_bg.wasm.d.ts": "658ae260e5979667cbc59fde32e8d22c4f14480cd77b59dfaf6115d28e2dc880"
+    }
+  },
+  "ui": {
+    "testsPassed": 90,
+    "testsFailed": 0,
+    "commands": [
+      {
+        "argv": [
+          "node",
+          "--test",
+          "rhwp-studio/tests/picture-caption-position.test.mjs",
+          "rhwp-studio/tests/bookmark-navigation.test.mjs",
+          "rhwp-studio/tests/bookmark-suggestion.test.mjs",
+          "rhwp-studio/tests/document-scroll-boundary.test.mjs",
+          "rhwp-studio/tests/bookmark-keyboard.test.mjs",
+          "rhwp-studio/tests/picture-caption-format.test.mjs"
+        ],
+        "code": 0
+      },
+      {
+        "argv": [
+          "node",
+          "rhwp-studio/node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "-p",
+          "rhwp-studio"
+        ],
+        "code": 0
+      }
+    ]
+  },
+  "sdkTypes": {
+    "argv": [
+      "node",
+      "rhwp-studio/node_modules/typescript/bin/tsc",
+      "--noEmit",
+      "--strict",
+      "--skipLibCheck",
+      "--target",
+      "es2022",
+      "--module",
+      "nodenext",
+      "--moduleResolution",
+      "nodenext",
+      "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/sdk-consumer.mts"
+    ],
+    "code": 0
+  },
+  "performance": {
+    "extra-merged-probes.json": {
+      "sha256": "111be5600e7b1ff59f194e29a89abe70a25aefc17a614ded74f661c8f08ab0fa",
+      "result": {
+        "mode": "merged",
+        "header": {
+          "before": [
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 1,
+                "width": 793.7,
+                "height": 1122.5,
+                "sectionIndex": 0,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 680.3,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 566.9
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 2,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 1,
+                "pageNumber": 3,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 2,
+                "pageNumber": 4,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 3,
+                "pageNumber": 5,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 6,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 2,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            }
+          ],
+          "live": [
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 1,
+                "width": 793.7,
+                "height": 1122.5,
+                "sectionIndex": 0,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 680.3,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 566.9
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 2,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 1,
+                "pageNumber": 3,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 2,
+                "pageNumber": 4,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 3,
+                "pageNumber": 5,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 6,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 2,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            }
+          ],
+          "cold": [
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 1,
+                "width": 793.7,
+                "height": 1122.5,
+                "sectionIndex": 0,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 680.3,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 566.9
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 2,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 1,
+                "pageNumber": 3,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 2,
+                "pageNumber": 4,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 3,
+                "pageNumber": 5,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 6,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 2,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            }
+          ],
+          "redo": [
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 1,
+                "width": 793.7,
+                "height": 1122.5,
+                "sectionIndex": 0,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 680.3,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 566.9
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 2,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 1,
+                "pageNumber": 3,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 2,
+                "pageNumber": 4,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 3,
+                "pageNumber": 5,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 6,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 2,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            }
+          ],
+          "lastBefore": {
+            "info": {
+              "pageIndex": 0,
+              "pageNumber": 6,
+              "width": 560,
+              "height": 1122.5,
+              "sectionIndex": 2,
+              "marginLeft": 113.4,
+              "marginRight": 113.4,
+              "marginTop": 75.6,
+              "marginBottom": 56.7,
+              "marginHeader": 56.7,
+              "marginFooter": 56.7,
+              "headerArea": {
+                "x": 113.4,
+                "y": 75.6,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "footerArea": {
+                "x": 113.4,
+                "y": 1009.1,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "bodyLeft": 113.4,
+              "bodyRight": 446.6,
+              "marginGutter": 0,
+              "bindingMirrored": false,
+              "pageBorderLeft": 94.5,
+              "pageBorderRight": 94.5,
+              "pageBorderTop": 113.4,
+              "pageBorderBottom": 94.5,
+              "columns": [
+                {
+                  "x": 113.4,
+                  "width": 333.2
+                }
+              ]
+            },
+            "decorations": [
+              {
+                "type": "MasterPage",
+                "text": "MASTER_0"
+              },
+              {
+                "type": "Header",
+                "text": "HEADER_EVEN"
+              },
+              {
+                "type": "Footer",
+                "text": "FOOTER_EVEN"
+              }
+            ]
+          },
+          "lastLive": {
+            "info": {
+              "pageIndex": 0,
+              "pageNumber": 6,
+              "width": 560,
+              "height": 1122.5,
+              "sectionIndex": 2,
+              "marginLeft": 113.4,
+              "marginRight": 113.4,
+              "marginTop": 75.6,
+              "marginBottom": 56.7,
+              "marginHeader": 56.7,
+              "marginFooter": 56.7,
+              "headerArea": {
+                "x": 113.4,
+                "y": 75.6,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "footerArea": {
+                "x": 113.4,
+                "y": 1009.1,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "bodyLeft": 113.4,
+              "bodyRight": 446.6,
+              "marginGutter": 0,
+              "bindingMirrored": false,
+              "pageBorderLeft": 94.5,
+              "pageBorderRight": 94.5,
+              "pageBorderTop": 113.4,
+              "pageBorderBottom": 94.5,
+              "columns": [
+                {
+                  "x": 113.4,
+                  "width": 333.2
+                }
+              ]
+            },
+            "decorations": [
+              {
+                "type": "MasterPage",
+                "text": "MASTER_0"
+              },
+              {
+                "type": "Header",
+                "text": "HEADER_EVEN"
+              },
+              {
+                "type": "Footer",
+                "text": "FOOTER_EVEN"
+              }
+            ]
+          },
+          "lastCold": {
+            "info": {
+              "pageIndex": 0,
+              "pageNumber": 6,
+              "width": 560,
+              "height": 1122.5,
+              "sectionIndex": 2,
+              "marginLeft": 113.4,
+              "marginRight": 113.4,
+              "marginTop": 75.6,
+              "marginBottom": 56.7,
+              "marginHeader": 56.7,
+              "marginFooter": 56.7,
+              "headerArea": {
+                "x": 113.4,
+                "y": 75.6,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "footerArea": {
+                "x": 113.4,
+                "y": 1009.1,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "bodyLeft": 113.4,
+              "bodyRight": 446.6,
+              "marginGutter": 0,
+              "bindingMirrored": false,
+              "pageBorderLeft": 94.5,
+              "pageBorderRight": 94.5,
+              "pageBorderTop": 113.4,
+              "pageBorderBottom": 94.5,
+              "columns": [
+                {
+                  "x": 113.4,
+                  "width": 333.2
+                }
+              ]
+            },
+            "decorations": [
+              {
+                "type": "MasterPage",
+                "text": "MASTER_0"
+              },
+              {
+                "type": "Header",
+                "text": "HEADER_EVEN"
+              },
+              {
+                "type": "Footer",
+                "text": "FOOTER_EVEN"
+              }
+            ]
+          },
+          "snapshotUndoCorrect": true,
+          "snapshotRedoMatchesCold": true
+        },
+        "batch": {
+          "liveEqualsCold": true,
+          "snapshotUndoCorrect": true,
+          "snapshotRedoCorrect": true,
+          "dirtyOwners": [
+            0,
+            2
+          ]
+        },
+        "timings": [
+          {
+            "sections": 3,
+            "target": 0,
+            "insertDeleteMedianMs": 0.024999999999977263,
+            "maxMs": 0.0922079999999994,
+            "samples": 7
+          },
+          {
+            "sections": 3,
+            "target": 2,
+            "insertDeleteMedianMs": 0.027457999999995764,
+            "maxMs": 0.028583999999995058,
+            "samples": 7
+          },
+          {
+            "sections": 8,
+            "target": 0,
+            "insertDeleteMedianMs": 0.024374999999992042,
+            "maxMs": 0.025374999999996817,
+            "samples": 7
+          },
+          {
+            "sections": 8,
+            "target": 7,
+            "insertDeleteMedianMs": 0.028291999999993322,
+            "maxMs": 0.029832999999996446,
+            "samples": 7
+          },
+          {
+            "sections": 32,
+            "target": 0,
+            "insertDeleteMedianMs": 0.07116600000000517,
+            "maxMs": 0.08558300000001395,
+            "samples": 7
+          },
+          {
+            "sections": 32,
+            "target": 31,
+            "insertDeleteMedianMs": 0.03720799999999258,
+            "maxMs": 0.03908400000000256,
+            "samples": 7
+          }
+        ],
+        "performanceLimit": "Tiny synthetic sections; synchronous WASM insert+delete wall time, not a GUI or large real-document benchmark."
+      }
+    },
+    "extra-fixed-probes.json": {
+      "sha256": "3e90f4928a0cca3aaa4d9905bc90478e92916a8c53d2413b8c96f14aac7a58f6",
+      "result": {
+        "mode": "fixed",
+        "header": {
+          "before": [
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 1,
+                "width": 793.7,
+                "height": 1122.5,
+                "sectionIndex": 0,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 680.3,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 566.9
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 2,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 1,
+                "pageNumber": 3,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 2,
+                "pageNumber": 4,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 3,
+                "pageNumber": 5,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 6,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 2,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            }
+          ],
+          "live": [
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 1,
+                "width": 793.7,
+                "height": 1122.5,
+                "sectionIndex": 0,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 680.3,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 566.9
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 2,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 1,
+                "pageNumber": 3,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 2,
+                "pageNumber": 4,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 3,
+                "pageNumber": 5,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 6,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 2,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            }
+          ],
+          "cold": [
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 1,
+                "width": 793.7,
+                "height": 1122.5,
+                "sectionIndex": 0,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 680.3,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 566.9
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 2,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 1,
+                "pageNumber": 3,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 2,
+                "pageNumber": 4,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 3,
+                "pageNumber": 5,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 6,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 2,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            }
+          ],
+          "redo": [
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 1,
+                "width": 793.7,
+                "height": 1122.5,
+                "sectionIndex": 0,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 566.9,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 680.3,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 566.9
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 2,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 1,
+                "pageNumber": 3,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 2,
+                "pageNumber": 4,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 3,
+                "pageNumber": 5,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 1,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_1"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_ODD"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_ODD"
+                }
+              ]
+            },
+            {
+              "info": {
+                "pageIndex": 0,
+                "pageNumber": 6,
+                "width": 560,
+                "height": 1122.5,
+                "sectionIndex": 2,
+                "marginLeft": 113.4,
+                "marginRight": 113.4,
+                "marginTop": 75.6,
+                "marginBottom": 56.7,
+                "marginHeader": 56.7,
+                "marginFooter": 56.7,
+                "headerArea": {
+                  "x": 113.4,
+                  "y": 75.6,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "footerArea": {
+                  "x": 113.4,
+                  "y": 1009.1,
+                  "width": 333.2,
+                  "height": 56.7
+                },
+                "bodyLeft": 113.4,
+                "bodyRight": 446.6,
+                "marginGutter": 0,
+                "bindingMirrored": false,
+                "pageBorderLeft": 94.5,
+                "pageBorderRight": 94.5,
+                "pageBorderTop": 113.4,
+                "pageBorderBottom": 94.5,
+                "columns": [
+                  {
+                    "x": 113.4,
+                    "width": 333.2
+                  }
+                ]
+              },
+              "decorations": [
+                {
+                  "type": "MasterPage",
+                  "text": "MASTER_0"
+                },
+                {
+                  "type": "Header",
+                  "text": "HEADER_EVEN"
+                },
+                {
+                  "type": "Footer",
+                  "text": "FOOTER_EVEN"
+                }
+              ]
+            }
+          ],
+          "lastBefore": {
+            "info": {
+              "pageIndex": 0,
+              "pageNumber": 6,
+              "width": 560,
+              "height": 1122.5,
+              "sectionIndex": 2,
+              "marginLeft": 113.4,
+              "marginRight": 113.4,
+              "marginTop": 75.6,
+              "marginBottom": 56.7,
+              "marginHeader": 56.7,
+              "marginFooter": 56.7,
+              "headerArea": {
+                "x": 113.4,
+                "y": 75.6,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "footerArea": {
+                "x": 113.4,
+                "y": 1009.1,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "bodyLeft": 113.4,
+              "bodyRight": 446.6,
+              "marginGutter": 0,
+              "bindingMirrored": false,
+              "pageBorderLeft": 94.5,
+              "pageBorderRight": 94.5,
+              "pageBorderTop": 113.4,
+              "pageBorderBottom": 94.5,
+              "columns": [
+                {
+                  "x": 113.4,
+                  "width": 333.2
+                }
+              ]
+            },
+            "decorations": [
+              {
+                "type": "MasterPage",
+                "text": "MASTER_0"
+              },
+              {
+                "type": "Header",
+                "text": "HEADER_EVEN"
+              },
+              {
+                "type": "Footer",
+                "text": "FOOTER_EVEN"
+              }
+            ]
+          },
+          "lastLive": {
+            "info": {
+              "pageIndex": 0,
+              "pageNumber": 6,
+              "width": 560,
+              "height": 1122.5,
+              "sectionIndex": 2,
+              "marginLeft": 113.4,
+              "marginRight": 113.4,
+              "marginTop": 75.6,
+              "marginBottom": 56.7,
+              "marginHeader": 56.7,
+              "marginFooter": 56.7,
+              "headerArea": {
+                "x": 113.4,
+                "y": 75.6,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "footerArea": {
+                "x": 113.4,
+                "y": 1009.1,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "bodyLeft": 113.4,
+              "bodyRight": 446.6,
+              "marginGutter": 0,
+              "bindingMirrored": false,
+              "pageBorderLeft": 94.5,
+              "pageBorderRight": 94.5,
+              "pageBorderTop": 113.4,
+              "pageBorderBottom": 94.5,
+              "columns": [
+                {
+                  "x": 113.4,
+                  "width": 333.2
+                }
+              ]
+            },
+            "decorations": [
+              {
+                "type": "MasterPage",
+                "text": "MASTER_0"
+              },
+              {
+                "type": "Header",
+                "text": "HEADER_EVEN"
+              },
+              {
+                "type": "Footer",
+                "text": "FOOTER_EVEN"
+              }
+            ]
+          },
+          "lastCold": {
+            "info": {
+              "pageIndex": 0,
+              "pageNumber": 6,
+              "width": 560,
+              "height": 1122.5,
+              "sectionIndex": 2,
+              "marginLeft": 113.4,
+              "marginRight": 113.4,
+              "marginTop": 75.6,
+              "marginBottom": 56.7,
+              "marginHeader": 56.7,
+              "marginFooter": 56.7,
+              "headerArea": {
+                "x": 113.4,
+                "y": 75.6,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "footerArea": {
+                "x": 113.4,
+                "y": 1009.1,
+                "width": 333.2,
+                "height": 56.7
+              },
+              "bodyLeft": 113.4,
+              "bodyRight": 446.6,
+              "marginGutter": 0,
+              "bindingMirrored": false,
+              "pageBorderLeft": 94.5,
+              "pageBorderRight": 94.5,
+              "pageBorderTop": 113.4,
+              "pageBorderBottom": 94.5,
+              "columns": [
+                {
+                  "x": 113.4,
+                  "width": 333.2
+                }
+              ]
+            },
+            "decorations": [
+              {
+                "type": "MasterPage",
+                "text": "MASTER_0"
+              },
+              {
+                "type": "Header",
+                "text": "HEADER_EVEN"
+              },
+              {
+                "type": "Footer",
+                "text": "FOOTER_EVEN"
+              }
+            ]
+          },
+          "snapshotUndoCorrect": true,
+          "snapshotRedoMatchesCold": true
+        },
+        "batch": {
+          "liveEqualsCold": true,
+          "snapshotUndoCorrect": true,
+          "snapshotRedoCorrect": true,
+          "dirtyOwners": [
+            0,
+            2
+          ]
+        },
+        "timings": [
+          {
+            "sections": 3,
+            "target": 0,
+            "insertDeleteMedianMs": 0.025875000000013415,
+            "maxMs": 0.07970900000000825,
+            "samples": 7
+          },
+          {
+            "sections": 3,
+            "target": 2,
+            "insertDeleteMedianMs": 0.027125000000012278,
+            "maxMs": 0.028416999999990367,
+            "samples": 7
+          },
+          {
+            "sections": 8,
+            "target": 0,
+            "insertDeleteMedianMs": 0.02458400000000438,
+            "maxMs": 0.027334000000024616,
+            "samples": 7
+          },
+          {
+            "sections": 8,
+            "target": 7,
+            "insertDeleteMedianMs": 0.028999999999996362,
+            "maxMs": 0.030208000000016,
+            "samples": 7
+          },
+          {
+            "sections": 32,
+            "target": 0,
+            "insertDeleteMedianMs": 0.03166699999999878,
+            "maxMs": 0.03212500000000773,
+            "samples": 7
+          },
+          {
+            "sections": 32,
+            "target": 31,
+            "insertDeleteMedianMs": 0.03745800000001509,
+            "maxMs": 0.04091700000000742,
+            "samples": 7
+          }
+        ],
+        "performanceLimit": "Tiny synthetic sections; synchronous WASM insert+delete wall time, not a GUI or large real-document benchmark."
+      }
+    }
+  },
+  "preservation": {
+    "originalStatusMatches": true,
+    "originalDiffSHA256": "f2f6bdfc26ca55571d8f2ef55e31633aa6e190e2c9e6107ae066dc36c660da88",
+    "originalUntrackedMatches": true,
+    "priorEvidence": [
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/physical-section-context-review-p2",
+        "indexSHA256": "e839df7f68f096bdaf477c21f777bb3e369ddb78bce028dfe4a031af57dda951",
+        "files": 2621,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/pr81-merge-and-physical-page-cache",
+        "indexSHA256": "94f94bbab66445ae5e92215e3c91c0e60f313fcee120523460b8b09d2d58f003",
+        "files": 3167,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/hwp-master-inheritance-investigation",
+        "indexSHA256": "748dab77f9621e95a764b210c4e54050266c00cccb2fcdec27944480dbad3d5b",
+        "files": 334,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/inline-section-master-pages-rendering",
+        "indexSHA256": "64840ac22ea647db80b8b848a9ae5afa9958e944c8f007c31fdd31aad55cb756",
+        "files": 3894,
+        "mismatches": []
+      }
+    ],
+    "previousHwpInvestigationPaused": true
+  },
+  "limitations": {
+    "GUIVerified": false,
+    "HancomVerified": false,
+    "signedAppVerified": false,
+    "independentReview": "pending for this new branch",
+    "CI": "No registered checks on PR84; not represented as a CI pass. New Draft checks to be read after creation.",
+    "unitTests": {
+      "executed": false,
+      "compileExit": 101,
+      "missingExistingIncludeFiles": [
+        "mydocs/tech/agent_runtime/version_policy.md",
+        "samples/3-09월_교육_통합_2022.hwp",
+        "samples/hwp3-sample16-hwp5.hwp",
+        "samples/hwpx/aift.hwpx"
+      ]
+    },
+    "clippy": "Not available in pinned toolchain; no installation attempted.",
+    "layout": "Existing LAYOUT_OVERFLOW_DRAW warnings preserved. Live/fresh equivalence does not certify note splitting, glyph coverage or page-boundary typography.",
+    "collection": "Existing top-level donor scope unchanged; nested table/shape notes not added.",
+    "formats": "New note matrix HWPX only; existing matrix retains 30 HWP reopens. Separate HWP single-Even master inheritance defect remains unresolved.",
+    "performance": "Bounded warm synthetic probes only; no broad speedup or real-app performance claim.",
+    "applications": "No GUI launched in this task; user Hancom process left untouched."
+  },
+  "deployed": false,
+  "newBranchMerged": false
+}

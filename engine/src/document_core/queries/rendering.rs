@@ -4919,6 +4919,26 @@ impl DocumentCore {
         let mut issue2424_postprocess_elapsed = std::time::Duration::ZERO;
         self.section_pagination_contexts.resize(sec_count, None);
         self.section_pagination_contexts.truncate(sec_count);
+        // Match the RenderAll donor selection below. A note edit can leave the
+        // donor's body pages and every carry slot unchanged, while changing the
+        // last section's copied endnote paragraphs and page count.
+        let document_endnote_sources: Vec<_> = self
+            .document
+            .sections
+            .iter()
+            .take(sec_count.saturating_sub(1))
+            .enumerate()
+            .filter(|(_, section)| {
+                matches!(
+                    section.section_def.endnote_shape.placement,
+                    crate::model::footnote::FootnotePlacement::EachColumn
+                ) && section
+                    .paragraphs
+                    .iter()
+                    .any(|p| p.controls.iter().any(|c| matches!(c, Control::Endnote(_))))
+            })
+            .map(|(idx, _)| (idx, self.render_normalization.section_revisions[idx]))
+            .collect();
         for (idx, section) in self.document.sections.iter().enumerate() {
             let incoming = crate::renderer::pagination::SectionPaginationContext {
                 page_number_pos: carry_page_number_pos.clone(),
@@ -4929,6 +4949,11 @@ impl DocumentCore {
                 footer_even: carry_footer_even.clone(),
                 master_odd: carry_master_odd.clone(),
                 master_even: carry_master_even.clone(),
+                document_endnote_sources: if idx + 1 == sec_count {
+                    document_endnote_sources.clone()
+                } else {
+                    Vec::new()
+                },
             };
             if !self.dirty_sections[idx]
                 && self.section_pagination_contexts[idx].as_ref() == Some(&incoming)
