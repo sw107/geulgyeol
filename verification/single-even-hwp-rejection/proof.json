@@ -1,0 +1,676 @@
+{
+  "schema": 1,
+  "baseSHA": "2a9c13448fdf682f169e5d4ba025135432d36fd1",
+  "branch": "dev/reject-lossy-single-even-hwp",
+  "sourceSHA256": {
+    "engine/src/serializer/cfb_writer.rs": "c57f2281e1ee8fb895fb06d599c7937feeb96d4519196c61eef46db807d5e60b",
+    "engine/src/document_core/commands/document.rs": "37e9109842ce44a56494f936a470c33c114645381621cbf30437f4c0d940d06d",
+    "engine/src/wasm_api.rs": "c35810249d7b98ba21adca7970f7ac908d58981e1a420fc86f8caabcd7fd4f9f",
+    "rhwp-studio/src/core/wasm-bridge.ts": "2a107218e2c6c0320a7eddfd68cc7969a0808bf1ee65d5b53a9d09a129b1836d",
+    "rhwp-studio/src/core/document-write-fence.ts": "483b74dc9daf3f1c72acb362b1a9007adb473302c43987868a25308534c7f246",
+    "engine/examples/single_even_hwp_guard_check.rs": "f84f6820bbccbc67ba3a0b878feab584180de4bb775e9ab9b9a8fba9e6ad11ee",
+    "engine/examples/physical_section_context_check.rs": "711ce87aa780e1bb9c75d2b367c92c308ce978a8e5aab59c7ccd9cc4eb54c1f1",
+    "scripts/check-single-even-hwp-guard.mjs": "a160f571f3c0e4b3a6960902c55160feb2445f564709e01671a70e020f2034b2",
+    "scripts/prepare-single-even-hwp-guard.py": "b4bb2af59eb057ffade86d2d39ec5c105a019d213ed370ea6b09523df82453d2",
+    "scripts/check-host-save.cjs": "448f563614a4af81ff612b717ec3b6f47d09c518c5fd30aba96d5bad33efa9ef",
+    "scripts/check-physical-section-page-context.mjs": "991da062f47ca42631abcfeb783f337ac96ab8ec9f2772f932afbc45f423a879",
+    "scripts/prepare-physical-section-page-context.py": "7ce52d04f0db08b649eab1cdcc5d3c2c18451f7de9c3320892ec67e31e5c3f8b"
+  },
+  "supportContract": {
+    "reject": "Regenerated physical root with exactly one non-extension Even master; no inline owner. Both/Even encoding collision is not repaired or guessed.",
+    "unchanged": [
+      "direct HWPX",
+      "verified Odd/Both and explicit Both+Odd",
+      "trusted unchanged HWP raw passthrough",
+      "existing inline rejection policy"
+    ],
+    "notCertified": [
+      "extension/multiple/duplicate applies outside prior matrix",
+      "Hancom single-Even encoding",
+      "old UI mixed with new SDK",
+      "general atomicity of all older export errors"
+    ],
+    "newSdkCapability": "validateHwpMasterPageExport required by new UI; missing method fails HWP before caret hook, HWPX remains available.",
+    "writeFence": "Exact new method is read-only; locked successful supported export and blocked mutation tested."
+  },
+  "results": {
+    "baselineNative": {
+      "path": "baseline-native-2-output/proof.json",
+      "sha256": "f8865107c4754ef19e01bbc48249a3f683d6428485a4230f8f8cd33d335ea5fd",
+      "summary": {
+        "GUIVerified": false,
+        "atomicRejections": 0,
+        "cases": 17,
+        "knownRejectedCases": 11,
+        "mode": "baseline",
+        "ownerEditChecks": 2,
+        "reopens": 37,
+        "snapshotRestores": 2
+      }
+    },
+    "fixedNative": {
+      "path": "guard-native-release-output/proof.json",
+      "sha256": "61cb3bb96b656c6d893deba4bf22c521ac721a4baf3af2a687a3888d453ca1de",
+      "summary": {
+        "GUIVerified": false,
+        "atomicRejections": 66,
+        "cases": 17,
+        "knownRejectedCases": 11,
+        "mode": "fixed",
+        "ownerEditChecks": 2,
+        "rawAdapterCacheRejections": 11,
+        "reopens": 103,
+        "snapshotRestores": 68
+      }
+    },
+    "baselineWasm": {
+      "path": "baseline-wasm-3-output/proof.json",
+      "sha256": "ef28c6c78faf63f4f09920297be5c9f9b5e71c5baa5488c38e48984ac15dead0",
+      "summary": {
+        "mode": "baseline",
+        "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+        "cases": 17,
+        "rawRejections": 0,
+        "bridgeRejections": 0,
+        "hostRejections": 0,
+        "historyChecks": 0,
+        "reopens": 35,
+        "pairs": [
+          {
+            "even": "two-odd-even-restart3",
+            "both": "two-odd-both-restart3",
+            "baselineCollision": true,
+            "blockedEven": false
+          },
+          {
+            "even": "one-even",
+            "both": "one-both-same-payload",
+            "baselineCollision": true,
+            "blockedEven": false
+          }
+        ],
+        "GUIVerified": false,
+        "scope": "Source bridge/host/controller/IPC/storage with DOM/native-dialog adapters; actual app QA pending."
+      }
+    },
+    "fixedWasm": {
+      "path": "guard-wasm-release-output/proof.json",
+      "sha256": "31e67d81876b8d619bafe81a6de33fe4b60aae2c7d4b43afd8709bfad33c9105",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "419e726e69d1931ec74d40b4d21e989b003dc649c010aa7648d5815cc45f98c1",
+        "cases": 17,
+        "rawRejections": 44,
+        "bridgeRejections": 44,
+        "hostRejections": 11,
+        "historyChecks": 22,
+        "reopens": 46,
+        "pairs": [
+          {
+            "even": "two-odd-even-restart3",
+            "both": "two-odd-both-restart3",
+            "baselineCollision": false,
+            "blockedEven": true
+          },
+          {
+            "even": "one-even",
+            "both": "one-both-same-payload",
+            "baselineCollision": false,
+            "blockedEven": true
+          }
+        ],
+        "GUIVerified": false,
+        "scope": "Source bridge/host/controller/IPC/storage with DOM/native-dialog adapters; actual app QA pending."
+      }
+    },
+    "fixed-native-matrix": {
+      "path": "fixed-native-matrix-release-output/proof.json",
+      "sha256": "2efb0053b6d02f8ea32707e463440c1f5509feec5390b4aefcc99ab320da2d05",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 9,
+        "comparisons": 67,
+        "fullRebuilds": 67,
+        "hwpxReopens": 67,
+        "mismatches": 0,
+        "mode": "fixed",
+        "snapshotRestores": 27
+      }
+    },
+    "fixed-wasm-matrix": {
+      "path": "fixed-wasm-matrix-release-output/proof.json",
+      "sha256": "b5993139388a8047fe5d0273a16d5034c1c1b8ef6403b5a1d10b32e28905de4d",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "419e726e69d1931ec74d40b4d21e989b003dc649c010aa7648d5815cc45f98c1",
+        "cases": 9,
+        "comparisons": 67,
+        "mismatches": 0,
+        "hwpxReopens": 67,
+        "snapshotRestores": 27,
+        "GUIVerified": false
+      }
+    },
+    "final-carry-native": {
+      "path": "final-carry-native-release-output/proof.json",
+      "sha256": "0a4ced33747fddb2fad30d9d6fb23bc725c26b93d1cb5b243db63def490a73b5",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 5,
+        "comparisons": 45,
+        "fullRebuilds": 45,
+        "hwpRefusals": 0,
+        "hwpReopens": 0,
+        "mismatches": 0,
+        "mode": "fixed",
+        "reopens": 45,
+        "snapshotRestores": 25
+      }
+    },
+    "final-carry-wasm": {
+      "path": "final-carry-wasm-release-output/proof.json",
+      "sha256": "becde03d4daaad744b78e5eb7569e3d08c0c8b7a90c928f4c154457aca43afc4",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "419e726e69d1931ec74d40b4d21e989b003dc649c010aa7648d5815cc45f98c1",
+        "cases": 5,
+        "comparisons": 45,
+        "mismatches": 0,
+        "reopens": 45,
+        "snapshotRestores": 25,
+        "parityChecks": 1196,
+        "GUIVerified": false
+      }
+    },
+    "final-existing-native": {
+      "path": "final-existing-native-release-output/proof.json",
+      "sha256": "145d59126b038daaeb8f33097773664b1f39eb438bc0b0ff84bcfe69ef9ca294",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 13,
+        "comparisons": 65,
+        "fullRebuilds": 65,
+        "hwpRefusals": 25,
+        "hwpReopens": 5,
+        "mismatches": 0,
+        "mode": "fixed",
+        "reopens": 65,
+        "snapshotRestores": 13
+      }
+    },
+    "final-existing-wasm": {
+      "path": "final-existing-wasm-release-output/proof.json",
+      "sha256": "3d2f74876cad38f1fc390408f3714c9bada07d00dd5194ffae28baecea2ce44e",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "419e726e69d1931ec74d40b4d21e989b003dc649c010aa7648d5815cc45f98c1",
+        "cases": 13,
+        "comparisons": 65,
+        "mismatches": 0,
+        "reopens": 65,
+        "hwpReopens": 5,
+        "hwpRefusals": 25,
+        "snapshotRestores": 13,
+        "crossFormatHwpExcluded": [
+          "three-physical",
+          "edit-middle-physical",
+          "restart-with-following",
+          "odd-even",
+          "two-inline-masters",
+          "extension-0",
+          "extension-1"
+        ],
+        "crossFormatLimit": "Three-physical-section shared-master HWP conversion differs already in the merged baseline; not certified or repaired by this cache change. Exact reviewer fixtures test HWPX only.",
+        "GUIVerified": false
+      }
+    }
+  },
+  "checks": {
+    "native-release-build": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 26347,
+      "minFreeBytes": 28794880000,
+      "maxAdditionalAllocatedBytes": 571830272,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--example",
+        "single_even_hwp_guard_check",
+        "--example",
+        "document_endnote_cache_check",
+        "--example",
+        "physical_section_context_check",
+        "--example",
+        "inline_master_pages_check"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "guard-native-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 2548,
+      "minFreeBytes": 28753920000,
+      "maxAdditionalAllocatedBytes": 615538688,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/run-native.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/bin-release/single_even_hwp_guard_check",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/fixtures-2/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/guard-native-release-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "wasm-release-final2": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 145071,
+      "minFreeBytes": 28631040000,
+      "maxAdditionalAllocatedBytes": 628596736,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/build-wasm-release.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/wasm-release-final2/pkg"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "guard-wasm-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 629,
+      "minFreeBytes": 28712960000,
+      "maxAdditionalAllocatedBytes": 629211136,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-single-even-hwp-guard.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/wasm-release-final2/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/fixtures-2/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/guard-wasm-release-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "release-ui": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 1192,
+      "minFreeBytes": 28712960000,
+      "maxAdditionalAllocatedBytes": 641331200,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/release-ui-run.mjs"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "sdk-release-types": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 145,
+      "minFreeBytes": 28712960000,
+      "maxAdditionalAllocatedBytes": 641343488,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "rhwp-studio/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--skipLibCheck",
+        "--target",
+        "es2022",
+        "--module",
+        "nodenext",
+        "--moduleResolution",
+        "nodenext",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/sdk-consumer-release.mts"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "cargo-release-check": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 14341,
+      "minFreeBytes": 28712960000,
+      "maxAdditionalAllocatedBytes": 641355776,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "check",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--example",
+        "single_even_hwp_guard_check",
+        "--example",
+        "document_endnote_cache_check",
+        "--example",
+        "physical_section_context_check",
+        "--example",
+        "inline_master_pages_check"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "unit-release-compile": {
+      "code": 101,
+      "signal": null,
+      "elapsedMs": 22051,
+      "minFreeBytes": 28712960000,
+      "maxAdditionalAllocatedBytes": 641372160,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--no-run"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "fixed-native-matrix-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 31923,
+      "minFreeBytes": 28712960000,
+      "maxAdditionalAllocatedBytes": 633782272,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/run-native.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/bin-release/document_endnote_cache_check",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/endnote-fixtures-2/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/fixed-native-matrix-release-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "fixed-wasm-matrix-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 2002,
+      "minFreeBytes": 28712960000,
+      "maxAdditionalAllocatedBytes": 635199488,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-document-endnote-cache.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/wasm-release-final2/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/endnote-fixtures-2/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/fixed-wasm-matrix-release-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "final-carry-native-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 13346,
+      "minFreeBytes": 28712960000,
+      "maxAdditionalAllocatedBytes": 636837888,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/run-native.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/bin-release/physical_section_context_check",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/physical-section-context-review-p2/carry-fixtures/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/final-carry-native-release-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "final-carry-wasm-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 1240,
+      "minFreeBytes": 28712960000,
+      "maxAdditionalAllocatedBytes": 638468096,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-physical-section-carry.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/wasm-release-final2/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/physical-section-context-review-p2/carry-fixtures/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/final-carry-wasm-release-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "final-existing-native-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 5428,
+      "minFreeBytes": 28712960000,
+      "maxAdditionalAllocatedBytes": 639873024,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/run-native.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/bin-release/physical_section_context_check",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/combined-fixtures-guard.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/final-existing-native-release-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "final-existing-wasm-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 838,
+      "minFreeBytes": 28712960000,
+      "maxAdditionalAllocatedBytes": 641273856,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-physical-section-page-context.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/wasm-release-final2/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/combined-fixtures-guard.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/final-existing-wasm-release-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    }
+  },
+  "release": {
+    "remappedAtCompilation": true,
+    "offlineLocked": true,
+    "versions": {
+      "cargo": "cargo 1.93.1 (083ac5135 2025-12-15)",
+      "rustc": "rustc 1.93.1 (01f6ddf75 2026-02-11)",
+      "wasm-bindgen": "wasm-bindgen 0.2.127"
+    },
+    "audit": {
+      "clean": true,
+      "filesChecked": 4,
+      "findings": []
+    },
+    "files": {
+      "rhwp.js": "ee523c96927902827137658cebdcf2120c7cde842da69beb72d9b2bc9046d13f",
+      "rhwp.d.ts": "1a63bc6f4c259d1d3375349ba455d40906129f54de761b1198bf44dc47c53116",
+      "rhwp_bg.wasm": "419e726e69d1931ec74d40b4d21e989b003dc649c010aa7648d5815cc45f98c1",
+      "rhwp_bg.wasm.d.ts": "f4d259bb6d58759714ab277e876bf84efc49bbaba5a017e06edc27be6e854961"
+    }
+  },
+  "nativeBinarySHA256": {
+    "single_even_hwp_guard_check": "71bc7e7b8bf2a777571ec178b4f0a74a9df823947c8551ba5bc4f62dc964aa13",
+    "document_endnote_cache_check": "9d0c5f4d5aa010d78a05ddaf473cb36a7f758428b96e73255a25e19d1cf4e38e",
+    "physical_section_context_check": "4854600338a8176a7a84c30d61c13633f33edc267b05ccd4b6b5d9f132ccdba1",
+    "inline_master_pages_check": "67edf00ca089960ae4d4848b0f322175a4c2e55954aa868964de4f7ab0225654"
+  },
+  "baselineLibrary": {
+    "path": "/Users/sw107/Documents/Codex/2026-10-14/task/hwp-master-inheritance-recheck/main-library-pin.json",
+    "pinSHA256": "8ea48fb8540963587a3f3975d4675daeed448af027fdeaa5246225f7ebc1650c"
+  },
+  "baselineBinarySHA256": "6170e83ab7b6217458d9d46fc1fbff4a97036eae2d7fcbb1962bee805db26d58",
+  "baselineBridgeSHA256": "f8b12227bc30c44a14fad8528544d00cc348e4bdb16cd0d6be71150440d87889",
+  "UI": {
+    "hostHistoryRecoveryUnitTests": 20,
+    "studioTests": 90,
+    "failures": 0,
+    "commands": [
+      {
+        "argv": [
+          "node",
+          "--test",
+          "desktop/tests/host-save.test.cjs",
+          "desktop/tests/edit-history.test.cjs",
+          "desktop/tests/document-version.test.cjs",
+          "desktop/tests/autosave-status.test.cjs",
+          "desktop/tests/autosave-retention.test.cjs"
+        ],
+        "code": 0
+      },
+      {
+        "argv": [
+          "node",
+          "--test",
+          "rhwp-studio/tests/picture-caption-position.test.mjs",
+          "rhwp-studio/tests/bookmark-navigation.test.mjs",
+          "rhwp-studio/tests/bookmark-suggestion.test.mjs",
+          "rhwp-studio/tests/document-scroll-boundary.test.mjs",
+          "rhwp-studio/tests/bookmark-keyboard.test.mjs",
+          "rhwp-studio/tests/picture-caption-format.test.mjs"
+        ],
+        "code": 0
+      },
+      {
+        "argv": [
+          "node",
+          "rhwp-studio/node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "-p",
+          "rhwp-studio"
+        ],
+        "code": 0
+      }
+    ],
+    "GUIVerified": false,
+    "DOMDialogAdapters": true
+  },
+  "errorPath": {
+    "rejection": "UnsupportedInput → HwpError::RenderError → wasm-bindgen thrown string → bridge propagates → baramHost.export → desktop run catch → error dialog",
+    "order": [
+      "Bridge validates single-Even before onBeforeExport caret stamping",
+      "Host creates export bytes before invoking window.baram.save",
+      "Desktop main IPC receives bytes before calling native save dialog/storage.atomicWrite",
+      "Studio file.ts creates export payload before tryFileSystemSave/writeBlobToHandle and marks clean only after persistence"
+    ],
+    "paths": [
+      "engine/src/serializer/cfb_writer.rs",
+      "engine/src/document_core/commands/document.rs",
+      "engine/src/wasm_api.rs",
+      "rhwp-studio/src/core/wasm-bridge.ts",
+      "rhwp-studio/src/main.ts",
+      "desktop/web/baram.js",
+      "desktop/main.cjs",
+      "desktop/storage.cjs",
+      "rhwp-studio/src/command/commands/file.ts",
+      "rhwp-studio/src/command/file-system-access.ts",
+      "rhwp-studio/src/core/document-write-fence.ts"
+    ],
+    "compatibility": [
+      "Direct HWPX keeps existing export behavior.",
+      "Matching new UI and SDK required. Missing SDK preflight fails HWP before the caret hook with HWPX advice. New read-only method is explicitly allowed by DocumentWriteFence, while writes remain locked.",
+      "HWP-only recovery autosave export also rejects this unsupported combination; AutosaveManager catches export before store.saveDraft and reports error, preserving prior draft. No implicit format fallback introduced."
+    ],
+    "actualAppQA": false,
+    "outboundMessages": 0
+  },
+  "legacyContractChange": {
+    "sourceManifest": "/Users/sw107/Documents/Codex/2026-10-14/task/pr81-merge-and-physical-page-cache/combined-fixtures.json",
+    "expectedRefusalCases": [
+      "physical-odd-even",
+      "mirrored-following",
+      "restart-following",
+      "inherited-header-footer",
+      "single-section-control"
+    ],
+    "reason": "Prior HWP checks compared current rendering, while single Even metadata already changed to Both. Those known lossy successes now explicitly assert the HWPX-advice error at all five stages; HWPX comparisons and safe HWP controls remain."
+  },
+  "preservation": {
+    "originalStatusEqual": true,
+    "originalDiffSHA256": "f2f6bdfc26ca55571d8f2ef55e31633aa6e190e2c9e6107ae066dc36c660da88",
+    "originalUntrackedEqual": true,
+    "priorEvidence": [
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/hwp-master-inheritance-recheck",
+        "indexSHA256": "a97e64c2012279b3d2605af689d318196a91821dc86c6116de90235436bc266a",
+        "files": 1734,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/hwp-master-inheritance-investigation",
+        "indexSHA256": "748dab77f9621e95a764b210c4e54050266c00cccb2fcdec27944480dbad3d5b",
+        "files": 334,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry",
+        "indexSHA256": "e94957d205a8b9f1a6d2a88e6b67a27697cf5f3938c04995a00bbc6b7e1cac7d",
+        "files": 1360,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache",
+        "indexSHA256": "2d4cf3debbfe7a85b5992eb0ec8d2c009a4433bf84fca433ee4e247941a7aa3e",
+        "files": 2937,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/physical-section-context-review-p2",
+        "indexSHA256": "e839df7f68f096bdaf477c21f777bb3e369ddb78bce028dfe4a031af57dda951",
+        "files": 2621,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/pr81-merge-and-physical-page-cache",
+        "indexSHA256": "94f94bbab66445ae5e92215e3c91c0e60f313fcee120523460b8b09d2d58f003",
+        "files": 3167,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/inline-section-master-pages-rendering",
+        "indexSHA256": "64840ac22ea647db80b8b848a9ae5afa9958e944c8f007c31fdd31aad55cb756",
+        "files": 3894,
+        "mismatches": []
+      }
+    ],
+    "outboundTaskMessages": 0,
+    "PR86NotMergedOrMessaged": true
+  },
+  "harnessCorrections": {
+    "preserved": [
+      "initial-run-failure.json: phase name collided with preserved binary; fresh phase used",
+      "baseline-wasm: source extractor matched interface declaration; class-only extraction fixed",
+      "release-native-build: missing FileFormat qualification; fully qualified enum fixed",
+      "final-existing-native: old single-Even HWP-success expectations; five explicit refusal cases now assert exact advice instead of accepting any error",
+      "finish-release.py: result-file name replaced incorrectly in wrapper; finish-tail.py ran remaining checks without rerunning completed matrices"
+    ],
+    "rawLogsPreserved": true
+  },
+  "formatting": {
+    "newRustFunctions": "rustfmt match",
+    "examples": "rustfmt checked",
+    "wholeExistingFilesReformatted": false
+  },
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection",
+  "testLimitations": {
+    "RustUnitTestsExecuted": false,
+    "compileExit": 101,
+    "existingMissingIncludes": [
+      "engine/mydocs/tech/agent_runtime/version_policy.md",
+      "engine/samples/3-09월_교육_통합_2022.hwp",
+      "engine/samples/hwp3-sample16-hwp5.hwp",
+      "engine/samples/hwpx/aift.hwpx"
+    ],
+    "clippy": "Unavailable in pinned toolchain; not installed",
+    "CI": "No CI pass claimed; inspect new Draft after creation."
+  },
+  "remaining": [
+    "Independent review and actual app QA of exact new UI/SDK pair",
+    "Licensed Hancom encoding/ownership oracle before any future lossless single-Even implementation",
+    "PR86 app handoff still waits user authorization; no other task messages sent",
+    "Existing endnote entry/overflow/geometry excluded"
+  ],
+  "merged": false,
+  "deployed": false,
+  "outboundTaskMessages": 0
+}

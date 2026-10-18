@@ -545,8 +545,19 @@ export class WasmBridge {
 
   exportHwp(): Uint8Array {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
-    if (!this.documentWritesLocked) this.onBeforeExport?.();
+    this.prepareHwpExport();
     return this.doc.exportHwp();
+  }
+
+  private prepareHwpExport(): void {
+    // Reject before the caret hook writes document metadata. An older SDK
+    // cannot enforce this boundary, so it must not silently produce HWP bytes.
+    const validate = (this.doc as any)?.validateHwpMasterPageExport;
+    if (typeof validate !== 'function') {
+      throw new Error('현재 WASM 빌드는 HWP 바탕쪽 저장 검사를 지원하지 않습니다. HWPX 형식으로 저장해 주세요.');
+    }
+    validate.call(this.doc);
+    if (!this.documentWritesLocked) this.onBeforeExport?.();
   }
 
   /**
@@ -556,7 +567,7 @@ export class WasmBridge {
    */
   exportHwpWithReport(): DocumentExportArtifact {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
-    if (!this.documentWritesLocked) this.onBeforeExport?.();
+    this.prepareHwpExport();
     const exportFn = (this.doc as unknown as Partial<ReportedWasmDocument>).exportHwpWithReport;
     if (typeof exportFn !== 'function') {
       throw new Error('현재 WASM 빌드는 HWP 내용 손실 보고를 지원하지 않습니다');
@@ -568,13 +579,13 @@ export class WasmBridge {
 
   exportHwpWithPassword(password: string): Uint8Array {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
-    if (!this.documentWritesLocked) this.onBeforeExport?.();
+    this.prepareHwpExport();
     return this.doc.exportHwpWithPassword(password);
   }
 
   exportHwpWithPasswordAndReport(password: string): DocumentExportArtifact {
     if (!this.doc) throw new Error('문서가 로드되지 않았습니다');
-    if (!this.documentWritesLocked) this.onBeforeExport?.();
+    this.prepareHwpExport();
     const exportFn = (this.doc as unknown as Partial<ReportedWasmDocument>)
       .exportHwpWithPasswordAndReport;
     if (typeof exportFn !== 'function') {
