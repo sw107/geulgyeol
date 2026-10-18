@@ -274,8 +274,10 @@ export class BookmarkDialog {
   private suggestName(): void {
     const ih = this.services.getInputHandler();
     if (!ih) return;
-    // 기존 선택 텍스트나 커서 주변 텍스트를 기본 이름으로 제안
-    const count = this.bookmarks.length + 1;
+    // 삭제/이름 변경으로 번호에 빈틈이 생겨도 기존 책갈피와 충돌하지 않게 한다.
+    const names = new Set(this.bookmarks.map(bookmark => bookmark.name));
+    let count = this.bookmarks.length + 1;
+    while (names.has(`책갈피${count}`)) count++;
     this.nameInput.value = `책갈피${count}`;
   }
 
