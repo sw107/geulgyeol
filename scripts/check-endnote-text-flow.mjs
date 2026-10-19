@@ -32,7 +32,9 @@ if(mode==='wasm'){
   for(const[pageIndex,page]of v.pages.entries()){
    const wp=wv.pages[pageIndex];assert.deepEqual(page.info,wp.info);assert.equal(page.runs.length,wp.runs.length);const frame=v.items[pageIndex].bodyArea;
    for(const[ti,t]of page.runs.entries()){
-    const wt=wp.runs[ti];assert.equal(t.text,wt.text);assert.equal(t.para,wt.para);for(let j=0;j<4;j++)assert(Math.abs(t.bbox[j]-wt.bbox[j])<=0.051,'native/wasm geometry');
+    // Master/header runs use usize::MAX, whose JSON value differs on Native64
+    // and WASM32. Normalize only that reserved address, never real paragraphs.
+    const wt=wp.runs[ti],paragraphAddress=p=>p===Number('18446744073709551615')?0xffffffff:p;assert.equal(t.text,wt.text);assert.equal(paragraphAddress(t.para),paragraphAddress(wt.para));for(let j=0;j<4;j++)assert(Math.abs(t.bbox[j]-wt.bbox[j])<=0.051,'native/wasm geometry');
     const key=mapping.get(t.section+':'+t.para);if(!key)continue;
     if(!groups.has(key))groups.set(key,[]);groups.get(key).push({...t,page:pageIndex});const[x,y,width,height]=t.bbox;
     if(!page.info.columns.some(c=>x>=c.x-0.1&&x+width<=c.x+c.width+0.1)||y<frame.y-0.1||y+height>frame.y+frame.height+0.1||y+height>page.info.height+0.1)violations.push({key,page:pageIndex,bbox:t.bbox,frame});
