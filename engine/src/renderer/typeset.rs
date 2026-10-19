@@ -14615,6 +14615,63 @@ impl TypesetEngine {
         // 미주 paragraphs를 endnote_paragraphs Vec에 모으고, ENDNOTE_PARA_BASE 이상 인덱스로 마킹
         if !st.endnotes.is_empty() {
             let endnote_refs: Vec<EndnoteRef> = st.endnotes.clone();
+            // Text-only notes have no object/vpos ownership to preserve. Build
+            // their render rows in the actual owner frame, including the marker,
+            // then keep that exact row space for every continuation fragment.
+            // Unequal columns need character-based recomposition per fragment;
+            // leave them and object-bearing notes on the existing path.
+            let width = st
+                .layout
+                .column_areas
+                .first()
+                .map(|c| c.width)
+                .unwrap_or(st.layout.body_area.width);
+            let text_only = width > 0.0
+                && st
+                    .layout
+                    .column_areas
+                    .iter()
+                    .all(|c| (c.width - width).abs() < 0.001)
+                && endnote_refs.iter().all(|r| {
+                    resolve_endnote_content(r, section_index, paragraphs, endnote_deferral).is_some_and(
+                        |n| {
+                            n.paragraphs.iter().all(|p| {
+                                p.controls.iter().all(|c| {
+                                    matches!(c, Control::AutoNumber(n)
+                                        if n.number_type == crate::model::control::AutoNumberType::Endnote)
+                                }) && !p
+                                    .text
+                                    .chars()
+                                    .any(|c| matches!(c, '\u{fffc}' | '\t' | '\n' | '\r'))
+                                    && p.column_type == ColumnBreakType::None
+                                    && styles
+                                        .para_styles
+                                        .get(p.para_shape_id as usize)
+                                        .is_some_and(|s| {
+                                            s.head_type == crate::model::style::HeadType::None
+                                                && !s.keep_lines
+                                                && !s.keep_with_next
+                                                && !s.widow_orphan
+                                                && !s.page_break_before
+                                        })
+                            })
+                        },
+                    )
+                });
+            if text_only {
+                self.typeset_text_endnotes(
+                    st,
+                    paragraphs,
+                    composed,
+                    styles,
+                    section_index,
+                    endnote_shape,
+                    endnote_deferral,
+                    &endnote_refs,
+                    width,
+                );
+                return;
+            }
             // 본문 마지막 paragraph의 vpos 끝 위치 계산
             let mut vpos_offset: i32 = paragraphs
                 .last()
@@ -14723,6 +14780,149 @@ impl TypesetEngine {
                         prev_endnote_had_inline_object_vpos_overestimate =
                             current_endnote_had_inline_object_vpos_overestimate;
                         emitted_endnote_count += 1;
+                    }
+                }
+            }
+        }
+    }
+
+    fn typeset_text_endnotes(
+        &self,
+        st: &mut TypesetState,
+        paragraphs: &[Paragraph],
+        composed: &[ComposedParagraph],
+        styles: &ResolvedStyleSet,
+        section_index: usize,
+        shape: Option<&FootnoteShape>,
+        deferral: &EndnoteDeferral<'_>,
+        refs: &[EndnoteRef],
+        width: f64,
+    ) {
+        // Body fit can omit trailing advances that paint still consumes (in
+        // particular in multiple columns). Start with the actual rendered pen,
+        // retaining any larger reservation for preceding floating objects.
+        if !st.current_items.is_empty() {
+            let scratch = crate::renderer::layout::LayoutEngine::new(self.dpi);
+            scratch.set_layout_profile(self.profile.get());
+            let top = st.current_start_height.max(0.0);
+            let frame = crate::renderer::page_layout::LayoutRect {
+                x: 0.0,
+                y: top,
+                width,
+                height: (st.available_height() - top).max(0.0),
+            };
+            let bottom = scratch.measure_endnote_column_bottom(
+                st.current_items.clone(),
+                paragraphs,
+                composed,
+                styles,
+                &frame,
+                st.current_start_height,
+                section_index,
+                0,
+                paragraphs.len(),
+            );
+            st.current_height = st.current_height.max(bottom);
+        }
+        if let Some(s) = shape {
+            let height = endnote_separator_height_px(s, self.dpi);
+            if height > 0.0 {
+                if st.current_height + height > st.available_height() {
+                    st.advance_column_or_new_page();
+                }
+                st.current_items.push(PageItem::EndnoteSeparator {
+                    separator_length: s.separator_length,
+                    margin_above: s.separator_above_margin_hu(),
+                    margin_below: endnote_separator_below_margin(s),
+                    line_type: s.separator_line_type,
+                    line_width: s.separator_line_width,
+                    color: s.separator_color,
+                });
+                st.current_height += height;
+                st.current_endnote_flow = true;
+            }
+        }
+        for (note_index, r) in refs.iter().enumerate() {
+            let note = resolve_endnote_content(r, section_index, paragraphs, deferral).unwrap();
+            for (ni, source) in note.paragraphs.iter().enumerate() {
+                let mut para = source.clone();
+                if ni == 0 {
+                    para.insert_text_at(0, &format!("{} ", format_endnote_marker_text(note)));
+                }
+                let gap = if note_index > 0 && ni == 0 {
+                    shape
+                        .map(|s| hwpunit_to_px(endnote_between_notes_margin(s) as i32, self.dpi))
+                        .unwrap_or(0.0)
+                } else {
+                    0.0
+                };
+                para.sequential_endnote = Some(gap);
+                let style = styles.para_styles.get(para.para_shape_id as usize);
+                crate::renderer::composer::reflow_line_segs(
+                    &mut para,
+                    crate::renderer::composer::ParagraphBox::body_for_style(width, style, self.dpi),
+                    styles,
+                    self.dpi,
+                );
+                let composed = crate::renderer::composer::compose_paragraph(&para);
+                let fmt =
+                    self.format_endnote_paragraph(&para, Some(&composed), styles, Some(width));
+                let index = paragraphs.len() + st.endnote_paragraphs.len();
+                st.endnote_paragraphs.push(para);
+                st.endnote_para_sources.push(EndnoteParaSource {
+                    section_index: r.section_index,
+                    para_index: r.para_index,
+                    control_index: r.control_index,
+                    note_para_index: ni,
+                });
+                let mut start = 0;
+                while start < fmt.line_count() {
+                    let before = if start == 0 {
+                        fmt.spacing_before + gap
+                    } else {
+                        0.0
+                    };
+                    let remaining = st.available_height() - st.current_height;
+                    let mut height = before;
+                    let mut end = start;
+                    while end < fmt.line_count() {
+                        let after = if end + 1 == fmt.line_count() {
+                            fmt.spacing_after
+                        } else {
+                            0.0
+                        };
+                        if height + fmt.line_heights[end].max(fmt.line_advance(end)) + after
+                            > remaining + 0.001
+                        {
+                            break;
+                        }
+                        height += fmt.line_advance(end);
+                        end += 1;
+                    }
+                    if end == start && !st.current_items.is_empty() {
+                        st.advance_column_or_new_page();
+                        continue;
+                    }
+                    // An indivisible line taller than an empty frame remains on
+                    // the legacy overflow policy; never loop or drop its text.
+                    if end == start {
+                        eprintln!("TEXT_ENDNOTE_UNSPLITTABLE_LINE: para={index} line={start} remaining={remaining:.1}");
+                        end += 1;
+                        height += fmt.line_advance(start);
+                    }
+                    if end == fmt.line_count() {
+                        height += fmt.spacing_after;
+                    }
+                    st.current_items.push(PageItem::PartialParagraph {
+                        para_index: index,
+                        start_line: start,
+                        end_line: end,
+                    });
+                    st.current_height += height;
+                    st.current_endnote_flow = true;
+                    start = end;
+                    if start < fmt.line_count() {
+                        st.advance_column_or_new_page();
                     }
                 }
             }
@@ -14890,6 +15090,7 @@ impl TypesetEngine {
                 st.current_start_height,
                 st.section_index,
                 st.endnote_between_notes_hu,
+                0,
             );
             if ssot_debug {
                 eprintln!(
@@ -16554,6 +16755,7 @@ impl TypesetEngine {
         // 발생 (e.g. sample16 변환기 pi=417: typeset 2 lines / layout 1 line, +10.4 px gap).
         // 동일 recompose 를 typeset 측에도 적용해 paragraph height 측정 정합.
         let recomposed: Option<ComposedParagraph> = match (composed, column_width_px) {
+            _ if para.sequential_endnote.is_some() => None,
             _ if composed.zip(column_width_px).is_some_and(|(c,width)| c.picture_chain_projection.as_ref().is_some_and(|(owned,_)| (owned-width).abs() <= 0.001)) => None,
             (Some(c), Some(cw)) if cw > 0.0 => {
                 let margin_l = para_style.map(|s| s.margin_left).unwrap_or(0.0);

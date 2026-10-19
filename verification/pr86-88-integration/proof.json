@@ -1,0 +1,588 @@
+{
+  "base": "2a9c13448fdf682f169e5d4ba025135432d36fd1",
+  "includedHeads": {
+    "86": {
+      "head": "17c909b81dc0d04229d23e0f829854f0527ae91f",
+      "base": "2a9c13448fdf682f169e5d4ba025135432d36fd1",
+      "draft": true,
+      "merged": false,
+      "url": "https://github.com/sw107/geulgyeol/pull/86"
+    },
+    "87": {
+      "head": "51acf3e7101b134bbd1b3d47f650c55faf97f78c",
+      "base": "2a9c13448fdf682f169e5d4ba025135432d36fd1",
+      "draft": true,
+      "merged": false,
+      "url": "https://github.com/sw107/geulgyeol/pull/87"
+    },
+    "88": {
+      "head": "bc4294352c5164b451ee54e2b71ae314907af3fb",
+      "base": "2a9c13448fdf682f169e5d4ba025135432d36fd1",
+      "draft": true,
+      "merged": false,
+      "url": "https://github.com/sw107/geulgyeol/pull/88"
+    }
+  },
+  "resolution": {
+    "conflictedHunks": 2,
+    "methodMatches": {
+      "find_endnote_edit_target": {
+        "fromPR": 86,
+        "exactMethodMatch": true,
+        "sha256": "d553b2251c9631c46418cb4c16c14b83eeb3925aba2f04f5fd97e3174e9dbf9c"
+      },
+      "get_note_edit_info_native": {
+        "fromPR": 86,
+        "exactMethodMatch": true,
+        "sha256": "7e8ead047165c18885e696c87432187b0e86cd0e1343d3ed1f3f54214629de01"
+      },
+      "get_cursor_rect_in_note_native": {
+        "fromPR": 88,
+        "exactMethodMatch": true,
+        "sha256": "3fa1ac346c07431291d848e0452f375aca7c15b7d999c25a2f85c9bc4e1e8cf7"
+      },
+      "cursor_rect_for_endnote_source": {
+        "fromPR": 88,
+        "exactMethodMatch": true,
+        "sha256": "ed6d284c4aa03a1a26a6e221eaf107c1fc6f7c34e1874ad4f01d153d0e292517"
+      },
+      "cursor_rect_for_render_paragraph": {
+        "fromPR": 88,
+        "exactMethodMatch": true,
+        "sha256": "6083741b4ab4bb2642b0db9fed08a3d21ee44e93f892122169c6453a79b6ca6c"
+      }
+    },
+    "PR87GuardAndBridgeFilesUnchanged": true,
+    "buildSourceCommit": "9ef599406327bc0c96a33c2deb9745ca473ad226",
+    "builtEngineTree": "cd0030c67aca8d68a7f038039d7e89336e77fb21"
+  },
+  "WASMSHA256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379",
+  "SDK": {
+    "rhwp.js": {
+      "sha256": "ee523c96927902827137658cebdcf2120c7cde842da69beb72d9b2bc9046d13f",
+      "bytes": 478462
+    },
+    "rhwp_bg.wasm.d.ts": {
+      "sha256": "f4d259bb6d58759714ab277e876bf84efc49bbaba5a017e06edc27be6e854961",
+      "bytes": 65469
+    },
+    "rhwp_bg.wasm": {
+      "sha256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379",
+      "bytes": 12304469
+    },
+    "package.json": {
+      "sha256": "1239d4d885dcad42201a27ed9324f8f0f760b78700d8db9ced39a511cffe7eae",
+      "bytes": 18
+    },
+    "rhwp.d.ts": {
+      "sha256": "1a63bc6f4c259d1d3375349ba455d40906129f54de761b1198bf44dc47c53116",
+      "bytes": 190416
+    }
+  },
+  "sourceOnlyLocalIntegration": true,
+  "remotePRsMerged": false,
+  "deployed": false,
+  "GUIVerified": false,
+  "HancomVerified": false,
+  "entryNative": {
+    "GUIVerified": false,
+    "cases": 11,
+    "failedQueries": 0,
+    "hwpxReopens": 77,
+    "mode": "fixed",
+    "negativeChecks": 44,
+    "queries": 98,
+    "snapshotRestores": 33
+  },
+  "entryWasm": {
+    "mode": "fixed",
+    "engineSHA256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379",
+    "cases": 11,
+    "queries": 109,
+    "failedQueries": 0,
+    "hwpxReopens": 88,
+    "snapshotRestores": 33,
+    "negativeChecks": 44,
+    "uiAdapterEntries": 190,
+    "GUIVerified": false,
+    "scope": "Existing entry/bridge/cursor methods with DOM adapter; actual keyboard/app QA remains separate."
+  },
+  "flow": {
+    "GUIVerified": false,
+    "wasmSHA256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379",
+    "cases": 20,
+    "stages": 100,
+    "sourceTextAndScalarCoverage": true,
+    "canonicalLineCoverage": true,
+    "sourceModelPreserved": true,
+    "failureStages": 0,
+    "geometryFailureStages": 0,
+    "sourceCoverageFailureStages": 0,
+    "liveColdRebuildMismatchStages": 0,
+    "violations": 0
+  },
+  "preservedMinimal": {
+    "GUIVerified": false,
+    "wasmSHA256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379",
+    "cases": 3,
+    "stages": 15,
+    "sourceTextAndScalarCoverage": true,
+    "canonicalLineCoverage": true,
+    "sourceModelPreserved": true,
+    "failureStages": 0,
+    "geometryFailureStages": 0,
+    "sourceCoverageFailureStages": 0,
+    "liveColdRebuildMismatchStages": 0,
+    "violations": 0
+  },
+  "cursor": {
+    "GUIVerified": false,
+    "wasmSHA256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379",
+    "stages": 96,
+    "queriesPerRuntimeLive": 2186,
+    "nativeQueryChecks": 6558,
+    "wasmQueryChecks": 4372,
+    "failures": 0,
+    "mismatches": 0
+  },
+  "donorInputHistory": {
+    "GUIVerified": false,
+    "scope": "Combined WASM, production entry/onInput/note command/CommandHistory/context restore/Cursor methods with DOM and record-dispatch adapters; actual Electron integration QA pending.",
+    "WASMSHA256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379",
+    "cases": 6,
+    "stages": 24,
+    "entryChecks": 986,
+    "cursorChecks": 920,
+    "recordedInputs": 10,
+    "historyOperations": 20,
+    "failures": 0
+  },
+  "previouslyBlockedDonors": {
+    "targets": 5,
+    "liveColdBeforeGrownUndoRedoObservations": 40,
+    "failures": 0,
+    "proof": "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/five-donor-proof.json",
+    "sha256": "8873f4a8baed4491c0dea217f76851708647db0b978267f58e4fd8f3b918dc14"
+  },
+  "guardNative": {
+    "GUIVerified": false,
+    "atomicRejections": 78,
+    "cases": 19,
+    "knownRejectedCases": 13,
+    "mode": "fixed",
+    "ownerEditChecks": 2,
+    "rawAdapterCacheRejections": 13,
+    "reopens": 117,
+    "snapshotRestores": 80
+  },
+  "guardWasm": {
+    "mode": "fixed",
+    "engineSHA256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379",
+    "cases": 19,
+    "rawRejections": 52,
+    "bridgeRejections": 52,
+    "hostRejections": 13,
+    "historyChecks": 26,
+    "reopens": 50,
+    "pairs": [
+      {
+        "even": "two-odd-even-restart3",
+        "both": "two-odd-both-restart3",
+        "baselineCollision": false,
+        "blockedEven": true
+      },
+      {
+        "even": "one-even",
+        "both": "one-both-same-payload",
+        "baselineCollision": false,
+        "blockedEven": true
+      }
+    ],
+    "GUIVerified": false,
+    "scope": "Source bridge/host/controller/IPC/storage with DOM/native-dialog adapters; actual app QA pending."
+  },
+  "grownGuardMatchesProductionInput": [
+    {
+      "case": "two-odd-even-restart3-note",
+      "guardInput": "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/flow-native/two-odd-even-restart3-note-grown.hwpx",
+      "guardInputSHA256": "cc7804a57f1d748fb736a03baa60b06aff2318bd44fb1468a296541a2163f0ad",
+      "productionOnInputOutput": "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/donor-history-v2/two-odd-even-restart3-note-grown.hwpx",
+      "productionOnInputSHA256": "cc7804a57f1d748fb736a03baa60b06aff2318bd44fb1468a296541a2163f0ad",
+      "byteIdentical": true
+    },
+    {
+      "case": "one-even-note",
+      "guardInput": "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/flow-native/one-even-note-grown.hwpx",
+      "guardInputSHA256": "6dee53201a11d8518aa5b305a285a6ebab52a47ff8702078efdf10e01d994d4b",
+      "productionOnInputOutput": "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/donor-history-v2/one-even-note-grown.hwpx",
+      "productionOnInputSHA256": "6dee53201a11d8518aa5b305a285a6ebab52a47ff8702078efdf10e01d994d4b",
+      "byteIdentical": true
+    }
+  ],
+  "legacy": {
+    "legacy-notes-native": {
+      "GUIVerified": false,
+      "cases": 9,
+      "comparisons": 67,
+      "fullRebuilds": 67,
+      "hwpxReopens": 67,
+      "mismatches": 0,
+      "mode": "fixed",
+      "snapshotRestores": 27
+    },
+    "legacy-notes-wasm": {
+      "mode": "fixed",
+      "engineSHA256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379",
+      "cases": 9,
+      "comparisons": 67,
+      "mismatches": 0,
+      "hwpxReopens": 67,
+      "snapshotRestores": 27,
+      "GUIVerified": false
+    },
+    "legacy-physical-native-v2": {
+      "GUIVerified": false,
+      "cases": 13,
+      "comparisons": 65,
+      "fullRebuilds": 65,
+      "hwpRefusals": 25,
+      "hwpReopens": 5,
+      "mismatches": 0,
+      "mode": "fixed",
+      "reopens": 65,
+      "snapshotRestores": 13
+    },
+    "legacy-physical-wasm-v2": {
+      "mode": "fixed",
+      "engineSHA256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379",
+      "cases": 13,
+      "comparisons": 65,
+      "mismatches": 0,
+      "reopens": 65,
+      "hwpReopens": 5,
+      "hwpRefusals": 25,
+      "snapshotRestores": 13,
+      "crossFormatHwpExcluded": [
+        "three-physical",
+        "edit-middle-physical",
+        "restart-with-following",
+        "odd-even",
+        "two-inline-masters",
+        "extension-0",
+        "extension-1"
+      ],
+      "crossFormatLimit": "Three-physical-section shared-master HWP conversion differs already in the merged baseline; not certified or repaired by this cache change. Exact reviewer fixtures test HWPX only.",
+      "GUIVerified": false
+    },
+    "legacy-carry-native-v2": {
+      "GUIVerified": false,
+      "cases": 5,
+      "comparisons": 45,
+      "fullRebuilds": 45,
+      "hwpRefusals": 0,
+      "hwpReopens": 0,
+      "mismatches": 0,
+      "mode": "fixed",
+      "reopens": 45,
+      "snapshotRestores": 25
+    },
+    "legacy-carry-wasm-v2": {
+      "mode": "fixed",
+      "engineSHA256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379",
+      "cases": 5,
+      "comparisons": 45,
+      "mismatches": 0,
+      "reopens": 45,
+      "snapshotRestores": 25,
+      "parityChecks": 1196,
+      "GUIVerified": false
+    }
+  },
+  "uiChecks": [
+    {
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/repo/rhwp-studio/node_modules/.bin/tsc",
+      "args": [
+        "--noEmit",
+        "--project",
+        "rhwp-studio/tsconfig.json"
+      ],
+      "code": 0
+    },
+    {
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/repo/rhwp-studio/node_modules/.bin/tsc",
+      "args": [
+        "--noEmit",
+        "--strict",
+        "--skipLibCheck",
+        "--target",
+        "ES2022",
+        "--lib",
+        "ES2022,DOM",
+        "--module",
+        "NodeNext",
+        "--moduleResolution",
+        "NodeNext",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/sdk-surface.mts"
+      ],
+      "code": 0
+    },
+    {
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "args": [
+        "--test",
+        "desktop/tests/host-save.test.cjs",
+        "desktop/tests/edit-history.test.cjs",
+        "desktop/tests/document-version.test.cjs",
+        "desktop/tests/autosave-status.test.cjs",
+        "desktop/tests/autosave-retention.test.cjs"
+      ],
+      "code": 0
+    },
+    {
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "args": [
+        "--test",
+        "rhwp-studio/tests/picture-caption-position.test.mjs",
+        "rhwp-studio/tests/bookmark-navigation.test.mjs",
+        "rhwp-studio/tests/bookmark-suggestion.test.mjs",
+        "rhwp-studio/tests/document-scroll-boundary.test.mjs",
+        "rhwp-studio/tests/bookmark-keyboard.test.mjs",
+        "rhwp-studio/tests/picture-caption-format.test.mjs"
+      ],
+      "code": 0
+    }
+  ],
+  "uiBundle": {
+    "instrumented": false,
+    "sourceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/repo",
+    "WASMSource": "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/wasm-release/pkg",
+    "files": {
+      "assets/canvaskit-SCAxUyCS.wasm": {
+        "bytes": 7317345,
+        "sha256": "25ebed8e60158c5854f8dc807b936daca21354f8bfb6a2231266b0a93812f301"
+      },
+      "assets/canvaskit-renderer-DDxz14IP.js": {
+        "bytes": 248142,
+        "sha256": "51247160971057d49dc89d1d3a1da23d26446d5c3c8312b7a7933ab9b68fc850"
+      },
+      "assets/index-CXf6MDnp.js": {
+        "bytes": 1833792,
+        "sha256": "5cc653a40746d94b8ba928d3cdad3124abf55cce8fe38c3dc152374204deef18"
+      },
+      "assets/index-EHujs-C0.css": {
+        "bytes": 108891,
+        "sha256": "f0783ab4c24b02f241c1e3807f971396337209afc63c32146f59f65123cf963a"
+      },
+      "assets/rhwp_bg-CBD6EDkS.wasm": {
+        "bytes": 12304469,
+        "sha256": "4cdc2f4a0de8cf23ea0e7fbbf5d380a5c9cf4d87deaf129b5ef91730945d6379"
+      },
+      "assets/studio-plugin-Cp8dJ3L_.js": {
+        "bytes": 54385,
+        "sha256": "abdcbcab732aad8d91b551c97ff045bec6b140ae87d94c5fd44235d5515fb4e7"
+      },
+      "index.html": {
+        "bytes": 66988,
+        "sha256": "9ce896dff4ba5273a58c3ad1ed1daa2a77323e09f5c9bfeb7b765f3f184ab606"
+      }
+    }
+  },
+  "nativeBinaryPins": {
+    "deferred_endnote_entry_check": {
+      "sha256": "bee174f90d62167a5ac243e1bd033d76ebe3d7c4d19a1587c506886833e8d8a0",
+      "bytes": 35829072
+    },
+    "single_even_hwp_guard_check": {
+      "sha256": "a4533a1010f4084aac9eef08a56922ca996da485d7d7e4fa572e996f10a83396",
+      "bytes": 37167696
+    },
+    "document_endnote_flow_check": {
+      "sha256": "f6e716db508427f844b26cebb45508a374b9e53c16bbe9974dc9d0f08c916c62",
+      "bytes": 36271552
+    },
+    "endnote_cursor_fragment_check": {
+      "sha256": "fc2ca661a4571e2bb86867ad929d5a12867f8e7ec9b19772d6af9ce09209f16f",
+      "bytes": 36317840
+    },
+    "document_endnote_cache_check": {
+      "sha256": "80e2a04fe2712b64d2c15492b16368bf44c9b421017d768b1f7d2226c404b238",
+      "bytes": 36163840
+    },
+    "physical_section_context_check": {
+      "sha256": "4dad6ff281fdfedaa5141f2044cbf5117e8391985b4a71d6c94336c551c8db81",
+      "bytes": 36759072
+    }
+  },
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019",
+  "limitations": [
+    "Independent review of this combined head and actual Electron integration QA are pending.",
+    "Production entry/onInput/command/history/context restore/Cursor exercised with DOM/record dispatch adapters; host/controller/IPC/storage save tests use dialog/DOM adapters. No new real Electron run claimed.",
+    "Source-only production UI bundle built; fonts/public installation and signed package are not delivered or certified.",
+    "Full Rust unit compile remains blocked by four pre-existing missing includes.",
+    "Physical IME, all marker/pointer routes, native chooser UI, Hancom comparison and print/pixel equivalence remain outside scope.",
+    "Standalone app QA launch stderr contains 11 sandbox-extension warnings; those retained logs are not warning-free. New Node adapter runs have ExperimentalWarning and Vite reports large chunks.",
+    "HWP context regression uses 5 supported reopens and 25 explicit refusals, not the prior 30-reopen claim."
+  ],
+  "retainedDiagnosticFailures": {
+    "integrated-contracts": "Oracle initially compared Native64 usize::MAX with WASM32 usize::MAX for master-page runs. Only the reserved sentinel comparison was normalized. Raw outputs/log preserved.",
+    "integrated-contracts-v2": "Test extraction omitted body-cursor helpers used when changing note targets during history restore. Added unchanged production helpers; partial output/log preserved.",
+    "integrated-contracts-v3": "Legacy physical manifest lacked PR87 hwpRejectionExpected flags and attempted a deliberately blocked unsafe export. Reused certified PR87 combined-fixtures-guard manifest; original failure and inputs preserved."
+  },
+  "checks": {
+    "native-build": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 37423,
+      "minFreeBytes": 21381120000,
+      "maxAdditionalAllocatedBytes": 177029120,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--example",
+        "deferred_endnote_entry_check",
+        "--example",
+        "single_even_hwp_guard_check",
+        "--example",
+        "document_endnote_flow_check",
+        "--example",
+        "endnote_cursor_fragment_check",
+        "--example",
+        "document_endnote_cache_check",
+        "--example",
+        "physical_section_context_check"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "wasm-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 215841,
+      "minFreeBytes": 19578880000,
+      "maxAdditionalAllocatedBytes": 162996224,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/build-wasm-release.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/wasm-release/pkg"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "cargo-check": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 29002,
+      "minFreeBytes": 18432000000,
+      "maxAdditionalAllocatedBytes": 167510016,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "check",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--example",
+        "deferred_endnote_entry_check",
+        "--example",
+        "single_even_hwp_guard_check",
+        "--example",
+        "document_endnote_flow_check",
+        "--example",
+        "endnote_cursor_fragment_check",
+        "--example",
+        "document_endnote_cache_check",
+        "--example",
+        "physical_section_context_check"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "ui-types-and-tests": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 1477,
+      "minFreeBytes": 19947520000,
+      "maxAdditionalAllocatedBytes": 145514496,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/ui-checks.mjs"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "production-ui-build": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 1105,
+      "minFreeBytes": 19865600000,
+      "maxAdditionalAllocatedBytes": 167481344,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/build-ui.mjs"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "rust-unit-compile": {
+      "code": 101,
+      "signal": null,
+      "elapsedMs": 28186,
+      "minFreeBytes": 18432000000,
+      "maxAdditionalAllocatedBytes": 387596288,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--no-run"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    }
+  },
+  "SDKSurfaceByteIdenticalToPR87": {
+    "rhwp.js": true,
+    "rhwp.d.ts": true,
+    "rhwp_bg.wasm.d.ts": true
+  },
+  "physicalFixtureContract": {
+    "inputBytesAndPathsUnchanged": {
+      "physical-odd-even": true,
+      "mirrored-following": true,
+      "restart-following": true,
+      "three-physical": true,
+      "edit-middle-physical": true,
+      "inherited-header-footer": true,
+      "restart-with-following": true,
+      "single-section-control": true,
+      "hwp-source-control": true,
+      "odd-even": true,
+      "two-inline-masters": true,
+      "extension-0": true,
+      "extension-1": true
+    },
+    "guardAwareManifest": "/Users/sw107/Documents/Codex/2026-10-14/task/single-even-hwp-rejection/combined-fixtures-guard.json",
+    "sha256": "26b0cb74e2200ba8cca3cd7e35acf96c35788bcb8c068bf3c144d6c19ae74e58"
+  },
+  "standaloneAppReview": {
+    "path": "/Users/sw107/Documents/Codex/2026-10-14/task/pr86-88-integration-20261019/independent-app-review-result.json",
+    "sha256": "4cf4d62719fb8e040eb2a2622163bc665212050a22d1e787767a581be67f64dd",
+    "approvalIsStandaloneOnly": true
+  },
+  "appReviewInputPreservation": [
+    {
+      "root": "/Users/sw107/Documents/Codex/2026-10-19/task/app-qa-independent",
+      "indexSHA256": "7a3166393f889dc2aa62955bf3e53614fa7615b0e12527d6fa09fbe857f1cf29",
+      "filesVerified": 16,
+      "mismatches": 0
+    },
+    {
+      "root": "/Users/sw107/Documents/Codex/2026-10-17/task/pr86-88-actual-app-qa-20261019",
+      "indexSHA256": "1b994064df13e1dcc50db4fac1dfb827bd88c070caa3b50534107231d2071ded",
+      "filesVerified": 781,
+      "mismatches": 0
+    }
+  ]
+}
