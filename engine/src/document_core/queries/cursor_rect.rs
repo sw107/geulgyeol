@@ -1268,8 +1268,18 @@ impl DocumentCore {
         if para_page_scan_can_hit {
             for &page_num in pages {
                 let tree = self.build_page_tree_cached(page_num)?;
-                if !self.show_control_codes {
-                    if let Ok(para) = self.get_render_paragraph_ref(section_idx, para_idx) {
+                if let Ok(para) = self.get_render_paragraph_ref(section_idx, para_idx) {
+                    let endnote_source = para_idx
+                        .checked_sub(self.document.sections[section_idx].paragraphs.len())
+                        .and_then(|local| self.pagination.get(section_idx)?.endnote_para_sources.get(local));
+                    // Endnote equations retain the same inline text/object layout
+                    // with control marks visible. Keep their logical caret stops
+                    // in both modes; the generic marked-control fallback uses a
+                    // different offset convention and can send Unicode EOF to x=0.
+                    if !self.show_control_codes || (endnote_source.is_some()
+                        && para.controls.iter().any(|c| {
+                            matches!(c, Control::Equation(eq) if eq.common.treat_as_char)
+                        })) {
                         if let Some(hit) = find_inline_flow_cursor_hit(
                             &tree,
                             section_idx,
@@ -1277,9 +1287,7 @@ impl DocumentCore {
                             para,
                             char_offset,
                             page_num,
-                            para_idx
-                                .checked_sub(self.document.sections[section_idx].paragraphs.len())
-                                .and_then(|local| self.pagination.get(section_idx)?.endnote_para_sources.get(local)),
+                            endnote_source,
                         ) {
                             return Ok(format!(
                                 "{{\"pageIndex\":{},\"x\":{:.1},\"y\":{:.1},\"height\":{:.1}}}",
