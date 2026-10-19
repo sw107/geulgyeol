@@ -95,7 +95,9 @@ def make(name, *, sections=2, target=0, mirrored=False, restart=False, headers=F
             z.writestr(n, b)
     rows.append({'case': name, 'path': str(dest), 'sha256': hashlib.sha256(dest.read_bytes()).hexdigest(),
                  'sections': sections, 'target': target, 'restart': restart, 'mirrored': mirrored, 'headers': headers,
-                 'numberingOracle': True, 'crossFormatHwp': sections <= 2})
+                 'numberingOracle': True, 'crossFormatHwp': sections <= 2,
+                 # These generated HWPX cases contain a single Even root master.
+                 'hwpRejectionExpected': sections <= 2})
 
 
 make('physical-odd-even')

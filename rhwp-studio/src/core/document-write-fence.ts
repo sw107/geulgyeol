@@ -19,7 +19,9 @@ export class DocumentWriteFence {
         if (!methods.has(key)) {
           // Unknown operations are refused too. Getters and exports retain their
           // read contract; export's internal saved metadata is not a user edit.
-          const readOnly = typeof key === 'string' && /^(get|export|render|is|has)/.test(key);
+          const readOnly = typeof key === 'string' && (
+            /^(get|export|render|is|has)/.test(key) || key === 'validateHwpMasterPageExport'
+          );
           methods.set(key, (...args: unknown[]) => {
             if (!readOnly) this.assertWritable();
             return Reflect.apply(value, target, args);
