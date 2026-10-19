@@ -5053,8 +5053,18 @@ impl LayoutEngine {
             // [로고A][로고B][공백5] RIGHT 문단 — 한글 로고 우변 여백 4.1px,
             // 포함 시 공백 폭 32.7px 만큼 좌측 이탈). 셀 내부 포함-정렬 계약
             // (issue_1285)은 in_textbox=false 로 그대로 유지된다.
-            let right_align_excludes_trailing_ws =
-                alignment == Alignment::Right && cell_ctx.as_ref().is_none_or(|c| c.in_textbox);
+            // Canonical note rows preserve the consumed soft-wrap separator in
+            // the painted source stream. It must also occupy alignment width;
+            // otherwise right alignment moves that preserved space past the
+            // column edge. Keep intentional paragraph-end spaces and all
+            // non-note/cell alignment policies on their existing paths.
+            let preserves_note_wrap_space = renders_synthetic_wrap_trailing_space
+                && cell_ctx.is_none()
+                && is_endnote_virtual_para
+                && para.is_some_and(|p| p.sequential_endnote.is_some() && p.controls.is_empty());
+            let right_align_excludes_trailing_ws = alignment == Alignment::Right
+                && cell_ctx.as_ref().is_none_or(|c| c.in_textbox)
+                && !preserves_note_wrap_space;
             let trailing_ws_width =
                 if right_align_excludes_trailing_ws || center_excludes_trailing_ws {
                     trailing_space_width_after_last_inline_object(
