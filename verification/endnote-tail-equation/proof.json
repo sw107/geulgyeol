@@ -1,0 +1,405 @@
+{
+  "base": "8ee45e36aa049c6d583819abe82e6e1e12ce063a",
+  "scope": "One owner endnote: plain text followed by one separate final static one-line CHAR inline equation, equal column widths. Equation-paragraph text cursor mapping remains outside the added contract.",
+  "GUIVerified": false,
+  "WASMSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+  "SDKSurfaceByteIdenticalToMain": {
+    "rhwp.js": true,
+    "rhwp.d.ts": true,
+    "rhwp_bg.wasm.d.ts": true
+  },
+  "candidate": {
+    "GUIVerified": false,
+    "WASMVerified": true,
+    "cases": 13,
+    "supportedCases": 7,
+    "states": 52,
+    "cursorChecks": 882,
+    "equationChecks": 72,
+    "knownEquationCursorGaps": 72,
+    "sourcePreserved": true,
+    "unsupportedPathsUnchanged": true
+  },
+  "grownCases": [
+    {
+      "case": "plain-single",
+      "stage": "grown",
+      "supported": true,
+      "pages": 3,
+      "baselineGeometryFailures": 0,
+      "fixedGeometryFailures": 0,
+      "baselineSourceStartMismatches": 0,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    },
+    {
+      "case": "unequal-two",
+      "stage": "grown",
+      "supported": false,
+      "pages": 1,
+      "baselineGeometryFailures": 171,
+      "fixedGeometryFailures": 171,
+      "baselineSourceStartMismatches": 474,
+      "baselineRenderedCoverageFailures": [
+        {
+          "notePara": 0,
+          "expectedChars": 1451,
+          "renderedChars": 1199
+        }
+      ],
+      "fixedRenderedCoverageFailures": [
+        {
+          "notePara": 0,
+          "expectedChars": 1451,
+          "renderedChars": 1199
+        }
+      ]
+    },
+    {
+      "case": "inline-equation",
+      "stage": "grown",
+      "supported": false,
+      "pages": 2,
+      "baselineGeometryFailures": 221,
+      "fixedGeometryFailures": 221,
+      "baselineSourceStartMismatches": 313,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    },
+    {
+      "case": "equation-after-text",
+      "stage": "grown",
+      "supported": true,
+      "pages": 3,
+      "baselineGeometryFailures": 177,
+      "fixedGeometryFailures": 0,
+      "baselineSourceStartMismatches": 0,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    },
+    {
+      "case": "equation-before-text",
+      "stage": "grown",
+      "supported": false,
+      "pages": 2,
+      "baselineGeometryFailures": 177,
+      "fixedGeometryFailures": 177,
+      "baselineSourceStartMismatches": 0,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    },
+    {
+      "case": "equation-after-text-two-columns",
+      "stage": "grown",
+      "supported": true,
+      "pages": 3,
+      "baselineGeometryFailures": 233,
+      "fixedGeometryFailures": 0,
+      "baselineSourceStartMismatches": 0,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    },
+    {
+      "case": "equation-after-text-three-plain",
+      "stage": "grown",
+      "supported": true,
+      "pages": 3,
+      "baselineGeometryFailures": 177,
+      "fixedGeometryFailures": 0,
+      "baselineSourceStartMismatches": 0,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    },
+    {
+      "case": "equation-after-text-fraction",
+      "stage": "grown",
+      "supported": true,
+      "pages": 3,
+      "baselineGeometryFailures": 177,
+      "fixedGeometryFailures": 0,
+      "baselineSourceStartMismatches": 0,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    },
+    {
+      "case": "equation-after-text-short",
+      "stage": "grown",
+      "supported": true,
+      "pages": 1,
+      "baselineGeometryFailures": 0,
+      "fixedGeometryFailures": 0,
+      "baselineSourceStartMismatches": 0,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    },
+    {
+      "case": "equation-after-text-long",
+      "stage": "grown",
+      "supported": true,
+      "pages": 7,
+      "baselineGeometryFailures": 817,
+      "fixedGeometryFailures": 0,
+      "baselineSourceStartMismatches": 0,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    },
+    {
+      "case": "equation-after-text-line-mode",
+      "stage": "grown",
+      "supported": false,
+      "pages": 3,
+      "baselineGeometryFailures": 177,
+      "fixedGeometryFailures": 177,
+      "baselineSourceStartMismatches": 0,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    },
+    {
+      "case": "equation-after-text-wide",
+      "stage": "grown",
+      "supported": false,
+      "pages": 3,
+      "baselineGeometryFailures": 179,
+      "fixedGeometryFailures": 179,
+      "baselineSourceStartMismatches": 0,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    },
+    {
+      "case": "equation-after-text-two-equations",
+      "stage": "grown",
+      "supported": false,
+      "pages": 3,
+      "baselineGeometryFailures": 177,
+      "fixedGeometryFailures": 177,
+      "baselineSourceStartMismatches": 0,
+      "baselineRenderedCoverageFailures": [],
+      "fixedRenderedCoverageFailures": []
+    }
+  ],
+  "equationXML": {
+    "filesVerified": 208,
+    "cases": 13,
+    "exactEquationXMLPreserved": true,
+    "normalizedAttributes": false
+  },
+  "regressionCommandsPassed": 20,
+  "regressions": {
+    "entry-native": {
+      "GUIVerified": false,
+      "cases": 11,
+      "failedQueries": 0,
+      "hwpxReopens": 77,
+      "mode": "fixed",
+      "negativeChecks": 44,
+      "queries": 98,
+      "snapshotRestores": 33
+    },
+    "entry-wasm": {
+      "mode": "fixed",
+      "engineSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+      "cases": 11,
+      "queries": 109,
+      "failedQueries": 0,
+      "hwpxReopens": 88,
+      "snapshotRestores": 33,
+      "negativeChecks": 44,
+      "uiAdapterEntries": 190,
+      "GUIVerified": false,
+      "scope": "Existing entry/bridge/cursor methods with DOM adapter; actual keyboard/app QA remains separate."
+    },
+    "donor-history": {
+      "GUIVerified": false,
+      "scope": "Combined WASM, production entry/onInput/note command/CommandHistory/context restore/Cursor methods with DOM and record-dispatch adapters; actual Electron integration QA pending.",
+      "WASMSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+      "cases": 6,
+      "stages": 24,
+      "entryChecks": 986,
+      "cursorChecks": 920,
+      "recordedInputs": 10,
+      "historyOperations": 20,
+      "failures": 0
+    },
+    "guard-native": {
+      "GUIVerified": false,
+      "atomicRejections": 78,
+      "cases": 19,
+      "knownRejectedCases": 13,
+      "mode": "fixed",
+      "ownerEditChecks": 2,
+      "rawAdapterCacheRejections": 13,
+      "reopens": 117,
+      "snapshotRestores": 80
+    },
+    "guard-wasm": {
+      "mode": "fixed",
+      "engineSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+      "cases": 19,
+      "rawRejections": 52,
+      "bridgeRejections": 52,
+      "hostRejections": 13,
+      "historyChecks": 26,
+      "reopens": 50,
+      "GUIVerified": false,
+      "scope": "Source bridge/host/controller/IPC/storage with DOM/native-dialog adapters; actual app QA pending."
+    },
+    "legacy-notes-native": {
+      "GUIVerified": false,
+      "cases": 9,
+      "comparisons": 67,
+      "fullRebuilds": 67,
+      "hwpxReopens": 67,
+      "mismatches": 0,
+      "mode": "fixed",
+      "snapshotRestores": 27
+    },
+    "legacy-notes-wasm": {
+      "mode": "fixed",
+      "engineSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+      "cases": 9,
+      "comparisons": 67,
+      "mismatches": 0,
+      "hwpxReopens": 67,
+      "snapshotRestores": 27,
+      "GUIVerified": false
+    },
+    "legacy-physical-native": {
+      "GUIVerified": false,
+      "cases": 13,
+      "comparisons": 65,
+      "fullRebuilds": 65,
+      "hwpRefusals": 25,
+      "hwpReopens": 5,
+      "mismatches": 0,
+      "mode": "fixed",
+      "reopens": 65,
+      "snapshotRestores": 13
+    },
+    "legacy-physical-wasm": {
+      "mode": "fixed",
+      "engineSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+      "cases": 13,
+      "comparisons": 65,
+      "mismatches": 0,
+      "reopens": 65,
+      "hwpReopens": 5,
+      "hwpRefusals": 25,
+      "snapshotRestores": 13,
+      "crossFormatHwpExcluded": [
+        "three-physical",
+        "edit-middle-physical",
+        "restart-with-following",
+        "odd-even",
+        "two-inline-masters",
+        "extension-0",
+        "extension-1"
+      ],
+      "crossFormatLimit": "Three-physical-section shared-master HWP conversion differs already in the merged baseline; not certified or repaired by this cache change. Exact reviewer fixtures test HWPX only.",
+      "GUIVerified": false
+    },
+    "legacy-carry-native": {
+      "GUIVerified": false,
+      "cases": 5,
+      "comparisons": 45,
+      "fullRebuilds": 45,
+      "hwpRefusals": 0,
+      "hwpReopens": 0,
+      "mismatches": 0,
+      "mode": "fixed",
+      "reopens": 45,
+      "snapshotRestores": 25
+    },
+    "legacy-carry-wasm": {
+      "mode": "fixed",
+      "engineSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+      "cases": 5,
+      "comparisons": 45,
+      "mismatches": 0,
+      "reopens": 45,
+      "snapshotRestores": 25,
+      "parityChecks": 1196,
+      "GUIVerified": false
+    },
+    "flow": {
+      "GUIVerified": false,
+      "wasmSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+      "cases": 20,
+      "stages": 100,
+      "sourceTextAndScalarCoverage": true,
+      "canonicalLineCoverage": true,
+      "sourceModelPreserved": true,
+      "failureStages": 0,
+      "geometryFailureStages": 0,
+      "sourceCoverageFailureStages": 0,
+      "liveColdRebuildMismatchStages": 0,
+      "violations": 0
+    },
+    "preserved": {
+      "GUIVerified": false,
+      "wasmSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+      "cases": 3,
+      "stages": 15,
+      "sourceTextAndScalarCoverage": true,
+      "canonicalLineCoverage": true,
+      "sourceModelPreserved": true,
+      "failureStages": 0,
+      "geometryFailureStages": 0,
+      "sourceCoverageFailureStages": 0,
+      "liveColdRebuildMismatchStages": 0,
+      "violations": 0
+    },
+    "cursor": {
+      "GUIVerified": false,
+      "wasmSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+      "stages": 96,
+      "queriesPerRuntimeLive": 2186,
+      "nativeQueryChecks": 6558,
+      "wasmQueryChecks": 4372,
+      "failures": 0,
+      "mismatches": 0
+    }
+  },
+  "fivePreviouslyBlockedDonors": {
+    "GUIVerified": false,
+    "scope": "Five previously blocked donor targets: before/grown/undo/redo, live/cold. Fresh production source-adapter results match the certified main oracle.",
+    "blockedTargets": 5,
+    "observations": 40,
+    "failures": 0,
+    "WASMSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+    "freshProofSHA256": "da26823859e607add1cb9431ccf69dbcf26093e5183fcf592930160d291424ed"
+  },
+  "UIHostTestsPassed": 110,
+  "StudioAndSDKTypeChecksPassed": 2,
+  "RustTypeCheck": "Saved successful current-production-source Native build of 7 examples; hashes reverified. No duplicate rebuild after cache cleanup.",
+  "fullRustUnitSuiteExecuted": false,
+  "preExistingMissingRustUnitIncludes": [
+    "engine/mydocs/tech/agent_runtime/version_policy.md",
+    "engine/samples/3-09월_교육_통합_2022.hwp",
+    "engine/samples/hwp3-sample16-hwp5.hwp",
+    "engine/samples/hwpx/aift.hwpx"
+  ],
+  "frozenEvidenceRootsVerified": 11,
+  "frozenEvidenceFilesVerified": 23047,
+  "originalDirtyDiffPreserved": {
+    "root": "/Users/sw107/Documents/Codex/2026-10-06/task/geulgyeol-dev-propagation",
+    "statusUnchanged": true,
+    "diffSHA256": "f2f6bdfc26ca55571d8f2ef55e31633aa6e190e2c9e6107ae066dc36c660da88",
+    "untrackedVerified": 9
+  },
+  "HancomFailureFilesPreserved": 15,
+  "minimumFreeBytesAcrossSuccessfulResumePhases": 31170560000,
+  "requiredMinimumFreeBytes": 16374562816,
+  "CIClaimedPassed": false,
+  "actualAppQAAndIndependentReview": "Required on this source and SDK before any merge. No merge or deployment.",
+  "knownExternalFailure": "Licensed Hancom 12.30.0 rejects a separate short synthetic HWPX exported by main; preserved under hancom-access-retry-20261019. Not fixed or certified here.",
+  "retainedDiagnosticFailures": {
+    "invalid-prototype-run": "An earlier prototype observation accidentally used the previous binary after failed compilation; explicitly excluded from fixed evidence.",
+    "native-readonly-proof-v3": "Oracle omitted the expected control-position shift after a text insert in the negative inline-mixed fixture.",
+    "candidate-full-proof": "WASM JSON has no char_start; emitted stream indices cannot stand in for source addresses in legacy cases with holes. Actual text/geometry/API parity and source coverage are now checked separately.",
+    "candidate-full-proof-v2": "Checker variable shadowing caused a ReferenceError while comparing the known equation cursor gap.",
+    "original-preservation": "Relative __file__ handling in the copied audit script; fixed using resolve().",
+    "wasm-release-and-v2": "Cache sampler raced with Cargo temp-file deletion; ENOENT handling fixed in wrapper.",
+    "wasm-release-v3": "Free-space guard interrupted the build. Thresholds unchanged; failed logs retained."
+  },
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/endnote-candidate-repro-20261019"
+}
