@@ -2,7 +2,7 @@
 
 use super::super::helpers::{
     find_char_at_x, find_logical_control_positions, is_treat_as_char_object_control,
-    navigable_text_len, LineInfoResult,
+    navigable_text_len, text_to_logical_offset, LineInfoResult,
 };
 use crate::document_core::{header_footer_apply_to_u8, DocumentCore};
 use crate::error::HwpError;
@@ -666,6 +666,7 @@ impl DocumentCore {
             node: &RenderNode,
             sec: usize,
             para: usize,
+            endnote_source: Option<&crate::renderer::pagination::EndnoteParaSource>,
             bboxes: &mut std::collections::HashMap<usize, (f64, f64, f64, f64)>,
         ) {
             match &node.node_type {
@@ -681,7 +682,19 @@ impl DocumentCore {
                     }
                 }
                 RenderNodeType::Equation(eq_node) => {
-                    if eq_node.section_index == Some(sec) && eq_node.para_index == Some(para) {
+                    // Deferred notes render in another section, while equations
+                    // retain the original note's source section in their address.
+                    let source_matches = endnote_source.is_some_and(|source| {
+                        eq_node.note_ref.as_ref().is_some_and(|note| {
+                            note.section_index == source.section_index
+                                && note.para_index == source.para_index
+                                && note.control_index == source.control_index
+                                && note.note_para_index == source.note_para_index
+                        })
+                    });
+                    if eq_node.para_index == Some(para)
+                        && (eq_node.section_index == Some(sec) || source_matches)
+                    {
                         if let Some(ci) = eq_node.control_index {
                             bboxes.insert(
                                 ci,
@@ -756,7 +769,7 @@ impl DocumentCore {
             }
 
             for child in &node.children {
-                collect_inline_control_bboxes(child, sec, para, bboxes);
+                collect_inline_control_bboxes(child, sec, para, endnote_source, bboxes);
             }
         }
 
@@ -851,6 +864,7 @@ impl DocumentCore {
             para: &Paragraph,
             offset: usize,
             page_index: u32,
+            endnote_source: Option<&crate::renderer::pagination::EndnoteParaSource>,
         ) -> Option<CursorHit> {
             if !para.controls.iter().any(is_inline_cursor_control) {
                 return None;
@@ -869,7 +883,9 @@ impl DocumentCore {
             );
 
             let mut control_bboxes = std::collections::HashMap::new();
-            collect_inline_control_bboxes(&tree.root, sec, para_idx, &mut control_bboxes);
+            collect_inline_control_bboxes(
+                &tree.root, sec, para_idx, endnote_source, &mut control_bboxes,
+            );
             let ctrl_positions = find_logical_control_positions(para);
             let raw_ctrl_positions = para.control_text_positions();
             let mut inline_controls = Vec::new();
@@ -1261,6 +1277,9 @@ impl DocumentCore {
                             para,
                             char_offset,
                             page_num,
+                            para_idx
+                                .checked_sub(self.document.sections[section_idx].paragraphs.len())
+                                .and_then(|local| self.pagination.get(section_idx)?.endnote_para_sources.get(local)),
                         ) {
                             return Ok(format!(
                                 "{{\"pageIndex\":{},\"x\":{:.1},\"y\":{:.1},\"height\":{:.1}}}",
@@ -5766,6 +5785,16 @@ impl DocumentCore {
         use crate::renderer::layout::compute_char_positions;
         use crate::renderer::render_tree::{RenderNode, RenderNodeType};
 
+        if self.get_render_paragraph_ref(section_idx, para_idx)?.controls.iter().any(|c| {
+            matches!(c, Control::Equation(eq) if eq.common.treat_as_char)
+        }) {
+            // The shared inline caret path includes equation boundary stops;
+            // a text-run-only lookup sends a leading equation's offset to EOF.
+            return self.get_cursor_rect_on_pages(
+                section_idx, para_idx, char_offset, &[page_num], page_num,
+            ).map(Some);
+        }
+
         struct CursorRun {
             char_start: usize,
             char_count: usize,
@@ -6108,16 +6137,23 @@ impl DocumentCore {
                 )
             }
             Control::Endnote(endnote) => {
-                let source_len = endnote
+                let source_para = endnote
                     .paragraphs
                     .get(note_para_idx)
                     .ok_or_else(|| {
                         HwpError::RenderError("미주 문단을 찾을 수 없습니다".to_string())
-                    })?
-                    .text
-                    .chars()
-                    .count();
+                    })?;
+                let source_len = source_para.text.chars().count();
                 let char_offset = char_offset.min(source_len);
+                // Note text edits use source scalar offsets. Render TextRuns use
+                // logical slots, which also count each inline equation.
+                let char_offset = if source_para.controls.iter().any(|c| {
+                    matches!(c, Control::Equation(eq) if eq.common.treat_as_char)
+                }) {
+                    text_to_logical_offset(source_para, char_offset)
+                } else {
+                    char_offset
+                };
                 let render_char_offset = if note_para_idx == 0 {
                     char_offset
                         + note_marker_text(
