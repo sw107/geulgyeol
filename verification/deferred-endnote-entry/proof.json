@@ -1,0 +1,707 @@
+{
+  "schema": 1,
+  "baseSHA": "2a9c13448fdf682f169e5d4ba025135432d36fd1",
+  "branch": "dev/deferred-endnote-edit-target",
+  "scope": "Resolve source-addressed deferred endnote entry/caret through actual pagination render owner; no UI/serialization/layout changes.",
+  "sourceSHA256": {
+    "engine/src/document_core/queries/cursor_rect.rs": "ec65ae102c38330717d9a698850e29d4a1e5f1da3adfe5ab1939cd0529f2eb9e",
+    "engine/examples/deferred_endnote_entry_check.rs": "ef7015eddf2c247fdc15fa1a0a2d5995e1a0e938cc3b3c1fe114af1e75ee5921",
+    "scripts/check-deferred-endnote-entry.mjs": "516f53d3e098e0b381348729b52944eff666d67864e96cc566213e89cf998119",
+    "scripts/prepare-deferred-endnote-entry.py": "ff7cd89bfdd817d8287d63ed1504bb4f74415f3bb18e93f1f81e083a8198b0d5"
+  },
+  "unchangedUIAdapterSources": {
+    "rhwp-studio/src/core/wasm-bridge.ts": "f8b12227bc30c44a14fad8528544d00cc348e4bdb16cd0d6be71150440d87889",
+    "rhwp-studio/src/engine/cursor.ts": "fe15d7b39705573b26ac653a2ddd5a45d4e0e0907f4245053bffd35cd0e16a05",
+    "rhwp-studio/src/command/commands/insert.ts": "921e607ec13f4b3fe4e0eb82fe527d91bb40b90f51e9ee43ab6acd48762ddda5"
+  },
+  "PR85Merge": {
+    "merge": {
+      "PR": {
+        "headRefOid": "22ca50bbee587d35013c699b39f607bb439e0515",
+        "isDraft": false,
+        "mergeCommit": {
+          "oid": "2a9c13448fdf682f169e5d4ba025135432d36fd1"
+        },
+        "mergedAt": "2026-10-18T18:47:00Z",
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/sw107/geulgyeol/pull/85"
+      },
+      "mergeSHA": "2a9c13448fdf682f169e5d4ba025135432d36fd1",
+      "remoteMain": "2a9c13448fdf682f169e5d4ba025135432d36fd1",
+      "approvedHeadIncluded": true,
+      "PR83Included": true,
+      "mergeTreeMatchesApprovedHead": true,
+      "tree": "65d9d9602438f8e088106cfd8ce62069726f4cfc",
+      "WASMSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+      "directEntryScope": "Four controls only. Five deferred donor snapshot cases passed cache/history, direct entry unpassed.",
+      "deployed": false
+    },
+    "regressions": {
+      "fixed-native-matrix": {
+        "proofSHA256": "2efb0053b6d02f8ea32707e463440c1f5509feec5390b4aefcc99ab320da2d05",
+        "summary": {
+          "GUIVerified": false,
+          "cases": 9,
+          "comparisons": 67,
+          "fullRebuilds": 67,
+          "hwpxReopens": 67,
+          "mismatches": 0,
+          "mode": "fixed",
+          "snapshotRestores": 27
+        }
+      },
+      "fixed-wasm-matrix": {
+        "proofSHA256": "555fcf317d870b72a092835c031a7fa75a4433d0a9ff63a1452c0dd08d6fb8ed",
+        "summary": {
+          "mode": "fixed",
+          "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+          "cases": 9,
+          "comparisons": 67,
+          "mismatches": 0,
+          "hwpxReopens": 67,
+          "snapshotRestores": 27,
+          "GUIVerified": false
+        }
+      },
+      "final-carry-native": {
+        "proofSHA256": "395591d6b749f826fc5d56045b0d0d8d4470606e0fea5017378cbda31194d219",
+        "summary": {
+          "GUIVerified": false,
+          "cases": 5,
+          "comparisons": 45,
+          "fullRebuilds": 45,
+          "hwpReopens": 0,
+          "mismatches": 0,
+          "mode": "fixed",
+          "reopens": 45,
+          "snapshotRestores": 25
+        }
+      },
+      "final-carry-wasm": {
+        "proofSHA256": "01f4ffb5e3bb5521b5105ffd05f4bbd6aefd0a45ea0a5112655c94e91aead1f5",
+        "summary": {
+          "mode": "fixed",
+          "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+          "cases": 5,
+          "comparisons": 45,
+          "mismatches": 0,
+          "reopens": 45,
+          "snapshotRestores": 25,
+          "parityChecks": 1196,
+          "GUIVerified": false
+        }
+      },
+      "final-existing-native": {
+        "proofSHA256": "25ae2cd35e278ce960bc36a1e31fe5b08fdffc6703c0ad89d3b9209c81272f4f",
+        "summary": {
+          "GUIVerified": false,
+          "cases": 13,
+          "comparisons": 65,
+          "fullRebuilds": 65,
+          "hwpReopens": 30,
+          "mismatches": 0,
+          "mode": "fixed",
+          "reopens": 65,
+          "snapshotRestores": 13
+        }
+      },
+      "final-existing-wasm": {
+        "proofSHA256": "87d1c4c36624a8449b215f33d44ccda789ef14e52b100a156adff1ddcf87e0c0",
+        "summary": {
+          "mode": "fixed",
+          "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+          "cases": 13,
+          "comparisons": 65,
+          "mismatches": 0,
+          "reopens": 65,
+          "hwpReopens": 30,
+          "snapshotRestores": 13,
+          "crossFormatLimit": "Three-physical-section shared-master HWP conversion differs already in the merged baseline; not certified or repaired by this cache change. Exact reviewer fixtures test HWPX only.",
+          "GUIVerified": false
+        }
+      }
+    },
+    "UI": [
+      {
+        "argv": [
+          "node",
+          "--test",
+          "rhwp-studio/tests/picture-caption-position.test.mjs",
+          "rhwp-studio/tests/bookmark-navigation.test.mjs",
+          "rhwp-studio/tests/bookmark-suggestion.test.mjs",
+          "rhwp-studio/tests/document-scroll-boundary.test.mjs",
+          "rhwp-studio/tests/bookmark-keyboard.test.mjs",
+          "rhwp-studio/tests/picture-caption-format.test.mjs"
+        ],
+        "code": 0
+      },
+      {
+        "argv": [
+          "node",
+          "rhwp-studio/node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "-p",
+          "rhwp-studio"
+        ],
+        "code": 0
+      }
+    ],
+    "uiTests": 90
+  },
+  "reviewPins": {
+    "app": {
+      "path": "/private/var/folders/pp/phj4_q9d7zl0wk516ghq41d80000gn/T/pr85-app-independent-taGFPs/review-result.json",
+      "sha256": "eec71250fbf4fe52fa68fb1f618c9daf19e5b8ea397c6f56620b86a60556b65e"
+    },
+    "engine": {
+      "path": "/private/var/folders/pp/phj4_q9d7zl0wk516ghq41d80000gn/T/pr85-independent-QgDq3O/review-result.json",
+      "sha256": "78d2fd5134e2937cd174026435ae360d715e80b173c9cc83c14580790d04d724"
+    }
+  },
+  "results": {
+    "baseline-native": {
+      "path": "baseline-entry-native-3-output/proof.json",
+      "sha256": "77d5eb4825e942c2adc2d59542603adfd3a22f79825988385da18d3fac915649",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 11,
+        "failedQueries": 63,
+        "hwpxReopens": 77,
+        "mode": "baseline",
+        "negativeChecks": 44,
+        "queries": 98,
+        "snapshotRestores": 33
+      }
+    },
+    "baseline-wasm": {
+      "path": "baseline-entry-wasm-4-output/proof.json",
+      "sha256": "f7850dfdf0fa904fe8a12ede12d62c3055f9c92b36632f93a68a0bc1279021a1",
+      "summary": {
+        "mode": "baseline",
+        "engineSHA256": "42ff2ca4cc9d44deaaaa022d49045af69c6e0d80c0398c350262a240d2419ced",
+        "cases": 11,
+        "queries": 109,
+        "failedQueries": 71,
+        "hwpxReopens": 88,
+        "snapshotRestores": 33,
+        "negativeChecks": 44,
+        "uiAdapterEntries": 66,
+        "GUIVerified": false,
+        "scope": "Existing entry/bridge/cursor methods with DOM adapter; actual keyboard/app QA remains separate."
+      }
+    },
+    "entry-native": {
+      "path": "entry-native-release-output/proof.json",
+      "sha256": "2b0900a06623c1e3444267b61ab8a7aee78375bf4ba0307e8cb4fb254a4f2517",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 11,
+        "failedQueries": 0,
+        "hwpxReopens": 77,
+        "mode": "fixed",
+        "negativeChecks": 44,
+        "queries": 98,
+        "snapshotRestores": 33
+      }
+    },
+    "entry-wasm": {
+      "path": "fixed-entry-wasm-4-output/proof.json",
+      "sha256": "881c6d194a15b0ace25b2110f23ec701a2aaf5d5c2c39913365b4b816cb5d072",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "dfd8f0a89dcfa808d6629e48855da35c9b7d2e964376f42c7dbe589f41287ff6",
+        "cases": 11,
+        "queries": 109,
+        "failedQueries": 0,
+        "hwpxReopens": 88,
+        "snapshotRestores": 33,
+        "negativeChecks": 44,
+        "uiAdapterEntries": 190,
+        "GUIVerified": false,
+        "scope": "Existing entry/bridge/cursor methods with DOM adapter; actual keyboard/app QA remains separate."
+      }
+    },
+    "fixed-wasm-matrix": {
+      "path": "fixed-wasm-matrix-final-output/proof.json",
+      "sha256": "d4802bca764d2c588bd83e6935afc0d330317c29a29abdc0ec789aa648120ca0",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "dfd8f0a89dcfa808d6629e48855da35c9b7d2e964376f42c7dbe589f41287ff6",
+        "cases": 9,
+        "comparisons": 67,
+        "mismatches": 0,
+        "hwpxReopens": 67,
+        "snapshotRestores": 27,
+        "GUIVerified": false
+      }
+    },
+    "final-carry-wasm": {
+      "path": "final-carry-wasm-final-output/proof.json",
+      "sha256": "02a9ddd49abc5273a9d511efa64f2d29dcb9274a14a7d7bf0ecd8f02fe932116",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "dfd8f0a89dcfa808d6629e48855da35c9b7d2e964376f42c7dbe589f41287ff6",
+        "cases": 5,
+        "comparisons": 45,
+        "mismatches": 0,
+        "reopens": 45,
+        "snapshotRestores": 25,
+        "parityChecks": 1196,
+        "GUIVerified": false
+      }
+    },
+    "final-existing-wasm": {
+      "path": "final-existing-wasm-final-output/proof.json",
+      "sha256": "15853b55421ad01690008226878e3f575db35fc34933582333ade89dbcdceecd",
+      "summary": {
+        "mode": "fixed",
+        "engineSHA256": "dfd8f0a89dcfa808d6629e48855da35c9b7d2e964376f42c7dbe589f41287ff6",
+        "cases": 13,
+        "comparisons": 65,
+        "mismatches": 0,
+        "reopens": 65,
+        "hwpReopens": 30,
+        "snapshotRestores": 13,
+        "crossFormatLimit": "Three-physical-section shared-master HWP conversion differs already in the merged baseline; not certified or repaired by this cache change. Exact reviewer fixtures test HWPX only.",
+        "GUIVerified": false
+      }
+    },
+    "fixed-native-matrix": {
+      "path": "fixed-native-matrix-final-output/proof.json",
+      "sha256": "2efb0053b6d02f8ea32707e463440c1f5509feec5390b4aefcc99ab320da2d05",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 9,
+        "comparisons": 67,
+        "fullRebuilds": 67,
+        "hwpxReopens": 67,
+        "mismatches": 0,
+        "mode": "fixed",
+        "snapshotRestores": 27
+      }
+    },
+    "final-carry-native": {
+      "path": "final-carry-native-final-output/proof.json",
+      "sha256": "395591d6b749f826fc5d56045b0d0d8d4470606e0fea5017378cbda31194d219",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 5,
+        "comparisons": 45,
+        "fullRebuilds": 45,
+        "hwpReopens": 0,
+        "mismatches": 0,
+        "mode": "fixed",
+        "reopens": 45,
+        "snapshotRestores": 25
+      }
+    },
+    "final-existing-native": {
+      "path": "final-existing-native-final-output/proof.json",
+      "sha256": "25ae2cd35e278ce960bc36a1e31fe5b08fdffc6703c0ad89d3b9209c81272f4f",
+      "summary": {
+        "GUIVerified": false,
+        "cases": 13,
+        "comparisons": 65,
+        "fullRebuilds": 65,
+        "hwpReopens": 30,
+        "mismatches": 0,
+        "mode": "fixed",
+        "reopens": 65,
+        "snapshotRestores": 13
+      }
+    }
+  },
+  "checks": {
+    "baseline-entry-native-build": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 2352,
+      "minFreeBytes": 31416320000,
+      "maxAdditionalAllocatedBytes": 84267008,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--example",
+        "deferred_endnote_entry_check"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "baseline-entry-native-3": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 1007,
+      "minFreeBytes": 31211520000,
+      "maxAdditionalAllocatedBytes": 284180480,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/run-native.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/bin/baseline-entry-native",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/entry-fixtures-3/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/baseline-entry-native-3-output",
+        "baseline"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "baseline-entry-wasm-4": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 446,
+      "minFreeBytes": 31252480000,
+      "maxAdditionalAllocatedBytes": 285880320,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-deferred-endnote-entry.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache/wasm-release/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/entry-fixtures-3/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/baseline-entry-wasm-4-output",
+        "baseline"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "release-native-build": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 26092,
+      "minFreeBytes": 31006720000,
+      "maxAdditionalAllocatedBytes": 405471232,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--example",
+        "deferred_endnote_entry_check",
+        "--example",
+        "document_endnote_cache_check",
+        "--example",
+        "physical_section_context_check",
+        "--example",
+        "inline_master_pages_check"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "wasm-final-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 143821,
+      "minFreeBytes": 31129600000,
+      "maxAdditionalAllocatedBytes": 348463104,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/build-wasm-release.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/wasm-final-release/pkg"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "entry-native-release": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 1870,
+      "minFreeBytes": 31211520000,
+      "maxAdditionalAllocatedBytes": 348524544,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/run-native.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/bin-final/deferred_endnote_entry_check",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/entry-fixtures-3/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/entry-native-release-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "fixed-entry-wasm-4": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 488,
+      "minFreeBytes": 31252480000,
+      "maxAdditionalAllocatedBytes": 287031296,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "scripts/check-deferred-endnote-entry.mjs",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/wasm-release/pkg",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/entry-fixtures-3/manifest.json",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/fixed-entry-wasm-4-output",
+        "fixed"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "sdk-final-types": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 197,
+      "minFreeBytes": 31211520000,
+      "maxAdditionalAllocatedBytes": 348536832,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "rhwp-studio/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--skipLibCheck",
+        "--target",
+        "es2022",
+        "--module",
+        "nodenext",
+        "--moduleResolution",
+        "nodenext",
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/sdk-consumer-final.mts"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "cargo-final-check": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 14558,
+      "minFreeBytes": 31211520000,
+      "maxAdditionalAllocatedBytes": 359755776,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "check",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--example",
+        "deferred_endnote_entry_check",
+        "--example",
+        "document_endnote_cache_check",
+        "--example",
+        "physical_section_context_check",
+        "--example",
+        "inline_master_pages_check"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "final-ui": {
+      "code": 0,
+      "signal": null,
+      "elapsedMs": 1156,
+      "minFreeBytes": 31211520000,
+      "maxAdditionalAllocatedBytes": 299544576,
+      "command": "/Users/sw107/.nvm/versions/node/v22.18.0/bin/node",
+      "argv": [
+        "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/final-ui.mjs"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    },
+    "lib-test-compile": {
+      "code": 101,
+      "signal": null,
+      "elapsedMs": 20451,
+      "minFreeBytes": 31211520000,
+      "maxAdditionalAllocatedBytes": 299601920,
+      "command": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache/rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/cargo",
+      "argv": [
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "engine/Cargo.toml",
+        "--lib",
+        "--no-run"
+      ],
+      "cache": "/Users/sw107/Documents/Codex/2026-10-14/task/body-cursor-page-candidates/build-cache"
+    }
+  },
+  "release": {
+    "remappedAtCompilation": true,
+    "offlineLocked": true,
+    "versions": {
+      "cargo": "cargo 1.93.1 (083ac5135 2025-12-15)",
+      "rustc": "rustc 1.93.1 (01f6ddf75 2026-02-11)",
+      "wasm-bindgen": "wasm-bindgen 0.2.127"
+    },
+    "audit": {
+      "clean": true,
+      "filesChecked": 4,
+      "findings": []
+    },
+    "files": {
+      "rhwp.js": "6d90a9c2eb8d3f54e0660c377a22e3b68cb9e571d7e2df39ce65a33db472908b",
+      "rhwp.d.ts": "6e3190f1bc68b0474bd8826219b33d30a589d934099e4372cae22384a7d6c8cd",
+      "rhwp_bg.wasm": "dfd8f0a89dcfa808d6629e48855da35c9b7d2e964376f42c7dbe589f41287ff6",
+      "rhwp_bg.wasm.d.ts": "658ae260e5979667cbc59fde32e8d22c4f14480cd77b59dfaf6115d28e2dc880"
+    }
+  },
+  "finalValidation": {
+    "sameWasmBinary": true,
+    "WASMSHA256": "dfd8f0a89dcfa808d6629e48855da35c9b7d2e964376f42c7dbe589f41287ff6",
+    "releasePath": "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/wasm-final-release/pkg",
+    "proofPaths": {
+      "entry-native": "entry-native-release-output/proof.json",
+      "entry-wasm": "fixed-entry-wasm-4-output/proof.json",
+      "fixed-wasm-matrix": "fixed-wasm-matrix-final-output/proof.json",
+      "final-carry-wasm": "final-carry-wasm-final-output/proof.json",
+      "final-existing-wasm": "final-existing-wasm-final-output/proof.json",
+      "fixed-native-matrix": "fixed-native-matrix-final-output/proof.json",
+      "final-carry-native": "final-carry-native-final-output/proof.json",
+      "final-existing-native": "final-existing-native-final-output/proof.json"
+    }
+  },
+  "nativeBuilds": {
+    "deferred_endnote_entry_check": {
+      "priorSHA256": "b409c155880f220d28b79dca373b6a795077e86fc457a6d5e03b0a9d55d6ba86",
+      "finalSHA256": "0687dfd64e645de158e5dbe0480407e3a9eeaa28d0bac42e218041984ee0ec8a",
+      "sameBinary": false,
+      "finalFrozenPath": "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/bin-final/deferred_endnote_entry_check"
+    },
+    "document_endnote_cache_check": {
+      "priorSHA256": "f3512911cfa467f597de9c93d53c84d4dea9da64d651cfade9496af7451b7ddf",
+      "finalSHA256": "f3512911cfa467f597de9c93d53c84d4dea9da64d651cfade9496af7451b7ddf",
+      "sameBinary": true,
+      "finalFrozenPath": "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/bin/document_endnote_cache_check"
+    },
+    "physical_section_context_check": {
+      "priorSHA256": "541b067f1572d50b39fe6bad42f2bda21a17598c79cf2bbb5bdea3b0e718bb71",
+      "finalSHA256": "541b067f1572d50b39fe6bad42f2bda21a17598c79cf2bbb5bdea3b0e718bb71",
+      "sameBinary": true,
+      "finalFrozenPath": "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/bin/physical_section_context_check"
+    },
+    "inline_master_pages_check": {
+      "priorSHA256": "0dae688cb398badf819a733aa75779cfd894284ebb69e08618fa68ea8a777577",
+      "finalSHA256": "0dae688cb398badf819a733aa75779cfd894284ebb69e08618fa68ea8a777577",
+      "sameBinary": true,
+      "finalFrozenPath": "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/bin/inline_master_pages_check"
+    }
+  },
+  "UI": {
+    "passed": 90,
+    "failed": 0,
+    "commands": [
+      {
+        "argv": [
+          "node",
+          "--test",
+          "rhwp-studio/tests/picture-caption-position.test.mjs",
+          "rhwp-studio/tests/bookmark-navigation.test.mjs",
+          "rhwp-studio/tests/bookmark-suggestion.test.mjs",
+          "rhwp-studio/tests/document-scroll-boundary.test.mjs",
+          "rhwp-studio/tests/bookmark-keyboard.test.mjs",
+          "rhwp-studio/tests/picture-caption-format.test.mjs"
+        ],
+        "code": 0
+      },
+      {
+        "argv": [
+          "node",
+          "rhwp-studio/node_modules/typescript/bin/tsc",
+          "--noEmit",
+          "-p",
+          "rhwp-studio"
+        ],
+        "code": 0
+      }
+    ],
+    "actualAppOrKeyboardRuns": 0,
+    "adapterEntryCalls": 190,
+    "adapterScope": "Real existing entry/bridge/cursor methods with DOM test adapter, not GUI keyboard input."
+  },
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry",
+  "fixtures": {
+    "manifest": "/Users/sw107/Documents/Codex/2026-10-14/task/pr85-merge-and-endnote-entry/entry-fixtures-3/manifest.json",
+    "manifestSHA256": "b2a1a2869e4d17e2d4c20c1ca62166a0ef6550bb297e2df5d44a07ae73bdd3a0",
+    "cases": 11,
+    "sourceTargets": 14,
+    "originalDonorCases": 5,
+    "controlsFromPR85": 4,
+    "additionalRenderOwnerCases": 2
+  },
+  "preservedHarnessCorrections": [
+    {
+      "earlierFixturesPreserved": [
+        "entry-fixtures",
+        "entry-fixtures-2"
+      ],
+      "initialGenerator": "prepare-entry-initial.py",
+      "observation": "Cloning the final root paragraph also cloned secPr/column controls, introducing unintended logical sections in unequal-render-body variants. Extra body copies now strip secPr/ctrl/linesegarray; the original two roots and note sources remain unchanged.",
+      "canonicalFixtures": "entry-fixtures-3",
+      "productionChangedForCorrection": false
+    },
+    {
+      "failedPhasePreserved": "baseline-entry-wasm-3",
+      "case": "section-end-control",
+      "stage": "inserted",
+      "observation": "New empty note source has only placeholders. Baseline cursor x=129.8, painted marker box right=129.4 (0.4px difference). This is existing marker/caret font geometry, outside source-to-render-owner lookup scope.",
+      "testCorrection": "Require matching virtual paragraph run and line y for all notes. Require ink-box x only when source has visible note text; empty placeholders are unpainted. API success, finite positive caret, actual entry adapter, source address and fresh-reopen parity remain strict.",
+      "productionChangedForCorrection": false
+    }
+  ],
+  "preservation": {
+    "originalStatusEqual": true,
+    "originalDiffSHA256": "f2f6bdfc26ca55571d8f2ef55e31633aa6e190e2c9e6107ae066dc36c660da88",
+    "originalUntrackedEqual": true,
+    "priorEvidence": [
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/pr84-merge-and-endnote-cache",
+        "indexSHA256": "2d4cf3debbfe7a85b5992eb0ec8d2c009a4433bf84fca433ee4e247941a7aa3e",
+        "files": 2937,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/physical-section-context-review-p2",
+        "indexSHA256": "e839df7f68f096bdaf477c21f777bb3e369ddb78bce028dfe4a031af57dda951",
+        "files": 2621,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/pr81-merge-and-physical-page-cache",
+        "indexSHA256": "94f94bbab66445ae5e92215e3c91c0e60f313fcee120523460b8b09d2d58f003",
+        "files": 3167,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/hwp-master-inheritance-investigation",
+        "indexSHA256": "748dab77f9621e95a764b210c4e54050266c00cccb2fcdec27944480dbad3d5b",
+        "files": 334,
+        "mismatches": []
+      },
+      {
+        "root": "/Users/sw107/Documents/Codex/2026-10-14/task/inline-section-master-pages-rendering",
+        "indexSHA256": "64840ac22ea647db80b8b848a9ae5afa9958e944c8f007c31fdd31aad55cb756",
+        "files": 3894,
+        "mismatches": []
+      }
+    ],
+    "HWPInvestigationStillPaused": true
+  },
+  "formatting": {
+    "newExampleRustfmt": "pass",
+    "modifiedHelperRustfmt": "pass",
+    "wholeExistingCursorFileReformatted": false
+  },
+  "testBlockers": {
+    "libTestCompileExit": 101,
+    "unitTestsExecuted": false,
+    "existingMissingIncludes": [
+      "mydocs/tech/agent_runtime/version_policy.md",
+      "samples/3-09월_교육_통합_2022.hwp",
+      "samples/hwp3-sample16-hwp5.hwp",
+      "samples/hwpx/aift.hwpx"
+    ],
+    "newRustTypeErrorsObserved": false,
+    "clippy": "Unavailable in pinned toolchain; not installed",
+    "CI": "No registered checks; not a CI pass."
+  },
+  "limitations": {
+    "independentReview": "Pending for this branch; keep new PR Draft.",
+    "actualAppQA": "Hand off source-addressed getNoteEditInfo entry, trusted text input, history/save/reopens to UI owner; not passed in this process.",
+    "HancomVerified": false,
+    "physicalIMEVerified": false,
+    "signedAppVerified": false,
+    "pointerPaths": "No certification of all pointer/marker entry routes.",
+    "geometry": "Existing overflow, note splitting, glyph coverage and offset-specific caret page selection within a multi-page paragraph are not fixed/certified. Empty marker ink width differs from logical caret by 0.4px in preserved baseline probe.",
+    "formats": "New entry matrix HWPX only. Existing 30 HWP reopens each belong to prior physical fixtures, not new note HWP certification.",
+    "HWPInheritance": "Separate single-Even/shared-master inheritance investigation remains paused and unresolved.",
+    "CI": "PR85 had zero registered checks; not a CI pass. New Draft checks must be read after creation.",
+    "processes": "No GUI launched by this task; user Hancom process left untouched."
+  },
+  "newBranchMerged": false,
+  "deployed": false
+}
