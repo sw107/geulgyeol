@@ -14618,7 +14618,7 @@ impl TypesetEngine {
             // Keep one row space for plain text, and for a single note with a
             // separate, final one-line inline equation paragraph. The equation
             // remains indivisible; long text stays in preceding paragraphs.
-            // Unequal columns and other object ownership remain on the old path.
+            // Unequal columns have a separate source-continuation path below.
             let width = st
                 .layout
                 .column_areas
@@ -14662,7 +14662,36 @@ impl TypesetEngine {
                         },
                     )
                 });
-            if canonical_notes {
+            let unequal_text_note = !canonical_notes
+                && st.layout.column_areas.len() > 1
+                && st.available_height() > 0.0
+                && st.layout.column_areas.iter().all(|c| c.width.is_finite() && c.width > 0.0)
+                && st.layout.column_areas.iter().any(|c| (c.width - width).abs() >= 0.001)
+                && endnote_refs.len() == 1
+                && paragraphs.iter().all(|p| p.controls.iter().all(|c| matches!(c,
+                    Control::SectionDef(_) | Control::ColumnDef(_) | Control::Endnote(_))))
+                && resolve_endnote_content(&endnote_refs[0], section_index, paragraphs, endnote_deferral)
+                    .is_some_and(|n| n.paragraphs.len() == 1 && n.paragraphs.iter().all(|p| {
+                        let mut offset = 0;
+                        let dense_offsets = p.text.chars().zip(&p.char_offsets).all(|(ch, &pos)| {
+                            let dense = pos == offset;
+                            offset += ch.len_utf16() as u32;
+                            dense
+                        }) && p.char_offsets.len() == p.text.chars().count();
+                        p.controls.is_empty() && p.field_ranges.is_empty() && p.range_tags.is_empty()
+                            && p.orphan_field_ends.is_empty() && dense_offsets
+                            && !p.text.chars().any(|c| matches!(c, '\u{fffc}' | '\t' | '\n' | '\r'))
+                            && p.column_type == ColumnBreakType::None
+                            && styles.para_styles.get(p.para_shape_id as usize).is_some_and(|s| {
+                                s.head_type == crate::model::style::HeadType::None
+                                    && s.indent <= 0.0 && !s.keep_lines && !s.keep_with_next
+                                    && !s.widow_orphan && !s.page_break_before
+                                    && st.layout.column_areas.iter().all(|c|
+                                        c.width - s.margin_left - s.margin_right + s.indent > 0.0
+                                        && crate::renderer::composer::ParagraphBox::body_for_style(c.width, Some(s), self.dpi).is_usable())
+                            })
+                    }));
+            if canonical_notes || unequal_text_note {
                 self.typeset_text_endnotes(
                     st,
                     paragraphs,
@@ -14673,6 +14702,7 @@ impl TypesetEngine {
                     endnote_deferral,
                     &endnote_refs,
                     width,
+                    unequal_text_note,
                 );
                 return;
             }
@@ -14860,6 +14890,7 @@ impl TypesetEngine {
         deferral: &EndnoteDeferral<'_>,
         refs: &[EndnoteRef],
         width: f64,
+        unequal_columns: bool,
     ) {
         // Body fit can omit trailing advances that paint still consumes (in
         // particular in multiple columns). Start with the actual rendered pen,
@@ -14871,7 +14902,9 @@ impl TypesetEngine {
             let frame = crate::renderer::page_layout::LayoutRect {
                 x: 0.0,
                 y: top,
-                width,
+                width: if unequal_columns {
+                    st.layout.column_areas[st.current_column as usize].width
+                } else { width },
                 height: (st.available_height() - top).max(0.0),
             };
             let bottom = scratch.measure_endnote_column_bottom(
@@ -14920,6 +14953,18 @@ impl TypesetEngine {
                     0.0
                 };
                 para.sequential_endnote = Some(gap);
+                let index = paragraphs.len() + st.endnote_paragraphs.len();
+                if unequal_columns {
+                    self.typeset_unequal_endnote_paragraph(st, &mut para, styles, index);
+                    st.endnote_paragraphs.push(para);
+                    st.endnote_para_sources.push(EndnoteParaSource {
+                        section_index: r.section_index,
+                        para_index: r.para_index,
+                        control_index: r.control_index,
+                        note_para_index: ni,
+                    });
+                    continue;
+                }
                 let style = styles.para_styles.get(para.para_shape_id as usize);
                 crate::renderer::composer::reflow_line_segs(
                     &mut para,
@@ -14930,7 +14975,6 @@ impl TypesetEngine {
                 let composed = crate::renderer::composer::compose_paragraph(&para);
                 let fmt =
                     self.format_endnote_paragraph(&para, Some(&composed), styles, Some(width));
-                let index = paragraphs.len() + st.endnote_paragraphs.len();
                 st.endnote_paragraphs.push(para);
                 st.endnote_para_sources.push(EndnoteParaSource {
                     section_index: r.section_index,
@@ -14990,6 +15034,89 @@ impl TypesetEngine {
                 }
             }
         }
+    }
+
+    /// A partial row index is meaningful only within the wrap that produced it.
+    /// Reflow the unconsumed source at each actual column width, then publish
+    /// its fitted rows in one global row/source space on the render copy.
+    fn typeset_unequal_endnote_paragraph(
+        &self,
+        st: &mut TypesetState,
+        para: &mut Paragraph,
+        styles: &ResolvedStyleSet,
+        index: usize,
+    ) {
+        let mut tail = para.clone();
+        let mut rows = Vec::new();
+        let mut source_start = 0;
+        let mut vpos = 0i32;
+        loop {
+            let width = st.layout.column_areas[st.current_column as usize].width;
+            // Saved rows belong to another width and may carry stale metrics.
+            tail.line_segs.clear();
+            let style = styles.para_styles.get(tail.para_shape_id as usize);
+            let reflow = if source_start == 0 {
+                crate::renderer::composer::reflow_line_segs
+            } else {
+                crate::renderer::composer::reflow_endnote_tail_line_segs
+            };
+            reflow(
+                &mut tail,
+                crate::renderer::composer::ParagraphBox::body_for_style(width, style, self.dpi),
+                styles,
+                self.dpi,
+            );
+            let composed = crate::renderer::composer::compose_paragraph(&tail);
+            let fmt = self.format_endnote_paragraph(&tail, Some(&composed), styles, Some(width));
+            let before = if rows.is_empty() { fmt.spacing_before } else { 0.0 };
+            let remaining = st.available_height() - st.current_height;
+            let mut height = before;
+            let mut end = 0;
+            while end < fmt.line_count() {
+                let after = if end + 1 == fmt.line_count() { fmt.spacing_after } else { 0.0 };
+                if height + fmt.line_heights[end].max(fmt.line_advance(end)) + after > remaining + 0.001 {
+                    break;
+                }
+                height += fmt.line_advance(end);
+                end += 1;
+            }
+            if end == 0 && !st.current_items.is_empty() {
+                st.advance_column_or_new_page();
+                continue;
+            }
+            // Match the existing indivisible-line policy, with guaranteed progress.
+            if end == 0 {
+                eprintln!("TEXT_ENDNOTE_UNSPLITTABLE_LINE: para={index} remaining={remaining:.1}");
+                end = 1;
+                height += fmt.line_advance(0);
+            }
+            let start = rows.len();
+            for seg in &tail.line_segs[..end] {
+                let mut seg = seg.clone();
+                seg.text_start += source_start;
+                seg.vertical_pos = vpos;
+                vpos += seg.line_height + seg.line_spacing;
+                rows.push(seg);
+            }
+            st.current_items.push(PageItem::PartialParagraph {
+                para_index: index,
+                start_line: start,
+                end_line: rows.len(),
+            });
+            st.current_endnote_flow = true;
+            if end == fmt.line_count() {
+                st.current_height += height + fmt.spacing_after;
+                break;
+            }
+            st.current_height += height;
+            let next = tail.line_segs[end].text_start;
+            let consumed = tail.char_offsets.partition_point(|&pos| pos < next);
+            debug_assert!(consumed > 0 && consumed < tail.char_offsets.len());
+            tail = tail.split_at(consumed);
+            source_start += next;
+            st.advance_column_or_new_page();
+        }
+        para.replace_line_segs(rows);
     }
 
     // ========================================================

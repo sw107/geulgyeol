@@ -1,0 +1,210 @@
+{
+  "baseMain": "8a9d963d1c465454157e26cf61be8f5d0dfc848c",
+  "baseEngineTree": "7ac92fe803b22811e925e0fdcb180a7c144b3b61",
+  "candidateEngineTree": "3f16cb3cef864bc20e96472ed63ed4756731df98",
+  "productionAndNativeProbeSourceSHA256": {
+    "engine/examples/endnote_cursor_fragment_check.rs": "d5db5d4da80d692e3cd3e3e0e029eda141de874b6726bf3c142c61d6ba1cd1af",
+    "engine/src/renderer/composer.rs": "22b12e089d55a6aa44f5d3f1e4ab572d7e2b2c487745ab2aed466dfd86d09b0b",
+    "engine/src/renderer/composer/line_breaking.rs": "d5b6d7e33141af72ee3408870236c82d1634d496dee65d79765a0f8bc9962d9d",
+    "engine/src/renderer/layout/paragraph_layout.rs": "5a3b0eb0e7fe4d6f737d751fd45e2a06473eda8b09785e490c03676e66e033c6",
+    "engine/src/renderer/typeset.rs": "ee3b04449bda98b0993889d2cae3d05e1284c70cb13a40aef223c9392db53bc2"
+  },
+  "SDKFilesSHA256": {
+    "rhwp.js": "ee523c96927902827137658cebdcf2120c7cde842da69beb72d9b2bc9046d13f",
+    "rhwp.d.ts": "1a63bc6f4c259d1d3375349ba455d40906129f54de761b1198bf44dc47c53116",
+    "rhwp_bg.wasm": "24042a03f6e9fe764e96100d4e187c758bbaecfdc6f850a442e57aa83a94c157",
+    "rhwp_bg.wasm.d.ts": "f4d259bb6d58759714ab277e876bf84efc49bbaba5a017e06edc27be6e854961"
+  },
+  "baselineWasmSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+  "publicJSAndDeclarationsByteIdenticalToMain": true,
+  "seedComparison": {
+    "missingSourceScalars": {
+      "main": 252,
+      "candidate": 0
+    },
+    "frameOverflowNodes": {
+      "main": 171,
+      "candidate": 0
+    },
+    "warmColdGeometryMaximumPx": {
+      "main": 12,
+      "candidate": 0
+    },
+    "offset377Hit": {
+      "main": 1451,
+      "candidate": 380,
+      "expected": 380
+    }
+  },
+  "unequalMatrix": {
+    "GUIVerified": false,
+    "HancomVerified": false,
+    "cases": 12,
+    "supportedCases": 8,
+    "stages": 48,
+    "snapshots": 240,
+    "sourceModelUnchangedFromMain": true,
+    "baselineWasmSHA256": "8d0c4391720d5fdf692881ee6f742c16c0b59c914e74db3b5059e4e528b9702f",
+    "candidateWasmSHA256": "24042a03f6e9fe764e96100d4e187c758bbaecfdc6f850a442e57aa83a94c157"
+  },
+  "unequalCursor": {
+    "GUIVerified": false,
+    "wasmSHA256": "24042a03f6e9fe764e96100d4e187c758bbaecfdc6f850a442e57aa83a94c157",
+    "stages": 32,
+    "queriesPerRuntimeLive": 804,
+    "nativeQueryChecks": 2412,
+    "wasmQueryChecks": 1608,
+    "failures": 0,
+    "mismatches": 0
+  },
+  "archiveContents": {
+    "archiveFiles": 192,
+    "comparisons": 144,
+    "allArchiveEntryContentsIdentical": true,
+    "GUIVerified": false
+  },
+  "priorScope": {
+    "staticEquationTail": {
+      "GUIVerified": false,
+      "WASMVerified": true,
+      "cases": 12,
+      "supportedCases": 7,
+      "states": 48,
+      "cursorChecks": 882,
+      "equationChecks": 72,
+      "knownEquationCursorGaps": 72,
+      "sourcePreserved": true,
+      "unsupportedPathsUnchanged": true
+    },
+    "equationXML": {
+      "filesVerified": 96,
+      "cases": 12,
+      "exactEquationXMLPreserved": true,
+      "normalizedAttributes": false
+    },
+    "textFlow": {
+      "GUIVerified": false,
+      "wasmSHA256": "24042a03f6e9fe764e96100d4e187c758bbaecfdc6f850a442e57aa83a94c157",
+      "cases": 20,
+      "stages": 100,
+      "sourceTextAndScalarCoverage": true,
+      "canonicalLineCoverage": true,
+      "sourceModelPreserved": true,
+      "failureStages": 0,
+      "geometryFailureStages": 0,
+      "sourceCoverageFailureStages": 0,
+      "liveColdRebuildMismatchStages": 0,
+      "violations": 0
+    },
+    "preservedMinimal": {
+      "GUIVerified": false,
+      "wasmSHA256": "24042a03f6e9fe764e96100d4e187c758bbaecfdc6f850a442e57aa83a94c157",
+      "cases": 3,
+      "stages": 15,
+      "sourceTextAndScalarCoverage": true,
+      "canonicalLineCoverage": true,
+      "sourceModelPreserved": true,
+      "failureStages": 0,
+      "geometryFailureStages": 0,
+      "sourceCoverageFailureStages": 0,
+      "liveColdRebuildMismatchStages": 0,
+      "violations": 0
+    },
+    "cursorFragments": {
+      "GUIVerified": false,
+      "wasmSHA256": "24042a03f6e9fe764e96100d4e187c758bbaecfdc6f850a442e57aa83a94c157",
+      "stages": 96,
+      "queriesPerRuntimeLive": 3468,
+      "nativeQueryChecks": 10404,
+      "wasmQueryChecks": 6936,
+      "failures": 0,
+      "mismatches": 0
+    },
+    "donorHistory": {
+      "GUIVerified": false,
+      "scope": "Combined WASM, production entry/onInput/note command/CommandHistory/context restore/Cursor methods with DOM and record-dispatch adapters; actual Electron integration QA pending.",
+      "WASMSHA256": "24042a03f6e9fe764e96100d4e187c758bbaecfdc6f850a442e57aa83a94c157",
+      "cases": 6,
+      "stages": 24,
+      "entryChecks": 1590,
+      "cursorChecks": 1524,
+      "recordedInputs": 10,
+      "historyOperations": 20,
+      "failures": 0
+    },
+    "regressionCommandsPassed": 20
+  },
+  "typeCheckCommands": 2,
+  "hostTests": 20,
+  "UITests": 90,
+  "normalWarningsRetained": true,
+  "preservation": {
+    "frozenRoots": 14,
+    "frozenFilesVerified": 29939,
+    "originalDirtyDiffUnchanged": true,
+    "originalUntrackedVerified": 9,
+    "priorReviewAndAppFilesVerified": 3610,
+    "protectedHancomFailureFilesVerified": 15
+  },
+  "fullRustUnitSuite": {
+    "fullRustUnitSuitePassed": false,
+    "rerunClaimed": false,
+    "reason": "Same pre-existing missing include inputs; Native example and WASM production builds succeeded. No placeholder fixtures fabricated.",
+    "missing": [
+      {
+        "path": "engine/mydocs/tech/agent_runtime/version_policy.md",
+        "exists": false
+      },
+      {
+        "path": "engine/samples/3-09월_교육_통합_2022.hwp",
+        "exists": false
+      },
+      {
+        "path": "engine/samples/hwp3-sample16-hwp5.hwp",
+        "exists": false
+      },
+      {
+        "path": "engine/samples/hwpx/aift.hwpx",
+        "exists": false
+      }
+    ]
+  },
+  "CI": "Not certified; absence is not a pass.",
+  "GUIVerified": false,
+  "HancomVerified": false,
+  "independentReviewPending": true,
+  "actualAppQAPending": true,
+  "merged": false,
+  "deployed": false,
+  "evidenceRootName": "endnote-unequal-implementation-20261019",
+  "nativeBinaryPins": {
+    "endnote_object_repro": {
+      "sha256": "c194ea498dae7927dc8db32b4da75a4ccda2a27ebadf564580491d5883abdfb8",
+      "bytes": 36512752
+    },
+    "endnote_cursor_fragment_check": {
+      "sha256": "a434a1103fb22515d91b03d910352e7daad639723e516c3b87592252b5b21747",
+      "bytes": 36421056
+    },
+    "deferred_endnote_entry_check": {
+      "sha256": "c5e30fe146460ccca03021e973ec0f861a7fffc307f810912e88168c9ef8e19e",
+      "bytes": 35853104
+    },
+    "document_endnote_flow_check": {
+      "sha256": "07b9acc9dde5b343a434a22dec0b65f3de04cc23ddda07cadecc3d37f3594b75",
+      "bytes": 36353440
+    },
+    "single_even_hwp_guard_check": {
+      "sha256": "f8a1dd511871044b51aa6edbe8d673d675adb7e0c1fa022d7ac3a243904280e9",
+      "bytes": 37233008
+    },
+    "document_endnote_cache_check": {
+      "sha256": "3c143c59facd93b552874796af4f8f8ae5a5cbcd9d2f98b695fd7a577e721475",
+      "bytes": 36245712
+    },
+    "physical_section_context_check": {
+      "sha256": "a360bf74cd8efe2ebc450a1ba8a74f378dcf7f37af19750bcfc09a22966ecb7a",
+      "bytes": 36840608
+    }
+  }
+}

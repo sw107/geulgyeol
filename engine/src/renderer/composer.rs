@@ -3762,7 +3762,7 @@ pub mod lineseg_compare;
 
 pub(crate) use line_breaking::{
     is_line_end_forbidden, is_line_start_forbidden, layout_picture_band, layout_final_picture_chain, picture_chain_rows_match, paragraph_flow_end,
-    recalculate_section_vpos, reflow_line_segs, reflow_line_segs_after_cell_split,
+    recalculate_section_vpos, reflow_line_segs, reflow_endnote_tail_line_segs, reflow_line_segs_after_cell_split,
     reflow_line_segs_after_cell_text_edit, tokenize_paragraph, BreakToken, StoredRowMissPolicy,
 };
 
