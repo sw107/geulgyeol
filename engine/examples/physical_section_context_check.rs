@@ -46,7 +46,14 @@ fn body(d: &DocumentCore) -> Value {
         .collect::<Vec<_>>())
 }
 
-fn check(d: &DocumentCore, out: &Path, case: &str, stage: &str, hwp: bool) -> Value {
+#[derive(Clone, Copy)]
+enum HwpExpectation {
+    Skip,
+    Reopen,
+    Reject,
+}
+
+fn check(d: &DocumentCore, out: &Path, case: &str, stage: &str, hwp: HwpExpectation) -> Value {
     let live = frames(d);
     let bytes = d.export_hwpx_native().unwrap();
     fs::write(out.join(format!("{case}-{stage}.hwpx")), &bytes).unwrap();
@@ -54,7 +61,13 @@ fn check(d: &DocumentCore, out: &Path, case: &str, stage: &str, hwp: bool) -> Va
     assert_eq!(body(&cold), body(d));
     assert_eq!(frames(d), live, "export leaves live pagination untouched");
     let cold_frames = frames(&cold);
-    if hwp {
+    if matches!(hwp, HwpExpectation::Reject) {
+        let error = d
+            .export_hwp_with_adapter_snapshot()
+            .unwrap_err()
+            .to_string();
+        assert!(error.contains("단일 짝수 바탕쪽") && error.contains("HWPX"));
+    } else if matches!(hwp, HwpExpectation::Reopen) {
         // Match the public WASM export API, including the HWPX-to-HWP adapter.
         let bytes = d.export_hwp_with_adapter_snapshot().unwrap();
         fs::write(out.join(format!("{case}-{stage}.hwp")), &bytes).unwrap();
@@ -73,7 +86,7 @@ fn check(d: &DocumentCore, out: &Path, case: &str, stage: &str, hwp: bool) -> Va
         rebuilt_frames, cold_frames,
         "independent in-memory rebuild isolates cache from serialization"
     );
-    json!({"case":case,"stage":stage,"equal":live==cold_frames,"live":live,"cold":cold_frames,"hwpReopened":hwp})
+    json!({"case":case,"stage":stage,"equal":live==cold_frames,"live":live,"cold":cold_frames,"hwpReopened":matches!(hwp,HwpExpectation::Reopen),"hwpRejected":matches!(hwp,HwpExpectation::Reject)})
 }
 
 fn carry_history(
@@ -85,14 +98,14 @@ fn carry_history(
 ) -> usize {
     let before = frames(d);
     let initial = d.save_snapshot_native();
-    rows.push(check(d, out, case, "before", false));
+    rows.push(check(d, out, case, "before", HwpExpectation::Skip));
     d.insert_text_native(target, 0, 0, "X").unwrap();
     assert_eq!(
         d.page_count() as usize,
         before.as_array().unwrap().len(),
         "one character must not change page count"
     );
-    let short = check(d, out, case, "one-character", false);
+    let short = check(d, out, case, "one-character", HwpExpectation::Skip);
     let short_cold = short["cold"].clone();
     rows.push(short);
     let short_snapshot = d.save_snapshot_native();
@@ -102,31 +115,37 @@ fn carry_history(
     d.insert_text_native(0, 0, 0, &growth).unwrap();
     d.insert_text_native(last, 0, 0, "TAIL_EDIT").unwrap();
     d.end_batch_native().unwrap();
-    let batch = check(d, out, case, "batch-grown", false);
+    let batch = check(d, out, case, "batch-grown", HwpExpectation::Skip);
     let batch_cold = batch["cold"].clone();
     rows.push(batch);
     let batch_snapshot = d.save_snapshot_native();
     d.restore_snapshot_native(short_snapshot).unwrap();
     assert_eq!(frames(d), short_cold);
-    rows.push(check(d, out, case, "undo-batch", false));
+    rows.push(check(d, out, case, "undo-batch", HwpExpectation::Skip));
     d.restore_snapshot_native(batch_snapshot).unwrap();
     assert_eq!(frames(d), batch_cold);
-    rows.push(check(d, out, case, "redo-batch", false));
+    rows.push(check(d, out, case, "redo-batch", HwpExpectation::Skip));
     d.begin_batch_native().unwrap();
     d.delete_text_native(0, 0, 0, growth.chars().count())
         .unwrap();
     d.delete_text_native(last, 0, 0, "TAIL_EDIT".chars().count())
         .unwrap();
     d.end_batch_native().unwrap();
-    rows.push(check(d, out, case, "batch-shrunk", false));
+    rows.push(check(d, out, case, "batch-shrunk", HwpExpectation::Skip));
     d.restore_snapshot_native(initial).unwrap();
     assert_eq!(frames(d), before);
-    rows.push(check(d, out, case, "restored", false));
+    rows.push(check(d, out, case, "restored", HwpExpectation::Skip));
     d.restore_snapshot_native(short_snapshot).unwrap();
     assert_eq!(frames(d), short_cold);
-    rows.push(check(d, out, case, "redo-one-character", false));
+    rows.push(check(
+        d,
+        out,
+        case,
+        "redo-one-character",
+        HwpExpectation::Skip,
+    ));
     d.restore_snapshot_native(initial).unwrap();
-    rows.push(check(d, out, case, "final-before", false));
+    rows.push(check(d, out, case, "final-before", HwpExpectation::Skip));
     for snapshot in [initial, short_snapshot, batch_snapshot] {
         d.discard_snapshot_native(snapshot);
     }
@@ -143,7 +162,13 @@ fn main() {
     for fixture in &fixtures {
         let case = fixture["case"].as_str().unwrap();
         let target = fixture["target"].as_u64().unwrap() as usize;
-        let hwp = fixture["crossFormatHwp"] == true;
+        let hwp = if fixture["hwpRejectionExpected"] == true {
+            HwpExpectation::Reject
+        } else if fixture["crossFormatHwp"] == true {
+            HwpExpectation::Reopen
+        } else {
+            HwpExpectation::Skip
+        };
         let mut d = DocumentCore::from_bytes(&fs::read(fixture["path"].as_str().unwrap()).unwrap())
             .unwrap();
         if fixture["carryHistory"] == true {
@@ -172,7 +197,7 @@ fn main() {
     let mismatches = rows.iter().filter(|r| r["equal"] != true).count();
     let hwp_reopens = rows.iter().filter(|r| r["hwpReopened"] == true).count();
     let proof = json!({"mode":args[2],"cases":fixtures.len(),"comparisons":rows.len(),"mismatches":mismatches,
-        "reopens":rows.len(),"hwpReopens":hwp_reopens,"fullRebuilds":rows.len(),"snapshotRestores":restores,"rows":rows,"GUIVerified":false});
+        "reopens":rows.len(),"hwpReopens":hwp_reopens,"hwpRefusals":rows.iter().filter(|r|r["hwpRejected"]==true).count(),"fullRebuilds":rows.len(),"snapshotRestores":restores,"rows":rows,"GUIVerified":false});
     fs::write(
         out.join("proof.json"),
         serde_json::to_vec_pretty(&proof).unwrap(),

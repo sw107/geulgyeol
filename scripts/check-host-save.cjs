@@ -67,7 +67,7 @@ async function uiController(save,bytes){
   hidden:false,disabled:false,textContent:'',value:'hwpx',showModal(){this.open=true;}});return elements.get(id);};
  let state={dirty:true,fileName:'synthetic.hwpx',documentEpoch:1,changeSeq:1};
  const notified=[],reported=[];
- const frame={contentWindow:{baramHost:{state:()=>state,export:()=>bytes,setFileActions(){},focus(){},completeSavedSnapshot:async(name,expected)=>{
+ const frame={contentWindow:{baramHost:{state:()=>state,export:format=>typeof bytes==='function'?bytes(format):bytes,setFileActions(){},focus(){},completeSavedSnapshot:async(name,expected)=>{
   if(state.documentEpoch!==expected.documentEpoch||state.changeSeq!==expected.changeSeq)return {ok:false};
   notified.push(name);state={...state,dirty:false,fileName:name};return {ok:true};
  }}},addEventListener(){}};

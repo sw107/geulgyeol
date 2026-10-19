@@ -7407,6 +7407,13 @@ impl HwpDocument {
             .map_err(|e| e.into())
     }
 
+    /// Reject unsupported master-page output before a host mutates save metadata.
+    #[wasm_bindgen(js_name = validateHwpMasterPageExport)]
+    pub fn validate_hwp_master_page_export(&self) -> Result<(), JsValue> {
+        self.validate_hwp_master_page_export_native()
+            .map_err(|e| JsValue::from_str(&e.to_string()))
+    }
+
     /// HWP 바이트와 이번 산출물의 내용 손실을 같은 결과로 반환한다 (#4430).
     ///
     /// 명시적 Studio 저장은 이 API를 사용한다. 기존 `exportHwp()`는 호환성을 위해

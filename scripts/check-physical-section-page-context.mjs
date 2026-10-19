@@ -25,7 +25,7 @@ const body = (doc, count) => Array.from({ length: count }, (_, si) =>
     doc.getTextRange(si, pi, 0, doc.getParagraphLength(si, pi))));
 const fixtures = JSON.parse(fs.readFileSync(manifest));
 const rows = [];
-let comparisons = 0, mismatches = 0, reopens = 0, hwpReopens = 0, restores = 0;
+let comparisons = 0, mismatches = 0, reopens = 0, hwpReopens = 0, hwpRefusals = 0, restores = 0;
 for (const fixture of fixtures) {
   const bytes = fs.readFileSync(fixture.path);
   assert.equal(sha(bytes), fixture.sha256);
@@ -41,7 +41,10 @@ for (const fixture of fixtures) {
     try {
       const fresh = frames(cold);
       assert.deepEqual(body(cold, fixture.sections), liveBody, 'exported body');
-      if (fixture.crossFormatHwp) {
+      if (fixture.hwpRejectionExpected) {
+        assert.throws(() => d.exportHwp(), e => String(e).includes("단일 짝수 바탕쪽") && String(e).includes("HWPX"));
+        hwpRefusals++;
+      } else if (fixture.crossFormatHwp) {
         const hwpBytes = d.exportHwp();
         fs.writeFileSync(path.join(out, fixture.case + '-' + stage + '.hwp'), hwpBytes, { flag: 'wx' });
         const hwp = new M.HwpDocument(hwpBytes);
@@ -95,7 +98,7 @@ for (const fixture of fixtures) {
   } finally { d.free(); }
 }
 const proof = { mode, engineSHA256: sha(fs.readFileSync(path.join(pkg, 'rhwp_bg.wasm'))),
-  cases: fixtures.length, comparisons, mismatches, reopens, hwpReopens, snapshotRestores: restores, rows,
+  cases: fixtures.length, comparisons, mismatches, reopens, hwpReopens, hwpRefusals, snapshotRestores: restores, rows,
   crossFormatHwpExcluded: fixtures.filter(f => !f.crossFormatHwp).map(f => f.case),
   crossFormatLimit: 'Three-physical-section shared-master HWP conversion differs already in the merged baseline; not certified or repaired by this cache change. Exact reviewer fixtures test HWPX only.',
   GUIVerified: false };

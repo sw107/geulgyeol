@@ -1609,6 +1609,7 @@ impl DocumentCore {
     pub fn export_hwp_with_adapter(&mut self) -> Result<Vec<u8>, HwpError> {
         use crate::document_core::converters::hwpx_to_hwp::convert_if_hwpx_source;
 
+        self.validate_hwp_master_page_export_native()?;
         let saved_hwpx_page_border_fills = self.snapshot_hwpx_page_border_fill_overlay();
         let _report = convert_if_hwpx_source(&mut self.document, self.source_format);
         self.refresh_doc_info_raw_cache();
@@ -1616,6 +1617,17 @@ impl DocumentCore {
             saved_hwpx_page_border_fills,
             crate::serializer::serialize_document,
         )
+    }
+
+    /// Read-only master-page preflight, also used before the UI stamps a caret.
+    pub fn validate_hwp_master_page_export_native(&self) -> Result<(), HwpError> {
+        // Adapter sources regenerate records; a raw cache is not an export bypass.
+        let allow_raw = matches!(self.source_format, crate::parser::FileFormat::Hwp);
+        crate::serializer::cfb_writer::validate_single_even_master_page_export(
+            &self.document,
+            allow_raw,
+        )
+        .map_err(|e| HwpError::RenderError(e.to_string()))
     }
 
     /// [#4432] DocInfo raw 캐시 재밀봉 — dirty(또는 봉인 불일치) 상태로 저장에
@@ -1703,6 +1715,7 @@ impl DocumentCore {
     ) -> Result<Vec<u8>, HwpError> {
         use crate::document_core::converters::hwpx_to_hwp::convert_if_hwpx_source;
 
+        self.validate_hwp_master_page_export_native()?;
         let saved_hwpx_page_border_fills = self.snapshot_hwpx_page_border_fill_overlay();
         let _report = convert_if_hwpx_source(&mut self.document, self.source_format);
         self.refresh_doc_info_raw_cache();

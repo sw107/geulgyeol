@@ -62,6 +62,51 @@ pub fn serialize_hwp_with_password_and_report(
     serialize_hwp_inner(doc, Some(password), ContentLossWarningMode::ReportOnly)
 }
 
+/// Reject the known non-injective single-Even encoding before generating bytes.
+/// Inline owners retain their existing checks; unchanged raw HWP streams retain
+/// their passthrough contract. Extension/multiple slots are not certified here.
+pub(crate) fn validate_single_even_master_page_export(
+    doc: &Document,
+    allow_raw_passthrough: bool,
+) -> Result<(), SerializeError> {
+    use crate::model::{control::Control, header_footer::HeaderFooterApply};
+    let single_even = |sd: &crate::model::document::SectionDef| {
+        matches!(sd.master_pages.as_slice(), [mp]
+            if !mp.is_extension && mp.apply_to == HeaderFooterApply::Even)
+    };
+    for section in &doc.sections {
+        let root_even = single_even(&section.section_def)
+            || section.paragraphs.first().is_some_and(|p| {
+                p.controls
+                    .iter()
+                    .any(|c| matches!(c, Control::SectionDef(sd) if single_even(sd)))
+            });
+        if !root_even
+            || section
+                .paragraphs
+                .iter()
+                .flat_map(|p| &p.controls)
+                .filter(|c| matches!(c, Control::SectionDef(_)))
+                .count()
+                > 1
+            || section.paragraphs.iter().skip(1).any(|p| {
+                p.controls
+                    .iter()
+                    .any(|c| matches!(c, Control::SectionDef(_)))
+            })
+            || (allow_raw_passthrough
+                && section.raw_stream.is_some()
+                && section.raw_provenance_permits_reuse())
+        {
+            continue;
+        }
+        return Err(SerializeError::UnsupportedInput(
+            "단일 짝수 바탕쪽의 적용 범위와 상속은 현재 HWP 저장에서 보존할 수 없습니다. HWPX 형식으로 저장해 주세요.".into(),
+        ));
+    }
+    Ok(())
+}
+
 fn serialize_hwp_inner(
     doc: &Document,
     password: Option<&[u8]>,
@@ -70,6 +115,7 @@ fn serialize_hwp_inner(
     let projected = super::numbering_restart::document_for_export(doc)?;
     let doc = projected.as_ref();
     crate::model::memo::validate(doc, false).map_err(SerializeError::UnsupportedInput)?;
+    validate_single_even_master_page_export(doc, true)?;
     for section in &doc.sections {
         if section.raw_provenance_permits_reuse() && section.raw_stream.is_some() {
             continue;
