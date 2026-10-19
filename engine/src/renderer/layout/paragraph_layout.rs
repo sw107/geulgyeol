@@ -3654,11 +3654,23 @@ impl LayoutEngine {
         // [#5601] 셀 저장-앵커 스냅 문단 — 호출자가 para_y 에서 spacing_before 를
         // 미리 뺐으므로 column-top 트림과 무관하게 전량 재가산해야 vpos 와 맞는다.
         let reapply_snap_spacing_before = self.reapply_snap_anchored_spacing_before.replace(false);
-        y += crate::renderer::paragraph_spacing::partial_paragraph_spacing_before_px(
-            para, para_index, start_line, spacing_before, self.dpi,
-            is_column_top, keep_continuation_spacing_before,
-            reapply_snap_spacing_before, suppress_column_top_vpos_fallback,
-        );
+        if para.is_some_and(|p| p.sequential_endnote.is_some()) {
+            if start_line == 0 {
+                y += spacing_before;
+            }
+        } else {
+            y += crate::renderer::paragraph_spacing::partial_paragraph_spacing_before_px(
+                para,
+                para_index,
+                start_line,
+                spacing_before,
+                self.dpi,
+                is_column_top,
+                keep_continuation_spacing_before,
+                reapply_snap_spacing_before,
+                suppress_column_top_vpos_fallback,
+            );
+        }
         // [Task #1012] paragraph 첫 line vpos > 0 인데 spacing_before=0 으로
         // 위 블록 진입 안한 경우 (test-image.hwp page 1: TopAndBottom Picture)
         // line_seg.vpos 를 직접 y 에 가산하여 텍스트가 wrap shape 아래로

@@ -1,0 +1,1004 @@
+{
+  "baselineHead": "1b488f4bb6bd09b5475a0ebd6230b8a9b4e6586e",
+  "baselineNativePin": {
+    "sha256": "284ebcf6a0d6769df623146b3ea4f89a59263a82b305a9f8b092109bc83a06e3",
+    "head": "1b488f4bb6bd09b5475a0ebd6230b8a9b4e6586e"
+  },
+  "reviewInputPins": {
+    "review-result.json": {
+      "sha256": "095c4054442b71ce0f2924e45e10bbdf3c9cafc6ccd93cefdc040fd446fe103d",
+      "bytes": 22902
+    },
+    "cursor-reopen-proof.json": {
+      "sha256": "8c7a1c3fb8fd601807e2c9efe6285533de23bc029692f74dd517d1d70e5532c2",
+      "bytes": 1992
+    },
+    "cursor-continuation-proof.json": {
+      "sha256": "59a427410974e768d875fc9c10a8c91bcb9bbea52e3ee7efac3d8b9a6f2cc090",
+      "bytes": 1493
+    },
+    "cursor-reopen-probe.mjs": {
+      "sha256": "7af4d8378bada845f1f13f9db78153757f054877bfc6532a29cf98cd67997a7a",
+      "bytes": 2130
+    },
+    "cursor-repro.hwpx": {
+      "sha256": "694ebbf7c584989e06899fb3c1a8d21acc826f8990d61981d3778765ea490431",
+      "bytes": 7641
+    },
+    "review-evidence-index.json": {
+      "sha256": "c991d2e7be2c5594ea6d48b63389dba5a3df82a3aa9265f0b907d56623abc11e",
+      "bytes": 150426
+    }
+  },
+  "before": {
+    "GUIVerified": false,
+    "wasmSHA256": "8c051920c42cdb2ec53d6cce64b26571fcc05750057d2932662559e507999c07",
+    "stages": 72,
+    "queriesPerRuntimeLive": 1838,
+    "nativeQueryChecks": 5514,
+    "wasmQueryChecks": 3676,
+    "failures": 2810,
+    "mismatches": 0
+  },
+  "after": {
+    "GUIVerified": false,
+    "wasmSHA256": "66c457f40a101cc40578dc539062fc95b3a5486920a3b1ae0f320cef94c42fc5",
+    "stages": 76,
+    "queriesPerRuntimeLive": 1894,
+    "nativeQueryChecks": 5682,
+    "wasmQueryChecks": 3788,
+    "failures": 0,
+    "mismatches": 0
+  },
+  "sourceSHA256": {
+    "engine/src/document_core/queries/cursor_rect.rs": "b669a0777d2214645c4431693c5bb102b7a97e0fa6f6c1543f785a03e3b33afe",
+    "engine/examples/endnote_cursor_fragment_check.rs": "01df55d9ca796481b0212e4937f2909ee856ac77acbc92579d9e571c9af8817f",
+    "scripts/check-endnote-cursor-fragments.mjs": "246d4c626241ea964d8eb9a86fb6a911688573f181c7a82bf1e8ad6fc0352d78"
+  },
+  "nativeBinary": {
+    "sha256": "a73897e80f75fcf851c4d3564d53473c4197986047e44647a907a35cc2694c8b",
+    "bytes": 36316416
+  },
+  "runtimePackage": "/Users/sw107/Documents/Codex/2026-10-14/task/pr88-cursor-fragments/wasm-release/pkg",
+  "evidenceRoot": "/Users/sw107/Documents/Codex/2026-10-14/task/pr88-cursor-fragments",
+  "oracle": "Actual typed Native render spans, independent full WASM render streams, source-map inverse of hitTest. Downstream wrap affinity; final scalar offset included. Empty placeholder width is not glyph advance.",
+  "PR86CodeIncluded": false,
+  "PR86CommitRequired": false,
+  "noteEntryDiscoveryChanged": false,
+  "mergeOverlap": "PR86 also changes the existing get_cursor_rect_in_note_native callsite; reconcile at merge. Cross-section UI entry/dispatch still belongs to PR86 and actual-app QA.",
+  "GUIVerified": false,
+  "HancomVerified": false,
+  "CI": "No CI pass claimed; remote check counts will be recorded in the frozen receipt after push.",
+  "exactReportedOffset": [
+    {
+      "runtime": "native",
+      "case": "single-long",
+      "stage": "grown",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "single-long",
+      "stage": "grown",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "single-long",
+      "stage": "grown",
+      "variant": "rebuilt",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "single-long",
+      "stage": "redo",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "single-long",
+      "stage": "redo",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "single-long",
+      "stage": "redo",
+      "variant": "rebuilt",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "before",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "before",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "before",
+      "variant": "rebuilt",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "grown",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "grown",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "grown",
+      "variant": "rebuilt",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "undo",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "undo",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "undo",
+      "variant": "rebuilt",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "redo",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "redo",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "native",
+      "case": "review-saved-repro",
+      "stage": "redo",
+      "variant": "rebuilt",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "height": 12.0,
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863.0
+      },
+      "hit": {
+        "charOffset": 10809,
+        "cursorRect": {
+          "height": 12.0,
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4
+        },
+        "paragraphIndex": 2,
+        "sectionIndex": 0
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "single-long",
+      "stage": "grown",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "single-long",
+      "stage": "grown",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "single-long",
+      "stage": "redo",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "single-long",
+      "stage": "redo",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "review-saved-repro",
+      "stage": "before",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "review-saved-repro",
+      "stage": "before",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "review-saved-repro",
+      "stage": "grown",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "review-saved-repro",
+      "stage": "grown",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "review-saved-repro",
+      "stage": "undo",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "review-saved-repro",
+      "stage": "undo",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "review-saved-repro",
+      "stage": "redo",
+      "variant": "live",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    },
+    {
+      "runtime": "wasm",
+      "case": "review-saved-repro",
+      "stage": "redo",
+      "variant": "cold",
+      "source": [
+        0,
+        0,
+        2,
+        0
+      ],
+      "offset": 10806,
+      "renderOffset": 10809,
+      "rect": {
+        "pageIndex": 1,
+        "x": 80.8,
+        "y": 863,
+        "height": 12
+      },
+      "hit": {
+        "sectionIndex": 0,
+        "paragraphIndex": 2,
+        "charOffset": 10809,
+        "cursorRect": {
+          "pageIndex": 1,
+          "x": 80.8,
+          "y": 862.4,
+          "height": 12
+        }
+      }
+    }
+  ]
+}
