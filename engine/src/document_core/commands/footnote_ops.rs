@@ -1,7 +1,7 @@
 //! 각주 내용 편집 관련 native 메서드
 
 use super::super::helpers::{
-    build_tab_def_from_json, json_has_border_keys, json_has_tab_keys, parse_json_i16_array,
+    build_tab_def_from_json, json_escape, json_has_border_keys, json_has_tab_keys, parse_json_i16_array,
     parse_para_shape_mods,
 };
 use crate::document_core::DocumentCore;
@@ -476,7 +476,7 @@ impl DocumentCore {
                 let texts: Vec<String> = f
                     .paragraphs
                     .iter()
-                    .map(|p| p.text.replace('\\', "\\\\").replace('"', "\\\""))
+                    .map(|p| json_escape(&p.text))
                     .collect();
                 let total_len: usize = f.paragraphs.iter().map(|p| p.text.chars().count()).sum();
                 Ok(format!(
@@ -492,7 +492,7 @@ impl DocumentCore {
                 let texts: Vec<String> = e
                     .paragraphs
                     .iter()
-                    .map(|p| p.text.replace('\\', "\\\\").replace('"', "\\\""))
+                    .map(|p| json_escape(&p.text))
                     .collect();
                 let total_len: usize = e.paragraphs.iter().map(|p| p.text.chars().count()).sum();
                 Ok(format!(

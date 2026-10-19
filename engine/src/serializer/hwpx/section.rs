@@ -1124,6 +1124,11 @@ pub(crate) fn render_hp_t_content(
                 flush_buf(&mut t_xml, &mut buf);
                 t_xml.push_str("<hp:lineBreak/>");
             }
+            '\r' => {
+                // A reference preserves CR through XML line-ending normalization.
+                flush_buf(&mut t_xml, &mut buf);
+                t_xml.push_str("&#13;");
+            }
             // 고정폭 빈칸은 `<hp:fwSpace/>` 요소로 복원한다(#4675). 파서가
             // `<hp:fwSpace/>`→U+2007 로 읽으므로 리터럴 방출은 표현 강등이다 — 한글은
             // 요소를 텍스트 추출에 싣지 않지만 리터럴은 문자로 실어, 저장본의 추출
