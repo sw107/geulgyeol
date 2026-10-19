@@ -2952,7 +2952,10 @@ impl LayoutEngine {
             // compose_lines fallback (CHARS_PER_LINE=45 heuristic) 결과를 column inner width
             // 기반으로 re-split. cell paragraph (Stage 6a 의 height_measurer 호출) 와 동일
             // recompose path 사용.
-            let recomposed: Option<ComposedParagraph> = if comp.picture_chain_projection.as_ref().is_some_and(|(width,_)| (width-col_area.width).abs() <= 0.001) { None } else {
+            // Sequential note pagination owns canonical rows, including rows
+            // wrapped at different widths. Rewrapping here would change the
+            // source interval addressed by its PartialParagraph line range.
+            let recomposed: Option<ComposedParagraph> = if para.sequential_endnote.is_some() || comp.picture_chain_projection.as_ref().is_some_and(|(width,_)| (width-col_area.width).abs() <= 0.001) { None } else {
                 let para_style = styles.para_styles.get(comp.para_style_id as usize);
                 let margin_l = para_style.map(|s| s.margin_left).unwrap_or(0.0);
                 let margin_r = para_style.map(|s| s.margin_right).unwrap_or(0.0);

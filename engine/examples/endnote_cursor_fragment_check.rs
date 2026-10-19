@@ -107,6 +107,14 @@ fn queries(d: &DocumentCore) -> Value {
         if source_len > 1 {
             offsets.insert(source_len - 2);
         }
+        // Retain probes at the old unequal-column hole as well as the new
+        // fragment boundaries. Scalar offsets must not split UTF-16 pairs.
+        offsets.extend([126, 127, 377, 378, 379].into_iter().filter(|&p| p <= source_len));
+        for (pos, _) in text.chars().enumerate().filter(|(_, c)| c.len_utf16() == 2).take(4) {
+            offsets.insert(pos);
+            offsets.insert(pos.saturating_sub(1));
+            offsets.insert((pos + 1).min(source_len));
+        }
         for (i, r) in runs.iter().enumerate() {
             let boundary = i == 0
                 || i + 1 == runs.len()

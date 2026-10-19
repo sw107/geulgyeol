@@ -2540,7 +2540,7 @@ pub(crate) fn layout_paragraph_in_frame(
     styles: &ResolvedStyleSet,
     dpi: f64,
 ) -> Option<Vec<LineSeg>> {
-    layout_paragraph_in_frame_impl(para, frame, styles, dpi, true, false, false, None)
+    layout_paragraph_in_frame_impl(para, frame, styles, dpi, true, false, false, None, true)
 }
 
 fn layout_paragraph_in_frame_impl(
@@ -2552,6 +2552,7 @@ fn layout_paragraph_in_frame_impl(
     allow_multiple_picture_host: bool,
     anchor_only: bool,
     physical_page_height: Option<i32>,
+    initial_is_first_line: bool,
 ) -> Option<Vec<LineSeg>> {
     // [#6102] 폭-중립 자리차지 표 host 도 fill 대상 — 표는 줄 폭을 소비하지
     // 않으므로(자기 레이아웃 소유자가 따로 배치) 텍스트만 재래핑하면 된다.
@@ -2680,7 +2681,7 @@ fn layout_paragraph_in_frame_impl(
         .unwrap_or(LineSeg::TAG_IMPLEMENTATION_PROPERTY);
     let first_row = frame.row_count();
     let frame_checkpoint = frame.clone();
-    let mut cursor = FillCursor::new(0, true);
+    let mut cursor = FillCursor::new(0, initial_is_first_line);
 
     let result = (|| {
         while !cursor.finished {
@@ -2861,7 +2862,7 @@ fn layout_paragraph_in_frame_impl(
     if kerning_failed {
         // 한 boundary라도 예산/범위 검증에 실패하면 일부 K1 row를 게시하지
         // 않고 문단 전체를 원래 scalar transaction으로 다시 실행한다.
-        return layout_paragraph_in_frame_impl(para, frame, styles, dpi, false, allow_multiple_picture_host, anchor_only, physical_page_height);
+        return layout_paragraph_in_frame_impl(para, frame, styles, dpi, false, allow_multiple_picture_host, anchor_only, physical_page_height, initial_is_first_line);
     }
     result
 }
@@ -3294,7 +3295,7 @@ pub(super) fn layout_missing_multiple_picture_host(
     let reference = picture_band_paragraph_reference(&column_horizontal,
         px_to_hwpunit(style.map(|s| s.margin_left).unwrap_or(0.0), dpi))?;
     let mut anchor_frame = paragraph_box.frame(0);
-    let anchors = layout_paragraph_in_frame_impl(para, &mut anchor_frame, styles, dpi, true, true, true, None)?;
+    let anchors = layout_paragraph_in_frame_impl(para, &mut anchor_frame, styles, dpi, true, true, true, None, true)?;
     let positions = para.control_utf16_positions();
     let mut exclusions = Vec::new();
     for (index, control) in para.controls.iter().enumerate() {
@@ -3307,7 +3308,7 @@ pub(super) fn layout_missing_multiple_picture_host(
         }
     }
     let mut frame = paragraph_box.frame_with(0, exclusions);
-    layout_paragraph_in_frame_impl(para, &mut frame, styles, dpi, true, true, false, None)
+    layout_paragraph_in_frame_impl(para, &mut frame, styles, dpi, true, true, false, None, true)
 }
 
 /// Fresh final body chain used by attested editor transactions. It has
@@ -3358,7 +3359,7 @@ pub(crate) fn layout_final_picture_chain(
             let reference = picture_band_paragraph_reference(&column_horizontal,
                 px_to_hwpunit(style.map(|s| s.margin_left).unwrap_or(0.0), dpi))?;
             let mut anchor_frame = frame.clone();
-            let anchors = layout_paragraph_in_frame_impl(&input, &mut anchor_frame, styles, dpi, true, multiple, true, None)?;
+            let anchors = layout_paragraph_in_frame_impl(&input, &mut anchor_frame, styles, dpi, true, multiple, true, None, true)?;
             let positions = input.control_utf16_positions();
             let mut exclusions = frame.exclusions.clone();
             for (index, control) in input.controls.iter().enumerate() {
@@ -3373,7 +3374,7 @@ pub(crate) fn layout_final_picture_chain(
             frame = current_box.frame_with(frame.top, exclusions);
         }
         let entry_top = frame.top;
-        let mut paragraph_rows = layout_paragraph_in_frame_impl(&input, &mut frame, styles, dpi, count > 0, multiple, false, Some(page_height))?;
+        let mut paragraph_rows = layout_paragraph_in_frame_impl(&input, &mut frame, styles, dpi, count > 0, multiple, false, Some(page_height), true)?;
         let positions = input.control_utf16_positions();
         let scalar_positions = input.control_text_positions();
         let inline: Vec<_> = input.controls.iter().enumerate().filter(|(_, c)|
@@ -3603,7 +3604,18 @@ pub(crate) fn reflow_line_segs(
     styles: &ResolvedStyleSet,
     dpi: f64,
 ) {
-    let _ = reflow_line_segs_impl(para, paragraph_box, styles, dpi, None, false);
+    let _ = reflow_line_segs_impl(para, paragraph_box, styles, dpi, None, false, false);
+}
+
+/// Render-only plain endnote suffix: its first row continues the source
+/// paragraph, so hanging indentation must also apply to that row.
+pub(crate) fn reflow_endnote_tail_line_segs(
+    para: &mut Paragraph,
+    paragraph_box: ParagraphBox,
+    styles: &ResolvedStyleSet,
+    dpi: f64,
+) {
+    let _ = reflow_line_segs_impl(para, paragraph_box, styles, dpi, None, false, true);
 }
 
 /// 셀 분할로 저장 폭이 stale해진 문단을 다시 조판한다.
@@ -3618,7 +3630,7 @@ pub(crate) fn reflow_line_segs_after_cell_split(
     styles: &ResolvedStyleSet,
     dpi: f64,
 ) {
-    let _ = reflow_line_segs_impl(para, paragraph_box, styles, dpi, None, true);
+    let _ = reflow_line_segs_impl(para, paragraph_box, styles, dpi, None, true, false);
 }
 
 /// 저장 LINE_SEG가 유효한 셀 텍스트 편집은 수정된 줄 이전의 경계를 그대로 둔다.
@@ -3641,6 +3653,7 @@ pub(crate) fn reflow_line_segs_after_cell_text_edit(
         dpi,
         Some(edit_char_offset),
         false,
+        false,
     )
 }
 
@@ -3651,6 +3664,7 @@ fn reflow_line_segs_impl(
     dpi: f64,
     preserve_prefix_for_edit: Option<usize>,
     split_stale_cell_reflow: bool,
+    continuation: bool,
 ) -> bool {
     // An impossible box publishes nothing, and this must be the first thing
     // that happens — before the memo invalidation below, which is already a
@@ -3678,7 +3692,7 @@ fn reflow_line_segs_impl(
     // UTF-16 line boundaries; never insert markers into the stored text.
     if let Some(mut projected) = super::synthesize_marker_paragraph(para) {
         let preserved = reflow_line_segs_impl(
-            &mut projected, paragraph_box, styles, dpi, None, split_stale_cell_reflow,
+            &mut projected, paragraph_box, styles, dpi, None, split_stale_cell_reflow, continuation,
         );
         para.invalidate_single_line_overflow_memo();
         para.layout_only_fill_lines = 0;
@@ -3883,7 +3897,7 @@ fn reflow_line_segs_impl(
     };
     let mut preserved_prefix = Vec::new();
     let mut reflow_start_idx = 0usize;
-    let mut reflow_is_first_line = true;
+    let mut reflow_is_first_line = !continuation;
     let mut token_start = 0usize;
     // `DocumentCore::new_empty()`의 기본 source_format도 Hwp이므로 형식만으로는
     // 합성 test/new-document LineSeg를 native 저장 경계로 오인할 수 없다. 실제 HWP
@@ -3958,7 +3972,9 @@ fn reflow_line_segs_impl(
         // `0..seg_width_hwp`(문단 기준, 미스냅)라 열 기준 렌더 프레임과 어긋났다.
         let mut frame =
             paragraph_box.frame(orig.as_ref().map(|line| line.vertical_pos).unwrap_or(0));
-        if let Some(projected) = layout_paragraph_in_frame(para, &mut frame, styles, dpi) {
+        if let Some(projected) = layout_paragraph_in_frame_impl(
+            para, &mut frame, styles, dpi, true, false, false, None, !continuation,
+        ) {
             para.replace_line_segs(projected);
             return false;
         }
