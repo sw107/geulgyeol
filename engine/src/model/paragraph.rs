@@ -63,7 +63,7 @@ pub struct Paragraph {
     /// 파일에 실리는 값이 아니라 IR 안에서만 의미가 있다. `line_segs` 를 통째로 다시
     /// 계산하는 경로(reflow)는 이 값을 0 으로 되돌린다.
     pub layout_only_fill_lines: usize,
-    /// Render-only endnote copy: optional before-note gap in px, canonical text rows. Pagination
+    /// Render-only endnote copy: optional before-note gap in px, canonical render rows. Pagination
     /// owns its PartialParagraph ranges; replay must not reapply saved vpos.
     /// Never set on the source document or serialize into HWP/HWPX/IR dumps.
     #[serde(skip_serializing)]

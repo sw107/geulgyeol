@@ -14615,18 +14615,17 @@ impl TypesetEngine {
         // 미주 paragraphs를 endnote_paragraphs Vec에 모으고, ENDNOTE_PARA_BASE 이상 인덱스로 마킹
         if !st.endnotes.is_empty() {
             let endnote_refs: Vec<EndnoteRef> = st.endnotes.clone();
-            // Text-only notes have no object/vpos ownership to preserve. Build
-            // their render rows in the actual owner frame, including the marker,
-            // then keep that exact row space for every continuation fragment.
-            // Unequal columns need character-based recomposition per fragment;
-            // leave them and object-bearing notes on the existing path.
+            // Keep one row space for plain text, and for a single note with a
+            // separate, final one-line inline equation paragraph. The equation
+            // remains indivisible; long text stays in preceding paragraphs.
+            // Unequal columns and other object ownership remain on the old path.
             let width = st
                 .layout
                 .column_areas
                 .first()
                 .map(|c| c.width)
                 .unwrap_or(st.layout.body_area.width);
-            let text_only = width > 0.0
+            let canonical_notes = width > 0.0
                 && st
                     .layout
                     .column_areas
@@ -14635,10 +14634,12 @@ impl TypesetEngine {
                 && endnote_refs.iter().all(|r| {
                     resolve_endnote_content(r, section_index, paragraphs, endnote_deferral).is_some_and(
                         |n| {
-                            n.paragraphs.iter().all(|p| {
+                            n.paragraphs.iter().enumerate().all(|(ni, p)| {
+                                let has_equation = p.controls.iter().any(|c| matches!(c, Control::Equation(_)));
                                 p.controls.iter().all(|c| {
                                     matches!(c, Control::AutoNumber(n)
                                         if n.number_type == crate::model::control::AutoNumberType::Endnote)
+                                    || matches!(c, Control::Equation(_))
                                 }) && !p
                                     .text
                                     .chars()
@@ -14654,11 +14655,14 @@ impl TypesetEngine {
                                                 && !s.widow_orphan
                                                 && !s.page_break_before
                                         })
+                                    && (!has_equation || (endnote_refs.len() == 1
+                                        && ni > 0 && ni + 1 == n.paragraphs.len()
+                                        && self.static_tail_equation_fits(p, styles, width, st.available_height())))
                             })
                         },
                     )
                 });
-            if text_only {
+            if canonical_notes {
                 self.typeset_text_endnotes(
                     st,
                     paragraphs,
@@ -14784,6 +14788,65 @@ impl TypesetEngine {
                 }
             }
         }
+    }
+
+    /// Admit one static, indivisible equation line at the end of a single note.
+    /// Text-cursor editing within the equation paragraph is not expanded here.
+    fn static_tail_equation_fits(
+        &self,
+        para: &Paragraph,
+        styles: &ResolvedStyleSet,
+        width: f64,
+        height: f64,
+    ) -> bool {
+        let mut equations = para.controls.iter().filter_map(|c| {
+            if let Control::Equation(e) = c {
+                Some(e)
+            } else {
+                None
+            }
+        });
+        let Some(eq) = equations.next() else {
+            return false;
+        };
+        if equations.next().is_some()
+            || !para.field_ranges.is_empty()
+            || !para.range_tags.is_empty()
+            || !eq.common.treat_as_char
+            || eq.attr & 1 != 0
+            || eq.eqedit & 1 != 0
+            || eq.common.horizontal_offset != 0
+            || eq.common.vertical_offset != 0
+        {
+            return false;
+        }
+        let (Ok(w), Ok(h)) = (
+            i32::try_from(eq.common.width),
+            i32::try_from(eq.common.height),
+        ) else {
+            return false;
+        };
+        if w <= 0
+            || h <= 0
+            || hwpunit_to_px(w, self.dpi) > width
+            || hwpunit_to_px(h, self.dpi) > height
+        {
+            return false;
+        }
+        let mut probe = para.clone();
+        probe.sequential_endnote = Some(0.0);
+        let style = styles.para_styles.get(probe.para_shape_id as usize);
+        crate::renderer::composer::reflow_line_segs(
+            &mut probe,
+            crate::renderer::composer::ParagraphBox::body_for_style(width, style, self.dpi),
+            styles,
+            self.dpi,
+        );
+        let composed = crate::renderer::composer::compose_paragraph(&probe);
+        let fmt = self.format_endnote_paragraph(&probe, Some(&composed), styles, Some(width));
+        fmt.line_count() == 1
+            && fmt.spacing_before + fmt.line_heights[0].max(fmt.line_advance(0)) + fmt.spacing_after
+                <= height + 0.001
     }
 
     fn typeset_text_endnotes(
