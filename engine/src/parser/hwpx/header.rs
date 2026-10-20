@@ -127,8 +127,11 @@ fn header_fragment_namespace_contexts(
             .read_event()
             .map_err(|e| HwpxError::XmlError(e.to_string()))?
         {
-            Event::Start(e)
-                if matches!(local_name(e.name().as_ref()), b"numbering" | b"bullet") =>
+            Event::Start(e) | Event::Empty(e)
+                if matches!(
+                    local_name(e.name().as_ref()),
+                    b"head" | b"numbering" | b"bullet" | b"memoProperties"
+                ) =>
             {
                 let mut bindings = Vec::new();
                 for (prefix, ns) in reader.resolver().bindings() {
@@ -335,41 +338,117 @@ pub fn parse_hwpx_header(xml: &str) -> Result<(DocInfo, DocProperties), HwpxErro
     // 문서 설정 tail(`</hh:refList>` ~ `</hh:head>`)을 원본 그대로 보존.
     // compatibleDocument/docOption/trackchageConfig 등은 본문과 무관한 전역
     // 설정이라 헤더 재생성 시 splice 로 무손실 복원한다.
-    doc_info.hwpx_head_tail = extract_head_tail(xml);
-    doc_info.memo_properties_xml = extract_memo_properties(xml);
+    let (memo, tail) = extract_header_fragments(xml, &fragment_namespaces)?;
+    doc_info.memo_properties_xml = memo;
+    doc_info.hwpx_head_tail = tail;
 
     Ok((doc_info, doc_props))
 }
 
-/// HWPX 헤더 원문에서 `<hh:memoProperties>...</hh:memoProperties>`
-/// (또는 자기닫힘 `<hh:memoProperties .../>`) 블록을 그대로 추출한다.
-/// `parse_memo_shape`가 만드는 HWPTAG_MEMO_SHAPE 바이너리는 hwpx→hwp5
-/// 변환용 `extra_records`에만 쌓이고 HWPX 재직렬화 시 사용되지 않으므로,
-/// hwpx→hwpx 라운드트립에서 memoPr(메모 모양 정의)이 통째로 사라지는 것을
-/// 막기 위해 원문을 verbatim 보존한다.
-fn extract_memo_properties(xml: &str) -> Option<String> {
-    const OPEN: &str = "<hh:memoProperties";
-    let start = xml.find(OPEN)?;
-    let tail = &xml[start..];
-    let first_close = tail.find('>')?;
-    if tail.as_bytes()[first_close - 1] == b'/' {
-        // 자기닫힘: <hh:memoProperties itemCnt="0"/>
-        return Some(tail[..=first_close].to_string());
+// Locate direct children by expanded name, not foreign namespace homonyms or
+// hh-prefixed strings inside comments, CDATA or attributes. Carry scope into raw
+// fragments before the existing writer relocates them under regenerated parents.
+fn extract_header_fragments(
+    xml: &str,
+    contexts: &std::collections::HashMap<usize, Vec<(String, String)>>,
+) -> Result<(Option<String>, Option<String>), HwpxError> {
+    use quick_xml::{name::ResolveResult, NsReader};
+    let mut reader = NsReader::from_str(xml);
+    let mut depth = 0usize;
+    let mut head_depth = None;
+    let mut ref_depth = None;
+    let mut head_namespaces = None;
+    let mut memo_start = None;
+    let mut tail_start = None;
+    let mut memo = None;
+    let mut tail = None;
+    loop {
+        let start = reader.buffer_position() as usize;
+        let (namespace, event) = reader
+            .read_resolved_event()
+            .map_err(|e| HwpxError::XmlError(e.to_string()))?;
+        let is_header = match namespace {
+            ResolveResult::Bound(ns) => {
+                quick_xml::escape::unescape(ns.as_ref())
+                    .map_err(|e| HwpxError::XmlError(e.to_string()))?
+                    == "http://www.hancom.co.kr/hwpml/2011/head"
+            }
+            _ => false,
+        };
+        let end = reader.buffer_position() as usize;
+        match event {
+            Event::Start(e) => {
+                let name = e.name();
+                let local = local_name(name.as_ref());
+                if is_header && depth == 0 && local == b"head" {
+                    head_depth = Some(depth);
+                    head_namespaces = contexts.get(&end).map(Vec::as_slice);
+                } else if is_header
+                    && head_depth.is_some_and(|h| depth == h + 1)
+                    && local == b"refList"
+                {
+                    ref_depth = Some(depth);
+                } else if is_header
+                    && ref_depth.is_some_and(|r| depth == r + 1)
+                    && local == b"memoProperties"
+                {
+                    memo_start = Some((start, depth, end));
+                }
+                depth += 1;
+            }
+            Event::Empty(e) => {
+                let name = e.name();
+                let local = local_name(name.as_ref());
+                if is_header && head_depth.is_some_and(|h| depth == h + 1) && local == b"refList" {
+                    tail_start = Some(end);
+                } else if is_header
+                    && ref_depth.is_some_and(|r| depth == r + 1)
+                    && local == b"memoProperties"
+                {
+                    memo = Some(namespace_complete_header_fragment(
+                        &xml[start..end],
+                        contexts.get(&end).map(Vec::as_slice),
+                    )?);
+                }
+            }
+            Event::End(e) => {
+                depth = depth.saturating_sub(1);
+                let name = e.name();
+                let local = local_name(name.as_ref());
+                if let Some((at, memo_depth, opening_end)) = memo_start {
+                    if is_header && depth == memo_depth && local == b"memoProperties" {
+                        memo = Some(namespace_complete_header_fragment(
+                            &xml[at..end],
+                            contexts.get(&opening_end).map(Vec::as_slice),
+                        )?);
+                        memo_start = None;
+                    }
+                }
+                if is_header && ref_depth == Some(depth) && local == b"refList" {
+                    tail_start = Some(end);
+                    ref_depth = None;
+                }
+                if is_header && head_depth == Some(depth) && local == b"head" {
+                    if let Some(at) = tail_start {
+                        tail = Some(namespace_complete_header_fragment(
+                            &xml[at..start],
+                            head_namespaces,
+                        )?);
+                    }
+                    break;
+                }
+            }
+            Event::Eof => break,
+            _ => {}
+        }
     }
-    const CLOSE: &str = "</hh:memoProperties>";
-    let end = tail.find(CLOSE)? + CLOSE.len();
-    Some(tail[..end].to_string())
+    Ok((memo, tail))
 }
 
-/// HWPX 헤더 문자열에서 `</hh:refList>` 닫는 태그와 `</hh:head>` 사이 구간을
-/// 그대로 추출한다(빈 구간이면 `Some("")` — 원본에 설정이 없었음을 보존).
-/// 두 경계 마커가 없으면(비-HWPX/HWP5 경로) `None` 을 돌려 하드코딩 폴백.
+#[cfg(test)]
 fn extract_head_tail(xml: &str) -> Option<String> {
-    const REF_END: &str = "</hh:refList>";
-    const HEAD_END: &str = "</hh:head>";
-    let start = xml.find(REF_END)? + REF_END.len();
-    let end = xml[start..].find(HEAD_END)? + start;
-    Some(xml[start..end].to_string())
+    let contexts = header_fragment_namespace_contexts(xml).ok()?;
+    extract_header_fragments(xml, &contexts).ok()?.1
 }
 
 fn parse_doc_option_linkinfo(e: &quick_xml::events::BytesStart, doc_info: &mut DocInfo) {
@@ -3351,7 +3430,7 @@ mod tests {
 
     #[test]
     fn extract_head_tail_captures_settings_region() {
-        let xml = r##"<hh:head><hh:beginNum/><hh:refList><hh:fontfaces/></hh:refList><hh:compatibleDocument targetProgram="HWP201X"><hh:layoutCompatibility/></hh:compatibleDocument><hh:trackchageConfig flags="56"/></hh:head>"##;
+        let xml = r##"<hh:head xmlns:hh="http://www.hancom.co.kr/hwpml/2011/head"><hh:beginNum/><hh:refList><hh:fontfaces/></hh:refList><hh:compatibleDocument targetProgram="HWP201X"><hh:layoutCompatibility/></hh:compatibleDocument><hh:trackchageConfig flags="56"/></hh:head>"##;
         assert_eq!(
             extract_head_tail(xml),
             Some(r#"<hh:compatibleDocument targetProgram="HWP201X"><hh:layoutCompatibility/></hh:compatibleDocument><hh:trackchageConfig flags="56"/>"#.to_string()),
@@ -3359,7 +3438,9 @@ mod tests {
         );
         // 설정이 없으면 빈 문자열로 보존(원본에 없었음을 구분; 폴백과 다름).
         assert_eq!(
-            extract_head_tail("<hh:head><hh:refList></hh:refList></hh:head>"),
+            extract_head_tail(
+                r#"<hh:head xmlns:hh="http://www.hancom.co.kr/hwpml/2011/head"><hh:refList></hh:refList></hh:head>"#
+            ),
             Some(String::new())
         );
         // 경계 마커가 없으면 None → serializer 하드코딩 폴백.
