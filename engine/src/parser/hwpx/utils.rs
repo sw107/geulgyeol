@@ -7,6 +7,34 @@ use quick_xml::Reader;
 
 use super::HwpxError;
 
+/// Namespace environment used by regenerated HWPX header roots.
+pub(crate) const HWPX_HEADER_NAMESPACES: &[(&str, &str)] = &[
+    ("xmlns:ha", "http://www.hancom.co.kr/hwpml/2011/app"),
+    ("xmlns:hp", "http://www.hancom.co.kr/hwpml/2011/paragraph"),
+    ("xmlns:hp10", "http://www.hancom.co.kr/hwpml/2016/paragraph"),
+    ("xmlns:hs", "http://www.hancom.co.kr/hwpml/2011/section"),
+    ("xmlns:hc", "http://www.hancom.co.kr/hwpml/2011/core"),
+    ("xmlns:hh", "http://www.hancom.co.kr/hwpml/2011/head"),
+    ("xmlns:hhs", "http://www.hancom.co.kr/hwpml/2011/history"),
+    ("xmlns:hm", "http://www.hancom.co.kr/hwpml/2011/master-page"),
+    ("xmlns:dc", "http://purl.org/dc/elements/1.1/"),
+    ("xmlns:opf", "http://www.idpf.org/2007/opf/"),
+    ("xmlns:epub", "http://www.idpf.org/2007/ops"),
+    (
+        "xmlns:ooxmlchart",
+        "http://www.hancom.co.kr/hwpml/2016/ooxmlchart",
+    ),
+    (
+        "xmlns:hwpunitchar",
+        "http://www.hancom.co.kr/hwpml/2016/HwpUnitChar",
+    ),
+    ("xmlns:hpf", "http://www.hancom.co.kr/schema/2011/hpf"),
+    (
+        "xmlns:config",
+        "urn:oasis:names:tc:opendocument:xmlns:config:1.0",
+    ),
+];
+
 /// XML 이름을 바이트 태그 비교에 쓰기 위한 공통 입력 경계.
 ///
 /// quick-xml 0.42부터 이벤트 이름이 UTF-8 문자열이므로, 기존 HWPX 파서의 바이트

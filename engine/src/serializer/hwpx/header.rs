@@ -41,38 +41,9 @@ pub fn write_header(doc: &Document, ctx: &SerializeContext) -> Result<Vec<u8>, S
     let sec_cnt = doc.sections.len().max(1).to_string();
     // HWPML 스키마 버전: 원본 보존값(문서별 상이, 1.2~1.5). 없으면 "1.2" 폴백.
     let hwpml_version = doc.doc_info.hwpml_version.as_deref().unwrap_or("1.2");
-    start_tag_attrs(
-        &mut w,
-        "hh:head",
-        &[
-            ("xmlns:ha", "http://www.hancom.co.kr/hwpml/2011/app"),
-            ("xmlns:hp", "http://www.hancom.co.kr/hwpml/2011/paragraph"),
-            ("xmlns:hp10", "http://www.hancom.co.kr/hwpml/2016/paragraph"),
-            ("xmlns:hs", "http://www.hancom.co.kr/hwpml/2011/section"),
-            ("xmlns:hc", "http://www.hancom.co.kr/hwpml/2011/core"),
-            ("xmlns:hh", "http://www.hancom.co.kr/hwpml/2011/head"),
-            ("xmlns:hhs", "http://www.hancom.co.kr/hwpml/2011/history"),
-            ("xmlns:hm", "http://www.hancom.co.kr/hwpml/2011/master-page"),
-            ("xmlns:dc", "http://purl.org/dc/elements/1.1/"),
-            ("xmlns:opf", "http://www.idpf.org/2007/opf/"),
-            ("xmlns:epub", "http://www.idpf.org/2007/ops"),
-            (
-                "xmlns:ooxmlchart",
-                "http://www.hancom.co.kr/hwpml/2016/ooxmlchart",
-            ),
-            (
-                "xmlns:hwpunitchar",
-                "http://www.hancom.co.kr/hwpml/2016/HwpUnitChar",
-            ),
-            ("xmlns:hpf", "http://www.hancom.co.kr/schema/2011/hpf"),
-            (
-                "xmlns:config",
-                "urn:oasis:names:tc:opendocument:xmlns:config:1.0",
-            ),
-            ("version", hwpml_version),
-            ("secCnt", &sec_cnt),
-        ],
-    )?;
+    let mut head_attrs = crate::parser::hwpx::utils::HWPX_HEADER_NAMESPACES.to_vec();
+    head_attrs.extend([("version", hwpml_version), ("secCnt", &sec_cnt)]);
+    start_tag_attrs(&mut w, "hh:head", &head_attrs)?;
 
     write_begin_num(&mut w, &doc.doc_properties)?;
 
