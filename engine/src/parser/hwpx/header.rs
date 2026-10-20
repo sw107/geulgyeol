@@ -114,10 +114,109 @@ pub fn parse_hwpx_hwpml_version(xml: &str) -> Option<String> {
     }
 }
 
+// Raw numbering/bullet children are spliced under regenerated header parents.
+// Capture their inherited bindings in one pass; never guess undeclared prefixes.
+fn header_fragment_namespace_contexts(
+    xml: &str,
+) -> Result<std::collections::HashMap<usize, Vec<(String, String)>>, HwpxError> {
+    use quick_xml::{name::PrefixDeclaration, NsReader};
+    let mut reader = NsReader::from_str(xml);
+    let mut contexts = std::collections::HashMap::new();
+    loop {
+        match reader
+            .read_event()
+            .map_err(|e| HwpxError::XmlError(e.to_string()))?
+        {
+            Event::Start(e)
+                if matches!(local_name(e.name().as_ref()), b"numbering" | b"bullet") =>
+            {
+                let mut bindings = Vec::new();
+                for (prefix, ns) in reader.resolver().bindings() {
+                    let name = match prefix {
+                        PrefixDeclaration::Default => "xmlns".to_string(),
+                        PrefixDeclaration::Named(p) => format!("xmlns:{p}"),
+                    };
+                    let value = quick_xml::escape::unescape(ns.as_ref())
+                        .map_err(|e| HwpxError::XmlError(e.to_string()))?
+                        .into_owned();
+                    if !(name == "xmlns" && value.is_empty())
+                        && !super::utils::HWPX_HEADER_NAMESPACES
+                            .iter()
+                            .any(|&(key, uri)| key == name && uri == value)
+                    {
+                        bindings.push((name, value));
+                    }
+                }
+                if !bindings.is_empty() {
+                    contexts.insert(reader.buffer_position() as usize, bindings);
+                }
+            }
+            Event::Eof => break,
+            _ => {}
+        }
+    }
+    Ok(contexts)
+}
+
+// Add only inherited bindings missing from each top-level raw element. Local
+// declarations (including xmlns="") win; all original bytes remain untouched.
+// The canonical header namespace environment is shared with its writer, so
+// ordinary hh fragments retain their exact existing serialized bytes.
+fn namespace_complete_header_fragment(
+    raw: &str,
+    namespaces: Option<&[(String, String)]>,
+) -> Result<String, HwpxError> {
+    let Some(namespaces) = namespaces else {
+        return Ok(raw.to_string());
+    };
+    let mut reader = Reader::from_str(raw);
+    let mut depth = 0usize;
+    let mut additions = Vec::new();
+    loop {
+        let event = reader
+            .read_event()
+            .map_err(|e| HwpxError::XmlError(e.to_string()))?;
+        let empty = matches!(event, Event::Empty(_));
+        match event {
+            Event::Start(e) | Event::Empty(e) => {
+                if depth == 0 {
+                    let mut attrs = String::new();
+                    for (name, uri) in namespaces {
+                        if !e.attributes().flatten().any(|a| a.key.as_ref() == name) {
+                            attrs.push_str(&format!(
+                                " {name}=\"{}\"",
+                                quick_xml::escape::escape(uri)
+                            ));
+                        }
+                    }
+                    if !attrs.is_empty() {
+                        additions.push((
+                            reader.buffer_position() as usize - if empty { 2 } else { 1 },
+                            attrs,
+                        ));
+                    }
+                }
+                if !empty {
+                    depth += 1;
+                }
+            }
+            Event::End(_) => depth = depth.saturating_sub(1),
+            Event::Eof => break,
+            _ => {}
+        }
+    }
+    let mut result = raw.to_string();
+    for (at, attrs) in additions.into_iter().rev() {
+        result.insert_str(at, &attrs);
+    }
+    Ok(result)
+}
+
 /// header.xml을 파싱하여 DocInfo와 DocProperties를 생성한다.
 pub fn parse_hwpx_header(xml: &str) -> Result<(DocInfo, DocProperties), HwpxError> {
     let mut doc_info = DocInfo::default();
     let mut doc_props = DocProperties::default();
+    let fragment_namespaces = header_fragment_namespace_contexts(xml)?;
 
     let mut reader = Reader::from_str(xml);
     let mut buf = Vec::new();
@@ -170,7 +269,10 @@ pub fn parse_hwpx_header(xml: &str) -> Result<(DocInfo, DocProperties), HwpxErro
                         parse_tab_def(e, &mut reader, &mut doc_info)?;
                     }
                     b"numbering" => {
-                        parse_numbering(e, &mut reader, &mut doc_info, xml)?;
+                        let ns = fragment_namespaces
+                            .get(&(reader.buffer_position() as usize))
+                            .map(Vec::as_slice);
+                        parse_numbering(e, &mut reader, &mut doc_info, xml, ns)?;
                     }
                     b"memoPr" => {
                         parse_memo_shape(e, &mut doc_info);
@@ -182,7 +284,10 @@ pub fn parse_hwpx_header(xml: &str) -> Result<(DocInfo, DocProperties), HwpxErro
                     // paragraph 에 자동 부여. HWPX `<hh:bullet id="N" char="❏" useImage="0">`
                     // 4개 → HWP BULLET record 4개. 누락 시 일반 문단 시작 글머리표 부작용.
                     b"bullet" => {
-                        let bullet = parse_bullet_hwpx(e, &mut reader, xml)?;
+                        let ns = fragment_namespaces
+                            .get(&(reader.buffer_position() as usize))
+                            .map(Vec::as_slice);
+                        let bullet = parse_bullet_hwpx(e, &mut reader, xml, ns)?;
                         doc_info.bullets.push(bullet);
                     }
                     _ => {}
@@ -1974,6 +2079,7 @@ fn parse_bullet_hwpx(
     e: &quick_xml::events::BytesStart,
     reader: &mut Reader<&[u8]>,
     xml: &str,
+    namespaces: Option<&[(String, String)]>,
 ) -> Result<Bullet, HwpxError> {
     let mut bullet = Bullet::default();
 
@@ -2060,7 +2166,10 @@ fn parse_bullet_hwpx(
         }
 
         if inner_end >= inner_start && inner_end <= xml.len() {
-            bullet.raw_para_head = Some(xml[inner_start..inner_end].to_string());
+            bullet.raw_para_head = Some(namespace_complete_header_fragment(
+                &xml[inner_start..inner_end],
+                namespaces,
+            )?);
         }
     }
 
@@ -2085,6 +2194,7 @@ fn parse_numbering(
     reader: &mut Reader<&[u8]>,
     doc_info: &mut DocInfo,
     xml: &str,
+    namespaces: Option<&[(String, String)]>,
 ) -> Result<(), HwpxError> {
     let mut num = Numbering::default();
 
@@ -2143,7 +2253,10 @@ fn parse_numbering(
         // 무손실 splice 용 원본 paraHead 구간 보존(7수준 모델로 표현 못하는
         // 8~10수준/checkable/형식문자열 포함). 경계가 깨졌으면 보존하지 않는다.
         if inner_end >= inner_start && inner_end <= xml.len() {
-            num.raw_para_heads = Some(xml[inner_start..inner_end].to_string());
+            num.raw_para_heads = Some(namespace_complete_header_fragment(
+                &xml[inner_start..inner_end],
+                namespaces,
+            )?);
         }
     }
 
