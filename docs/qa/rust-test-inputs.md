@@ -10,7 +10,10 @@ verbatim from its documented RHWP baseline, `f1f9c6ae58344ee9368996d3543f76b9345
 
 `engine/samples/UPSTREAM_TEST_INPUTS.json` records the upstream paths, Git blob
 IDs, sizes and SHA-256 values. The policy document's registry source matches the
-baseline byte for byte. The upstream MIT copyright/license remains in `LICENSE`.
+baseline byte for byte. The upstream project MIT copyright/license remains in
+`LICENSE`. That project notice and byte identity do not establish permission to
+redistribute the three HWP/HWPX fixtures or their embedded third-party content. Their document-specific authorization is unverified; keep
+this PR on merge hold until that evidence is established.
 The document files are data, so their executable bits are not enabled.
 
 Verify provenance from the repository root:
@@ -26,7 +29,9 @@ No test condition was deleted or disabled, and no dummy input was substituted.
 
 The workspace library attempt compiles and starts 3,918 engine tests. Before a
 native `wasm-bindgen::JsValue` abort, its log records 3,581 passing, 98 failing and
-5 ignored tests; these are partial observations, not a completed suite result.
+12 ignored tests; these are partial observations, not a completed suite result.
+There are 3,691 observed result rows and 227 announced tests with no result row. The abort is a
+separate event; none of those unreported tests is classified as passed or skipped.
 Isolated reruns classify 95 failures as additional missing runtime inputs and
 three as reproducible non-missing-input failures:
 
@@ -38,7 +43,8 @@ three as reproducible non-missing-input failures:
 
 The aborting API test calls a non-wasm32-unimplemented `JsValue` path. Its
 underlying API error is not resolved here. The other workspace crates complete
-182 unit tests successfully. Further all-target compilation is blocked by the
-local reserved free-space preflight. Full Rust success and CI success are not
-claimed. Runtime fixtures, assertion expectations and target-specific test
+182 unit tests successfully. The recorded all-target attempt did not start Cargo
+because its reserved free-space preflight failed at that time. Later read-only space observations
+recovered above that threshold; no additional compilation was performed. Full
+Rust success and CI success are not claimed. Runtime fixtures, assertion expectations and target-specific test
 execution need separate follow-up; this change adds no CI configuration.
