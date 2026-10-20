@@ -39,6 +39,25 @@ unicode=all_alias.replace('h:', '머리:').replace('xmlns:h=', 'xmlns:머리=');
 cases.append(('absent-memo-empty-tail',canonical.replace(memo,'').replace(tail,'')))
 sibling=change_memo(canonical,without_q).replace('<hh:refList>','<hh:refList xmlns:q="urn:memo">',1);sibling=root(sibling,'xmlns:q="urn:head"');cases.append(('memo-tail-scope-separation',sibling))
 cases.append(('undeclared-input-control',change_memo(canonical,memo.replace('q:','missing:').replace(' xmlns:q="urn:probe"',''))))
+# Foreign expanded names must not replace real metadata or reset its boundaries.
+foreign='urn:reviewer:foreign'
+def foreign_tail(fragment):return canonical.replace(tail,tail.replace('<hh:docOption>',fragment+'<hh:docOption>',1),1)
+def foreign_memo(fragment):return canonical.replace(memo,memo+fragment,1)
+for name,fragment in [
+ ('foreign-refList-in-settings',f'<x:refList xmlns:x="{foreign}"><x:item/></x:refList>'),
+ ('foreign-refList-empty',f'<x:refList xmlns:x="{foreign}"/>'),
+ ('foreign-refList-default',f'<refList xmlns="{foreign}"><item/></refList>'),
+ ('foreign-refList-shadow',f'<hh:refList xmlns:hh="{foreign}"><hh:item/></hh:refList>'),
+ ('foreign-refList-nested-header',f'<x:refList xmlns:x="{foreign}"><hh:refList/><hh:memoProperties/></x:refList>'),
+]:cases.append((name,foreign_tail(fragment)))
+for name,fragment in [
+ ('foreign-memoProperties-sibling',f'<x:memoProperties xmlns:x="{foreign}"><x:entry/></x:memoProperties>'),
+ ('foreign-memoProperties-empty',f'<x:memoProperties xmlns:x="{foreign}"/>'),
+ ('foreign-memoProperties-default',f'<memoProperties xmlns="{foreign}"><entry/></memoProperties>'),
+ ('foreign-memoProperties-shadow',f'<hh:memoProperties xmlns:hh="{foreign}"><hh:entry/></hh:memoProperties>'),
+ ('foreign-memoProperties-nested-header',f'<x:memoProperties xmlns:x="{foreign}"><hh:memoProperties itemCnt="0"/></x:memoProperties>'),
+]:cases.append((name,foreign_memo(fragment)))
+cases.append(('head-uri-character-reference',all_alias.replace(HEAD,HEAD.replace('/','&#x2f;'))))
 rows=[]
 for name,header in cases:
  valid=True
