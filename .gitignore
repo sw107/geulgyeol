@@ -23,3 +23,8 @@
 
 /.geulgyeol-tools/
 /.geulgyeol-local/
+
+# Pinned upstream compile-time regression inputs (see provenance manifest).
+!engine/samples/3-09월_교육_통합_2022.hwp
+!engine/samples/hwp3-sample16-hwp5.hwp
+!engine/samples/hwpx/aift.hwpx
