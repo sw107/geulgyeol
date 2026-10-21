@@ -1260,17 +1260,18 @@ fn has_clickhere_field_range(para: &Paragraph) -> bool {
     })
 }
 
-// Rebuild only complete, plain ClickHere axes. Mixed controls, ambiguous ownership,
-// and splitting through a field retain their existing behavior and support scope.
-fn plain_cell_field_axis(para: &Paragraph) -> bool {
+// ClickHere and Hyperlink both own paired FIELD_BEGIN/FIELD_END slots.
+// Rebuild only complete axes containing these supported textual fields; other
+// controls, ambiguous ownership and cuts inside a field keep their existing path.
+fn paired_cell_field_axis(para: &Paragraph) -> bool {
     para.range_tags.is_empty()
-        && para.controls.iter().all(|c| matches!(c, Control::Field(f) if f.field_type == FieldType::ClickHere))
+        && para.controls.iter().all(|c| matches!(c, Control::Field(f) if matches!(f.field_type, FieldType::ClickHere | FieldType::Hyperlink)))
         && validate_field_edit_axis(para).is_ok()
 }
 
 fn split_cell_paragraph(para: &mut Paragraph, at: usize) -> Paragraph {
     let rebuild = !para.field_ranges.is_empty()
-        && plain_cell_field_axis(para)
+        && paired_cell_field_axis(para)
         && at <= para.text.chars().count()
         && para.field_ranges.iter().all(|f| at <= f.start_char_idx || at >= f.end_char_idx);
     let mut next = para.split_at(at);
@@ -1285,7 +1286,7 @@ fn split_cell_paragraph(para: &mut Paragraph, at: usize) -> Paragraph {
 
 fn merge_cell_paragraph(para: &mut Paragraph, other: &Paragraph) -> usize {
     let rebuild = (!para.field_ranges.is_empty() || !other.field_ranges.is_empty())
-        && plain_cell_field_axis(para) && plain_cell_field_axis(other);
+        && paired_cell_field_axis(para) && paired_cell_field_axis(other);
     let at = para.merge_from(other);
     if rebuild {
         rebuild_char_offsets(para);
