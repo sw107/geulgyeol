@@ -1260,6 +1260,39 @@ fn has_clickhere_field_range(para: &Paragraph) -> bool {
     })
 }
 
+// Rebuild only complete, plain ClickHere axes. Mixed controls, ambiguous ownership,
+// and splitting through a field retain their existing behavior and support scope.
+fn plain_cell_field_axis(para: &Paragraph) -> bool {
+    para.range_tags.is_empty()
+        && para.controls.iter().all(|c| matches!(c, Control::Field(f) if f.field_type == FieldType::ClickHere))
+        && validate_field_edit_axis(para).is_ok()
+}
+
+fn split_cell_paragraph(para: &mut Paragraph, at: usize) -> Paragraph {
+    let rebuild = !para.field_ranges.is_empty()
+        && plain_cell_field_axis(para)
+        && at <= para.text.chars().count()
+        && para.field_ranges.iter().all(|f| at <= f.start_char_idx || at >= f.end_char_idx);
+    let mut next = para.split_at(at);
+    if rebuild {
+        // split_at counts control owners but not their paired FIELD_END slots.
+        // Restore both axes before reflow, including fields moved to the next paragraph.
+        rebuild_char_offsets(para);
+        rebuild_char_offsets(&mut next);
+    }
+    next
+}
+
+fn merge_cell_paragraph(para: &mut Paragraph, other: &Paragraph) -> usize {
+    let rebuild = (!para.field_ranges.is_empty() || !other.field_ranges.is_empty())
+        && plain_cell_field_axis(para) && plain_cell_field_axis(other);
+    let at = para.merge_from(other);
+    if rebuild {
+        rebuild_char_offsets(para);
+    }
+    at
+}
+
 impl DocumentCore {
     fn stage_bookmark_body_split(
         &self,
@@ -4847,6 +4880,8 @@ impl DocumentCore {
             char_offset + source.controls.iter().zip(source.control_text_positions())
                 .filter(|(control, at)| Paragraph::is_split_movable_control(control) && *at < char_offset).count()
         } else { char_offset };
+        let rebuild_table_fields = cell_idx != 65534
+            && matches!(self.document.sections[section_idx].paragraphs[parent_para_idx].controls.get(control_idx), Some(Control::Table(_)));
         // 셀 문단 검증 및 분할
         let cell_para = self.get_cell_paragraph_mut(
             section_idx,
@@ -4856,7 +4891,11 @@ impl DocumentCore {
             cell_para_idx,
         )?;
         let original_vpos = cell_para.line_segs.first().map(|seg| seg.vertical_pos);
-        let mut new_para = cell_para.split_at(split_offset);
+        let mut new_para = if rebuild_table_fields {
+            split_cell_paragraph(cell_para, split_offset)
+        } else {
+            cell_para.split_at(split_offset)
+        };
         if let Some(meta) = restore_meta {
             new_para.apply_meta(meta);
         }
@@ -5009,7 +5048,7 @@ impl DocumentCore {
                 } else {
                     let removed = table.cells[cell_idx].paragraphs.remove(cell_para_idx);
                     removed_meta = removed.capture_meta();
-                    merge_point = table.cells[cell_idx].paragraphs[prev_idx].merge_from(&removed);
+                    merge_point = merge_cell_paragraph(&mut table.cells[cell_idx].paragraphs[prev_idx], &removed);
                 }
                 table.dirty = true;
             }
@@ -6391,7 +6430,7 @@ impl DocumentCore {
                     .map(|seg| seg.vertical_pos);
                 let next_style = super::next_style::prepare(info, &cell.paragraphs[cell_para_idx], char_offset,
                     apply_next_style && restore_meta.is_none(), restore_meta.as_ref())?;
-                let mut new_para = cell.paragraphs[cell_para_idx].split_at(char_offset);
+                let mut new_para = split_cell_paragraph(&mut cell.paragraphs[cell_para_idx], char_offset);
                 if let Some(meta) = restore_meta {
                     new_para.apply_meta(meta);
                 }
@@ -6499,8 +6538,7 @@ impl DocumentCore {
                 let removed = cell.paragraphs.remove(cell_para_idx);
                 removed_meta = Some(removed.capture_meta());
                 let prev = &mut cell.paragraphs[prev_idx];
-                merge_point = prev.text.chars().count();
-                prev.merge_from(&removed);
+                merge_point = merge_cell_paragraph(prev, &removed);
                 break;
             }
             para = cell
