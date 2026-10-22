@@ -737,7 +737,8 @@ export class DeleteTextCommand implements EditCommand {
   undo(wasm: WasmBridge): DocumentPosition {
     this.lastMutationEffects = NO_TEXT_MUTATION_EFFECTS;
     doInsertTextImmediate(wasm, this.position, this.deletedText);
-    const restoredLen = this.deletedText.length;
+    // Cursor offsets, like the delete count, use Unicode scalars rather than UTF-16 units.
+    const restoredLen = charCount(this.deletedText);
     return { ...this.position, charOffset: this.position.charOffset + restoredLen };
   }
 
