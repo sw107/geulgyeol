@@ -208,8 +208,9 @@ async function tryFileSystemSave(
     });
   } catch (error) {
     if (isUserCancelError(error)) return 'cancelled';
-    console.warn('[file:save] File System Access API 실패, 폴백:', error);
-    return { method: 'fallback', handle: null, fileName: suggestedName };
+    // Only an unavailable File System Access API may select download fallback.
+    // A failed write must reach reportSaveError without marking the document clean.
+    throw error;
   }
 }
 
