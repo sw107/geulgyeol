@@ -617,6 +617,18 @@ function sameCharFormat(a: Partial<CharProperties> | undefined, b: Partial<CharP
   return JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
 }
 
+// Flat hit-test coordinates identify the outer cell. History merging must also
+// distinguish every nested table/cell/paragraph on the actual edit path.
+function sameCellHistoryPath(a: DocumentPosition, b: DocumentPosition): boolean {
+  const left = cellAxisPath(a);
+  const right = cellAxisPath(b);
+  return left.length === right.length && left.every((entry, i) =>
+    entry.controlIndex === right[i].controlIndex
+    && entry.cellIndex === right[i].cellIndex
+    && entry.cellParaIndex === right[i].cellParaIndex,
+  );
+}
+
 // ─── 텍스트 삽입 명령 ─────────────────────────────────
 
 export class InsertTextCommand implements EditCommand {
@@ -678,6 +690,7 @@ export class InsertTextCommand implements EditCommand {
       if (other.position.controlIndex !== this.position.controlIndex) return null;
       if (other.position.cellIndex !== this.position.cellIndex) return null;
       if (other.position.cellParaIndex !== this.position.cellParaIndex) return null;
+      if (!sameCellHistoryPath(this.position, other.position)) return null;
     }
     // 연속 위치 확인
     const expectedOffset = this.position.charOffset + charCount(this.text);
@@ -755,6 +768,7 @@ export class DeleteTextCommand implements EditCommand {
       if (other.position.controlIndex !== this.position.controlIndex) return null;
       if (other.position.cellIndex !== this.position.cellIndex) return null;
       if (other.position.cellParaIndex !== this.position.cellParaIndex) return null;
+      if (!sameCellHistoryPath(this.position, other.position)) return null;
     }
 
     if (this.direction === 'backward') {
