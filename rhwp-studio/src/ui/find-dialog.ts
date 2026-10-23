@@ -122,12 +122,17 @@ export class FindDialog {
   }
 
   hide(): void {
+    if (!this._open) return;
+    const restoreEditorFocus = Boolean(document.activeElement && this.wrap.contains(document.activeElement));
     this._open = false;
     this.removeKeyCaptureHandler();
     for (const off of this.hitInvalidationOff) off();
     this.hitInvalidationOff = [];
     this.invalidateHit();
     this.wrap?.remove();
+    // Removing the focused dialog otherwise leaves keyboard input on <body>.
+    // A modeless close must not steal focus from another active UI surface.
+    if (restoreEditorFocus) this.services.getInputHandler()?.focus();
   }
 
   focusInput(): void {
@@ -260,15 +265,18 @@ export class FindDialog {
       if (!this._open) return;
       const target = e.target as Node | null;
       const isInDialog = Boolean(target && this.wrap.contains(target));
+      // This dialog is modeless: editor input and other dialogs own their keys.
+      if (!isInDialog) return;
 
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && !e.isComposing && e.keyCode !== 229) {
         e.preventDefault();
         e.stopPropagation();
         this.hide();
         return;
       }
 
-      if (this.isFindEnter(e)) {
+      // Buttons retain native Enter activation instead of always finding next.
+      if ((target === this.queryInput || target === this.replaceInput) && this.isFindEnter(e)) {
         e.preventDefault();
         e.stopPropagation();
         if (target === this.replaceInput && !e.shiftKey) this.doReplace();
@@ -277,7 +285,7 @@ export class FindDialog {
         return;
       }
 
-      if (isInDialog) e.stopPropagation();
+      e.stopPropagation();
     };
     document.addEventListener('keydown', this.keyCaptureHandler, true);
   }
@@ -293,7 +301,8 @@ export class FindDialog {
       && !e.altKey
       && !e.ctrlKey
       && !e.metaKey
-      && !e.isComposing;
+      && !e.isComposing
+      && e.keyCode !== 229;
   }
 
   private applyMode(): void {
