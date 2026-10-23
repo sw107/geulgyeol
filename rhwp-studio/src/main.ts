@@ -1,3 +1,4 @@
+import { closeDocumentDiagnostics } from './ui/document-diagnostics-dialog';
 import { installHostFileActions } from './command/host-file-actions';
 import { WasmBridge } from '@/core/wasm-bridge';
 import type { DocumentInfo, PageInfo } from '@/core/types';
@@ -1582,6 +1583,7 @@ async function loadBytes(
   startTime = performance.now(),
   options: { dataReadProgressShown?: boolean; skipRecent?: boolean; suppressDialogs?: boolean; expectedVersion?: HostDocumentVersion } = {},
 ): Promise<void> {
+  closeDocumentDiagnostics();
   // 바이트로 여는 모든 경로(파일 열기 · ?url= · 자동저장 복구 · 호스트 API)의 공통 깔때기다.
   // 파싱·쪽 계산 동안 빈 화면만 보이므로 여기서 대기 커서를 든다.
   try {
@@ -1784,6 +1786,7 @@ async function restoreAutosaveDraft(draft: AutosaveDraft): Promise<void> {
 
 
 async function createNewDocument(propagateErrors = false, expected?: HostDocumentVersion): Promise<void> {
+  closeDocumentDiagnostics();
   const msg = sbMessage();
   try {
     await withBusyCursor(document.documentElement, async () => {

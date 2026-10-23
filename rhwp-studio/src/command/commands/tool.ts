@@ -1,8 +1,16 @@
 import type { CommandDef } from '../types';
 import { OptionsDialog } from '../../ui/options-dialog';
+import { showDocumentDiagnostics } from '../../ui/document-diagnostics-dialog';
 import { showToast } from '../../ui/toast';
 
 export const toolCommands: CommandDef[] = [
+  {
+    id: 'tool:document-diagnostics',
+    label: '문서 점검',
+    opensDialog: true,
+    canExecute: (ctx) => ctx.hasDocument,
+    execute: (services) => showDocumentDiagnostics(services),
+  },
   {
     id: 'tool:reflow-picture-groups',
     label: '그림 묶음 배치 다시 계산',
