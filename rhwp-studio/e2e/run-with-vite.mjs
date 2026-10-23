@@ -33,7 +33,11 @@ if (argv.length === 0) {
 let exitCode = 1;
 const server = await startViteDevServer();
 let child;
+let interruptedSignal;
+let commandFinished = false;
 const interrupt = signal => {
+  if (commandFinished) return;
+  interruptedSignal ??= signal;
   // Only this runner's child is interrupted. Puppeteer closes its owned browser;
   // the normal finally path then stops this runner's Vite server.
   if (child) child.kill(signal);
@@ -45,6 +49,7 @@ process.on('SIGINT', onInterrupt);
 process.on('SIGTERM', onTerminate);
 try {
   await waitForServer(server.url, server.child, server.logPath);
+  if (interruptedSignal) throw new Error(`Run interrupted by ${interruptedSignal}`);
   const extraEnv = { VITE_URL: server.url };
   child = mode === 'npm'
     ? spawnNpm(['run', ...argv], extraEnv)
@@ -52,6 +57,7 @@ try {
   exitCode = await new Promise((resolve, reject) => {
     child.once('error', reject);
     child.once('exit', (code, signal) => {
+      commandFinished = true;
       if (signal) {
         reject(new Error(`command terminated by signal ${signal}`));
         return;
@@ -68,4 +74,6 @@ try {
   process.removeListener('SIGTERM', onTerminate);
 }
 
-process.exit(exitCode);
+// A child may handle the signal, clean up and exit 0. Preserve cancellation
+// independently so an incomplete run can never become a successful result.
+process.exit(interruptedSignal ? (interruptedSignal === 'SIGINT' ? 130 : 143) : exitCode);

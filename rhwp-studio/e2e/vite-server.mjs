@@ -87,7 +87,11 @@ export async function waitForServer(url, child, logPath, timeoutMs = 30000) {
       throw new Error(`Vite dev server exited before ${url} became ready.\n${log}`);
     }
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        signal: AbortSignal.timeout(Math.max(1, deadline - Date.now())),
+      });
+      // Readiness only needs headers. Do not keep an unread response body alive.
+      await response.body?.cancel();
       if (response.ok) {
         return;
       }
@@ -95,7 +99,8 @@ export async function waitForServer(url, child, logPath, timeoutMs = 30000) {
     } catch (error) {
       lastError = error;
     }
-    await delay(500);
+    const remaining = deadline - Date.now();
+    if (remaining > 0) await delay(Math.min(500, remaining));
   }
 
   const log = fs.existsSync(logPath) ? fs.readFileSync(logPath, 'utf8') : '';

@@ -23,24 +23,32 @@ E2E 설정은 기존 beta Vite 설정의 alias와 feature flag를 사용한다. 
 | 파일 (`rhwp-studio/e2e/`) | 원본 Git blob | 글결 조정 |
 |---|---|---|
 | `toolbox-visibility.test.mjs` | `735c3c6916b9159d12810eb6218e802d84ebc36c` | 원문 그대로, assertion 14개 유지 |
-| `automation-commands.test.mjs` | `d7e5d68d235ac7d235a413588ecf822ff284daf0` | 고정 화면 좌표 대신 새 문서의 편집기 포커스 사용, 기존 23개 assertion 유지 및 실제 입력 확인 1개 추가 |
+| `automation-commands.test.mjs` | `d7e5d68d235ac7d235a413588ecf822ff284daf0` | 고정 화면 좌표 대신 새 문서의 편집기 포커스 사용, 기존 23개 assertion 유지, 실제 입력 및 찾아가기 표시·Escape 제거 확인 3개 추가 |
 | `helpers.mjs` | `8b355450b55c9c47898bc308a41898854547003c` | headless 기본값, Mac Chrome 탐색, sandbox 기본값 유지, 실패/0 assertion 처리와 소유 브라우저 정리 |
 | `report-generator.mjs` | `20bed112b325d89c1cd37dba3c8816eba4ebea73` | 실행별 보고서 디렉터리에서 스크린샷 읽기 |
-| `vite-server.mjs` | `b1dea785ad4176efe6568e2a9b9041f50f896307` | 글결 E2E 설정과 작업별 로그 경로 사용 |
-| `run-with-vite.mjs` | `3dc859548ab314b1c9b78f0564bb5358e8894133` | 중단 신호를 자신이 시작한 테스트에 전달하고 서버 정리 |
+| `vite-server.mjs` | `b1dea785ad4176efe6568e2a9b9041f50f896307` | 글결 E2E 설정과 작업별 로그 경로 사용, readiness deadline으로 진행 중 fetch 취소 |
+| `run-with-vite.mjs` | `3dc859548ab314b1c9b78f0564bb5358e8894133` | 중단 신호를 자신이 시작한 테스트에 전달하고 서버 정리, 자식이 0으로 끝나도 중단 종료 코드 보존 |
 
 `vite.config.mjs`와 `tests/e2e-harness.test.mjs`는 복구 실행 계약을 위한 새 코드다. harness의 6개 단위 검사는 실제 브라우저를 실행하지 않고 시작/페이지/보고서 실패, assertion 실패, 0 assertion, 정상 종료의 자원 정리를 확인한다. PR #104의 두 테스트 묶음 누락 방지 검사는 변경하지 않았다.
+
+## 리뷰 결함 회귀 검증
+
+`tests/e2e-recovery-contracts.test.mjs`의 8개 검사는 수정 전 head `bf2759061acf8e833d0bf585d65a92915bb973d3`에서 6개 실패, 수정 후 8개 통과를 확인했다.
+
+- 실제 runner subprocess에 SIGINT/SIGTERM을 보내고 테스트 자식이 정리 후 0으로 종료해도 runner는 각각 130/143을 반환한다. 서버 정리와 이미 완료된 정상 실행의 성공도 확인한다.
+- 응답 헤더가 오지 않는 fetch는 readiness deadline에 취소하고, HTTP 오류 후 재시도 대기도 남은 시간으로 제한한다. 별도 실제 loopback HTTP 검사에서 50ms 제한은 수정 전 255ms 관측 시점에도 미완료, 수정 후 51ms에 거절됐고 클라이언트 연결 종료도 확인했다. 시간 수치는 이 실행의 관측값이다.
+- 자동화 테스트가 현재 GotoDialog의 실제 DOM과 크기를 확인하고 Escape 후 제거도 단언한다. 명령이 성공을 반환하지만 창이 없거나 Escape 후 남아 있는 두 결함을 주입하면 각각 실패한다. 정상 표시·제거는 통과한다.
 
 ## 실제 검증과 한계
 
 2026-10-23 UTC, Mac의 별도 headless Chrome 및 현재 Studio 소스에서 확인했다.
 
 - 도구 상자: **14 pass / 0 fail**, 설정 없는 시작, 버튼·메뉴·Ctrl+F1 공유 상태, 설정 저장·리로드, 숨김 첫 프레임.
-- 자동화: **24 pass / 0 fail**, 새 합성 빈 문서, `자동화` 입력, 실제 선택, 명령/메뉴 질의, 거절 사유, 대화상자 허용, 확장 명령 등록·회수.
-- `npm --prefix rhwp-studio test`: **232 pass / 0 fail / 0 skip**. 추가 harness 6개와 기존 검색 보호 6개 포함.
+- 자동화: **26 pass / 0 fail**, 새 합성 빈 문서, `자동화` 입력, 실제 선택, 명령/메뉴 질의, 거절 사유, 대화상자 허용·실제 표시·Escape 제거, 확장 명령 등록·회수.
+- `npm --prefix rhwp-studio test`: **240 pass / 0 fail / 0 skip**. harness 6개, runner/readiness/dialog 회귀 8개와 기존 검색 보호 6개 포함.
 - 실행 명령이 없는 Vite runner는 **exit 2**. 실제 초기화/선택 assertion 실패 실행들은 **exit 1**을 반환했으며 실패 증거를 보존했다.
 - 초기 SDK 경로 403은 E2E 설정에서 해결했다. 초기 고정 좌표 클릭 후 빈 텍스트로 발생한 선택 실패는 편집기 포커스 준비와 입력 확인으로 해결했다. 제품의 선택 assertion은 제거하지 않았다.
 - 재사용한 WASM SHA-256: `918c9c7dc584e4bdf28a8afa42fce062a077d944744d58bb4c37de74d559f697`. main에서 새로 컴파일한 엔진이라는 주장은 하지 않는다. 빌드·의존성 복제·사용자 프로필 수정 없음.
-- 실행 중 관측한 최소 여유 공간 **16,555,438,080 bytes**, 하한 **16,374,562,816 bytes**. 이번 실행에만 해당하는 관측치이며 다른 실행의 공간 보장은 아니다.
+- 실행 중 관측한 최소 여유 공간 **16,513,429,504 bytes**, 하한 **16,374,562,816 bytes**. 이번 실행에만 해당하는 관측치이며 다른 실행의 공간 보장은 아니다.
 
 기존 inventory의 **57개 진입점 중 3개**(테스트 2개와 Vite runner), **4개 helper 중 3개**만 복구했다. 나머지 **54개 진입점과 renderer-baseline-contract helper 1개는 미복구·미실행**이다. 일부는 권리 미확인 외부 fixture·manifest·추가 runtime 입력이 필요하고, 합성 입력을 쓰는 다른 후보도 제품 호환성 검토가 남아 있다. 이를 skip 또는 성공으로 집계하지 않는다. 현재 두 smoke로 전체 E2E, renderer 비교, 파일 저장/재열기, 물리 한글 IME, 패키지 앱, 전체 Rust 또는 CI 통과를 주장하지 않는다.

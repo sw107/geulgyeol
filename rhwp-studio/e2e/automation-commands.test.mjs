@@ -105,19 +105,26 @@ runTest('자동화 표면', async ({ page }) => {
   const dialogPolicy = await page.evaluate(() => {
     const a = window.rhwpStudio.automation;
     const info = a.listCommands().find(c => c.id === 'edit:goto');
+    const refused = a.execute('edit:goto');
+    const allowed = a.execute('edit:goto', undefined, { allowDialog: true });
+    const rect = document.querySelector('.modal-overlay .dialog-wrap .goto-dialog-body')?.getBoundingClientRect();
     return {
       flagged: info?.opensDialog === true,
-      refused: a.execute('edit:goto'),
-      allowed: a.execute('edit:goto', undefined, { allowDialog: true }),
-      dialogOpen: !!document.querySelector('.dialog, .goto-dialog, .find-dialog'),
+      refused,
+      allowed,
+      dialogOpen: Boolean(rect && rect.width > 0 && rect.height > 0),
     };
   });
   assert(dialogPolicy.flagged, 'TC5b: opensDialog 표기가 목록에 실림');
   assert(dialogPolicy.refused.ok === false && dialogPolicy.refused.reason === 'needs-dialog',
     `TC5b: 기본은 거절 (${JSON.stringify(dialogPolicy.refused)})`);
   assert(dialogPolicy.allowed.ok === true, `TC5b: allowDialog 로 실행 (${JSON.stringify(dialogPolicy.allowed)})`);
+  assert(dialogPolicy.dialogOpen, 'TC5b: 찾아가기 대화상자가 실제 표시됨');
+  await screenshot(page, 'automation-goto-open');
   await page.keyboard.press('Escape');
   await page.evaluate(() => new Promise(r => setTimeout(r, 200)));
+  const dialogClosed = await page.evaluate(() => !document.querySelector('.modal-overlay .dialog-wrap .goto-dialog-body'));
+  assert(dialogClosed, 'TC5b: Escape 후 찾아가기 대화상자가 제거됨');
 
   // ── TC6: ext: 커맨드 등록·메뉴 삽입·회수 ───────────────
   const ext = await page.evaluate(() => {
