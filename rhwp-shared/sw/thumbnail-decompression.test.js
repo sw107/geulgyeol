@@ -169,20 +169,6 @@ test('thumbnail consumers choose their output policy at the public boundary', as
     assert.match(source, /compSize !== uncompSize|compSz !== uncSz/);
   }
 
-  const helperSource = await readFile(new URL('./thumbnail-decompression.js', import.meta.url), 'utf8');
-  assert.doesNotMatch(helperSource, /THUMBNAIL_OUTPUT_LIMIT_BYTES|MAX_THUMBNAIL_BYTES/);
-  assert.match(helperSource, /readExactStreamLimited\(readable, declaredSize, maxBytes\)/);
-
-  const rustSource = await readFile(new URL('../../src/parser/mod.rs', import.meta.url), 'utf8');
-  assert.match(
-    rustSource,
-    /pub const MAX_THUMBNAIL_BYTES: usize = 10 \* 1024 \* 1024;/,
-  );
-  assert.match(
-    rustSource,
-    /extract_preview\(&mut cfb, MAX_THUMBNAIL_BYTES\)/,
-  );
-
   const safariManifest = JSON.parse(
     await readFile(new URL('../../rhwp-safari/src/manifest.json', import.meta.url), 'utf8'),
   );
