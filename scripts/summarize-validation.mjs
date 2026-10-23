@@ -76,7 +76,9 @@ export function summarizeValidation(plan, observations, {planDirectory = '.', re
   }
   const checks = plan.checks.map(check => {
     const result = results.get(check.id);
-    const base = {id: check.id, required: check.required, kind: check.kind};
+    // Process failure is known independently of evidence availability/parsing.
+    const base = {id: check.id, required: check.required, kind: check.kind,
+      ...(integer(result?.exitCode) ? {exitCode: result.exitCode} : {})};
     if (!result) return {...base, status: 'unavailable', reason: 'No result for planned check'};
     try {
       requireValue(result.status === undefined || ['unavailable', 'excluded'].includes(result.status), 'Invalid result status');
@@ -84,7 +86,7 @@ export function summarizeValidation(plan, observations, {planDirectory = '.', re
         requireValue(nonempty(result.reason), 'Unexecuted/excluded checks need a reason');
         return {...base, status: result.status, reason: result.reason};
       }
-      requireValue(Number.isInteger(result.exitCode) && result.exitCode >= 0, 'Missing/invalid process exit code');
+      requireValue(integer(result.exitCode), 'Missing/invalid process exit code');
       if (check.kind === 'node-test') {
         requireValue(nonempty(result.report), 'Node check needs reporter evidence');
         const evidence = path.resolve(resultDirectory, result.report);
@@ -107,9 +109,10 @@ export function summarizeValidation(plan, observations, {planDirectory = '.', re
     for (const k of STATES) tests[k] += check.tests?.[k] ?? 0;
   }
   const required = checks.filter(c => c.required);
-  const passed = required.length > 0 && required.every(c => c.status === 'passed')
+  const failedProcesses = checks.filter(c => integer(c.exitCode) && c.exitCode > 0).map(c => c.id);
+  const passed = failedProcesses.length === 0 && required.length > 0 && required.every(c => c.status === 'passed')
     && !checks.some(c => c.status === 'failed');
-  return {version: 1, passed, counts, fileCounts, tests,
+  return {version: 1, passed, counts, fileCounts, tests, failedProcesses,
     testCountsComplete: checks.filter(c => c.kind === 'node-test').every(c => c.files?.every(f => f.counts)), checks,
     requiredIncomplete: required.filter(c => c.status !== 'passed').map(c => c.id),
     scope: 'Declared plan only; test counts include completed per-file Node summaries only'};

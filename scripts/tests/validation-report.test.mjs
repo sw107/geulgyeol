@@ -135,3 +135,81 @@ test('imported helper test registrations belong to the planned entry summary, no
   assert.deepEqual(report.fileCounts, {passed: 1, failed: 0, unavailable: 0, excluded: 0});
   assert.equal(report.tests.passed, 1);
 });
+
+// Regression: evidence collection can fail independently of the actual process.
+// Preserve observed failures without inventing missing assertion counts.
+function failedProcess() {
+  const child = spawnSync(process.execPath, ['-e', 'process.exit(7)'], {encoding: 'utf8', env});
+  assert.equal(child.status, 7);
+  return child.status;
+}
+
+test('optional command failure remains fatal when its evidence log is missing', () => {
+  const optional = {id: 'optional-command', required: false, kind: 'command'};
+  const exitCode = failedProcess();
+  const report = summarize([check('pass'), optional], [result('pass'),
+    {id: optional.id, exitCode, evidence: path.join(root, 'never-created.log')}]);
+  assert.equal(report.passed, false);
+  assert.equal(report.checks[1].exitCode, 7);
+  assert.equal(report.checks[1].status, 'unavailable', 'missing evidence remains distinct from assertion failure');
+  assert.deepEqual(report.failedProcesses, [optional.id]);
+  assert.equal(report.tests.failed, 0);
+});
+
+test('optional Node failure remains fatal with missing, corrupt or incomplete reporter evidence', () => {
+  const exitCode = failedProcess();
+  const damaged = path.join(root, 'optional-corrupt.json'); fs.writeFileSync(damaged, '{');
+  const incomplete = path.join(root, 'optional-incomplete.json');
+  fs.writeFileSync(incomplete, JSON.stringify({...JSON.parse(fs.readFileSync(run('pass').evidence)), complete: false}));
+  for (const evidence of [path.join(root, 'never-created.json'), damaged, incomplete]) {
+    const report = summarize([check('pass'), {...check('pass', false), id: 'optional-node'}],
+      [result('pass'), {id: 'optional-node', exitCode, report: evidence}]);
+    assert.equal(report.passed, false, evidence);
+    assert.equal(report.checks[1].exitCode, 7);
+    assert.deepEqual(report.failedProcesses, ['optional-node']);
+    assert.equal(report.tests.failed, 0, 'do not manufacture an assertion failure from process status');
+  }
+});
+
+test('explicit optional unavailable/excluded status cannot hide a nonzero exit; unknown execution stays optional', () => {
+  const optional = {id: 'optional-command', required: false, kind: 'command'};
+  const exitCode = failedProcess();
+  for (const status of ['unavailable', 'excluded']) {
+    const observation = {id: optional.id, status, reason: 'not covered by this evidence'};
+    const failed = summarize([check('pass'), optional], [result('pass'), {...observation, exitCode}]);
+    assert.equal(failed.passed, false);
+    assert.deepEqual(failed.failedProcesses, [optional.id]);
+    assert.equal(failed.checks[1].exitCode, 7);
+    for (const code of [undefined, null, -1, '7', 0]) {
+      const unknown = summarize([check('pass'), optional], [result('pass'), {...observation, exitCode: code}]);
+      assert.equal(unknown.passed, true, `no known failure: ${String(code)}`);
+      assert.deepEqual(unknown.failedProcesses, []);
+    }
+  }
+});
+
+test('CLI preserves a real optional exit 7 with present or missing evidence and returns exit 1', () => {
+  const dir = path.join(root, 'optional-exit-cli'); fs.mkdirSync(dir);
+  const required = spawnSync(process.execPath, ['-e', 'process.exit(0)'], {encoding: 'utf8', env});
+  const exitCode = failedProcess();
+  fs.writeFileSync(path.join(dir, 'required.log'), required.stdout);
+  fs.writeFileSync(path.join(dir, 'optional.log'), 'exit 7 observed');
+  const plan = {version: 1, checks: [
+    {id: 'required', required: true, kind: 'command'},
+    {id: 'optional', required: false, kind: 'command'},
+  ]};
+  const planPath = path.join(dir, 'plan.json'); fs.writeFileSync(planPath, JSON.stringify(plan));
+  for (const evidence of ['optional.log', 'missing.log']) {
+    const resultsPath = path.join(dir, `${evidence}.json`);
+    fs.writeFileSync(resultsPath, JSON.stringify({version: 1, results: [
+      {id: 'required', exitCode: required.status, evidence: 'required.log'},
+      {id: 'optional', exitCode, evidence},
+    ]}));
+    const child = spawnSync(process.execPath, [cli, planPath, resultsPath], {encoding: 'utf8', env});
+    assert.equal(child.status, 1, child.stdout);
+    const report = JSON.parse(child.stdout);
+    assert.equal(report.passed, false);
+    assert.equal(report.checks[1].exitCode, 7);
+    assert.deepEqual(report.failedProcesses, ['optional']);
+  }
+});

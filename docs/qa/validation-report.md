@@ -58,9 +58,10 @@ node scripts/summarize-validation.mjs plan.json results.json > summary.json
 
 - `passed`: 확인된 통과. `failed`: 실행한 검사 실패. `unavailable`: 결과/파일/입력/완료 요약 부재, 취소, 손상된 증거. `excluded`: 명시적 제외 또는 Node skip/TODO.
 - `counts`는 계획 항목, `fileCounts`는 Node 파일, `tests`는 완료된 파일별 Node 본문 요약의 수다. 계층이 다르므로 서로 더하지 않는다. `testCountsComplete: false`이면 누락/로드 실패 파일의 본문 수는 알 수 없으며 0건 실행으로 단정하지 않는다. 실패와 실행 불가가 한 묶음에 공존하면 항목 상태는 실패를 우선하되 `fileCounts`와 상세에서 둘 다 드러난다.
+- `exitCode`는 증거 파일 누락/파싱 실패나 명시적 제외와 별개로 보존한다. 유효한 비영 종료 코드가 관측된 항목은 `failedProcesses`에 남으며, 선택 항목이어도 전체 성공을 막는다. 이때 증거 상태는 `unavailable`/`excluded`일 수 있다. 로그 누락을 assertion 실패로 추정하거나 실패 본문 수를 만들지 않는다. 실제 실패 종료 관측이 없는 선택 항목의 미실행/제외 정책은 그대로다.
 - 필수 항목 하나라도 제외/미실행/실패하면 `passed:false`, **exit 1**. 계획에서 결과가 빠져도 실행 불가로 남는다. 필수 항목 0개인 계획도 성공하지 않는다. 선택 항목의 실제 실패도 전체 성공을 막는다.
 - 필수 Node 파일에 skip/TODO가 하나라도 있으면 그 항목 전체 성공을 막는다. 선택 범위는 실행 전에 계획에서 명시한다. 제외를 통과로 바꾸지 않는다.
-- 결과 ID 중복/미등록, 필수 필드 누락, 파일 목록 중복, 미계획 파일, 깨진 JSON, 완료 요약 부재는 성공 판정을 막는다. macOS `/var`·`/private/var` 등 동일 파일 경로는 realpath로 대조한다.
+- 결과 ID 중복/미등록, 계획 필수 필드 누락, 파일 목록 중복은 전체 성공 판정을 막는다. 미계획 파일, 깨진 보고서 JSON, 완료 요약 부재는 해당 항목의 통과 판정을 막으며 필수 항목이면 전체 성공도 막는다. 선택 항목도 관측한 비영 종료 코드가 있으면 증거 상태와 관계없이 전체 성공을 막는다. macOS `/var`·`/private/var` 등 동일 파일 경로는 realpath로 대조한다.
 - 이 도구는 기존 증거를 읽고 stdout으로만 집계한다. 빌드·앱 실행·fixture 확보·SDK 복제·원본 로그 변경·자동 삭제를 하지 않는다. 입력 JSON의 출처/SHA/실제 종료 코드 진위는 실행 담당자가 보존해야 하며, 서명된 증거 인증 도구는 아니다.
 
 ## 집중 회귀
@@ -69,4 +70,4 @@ node scripts/summarize-validation.mjs plan.json results.json > summary.json
 node --test scripts/tests/validation-report.test.mjs
 ```
 
-실제 소형 Node 자식 프로세스로 assertion 성공/실패, import 실패, 빈 파일, skip/TODO, 취소를 재현한다. 누락 계획 항목, 필수 제외, 깨진 증거, 종료 코드, CLI 경로와 exit 1도 확인한다. 합성 입력만 사용하고 출력 위치를 기록한다. 기본 테스트 탐색 파일과 E2E entry/helper는 수정하지 않는다.
+실제 소형 Node 자식 프로세스로 assertion 성공/실패, import 실패, 빈 파일, skip/TODO, 취소를 재현한다. 누락 계획 항목, 필수 제외, 깨진 증거, 종료 코드, CLI 경로와 exit 1도 확인한다. 실제 자식 exit 7을 사용해 선택 항목의 로그 누락·JSON 손상·완료 요약 부재·명시적 제외가 실패 종료를 가리지 못하는지도 확인한다. 합성 입력만 사용하고 출력 위치를 기록한다. 기본 테스트 탐색 파일과 E2E entry/helper는 수정하지 않는다.
