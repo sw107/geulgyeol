@@ -1,0 +1,6 @@
+
+# Preserve the exact upstream test-input bytes.
+engine/samples/3-09월_교육_통합_2022.hwp -text -diff
+engine/samples/hwp3-sample16-hwp5.hwp -text -diff
+engine/samples/hwpx/aift.hwpx -text -diff
+engine/mydocs/tech/agent_runtime/version_policy.md text eol=lf
