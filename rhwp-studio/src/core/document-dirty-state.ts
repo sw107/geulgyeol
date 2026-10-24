@@ -13,6 +13,7 @@ export interface DirtyStateChange {
  */
 export class DocumentDirtyState {
   private dirty = false;
+  private changeRevision = 0;
   private beforeUnloadWindow: Window | null = null;
   private readonly eventBus: EventBus;
   private readonly beforeUnloadHandler = (event: BeforeUnloadEvent): string | void => {
@@ -30,7 +31,13 @@ export class DocumentDirtyState {
     return this.dirty;
   }
 
+  /** Advances for every edit, including edits while the document is already dirty. */
+  get revision(): number {
+    return this.changeRevision;
+  }
+
   markDirty(reason?: string): void {
+    this.changeRevision += 1;
     this.setDirty(true, reason);
   }
 
