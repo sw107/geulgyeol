@@ -127,3 +127,40 @@ test('optional Rust unexecution stays visible and incomplete without changing op
   assert.deepEqual(result.counts, {passed: 1, failed: 0, unavailable: 1, excluded: 0});
   assert.equal(result.tests.passed, 0, 'do not infer unobserved Rust bodies');
 });
+
+// Captured from the included synthetic sources with native Rust 1.93.1.
+// Reading the exact stdout keeps these regressions runnable without Rust installed.
+const nativeOutput = JSON.parse(fs.readFileSync(new URL('./fixtures/rust-libtest-output.json', import.meta.url))).cases;
+function summarizeNative(name) {
+  const captured = nativeOutput[name];
+  return summarize(captured.stdout, captured.exitCode, {...planned, tests: captured.tests});
+}
+
+test('native should_panic success retains the inventory name and passes', () => {
+  const result = summarizeNative('should-panic-pass');
+  assert.equal(result.passed, true);
+  assert.deepEqual(result.tests, {passed: 2, failed: 0, unavailable: 0, excluded: 0});
+  assert.deepEqual(result.checks[0].testCases.map(t => t.name), nativeOutput['should-panic-pass'].tests);
+});
+
+test('native should_panic without a panic is a body failure, not unavailable', () => {
+  const result = summarizeNative('should-panic-fail');
+  assert.equal(result.passed, false);
+  assert.equal(result.checks[0].status, 'failed');
+  assert.deepEqual(result.tests, {passed: 1, failed: 1, unavailable: 0, excluded: 0});
+  assert.deepEqual(result.failedProcesses, [planned.id]);
+});
+
+test('native ignore with an empty reason remains excluded', () => {
+  const result = summarizeNative('ignored-empty-reason');
+  assert.equal(result.passed, false);
+  assert.equal(result.checks[0].status, 'excluded');
+  assert.deepEqual(result.tests, {passed: 1, failed: 0, unavailable: 0, excluded: 1});
+  assert.equal(result.checks[0].testCases.find(t => t.name === 'b').reason, '');
+});
+
+test('only ignored outcomes may carry a reason, even an empty reason', () => {
+  const result = summarize(log().replace('test module::a ... ok', 'test module::a ... ok, '));
+  assert.equal(result.passed, false);
+  assert.equal(result.checks[0].status, 'unavailable');
+});

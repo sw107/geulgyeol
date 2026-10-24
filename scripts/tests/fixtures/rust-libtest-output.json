@@ -1,0 +1,41 @@
+{
+  "provenance": "Fresh standalone synthetic Rust tests, default capture; no document fixture or external dependency",
+  "compiler": "rustc 1.93.1 (01f6ddf75 2026-02-11)",
+  "args": [
+    "--test-threads=1",
+    "--format=pretty",
+    "--color=never"
+  ],
+  "cases": {
+    "should-panic-pass": {
+      "source": "#[test] fn normal_pass() {}\n#[test] #[should_panic(expected=\"expected sentinel\")] fn expected_panic_pass() { panic!(\"expected sentinel\"); }\n",
+      "tests": [
+        "expected_panic_pass",
+        "normal_pass"
+      ],
+      "exitCode": 0,
+      "stdout": "\nrunning 2 tests\ntest expected_panic_pass - should panic ... ok\ntest normal_pass ... ok\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+      "stderr": ""
+    },
+    "should-panic-fail": {
+      "source": "#[test] fn a() {}\n#[test] #[should_panic] fn b() {}\n",
+      "tests": [
+        "a",
+        "b"
+      ],
+      "exitCode": 101,
+      "stdout": "\nrunning 2 tests\ntest a ... ok\ntest b - should panic ... FAILED\n\nfailures:\n\n---- b stdout ----\nnote: test did not panic as expected at should-panic-fail.rs:2:28\n\nfailures:\n    b\n\ntest result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+      "stderr": ""
+    },
+    "ignored-empty-reason": {
+      "source": "#[test] fn a() {}\n#[test] #[ignore = \"\"] fn b() {}\n",
+      "tests": [
+        "a",
+        "b"
+      ],
+      "exitCode": 0,
+      "stdout": "\nrunning 2 tests\ntest a ... ok\ntest b ... ignored, \n\ntest result: ok. 1 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+      "stderr": ""
+    }
+  }
+}

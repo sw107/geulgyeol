@@ -22,13 +22,13 @@ export function summarizeRustLibtest(log, expectedTests, exitCode) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     if (!line.startsWith('test ') || i === end) continue;
-    const match = /^test (\S+) \.\.\. (ok|FAILED|ignored)(?:, (.+))?$/.exec(line);
-    requireValue(match && i > start && i < end && (!match[3] || match[2] === 'ignored'),
+    const match = /^test (\S+)(?: - should panic)? \.\.\. (ok|FAILED|ignored)(?:, (.*))?$/.exec(line);
+    requireValue(match && i > start && i < end && (match[3] === undefined || match[2] === 'ignored'),
       'Unsupported or misplaced libtest case line');
     const [, name, outcome, reason] = match;
     requireValue(expectedTests.includes(name) && !observed.has(name), 'Unplanned/duplicate libtest case');
     observed.set(name, {name, status: {ok: 'passed', FAILED: 'failed', ignored: 'excluded'}[outcome],
-      ...(reason ? {reason} : {})});
+      ...(reason !== undefined ? {reason} : {})});
   }
   const count = status => [...observed.values()].filter(t => t.status === status).length;
   requireValue(running === passed + failed + ignored && observed.size === running
