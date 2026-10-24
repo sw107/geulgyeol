@@ -556,7 +556,7 @@ export class InputHandler {
   private onKeyDownBound: (e: KeyboardEvent) => void;
   private onInputBound: (e?: Event) => void;
   private onCompositionStartBound: () => void;
-  private onCompositionEndBound: () => void;
+  private onCompositionEndBound: (e?: CompositionEvent) => void;
   private onInputBlurBound: () => void;
   private onCopyBound: (e: ClipboardEvent) => void;
   private onCutBound: (e: ClipboardEvent) => void;
@@ -3572,8 +3572,8 @@ export class InputHandler {
   }
 
   /** IME 조합 완료 — 조합 텍스트를 Command로 기록 */
-  private onCompositionEnd(): void {
-    _text.onCompositionEnd.call(this);
+  private onCompositionEnd(e?: CompositionEvent): void {
+    _text.onCompositionEnd.call(this, e);
   }
 
   /** 위치에서 텍스트를 읽는다 (본문/셀 자동 분기) */

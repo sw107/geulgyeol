@@ -437,10 +437,21 @@ export function onCompositionStart(this: any): void {
   this.beginPendingFootnoteComposition?.();
 }
 
-export function onCompositionEnd(this: any): void {
+export function onCompositionEnd(this: any, e?: CompositionEvent): void {
   if (this._cellBlockLetterImeGuard?.consume('compositionend', this.textarea.value)) {
     clearCellBlockLetterImeFollowup.call(this);
     return;
+  }
+
+  // Some IME streams end before their final input update. Commit the end
+  // event's text through the same composition replacement path before clearing
+  // its anchor or recording history; otherwise a later input appends it twice.
+  if (this.isComposing && this.compositionAnchor && typeof e?.data === 'string') {
+    const currentText = this.compositionLength > 0 ? this._lastCompositionText || '' : '';
+    if (e.data !== currentText) {
+      this.textarea.value = e.data;
+      onInput.call(this);
+    }
   }
 
   const anchor = this.compositionAnchor;
