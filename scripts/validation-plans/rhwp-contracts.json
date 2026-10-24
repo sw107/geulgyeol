@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "checks": [
+    {
+      "id": "rhwp-contracts-lib",
+      "required": true,
+      "kind": "rust-libtest",
+      "tests": [
+        "ir_schema::tests::definitions_are_reachable_from_root",
+        "ir_schema::tests::envelope_reports_definition_count",
+        "ir_schema::tests::every_ref_resolves_to_a_definition",
+        "ir_schema::tests::objects_allow_additional_properties",
+        "ir_schema::tests::schema_has_document_root_and_defs",
+        "ontology::tests::commands_become_actions_with_trust_predicates",
+        "ontology::tests::control_variants_are_subclasses_of_control",
+        "ontology::tests::envelope_counts_match_graph",
+        "ontology::tests::graph_covers_every_ir_definition_as_class",
+        "ontology::tests::node_ids_are_unique",
+        "ontology::tests::property_domains_point_at_existing_classes",
+        "ontology::tests::tool_annotations_are_carried_when_present",
+        "ontology::tests::tools_become_actions_linked_to_commands",
+        "schema_registry::tests::policy_path_points_to_existing_document",
+        "schema_registry::tests::registry_value_carries_all_axes_and_crate_version"
+      ]
+    }
+  ]
+}

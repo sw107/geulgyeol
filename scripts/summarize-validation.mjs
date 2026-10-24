@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
+import {summarizeRustLibtest} from './rust-libtest-report.mjs';
 
 const STATES = ['passed', 'failed', 'unavailable', 'excluded'];
 const zero = () => Object.fromEntries(STATES.map(s => [s, 0]));
@@ -61,11 +62,16 @@ export function summarizeValidation(plan, observations, {planDirectory = '.', re
   const ids = new Set();
   for (const check of plan.checks) {
     requireValue(nonempty(check.id) && !ids.has(check.id), 'Duplicate/invalid planned ID');
-    requireValue(typeof check.required === 'boolean' && ['node-test', 'command'].includes(check.kind), 'Explicit required/kind fields are mandatory');
+    requireValue(typeof check.required === 'boolean' && ['node-test', 'rust-libtest', 'command'].includes(check.kind), 'Explicit required/kind fields are mandatory');
     if (check.kind === 'node-test') {
       requireValue(Array.isArray(check.files) && check.files.length > 0 && check.files.every(nonempty), 'Node check needs an explicit nonempty file list');
       const files = check.files.map(f => canonical(path.resolve(planDirectory, f)));
       requireValue(new Set(files).size === files.length, 'Duplicate planned test file');
+    }
+    if (check.kind === 'rust-libtest') {
+      requireValue(Array.isArray(check.tests) && check.tests.length > 0 && check.tests.every(nonempty),
+        'Rust check needs an explicit nonempty test inventory');
+      requireValue(new Set(check.tests).size === check.tests.length, 'Duplicate planned Rust test');
     }
     ids.add(check.id);
   }
@@ -93,9 +99,12 @@ export function summarizeValidation(plan, observations, {planDirectory = '.', re
         return {...base, evidence, exitCode: result.exitCode, ...summarizeNode(readJSON(evidence),
           check.files.map(f => canonical(path.resolve(planDirectory, f))), result.exitCode)};
       }
-      requireValue(nonempty(result.evidence), 'Command check needs a log/evidence file');
+      requireValue(nonempty(result.evidence), 'Check needs a log/evidence file');
       const evidence = path.resolve(resultDirectory, result.evidence);
-      requireValue(fs.statSync(evidence).isFile(), 'Command evidence is not a file');
+      requireValue(fs.statSync(evidence).isFile(), 'Evidence is not a file');
+      if (check.kind === 'rust-libtest') {
+        return {...base, evidence, ...summarizeRustLibtest(fs.readFileSync(evidence, 'utf8'), check.tests, result.exitCode)};
+      }
       // Non-test commands (e.g. tsc) have no inferred assertion count.
       return {...base, status: result.exitCode === 0 ? 'passed' : 'failed', evidence, exitCode: result.exitCode};
     } catch (error) {
@@ -113,9 +122,10 @@ export function summarizeValidation(plan, observations, {planDirectory = '.', re
   const passed = failedProcesses.length === 0 && required.length > 0 && required.every(c => c.status === 'passed')
     && !checks.some(c => c.status === 'failed');
   return {version: 1, passed, counts, fileCounts, tests, failedProcesses,
-    testCountsComplete: checks.filter(c => c.kind === 'node-test').every(c => c.files?.every(f => f.counts)), checks,
+    testCountsComplete: checks.filter(c => c.kind !== 'command').every(c => c.kind === 'node-test'
+      ? c.files?.every(f => f.counts) : c.complete === true), checks,
     requiredIncomplete: required.filter(c => c.status !== 'passed').map(c => c.id),
-    scope: 'Declared plan only; test counts include completed per-file Node summaries only'};
+    scope: 'Declared plan only; test counts combine Node body summaries and inventoried Rust cases; inspect per-check kinds and completeness'};
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
