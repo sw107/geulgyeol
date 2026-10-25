@@ -318,6 +318,24 @@ export class FindDialog {
     this.currentHitGeneration = null;
   }
 
+  private isCurrentHitSelected(ih: NonNullable<ReturnType<CommandServices['getInputHandler']>>): boolean {
+    const selection = ih.getSelection();
+    const hit = this.currentHit;
+    if (!selection || !hit?.found) return false;
+    const matches = (pos: DocumentPosition, charOffset: number): boolean => {
+      if (pos.isTextBox || (pos.cellPath?.length ?? 0) > 1) return false;
+      const origin = FindDialog.searchOrigin(pos);
+      const cell = origin.cellContext, expected = hit.cellContext;
+      if (origin.sec !== hit.sec || origin.para !== (expected?.parentPara ?? hit.para)
+          || origin.charOffset !== charOffset) return false;
+      if (!expected) return pos.parentParaIndex === undefined;
+      return cell?.parentPara === expected.parentPara && cell.ctrlIdx === expected.ctrlIdx
+        && cell.cellIdx === expected.cellIdx && cell.cellPara === expected.cellPara;
+    };
+    return matches(selection.start, hit.charOffset!)
+      && matches(selection.end, hit.charOffset! + hit.length!);
+  }
+
   private doSearch(forward: boolean): void {
     const query = this.queryInput.value;
     if (!query) { this.invalidateHit(); this.statusLabel.textContent = ''; return; }
@@ -329,7 +347,10 @@ export class FindDialog {
     if (!ih) return;
     // A modeless dialog can outlive a document swap without a mutation event.
     // Only a hit from this document may override the new cursor for reverse search.
-    if (this.currentHitGeneration !== this.services.wasm.documentGeneration) this.invalidateHit();
+    if (this.currentHitGeneration !== this.services.wasm.documentGeneration
+        || this.currentHitQuery !== query
+        || this.currentHitCaseSensitive !== this.caseSensitiveCheck.checked
+        || !this.isCurrentHitSelected(ih)) this.invalidateHit();
     const pos = ih.getCursorPosition();
 
     // 역방향 검색 시: 현재 선택 영역의 시작 위치를 기준으로 해야
@@ -377,10 +398,12 @@ export class FindDialog {
   }
 
   private doReplace(): void {
+    const ih = this.services.getInputHandler();
     if (!this.currentHit || !this.currentHit.found
         || this.currentHitQuery !== this.queryInput.value
         || this.currentHitCaseSensitive !== this.caseSensitiveCheck.checked
-        || this.currentHitGeneration !== this.services.wasm.documentGeneration) {
+        || this.currentHitGeneration !== this.services.wasm.documentGeneration
+        || (ih && !this.isCurrentHitSelected(ih))) {
       this.invalidateHit();
       this.doSearch(true);
       return;
@@ -419,7 +442,6 @@ export class FindDialog {
     };
 
     let result: ReplaceResult = { ok: false };
-    const ih = this.services.getInputHandler();
     try {
       if (ih) {
         ih.executeOperation({ kind: 'snapshot', operationType: 'replaceText', operation: (wasm) => {
