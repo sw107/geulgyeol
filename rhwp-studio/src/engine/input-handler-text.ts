@@ -396,11 +396,25 @@ const bodySelectionCompositions = new WeakMap<object, BodySelectionComposition>(
 // necessarily ends. Its remaining composition events no longer own a text range.
 // The stream belongs to this textarea, not a document generation. Loading a
 // document must not admit its old compositionend/input into the new document.
-// A new native compositionstart is the boundary that retires this marker.
-const closedBodyCompositions = new WeakMap<object, { finalData?: string }>();
+// A new compositionstart or fresh ordinary key retires this marker.
+const closedBodyCompositions = new WeakMap<object, { inputEpoch: number; finalData?: string }>();
+
+function closeBodyComposition(this: any, finalData?: string): void {
+  closedBodyCompositions.set(this, { inputEpoch: this._bodySelectionInputEpoch ?? 0, finalData });
+}
+
+function getClosedBodyComposition(this: any): { inputEpoch: number; finalData?: string } | undefined {
+  const closed = closedBodyCompositions.get(this);
+  if (closed && closed.inputEpoch !== (this._bodySelectionInputEpoch ?? 0)) {
+    closedBodyCompositions.delete(this);
+    this._lastComposedText = '';
+    return undefined;
+  }
+  return closed;
+}
 
 function isClosedBodyComposition(this: any): boolean {
-  return closedBodyCompositions.has(this);
+  return getClosedBodyComposition.call(this) !== undefined;
 }
 
 
@@ -436,7 +450,7 @@ export function cancelBodySelectionComposition(this: any, refresh = true): void 
   const state = bodySelectionCompositions.get(this);
   if (!state) return;
   bodySelectionCompositions.delete(this);
-  closedBodyCompositions.set(this, {});
+  closeBodyComposition.call(this);
   this.isComposing = false;
   this.compositionAnchor = null;
   this.compositionLength = 0;
@@ -569,7 +583,7 @@ export function onCompositionEnd(this: any, e?: CompositionEvent): void {
     // native trailing insertText still belongs to that failed stream, not a new
     // user replacement. Keep its final data even though normal cleanup threw.
     if (bodyStream && generation === this.wasm.documentGeneration && typeof e?.data === 'string') {
-      closedBodyCompositions.set(this, { finalData: e.data });
+      closeBodyComposition.call(this, e.data);
       this._lastComposedText = e.data;
     }
     throw error;
@@ -588,7 +602,7 @@ function finishCompositionEnd(this: any, e?: CompositionEvent): void {
     // Do not reopen a transaction that Undo/cancel already closed. Preserve the
     // native final data solely to consume its trailing commit input once.
     if (typeof e?.data === 'string') {
-      closedBodyCompositions.set(this, { finalData: e.data });
+      closeBodyComposition.call(this, e.data);
       this._lastComposedText = e.data;
     }
     this.textarea.value = '';
@@ -615,7 +629,7 @@ function finishCompositionEnd(this: any, e?: CompositionEvent): void {
   if (bodySelectionComposition) {
     // A normal native end can precede a document swap while its final input is
     // still queued. Retain the one-shot token for that completed stream too.
-    closedBodyCompositions.set(this, typeof e?.data === 'string' ? { finalData: e.data } : {});
+    closeBodyComposition.call(this, typeof e?.data === 'string' ? e.data : undefined);
   }
   const anchor = this.compositionAnchor;
   const finalLength = this.compositionLength;
@@ -747,16 +761,14 @@ function replaceBodySelectionInput(this: any, text: string): boolean {
 }
 
 export function onInput(this: any, e?: InputEvent): void {
-  if (!this.active) return;
-
-  if (this._cellBlockLetterImeGuard?.consume('input', this.textarea.value)) {
+  if (this.active && this._cellBlockLetterImeGuard?.consume('input', this.textarea.value)) {
     e?.preventDefault();
     clearCellBlockLetterImeFollowup.call(this);
     return;
   }
 
   const text = this.textarea.value;
-  const closedBody = closedBodyCompositions.get(this);
+  const closedBody = getClosedBodyComposition.call(this);
   if (!this.isComposing && closedBody) {
     // deactivate clears ordinary input dedup state, but an already received
     // late end can still have its commit input queued across reactivation.
@@ -773,6 +785,9 @@ export function onInput(this: any, e?: InputEvent): void {
     // value and swallow a later coincidentally equal user input.
     delete closedBody.finalData;
   }
+  // Consume an already delivered old commit even while inactive. No model
+  // mutation is allowed until activation, but its one-shot token must retire.
+  if (!this.active) return;
   // const inputType = e?.inputType ?? 'unknown';
   // const inputData = e?.data ?? '';
   // const isComp = e?.isComposing ?? false;

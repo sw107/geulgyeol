@@ -698,6 +698,14 @@ function hitTestAfterPageScroll(
 export function onKeyDown(this: any, e: KeyboardEvent): void {
   if (!this.active) return;
 
+  // A fresh printable key is a new user input boundary, even when it will
+  // produce the same text as a previously completed IME stream. This epoch
+  // only retires old dedup state; characters still come from input events.
+  if (!this.isComposing && !e.isComposing && e.keyCode !== 229
+      && !e.ctrlKey && !e.metaKey && !e.altKey && Array.from(e.key).length === 1) {
+    this._bodySelectionInputEpoch = (this._bodySelectionInputEpoch ?? 0) + 1;
+  }
+
   // 이전 셀 문자 단축키의 compositionend가 브라우저 focus 이동으로 누락됐더라도 다음
   // 물리 입력까지 억제 상태가 새지 않게 한다. 현재 S/M이면 아래 resolver가 다시 arm한다.
   this._cellBlockLetterImeGuard?.reset();

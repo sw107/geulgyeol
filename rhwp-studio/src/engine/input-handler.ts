@@ -535,6 +535,9 @@ export class InputHandler {
   private compositionAnchor: DocumentPosition | null = null;
   private compositionLength = 0; // 문서에 삽입된 조합 텍스트 길이
   private _lastCompositionText = '';
+  // Fresh non-IME printable key boundary for completed body selection streams.
+  // Kept across deactivate so document changes cannot revive an old token.
+  private _bodySelectionInputEpoch = 0;
   private _lastComposedText = '';
   /** HF 선택 위 IME는 선택 삭제와 최종 조합 문자열을 하나의 snapshot으로 기록한다. */
   private headerFooterSelectionComposition = false;

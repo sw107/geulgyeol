@@ -407,3 +407,39 @@ for(const ext of ['hwp','hwpx'])for(const preview of ['ㄱ','가'])for(const inp
   send('가','insertText',false);reopen('가NEW');f.undo();reopen('NEW');
  });
 });
+
+const keyboard=load(source('input-handler-keyboard.ts'),{
+ ...commands,...load(source('navigation-keymap.ts')),
+ ...load(fs.readFileSync(path.join(root,'rhwp-studio/src/command/shortcut-map.ts'),'utf8')),
+});
+function pressPlainKey(f,event={}){
+ for(const key of ['isInPictureObjectSelection','isInTableObjectSelection','isInCellSelectionMode','isInBlockSelectionMode'])f.cursor[key]=()=>false;
+ let prevented=false;
+ keyboard.onKeyDown.call(f.h,{key:'a',code:'KeyA',keyCode:65,isComposing:false,
+  ctrlKey:false,metaKey:false,altKey:false,shiftKey:false,preventDefault(){prevented=true;},...event});
+ assert.equal(prevented,false,'fresh plain key is admitted without synthesizing text');
+}
+for(const ext of ['hwp','hwpx'])for(const oldTrailing of ['none','while-inactive'])test(`real ${ext} fresh same-character key after document swap, trailing=${oldTrailing}`,async()=>{
+ await realLifecycle(ext,({f,doc,bridge,create,send,reopen})=>{
+  f.start();send('a');f.end('a');assert.equal(doc.getTextRange(0,0,0,100),'a');
+  bridge.doc=create('NEW');f.wasm.documentGeneration++;f.deactivate();
+  if(oldTrailing==='while-inactive')send('a','insertText',false);
+  f.activate();pressPlainKey(f);send('a','insertText',false);reopen('aNEW');
+  assert(f.h.history.canUndo());f.undo();reopen('NEW');assert(!f.h.history.canUndo());
+ });
+});
+for(const ext of ['hwp','hwpx'])test(`real ${ext} inactive old commit is consumed before later ordinary input`,async()=>{
+ await realLifecycle(ext,({f,bridge,create,send,reopen})=>{
+  f.start();send('a');f.end('a');bridge.doc=create('NEW');f.wasm.documentGeneration++;f.deactivate();
+  send('a','insertText',false);reopen('NEW');assert(!f.h.history.canUndo());
+  f.activate();send('a','insertText',false);reopen('aNEW');f.undo();reopen('NEW');
+ });
+});
+for(const ext of ['hwp','hwpx'])for(const signal of ['isComposing','keyCode229'])test(`real ${ext} IME key signal keeps old commit guard: ${signal}`,async()=>{
+ await realLifecycle(ext,({f,bridge,create,send,reopen})=>{
+  f.start();send('a');f.end('a');bridge.doc=create('NEW');f.wasm.documentGeneration++;f.deactivate();f.activate();
+  pressPlainKey(f,{key:'Process',isComposing:signal==='isComposing',keyCode:signal==='keyCode229'?229:65});
+  send('a','insertText',false);reopen('NEW');assert(!f.h.history.canUndo());
+  pressPlainKey(f);send('a','insertText',false);reopen('aNEW');f.undo();reopen('NEW');
+ });
+});
