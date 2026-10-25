@@ -1,13 +1,12 @@
 const {app,BrowserWindow,dialog,ipcMain,Menu,session}=require('electron');
 const path=require('node:path');
-const fs=require('node:fs/promises');
 app.setPath('userData',path.join(process.env?.GEULGYEOL_PROFILE_ROOT||app.getPath('appData'),'GeulgyeolBeta3'));
 const {startProfileServer}=require('./profile-server.cjs');
-const {validateDocumentBytes,atomicWrite,MAX_BYTES}=require('./storage.cjs');
+const {validateDocumentBytes,atomicWrite}=require('./storage.cjs');
 const {installCloseController}=require('./close-controller.cjs');
 const {installDocumentShortcuts}=require('./document-shortcuts.cjs');
 const {installPrintPreview}=require('./print-preview.cjs');
-const {createExternalOpenQueue}=require('./external-open.cjs');
+const {createExternalOpenQueue,readDocumentFile}=require('./external-open.cjs');
 let win,origin,server,dirty=false,saving=false,rendererFailed=false;
 function trusted(event){return win&&!win.isDestroyed()&&event.sender===win.webContents&&event.senderFrame===win.webContents.mainFrame&&event.senderFrame.url===origin+'/';}
 function action(name){if(win&&!win.isDestroyed())win.webContents.send('baram:action',name);}
@@ -86,8 +85,7 @@ app.whenReady().then(async()=>{
     if(!trusted(event))throw new Error('허용되지 않은 요청');
     const chosen=await dialog.showOpenDialog(win,{properties:['openFile'],filters:[{name:'한글 문서',extensions:['hwp','hwpx']}]});
     if(chosen.canceled)return null;
-    const target=chosen.filePaths[0];if((await fs.stat(target)).size>MAX_BYTES)throw new Error('64 MB보다 큰 문서는 지원하지 않습니다.');
-    return {name:path.basename(target),data:new Uint8Array(await fs.readFile(target))};
+    return readDocumentFile(chosen.filePaths[0]);
   });
   ipcMain.handle('baram:save',async(event,{data,name,format})=>{
     if(!trusted(event))throw new Error('허용되지 않은 요청');
