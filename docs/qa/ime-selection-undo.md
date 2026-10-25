@@ -37,3 +37,35 @@ node scripts/test-studio.mjs
 6. 사본 저장 및 새 프로세스 재열기, undo/redo 반복, 문서 전환·닫기 확인.
 
 독립 검토와 네이티브 QA 전 병합하지 않는다. 배포·설치 앱 교체·외부 권리 미확인 fixture 복원은 범위 밖이다.
+
+
+## 문서 전환 중 남은 IME 이벤트 계약 (main 0b94b456 기준)
+
+문서 모델의 세대와 textarea의 native 조합 스트림은 수명이 다르다. `loadBytes`/새 문서 경로는 WASM 문서를 바꾼 뒤 `initializeDocument`에서 입력 핸들러를 deactivate/activate한다. 원래 문서 세대가 바뀌면 종료된 조합 표시도 지웠으므로, `compositionend → input(insertText)`가 늦게 도착하면 새 문서에 이전 조합의 글자가 삽입될 수 있었다. 실제 Mac에서 이 순서가 발생했다는 주장은 아니다.
+
+수정은 본문 선택 교체 스트림에 한정한다. 스냅샷은 계속 원래 document generation에서만 복구한다. 종료 표시와 마지막 native data는 핸들러에 보관하며, 세대 변경이나 deactivate를 넘어 전달된 이전 조합의 입력을 소비한다. 새 compositionstart는 종료 표시를 해제한다. 마지막 data는 동일한 후속 입력 한 번만 소비하며, 다른 일반 입력이 먼저 오면 폐기한다. 키 이벤트에서 글자를 추측하거나 시간 지연을 추가하지 않는다.
+
+### 실제 SDK 자동 검사
+
+두 형식 모두 프로젝트가 만든 빈 문서에 `ABC`, `NEW`, `ㄱ`, `가`를 넣는 합성 입력을 사용한다. 생산 입력 라우터/명령/history와 deactivate/activate 메서드를 실행하고, 렌더링·포커스 DOM 효과만 대체한다. 새 문서로 연결하는 bridge doc 및 generation 교체는 테스트에서 수행하므로 앱의 전체 파일 열기 절차 검증은 아니다.
+
+| 경로 | 검사 수 (HWP+HWPX) | 확인한 계약 |
+|---|---:|---|
+| 빈 native end, preview 없음/ㄱ | 4 | 원문 bytes·역방향 선택·블록 단계·기존 redo 복구 |
+| 명령 거절 후 확정/취소와 재시도 | 4 | 거절은 무변경, 재시도 정상 실행, undo 경계 유지 |
+| 문서 교체 후 end/input 순서 | 32 | 가/ㄱ preview, end-input/input-end, 재활성화 뒤/비활성 중/비활성화 전/pending generation 변경: 새 문서 bytes와 history 보존, 새 조합 허용 |
+| Redo 거절 → 빈 종료 → 재시도 | 2 | 기존 redo 항목 보존 후 정상 실행 |
+| 재활성화 뒤 1회 final input 소비 | 2 | 다음 같은 일반 입력까지 막지 않음 |
+| 문서 없는 동안 end | 2 | 이전 snapshot 접근 없이 다음 문서 보존 |
+| 다른 일반 입력 뒤 같은 글자 | 2 | 오래된 final data가 이후 독립 입력을 삼키지 않음 |
+| 정상 native end 직후 문서 교체 | 8 | 가/ㄱ preview, insertText/insertFromComposition의 남은 1회 입력을 새 문서에 삽입하지 않음 |
+
+56건은 base에서 14 통과/42 실패, 수정본에서 56 통과다. 기존 IME/선택 교체 검사를 합친 165건, Studio 기본 254건과 타입 검사도 통과했다. 기존 SDK WASM SHA-256은 `918c9c7dc584e4bdf28a8afa42fce062a077d944744d58bb4c37de74d559f697`이다. 새 빌드의 검증이 아니다. 각 형식 export/reopen은 같은 프로세스의 SDK 검사다.
+
+### 물리 입력 또는 별도 native QA가 필요한 항목
+
+- OS IME에서 실제 빈 data 취소를 유도한 뒤 원문·선택·redo 복원 확인. Escape가 확정한 경우를 취소 성공으로 기록하지 않는다.
+- 조합 중 포커스 이탈/문서 열기/새 문서에서 compositionstart, input의 data·inputType·isComposing, compositionend, blur와 문서 세대 변경의 실제 순서를 기록한다. 위 순서를 만들지 못하면 미재현으로 남긴다.
+- 거절된 명령의 사용자 안내 및 조합 종료 후 재시도 UI, 화면 갱신·캐럿·포커스, 물리 키보드의 빠른 연속 입력을 확인한다.
+- 사본 저장 대화상자 및 새 native 프로세스 재열기 검증은 별도다. 사용자 문서·미저장 앱을 사용하지 않는다.
+- 이전 `가ㄴㅏ`/`가ㅏ` 관측의 원인은 미확정이다. 이 문서 전환 결함과 동일 원인이라고 단정하지 않는다.

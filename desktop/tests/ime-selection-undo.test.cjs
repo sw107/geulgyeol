@@ -276,3 +276,134 @@ for(const ext of ['hwp','hwpx'])for(const preview of ['가','ㄱ'])for(const ord
   f.clear();
  }finally{reopened?.free();doc?.free();seed.free();}
 });
+
+
+// Real SDK lifecycle contracts. UI effects are stubs; production input,
+// command/history and deactivate/activate method bodies run unchanged.
+const {Lifecycle}=load('export class Lifecycle {\n'+[
+ method('  deactivate(): void {', '\n  dispose(): void {'),
+ method('  activateWithCaretPosition(): void {', '\n  /** 캐럿을 숨기고'),
+].join('\n')+'\n}',{_text:input,_captionText:{cancelComposition(){}},
+ clearObjectEditingPage(){},showInitialCaretAndPublishFocus(){}});
+function attachLifecycle(f){
+ const noop=()=>{};
+ Object.assign(f.h,{cancelPendingFootnoteComposition:noop,clearPendingFootnoteCharShape:noop,
+  flushDeferredPaginationIfNeeded:noop,cancelDeferredPaginationFlush:noop,
+  deferredPaginationRunner:{cancel:noop},caretLayoutReveal:{clear:noop,requestFor:noop},
+  _cellBlockLetterImeGuard:{reset:noop,consume:()=>false},caret:{hide:noop,hideComposition:noop},
+  fieldMarker:{hide:noop},selectionRenderer:{clear:noop},eventBus:{emit:noop},
+  viewportManager:{getZoom:()=>1},emitCursorFormatState:noop,focusTextarea:noop});
+ f.cursor.resetForDocumentSwap=()=>f.cursor.moveTo(pos(0,0));
+ f.wasm.getCaretPosition=()=>pos(0,0);
+ f.deactivate=()=>Lifecycle.prototype.deactivate.call(f.h);
+ f.activate=()=>Lifecycle.prototype.activateWithCaretPosition.call(f.h);
+}
+async function realLifecycle(ext,run){
+ const {Q,M}=await engine(),seed=M.HwpDocument.createEmpty();const docs=[];
+ const create=text=>{
+  seed.createBlankDocument();assert(JSON.parse(seed.insertText(0,0,0,text)).ok);
+  const doc=new M.HwpDocument(ext==='hwp'?seed.exportHwp():seed.exportHwpx());docs.push(doc);return doc;
+ };
+ const f=ime({paragraphs:['ABC'],start:pos(0,0),end:pos(0,3),reverse:true}),doc=create('ABC');
+ const bridge=new Q.Bridge(doc);
+ for(const key of Object.getOwnPropertyNames(Q.Bridge.prototype))if(key!=='constructor')f.wasm[key]=bridge[key].bind(bridge);
+ attachLifecycle(f);
+ const send=(text,inputType='insertCompositionText',isComposing=true)=>{
+  f.h.textarea.value=text;input.onInput.call(f.h,{data:text,inputType,isComposing});
+ };
+ const reopen=expected=>{
+  const reopened=new M.HwpDocument(ext==='hwp'?bridge.doc.exportHwp():bridge.doc.exportHwpx());
+  try{assert.equal(reopened.getTextRange(0,0,0,100),expected);}finally{reopened.free();}
+ };
+ try{await run({f,doc,bridge,create,send,reopen,Q});}
+ finally{f.clear();for(const d of docs)d.free();seed.free();}
+}
+for(const ext of ['hwp','hwpx'])for(const preview of ['','ㄱ'])test(`real ${ext} empty native end restores reverse selection and old redo, preview=${preview}`,async()=>{
+ await realLifecycle(ext,({f,doc,send,reopen})=>{
+  const before=Buffer.from(doc.exportHwpx());f.type('Q');f.undo();f.cursor.selectRange(pos(0,3),pos(0,0),2);
+  const selected=f.cursor.getSelection();f.start();if(preview)send(preview);f.end('');send('','insertText',false);
+  assert.deepEqual(Buffer.from(doc.exportHwpx()),before);assert.deepEqual(f.cursor.getSelection(),selected);assert.equal(f.cursor.blockSelectionPhase(),2);
+  assert(!f.h.history.canUndo());assert(f.h.history.canRedo());reopen('ABC');f.redo();assert.equal(doc.getTextRange(0,0,0,100),'Q');
+ });
+});
+for(const ext of ['hwp','hwpx'])for(const ending of ['commit','cancel'])test(`real ${ext} rejected command can retry after native ${ending}`,async()=>{
+ await realLifecycle(ext,({f,doc,send,reopen,Q})=>{
+  const before=Buffer.from(doc.exportHwpx());f.start();send('ㄱ');
+  const operation={kind:'command',command:new commands.InsertTextCommand(pos(0,0),'Q')};
+  const preview=Buffer.from(doc.exportHwpx());assert.throws(()=>f.h.executeOperation(operation),/조합/);
+  assert.deepEqual(Buffer.from(doc.exportHwpx()),preview);assert(!f.h.history.canUndo());
+  f.end(ending==='commit'?'가':'');send(ending==='commit'?'가':'','insertText',false);
+  f.h.executeOperation(operation);reopen(ending==='commit'?'Q가':'QABC');
+  f.undo();if(ending==='commit')f.undo();assert.deepEqual(Buffer.from(doc.exportHwpx()),before);assert(!f.h.history.canUndo());
+ });
+});
+for(const ext of ['hwp','hwpx'])for(const preview of ['가','ㄱ'])for(const order of ['end-input','input-end'])for(const lifecycle of ['reactivated','end-while-inactive','end-before-deactivate','pending-at-generation-change'])test(`real ${ext} switched document ignores old IME: ${lifecycle}/${order}/${preview}`,async()=>{
+ await realLifecycle(ext,({f,bridge,create,send,reopen})=>{
+  f.start();send(preview);const next=create('NEW');bridge.doc=next;f.wasm.documentGeneration++;
+  const nextBytes=Buffer.from(next.exportHwpx());let restores=0,discards=0;
+  const restore=f.wasm.restoreSnapshot,discard=f.wasm.discardSnapshot;
+  f.wasm.restoreSnapshot=(...args)=>{restores++;return restore(...args);};
+  f.wasm.discardSnapshot=(...args)=>{discards++;return discard(...args);};
+  if(lifecycle==='reactivated'){f.deactivate();f.activate();}
+  else if(lifecycle==='end-while-inactive')f.deactivate();
+  else f.cursor.moveTo(pos(0,0));
+  if(order==='input-end')send('가');f.end('가');
+  if(lifecycle==='end-before-deactivate'){f.deactivate();f.activate();}
+  if(lifecycle==='end-while-inactive')f.activate();
+  send('가','insertText',false);
+  assert.deepEqual(Buffer.from(next.exportHwpx()),nextBytes,'old IME cannot edit the new document');
+  assert.equal(restores+discards,0,'never use old document snapshot ids against the new document');
+  assert(!f.h.history.canUndo());assert(!f.h.isComposing);reopen('NEW');
+  f.wasm.restoreSnapshot=restore;f.wasm.discardSnapshot=discard;
+  // A fresh native start must be accepted after closing the previous stream.
+  f.cursor.selectRange(pos(0,0),pos(0,3),2);f.start();send('나');f.end('나');reopen('나');
+  f.undo();assert.deepEqual(Buffer.from(next.exportHwpx()),nextBytes);assert(!f.h.history.canUndo());
+ });
+});
+
+for(const ext of ['hwp','hwpx'])test(`real ${ext} rejected Redo retries after empty native end`,async()=>{
+ await realLifecycle(ext,({f,doc,send,reopen,Q})=>{
+  f.h.restoreEditContextAfterHistory=Q.UndoHost.prototype.restoreEditContextAfterHistory;
+  for(const key of ['clearTableResizeRuntimeCache','resetDerivedStateAfterHistoryJump','restoreSelectionAfterRedo'])f.h[key]=()=>{};
+  f.type('Q');f.undo();f.cursor.selectRange(pos(0,3),pos(0,0),2);
+  f.start();send('ㄱ');const preview=Buffer.from(doc.exportHwpx());
+  assert.throws(()=>Q.UndoHost.prototype.handleRedo.call(f.h),/조합/);
+  assert.deepEqual(Buffer.from(doc.exportHwpx()),preview);assert(f.h.history.canRedo());
+  f.end('');Q.UndoHost.prototype.handleRedo.call(f.h);reopen('Q');assert(!f.h.history.canRedo());
+  f.undo();reopen('ABC');assert(!f.h.history.canUndo());
+ });
+});
+for(const ext of ['hwp','hwpx'])test(`real ${ext} closed stream drops only one plain commit across reactivation`,async()=>{
+ await realLifecycle(ext,({f,bridge,create,send,reopen})=>{
+  f.start();send('ㄱ');bridge.doc=create('NEW');f.wasm.documentGeneration++;
+  f.end('가');f.deactivate();f.activate();send('가','insertText',false);reopen('NEW');
+  send('가','insertText',false);reopen('가NEW');f.undo();reopen('NEW');assert(!f.h.history.canUndo());
+ });
+});
+for(const ext of ['hwp','hwpx'])test(`real ${ext} end while unloaded does not touch old snapshot or next document`,async()=>{
+ await realLifecycle(ext,({f,bridge,create,send,reopen})=>{
+  f.start();send('ㄱ');f.wasm.documentGeneration++;f.wasm.hasLoadedDocument=()=>false;
+  const restore=f.wasm.restoreSnapshot,discard=f.wasm.discardSnapshot;
+  f.wasm.restoreSnapshot=()=>assert.fail('restore unloaded');f.wasm.discardSnapshot=()=>assert.fail('discard unloaded');
+  f.end('가');assert(!f.h.hasBodySelectionComposition());assert(!f.h.isComposing);
+  bridge.doc=create('NEW');f.wasm.documentGeneration++;f.wasm.hasLoadedDocument=()=>true;
+  f.wasm.restoreSnapshot=restore;f.wasm.discardSnapshot=discard;
+  f.deactivate();f.activate();send('가','insertText',false);reopen('NEW');assert(!f.h.history.canUndo());
+ });
+});
+
+for(const ext of ['hwp','hwpx'])test(`real ${ext} intervening ordinary input retires the old final value`,async()=>{
+ await realLifecycle(ext,({f,bridge,create,send,reopen})=>{
+  f.start();send('ㄱ');bridge.doc=create('NEW');f.wasm.documentGeneration++;
+  f.end('가');f.deactivate();f.activate();send('Q','insertText',false);send('가','insertText',false);reopen('Q가NEW');
+ });
+});
+for(const ext of ['hwp','hwpx'])for(const preview of ['ㄱ','가'])for(const inputType of ['insertText','insertFromComposition'])test(`real ${ext} normal end before document swap retains one commit token: ${preview}/${inputType}`,async()=>{
+ await realLifecycle(ext,({f,doc,bridge,create,send,reopen})=>{
+  f.start();send(preview);f.end('가');assert.equal(doc.getTextRange(0,0,0,100),'가');assert(f.h.history.canUndo());
+  bridge.doc=create('NEW');f.wasm.documentGeneration++;f.deactivate();f.activate();
+  const before=Buffer.from(bridge.doc.exportHwpx());send('가',inputType,false);
+  assert.deepEqual(Buffer.from(bridge.doc.exportHwpx()),before);assert(!f.h.history.canUndo());reopen('NEW');
+  send('가','insertText',false);reopen('가NEW');f.undo();reopen('NEW');
+ });
+});
