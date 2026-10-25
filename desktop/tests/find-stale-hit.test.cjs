@@ -7,11 +7,18 @@ function controller(){
  const handlers=new Map(),calls=[],hit={found:true,sec:0,para:0,charOffset:4,length:6};let response=hit;
  const eventBus={on(event,fn){if(!handlers.has(event))handlers.set(event,new Set());handlers.get(event).add(fn);return()=>handlers.get(event).delete(fn);},emit(event){for(const fn of handlers.get(event)||[])fn();}};
  const wasm={documentGeneration:1,searchText(...args){calls.push(['search',...args]);return response;},replaceText(...args){calls.push(['replace',...args]);response={found:false};return {ok:true};}};
- const ih={getCursorPosition:()=>({sectionIndex:0,paragraphIndex:0,charOffset:0}),moveCursorTo(){},cursor:{setAnchor(){},moveTo(){},clearSelection(){}},executeOperation(op){calls.push(['snapshot']);op.operation(wasm);}};
+ let position={sectionIndex:0,paragraphIndex:0,charOffset:0},anchor=null;
+ const ih={getCursorPosition:()=>({...position}),getSelection:()=>anchor?{start:{...anchor},end:{...position}}:null,
+  moveCursorTo(pos){anchor=null;position={...pos};},
+  cursor:{setAnchor(){anchor={...position};},moveTo(pos){position={...pos};},clearSelection(){anchor=null;}},
+  executeOperation(op){calls.push(['snapshot']);op.operation(wasm);}};
+ function place(pos){ih.moveCursorTo(pos);}
+ function selectHit(hit){const cell=hit.cellContext;place({sectionIndex:hit.sec,paragraphIndex:cell?.parentPara??hit.para,charOffset:hit.charOffset,
+  ...(cell?{parentParaIndex:cell.parentPara,controlIndex:cell.ctrlIdx,cellIndex:cell.cellIdx,cellParaIndex:cell.cellPara}:{})});ih.cursor.setAnchor();ih.cursor.moveTo({...position,charOffset:hit.charOffset+hit.length});}
  const d=new exports.FindDialog({wasm,eventBus,getInputHandler:()=>ih},'replace');
  Object.assign(d,{build(){},applyMode(){},installKeyCaptureHandler(){},removeKeyCaptureHandler(){},focusInput(){},wrap:{remove(){}},queryInput:{value:'',focus(){},select(){}},replaceInput:{value:'Q'},caseSensitiveCheck:{checked:false},statusLabel:{style:{},textContent:''}});
  d.show();d.queryInput.value='needle';d.findNext();calls.length=0;
- return {d,wasm,eventBus,handlers,calls,missing(){response={found:false};}};
+ return {d,wasm,eventBus,handlers,calls,place,selectHit,missing(){response={found:false};}};
 }
 for(const event of ['document-mutated','document-changed','history-jumped'])test(event+' invalidates the cached hit before replacing and does not record history',()=>{
  const c=controller();c.eventBus.emit(event);c.d.doReplace();assert.deepEqual(c.calls.map(x=>x[0]),['search']);
@@ -24,7 +31,7 @@ test('a document swap generation cannot reuse an old range without a fresh searc
 });
 for(const kind of ['body','cell'])test('previous find after a document swap starts at the new cursor, not the old '+kind+' hit',()=>{
  const c=controller();c.d.currentHit={found:true,sec:2,para:7,charOffset:12,length:6,...(kind==='cell'?{cellContext:{parentPara:7,ctrlIdx:0,cellIdx:1,cellPara:0}}:{})};
- c.wasm.documentGeneration++;c.d.findPrev();
+ c.wasm.documentGeneration++;c.place({sectionIndex:0,paragraphIndex:0,charOffset:0});c.d.findPrev();
  assert.deepEqual(c.calls,[['search','needle',0,0,0,false,false,true,undefined]]);
  assert.equal(c.d.currentHitGeneration,c.wasm.documentGeneration);
 });
@@ -34,10 +41,24 @@ test('previous find in the same document starts at the current match start to sk
 test('previous find retains the cached flat cell address in the same document',()=>{
  const c=controller(),cell={parentPara:7,ctrlIdx:2,cellIdx:1,cellPara:3};
  c.d.currentHit={found:true,sec:0,para:7,charOffset:4,length:6,cellContext:cell};
+ c.selectHit(c.d.currentHit);
  c.d.findPrev();assert.deepEqual(c.calls,[['search','needle',0,7,4,false,false,true,cell]]);
 });
 test('a fresh unchanged hit replaces once through the real snapshot routing contract',()=>{
  const c=controller();c.d.doReplace();assert.equal(c.calls.filter(x=>x[0]==='snapshot').length,1);assert.deepEqual(c.calls.find(x=>x[0]==='replace'),['replace',0,0,4,6,'Q']);
+});
+for(const [name,change] of [
+ ['cleared selection',c=>c.place({sectionIndex:0,paragraphIndex:0,charOffset:10})],
+ ['different body paragraph',c=>c.selectHit({found:true,sec:0,para:1,charOffset:4,length:6})],
+ ['different section',c=>c.selectHit({found:true,sec:1,para:0,charOffset:4,length:6})],
+ ['body-to-cell selection',c=>c.selectHit({found:true,sec:0,para:0,charOffset:4,length:6,cellContext:{parentPara:0,ctrlIdx:0,cellIdx:0,cellPara:0}})],
+])test(name+' invalidates a previously selected body hit before replacing',()=>{
+ const c=controller();change(c);c.d.doReplace();assert.deepEqual(c.calls.map(x=>x[0]),['search']);
+});
+test('a different cell with identical offsets cannot reuse the previous flat-cell hit',()=>{
+ const c=controller();c.d.currentHit={found:true,sec:0,para:7,charOffset:4,length:6,cellContext:{parentPara:7,ctrlIdx:1,cellIdx:0,cellPara:0}};
+ c.selectHit({...c.d.currentHit,cellContext:{parentPara:7,ctrlIdx:1,cellIdx:1,cellPara:0}});
+ c.d.doReplace();assert.deepEqual(c.calls.map(x=>x[0]),['search']);
 });
 for(const failure of ['false','throw'])test('single replace reports '+failure+' inside the snapshot instead of committing or escaping',()=>{
  const c=controller();c.wasm.replaceText=()=>{if(failure==='throw')throw Error('engine refused');return {ok:false};};
