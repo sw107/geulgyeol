@@ -631,7 +631,7 @@ export class InputHandler {
     this.onCompositionStartBound = this.onCompositionStart.bind(this);
     this.onCompositionEndBound = this.onCompositionEnd.bind(this);
     this.onInputBlurBound = () => {
-      if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition()) this.onCompositionEnd();
+      if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition() || this.hasBodySelectionComposition?.()) this.onCompositionEnd();
       this.flushDeferredPaginationIfNeeded('input-blur', false);
     };
     this.onCopyBound = this.onCopy.bind(this);
@@ -3113,7 +3113,7 @@ export class InputHandler {
 
   /** Undo 처리 */
   private handleUndo(): void {
-    if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
+    if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition?.() || this.hasBodySelectionComposition?.()) this.onCompositionEnd();
     this.clearPendingFootnoteCharShape();
     this.flushDeferredPaginationIfNeeded('before-undo', false);
     const newPos = this.history.undo(this.wasm);
@@ -3133,6 +3133,7 @@ export class InputHandler {
 
   /** Redo 처리 */
   private handleRedo(): void {
+    if (this.hasBodySelectionComposition?.()) this.onCompositionEnd();
     if (this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
     if (this.pendingFootnoteComposition) this.onCompositionEnd();
     this.clearPendingFootnoteCharShape();
@@ -3338,7 +3339,7 @@ export class InputHandler {
 
   executeOperation(desc: OperationDescriptor): void {
     this.wasm.assertDocumentWritable();
-    if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
+    if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition?.() || this.hasBodySelectionComposition?.()) this.onCompositionEnd();
     if (!this.isOperationAllowedInEditMode(desc)) return;
     switch (desc.kind) {
       case 'command': {
@@ -3492,6 +3493,9 @@ export class InputHandler {
     render: () => Promise<void>,
   ): Promise<void> {
     this.wasm.assertDocumentWritable();
+    // Agent requests were validated against the preview state. Do not commit or
+    // overwrite that state underneath their revision fence while IME owns it.
+    if (this.hasBodySelectionComposition?.()) throw new Error('선택 교체 조합을 완료한 뒤 다시 시도하세요.');
     this.pendingDocumentAgentOperations += 1;
     try { await this.performDocumentAgentOperation(desc, render); }
     finally { this.pendingDocumentAgentOperations -= 1; }
@@ -3567,6 +3571,10 @@ export class InputHandler {
   }
 
   /** IME 조합 시작 */
+  private hasBodySelectionComposition(): boolean {
+    return _text.hasBodySelectionComposition.call(this);
+  }
+
   private onCompositionStart(): void {
     _text.onCompositionStart.call(this);
   }
@@ -4523,6 +4531,7 @@ export class InputHandler {
   }
 
   deactivate(): void {
+    _text.cancelBodySelectionComposition.call(this, false);
     _captionText.cancelComposition.call(this);
     this.cancelPendingFootnoteComposition();
     this.clearPendingFootnoteCharShape();
@@ -4574,6 +4583,7 @@ export class InputHandler {
   }
 
   dispose(): void {
+    _text.cancelBodySelectionComposition.call(this, false);
     _captionText.cancelComposition.call(this);
     this.cancelPendingFootnoteComposition();
     this.clearPendingFootnoteCharShape();
