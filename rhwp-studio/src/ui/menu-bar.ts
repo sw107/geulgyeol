@@ -22,6 +22,7 @@ export class MenuBar {
   private menuItems: HTMLElement[];
   private openMenu: HTMLElement | null = null;
   private onMenuOpen?: (menuName: string, menuEl: HTMLElement) => void;
+  private pointerCommandFocus: { target: HTMLElement; input: HTMLElement } | null = null;
 
   constructor(
     private container: HTMLElement,
@@ -79,11 +80,29 @@ export class MenuBar {
 
   /** 드롭다운 항목·메뉴바 직접 버튼 클릭 → 커맨드 디스패치 + 닫기 */
   private setupItemClicks(): void {
+    this.container.addEventListener('mousedown', (e) => {
+      this.pointerCommandFocus = null;
+      if (e.button !== 0) return;
+      const target = (e.target as HTMLElement).closest('.md-item[data-cmd], .menu-command[data-cmd]') as HTMLElement | null;
+      const input = document.activeElement;
+      if (target && input instanceof HTMLElement && input !== document.body && !this.container.contains(input)) {
+        this.pointerCommandFocus = { target, input };
+      }
+      // Allow the normal blur/compositionend before click, so an active IME
+      // composition can commit before Undo or another editing command runs.
+    });
     this.container.addEventListener('click', (e) => {
       const target = (e.target as HTMLElement).closest(
         '.md-item[data-cmd], .menu-command[data-cmd]',
       ) as HTMLElement;
+      const previous = this.pointerCommandFocus;
+      this.pointerCommandFocus = null;
       if (!target) return;
+      if (e.detail > 0 && previous?.target === target && previous.input.isConnected
+        && (document.activeElement === document.body || target.contains(document.activeElement))) {
+        // Restore before dispatch; a command may then focus its own dialog.
+        previous.input.focus({ preventScroll: true });
+      }
       if (target.classList.contains('disabled')) return;
 
       const cmd = target.dataset.cmd;
@@ -104,6 +123,7 @@ export class MenuBar {
     document.addEventListener('mousedown', (e) => {
       if (!this.openMenu) return;
       if (!this.container.contains(e.target as Node)) {
+        this.pointerCommandFocus = null;
         this.closeAll();
       }
     });
