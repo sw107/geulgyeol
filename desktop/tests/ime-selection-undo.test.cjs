@@ -410,7 +410,8 @@ for(const ext of ['hwp','hwpx'])for(const preview of ['ㄱ','가'])for(const inp
 
 const keyboard=load(source('input-handler-keyboard.ts'),{
  ...commands,...load(source('navigation-keymap.ts')),
- ...load(fs.readFileSync(path.join(root,'rhwp-studio/src/command/shortcut-map.ts'),'utf8')),
+ ...load(fs.readFileSync(path.join(root,'rhwp-studio/src/command/contextual-shortcut.ts'),'utf8')),
+ ...load(fs.readFileSync(path.join(root,'rhwp-studio/src/command/shortcut-map.ts'),'utf8'),load(source('navigation-keymap.ts'))),
 });
 function pressPlainKey(f,event={}){
  for(const key of ['isInPictureObjectSelection','isInTableObjectSelection','isInCellSelectionMode','isInBlockSelectionMode'])f.cursor[key]=()=>false;
@@ -441,5 +442,24 @@ for(const ext of ['hwp','hwpx'])for(const signal of ['isComposing','keyCode229']
   pressPlainKey(f,{key:'Process',isComposing:signal==='isComposing',keyCode:signal==='keyCode229'?229:65});
   send('a','insertText',false);reopen('NEW');assert(!f.h.history.canUndo());
   pressPlainKey(f);send('a','insertText',false);reopen('aNEW');f.undo();reopen('NEW');
+ });
+});
+for(const ext of ['hwp','hwpx'])test(`real ${ext} fresh Option character retires the old final token`,async()=>{
+ await realLifecycle(ext,({f,bridge,create,send,reopen})=>{
+  f.start();send('å');f.end('å');bridge.doc=create('NEW');f.wasm.documentGeneration++;f.deactivate();f.activate();
+  f.h.dispatcher={isEnabled:()=>true,dispatch:()=>assert.fail('Option å is not a command shortcut')};
+  pressPlainKey(f,{key:'å',altKey:true});send('å','insertText',false);reopen('åNEW');f.undo();reopen('NEW');
+ });
+});
+
+for(const ext of ['hwp','hwpx'])test(`real ${ext} consumed Alt shortcut retains the old commit guard`,async()=>{
+ await realLifecycle(ext,({f,bridge,create,send,reopen})=>{
+  f.start();send('c');f.end('c');bridge.doc=create('NEW');f.wasm.documentGeneration++;f.deactivate();f.activate();
+  for(const key of ['isInPictureObjectSelection','isInTableObjectSelection','isInCellSelectionMode','isInBlockSelectionMode'])f.cursor[key]=()=>false;
+  const dispatched=[];f.h.dispatcher={dispatch:id=>dispatched.push(id),isEnabled:()=>true};
+  const event={key:'c',code:'KeyC',keyCode:67,isComposing:false,ctrlKey:false,metaKey:false,altKey:true,shiftKey:false,
+   defaultPrevented:false,preventDefault(){this.defaultPrevented=true;}};
+  keyboard.onKeyDown.call(f.h,event);assert(event.defaultPrevented);assert.deepEqual(dispatched,['edit:format-copy']);
+  send('c','insertText',false);reopen('NEW');assert(!f.h.history.canUndo());
  });
 });

@@ -696,15 +696,19 @@ function hitTestAfterPageScroll(
  * 새 단축키 추가 시: shortcut-map.ts의 defaultShortcuts 테이블에 등록
  */
 export function onKeyDown(this: any, e: KeyboardEvent): void {
-  if (!this.active) return;
-
-  // A fresh printable key is a new user input boundary, even when it will
-  // produce the same text as a previously completed IME stream. This epoch
-  // only retires old dedup state; characters still come from input events.
-  if (!this.isComposing && !e.isComposing && e.keyCode !== 229
-      && !e.ctrlKey && !e.metaKey && !e.altKey && Array.from(e.key).length === 1) {
+  const freshTextKey = this.active && !this.isComposing && !e.isComposing && e.keyCode !== 229
+    && !e.ctrlKey && !e.metaKey && Array.from(e.key).length === 1;
+  routeKeyDown.call(this, e);
+  // An admitted printable key (including Option characters) begins new input.
+  // Consumed shortcuts keep the old stream guard. Characters still come only
+  // from input events; this epoch merely retires previous dedup state.
+  if (freshTextKey && !e.defaultPrevented) {
     this._bodySelectionInputEpoch = (this._bodySelectionInputEpoch ?? 0) + 1;
   }
+}
+
+function routeKeyDown(this: any, e: KeyboardEvent): void {
+  if (!this.active) return;
 
   // 이전 셀 문자 단축키의 compositionend가 브라우저 focus 이동으로 누락됐더라도 다음
   // 물리 입력까지 억제 상태가 새지 않게 한다. 현재 S/M이면 아래 resolver가 다시 arm한다.
