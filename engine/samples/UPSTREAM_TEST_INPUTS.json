@@ -1,0 +1,52 @@
+{
+  "upstreamRepository": "https://github.com/edwardkim/rhwp",
+  "upstreamCommit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+  "scope": "Four authentic compile-time test inputs restored verbatim from the source snapshot baseline. This is not the full upstream fixture corpus.",
+  "inputs": [
+    {
+      "path": "engine/samples/3-09월_교육_통합_2022.hwp",
+      "upstreamPath": "samples/3-09월_교육_통합_2022.hwp",
+      "gitBlobOID": "9e83cccae3c7186c77aea448841c223922be639e",
+      "bytes": 5820416,
+      "sha256": "d451ffbc72e8c84433f380c0cbcc8472f23286d53dce4b793a4bbb82f8715108",
+      "upstreamURL": "https://github.com/edwardkim/rhwp/blob/f1f9c6ae58344ee9368996d3543f76b9345cf227/samples/3-09월_교육_통합_2022.hwp",
+      "redistributionStatus": "not-verified",
+      "requiredEvidence": "Original publication and explicit utilization/redistribution terms, or authorization from a party entitled to grant it, covering this document and embedded resources."
+    },
+    {
+      "path": "engine/samples/hwp3-sample16-hwp5.hwp",
+      "upstreamPath": "samples/hwp3-sample16-hwp5.hwp",
+      "gitBlobOID": "f952b7633732d6e510b49f8805116d0a65b93bb0",
+      "bytes": 3043328,
+      "sha256": "6a3cdf2c148bf39f40ab06e847767e7f722543fce59e6ee4328ef44b835f3f45",
+      "upstreamURL": "https://github.com/edwardkim/rhwp/blob/f1f9c6ae58344ee9368996d3543f76b9345cf227/samples/hwp3-sample16-hwp5.hwp",
+      "redistributionStatus": "not-verified",
+      "requiredEvidence": "Original publication and explicit utilization/redistribution terms, or authorization from a party entitled to grant it, covering this document and embedded resources."
+    },
+    {
+      "path": "engine/samples/hwpx/aift.hwpx",
+      "upstreamPath": "samples/hwpx/aift.hwpx",
+      "gitBlobOID": "83eaf1947b35a004f80deb86e02b1d007aba3b80",
+      "bytes": 5056727,
+      "sha256": "5e27ee51825d10f0f51bd04935f0f9f8fc24f930a010367d822638964fefd491",
+      "upstreamURL": "https://github.com/edwardkim/rhwp/blob/f1f9c6ae58344ee9368996d3543f76b9345cf227/samples/hwpx/aift.hwpx",
+      "redistributionStatus": "not-verified",
+      "requiredEvidence": "Original publication and explicit utilization/redistribution terms, or authorization from a party entitled to grant it, covering this document and embedded resources."
+    },
+    {
+      "path": "engine/mydocs/tech/agent_runtime/version_policy.md",
+      "upstreamPath": "mydocs/tech/agent_runtime/version_policy.md",
+      "gitBlobOID": "31bfd4c3c26ea09f7312ae0c76c8ddd2829610f1",
+      "bytes": 8579,
+      "sha256": "af14ca6db6592a2416348300871e8f353bb161d2f5b29dbf068d3f3544b07223",
+      "upstreamURL": "https://github.com/edwardkim/rhwp/blob/f1f9c6ae58344ee9368996d3543f76b9345cf227/mydocs/tech/agent_runtime/version_policy.md",
+      "redistributionStatus": "upstream-project-document"
+    }
+  ],
+  "upstreamProjectLicenseFile": "https://github.com/edwardkim/rhwp/blob/f1f9c6ae58344ee9368996d3543f76b9345cf227/LICENSE",
+  "documentRedistributionReview": {
+    "status": "unverified",
+    "mergeDecision": "hold",
+    "note": "Byte identity and the upstream project license do not establish redistribution authorization for third-party document contents or embedded resources."
+  }
+}
