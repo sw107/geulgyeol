@@ -382,7 +382,131 @@ function clearCellBlockLetterImeFollowup(this: any): void {
   this.resetRawTextMutationEffects();
 }
 
+type BodySelectionComposition = {
+  snapshot: number;
+  generation: number;
+  anchor: DocumentPosition;
+  focus: DocumentPosition;
+  phase: number | null;
+  pendingShape: any;
+  pendingAnchor: any;
+};
+const bodySelectionCompositions = new WeakMap<object, BodySelectionComposition>();
+// An explicit Undo/cancel closes the transaction before the native IME stream
+// necessarily ends. Its remaining composition events no longer own a text range.
+const closedBodyCompositions = new WeakMap<object, number>();
+
+function isClosedBodyComposition(this: any): boolean {
+  const generation = closedBodyCompositions.get(this);
+  if (generation === undefined) return false;
+  if (generation !== this.wasm.documentGeneration) {
+    closedBodyCompositions.delete(this);
+    return false;
+  }
+  return true;
+}
+
+
+export function hasBodySelectionComposition(this: any): boolean {
+  return bodySelectionCompositions.has(this);
+}
+
+/** Same bounded body-selection contract as ordinary replacement typing. */
+function bodySelectionInputRange(this: any): any {
+  if (this.editMode !== 'normal' || this.cursor.isInCell() || this.cursor.isInTextBox?.()
+      || this.cursor.isInFootnote() || this.cursor.isInHeaderFooter()) return null;
+  const ordered = this.cursor.getSelectionOrdered();
+  if (!ordered || ordered.start.sectionIndex !== ordered.end.sectionIndex) return null;
+  if ([ordered.start, ordered.end].some(p => p.parentParaIndex !== undefined || p.cellPath?.length || p.isTextBox)) return null;
+  if (ordered.start.paragraphIndex === ordered.end.paragraphIndex && ordered.start.charOffset === ordered.end.charOffset) return null;
+  // Keep field boundary/guide behavior on its existing path until separately verified.
+  if (this.wasm.getFieldList().length !== 0) return null;
+  return ordered;
+}
+
+function restoreBodySelectionComposition(this: any, state: BodySelectionComposition): boolean {
+  if (state.generation !== this.wasm.documentGeneration || !this.wasm.hasLoadedDocument()) return false;
+  try { this.wasm.restoreSnapshot(state.snapshot); }
+  finally { this.wasm.discardSnapshot(state.snapshot); }
+  this.cursor.selectRange(state.anchor, state.focus, state.phase);
+  this.pendingCharShape = state.pendingShape;
+  this.pendingCharShapeAnchor = state.pendingAnchor;
+  this.resetRawTextMutationEffects();
+  return true;
+}
+
+export function cancelBodySelectionComposition(this: any, refresh = true): void {
+  const state = bodySelectionCompositions.get(this);
+  if (!state) return;
+  bodySelectionCompositions.delete(this);
+  closedBodyCompositions.set(this, state.generation);
+  this.isComposing = false;
+  this.compositionAnchor = null;
+  this.compositionLength = 0;
+  this._lastCompositionText = '';
+  this._lastComposedText = '';
+  this.textarea.value = '';
+  if (restoreBodySelectionComposition.call(this, state) && refresh) this.afterEdit();
+}
+
+function beginBodySelectionComposition(this: any): boolean {
+  const range = bodySelectionInputRange.call(this);
+  const selected = this.cursor.getSelection();
+  if (!range || !selected) return false;
+  this.wasm.assertDocumentWritable();
+  const state: BodySelectionComposition = {
+    snapshot: this.wasm.saveSnapshot(), generation: this.wasm.documentGeneration,
+    anchor: { ...selected.anchor }, focus: { ...selected.focus }, phase: this.cursor.blockSelectionPhase(),
+    pendingShape: this.pendingCharShape, pendingAnchor: this.pendingCharShapeAnchor,
+  };
+  bodySelectionCompositions.set(this, state);
+  try {
+    const deletion = new DeleteSelectionCommand(range.start, range.end, state.phase);
+    let position: DocumentPosition;
+    try {
+      position = deletion.execute(this.wasm);
+      if (deletion.isNoOp()) throw new Error('선택 교체 범위를 삭제할 수 없습니다.');
+    } finally { deletion.discard(this.wasm); }
+    this.cursor.clearSelection();
+    this.cursor.moveTo(position);
+    this.cursor.resetPreferredX();
+    if (!this.canInsertTextInFormMode?.(position)) throw new Error('선택 교체 위치에 입력할 수 없습니다.');
+    return true;
+  } catch (error) {
+    cancelBodySelectionComposition.call(this);
+    throw error;
+  }
+}
+
+function finishBodySelectionComposition(this: any): boolean {
+  const state = bodySelectionCompositions.get(this);
+  if (!state) return false;
+  const text = this.compositionLength > 0 ? this._lastCompositionText : '';
+  bodySelectionCompositions.delete(this);
+  let restored = false;
+  try {
+    restored = restoreBodySelectionComposition.call(this, state);
+    if (restored && text) {
+      // The preview never touched history. Commit via the existing atomic typing
+      // transaction so undo/redo, formatting and the snapshot budget stay shared.
+      if (!replaceBodySelectionInput.call(this, text)) throw new Error('선택 교체 조합 범위가 변경되었습니다.');
+    } else if (restored && !text) {
+      this.afterEdit();
+    }
+  } catch (error) {
+    this.isComposing = false;
+    this.compositionAnchor = null;
+    this.compositionLength = 0;
+    this.textarea.value = '';
+    if (restored) this.afterEdit();
+    throw error;
+  }
+  return true;
+}
+
 export function onCompositionStart(this: any): void {
+  if (hasBodySelectionComposition.call(this)) this.onCompositionEnd();
+  closedBodyCompositions.delete(this);
   if (this._cellBlockLetterImeGuard?.consume('compositionstart')) {
     clearCellBlockLetterImeFollowup.call(this);
     return;
@@ -405,7 +529,7 @@ export function onCompositionStart(this: any): void {
       this.textarea.value = '';
       return;
     }
-    this.deleteSelection();
+    if (!beginBodySelectionComposition.call(this)) this.deleteSelection();
   }
   let basePos = this.cursor.isInHeaderFooter()
     ? { ...this.cursor.getPosition(), charOffset: this.cursor.hfCharOffset }
@@ -416,6 +540,7 @@ export function onCompositionStart(this: any): void {
     basePos = this.prepareClickHereInputPosition?.() ?? basePos;
   }
   if (!this.canInsertTextInFormMode?.(basePos)) {
+    cancelBodySelectionComposition.call(this);
     this.textarea.value = '';
     this.isComposing = false;
     this.compositionAnchor = null;
@@ -438,6 +563,32 @@ export function onCompositionStart(this: any): void {
 }
 
 export function onCompositionEnd(this: any, e?: CompositionEvent): void {
+  const bodyStream = hasBodySelectionComposition.call(this) || isClosedBodyComposition.call(this);
+  const generation = this.wasm.documentGeneration;
+  try {
+    finishCompositionEnd.call(this, e);
+  } catch (error) {
+    // A failed final update/commit has already rolled back its selection. The
+    // native trailing insertText still belongs to that failed stream, not a new
+    // user replacement. Keep its final data even though normal cleanup threw.
+    if (bodyStream && generation === this.wasm.documentGeneration && typeof e?.data === 'string') {
+      closedBodyCompositions.set(this, generation);
+      this._lastComposedText = e.data;
+    }
+    throw error;
+  }
+}
+
+function finishCompositionEnd(this: any, e?: CompositionEvent): void {
+  if (!this.isComposing && isClosedBodyComposition.call(this)) {
+    // Do not reopen a transaction that Undo/cancel already closed. Preserve the
+    // native final data solely to consume its trailing commit input once.
+    if (typeof e?.data === 'string') this._lastComposedText = e.data;
+    this.textarea.value = '';
+    return;
+  }
+  const explicitlyClosedBody = !e && hasBodySelectionComposition.call(this);
+
   if (this._cellBlockLetterImeGuard?.consume('compositionend', this.textarea.value)) {
     clearCellBlockLetterImeFollowup.call(this);
     return;
@@ -454,6 +605,8 @@ export function onCompositionEnd(this: any, e?: CompositionEvent): void {
     }
   }
 
+  const bodySelectionComposition = finishBodySelectionComposition.call(this);
+  if (explicitlyClosedBody) closedBodyCompositions.set(this, this.wasm.documentGeneration);
   const anchor = this.compositionAnchor;
   const finalLength = this.compositionLength;
   const headerFooterSelectionComposition = this.headerFooterSelectionComposition === true;
@@ -475,7 +628,7 @@ export function onCompositionEnd(this: any, e?: CompositionEvent): void {
   // 조합 중 WASM 직접 호출로 이미 문서에 삽입된 텍스트를
   // Command로 기록하여 Undo 가능하게 한다.
   // [Task #2337] 머리말/꼬리말·각주 모드도 이제 기록한다(본문 스냅샷 undo 의 무언 파괴 차단).
-  if (anchor && finalLength > 0 && !headerFooterSelectionComposition && !pendingFootnoteComposition && !pendingCaptionComposition) {
+  if (anchor && finalLength > 0 && !bodySelectionComposition && !headerFooterSelectionComposition && !pendingFootnoteComposition && !pendingCaptionComposition) {
     if (this.cursor.isInHeaderFooter()) {
       // HF 는 신뢰할 텍스트 read 가 없어 getTextAt(본문 리더)을 쓸 수 없으므로 조합 텍스트
       // (_lastCompositionText)를 그대로 기록한다. anchor.charOffset = 조합 시작 오프셋,
@@ -535,13 +688,8 @@ export function getTextAt(this: any, pos: DocumentPosition, count: number): stri
 
 /** One history entry for ordinary body typing over a selection. */
 function replaceBodySelectionInput(this: any, text: string): boolean {
-  if (this.editMode !== 'normal' || this.cursor.isInCell() || this.cursor.isInTextBox?.()) return false;
-  const ordered = this.cursor.getSelectionOrdered();
-  if (!ordered || ordered.start.sectionIndex !== ordered.end.sectionIndex) return false;
-  if ([ordered.start, ordered.end].some(p => p.parentParaIndex !== undefined || p.cellPath?.length || p.isTextBox)) return false;
-  if (ordered.start.paragraphIndex === ordered.end.paragraphIndex && ordered.start.charOffset === ordered.end.charOffset) return false;
-  // Keep field boundary/guide behavior on its existing path until separately verified.
-  if (this.wasm.getFieldList().length !== 0) return false;
+  const ordered = bodySelectionInputRange.call(this);
+  if (!ordered) return false;
   const start = { ...ordered.start }, end = { ...ordered.end };
   const selection = this.cursor.getSelection();
   if (!selection) return false;
@@ -598,9 +746,20 @@ export function onInput(this: any, e?: InputEvent): void {
   }
 
   const text = this.textarea.value;
+  if (!this.isComposing && isClosedBodyComposition.call(this)
+      && (e?.isComposing || e?.inputType === 'insertCompositionText' || e?.inputType === 'insertFromComposition')) {
+    this.textarea.value = '';
+    return;
+  }
   // const inputType = e?.inputType ?? 'unknown';
   // const inputData = e?.data ?? '';
   // const isComp = e?.isComposing ?? false;
+
+  const pendingBody = bodySelectionCompositions.get(this);
+  if (pendingBody && (pendingBody.generation !== this.wasm.documentGeneration || !this.wasm.hasLoadedDocument())) {
+    cancelBodySelectionComposition.call(this);
+    return;
+  }
 
   // IME 조합 중: 이전 조합 텍스트 삭제 → 현재 조합 텍스트 삽입 (실시간 렌더링)
   // Undo 스택에는 기록하지 않음 (compositionend에서 한 번에 기록)
@@ -618,6 +777,10 @@ export function onInput(this: any, e?: InputEvent): void {
     try {
       this.replaceTextAtRaw(anchor, this.compositionLength, text);
     } catch (err) {
+      if (hasBodySelectionComposition.call(this)) {
+        cancelBodySelectionComposition.call(this);
+        throw err;
+      }
       // wasm 의 deferred replace 범위 가드가 거부하면(외부 변이로 앵커·길이가 낡은
       // 경합) 여기서 던진 채 두면 onInput 전체가 죽어 조합 추적이 낡은 값으로
       // wedge 된다. 조합을 현재 캐럿에 재정박하고 이번 조합 텍스트를 새로 삽입해
