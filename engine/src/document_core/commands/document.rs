@@ -2823,8 +2823,14 @@ mod validate_linesegs_tests {
     use crate::model::paragraph::{ColumnBreakType, LineSeg, Paragraph};
 
     fn p325_picture_band_core() -> DocumentCore {
-        DocumentCore::from_bytes(include_bytes!("../../../samples/3-09월_교육_통합_2022.hwp"))
-            .expect("p325 Picture-band corpus fixture")
+        let bytes = std::fs::read(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/samples/3-09월_교육_통합_2022.hwp"
+        ))
+        .expect(
+            "required corpus fixture samples/3-09월_교육_통합_2022.hwp is missing or unreadable",
+        );
+        DocumentCore::from_bytes(&bytes).expect("p325 Picture-band corpus fixture")
     }
 
     fn line_seg_fields(lines: &[LineSeg]) -> Vec<(u32, i32, i32, i32, i32, i32, i32, i32, u32)> {
