@@ -392,6 +392,20 @@ type BodySelectionComposition = {
   pendingAnchor: any;
 };
 const bodySelectionCompositions = new WeakMap<object, BodySelectionComposition>();
+// An explicit Undo/cancel closes the transaction before the native IME stream
+// necessarily ends. Its remaining composition events no longer own a text range.
+const closedBodyCompositions = new WeakMap<object, number>();
+
+function isClosedBodyComposition(this: any): boolean {
+  const generation = closedBodyCompositions.get(this);
+  if (generation === undefined) return false;
+  if (generation !== this.wasm.documentGeneration) {
+    closedBodyCompositions.delete(this);
+    return false;
+  }
+  return true;
+}
+
 
 export function hasBodySelectionComposition(this: any): boolean {
   return bodySelectionCompositions.has(this);
@@ -425,6 +439,7 @@ export function cancelBodySelectionComposition(this: any, refresh = true): void 
   const state = bodySelectionCompositions.get(this);
   if (!state) return;
   bodySelectionCompositions.delete(this);
+  closedBodyCompositions.set(this, state.generation);
   this.isComposing = false;
   this.compositionAnchor = null;
   this.compositionLength = 0;
@@ -491,6 +506,7 @@ function finishBodySelectionComposition(this: any): boolean {
 
 export function onCompositionStart(this: any): void {
   if (hasBodySelectionComposition.call(this)) this.onCompositionEnd();
+  closedBodyCompositions.delete(this);
   if (this._cellBlockLetterImeGuard?.consume('compositionstart')) {
     clearCellBlockLetterImeFollowup.call(this);
     return;
@@ -547,6 +563,32 @@ export function onCompositionStart(this: any): void {
 }
 
 export function onCompositionEnd(this: any, e?: CompositionEvent): void {
+  const bodyStream = hasBodySelectionComposition.call(this) || isClosedBodyComposition.call(this);
+  const generation = this.wasm.documentGeneration;
+  try {
+    finishCompositionEnd.call(this, e);
+  } catch (error) {
+    // A failed final update/commit has already rolled back its selection. The
+    // native trailing insertText still belongs to that failed stream, not a new
+    // user replacement. Keep its final data even though normal cleanup threw.
+    if (bodyStream && generation === this.wasm.documentGeneration && typeof e?.data === 'string') {
+      closedBodyCompositions.set(this, generation);
+      this._lastComposedText = e.data;
+    }
+    throw error;
+  }
+}
+
+function finishCompositionEnd(this: any, e?: CompositionEvent): void {
+  if (!this.isComposing && isClosedBodyComposition.call(this)) {
+    // Do not reopen a transaction that Undo/cancel already closed. Preserve the
+    // native final data solely to consume its trailing commit input once.
+    if (typeof e?.data === 'string') this._lastComposedText = e.data;
+    this.textarea.value = '';
+    return;
+  }
+  const explicitlyClosedBody = !e && hasBodySelectionComposition.call(this);
+
   if (this._cellBlockLetterImeGuard?.consume('compositionend', this.textarea.value)) {
     clearCellBlockLetterImeFollowup.call(this);
     return;
@@ -564,6 +606,7 @@ export function onCompositionEnd(this: any, e?: CompositionEvent): void {
   }
 
   const bodySelectionComposition = finishBodySelectionComposition.call(this);
+  if (explicitlyClosedBody) closedBodyCompositions.set(this, this.wasm.documentGeneration);
   const anchor = this.compositionAnchor;
   const finalLength = this.compositionLength;
   const headerFooterSelectionComposition = this.headerFooterSelectionComposition === true;
@@ -703,6 +746,11 @@ export function onInput(this: any, e?: InputEvent): void {
   }
 
   const text = this.textarea.value;
+  if (!this.isComposing && isClosedBodyComposition.call(this)
+      && (e?.isComposing || e?.inputType === 'insertCompositionText' || e?.inputType === 'insertFromComposition')) {
+    this.textarea.value = '';
+    return;
+  }
   // const inputType = e?.inputType ?? 'unknown';
   // const inputData = e?.data ?? '';
   // const isComp = e?.isComposing ?? false;

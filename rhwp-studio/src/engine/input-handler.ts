@@ -631,7 +631,8 @@ export class InputHandler {
     this.onCompositionStartBound = this.onCompositionStart.bind(this);
     this.onCompositionEndBound = this.onCompositionEnd.bind(this);
     this.onInputBlurBound = () => {
-      if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition() || this.hasBodySelectionComposition?.()) this.onCompositionEnd();
+      // Body selection IME must wait for the native final data; blur can precede it.
+      if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition()) this.onCompositionEnd();
       this.flushDeferredPaginationIfNeeded('input-blur', false);
     };
     this.onCopyBound = this.onCopy.bind(this);
@@ -3133,7 +3134,7 @@ export class InputHandler {
 
   /** Redo 처리 */
   private handleRedo(): void {
-    if (this.hasBodySelectionComposition?.()) this.onCompositionEnd();
+    if (this.hasBodySelectionComposition?.()) throw new Error('선택 교체 조합을 완료한 뒤 다시 시도하세요.');
     if (this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
     if (this.pendingFootnoteComposition) this.onCompositionEnd();
     this.clearPendingFootnoteCharShape();
@@ -3339,7 +3340,8 @@ export class InputHandler {
 
   executeOperation(desc: OperationDescriptor): void {
     this.wasm.assertDocumentWritable();
-    if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition?.() || this.hasBodySelectionComposition?.()) this.onCompositionEnd();
+    if (this.hasBodySelectionComposition?.()) throw new Error('선택 교체 조합을 완료한 뒤 다시 시도하세요.');
+    if (this.pendingFootnoteComposition || this.hasPictureCaptionComposition?.()) this.onCompositionEnd();
     if (!this.isOperationAllowedInEditMode(desc)) return;
     switch (desc.kind) {
       case 'command': {

@@ -74,7 +74,7 @@ function fixture({paragraphs=['SELECT-ALL-A','SELECT-ALL-B'],start=pos(0,0),end=
   };
   const h=Object.assign(new Router(),{wasm,cursor,history:new CommandHistory(),editMode:options.form?'form':'normal',active:true,
     textarea:{value:''},isComposing:false,_isIOS:false,_lastComposedText:'',
-    canDeleteSelectionInFormMode:()=>!options.denyDelete,canInsertTextInFormMode:()=>!options.denyInsert,
+    canDeleteSelectionInFormMode:()=>!options.denyDelete,canDeleteTextInFormMode:()=>true,canInsertTextInFormMode:()=>!options.denyInsert,
     getNonEmptyHeaderFooterSelection:()=>null,prepareClickHereInputPosition:()=>cursor.getPosition(),
     isClickHereGuidePosition:()=>false,isExitedFieldStartPosition:()=>false,
     pendingCharShape:options.format?{bold:true}:null,pendingCharShapeAnchor:clone(start),
@@ -129,9 +129,11 @@ test('final compositionend data is reconciled before the atomic commit',()=>{
  const f=ime();f.start();f.type('ㄱ');f.end('가');f.type('가');
  assert.deepEqual(f.state().paragraphs,['가']);f.undo();assert.deepEqual(f.state(),f.before);f.clear();
 });
-test('another operation flushes the selection composition before applying its own command',()=>{
+test('another operation refuses pending IME without forcing incomplete text into history',()=>{
  const f=ime();f.start();f.type('가');
- f.h.executeOperation({kind:'command',command:new commands.InsertTextCommand(pos(0,1),'Q')});
+ assert.throws(()=>f.h.executeOperation({kind:'command',command:new commands.InsertTextCommand(pos(0,1),'Q')}),/조합/);
+ assert.equal(f.h.history.canUndo(),false);assert.deepEqual(f.state().paragraphs,['가']);
+ f.end('가');f.h.executeOperation({kind:'command',command:new commands.InsertTextCommand(pos(0,1),'Q')});
  assert.deepEqual(f.state().paragraphs,['가Q']);f.undo();assert.deepEqual(f.state().paragraphs,['가']);f.undo();assert.deepEqual(f.state(),f.before);f.clear();
 });
 test('document-agent entry refuses preview-state mutation before changing its history or model',async()=>{
@@ -149,7 +151,26 @@ test('Undo during active selection composition restores source in one call; Redo
  const f=ime();f.h.restoreEditContextAfterHistory=Undo.prototype.restoreEditContextAfterHistory;
  for(const name of ['clearPendingFootnoteCharShape','flushDeferredPaginationIfNeeded','clearTableResizeRuntimeCache','resetDerivedStateAfterHistoryJump','restoreSelectionAfterUndo','restoreSelectionAfterRedo'])f.h[name]=()=>{};
  f.start();f.type('가');Undo.prototype.handleUndo.call(f.h);assert.deepEqual(f.state(),f.before);assert.equal(f.h.history.canUndo(),false);
+ f.end('가');f.type('가');assert.deepEqual(f.state(),f.before);assert(f.h.history.canRedo(),'late end/input cannot erase redo');
  Undo.prototype.handleRedo.call(f.h);assert.deepEqual(f.state().paragraphs,['가']);f.clear();
+});
+for(const final of ['가','나',''])test('cancel ignores the old native stream without blocking a new composition: '+final,()=>{
+ const f=ime();f.start();f.type('ㄱ');f.cancel();const selected=f.cursor.getSelection();
+ f.h.textarea.value=final;input.onInput.call(f.h,{inputType:'insertCompositionText',isComposing:true,data:final});
+ f.end(final);f.type(final);assert.deepEqual(f.state(),f.before);assert.deepEqual(f.cursor.getSelection(),selected);assert(!f.h.history.canUndo());
+ f.start();f.type('나');f.end('나');assert.deepEqual(f.state().paragraphs,['나']);f.undo();assert.deepEqual(f.state(),f.before);f.clear();
+});
+test('rejected editing command preserves final native data that differs from the preview',()=>{
+ const f=ime();f.start();f.type('ㄱ');assert.deepEqual(f.state().paragraphs,['ㄱ']);
+ assert.throws(()=>f.h.executeOperation({kind:'command',command:new commands.InsertTextCommand(pos(0,1),'Q')}),/조합/);
+ f.end('가');f.type('가');assert.deepEqual(f.state().paragraphs,['가']);f.undo();assert.deepEqual(f.state(),f.before);f.clear();
+});
+test('Redo while selection IME is pending leaves both the preview and prior redo intact',()=>{
+ const a=handler.indexOf('  private handleRedo('),b=handler.indexOf('\n  }\n',a);
+ const {Redo}=load('export class Redo {\n'+handler.slice(a,b+4)+'\n}',commands);
+ const f=ime();f.type('Q');f.undo();f.cursor.selectRange(pos(0,0),pos(1,12),2);f.start();f.type('ㄱ');
+ assert.throws(()=>Redo.prototype.handleRedo.call(f.h),/조합/);assert(f.h.history.canRedo());assert(f.h.isComposing);assert.deepEqual(f.state().paragraphs,['ㄱ']);
+ f.end('가');assert.deepEqual(f.state().paragraphs,['가']);f.undo();assert.deepEqual(f.state(),f.before);f.clear();
 });
 test('cancel without rendering releases resources before a handler is disposed/deactivated',()=>{
  const f=ime(),selected=f.cursor.getSelection();f.start();f.type('가');const refreshes=f.counts.refreshes;
@@ -176,6 +197,14 @@ test('commit write failure restores source and preserves redo',()=>{
  const f=ime();f.type('Q');f.undo();f.cursor.selectRange(pos(0,0),pos(1,12),2);const selected=f.cursor.getSelection();
  f.start();f.type('가');f.options.failInsert=true;assert.throws(()=>f.end('가'));
  assert.deepEqual(f.state(),f.before);assert.deepEqual(f.cursor.getSelection(),selected);assert.equal(f.h.isComposing,false);assert(f.h.history.canRedo());f.clear();assert.equal(f.snapshots.size,0);
+});
+for(const preview of ['ㄱ','가'])test('failed final update/commit cannot be replayed as a trailing ordinary input: '+preview,()=>{
+ const f=ime();f.start();f.type(preview);f.options.failInsert=true;
+ assert.throws(()=>f.end('가'));assert.deepEqual(f.state(),f.before);const selection=f.cursor.getSelection();
+ f.options.failInsert=false;f.h.textarea.value='가';input.onInput.call(f.h,{inputType:'insertText',isComposing:false,data:'가'});
+ assert.deepEqual(f.state(),f.before);assert.deepEqual(f.cursor.getSelection(),selection);assert(!f.h.history.canUndo());
+ assert.equal(f.snapshots.size+f.fragments.size,0);
+ f.start();f.type('가');f.end('가');assert.deepEqual(f.state().paragraphs,['가']);f.clear();
 });
 test('document generation change never restores a former document snapshot into the new document',()=>{
  const f=ime();f.start();f.type('가');f.wasm.documentGeneration++;let restored=0,discarded=0;
@@ -223,3 +252,27 @@ for(const ext of ['hwp','hwpx'])for(const cancel of [false,true])test(`real ${ex
  }finally{reopened?.free();doc?.free();seed.free();}
 });
 
+const blurStart=handler.indexOf('    this.onInputBlurBound = () => {');
+const blurEnd=handler.indexOf('\n    };',blurStart);
+assert(blurStart>=0&&blurEnd>blurStart);
+const blur=new Function(handler.slice(blurStart,blurEnd).split('=> {')[1]);
+for(const ext of ['hwp','hwpx'])for(const preview of ['가','ㄱ'])for(const order of ['end-input','input-end','cancel'])test(`real ${ext} blur waits for ${order}, preview ${preview}`,async()=>{
+ const {Q,M}=await engine(),seed=M.HwpDocument.createEmpty();let doc,reopened;
+ try{
+  seed.createBlankDocument();assert(JSON.parse(seed.insertText(0,0,0,'ABC')).ok);
+  doc=new M.HwpDocument(ext==='hwp'?seed.exportHwp():seed.exportHwpx());const before=Buffer.from(doc.exportHwpx());
+  const f=ime({paragraphs:['ABC'],start:pos(0,0),end:pos(0,3)}),bridge=new Q.Bridge(doc);
+  for(const key of Object.getOwnPropertyNames(Q.Bridge.prototype))if(key!=='constructor')f.wasm[key]=bridge[key].bind(bridge);
+  Object.assign(f.h,{hasPictureCaptionComposition:()=>false,flushDeferredPaginationIfNeeded(){}});
+  f.start();f.type(preview);assert.equal(doc.getTextRange(0,0,0,20),preview);blur.call(f.h);
+  assert(f.h.isComposing);assert(!f.h.history.canUndo(),'blur is not the final IME value');
+  if(order==='input-end')f.type('가');
+  f.end(order==='cancel'?'':'가');f.type(order==='cancel'?'':'가');
+  const expected=order==='cancel'?'ABC':'가';assert.equal(doc.getTextRange(0,0,0,20),expected);
+  reopened=new M.HwpDocument(ext==='hwp'?doc.exportHwp():doc.exportHwpx());assert.equal(reopened.getTextRange(0,0,0,20),expected);
+  if(order!=='cancel'){
+   f.undo();assert.deepEqual(Buffer.from(doc.exportHwpx()),before);assert(!f.h.history.canUndo());f.redo();assert.equal(doc.getTextRange(0,0,0,20),'가');
+  }else {assert.deepEqual(Buffer.from(doc.exportHwpx()),before);assert(!f.h.history.canUndo());}
+  f.clear();
+ }finally{reopened?.free();doc?.free();seed.free();}
+});
