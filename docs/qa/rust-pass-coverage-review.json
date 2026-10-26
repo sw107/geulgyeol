@@ -1,0 +1,2972 @@
+{
+  "schemaVersion": 1,
+  "validationHead": "e637b08128fab3719e7bab639efa93e89b90496e",
+  "pins": {
+    "core-final-outcomes.json": "c8e104c7991796afb9b967a24ca5af2b3ba706eb2f884c6eb5a8e9e5950b74bb",
+    "core-isolated/0136.log": "6cd875afbe6e687bf5c55ae39839be418af211885c0ca16461be22f80d2c6d8f",
+    "core-isolated/0137.log": "68e66e88647551cbc5e88bf6235ef1eae83e767d65ede6425c1209593f40ddf9",
+    "core-isolated/0138.log": "cf0b3e9572311fd4ba0627e356f4bb50e7e179eb423dab33fe2389a168ed7cda",
+    "core-isolated/0139.log": "22bf9aa90a9b438d376184c3a007425b7138de2fca60488bc11a3521d038403b",
+    "core-isolated/0142.log": "a04cb9b11bc913c76563d60811c5770a2bd0cca08188d1fd1d3f162a3e8376cd",
+    "core-isolated/0143.log": "c542c8feec6d295d5509fe02d26ce6f5863a6b14570a53d928d0e1c87ea96bf6",
+    "core-isolated/0147.log": "da380d9f914f0c97b64303e7aeccfda68e496dbf7deaaa10058a729bdd2ac4a0",
+    "core-isolated/0154.log": "e69f66b2aed2616082998f537dc4cfa05f1a8a101e3e37db1fedcd54b82432f5",
+    "core-isolated/0155.log": "cb45df2e734580f141e27df150c5e6fca265f6286092bb7b7c48fbecfc79eac1",
+    "core-isolated/0156.log": "e49b24b845dfc50f0332af8713acc42b7f62a4583c5114f0b3e03e2869322ca2",
+    "core-isolated/0166.log": "556af6f2157638df2edf792dc7d58bed255caad566bf6765017d72d692d8d171",
+    "core-isolated/0169.log": "13f76f9e18e9521fa28f9d71998db3011258b9d5140506e928ee5e04660fbd31",
+    "core-isolated/0170.log": "d840a4268e1e025bffaeb0af0cc92316c1e1333e2f8c8ce6dc7165a691f01713",
+    "core-isolated/0171.log": "cd8c5965c720c80b0e305b0e83d1f46f66014d994d18e7a43c8c82c90a843b21",
+    "core-isolated/0172.log": "5deb9c7cfd5a4b343e02b43054b3b2611ce120714d993bfdcdc07879460862b6",
+    "core-isolated/0174.log": "16ae2526880730251b489758004e0d1257d1398fe6a4b8dfb2889f26d4793391",
+    "core-isolated/0175.log": "835fb28f404b2c3938addf1333df3f959abaf93b2b6724690869934b799bd440",
+    "core-isolated/0176.log": "c9dbd15b996f2a3e4bd1b5e008c7496d9ceef1d16952062431b9838660713533",
+    "core-isolated/0177.log": "73165564a9ce4a8cb8ab25ca26543f74617a3559e0e2114fc090e4cc705e3bf2",
+    "core-isolated/0178.log": "a4a502562e828f88a78ceeac510434e938dbe632cba79c938d831146dce0927e",
+    "core-isolated/0183.log": "4f48c6b95373ad9b0ae6112d2dc3a297a3617dbd1db43eeccdfea5ce8cc5213d",
+    "core-isolated/0184.log": "4a5256a35797fd0b87529c31630709bdc432ead42d40e19313bd980c7deaed41",
+    "core-isolated/0197.log": "da7797c380a79e6c59db606d97e8d579656b68cb44355bea003233b13634e145",
+    "core-isolated/0209.log": "04533c6de563c293f1f05cbea33ba27186cdefcdcbb570a2e997a278b6182260",
+    "core-isolated/0210.log": "01ab21686d33df89840644b61de78e8671662f09812fd229cded57fb9761a06a",
+    "core-isolated/0211.log": "3063c4ec68e4284c0d2d27a99f004a1d3c8d107edf9b521d0e758b4ab4754568",
+    "core-isolated/0219.log": "23c2e4443859d48c7764f96e1cae77e1cbf9345ff039ee6c7a6cd161ca18ca60",
+    "core-isolated/0226.log": "2460dac5be407c95b9a2d11e3c05d30b0c6c15a2eba4f270424fc3203922d72b",
+    "core-isolated/0236.log": "763c7a9d42e25bbd154ae45575947955628b7639b737d346f96b9fb4bb487caa",
+    "core-isolated/0251.log": "c58eb1fa9bbf7d91bda6b391ad2413b4b6bc28f16452c7f73eaaebc54be8ef75",
+    "core-isolated/0252.log": "259344c2afe835a4828825c8af81d8c4abe03c7cc3f19965d6a08aab5b7eea80",
+    "core-isolated/0253.log": "c35e86a2aa25fb578e410b1b43a9c09d905791ff1a37df64c636c52de4b13ab8",
+    "core-isolated/0259.log": "66e2cea5809515fd7f8b0bbda0f4e86f6f62b2fcd04e89731b40c02648e3fcb2",
+    "core-isolated/0260.log": "d8b467c0ad59d50704bdfe01710ac9eec408e21f681289c39a1451c422056c48",
+    "core-isolated/0261.log": "a1c3174fec8d28378f88bffe2a89d89c1988297cd4fa6338971003de93270fa9",
+    "core-isolated/0262.log": "988f4efa45c223790d1dc4b113b1ecb1b0fa36b6244441a7c45ea91e45b164f0",
+    "core-isolated/0263.log": "1c29cb1bd055e04604cf76712e1406e387cb818da32e3c5cc555b828a329ab2e",
+    "core-isolated/0264.log": "5c8b7ea55b58f67ede4547b47608ca46f5db6647871ca36f4693574876c1cffb",
+    "core-isolated/0265.log": "c86f86e55ad3e4e88a732837bf373812ede61388ffa85acba86b7bd0104e9e3c",
+    "core-isolated/0266.log": "585e2eceb591f4bb923fea9c0b9c407241794417923528830fb87aea3fc87033",
+    "core-isolated/0267.log": "9167eaf71ee17cfedadfc49e83103b26bef577c5cedea3603070978a3f972cc6",
+    "core-isolated/0268.log": "ff2b60f6709249863ae440531101f788618c211879b203472cef5efb5d3a917d",
+    "core-isolated/0269.log": "593e2f57aceeb016fd5a8bab275e399c2bf3f51315c7dcee76b3edcb95d7a81e",
+    "core-isolated/0270.log": "c863dba459e639f8b163687973fbd957e1c8b86b15fa8a5d310e938953f1fb3e",
+    "core-isolated/0271.log": "3cdbf04eae85813c464e57438998b1f8a585912d70aa29f7ff5394b7c2dd2789",
+    "core-isolated/0275.log": "2912e217bd45efce4f095a81f5ca3da33ae94ff1d7d0e5bbee3f6197a14bd7cd",
+    "core-isolated/0284.log": "3d76312c9e1a1edbb1f0720d13d3f6a3e4ed8359ae877fe122ae1b9ca06e37d4",
+    "core-isolated/0285.log": "81eab601dfb2e9f7ee92995d2d12ba8a4444a7189c32051cda9763c49782255f",
+    "core-isolated/0292.log": "fc2f37f1bd60d06a6feaf4f4ab92006e07176ab3e9590d578c362b91b271f938",
+    "core-isolated/0293.log": "7486bbf8fd341e88717d854b36e21090a66e7a96689df3894ac8c6dd4a8b61fd",
+    "core-isolated/0309.log": "58d13b6a66a888e799df48efe13b1ae268ec38fe0f08afd86c8c95f80768184d",
+    "core-isolated/0310.log": "7b77a13e78824d63c8a8efa5625b8fe40cf9aa851b6f3b9398f880dedecdf89e",
+    "core-isolated/0311.log": "1f8bc20d616fe8eb1be4032033c41248758ad491c9e6297e1680cd8b09ba4b19",
+    "core-isolated/0312.log": "af91ca992ce14b20fba79cc875be91d9a3b631fdf79625e22d596f3bd26bbff5",
+    "core-isolated/0314.log": "594b9b4b5378c112c7626f9b25bb56680be6ef17bd71e804278b164632b0ca41",
+    "core-isolated/0316.log": "1edeb2f2235f5a9238cf31c82e186e392f2a6f400903e6dba61f55a8e4572917",
+    "core-isolated/0318.log": "fb8b9ccbe905fd1a778eb3fb36058622ef0fa8b418ac09722b1dbdd89e4f648a",
+    "core-isolated/0319.log": "844f69f51b21121055cf918d25091d8e89cc284d549c080a11145680ba0655e6",
+    "core-isolated/0320.log": "56c959a5af5b37b2d79e508200fac92d7783858b7263940d3d7ed84c9c578a17",
+    "core-isolated/0321.log": "f591c56ae4a6c30df35ab76365dcba24c46a2bed512bce09c4dd0dd877477b3b",
+    "core-isolated/0325.log": "a23c02a8bb9dfd569f4e4f9fb320181689c9c94f3a06993b4592e3362d692c70",
+    "integration-target-results.json": "5d4225dfba0b2f68cfa3724d42a0b3c5f1dc169fa8b690aa9a4b5ed45080e60e",
+    "integration-targets/cli_exit_codes.run.log": "444aa09a5f714d79a6aaf8892bb7668cdf10c22a32778a27a49392d197e1d87b",
+    "integration-targets/issue_1144.run.log": "3e0b8c0db2fd9fa30c9c9e114052f376e166eb22927e54d1660bdcb6752a2676",
+    "integration-targets/issue_2833_hml_adapter_row_sizes.run.log": "ab346644a3b01a9d9973c2cc0379a389e8f98aaaddb918e02faa2d59df17cd94",
+    "integration-targets/regression_suite_001.run.log": "7e93e8c4eae9d5c5b0bf4b5b058f72696a677ae7f3891abc6bd0afc8356c92d0",
+    "integration-targets/regression_suite_002.run.log": "692f9b6c2126b7585bed4fbd33da664fb6eda53c138c26315a1114664a801877",
+    "integration-targets/regression_suite_003.run.log": "3fa54c85af13724adbab79ead49e3968a414c8eeb2d6d0a0d14ee93850f7ab7b",
+    "integration-targets/regression_suite_006.run.log": "e0d6a753efe24f3b296fd7b80eaceb701f74ef1209f1df8f2a8bf2d3da0a67f8",
+    "integration-targets/regression_suite_010.run.log": "080fff7e4eb3a549a139e67cec5ba72a05b9d8ca94bbfdc622313b03ac434256",
+    "integration-targets/regression_suite_013.run.log": "56aac2e5301c092e7bb00d55f6613dd5d680a6879ed42f29238284b591037f14",
+    "integration-targets/regression_suite_017.run.log": "5e88ef86148374ff7e6df07a0a0df35029595b1ce01dd5ebeb70c7b14818ad8d",
+    "integration-targets/regression_suite_019.run.log": "b10f18aed95777d32b6911b9ea8fbc3e5ebbd7933d9d3ceecd2b2df0595444fc",
+    "integration-targets/regression_suite_020.run.log": "26067e8ffdd695616b9cf2951647724f4af330d886543bceeacbcd89057a05b8",
+    "integration-targets/regression_suite_024.run.log": "a7c7952655ddb8c79684bcd4283a2b865e4799079b87d463ca884c83cd2c109a",
+    "integration-targets/regression_suite_028.run.log": "9c2745aeeeb1a8a85dd351d11a3ead2d83f6f2126294c77858448e76f6d0f1d5",
+    "isolate-core-tests.py": "e454cbce2bf8e41716f4ccbf1f70c008a5a742604813047b7b1cdc40dbffb2b5",
+    "repo/engine/src/wasm_api/tests.rs": "cc4e2df912a384e8f1f764efe00a8db478f3badef50df26fd2fd62ba3a16b2a1",
+    "repo/engine/tests/agent_context_cost_contract.rs": "2bdd73dd223096257afe91b6453c195bb3edac979f739f653db3d6351f613610",
+    "repo/engine/tests/cases/agent_chief_skill_contract.rs": "27f1e3dbdb16f882a8280a8a25a5825d7d5ca546b6e961e4799ad2d9279826e0",
+    "repo/engine/tests/cases/agent_security_sweep_skill_contract.rs": "2c2b205fe216549934d8411d44d50e55b96aa81dfd18f82353a6feabee99402b",
+    "repo/engine/tests/cases/agent_visual_regression_skill_contract.rs": "6b9a2b9c4db96b6176b6498bf36e89e000a6a8354c941d86a87841c171b20650",
+    "repo/engine/tests/cases/equation_command_goldens.rs": "21514c7f11e370e493dd86cce58d88a852f8e60d1015900c7bb797ff9a7dd98e",
+    "repo/engine/tests/cases/issue_4658_ir_diff_pagecount.rs": "3c8fd84caa0da0949a836398cdd64bc99d44ba8f22c94232ba9cdfe82cd24c27",
+    "repo/engine/tests/cases/issue_4882_policy_report_page_roundtrip.rs": "3c546e2b6cdc079e6e401b6cd45ffae7d92ec7122b0ad7976efafc00e6fae6be",
+    "repo/engine/tests/cases/issue_6334_hwp5_extension_master_replaces_base.rs": "b0b5ffe358922278850d60fee6ea24031fab4b2e3523ac381c5e7018b3fe948a",
+    "repo/engine/tests/cases/issue_6344_empty_page_false_positive.rs": "aef51d4782376470410aae03654d2e9cffdc52aa10b7a494ce32b841bd0127ee",
+    "repo/engine/tests/changed_pages_contract.rs": "d93252d7e89817ff0f8bf4e7b5b3818c7b0a3f55e7637c3b8c6ef9bcf548e4fb",
+    "repo/engine/tests/cli_exit_codes.rs": "0c8c2fb825f8a51a0309217559676b223734abfa63d2712a78819af9ef64a4e0",
+    "repo/engine/tests/cli_password_stdin_command_parity_contract.rs": "732ac74e8bed3ce7e26a8bd02e390c99ea721dc4effc7b7092914f76a2809385",
+    "repo/engine/tests/edit_fit_check_contract.rs": "54b1c264a782ef37333bf2e05627e0b95253a8ea2774f5ba14063d020354348e",
+    "repo/engine/tests/edit_verify_contract.rs": "aac1f9ed883220c501589391a7d34ea7458012f35c9890fe92abda4dc3ffecf6",
+    "repo/engine/tests/export_doclang_json_contract.rs": "1fd5994d6de99b1c2801ac85c560620fdb9361021299c580e563a270b79464a1",
+    "repo/engine/tests/export_hml_json_contract.rs": "17e50c6c0d0a98a636e203a6611367e88fd664de03d672a43b04b37b56912f35",
+    "repo/engine/tests/hwp3_charcount_convention.rs": "ecbe8c2493163ba4642852d6b89cb9041d5ca54d9629773b08eeaf16fc7d82ee",
+    "repo/engine/tests/hwpx_to_hwp_adapter.rs": "f01bc4feaebf5118d440b354467764c2eabfd8d3755895f91225cdfdfae18442",
+    "repo/engine/tests/issue_1144.rs": "bb57704ebe56e85b3fbe6061c98ac01a58909dfe78d797d3764afc0ab0fb785e",
+    "repo/engine/tests/issue_1402_enum_token_whitelist.rs": "32d03cbfd5bc9985181ec95d17465add3fc855401381068d44ca498f764598a0",
+    "repo/engine/tests/issue_2833_hml_adapter_row_sizes.rs": "4ab8e8f1394acf919797e033c1fa7eac97bef0e6accd00cff31e494208dd775f",
+    "repo/engine/tests/mcp_server_contract.rs": "2237cac40269cc045b239f4cc6898922d77729af1db2c8396e6a78e7f87a227d",
+    "repo/engine/tests/mcp_session_arg_typing_contract.rs": "b6f82f010a34aa8eb32955c725a01152d769a54e39e341be9fa3d8a948c482d8",
+    "repo/engine/tests/mcp_session_query_contract.rs": "be3d06840231f582039ab87f67b807db1acce740255c76b2b65f523561a636c8",
+    "repo/engine/tests/mcp_split_page_base_contract.rs": "e0b13b5a4378d3466760497c80bc82405718842fcc5fcad2b81ed68112b9febb",
+    "repo/engine/tests/output_axis_json_contract.rs": "96ae46c1fd575fe4d44364eb551433aaacbd658838c663ffac66b8ca1260b085",
+    "repo/engine/tests/page_number_propagation.rs": "a2d95235e50a22110791785323a414269246c803155d59344f08b79b4ae424ad",
+    "repo/engine/tests/redact_sanitize_contract.rs": "867e650760cd2aaca03381a2e15bb392ff5c94cd9dec55a9cdfe9ad565c03f15",
+    "repo/engine/tests/search_dash_query_contract.rs": "c6b19310ae359532254a0672d23a4966a6c5ad07623f5a5982361cd002187045",
+    "repo/engine/tests/split_document_tool_contract.rs": "6d15b6401ac12f626276fbddac93858b7e8129739fa74b1020ef190533fc6710",
+    "repo/engine/tests/support/cli_exit_code_support.rs": "169b9cea52f3195875e7babc51d41579abf5cf398ce3ecbcb90152ce8965446d",
+    "repo/engine/tests/support/issue_1144_support.rs": "5cb6fca0fa5ab0cb80ae111d30349f3e4b417135f3eac2386f07f57d8e04461e",
+    "repo/engine/tests/unicode_deception_contract.rs": "e6f5c02654e8c35dd344aaf381bdde3478011700494947e13b203e2426fb8bb7",
+    "run-integration-targets.py": "2debf01a7ef3c616047d9d958a18864be170420bb46da18aa7a5a723cf0afd78"
+  },
+  "reviews": [
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_analyze_hancom_merged_file",
+      "log": "core-isolated/0136.log",
+      "markers": [
+        "파일 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 3914,
+          "end": 4059
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_analyze_pic_in_table",
+      "log": "core-isolated/0137.log",
+      "markers": [
+        "SKIP: output/pic-in-tb-01.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 16653,
+          "end": 17133
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_analyze_reference_picture",
+      "log": "core-isolated/0138.log",
+      "markers": [
+        "SKIP: output/pic-01-as-text.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 15840,
+          "end": 16293
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_analyze_reference_table",
+      "log": "core-isolated/0139.log",
+      "markers": [
+        "SKIP: output/1by1-table.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 15120,
+          "end": 15492
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_binary_record_comparison",
+      "log": "core-isolated/0142.log",
+      "markers": [
+        "File not found: /app/pasts/20250130-hongbo-p2.hwp",
+        "File not found: /app/pasts/20250130-hongbo_saved-past-006.hwp"
+      ],
+      "coverage": "all-inputs-skipped",
+      "reason": "고정 입력 2개 모두 로그에 입력 부재로 기록되고 각 반복에서 continue. 본문 파싱/검증에 도달하지 않음. 완료 문구는 계약 검증 증거가 아님.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 6164,
+          "end": 6518
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_blank2020_enter_corruption_diagnosis",
+      "log": "core-isolated/0143.log",
+      "markers": [
+        "SKIP: saved/blanK2020.hwp 파일 없음",
+        "SKIP: saved/blanK2020_enter_saved_currupt.hwp 파일 없음"
+      ],
+      "coverage": "all-inputs-skipped",
+      "reason": "고정 입력 2개 모두 로그에 입력 부재로 기록되고 각 반복에서 continue. 본문 파싱/검증에 도달하지 않음. 완료 문구는 계약 검증 증거가 아님.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 21214,
+          "end": 21464
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_charshape_preservation_after_paste",
+      "log": "core-isolated/0147.log",
+      "markers": [
+        "SKIP: 파일 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 11368,
+          "end": 11507
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_compare_orig_vs_saved",
+      "log": "core-isolated/0154.log",
+      "markers": [
+        "파일 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 7180,
+          "end": 7531
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_compare_user_saved_vs_programmatic",
+      "log": "core-isolated/0155.log",
+      "markers": [
+        "파일 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 3751,
+          "end": 3912
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_complex_comparison",
+      "log": "core-isolated/0156.log",
+      "markers": [
+        "SKIP: template/20250130-hongbo_saved_err.hwp not found"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 10312,
+          "end": 10816
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_delete_table_control",
+      "log": "core-isolated/0166.log",
+      "markers": [
+        "hwp_table_test.hwp 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 20095,
+          "end": 20161
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_diag_clone_vs_parsed_table",
+      "log": "core-isolated/0169.log",
+      "markers": [
+        "SKIP: samples/20250130-hongbo.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 18165,
+          "end": 18434
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_diag_double_enter_save",
+      "log": "core-isolated/0170.log",
+      "markers": [
+        "SKIP: samples/20250130-hongbo.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 18820,
+          "end": 18988
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_diag_msb_pattern_kwater",
+      "log": "core-isolated/0171.log",
+      "markers": [
+        "SKIP: samples/k-water-rfp.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 18634,
+          "end": 18818
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_diag_tb_err_003",
+      "log": "core-isolated/0172.log",
+      "markers": [
+        "SKIP: saved/tb-err-003.hwp 없음",
+        "SKIP: saved/tb-err-003-s.hwp 없음"
+      ],
+      "coverage": "all-inputs-skipped",
+      "reason": "고정 입력 2개 모두 로그에 입력 부재로 기록되고 각 반복에서 continue. 본문 파싱/검증에 도달하지 않음. 완료 문구는 계약 검증 증거가 아님.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 20548,
+          "end": 20758
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_distribution_raw_stream_preserved",
+      "log": "core-isolated/0174.log",
+      "markers": [
+        "SKIP: samples/20250130-hongbo-no.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 4073,
+          "end": 4118
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_distribution_reserialization_without_raw_stream",
+      "log": "core-isolated/0175.log",
+      "markers": [
+        "SKIP: samples/20250130-hongbo-no.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 4120,
+          "end": 4274
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_docinfo_007_vs_correct",
+      "log": "core-isolated/0176.log",
+      "markers": [
+        "File not found: /app/pasts/20250130-hongbo-p2.hwp",
+        "File not found: /app/pasts/20250130-hongbo_saved-past-007.hwp"
+      ],
+      "coverage": "all-inputs-skipped",
+      "reason": "고정 입력 2개 모두 로그에 입력 부재로 기록되고 각 반복에서 continue. 본문 파싱/검증에 도달하지 않음. 완료 문구는 계약 검증 증거가 아님.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 7027,
+          "end": 7178
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_docinfo_comparison_p2_p3",
+      "log": "core-isolated/0177.log",
+      "markers": [
+        "File not found: /app/pasts/20250130-hongbo-p2.hwp",
+        "File not found: /app/pasts/20250130-hongbo-p3.hwp",
+        "File not found: /app/pasts/20250130-hongbo_saved-past-006.hwp"
+      ],
+      "coverage": "all-inputs-skipped",
+      "reason": "고정 입력 3개 모두 로그에 입력 부재로 기록되고 각 반복에서 continue. 본문 파싱/검증에 도달하지 않음. 완료 문구는 계약 검증 증거가 아님.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 6520,
+          "end": 6721
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_docinfo_roundtrip_charshape_preservation",
+      "log": "core-isolated/0178.log",
+      "markers": [
+        "File not found: /app/pasts/20250130-hongbo-p2.hwp"
+      ],
+      "coverage": "diagnostic-preflight-only",
+      "reason": "먼저 check_files 7개를 조건부 read/parse하는 진단 루프를 시도함. 로그에는 헤더만 있고 파싱 성공 수치는 없음. 이후 필수 p2 읽기 실패로 return하여 roundtrip assertion 미도달. 선행 시도 전체를 미실행으로 표현하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 6723,
+          "end": 7025
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_empty_hwp_editing_area",
+      "log": "core-isolated/0183.log",
+      "markers": [
+        "SKIP: template/empty.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 14711,
+          "end": 14935
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_empty_save_analysis",
+      "log": "core-isolated/0184.log",
+      "markers": [
+        "SKIP: template/empty.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 13584,
+          "end": 14491
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_get_table_bbox",
+      "log": "core-isolated/0197.log",
+      "markers": [
+        "hwp_table_test.hwp 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 20021,
+          "end": 20043
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_hy001_textbox_inline_pictures_render_for_hwp_and_hwpx",
+      "log": "core-isolated/0209.log",
+      "markers": [
+        "SKIP: samples/hwpx/hancom-hwp/hy-001.hwp 없음",
+        "SKIP: samples/hwpx/hy-001.hwpx 없음"
+      ],
+      "coverage": "helper-inputs-skipped",
+      "reason": "HWP/HWPX 두 경로를 받는 helper 호출 모두 입력 부재로 return. 바깥 test 함수는 끝나지만 두 형식의 assertion은 실행되지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 19605,
+          "end": 19691
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_hy002_textbox_non_tac_picture_keeps_declared_size",
+      "log": "core-isolated/0210.log",
+      "markers": [
+        "SKIP: samples/hwpx/hancom-hwp/hy-002.hwp 없음",
+        "SKIP: samples/hwpx/hy-002.hwpx 없음"
+      ],
+      "coverage": "helper-inputs-skipped",
+      "reason": "HWP/HWPX 두 경로를 받는 helper 호출 모두 입력 부재로 return. 바깥 test 함수는 끝나지만 두 형식의 assertion은 실행되지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 19693,
+          "end": 19733
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_inject_table_into_existing",
+      "log": "core-isolated/0211.log",
+      "markers": [
+        "SKIP: samples/20250130-hongbo.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 17938,
+          "end": 18163
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_merge_cells_roundtrip_real_hwp",
+      "log": "core-isolated/0219.log",
+      "markers": [
+        "파일 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 3549,
+          "end": 3749
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_model_table3_cell_text_check",
+      "log": "core-isolated/0226.log",
+      "markers": [
+        "파일 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 8754,
+          "end": 8922
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_parse_table_html_save",
+      "log": "core-isolated/0236.log",
+      "markers": [
+        "SKIP: samples/20250130-hongbo.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 18436,
+          "end": 18632
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_paste_table_then_export_validation",
+      "log": "core-isolated/0251.log",
+      "markers": [
+        "SKIP: 파일 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 9637,
+          "end": 9851
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_pasted_table_structure_analysis",
+      "log": "core-isolated/0252.log",
+      "markers": [
+        "파일 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 7533,
+          "end": 8382
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_real_hwp_table_insert_row_roundtrip",
+      "log": "core-isolated/0253.log",
+      "markers": [
+        "hwp_table_test.hwp 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 3369,
+          "end": 3546
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_roundtrip_all_controls",
+      "log": "core-isolated/0259.log",
+      "markers": [
+        "  SKIP: samples/k-water-rfp.hwp 없음",
+        "  SKIP: samples/20250130-hongbo.hwp 없음",
+        "  SKIP: samples/hwp-multi-001.hwp 없음",
+        "  SKIP: samples/hwp-multi-002.hwp 없음",
+        "  SKIP: samples/2010-01-06.hwp 없음"
+      ],
+      "coverage": "all-inputs-skipped",
+      "reason": "고정 입력 5개 모두 로그에 입력 부재로 기록되고 각 반복에서 continue. 본문 파싱/검증에 도달하지 않음. 완료 문구는 계약 검증 증거가 아님.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 17135,
+          "end": 17426
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_roundtrip_empty_cell_corruption",
+      "log": "core-isolated/0260.log",
+      "markers": [
+        "파일 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 8924,
+          "end": 9168
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_roundtrip_isolation_no_paste",
+      "log": "core-isolated/0261.log",
+      "markers": [
+        "SKIP: 파일 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 9512,
+          "end": 9635
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_roundtrip_no_edit",
+      "log": "core-isolated/0262.log",
+      "markers": [
+        "SKIP: template/empty.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 14622,
+          "end": 14709
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_roundtrip_saved_file",
+      "log": "core-isolated/0263.log",
+      "markers": [
+        "File not found: /app/pasts/20250130-hongbo_saved-past-005.hwp"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 5958,
+          "end": 6162
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_rp004_bodytext_table_analysis",
+      "log": "core-isolated/0264.log",
+      "markers": [
+        "SKIP: 원본 파일 없음 (pasts/20250130-hongbo-p2.hwp)"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 10818,
+          "end": 11366
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_rp005_pasted_table_analysis",
+      "log": "core-isolated/0265.log",
+      "markers": [
+        "SKIP: 원본 파일 없음 (pasts/20250130-hongbo-p2.hwp)"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 11509,
+          "end": 12352
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_rp006_dangling_references",
+      "log": "core-isolated/0266.log",
+      "markers": [
+        "SKIP: rp-006 파일 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 9938,
+          "end": 10123
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_save_pic_in_table",
+      "log": "core-isolated/0267.log",
+      "markers": [
+        "SKIP: output/pic-in-tb-01.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 17428,
+          "end": 17936
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_save_picture",
+      "log": "core-isolated/0268.log",
+      "markers": [
+        "SKIP: output/pic-01-as-text.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 16295,
+          "end": 16651
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_save_table_1x1",
+      "log": "core-isolated/0269.log",
+      "markers": [
+        "SKIP: template/empty.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 15494,
+          "end": 15838
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_save_text_only",
+      "log": "core-isolated/0270.log",
+      "markers": [
+        "SKIP: template/empty.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 14937,
+          "end": 15118
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_saved_file_table_flags_and_origin",
+      "log": "core-isolated/0271.log",
+      "markers": [
+        "파일 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 9170,
+          "end": 9510
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_simple_text_insert_and_save",
+      "log": "core-isolated/0275.log",
+      "markers": [
+        "SKIP: template/empty.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 13517,
+          "end": 13582
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_table3_deep_comparison",
+      "log": "core-isolated/0284.log",
+      "markers": [
+        "파일 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 8384,
+          "end": 8752
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_table_modification_empty_cell_serialization",
+      "log": "core-isolated/0285.log",
+      "markers": [
+        "hwp_table_test.hwp 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 20164,
+          "end": 20256
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_task110_multi_column_reflow_diag",
+      "log": "core-isolated/0292.log",
+      "markers": [
+        "SKIP: samples/basic/KTX.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 20446,
+          "end": 20546
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_task110_treatise_diag",
+      "log": "core-isolated/0293.log",
+      "markers": [
+        "SKIP: samples/basic/treatise sample.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 20760,
+          "end": 21212
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_task66_table_text_mixed_paragraph_rendering",
+      "log": "core-isolated/0309.log",
+      "markers": [
+        "SKIP: samples/img-start-001.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 19193,
+          "end": 19300
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_task76_background_image_outside_body_clip",
+      "log": "core-isolated/0310.log",
+      "markers": [
+        "SKIP: samples/hwp-3.0-HWPML.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 19337,
+          "end": 19395
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_task76_img_001_four_pictures",
+      "log": "core-isolated/0311.log",
+      "markers": [
+        "SKIP: samples/hwp-img-001.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 19397,
+          "end": 19433
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_task76_multi_001_group_images",
+      "log": "core-isolated/0312.log",
+      "markers": [
+        "SKIP: samples/hwp-multi-001.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 19302,
+          "end": 19335
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_task78_rectangle_textbox_inline_images",
+      "log": "core-isolated/0314.log",
+      "markers": [
+        "SKIP: samples/20250130-hongbo.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 19539,
+          "end": 19603
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_task80_cell_height_matches_hwp",
+      "log": "core-isolated/0316.log",
+      "markers": [
+        "SKIP: samples/table-001.hwp not found"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 19811,
+          "end": 19891
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_template_comparison",
+      "log": "core-isolated/0318.log",
+      "markers": [
+        "SKIP: template/empty-step1_saved.hwp 파일 없음",
+        "SKIP: template/empty-step1_saved-a.hwp 파일 없음"
+      ],
+      "coverage": "all-inputs-skipped",
+      "reason": "고정 입력 2개 모두 로그에 입력 부재로 기록되고 각 반복에서 continue. 본문 파싱/검증에 도달하지 않음. 완료 문구는 계약 검증 증거가 아님.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 10125,
+          "end": 10310
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_text_insert_detailed_diff",
+      "log": "core-isolated/0319.log",
+      "markers": [
+        "SKIP: template/empty.hwp 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 14493,
+          "end": 14620
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_textbox_render_tree_debug",
+      "log": "core-isolated/0320.log",
+      "markers": [
+        "img-start-001.hwp 없음 — 건너뜀"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 18990,
+          "end": 19191
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_trace_charshape_loss",
+      "log": "core-isolated/0321.log",
+      "markers": [
+        "SKIP: 파일 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 9853,
+          "end": 9936
+        }
+      ]
+    },
+    {
+      "scope": "core",
+      "target": "lib",
+      "name": "wasm_api::tests::test_web_saved_vs_original_detailed",
+      "log": "core-isolated/0325.log",
+      "markers": [
+        "SKIP: 파일 없음"
+      ],
+      "coverage": "early-return-before-contract",
+      "reason": "입력 존재/읽기 guard의 부재 메시지 후 return. 파싱·편집·저장 및 이후 계약 검사에 도달하지 않음. 선언·helper 정의·시작 헤더 출력은 계약 검증으로 세지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/src/wasm_api/tests.rs",
+          "start": 4276,
+          "end": 4505
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "cli_exit_codes",
+      "name": "export_png_without_native_skia_reports_usage_error",
+      "log": "integration-targets/cli_exit_codes.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "사용법·기능 부재·존재하지 않는 입력에 대한 오류·help/version 계약. 입력을 기다려 건너뛰는 분기가 없고 assert_code 또는 직접 assertion에 도달해야 libtest ok가 가능. 의도한 오류 처리의 성공이며 정상 문서 변환 범위로 확대하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cli_exit_codes.rs",
+          "start": 307,
+          "end": 317
+        },
+        {
+          "path": "repo/engine/tests/support/cli_exit_code_support.rs",
+          "start": 1,
+          "end": 46
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "cli_exit_codes",
+      "name": "gpu_commands_without_feature_report_usage_error",
+      "log": "integration-targets/cli_exit_codes.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "사용법·기능 부재·존재하지 않는 입력에 대한 오류·help/version 계약. 입력을 기다려 건너뛰는 분기가 없고 assert_code 또는 직접 assertion에 도달해야 libtest ok가 가능. 의도한 오류 처리의 성공이며 정상 문서 변환 범위로 확대하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cli_exit_codes.rs",
+          "start": 321,
+          "end": 352
+        },
+        {
+          "path": "repo/engine/tests/support/cli_exit_code_support.rs",
+          "start": 1,
+          "end": 46
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "cli_exit_codes",
+      "name": "help_and_version_still_succeed",
+      "log": "integration-targets/cli_exit_codes.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "사용법·기능 부재·존재하지 않는 입력에 대한 오류·help/version 계약. 입력을 기다려 건너뛰는 분기가 없고 assert_code 또는 직접 assertion에 도달해야 libtest ok가 가능. 의도한 오류 처리의 성공이며 정상 문서 변환 범위로 확대하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cli_exit_codes.rs",
+          "start": 287,
+          "end": 291
+        },
+        {
+          "path": "repo/engine/tests/support/cli_exit_code_support.rs",
+          "start": 1,
+          "end": 46
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "cli_exit_codes",
+      "name": "missing_arguments_report_usage_error",
+      "log": "integration-targets/cli_exit_codes.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "사용법·기능 부재·존재하지 않는 입력에 대한 오류·help/version 계약. 입력을 기다려 건너뛰는 분기가 없고 assert_code 또는 직접 assertion에 도달해야 libtest ok가 가능. 의도한 오류 처리의 성공이며 정상 문서 변환 범위로 확대하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cli_exit_codes.rs",
+          "start": 95,
+          "end": 99
+        },
+        {
+          "path": "repo/engine/tests/support/cli_exit_code_support.rs",
+          "start": 1,
+          "end": 46
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "cli_exit_codes",
+      "name": "missing_command_reports_usage_error",
+      "log": "integration-targets/cli_exit_codes.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "사용법·기능 부재·존재하지 않는 입력에 대한 오류·help/version 계약. 입력을 기다려 건너뛰는 분기가 없고 assert_code 또는 직접 assertion에 도달해야 libtest ok가 가능. 의도한 오류 처리의 성공이며 정상 문서 변환 범위로 확대하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cli_exit_codes.rs",
+          "start": 119,
+          "end": 129
+        },
+        {
+          "path": "repo/engine/tests/support/cli_exit_code_support.rs",
+          "start": 1,
+          "end": 46
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "cli_exit_codes",
+      "name": "unknown_command_writes_usage_to_stderr_and_fails",
+      "log": "integration-targets/cli_exit_codes.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "사용법·기능 부재·존재하지 않는 입력에 대한 오류·help/version 계약. 입력을 기다려 건너뛰는 분기가 없고 assert_code 또는 직접 assertion에 도달해야 libtest ok가 가능. 의도한 오류 처리의 성공이며 정상 문서 변환 범위로 확대하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cli_exit_codes.rs",
+          "start": 102,
+          "end": 116
+        },
+        {
+          "path": "repo/engine/tests/support/cli_exit_code_support.rs",
+          "start": 1,
+          "end": 46
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "cli_exit_codes",
+      "name": "unknown_option_is_fatal_instead_of_silently_ignored",
+      "log": "integration-targets/cli_exit_codes.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "사용법·기능 부재·존재하지 않는 입력에 대한 오류·help/version 계약. 입력을 기다려 건너뛰는 분기가 없고 assert_code 또는 직접 assertion에 도달해야 libtest ok가 가능. 의도한 오류 처리의 성공이며 정상 문서 변환 범위로 확대하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cli_exit_codes.rs",
+          "start": 132,
+          "end": 158
+        },
+        {
+          "path": "repo/engine/tests/support/cli_exit_code_support.rs",
+          "start": 1,
+          "end": 46
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "cli_exit_codes",
+      "name": "unreadable_input_reports_runtime_failure",
+      "log": "integration-targets/cli_exit_codes.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "사용법·기능 부재·존재하지 않는 입력에 대한 오류·help/version 계약. 입력을 기다려 건너뛰는 분기가 없고 assert_code 또는 직접 assertion에 도달해야 libtest ok가 가능. 의도한 오류 처리의 성공이며 정상 문서 변환 범위로 확대하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cli_exit_codes.rs",
+          "start": 175,
+          "end": 198
+        },
+        {
+          "path": "repo/engine/tests/support/cli_exit_code_support.rs",
+          "start": 1,
+          "end": 46
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "issue_1144",
+      "name": "issue_1144_canvas_kit_plan_entrypoint_does_not_freeze_filename_context",
+      "log": "integration-targets/issue_1144.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "메모리에서 빈 문서·filename footer를 생성하는 helper와 테스트를 대조. 입력 부재 반환 없이 렌더 텍스트/캐시 무효화 assertion에 도달하는 경로. 4개 명명 계약에만 적용.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/issue_1144.rs",
+          "start": 56,
+          "end": 76
+        },
+        {
+          "path": "repo/engine/tests/support/issue_1144_support.rs",
+          "start": 1,
+          "end": 50
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "issue_1144",
+      "name": "issue_1144_empty_filename_context_resolves_to_empty_string",
+      "log": "integration-targets/issue_1144.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "메모리에서 빈 문서·filename footer를 생성하는 helper와 테스트를 대조. 입력 부재 반환 없이 렌더 텍스트/캐시 무효화 assertion에 도달하는 경로. 4개 명명 계약에만 적용.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/issue_1144.rs",
+          "start": 79,
+          "end": 95
+        },
+        {
+          "path": "repo/engine/tests/support/issue_1144_support.rs",
+          "start": 1,
+          "end": 50
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "issue_1144",
+      "name": "issue_1144_page_layer_tree_uses_filename_context",
+      "log": "integration-targets/issue_1144.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "메모리에서 빈 문서·filename footer를 생성하는 helper와 테스트를 대조. 입력 부재 반환 없이 렌더 텍스트/캐시 무효화 assertion에 도달하는 경로. 4개 명명 계약에만 적용.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/issue_1144.rs",
+          "start": 13,
+          "end": 29
+        },
+        {
+          "path": "repo/engine/tests/support/issue_1144_support.rs",
+          "start": 1,
+          "end": 50
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "issue_1144",
+      "name": "issue_1144_set_file_name_invalidates_cached_page_tree",
+      "log": "integration-targets/issue_1144.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "메모리에서 빈 문서·filename footer를 생성하는 helper와 테스트를 대조. 입력 부재 반환 없이 렌더 텍스트/캐시 무효화 assertion에 도달하는 경로. 4개 명명 계약에만 적용.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/issue_1144.rs",
+          "start": 32,
+          "end": 53
+        },
+        {
+          "path": "repo/engine/tests/support/issue_1144_support.rs",
+          "start": 1,
+          "end": 50
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "issue_2833_hml_adapter_row_sizes",
+      "name": "inflated_row_count_does_not_slow_down_parsing",
+      "log": "integration-targets/issue_2833_hml_adapter_row_sizes.run.log",
+      "markers": [],
+      "coverage": "contract-checked",
+      "reason": "HML을 메모리에서 생성하고 parse expect, 500ms 예산 및 row_sizes 길이·값을 무조건 assertion. corpus 부재로 성공 반환하는 경로 없음. 당시 실행의 해당 계약만 확인하며 새로운 성능 측정이 아님.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/issue_2833_hml_adapter_row_sizes.rs",
+          "start": 33,
+          "end": 65
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "equation_command_goldens::equation_command_goldens_lock_parse_layout_svg",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "partial-contract-checked",
+      "reason": "카탈로그 최소 크기·31종·필수 명령·중복 ID assertion은 golden 루프 전에 무조건 실행됨. golden 루프는 UPDATE_EQ_GOLDENS에 따라 비교 대신 쓰기 경로가 가능하므로 전체 golden 비교 통과로 확대하지 않음. 당시 stdout·환경 경로는 불명.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/equation_command_goldens.rs",
+          "start": 316,
+          "end": 384
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "export_doclang_json_contract::export_doclang_json_envelope",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/export_doclang_json_contract.rs",
+          "start": 73,
+          "end": 113
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::stage2_hwp_source_unchanged",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 243,
+          "end": 286
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::stage5_export_hwp_with_adapter_hwp_source_unchanged",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 715,
+          "end": 734
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::stage6_verify_for_hwp_source_also_recovered",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 813,
+          "end": 826
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::task903_stage32_generate_residual_axis_probe_variants",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 1165,
+          "end": 1228
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::task903_stage33_generate_shape_attr_probe_variants",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 1311,
+          "end": 1379
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::task903_stage35_generate_docinfo_payload_probe_variants",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 2037,
+          "end": 2106
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::task903_stage36_generate_bodytext_payload_probe_variants",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 2148,
+          "end": 2213
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::task903_stage37_generate_section0_record_type_probe_variants",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 2358,
+          "end": 2428
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::task903_stage38_generate_record_index_probe_variants",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 2513,
+          "end": 2599
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::task903_stage39_generate_table_index_min_probe_variants",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 2617,
+          "end": 2730
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::task903_stage40_generate_table_min_leave_one_out_variants",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 2740,
+          "end": 2853
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::task903_stage45_generate_shape_remaining_probe",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 4109,
+          "end": 4159
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "hwpx_to_hwp_adapter::task903_stage46_generate_bindata_table_integration_probe",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwpx_to_hwp_adapter.rs",
+          "start": 4333,
+          "end": 4424
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "issue_6334_hwp5_extension_master_replaces_base::hwp5_extension_master_does_not_stack_on_base",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "고정 표본 또는 디렉터리 열거 결과에서 read/parse/helper 실패 시 continue. 해당 계약의 검증 대상이 0개가 되어도 성공 가능. 성공 stdout이 capture되어 당시 대상 수와 실제 assertion 도달 여부를 확정할 수 없음. 미실행으로 단정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/issue_6334_hwp5_extension_master_replaces_base.rs",
+          "start": 64,
+          "end": 81
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_001",
+      "name": "issue_6334_hwp5_extension_master_replaces_base::hwp5_extension_master_matches_hancom_oracle_text",
+      "log": "integration-targets/regression_suite_001.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/issue_6334_hwp5_extension_master_replaces_base.rs",
+          "start": 88,
+          "end": 101
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_002",
+      "name": "issue_1402_enum_token_whitelist::numtype_figure_regression_guard",
+      "log": "integration-targets/regression_suite_002.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "고정 표본 또는 디렉터리 열거 결과에서 read/parse/helper 실패 시 continue. 해당 계약의 검증 대상이 0개가 되어도 성공 가능. 성공 stdout이 capture되어 당시 대상 수와 실제 assertion 도달 여부를 확정할 수 없음. 미실행으로 단정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/issue_1402_enum_token_whitelist.rs",
+          "start": 183,
+          "end": 215
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_002",
+      "name": "issue_1402_enum_token_whitelist::serializer_enum_tokens_within_whitelist",
+      "log": "integration-targets/regression_suite_002.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "고정 표본 또는 디렉터리 열거 결과에서 read/parse/helper 실패 시 continue. 해당 계약의 검증 대상이 0개가 되어도 성공 가능. 성공 stdout이 capture되어 당시 대상 수와 실제 assertion 도달 여부를 확정할 수 없음. 미실행으로 단정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/issue_1402_enum_token_whitelist.rs",
+          "start": 141,
+          "end": 180
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_003",
+      "name": "agent_chief_skill_contract::export_text_json_when_sample_exists",
+      "log": "integration-targets/regression_suite_003.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/agent_chief_skill_contract.rs",
+          "start": 250,
+          "end": 266
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_003",
+      "name": "hwp3_charcount_convention::hwp3_roundtrip_char_count_diff_count_dropped_sharply",
+      "log": "integration-targets/regression_suite_003.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwp3_charcount_convention.rs",
+          "start": 142,
+          "end": 153
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_003",
+      "name": "hwp3_charcount_convention::hwp3_roundtrip_char_count_is_not_off_by_exactly_one",
+      "log": "integration-targets/regression_suite_003.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwp3_charcount_convention.rs",
+          "start": 101,
+          "end": 139
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_003",
+      "name": "hwp3_charcount_convention::hwp5_roundtrip_char_count_unaffected",
+      "log": "integration-targets/regression_suite_003.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/hwp3_charcount_convention.rs",
+          "start": 156,
+          "end": 166
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_003",
+      "name": "output_axis_json_contract::convert_json_envelope_with_verify",
+      "log": "integration-targets/regression_suite_003.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/output_axis_json_contract.rs",
+          "start": 295,
+          "end": 328
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_003",
+      "name": "output_axis_json_contract::export_hwpx_json_envelope_with_verify",
+      "log": "integration-targets/regression_suite_003.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/output_axis_json_contract.rs",
+          "start": 200,
+          "end": 239
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_003",
+      "name": "output_axis_json_contract::export_hwpx_json_without_verify_has_no_verdict",
+      "log": "integration-targets/regression_suite_003.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/output_axis_json_contract.rs",
+          "start": 242,
+          "end": 268
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_003",
+      "name": "output_axis_json_contract::export_markdown_json_manifest",
+      "log": "integration-targets/regression_suite_003.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/output_axis_json_contract.rs",
+          "start": 106,
+          "end": 146
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_003",
+      "name": "output_axis_json_contract::export_markdown_preserves_embedded_image_bytes_and_relative_link",
+      "log": "integration-targets/regression_suite_003.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/output_axis_json_contract.rs",
+          "start": 149,
+          "end": 197
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_003",
+      "name": "output_axis_json_contract::export_pdf_json_manifest",
+      "log": "integration-targets/regression_suite_003.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/output_axis_json_contract.rs",
+          "start": 57,
+          "end": 103
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_006",
+      "name": "edit_verify_contract::fill_verify_reports_and_exit_matches",
+      "log": "integration-targets/regression_suite_006.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/edit_verify_contract.rs",
+          "start": 34,
+          "end": 61
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_006",
+      "name": "edit_verify_contract::session_save_verify_true_carries_report",
+      "log": "integration-targets/regression_suite_006.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/edit_verify_contract.rs",
+          "start": 143,
+          "end": 190
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_006",
+      "name": "edit_verify_contract::set_cell_and_replace_accept_verify",
+      "log": "integration-targets/regression_suite_006.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/edit_verify_contract.rs",
+          "start": 89,
+          "end": 140
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_006",
+      "name": "edit_verify_contract::without_verify_field_is_null_and_exit_0",
+      "log": "integration-targets/regression_suite_006.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/edit_verify_contract.rs",
+          "start": 64,
+          "end": 86
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_006",
+      "name": "export_hml_json_contract::export_hml_json_envelope",
+      "log": "integration-targets/regression_suite_006.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/export_hml_json_contract.rs",
+          "start": 43,
+          "end": 78
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_006",
+      "name": "page_number_propagation::gugeo_업무계획_max_page_number_close_to_count",
+      "log": "integration-targets/regression_suite_006.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/page_number_propagation.rs",
+          "start": 82,
+          "end": 110
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_006",
+      "name": "page_number_propagation::gugeo_업무계획_post_new_number_monotonic",
+      "log": "integration-targets/regression_suite_006.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/page_number_propagation.rs",
+          "start": 33,
+          "end": 77
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_010",
+      "name": "edit_fit_check_contract::dry_run_reports_overflow_before_writing_any_file",
+      "log": "integration-targets/regression_suite_010.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/edit_fit_check_contract.rs",
+          "start": 130,
+          "end": 172
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_010",
+      "name": "edit_fit_check_contract::fitting_value_reports_no_overflow",
+      "log": "integration-targets/regression_suite_010.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/edit_fit_check_contract.rs",
+          "start": 115,
+          "end": 127
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_010",
+      "name": "edit_fit_check_contract::overflow_does_not_block_the_edit",
+      "log": "integration-targets/regression_suite_010.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/edit_fit_check_contract.rs",
+          "start": 175,
+          "end": 213
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_010",
+      "name": "edit_fit_check_contract::overflowing_value_is_reported",
+      "log": "integration-targets/regression_suite_010.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/edit_fit_check_contract.rs",
+          "start": 86,
+          "end": 112
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_010",
+      "name": "search_dash_query_contract::dash_leading_query_is_expressible_after_a_double_dash",
+      "log": "integration-targets/regression_suite_010.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/search_dash_query_contract.rs",
+          "start": 37,
+          "end": 69
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_010",
+      "name": "search_dash_query_contract::double_dash_does_not_break_normal_search",
+      "log": "integration-targets/regression_suite_010.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/search_dash_query_contract.rs",
+          "start": 72,
+          "end": 93
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_013",
+      "name": "agent_security_sweep_skill_contract::capability_registry_lists_security_sweep",
+      "log": "integration-targets/regression_suite_013.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/agent_security_sweep_skill_contract.rs",
+          "start": 133,
+          "end": 141
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_013",
+      "name": "unicode_deception_contract::scan_cost_is_linear_in_document_size",
+      "log": "integration-targets/regression_suite_013.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/unicode_deception_contract.rs",
+          "start": 585,
+          "end": 614
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_017",
+      "name": "cli_password_stdin_command_parity_contract::password_protected_documents_open_via_global_password_flag_for_every_wired_command",
+      "log": "integration-targets/regression_suite_017.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cli_password_stdin_command_parity_contract.rs",
+          "start": 119,
+          "end": 166
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_017",
+      "name": "mcp_server_contract::boolean_false_does_not_inject_a_presence_flag",
+      "log": "integration-targets/regression_suite_017.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_server_contract.rs",
+          "start": 279,
+          "end": 305
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_017",
+      "name": "mcp_server_contract::doc_tree_adds_node_path_for_paragraphs_and_table_cells",
+      "log": "integration-targets/regression_suite_017.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_server_contract.rs",
+          "start": 369,
+          "end": 445
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_017",
+      "name": "mcp_server_contract::session_open_read_close_without_reparse",
+      "log": "integration-targets/regression_suite_017.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_server_contract.rs",
+          "start": 323,
+          "end": 362
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_017",
+      "name": "mcp_server_contract::tools_call_stateless_info_works",
+      "log": "integration-targets/regression_suite_017.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_server_contract.rs",
+          "start": 308,
+          "end": 320
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "changed_pages_contract::dry_run_changed_pages_is_null",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/changed_pages_contract.rs",
+          "start": 103,
+          "end": 121
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "changed_pages_contract::fill_fields_reports_changed_pages",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/changed_pages_contract.rs",
+          "start": 51,
+          "end": 72
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "changed_pages_contract::replace_text_reports_changed_pages",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/changed_pages_contract.rs",
+          "start": 76,
+          "end": 99
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "changed_pages_contract::run_plan_journal_reports_changed_pages_union",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/changed_pages_contract.rs",
+          "start": 171,
+          "end": 196
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "changed_pages_contract::set_cell_reports_changed_pages",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/changed_pages_contract.rs",
+          "start": 125,
+          "end": 167
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "issue_4658_ir_diff_pagecount::ir_diff_json_always_reports_page_counts",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/issue_4658_ir_diff_pagecount.rs",
+          "start": 65,
+          "end": 87
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "issue_4658_ir_diff_pagecount::oss_rst_ir_diff_is_not_identical_when_page_counts_differ",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/issue_4658_ir_diff_pagecount.rs",
+          "start": 90,
+          "end": 126
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::checksum_failures_are_never_masked",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 116,
+          "end": 174
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::default_still_includes_raw",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 416,
+          "end": 439
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::dry_run_writes_nothing",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 301,
+          "end": 337
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::keep_preview_retains_the_thumbnail",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 566,
+          "end": 610
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::kind_filter_narrows_detection",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 390,
+          "end": 412
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::mask_must_be_a_single_non_alphanumeric_char",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 341,
+          "end": 386
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::masking_preserves_length",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 178,
+          "end": 228
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::no_raw_omits_the_field_without_changing_other_fields",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 444,
+          "end": 493
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::redact_envelope_marks_document_values_as_untrusted",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 732,
+          "end": 772
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::refuses_to_run_without_an_explicit_destination",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 235,
+          "end": 297
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::sanitize_envelope_marks_removed_before_as_untrusted",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 777,
+          "end": 801
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::sanitize_preserves_the_input_format",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 614,
+          "end": 639
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "redact_sanitize_contract::sanitize_removes_metadata_without_touching_the_body",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/redact_sanitize_contract.rs",
+          "start": 497,
+          "end": 562
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_019",
+      "name": "split_document_tool_contract::split_envelope_and_reread_page_count",
+      "log": "integration-targets/regression_suite_019.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/split_document_tool_contract.rs",
+          "start": 33,
+          "end": 74
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "agent_context_cost_contract::envelope_carries_contract_fields_and_unit_disclosure",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/agent_context_cost_contract.rs",
+          "start": 52,
+          "end": 66
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "agent_context_cost_contract::envelope_contains_no_document_text",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/agent_context_cost_contract.rs",
+          "start": 137,
+          "end": 181
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "agent_context_cost_contract::favorable_alternative_is_measured_too",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/agent_context_cost_contract.rs",
+          "start": 119,
+          "end": 134
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "agent_context_cost_contract::measurement_is_deterministic",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/agent_context_cost_contract.rs",
+          "start": 69,
+          "end": 80
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "agent_context_cost_contract::ratio_and_recovery_are_self_consistent",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/agent_context_cost_contract.rs",
+          "start": 83,
+          "end": 116
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "issue_4882_policy_report_page_roundtrip::issue4882_export_hwpx_reimport_keeps_215_pages",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/issue_4882_policy_report_page_roundtrip.rs",
+          "start": 283,
+          "end": 300
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "issue_4882_policy_report_page_roundtrip::issue4882_hwpx_export_keeps_hwp5_origin_marker",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/issue_4882_policy_report_page_roundtrip.rs",
+          "start": 246,
+          "end": 261
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "issue_4882_policy_report_page_roundtrip::issue4882_note_zero_vpos_survives_hwpx_roundtrip",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/issue_4882_policy_report_page_roundtrip.rs",
+          "start": 264,
+          "end": 280
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "issue_6344_empty_page_false_positive::other_verdicts_are_unchanged",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/issue_6344_empty_page_false_positive.rs",
+          "start": 74,
+          "end": 98
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "issue_6344_empty_page_false_positive::paper_anchored_table_page_is_not_reported_empty",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/issue_6344_empty_page_false_positive.rs",
+          "start": 42,
+          "end": 67
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "mcp_session_arg_typing_contract::malformed_boolean_is_rejected_instead_of_flipping_to_the_default",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_session_arg_typing_contract.rs",
+          "start": 162,
+          "end": 216
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "mcp_session_arg_typing_contract::malformed_page_is_rejected_instead_of_dumping_the_whole_document",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_session_arg_typing_contract.rs",
+          "start": 124,
+          "end": 159
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_020",
+      "name": "mcp_session_arg_typing_contract::missing_and_mistyped_coordinates_say_different_things",
+      "log": "integration-targets/regression_suite_020.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_session_arg_typing_contract.rs",
+          "start": 219,
+          "end": 255
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_024",
+      "name": "agent_visual_regression_skill_contract::ir_diff_json_diff_is_exit_three_when_samples_exist",
+      "log": "integration-targets/regression_suite_024.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/agent_visual_regression_skill_contract.rs",
+          "start": 259,
+          "end": 282
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_024",
+      "name": "agent_visual_regression_skill_contract::ir_diff_json_identical_exit_zero_when_sample_exists",
+      "log": "integration-targets/regression_suite_024.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/agent_visual_regression_skill_contract.rs",
+          "start": 237,
+          "end": 256
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_024",
+      "name": "agent_visual_regression_skill_contract::render_diff_aa_pass_when_sample_exists",
+      "log": "integration-targets/regression_suite_024.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/agent_visual_regression_skill_contract.rs",
+          "start": 217,
+          "end": 234
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_024",
+      "name": "agent_visual_regression_skill_contract::render_diff_self_pass_when_sample_exists",
+      "log": "integration-targets/regression_suite_024.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/cases/agent_visual_regression_skill_contract.rs",
+          "start": 198,
+          "end": 214
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_024",
+      "name": "mcp_split_page_base_contract::declared_minimum_is_the_page_the_cli_actually_accepts",
+      "log": "integration-targets/regression_suite_024.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_split_page_base_contract.rs",
+          "start": 64,
+          "end": 107
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_028",
+      "name": "mcp_session_query_contract::session_replace_accumulates_until_save",
+      "log": "integration-targets/regression_suite_028.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_session_query_contract.rs",
+          "start": 157,
+          "end": 199
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_028",
+      "name": "mcp_session_query_contract::session_replace_repaginates_page_vocabulary",
+      "log": "integration-targets/regression_suite_028.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_session_query_contract.rs",
+          "start": 256,
+          "end": 309
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_028",
+      "name": "mcp_session_query_contract::session_replace_zero_matches_reports_zero",
+      "log": "integration-targets/regression_suite_028.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_session_query_contract.rs",
+          "start": 202,
+          "end": 217
+        }
+      ]
+    },
+    {
+      "scope": "integration",
+      "target": "regression_suite_028",
+      "name": "mcp_session_query_contract::session_search_matches_stateless_search",
+      "log": "integration-targets/regression_suite_028.run.log",
+      "markers": [],
+      "coverage": "guarded-path-unresolved",
+      "reason": "입력·문서 또는 helper의 존재/성공 조건 뒤 return 가능한 소스 경로를 확인. 성공 stdout이 capture되어 당시 반환 여부·이후 검증 범위를 확정할 수 없음. 현재 파일 부재로 과거 미실행을 추정하지 않음.",
+      "sources": [
+        {
+          "path": "repo/engine/tests/mcp_session_query_contract.rs",
+          "start": 131,
+          "end": 154
+        }
+      ]
+    }
+  ]
+}
