@@ -389,7 +389,7 @@ function positionAfterPasteResult(pos: DocumentPosition, parsed: any): DocumentP
   return newPos;
 }
 
-function pastePlainText(this: any, text: string, hasSelection: boolean): void {
+export function pastePlainText(this: any, text: string, hasSelection: boolean): void {
   if (!text) return;
   // A body paste is one edit, including replacement of a selection.
   // Keep cell/note insertion on its existing submode path.
@@ -709,6 +709,14 @@ export function onKeyDown(this: any, e: KeyboardEvent): void {
 
 function routeKeyDown(this: any, e: KeyboardEvent): void {
   if (!this.active) return;
+
+  // Consume this chord before submodes can turn it into ordinary rich paste or
+  // dismiss an object selection. Disabled contexts keep their current state.
+  if (matchShortcut(e, defaultShortcuts) === 'edit:paste-plain-text') {
+    e.preventDefault();
+    if (!e.isComposing && e.keyCode !== 229) this.dispatcher?.dispatch('edit:paste-plain-text');
+    return;
+  }
 
   // 이전 셀 문자 단축키의 compositionend가 브라우저 focus 이동으로 누락됐더라도 다음
   // 물리 입력까지 억제 상태가 새지 않게 한다. 현재 S/M이면 아래 resolver가 다시 arm한다.

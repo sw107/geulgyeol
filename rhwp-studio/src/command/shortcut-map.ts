@@ -22,6 +22,7 @@ export const defaultShortcuts: [ShortcutDef, string][] = [
   [{ key: 'y', ctrl: true }, 'edit:redo'],
   // 한글 IME에서는 e.key가 'ㅁ' 또는 조합 중 'Process'가 되므로 물리 KeyA로 보정한다.
   [{ key: 'a', code: 'KeyA', ctrl: true }, 'edit:select-all'],
+  [{ key: 'v', code: 'KeyV', ctrl: true, shift: true }, 'edit:paste-plain-text'],
 
   [{ key: 'e', ctrl: true }, 'edit:delete'],
   [{ key: 'ㄷ', ctrl: true }, 'edit:delete'],

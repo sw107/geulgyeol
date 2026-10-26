@@ -5679,6 +5679,23 @@ export class InputHandler {
     this.focus();
   }
 
+  canPastePlainText(): boolean {
+    const pos = this.cursor.getPosition();
+    return this.editMode === 'normal' && !this.isComposing
+      && !this.cursor.isInCell() && !this.cursor.isInTextBox()
+      && !this.cursor.isInHeaderFooter() && !this.cursor.isInFootnote()
+      && !this.cursor.isInCellSelectionMode() && !this.cursor.isInPictureObjectSelection()
+      && !this.cursor.isInTableObjectSelection() && !this.isPictureCaptionEditing()
+      && !this.isInField() && pos.parentParaIndex === undefined && !pos.cellPath?.length;
+  }
+
+  /** The native host supplies text only; reuse ordinary body paste history. */
+  performPastePlainText(text: string): void {
+    if (!this.canPastePlainText() || !text) return;
+    this.focusTextarea();
+    _keyboard.pastePlainText.call(this, text, this.cursor.hasSelection());
+  }
+
   /** 붙이기 (커맨드 시스템용 — 컨텍스트 메뉴/도구 상자에서 호출) */
   performPaste(): boolean {
     if (this.editMode === 'form') return false;

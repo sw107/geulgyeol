@@ -6,6 +6,7 @@ import { HistoryDialog } from '@/ui/history-dialog';
 import { CompareDialog } from '@/ui/compare-dialog';
 import { CompareSessionStore } from '@/compare/session';
 import { canExecuteFormatPaste } from '../format-paste-availability';
+import { plainTextPasteCommand } from './plain-text-paste';
 
 /** 검색 대화상자 싱글톤 — 열려 있으면 재사용 */
 let findDialogInstance: FindDialog | null = null;
@@ -17,6 +18,7 @@ let compareDialogInstance: CompareDialog | null = null;
 let compareSessionStore: CompareSessionStore | null = null;
 
 export const editCommands: CommandDef[] = [
+  plainTextPasteCommand,
   {
     id: 'edit:undo',
     label: '되돌리기',
