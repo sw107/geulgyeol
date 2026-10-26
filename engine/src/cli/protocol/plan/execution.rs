@@ -335,14 +335,14 @@ fn execute_plan_steps(
                     if *len == 0 {
                         continue;
                     }
-                    if let Err(e) = doc.delete_text_in_cell(
-                        sec as u32,
-                        para as u32,
-                        ctrl as u32,
-                        cell_idx as u32,
-                        pi as u32,
+                    if let Err(e) = doc.delete_text_in_cell_native(
+                        sec,
+                        para,
+                        ctrl,
+                        cell_idx,
+                        pi,
                         0,
-                        *len as u32,
+                        *len,
                     ) {
                         return Err(format!(
                             "step {}: 셀 비우기 실패(문단 {}) - {:?}",
@@ -351,11 +351,11 @@ fn execute_plan_steps(
                     }
                 }
                 if !text.is_empty() {
-                    if let Err(e) = doc.insert_text_in_cell(
-                        sec as u32,
-                        para as u32,
-                        ctrl as u32,
-                        cell_idx as u32,
+                    if let Err(e) = doc.insert_text_in_cell_native(
+                        sec,
+                        para,
+                        ctrl,
+                        cell_idx,
                         0,
                         0,
                         text,
@@ -668,4 +668,59 @@ pub(crate) fn run_plan_engine(plan: &serde_json::Value) -> (serde_json::Value, i
         ),
         EXIT_OK,
     )
+}
+
+
+#[cfg(test)]
+mod native_error_boundary_tests {
+    use super::*;
+    use crate::native_error_boundary_test_support::{cell_document, text};
+
+    fn steps() -> Vec<serde_json::Value> {
+        vec![
+            serde_json::json!({"action":"set_cell","table":0,"row":0,"col":0,"text":"수정🙂","keepStyle":true}),
+        ]
+    }
+
+    #[test]
+    fn native_plan_cell_error_preserves_document() {
+        let mut doc = cell_document(false);
+        let events_before = doc.serialize_event_log();
+        let before = format!("{:?}", doc.document());
+        let result = execute_plan_steps(
+            &steps(),
+            &mut doc,
+            &Default::default(),
+            &Default::default(),
+            &[None],
+        );
+        let message = result.expect_err("incomplete cell must return a plan error");
+        assert!(message.contains("step 0: 셀 쓰기 실패"), "{message}");
+        assert!(
+            message.contains("셀 문단 인덱스 0 범위 초과 (총 0개)"),
+            "{message}"
+        );
+        assert_eq!(format!("{:?}", doc.document()), before);
+        assert_eq!(doc.serialize_event_log(), events_before);
+    }
+
+    #[test]
+    fn native_plan_cell_success_preserves_journal() {
+        let mut doc = cell_document(true);
+        let (journal, changed) = execute_plan_steps(
+            &steps(),
+            &mut doc,
+            &Default::default(),
+            &Default::default(),
+            &[None],
+        )
+        .unwrap();
+        assert_eq!(journal.len(), 1);
+        assert_eq!(journal[0]["action"], "set_cell");
+        assert_eq!(journal[0]["oldText"], "원본🙂");
+        assert_eq!(journal[0]["step"], 0);
+        assert_eq!(journal[0]["table"], 0);
+        assert_eq!(changed.len(), 1);
+        assert_eq!(text(&doc), "수정🙂");
+    }
 }
