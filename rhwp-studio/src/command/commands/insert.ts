@@ -10,6 +10,7 @@ import { chartTargetFromSelection, matchChartRef } from '@/core/chart-data-targe
 import { EquationEditorDialog } from '@/ui/equation-editor-dialog';
 import { EquationPropertiesDialog } from '@/ui/equation-props-dialog';
 import { SymbolsDialog } from '@/ui/symbols-dialog';
+import { todayDateCommand } from './today-date';
 import { BookmarkDialog } from '@/ui/bookmark-dialog';
 import { EndnoteShapeDialog } from '@/ui/endnote-shape-dialog';
 import { FieldInsertDialog } from '@/ui/field-insert-dialog';
@@ -100,6 +101,7 @@ function insertNote(
 }
 
 export const insertCommands: CommandDef[] = [
+  todayDateCommand,
   {
     id: 'insert:shape',
     label: '도형',

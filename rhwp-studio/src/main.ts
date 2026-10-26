@@ -303,6 +303,7 @@ function getContext(): EditorContext {
     inPictureObjectSelection: inputHandler?.isInPictureObjectSelection() ?? false,
     ...pictureCaptionAvailability(inputHandler, wasm),
     inField: inputHandler?.isInField() ?? false,
+    canInsertTodayDate: inputHandler?.canInsertTodayDate() ?? false,
     isEditable: !isFormMode || canEditFormField,
     editMode,
     isFormMode,
