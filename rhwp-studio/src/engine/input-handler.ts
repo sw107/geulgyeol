@@ -8,7 +8,7 @@ import { CaretRenderer } from './caret-renderer';
 import { FieldMarkerRenderer } from './field-marker-renderer';
 import { SelectionRenderer } from './selection-renderer';
 import { CommandHistory } from './history';
-import { type FootnoteSelectionSnapshot, DeleteSelectionCommand, ApplyCharFormatCommand, ApplyParaFormatCommand, SnapshotCommand, SubmodeSnapshotCommand, SubmodeSelectionSnapshotCommand, SetFormValueCommand, TextMutationEffectAccumulator, IMMEDIATE_TEXT_MUTATION_EFFECTS, applyCharShapeModsToRange, cellAxisPath, cellParaIndexOf } from './command';
+import { type FootnoteSelectionSnapshot, InsertTextCommand, DeleteSelectionCommand, ApplyCharFormatCommand, ApplyParaFormatCommand, SnapshotCommand, SubmodeSnapshotCommand, SubmodeSelectionSnapshotCommand, SetFormValueCommand, TextMutationEffectAccumulator, IMMEDIATE_TEXT_MUTATION_EFFECTS, applyCharShapeModsToRange, cellAxisPath, cellParaIndexOf } from './command';
 import type { OperationDescriptor, ParaFormatTarget, RefreshPolicy, TextMutationEffects, EditCommand, EditContext, HeaderFooterSelectionSnapshot, FormValueTarget } from './command';
 import { selectCellIndicesInRange, paraFormatTargetsForCellBlock, withCellPathTarget } from './cell-block-format';
 import type { SelectedCellBlock } from './cell-block-format';
@@ -5657,6 +5657,26 @@ export class InputHandler {
     // 텍스트 선택 → textarea 포커스 후 execCommand
     this.focusTextarea();
     document.execCommand('copy');
+  }
+
+  /** Date insertion deliberately starts with an unselected ordinary body cursor. */
+  canInsertTodayDate(): boolean {
+    const pos = this.cursor.getPosition();
+    return this.editMode === 'normal' && !this.isComposing && !this.cursor.hasSelection()
+      && !this.cursor.isInCell() && !this.cursor.isInTextBox()
+      && !this.cursor.isInHeaderFooter() && !this.cursor.isInFootnote()
+      && !this.cursor.isInCellSelectionMode() && !this.cursor.isInPictureObjectSelection()
+      && !this.cursor.isInTableObjectSelection() && !this.isPictureCaptionEditing()
+      && !this.isInField() && pos.parentParaIndex === undefined && !pos.cellPath?.length;
+  }
+
+  performInsertDate(text: string): void {
+    if (!this.canInsertTodayDate()) return;
+    const pos = this.cursor.getPosition();
+    // A distinct snapshot keeps the entire date separate from adjacent typing.
+    this.executeOperation({ kind: 'snapshot', operationType: 'insertTodayDate',
+      operation: wasm => new InsertTextCommand(pos, text).execute(wasm) });
+    this.focus();
   }
 
   /** 붙이기 (커맨드 시스템용 — 컨텍스트 메뉴/도구 상자에서 호출) */
