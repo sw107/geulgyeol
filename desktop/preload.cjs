@@ -6,5 +6,6 @@ contextBridge.exposeInMainWorld('baram',Object.freeze({
   confirmUnsaved:action=>ipcRenderer.invoke('baram:confirm-unsaved',action),
   onAction:(callback)=>{const fn=(_event,action)=>callback(action);ipcRenderer.on('baram:action',fn);return()=>ipcRenderer.removeListener('baram:action',fn);},
   setDirty:(dirty)=>ipcRenderer.send('baram:dirty',Boolean(dirty)),
-  info:()=>ipcRenderer.invoke('baram:info')
+  info:()=>ipcRenderer.invoke('baram:info'),
+  clipboardText:()=>ipcRenderer.sendSync('baram:clipboard-text')
 }));

@@ -30,6 +30,7 @@ import type { EditorContext, CommandServices, EditorEditMode } from '@/command/t
 import { defaultShortcuts, matchShortcut } from '@/command/shortcut-map';
 import { confirmSaveBeforeReplacingDocument, fileCommands } from '@/command/commands/file';
 import { editCommands } from '@/command/commands/edit';
+import { readNativeClipboardText } from '@/command/native-clipboard';
 import { syncClipMenu, syncTextMarkMenu, syncToolboxMenu, viewCommands } from '@/command/commands/view';
 import { formatCommands } from '@/command/commands/format';
 import { insertCommands } from '@/command/commands/insert';
@@ -304,6 +305,7 @@ function getContext(): EditorContext {
     ...pictureCaptionAvailability(inputHandler, wasm),
     inField: inputHandler?.isInField() ?? false,
     canInsertTodayDate: inputHandler?.canInsertTodayDate() ?? false,
+    canPastePlainText: inputHandler?.canPastePlainText() ?? false,
     isEditable: !isFormMode || canEditFormField,
     editMode,
     isFormMode,
@@ -336,6 +338,7 @@ const commandServices: CommandServices = {
   documentState,
   getContext,
   getInputHandler: () => inputHandler,
+  readClipboardText: readNativeClipboardText,
   getViewportManager: () => canvasView?.getViewportManager() ?? null,
   gotoPage: (globalPage) => canvasView?.gotoPage(globalPage) ?? false,
   refreshDocumentStatus: () => {

@@ -14,6 +14,8 @@ export interface EditorContext {
   hasSelection: boolean;
   /** Collapsed ordinary body cursor, ready for static date insertion. */
   canInsertTodayDate?: boolean;
+  /** Ordinary body cursor/selection ready for text-only clipboard paste. */
+  canPastePlainText?: boolean;
   /** 모양 복사 상태가 있는가? */
   hasCopiedFormat: boolean;
   /** 커서가 표 셀 내부인가? */
@@ -116,6 +118,8 @@ export interface CommandServices {
   getContext: () => EditorContext;
   /** InputHandler 접근 (문서 미로드 시 null) */
   getInputHandler: () => InputHandler | null;
+  /** Optional native host text reader; synchronous to preserve the paste target. */
+  readClipboardText?: () => string | null;
   /** ViewportManager 접근 (문서 미로드 시 null) */
   getViewportManager: () => ViewportManager | null;
   /** 지정한 전역 쪽을 화면에 표시한다. 성공하면 true. */

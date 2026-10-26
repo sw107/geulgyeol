@@ -1,10 +1,11 @@
-const {app,BrowserWindow,dialog,ipcMain,Menu,session}=require('electron');
+const {app,BrowserWindow,dialog,ipcMain,Menu,session,clipboard}=require('electron');
 const path=require('node:path');
 app.setPath('userData',path.join(process.env?.GEULGYEOL_PROFILE_ROOT||app.getPath('appData'),'GeulgyeolBeta3'));
 const {startProfileServer}=require('./profile-server.cjs');
 const {validateDocumentBytes,atomicWrite}=require('./storage.cjs');
 const {installCloseController}=require('./close-controller.cjs');
 const {installDocumentShortcuts}=require('./document-shortcuts.cjs');
+const {installPlainTextClipboard}=require('./plain-text-clipboard.cjs');
 const {installPrintPreview}=require('./print-preview.cjs');
 const {createExternalOpenQueue,readDocumentFile}=require('./external-open.cjs');
 let win,origin,server,dirty=false,saving=false,rendererFailed=false;
@@ -35,6 +36,7 @@ app.whenReady().then(async()=>{
   win=new BrowserWindow({width:1280,height:860,minWidth:900,minHeight:620,title:'글결 베타 0.4.4-beta.3',show:false,
     webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
   installDocumentShortcuts(win.webContents,action);
+  installPlainTextClipboard(ipcMain,clipboard,trusted);
   installPrintPreview(win,origin,BrowserWindow);
   win.webContents.on('will-navigate',(e,url)=>{if(url!==origin+'/')e.preventDefault();});
   win.webContents.on('render-process-gone',()=>{rendererFailed=true;});
