@@ -3531,36 +3531,64 @@ mod issue_1151_v2_tac_toggle_tests {
     // ─── tac=true → false 토글 — 빈 그림 문단 LINE_SEG 재구성 ──────────
     #[test]
     fn tac_toggle_true_to_false_restores_empty_picture_para_line_seg() {
-        let mut core = make_test_core();
-        let pic_h = 5000u32;
-        let ctrl_idx = {
-            let para = &mut core.document.sections[0].paragraphs[0];
-            push_body_floating_picture(para, 5000, pic_h, 1000, 1000, 1)
-        };
-        // 먼저 tac=true 로
-        core.set_picture_properties_native(0, 0, ctrl_idx, r#"{"treatAsChar":true}"#)
-            .expect("forward migration");
-        let lh_after_forward = core.document.sections[0].paragraphs[0].line_segs[0].line_height;
-        assert_eq!(lh_after_forward, pic_h as i32);
+        // No CharShape resolves to the 12px fallback (900 HWPUNIT at 96dpi).
+        // Explicit 10pt and 18pt styles must retain their own empty-line metrics.
+        for (base_size, expected_height, expected_baseline) in [
+            (None, 900, 765),
+            (Some(1000), 1000, 850),
+            (Some(1800), 1800, 1530),
+        ] {
+            let mut core = make_test_core();
+            if let Some(base_size) = base_size {
+                let mut document = core.document.clone();
+                document
+                    .doc_info
+                    .char_shapes
+                    .push(crate::model::style::CharShape {
+                        base_size,
+                        ..Default::default()
+                    });
+                document.sections[0].paragraphs[0].char_shapes.push(
+                    crate::model::paragraph::CharShapeRef {
+                        start_pos: 0,
+                        char_shape_id: 0,
+                    },
+                );
+                core.set_document(document);
+            }
+            let pic_h = 5000u32;
+            let ctrl_idx = {
+                let para = &mut core.document.sections[0].paragraphs[0];
+                push_body_floating_picture(para, 5000, pic_h, 1000, 1000, 1)
+            };
+            core.set_picture_properties_native(0, 0, ctrl_idx, r#"{"treatAsChar":true}"#)
+                .expect("forward migration");
+            assert_eq!(
+                core.document.sections[0].paragraphs[0].line_segs[0].line_height,
+                pic_h as i32
+            );
 
-        // tac=false 로 — 빈 그림 전용 문단에는 더 이상 inline 슬롯이 없으므로 기본 빈 줄로 복원.
-        core.set_picture_properties_native(0, 0, ctrl_idx, r#"{"treatAsChar":false}"#)
-            .expect("reverse toggle");
-        let para = &core.document.sections[0].paragraphs[0];
-        assert_eq!(para.line_segs.len(), 1);
-        assert_eq!(
-            para.line_segs[0].line_height, 1000,
-            "남은 TAC 개체가 없으면 기본 빈 줄 높이로 복원"
-        );
-        assert_eq!(
-            para.line_segs[0].baseline_distance, 850,
-            "기본 빈 줄 기준선으로 복원"
-        );
-        let pic = match &para.controls[ctrl_idx] {
-            Control::Picture(p) => p.as_ref(),
-            _ => panic!(),
-        };
-        assert!(!pic.common.treat_as_char, "tac 비트는 false 로 토글");
+            core.set_picture_properties_native(0, 0, ctrl_idx, r#"{"treatAsChar":false}"#)
+                .expect("reverse toggle");
+            let para = &core.document.sections[0].paragraphs[0];
+            assert_eq!(para.line_segs.len(), 1);
+            assert_eq!(
+                para.line_segs[0].line_height, expected_height,
+                "style {base_size:?}"
+            );
+            assert_eq!(
+                para.line_segs[0].text_height, expected_height,
+                "style {base_size:?}"
+            );
+            assert_eq!(
+                para.line_segs[0].baseline_distance, expected_baseline,
+                "style {base_size:?}"
+            );
+            let Control::Picture(pic) = &para.controls[ctrl_idx] else {
+                panic!("picture expected")
+            };
+            assert!(!pic.common.treat_as_char, "tac bit must be false");
+        }
     }
 
     // ─── 빈 line_segs paragraph 의 토글 — line_seg 신설 ────────────────

@@ -1924,7 +1924,7 @@ fn create_doc_with_table() -> HwpDocument {
                 height: 3000,
                 paragraphs: vec![Paragraph {
                     text: "셀A".to_string(),
-                    char_count: 2,
+                    char_count: 3, // UTF-16 text units + paragraph end marker
                     char_offsets: make_char_offsets("셀A"),
                     line_segs: vec![LineSeg {
                         line_height: 400,
@@ -1944,7 +1944,7 @@ fn create_doc_with_table() -> HwpDocument {
                 height: 3000,
                 paragraphs: vec![Paragraph {
                     text: "셀B".to_string(),
-                    char_count: 2,
+                    char_count: 3, // UTF-16 text units + paragraph end marker
                     char_offsets: make_char_offsets("셀B"),
                     line_segs: vec![LineSeg {
                         line_height: 400,
@@ -1964,7 +1964,7 @@ fn create_doc_with_table() -> HwpDocument {
                 height: 3000,
                 paragraphs: vec![Paragraph {
                     text: "셀C".to_string(),
-                    char_count: 2,
+                    char_count: 3, // UTF-16 text units + paragraph end marker
                     char_offsets: make_char_offsets("셀C"),
                     line_segs: vec![LineSeg {
                         line_height: 400,
@@ -1984,7 +1984,7 @@ fn create_doc_with_table() -> HwpDocument {
                 height: 3000,
                 paragraphs: vec![Paragraph {
                     text: "셀D".to_string(),
-                    char_count: 2,
+                    char_count: 3, // UTF-16 text units + paragraph end marker
                     char_offsets: make_char_offsets("셀D"),
                     line_segs: vec![LineSeg {
                         line_height: 400,
@@ -2268,7 +2268,10 @@ fn deferred_cell_replace_applies_ime_atomically() {
         Control::Table(table) => {
             let para = &table.cells[0].paragraphs[0];
             assert_eq!(para.text, "셀A하");
-            assert_eq!(para.char_count, 3);
+            assert_eq!(
+                para.char_count, 4,
+                "three UTF-16 text units plus the end marker"
+            );
             assert_eq!(para.char_offsets, make_char_offsets("셀A하"));
         }
         other => panic!("table control expected: {other:?}"),
@@ -2343,6 +2346,52 @@ fn deferred_cell_replace_reports_real_flow_boundary() {
             "replacement must cross a line-flow boundary"
         ),
         other => panic!("table control expected: {other:?}"),
+    }
+}
+
+#[test]
+fn clickhere_cell_insertion_rejects_missing_paragraph_end_without_mutation() {
+    for by_path in [false, true] {
+        let mut doc = create_doc_with_table();
+        let Control::Table(table) = &mut doc.document.sections[0].paragraphs[0].controls[0] else {
+            panic!("table expected");
+        };
+        table.cells[0].paragraphs[0].char_count = 2; // Deliberately omit the end marker.
+        let before = format!("{:?}", doc.document);
+        doc.event_log.clear();
+        // Test the native HwpError before the WASM boundary. JsValue construction
+        // itself is unsupported on non-WASM targets and must not hide this error.
+        let result = if by_path {
+            doc.insert_click_here_field_at_by_path(
+                0,
+                0,
+                &[(0, 0, 0)],
+                0,
+                "안내",
+                "메모",
+                "이름",
+                true,
+            )
+        } else {
+            doc.insert_click_here_field_at_in_cell(
+                0, 0, 0, 0, 0, 0, false, "안내", "메모", "이름", true,
+            )
+        };
+        let error = result.expect_err("incomplete HWP5 axis must be rejected");
+        assert!(
+            matches!(error, crate::error::HwpError::InvalidField(_)),
+            "{error:?}"
+        );
+        assert_eq!(
+            error.to_string(),
+            "필드 오류: 누름틀 편집: 제어 토큰 위치를 정확히 보존할 수 없는 문단",
+            "the original axis validation error must be retained"
+        );
+        assert_eq!(format!("{:?}", doc.document), before);
+        assert!(
+            doc.event_log.is_empty(),
+            "rejected insertion must not emit edits"
+        );
     }
 }
 
@@ -25275,6 +25324,11 @@ fn task1413_insert_click_here_field_in_cell_ex_equivalent() {
         )
         .expect("insertClickHereFieldInCellEx");
     assert_eq!(res_pos, res_ex, "*Ex 가 positional 과 동일 반환");
+    assert_eq!(
+        format!("{:?}", doc_pos.document),
+        format!("{:?}", doc_ex.document),
+        "positional and *Ex must create the same field state"
+    );
 }
 
 /// moveVertical vs moveVerticalEx 동치 (본문 — parentParaIdx 생략 = MAX).
@@ -25410,13 +25464,20 @@ fn task1413_insert_click_here_field_by_path_ex_equivalent() {
     // (빈 path 는 native 에서 에러 → wasm JsValue 변환 패닉이라 정상 path 를 쓴다.)
     let path = r#"[{"controlIndex":0,"cellIndex":0,"cellParaIndex":0}]"#;
     let mut doc_pos = create_doc_with_table();
-    let res_pos =
-        doc_pos.insert_click_here_field_by_path_api(0, 0, path, 0, "안내", "메모", "이름", true);
+    let res_pos = doc_pos
+        .insert_click_here_field_by_path_api(0, 0, path, 0, "안내", "메모", "이름", true)
+        .expect("positional insertClickHereFieldByPath");
     let mut doc_ex = create_doc_with_table();
     let res_ex = doc_ex.insert_click_here_field_by_path_ex(
         r#"{"sectionIdx":0,"parentParaIdx":0,"path":"[{\"controlIndex\":0,\"cellIndex\":0,\"cellParaIndex\":0}]","charOffset":0,"guide":"안내","memo":"메모","name":"이름","editable":true}"#,
     );
-    assert_eq!(format!("{res_pos:?}"), format!("{res_ex:?}"));
+    let res_ex = res_ex.expect("insertClickHereFieldByPathEx");
+    assert_eq!(res_pos, res_ex, "*Ex must succeed with the same result");
+    assert_eq!(
+        format!("{:?}", doc_pos.document),
+        format!("{:?}", doc_ex.document),
+        "positional and *Ex must create the same field state"
+    );
 }
 
 // ---------- #1413 4단계: 7인자 군 *Ex 동치 (13개) ----------
@@ -27803,13 +27864,35 @@ fn merge_rejects_when_nontable_control_between() {
 }
 
 #[test]
-fn create_empty_table_hwpx_export_known_limitation() {
-    // 기존 한계 고정: create_empty 문서는 HWPX ID 맵(charPr/paraPr/style 0)
-    // 미등록으로 표 유무와 무관하게 export 가 거부된다. split 탓이 아님을
-    // 대조 실험으로 봉인해 둔다 (해소되면 이 테스트를 뒤집을 것).
+fn create_empty_table_hwpx_export_preserves_table_on_reload() {
+    // create_empty now registers the IDs needed by the HWPX serializer.
+    // Check the saved table, rather than retaining the obsolete export error.
     let mut doc = HwpDocument::create_empty();
     doc.create_table_native(0, 0, 0, 4, 2).expect("표");
-    assert!(doc.export_hwpx_native().is_err());
+    for generation in 0..2 {
+        let bytes = doc.export_hwpx_native().expect("HWPX export");
+        assert!(bytes.starts_with(b"PK"), "HWPX must be a ZIP archive");
+        doc = HwpDocument::from_bytes(&bytes).expect("reopen exported HWPX");
+        let tables = table_control_paras(&doc);
+        assert_eq!(tables.len(), 1, "generation {generation}: table survives");
+        let table = issue_1481_table(&doc, tables[0]);
+        assert_eq!(
+            (table.row_count, table.col_count, table.cells.len()),
+            (4, 2, 8)
+        );
+        for row in 0..4 {
+            for col in 0..2 {
+                let cell = table
+                    .cells
+                    .iter()
+                    .find(|c| c.row == row && c.col == col)
+                    .expect("every table coordinate survives");
+                assert_eq!((cell.row_span, cell.col_span), (1, 1));
+                assert_eq!(cell.paragraphs.len(), 1);
+                assert!(cell.paragraphs[0].text.is_empty());
+            }
+        }
+    }
 }
 
 /// 코퍼스 전수 스윕: samples 의 모든 HWP 문서 × 모든 최상위 표 × 분할점
