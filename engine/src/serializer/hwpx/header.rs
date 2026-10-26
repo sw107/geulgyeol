@@ -1463,8 +1463,12 @@ mod tests {
         // hwpx→hwp5 변환 전용이라 write_header가 참조하지 않으므로, splice
         // 보존이 없으면 hwpx→hwpx 라운드트립에서 memoPr(메모 모양: 테두리/색상)이
         // 통째로 사라진다.
-        let bytes = include_bytes!("../../../samples/hwpx/aift.hwpx");
-        let doc = parse_hwpx(bytes).expect("parse aift.hwpx");
+        let bytes = std::fs::read(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/samples/hwpx/aift.hwpx"
+        ))
+        .expect("required corpus fixture samples/hwpx/aift.hwpx is missing or unreadable");
+        let doc = parse_hwpx(&bytes).expect("parse aift.hwpx");
         assert!(
             doc.doc_info.memo_properties_xml.is_some(),
             "파서가 memoProperties 원문을 보존해야 함"

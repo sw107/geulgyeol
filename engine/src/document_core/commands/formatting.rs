@@ -2469,9 +2469,12 @@ mod tests {
     }
 
     fn hwp3_converted_flow_formatting_uses_document_resolved_paragraph_box() {
-        let mut core =
-            DocumentCore::from_bytes(include_bytes!("../../../samples/hwp3-sample16-hwp5.hwp"))
-                .expect("load HWP3-converted HWP5 fixture");
+        let bytes = std::fs::read(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/samples/hwp3-sample16-hwp5.hwp"
+        ))
+        .expect("required corpus fixture samples/hwp3-sample16-hwp5.hwp is missing or unreadable");
+        let mut core = DocumentCore::from_bytes(&bytes).expect("load HWP3-converted HWP5 fixture");
         assert!(core.document.layout_profile().hwp3_layout());
 
         let document_styles =

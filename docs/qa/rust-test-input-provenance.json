@@ -1,0 +1,108 @@
+{
+  "upstreamRepository": "https://github.com/edwardkim/rhwp",
+  "upstreamCommit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+  "copyright": "Copyright (c) 2025-2026 Edward Kim",
+  "license": "MIT, associated project documentation; root LICENSE preserved byte-for-byte",
+  "scope": "Project technical documents only; no third-party HWP/HWPX corpus",
+  "files": [
+    {
+      "path": "engine/gym/README.md",
+      "upstreamPath": "gym/README.md",
+      "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+      "blob": "bef3223c3742bf1698e136a662496c2b4d636e22",
+      "bytes": 20760,
+      "sha256": "9d42146b097bda04135608ac3e85ff53fa8e240cbcd5f98a4bda585916234c42",
+      "license": "RHWP project documentation; upstream MIT associated documentation; root LICENSE byte-identical; not third-party corpus"
+    },
+    {
+      "path": "engine/llms.txt",
+      "upstreamPath": "llms.txt",
+      "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+      "blob": "214af7722260890afa4e7fc1d22803fa35243205",
+      "bytes": 5255,
+      "sha256": "84dfec42d572bc15bd21dcd740f8aa7a23e01c9b96e7ee37da5e6438eda92494",
+      "license": "RHWP project documentation; upstream MIT associated documentation; root LICENSE byte-identical; not third-party corpus"
+    },
+    {
+      "path": "engine/mydocs/manual/agent_knowledge_map.md",
+      "upstreamPath": "mydocs/manual/agent_knowledge_map.md",
+      "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+      "blob": "38644649aad9f7806da866f48496c84f4c23f7cd",
+      "bytes": 113529,
+      "sha256": "8c162a919bed6b319479080ef6dcbaedb30e3ad4c8f846937d889b5ba15c07b7",
+      "license": "RHWP project documentation; upstream MIT associated documentation; root LICENSE byte-identical; not third-party corpus"
+    },
+    {
+      "path": "engine/mydocs/manual/agent_troubleshooting_guide.md",
+      "upstreamPath": "mydocs/manual/agent_troubleshooting_guide.md",
+      "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+      "blob": "6b34f0a7ea2c5fc252343e8a1271d69b46ffc015",
+      "bytes": 71327,
+      "sha256": "fa9a6ccc7d219fb1381914fab6a45a12d577e936adeec4dd2a0915385a27632f",
+      "license": "RHWP project documentation; upstream MIT associated documentation; root LICENSE byte-identical; not third-party corpus"
+    },
+    {
+      "path": "engine/mydocs/manual/recipes/01_fill_form_and_submit.md",
+      "upstreamPath": "mydocs/manual/recipes/01_fill_form_and_submit.md",
+      "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+      "blob": "bc31f2ee5013bf7902c5d347b96595f0c588c429",
+      "bytes": 12061,
+      "sha256": "24bec31d09587b35c8e52573807ffc2fb04a6c05aee70c693601afa905e7100b",
+      "license": "RHWP project documentation; upstream MIT associated documentation; root LICENSE byte-identical; not third-party corpus"
+    },
+    {
+      "path": "engine/mydocs/manual/recipes/02_table_csv_roundtrip.md",
+      "upstreamPath": "mydocs/manual/recipes/02_table_csv_roundtrip.md",
+      "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+      "blob": "1171c658c76f2ccc1fc36b5afe9f5b695be4e43b",
+      "bytes": 8895,
+      "sha256": "0566dd60c9387134fc3aed9f85dc5a23e6febd7c0c5f4ecdf82d8ecebec1a785",
+      "license": "RHWP project documentation; upstream MIT associated documentation; root LICENSE byte-identical; not third-party corpus"
+    },
+    {
+      "path": "engine/mydocs/manual/recipes/03_redact_before_sharing.md",
+      "upstreamPath": "mydocs/manual/recipes/03_redact_before_sharing.md",
+      "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+      "blob": "f24f979acac9e3af5a099546008cb7a9e10f2f4f",
+      "bytes": 14738,
+      "sha256": "3c59ad4df88c989c4e404fd6c64d3681ccc00cecb5b7d319c7d1c9f6f6ef5b8b",
+      "license": "RHWP project documentation; upstream MIT associated documentation; root LICENSE byte-identical; not third-party corpus"
+    },
+    {
+      "path": "engine/mydocs/manual/recipes/04_safety_check_untrusted_doc.md",
+      "upstreamPath": "mydocs/manual/recipes/04_safety_check_untrusted_doc.md",
+      "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+      "blob": "34a73b8c6ec2ee031298df72456a9724e0faf9a7",
+      "bytes": 17998,
+      "sha256": "d65d228e4254eaae6b66232b60ca2958f19ba7bfceedff99d9ec25b8be1a4c46",
+      "license": "RHWP project documentation; upstream MIT associated documentation; root LICENSE byte-identical; not third-party corpus"
+    },
+    {
+      "path": "engine/mydocs/manual/recipes/05_mail_merge_batch_fill.md",
+      "upstreamPath": "mydocs/manual/recipes/05_mail_merge_batch_fill.md",
+      "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+      "blob": "6cef39e01fc6bc277b7d304ce2c0d6a3321d15bf",
+      "bytes": 18274,
+      "sha256": "c36b1b01d09bcba90b1204a88a26265c6d238d7633718eb7d570dce14e624f36",
+      "license": "RHWP project documentation; upstream MIT associated documentation; root LICENSE byte-identical; not third-party corpus"
+    },
+    {
+      "path": "engine/mydocs/manual/recipes/06_visual_regression_before_after.md",
+      "upstreamPath": "mydocs/manual/recipes/06_visual_regression_before_after.md",
+      "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+      "blob": "97eb1e51dd7d3758d9438184b5d0e122cc1ace12",
+      "bytes": 14800,
+      "sha256": "b334e9434a53b20032af4e7fefeb4c5aa00813efc14cbf442a76bc8fb0f4b5bd",
+      "license": "RHWP project documentation; upstream MIT associated documentation; root LICENSE byte-identical; not third-party corpus"
+    },
+    {
+      "path": "engine/mydocs/tech/agent_roadmap/atlas_r1_r200.md",
+      "upstreamPath": "mydocs/tech/agent_roadmap/atlas_r1_r200.md",
+      "commit": "f1f9c6ae58344ee9368996d3543f76b9345cf227",
+      "blob": "31c66a6162428889ed8956304f392ec3e79be6b5",
+      "bytes": 37911,
+      "sha256": "02fb6f899c87816ebc60f7e619a7a32e5292169b8313bc3695d9e5e4fa2c1b1c",
+      "license": "RHWP project documentation; upstream MIT associated documentation; root LICENSE byte-identical; not third-party corpus"
+    }
+  ]
+}
