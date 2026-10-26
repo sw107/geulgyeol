@@ -298,7 +298,7 @@ pub(crate) fn run(args: &[String]) -> i32 {
     }
     println!("페이지 수: {}", page_count);
     for p in 0..page_count {
-        let svg = match doc.render_page_svg(p) {
+        let svg = match doc.render_page_svg_native(p) {
             Ok(svg) => svg,
             Err(e) => {
                 eprintln!("SVG 렌더링 오류(page {}): {:?}", p, e);

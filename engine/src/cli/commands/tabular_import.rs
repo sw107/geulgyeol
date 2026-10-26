@@ -326,14 +326,14 @@ pub(crate) fn csv_to_table(args: &[String]) -> i32 {
                 if *len == 0 {
                     continue;
                 }
-                if let Err(e) = doc.delete_text_in_cell(
-                    sec as u32,
-                    para as u32,
-                    ctrl as u32,
-                    cell_idx as u32,
-                    pi as u32,
+                if let Err(e) = doc.delete_text_in_cell_native(
+                    sec,
+                    para,
+                    ctrl,
+                    cell_idx,
+                    pi,
                     0,
-                    *len as u32,
+                    *len,
                 ) {
                     eprintln!(
                         "오류: 셀 비우기 실패({},{} 문단 {}) - {:?}",
@@ -343,11 +343,11 @@ pub(crate) fn csv_to_table(args: &[String]) -> i32 {
                 }
             }
             if !new_text.is_empty() {
-                if let Err(e) = doc.insert_text_in_cell(
-                    sec as u32,
-                    para as u32,
-                    ctrl as u32,
-                    cell_idx as u32,
+                if let Err(e) = doc.insert_text_in_cell_native(
+                    sec,
+                    para,
+                    ctrl,
+                    cell_idx,
                     0,
                     0,
                     new_text,

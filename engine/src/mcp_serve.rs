@@ -1815,7 +1815,7 @@ fn session_render_page(args: &serde_json::Value, sessions: &mut Sessions) -> ser
     if page >= page_count {
         return tool_error(format!("페이지 범위 초과: {page} (0~{})", page_count - 1));
     }
-    let svg = match sd.doc.render_page_svg(page) {
+    let svg = match sd.doc.render_page_svg_native(page) {
         Ok(s) => s,
         Err(e) => return tool_error(format!("페이지 {page} 렌더 실패: {e:?}")),
     };
@@ -2160,24 +2160,24 @@ fn session_set_cell(args: &serde_json::Value, sessions: &mut Sessions) -> serde_
         if *len == 0 {
             continue;
         }
-        if let Err(e) = sd.doc.delete_text_in_cell(
-            sec as u32,
-            para as u32,
-            ctrl as u32,
-            cell_idx as u32,
-            pi as u32,
+        if let Err(e) = sd.doc.delete_text_in_cell_native(
+            sec,
+            para,
+            ctrl,
+            cell_idx,
+            pi,
             0,
-            *len as u32,
+            *len,
         ) {
             return tool_error(format!("셀 비우기 실패(문단 {pi}): {e:?}"));
         }
     }
     if !new_text.is_empty() {
-        if let Err(e) = sd.doc.insert_text_in_cell(
-            sec as u32,
-            para as u32,
-            ctrl as u32,
-            cell_idx as u32,
+        if let Err(e) = sd.doc.insert_text_in_cell_native(
+            sec,
+            para,
+            ctrl,
+            cell_idx,
             0,
             0,
             &new_text,
@@ -2590,4 +2590,136 @@ fn run_cli_tool(def: &serde_json::Value, args: &serde_json::Value) -> serde_json
         return tool_error(format!("종료 코드 {code}: {stderr}"));
     }
     tool_ok_text(stdout)
+}
+
+
+#[cfg(test)]
+mod native_error_boundary_tests {
+    use super::*;
+    use crate::native_error_boundary_test_support::{cell_document, text};
+
+    fn sessions(doc: HwpDocument) -> Sessions {
+        let mut sessions = Sessions::new();
+        sessions.docs.insert(
+            "test".into(),
+            SessionDoc {
+                doc,
+                source_is_hwpx: false,
+                size_bytes: 0,
+                detected_format: rhwp::parser::FileFormat::Hwp,
+            },
+        );
+        sessions
+    }
+
+    fn set_args(text: &str) -> serde_json::Value {
+        serde_json::json!({"docId":"test","table":0,"row":0,"col":0,"text":text,"keepStyle":true})
+    }
+
+    #[test]
+    fn native_cell_error_preserves_document_and_server_continues() {
+        let mut sessions = sessions(cell_document(false));
+        let events_before = sessions.docs["test"].doc.serialize_event_log();
+        let before = format!("{:?}", sessions.docs["test"].doc.document());
+        let result = session_set_cell(&set_args("수정"), &mut sessions);
+        assert_eq!(result["isError"], true);
+        let message = result["content"][0]["text"].as_str().unwrap();
+        assert!(message.contains("셀 쓰기 실패"), "{message}");
+        assert!(
+            message.contains("셀 문단 인덱스 0 범위 초과 (총 0개)"),
+            "{message}"
+        );
+        assert_eq!(
+            format!("{:?}", sessions.docs["test"].doc.document()),
+            before
+        );
+        assert_eq!(
+            sessions.docs["test"].doc.serialize_event_log(),
+            events_before
+        );
+        sessions.docs.get_mut("test").unwrap().doc = cell_document(true);
+        let retry = session_set_cell(&set_args("재시도🙂"), &mut sessions);
+        assert_eq!(retry["isError"], false);
+        assert_eq!(text(&sessions.docs["test"].doc), "재시도🙂");
+    }
+
+    #[test]
+    fn native_cell_success_preserves_envelope_and_hwp_hwpx_roundtrip() {
+        let mut sessions = sessions(cell_document(true));
+        let result = session_set_cell(&set_args("수정🙂"), &mut sessions);
+        assert_eq!(result["isError"], false);
+        assert_eq!(result["structuredContent"]["oldText"], "원본🙂");
+        assert_eq!(result["structuredContent"]["newText"], "수정🙂");
+        assert_eq!(text(&sessions.docs["test"].doc), "수정🙂");
+        for hwpx in [false, true] {
+            let doc = &sessions.docs["test"].doc;
+            let bytes = if hwpx {
+                doc.export_hwpx_native()
+            } else {
+                doc.export_hwp_native()
+            }
+            .unwrap();
+            let reopened = HwpDocument::from_bytes(&bytes).unwrap();
+            assert_eq!(text(&reopened), "수정🙂");
+        }
+    }
+
+    fn svg_output() -> std::path::PathBuf {
+        let output = std::env::temp_dir().join(format!(
+            "rhwp-native-boundary-{}-{}.svg",
+            std::process::id(),
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_nanos()
+        ));
+        assert!(!output.exists());
+        output
+    }
+
+    #[test]
+    fn native_render_rejects_out_of_range_without_output_or_mutation() {
+        let mut sessions = sessions(cell_document(true));
+        let before = format!("{:?}", sessions.docs["test"].doc.document());
+        let page = sessions.docs["test"].doc.page_count();
+        let output = svg_output();
+        let result = session_render_page(
+            &serde_json::json!({"docId":"test","page":page,"output":output}),
+            &mut sessions,
+        );
+        assert_eq!(result["isError"], true);
+        let message = result["content"][0]["text"].as_str().unwrap();
+        assert!(message.contains("페이지 범위 초과"), "{message}");
+        assert!(
+            !output.exists(),
+            "rejected rendering must not create output"
+        );
+        assert_eq!(
+            format!("{:?}", sessions.docs["test"].doc.document()),
+            before
+        );
+    }
+
+    #[test]
+    fn native_render_success_preserves_svg_and_envelope() {
+        let mut sessions = sessions(cell_document(true));
+        let before = format!("{:?}", sessions.docs["test"].doc.document());
+        let expected = sessions.docs["test"].doc.render_page_svg_native(0).unwrap();
+        assert!(expected.contains("<svg"));
+        let output = svg_output();
+        let result = session_render_page(
+            &serde_json::json!({"docId":"test","page":0,"output":output}),
+            &mut sessions,
+        );
+        assert_eq!(result["isError"], false);
+        assert_eq!(result["structuredContent"]["format"], "svg");
+        assert_eq!(result["structuredContent"]["page"], 0);
+        assert_eq!(result["structuredContent"]["bytes"], expected.len());
+        assert_eq!(std::fs::read_to_string(&output).unwrap(), expected);
+        assert_eq!(
+            format!("{:?}", sessions.docs["test"].doc.document()),
+            before
+        );
+        std::fs::remove_file(output).expect("remove this test's synthetic SVG");
+    }
 }

@@ -12,6 +12,8 @@ mod cli;
 mod disclose;
 mod lineage_bundle;
 mod mcp_serve;
+#[cfg(test)]
+mod native_error_boundary_test_support;
 mod policy_gate;
 mod settle;
 use cli::commands::edit::runtime::{
