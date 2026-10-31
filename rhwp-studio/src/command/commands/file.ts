@@ -214,14 +214,26 @@ async function tryFileSystemSave(
   }
 }
 
+interface SaveSnapshot {
+  documentGeneration: number;
+  revision: number;
+}
+
+function isSavedRevisionCurrent(services: CommandServices, snapshot: SaveSnapshot): boolean {
+  return services.wasm.documentGeneration === snapshot.documentGeneration
+    && services.documentState.revision === snapshot.revision;
+}
+
 function completeHandleSave(
   services: CommandServices,
+  snapshot: SaveSnapshot,
   sourceFormat: string,
   saveFormat: SaveFormat,
   result: SaveDocumentResult,
   reason: 'save' | 'save-as',
   passwordProtected = false,
 ): void {
+  if (services.wasm.documentGeneration !== snapshot.documentGeneration) return;
   if (sourceFormat === 'hml') markConvertedHmlSaveHandle(result.handle);
   services.wasm.currentFileHandle = result.handle;
   services.wasm.fileName = result.fileName;
@@ -232,7 +244,7 @@ function completeHandleSave(
   }).catch(() => undefined);
   services.refreshDocumentStatus();
   services.wasm.requiresPasswordForSave = passwordProtected;
-  services.documentState.markClean(reason);
+  if (isSavedRevisionCurrent(services, snapshot)) services.documentState.markClean(reason);
 }
 
 function exportHtmlBasedFile(services: CommandServices, format: HtmlExportFormat): void {
@@ -311,12 +323,15 @@ async function saveAsFormat(services: CommandServices, format: SaveFormat): Prom
   let password: string | null = null;
   try {
     const sourceFormat = services.wasm.getSourceFormat();
+    const documentGeneration = services.wasm.documentGeneration;
     const options = await promptSaveAsOptions(services, format);
     if (options === null) return;
+    if (services.wasm.documentGeneration !== documentGeneration) return;
     password = options.password;
 
     flushDeferredPaginationBeforeExplicitOutput(services, 'save-as');
     const saveName = options.fileName;
+    const snapshot = { documentGeneration, revision: services.documentState.revision };
     const payload = createSavePayload(services, format, password ?? undefined);
     const originalHandle = sourceFormat === 'hml' ? services.wasm.currentFileHandle : null;
     const result = await persistWithContentLoss(
@@ -332,6 +347,7 @@ async function saveAsFormat(services: CommandServices, format: SaveFormat): Prom
       (saveResult) => saveResult !== 'cancelled' && saveResult.method !== 'fallback',
       (saveResult) => completeHandleSave(
         services,
+        snapshot,
         sourceFormat,
         format,
         saveResult as SaveDocumentResult,
@@ -344,12 +360,15 @@ async function saveAsFormat(services: CommandServices, format: SaveFormat): Prom
     if (result.method !== 'fallback') {
       return;
     }
+    if (services.wasm.documentGeneration !== documentGeneration) return;
     const downloadName = await promptFallbackName(saveName, format);
     if (!downloadName) return;
+    if (services.wasm.documentGeneration !== documentGeneration) return;
     persistDownloadWithContentLoss(
       payload.contentLoss,
       () => downloadBlob(payload.blob, downloadName),
       () => {
+        if (services.wasm.documentGeneration !== documentGeneration) return;
         // download 시작이 실패하면 현재 backing copy의 보호 의도를 유지한다 (#5986).
         services.wasm.fileName = downloadName;
         void addRecentDoc({
@@ -359,7 +378,7 @@ async function saveAsFormat(services: CommandServices, format: SaveFormat): Prom
         }).catch(() => undefined);
         services.refreshDocumentStatus();
         services.wasm.requiresPasswordForSave = password !== null;
-        services.documentState.markClean('save-as');
+        if (isSavedRevisionCurrent(services, snapshot)) services.documentState.markClean('save-as');
       },
       showExportContentLoss,
     );
@@ -376,13 +395,15 @@ function reportSaveError(scope: string, error: unknown): void {
   alert(`파일 저장에 실패했습니다:\n${message}`);
 }
 
-export type SaveCurrentDocumentResult = 'saved' | 'cancelled' | 'failed' | 'unsupported';
+/** 'changed' means the current document no longer matches the exported snapshot. */
+export type SaveCurrentDocumentResult = 'saved' | 'changed' | 'cancelled' | 'failed' | 'unsupported';
 
 export async function saveCurrentDocument(services: CommandServices): Promise<SaveCurrentDocumentResult> {
   let password: string | null = null;
   try {
     flushDeferredPaginationBeforeExplicitOutput(services, 'save');
     const sourceFormat = services.wasm.getSourceFormat();
+    const documentGeneration = services.wasm.documentGeneration;
     let target = resolveSaveTarget(
       sourceFormat,
       services.wasm.fileName,
@@ -392,6 +413,7 @@ export async function saveCurrentDocument(services: CommandServices): Promise<Sa
     if (requiresSaveFormatChoice(target, hmlEnabled)) {
       const format = await chooseSaveAsFormat(services);
       if (format === null) return 'cancelled';
+      if (services.wasm.documentGeneration !== documentGeneration) return 'changed';
       target = {
         ...target,
         format,
@@ -404,6 +426,8 @@ export async function saveCurrentDocument(services: CommandServices): Promise<Sa
       password = await showHwpSavePasswordDialog(fileNameForFormat(services.wasm.fileName, passwordFormat));
       if (password === null) return 'cancelled';
     }
+    if (services.wasm.documentGeneration !== documentGeneration) return 'changed';
+    const snapshot = { documentGeneration, revision: services.documentState.revision };
     const payload = createSavePayload(services, target.format, password ?? undefined);
     const result = await persistWithContentLoss(
       payload.contentLoss,
@@ -418,6 +442,7 @@ export async function saveCurrentDocument(services: CommandServices): Promise<Sa
       (saveResult) => saveResult !== 'cancelled' && saveResult.method !== 'fallback',
       (saveResult) => completeHandleSave(
         services,
+        snapshot,
         sourceFormat,
         target.format,
         saveResult as SaveDocumentResult,
@@ -428,20 +453,25 @@ export async function saveCurrentDocument(services: CommandServices): Promise<Sa
     );
     if (result === 'cancelled') return 'cancelled';
     if (result.method !== 'fallback') {
-      return 'saved';
+      return isSavedRevisionCurrent(services, snapshot) ? 'saved' : 'changed';
     }
+    if (services.wasm.documentGeneration !== documentGeneration) return 'changed';
     const downloadName = await fallbackNameForCurrentSave(services, target);
     if (!downloadName) return 'cancelled';
+    if (services.wasm.documentGeneration !== documentGeneration) return 'changed';
     persistDownloadWithContentLoss(
       payload.contentLoss,
       () => downloadBlob(payload.blob, downloadName),
       () => {
+        if (services.wasm.documentGeneration !== documentGeneration) return;
+        services.wasm.fileName = downloadName;
+        if (target.forceSaveAs) services.wasm.currentFileHandle = null;
         services.wasm.requiresPasswordForSave = password !== null;
-        services.documentState.markClean('save');
+        if (isSavedRevisionCurrent(services, snapshot)) services.documentState.markClean('save');
       },
       showExportContentLoss,
     );
-    return 'saved';
+    return isSavedRevisionCurrent(services, snapshot) ? 'saved' : 'changed';
   } catch (error) {
     reportSaveError('file:save', error);
     return 'failed';
@@ -457,8 +487,6 @@ async function fallbackNameForCurrentSave(
   if (!services.wasm.isNewDocument && !target.forceSaveAs) return target.suggestedName;
   const downloadName = await promptFallbackName(target.suggestedName, target.format);
   if (!downloadName) return null;
-  services.wasm.fileName = downloadName;
-  if (target.forceSaveAs) services.wasm.currentFileHandle = null;
   return downloadName;
 }
 
@@ -811,7 +839,9 @@ export const fileCommands: CommandDef[] = [
     shortcutLabel: 'Ctrl+Shift+S',
     canExecute: (ctx) => ctx.hasDocument,
     async execute(services) {
+      const documentGeneration = services.wasm.documentGeneration;
       const format = await chooseSaveAsFormat(services);
+      if (services.wasm.documentGeneration !== documentGeneration) return;
       if (format !== null) await saveAsFormat(services, format);
     },
   },
